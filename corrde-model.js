@@ -61,8 +61,8 @@ module.exports = {
                   tag: `div`, flags: {class: `_Ctx`}, closure: `corrde.`
                 }, {
                   tag: `p`, flags: {class: ``}, closure: `Corrde is both a job hailing and job 
-                   outsourcing web service for informal tasks. Corrde acts as a 'cord' between 
-                   client (job-source) and service-provider (job-hailer).`
+                   outsourcing web service for informal and casual tasks. Corrde acts as a 'cord' 
+                   between the client (job-source) and the service-provider (job-hailer).`
                 }, {
                   tag: `div`, flags: {style: `padding: 40px 0 0`}, tagChild: [{
                     tag: `p`, closure: `Are You a Client looking for a Quick Fix ?`
