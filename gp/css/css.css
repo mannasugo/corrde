@@ -47,6 +47,7 @@ body, button, input, textarea {
 }
 
 body {
+  color: #1a1a1a;
   background: #efeff4;
 }
 
@@ -165,7 +166,7 @@ body {
   -ms-flex-pack: center;
   justify-content: center;
   margin: 0 auto 0;
-  max-width: 935px;
+  max-width: 1035px;
   padding-bottom: 44px;
   width: 100%;
 }
@@ -177,9 +178,9 @@ body {
   -webkit-flex-basis: 480px;
   -ms-flex-preferred-size: 4800px;
   flex-basis: 480px;
-  /*height: 480px;*/
+  /*height: 480px;
   margin-left: -35px;
-  margin-right: -15px;
+  margin-right: -15px;*/
 }
 
 ._xCQ_ {
@@ -223,8 +224,9 @@ body {
 }
 
 ._Ctx {
-  padding: 12px;
+  padding: 12px 0;
   font-size: 52px;
+  line-height: 1;
 }
 
 ._gBA {
@@ -305,6 +307,12 @@ body {
   background-color: #1185fe;
   border-color: #1185fe;
   font-weight: 700;
+  cursor: pointer;
+}
+
+._sxC {
+  margin: 15px 0;
+  max-width: 250px;
 }
 
 ._QZg {

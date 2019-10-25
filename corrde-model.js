@@ -56,7 +56,31 @@ module.exports = {
         tag: `section`, flags: {class: `_miY`}, tagChild: [{
           tag: `main`, flags: {class: `_xC2`}, tagChild: [{
             tag: `article`, flags: {class: `_XQ2`}, tagChild: [{
-              tag: `div`, flags: {class: `_xCQ`}, tagChild: [{}]
+              tag: `div`, flags: {class: `_xCQ`}, tagChild: [{
+                tag: `div`, flags: {style: `padding: 30px 15px; font-size: 15px;`}, tagChild: [{
+                  tag: `div`, flags: {class: `_Ctx`}, closure: `corrde.`
+                }, {
+                  tag: `p`, flags: {class: ``}, closure: `Corrde is both a job hailing and job 
+                   outsourcing web service for informal tasks. Corrde acts as a 'cord' between 
+                   client (job-source) and service-provider (job-hailer).`
+                }, {
+                  tag: `div`, flags: {style: `padding: 40px 0 0`}, tagChild: [{
+                    tag: `p`, closure: `Are You a Client looking for a Quick Fix ?`
+                  }, {
+                    tag: `div`, flags: {class: `_sxC`}, tagChild: [{
+                      tag: `button`, flags: {class: `_bsZ`}, closure: `Sign Up as A Client`
+                    }]
+                  }]
+                }, {
+                  tag: `div`, flags: {style: `padding: 40px 0 0`}, tagChild: [{
+                    tag: `p`, closure: `Are You looking for a Quick Fix Job ?`
+                  }, {
+                    tag: `div`, flags: {class: `_sxC`}, tagChild: [{
+                      tag: `button`, flags: {class: `_bsZ`}, closure: `Sign Up as a Service-Provider`
+                    }]
+                  }]
+                }]
+              }]
             }, {
               tag: `div`, flags: {class: `_xCQ_`}, tagChild: [{
                 tag: `div`, flags: {style: `text-align: center`}, tagChild: [{
