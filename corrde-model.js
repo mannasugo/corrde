@@ -51,6 +51,64 @@ module.exports = {
   },
   
   rootModel () {
-    return {}
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `article`, flags: {class: `_XQ2`}, tagChild: [{
+              tag: `div`, flags: {class: `_xCQ`}, tagChild: [{}]
+            }, {
+              tag: `div`, flags: {class: `_xCQ_`}, tagChild: [{
+                tag: `div`, flags: {style: `text-align: center`}, tagChild: [{
+                  tag: `form`, flags: {class: `_UGA`, autocomplete: `off`}, tagChild: [{
+                    tag: `div`, flags: {class: `_txU`}, closure: `log in as freelancer`}, {
+                    tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
+                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `text`}
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `password`, type: `password`}
+                  }]
+                }]
+              }, {
+                tag: `div`, flags: {class: `_FFe`}, tagChild: [{
+                  tag: `button`, flags: {class: `RRc RRe GHc _bsZ`}, closure: `Sign in`
+                }]
+              }, {
+                tag: `p`, flags: {class: `_GXe`}, tagChild: [{
+                  tag: `a`, flags: {class: `_THa`, href: `javascript:;`}, closure: `Sign up as freelancer`
+                }]
+              }]
+            }, {
+              tag: `div`, flags: {class: `_Ctx`}, closure: ``
+            }, {
+                  tag: `form`, flags: {class: `_UGA`, autocomplete: `off`}, tagChild: [{
+                    tag: `div`, flags: {class: `_txU`}, closure: `log in as client`}, {
+                    tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
+                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `text`}
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `password`, type: `password`}
+                  }]
+                }]
+              }, {
+                tag: `div`, flags: {class: `_FFe`}, tagChild: [{
+                  tag: `button`, flags: {class: `RRc RRe GHc _bsZ`}, closure: `Sign in`
+                }]
+              }, {
+                tag: `p`, flags: {class: `_GXe`}, tagChild: [{
+                  tag: `a`, flags: {class: `_THa`, href: `javascript:;`}, closure: `Sign up as client`
+                }]
+              }]
+            }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }
   }
 }
