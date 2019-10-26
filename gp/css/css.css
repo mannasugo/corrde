@@ -315,6 +315,47 @@ body {
   max-width: 250px;
 }
 
+._CuH {
+  background-color: #fafafa;
+  -webkit-box-ordinal-group: 6;
+  -webkit-order: 5;
+  -ms-flex-order: 5;
+  order: 5;
+  padding: 0 20px;
+}
+
+._gxM {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+._geQ {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 0%;
+  -ms-flex: 1 0 0%;
+  flex: 1 0 0%;
+  margin: 0;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+._szU {
+  font-size: 11px;
+  color: #999;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+._uHB {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
 ._QZg {
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
