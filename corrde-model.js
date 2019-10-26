@@ -131,8 +131,32 @@ module.exports = {
               }]
             }]
           }]
+        }, {
+          tag: `footer`, flags: {class: `_CuH`}, tagChild: [{
+            tag: `div`, flags: {style: `padding: 38px 0;`, class: `_gxM _XQ2`}, tagChild: [{
+              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
+                tag: `a`, flags: {href: config.cd.platform, class: `_uHB`}, closure: `About`
+              }]
+          }, {
+              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
+                tag: `a`, flags: {href: config.cd.us, class: `_uHB`}, closure: `Team`
+              }]
+          }, {
+              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
+                tag: `a`, flags: {href: config.cd.jobs, class: `_uHB`}, closure: `Jobs`
+              }]
+          }, {
+              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
+                tag: `a`, flags: {href: config.to.support, class: `_uHB`}, closure: `Support`
+              }]
+          }, {
+              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
+                tag: `a`, flags: {href: config.to.dev, class: `_uHB`}, closure: `Developers`
+              }]
+            }, {tag: `span`, flags: {class: `_szU`}, closure: `2019 CORRDE.`}]
+          }]
         }]
       }]
-    }
-  }
+    };
+  },
 }
