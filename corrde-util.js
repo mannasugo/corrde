@@ -47,9 +47,35 @@ class UAPublic extends Auxll {
   }
 }
 
+class ViaAJX {
+
+  constructor (q, req, res) {
+    this.q = q;
+    this.app = {fro: req, to: res};
+  }
+
+  AJXCalls () {
+    if (this.q.setup) {
+      this.setup(JSON.parse(this.q.setup));
+    }
+  }
+
+  setup (q) {
+    let modelMapping = {
+      appendModel: model.setup()};
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(model.modal(modelMapping)));
+  }
+}
+
 module.exports = {
 
   UAPublic (level, req, res) {
     new UAPublic(level, req, res).handleUACalls();
+  },
+
+  viaAJX (q, to, fro) {
+    new ViaAJX(q, to, fro).AJXCalls();
   }
 }

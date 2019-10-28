@@ -65,13 +65,13 @@ module.exports = {
                    between the client (job-source) and the service-provider (job-hailer).`
                 }, {
                   tag: `div`, flags: {style: `padding: 40px 0 0`}, tagChild: [{
-                    tag: `p`, closure: `Are You a Client looking for a Quick Fix ?`
+                    tag: `p`, closure: `Are You a Client looking for a Quick Fix or interested in a quick and casual job?`
                   }, {
                     tag: `div`, flags: {class: `_sxC`}, tagChild: [{
-                      tag: `button`, flags: {class: `_bsZ`}, closure: `Sign Up as A Client`
+                      tag: `button`, flags: {class: `_bsZ`}, closure: `Sign Up`
                     }]
                   }]
-                }, {
+                }/*, {
                   tag: `div`, flags: {style: `padding: 40px 0 0`}, tagChild: [{
                     tag: `p`, closure: `Are You looking for a Quick Fix Job ?`
                   }, {
@@ -79,13 +79,13 @@ module.exports = {
                       tag: `button`, flags: {class: `_bsZ`}, closure: `Sign Up as a Service-Provider`
                     }]
                   }]
-                }]
+                }*/]
               }]
             }, {
               tag: `div`, flags: {class: `_xCQ_`}, tagChild: [{
                 tag: `div`, flags: {style: `text-align: center`}, tagChild: [{
                   tag: `form`, flags: {class: `_UGA`, autocomplete: `off`}, tagChild: [{
-                    tag: `div`, flags: {class: `_txU`}, closure: `log in as freelancer`}, {
+                    tag: `div`, flags: {class: `_txU`}, closure: `Account login`}, {
                     tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
                   tag: `div`, flags: {class: `_UFA`}, tagChild: [{
                     tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `text`}
@@ -101,12 +101,12 @@ module.exports = {
                 }]
               }, {
                 tag: `p`, flags: {class: `_GXe`}, tagChild: [{
-                  tag: `a`, flags: {class: `_THa`, href: `javascript:;`}, closure: `Sign up as freelancer`
+                  tag: `a`, flags: {class: `_THa`, href: `javascript:;`}, closure: `Forgot Password?`
                 }]
               }]
             }, {
               tag: `div`, flags: {class: `_Ctx`}, closure: ``
-            }, {
+            }/*, {
                   tag: `form`, flags: {class: `_UGA`, autocomplete: `off`}, tagChild: [{
                     tag: `div`, flags: {class: `_txU`}, closure: `log in as client`}, {
                     tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
@@ -127,7 +127,7 @@ module.exports = {
                   tag: `a`, flags: {class: `_THa`, href: `javascript:;`}, closure: `Sign up as client`
                 }]
               }]
-            }]
+            }*/]
               }]
             }]
           }]
@@ -156,7 +156,50 @@ module.exports = {
             }, {tag: `span`, flags: {class: `_szU`}, closure: `2019 CORRDE.`}]
           }]
         }]
+      }, {
+        tag: `script`, flags: {src: `/` + config.cd.utilJS}
+      }, {
+        tag: `script`, flags: {src:  config.cd.unauJS}
       }]
     };
   },
+
+  modal (mapping) {
+    return [{
+      tag: `div`, flags: {class: `_UQe`, id: `modal`}, tagChild: [{
+        tag: `div`, flags: {class: `_HUa`}
+      }, {
+        tag: `div`, flags: {class: `_UfX`, flag: `smallScreen`}, tagChild: [{
+          tag: `div`, flags: {class: `_oPQ`}, tagChild:  mapping.appendModel
+        }]
+      }]
+    }];
+  },
+
+  setup () {
+    return [{
+      tag: `div`, flags: {class: `_Ysz`}, tagChild: [{
+        tag: `div`, flags: {class: `_uCX`}, tagChild: [{
+                    tag: `div`, flags: {class: `_txU`}, closure: `register account`}, {
+                    tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
+                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `name`, type: `text`}
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `text`}
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `password`, type: `password`}
+                  }]
+                }]
+              }, {
+                tag: `div`, flags: {class: `_FFe`}, tagChild: [{
+                  tag: `button`, flags: {class: `RRc RRe GHc _bsZ`}, closure: `Proceed`
+                }]
+              }]
+      }]
+    }];
+  }
 }

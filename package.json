@@ -1,0 +1,28 @@
+{
+  "name": "corrde",
+  "version": "1.0.0",
+  "description": "Job Hailing and Outsourcing Web Service With NodeJS.",
+  "dependencies": {
+    "cookie": "^0.3.1",
+    "mysql": "^2.16.0"
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mannasugo/corrde.git"
+  },
+  "keywords": [
+    "no-express",
+    "NodeJS",
+    "MYSQL"
+  ],
+  "author": "Mann Asugo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mannasugo/corrde/issues"
+  },
+  "homepage": "https://github.com/mannasugo/corrde#readme"
+}

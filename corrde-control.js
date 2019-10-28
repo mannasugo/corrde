@@ -20,7 +20,7 @@ class RouteControl {
       Util.UAPublic(``, req, res);
     }
 
-    if (req.method === `POST` && req.url === config.cd.uareq) {
+    if (req.method === `POST` && req.url === config.to.reqs) {
 
       let blob = new Buffer.alloc(+req.headers[`content-length`]);
       let endData = ``;
@@ -32,13 +32,13 @@ class RouteControl {
         bufferOffset += data.length;
         endData += data;
 
-      }).on(`end`, () => {
+      }).on(`end`, () => {console.log(``)
 
-        /*if (req.headers[`x-simplehttpblob`]) {
-          Util.blobViaHttps(blob, req.headers[`x-simplehttpblob`], req, res);
-        } else {
-          Util.UAStream(parse(endData), req, res);
-        }*/
+        //if (req.headers[`x-simplehttpblob`]) {
+        //  Util.blobViaHttps(blob, req.headers[`x-simplehttpblob`], req, res);
+        //} else {
+          Util.viaAJX(parse(endData), req, res);
+        //}
       });
     }
 

@@ -1,7 +1,7 @@
 let cdto = {
   res: `https://corrde.com/`,
-  //reqs: `/corrde-reqs/ua/`,
-  reqs: `corrde-reqs.corrde.com/`,
+  reqs: `/corrde-reqs/ua/`,
+  //reqs: `corrde-reqs.corrde.com/`,
   //gp: `gp.corrde.com/`,
   gp: `gp/`,
   dev: `https://developer.corrde.com/`,
@@ -18,7 +18,10 @@ module.exports = {
     platform: cdto.res + `about/`,
     us: cdto.res + `about/` + `us/`,
     jobs: cdto.res + `about/` + `jobs/`,
-    css: cdto.gp + `css/css.css`},
+    css: cdto.gp + `css/css.css`,
+    utilJS: cdto.gp + `js/utils.js`,
+    unauJS: cdto.gp + `js/un-au.js`,
+    auJS: cdto.gp + `js/au.js`},
 
   rexp: {
     cssSlim: {'{ ': /\s*{/g, '{': /{\s*/g, ';': /;\s*/g, ' }': /\s*}/g, '}': /}\s*/g}},
