@@ -1,5 +1,30 @@
 `use strict`;
 
+const Auxll = (function () {
+  
+  function Auxll () {}
+  
+  Auxll.prototype = {
+    
+    longSlim: function (longMail) {
+      if (!longMail || longMail.length < 1 || longMail.match(/^(\s+)$/)) return;
+      return longMail;
+    },
+    
+    limitSlim: function (mail) {
+      if (mail.length === 0 || mail.match(/^(\s+)$/) || mail.length > 30) return;
+      return mail;
+    },
+    
+    WSSlim: function (mail) {
+      mail = mail.replace(/\s/g, ``);
+      return mail;
+    }
+  }
+  
+  return Auxll;
+})();
+
 const Req = (function () {
   /**
   * @constructor
