@@ -180,26 +180,43 @@ module.exports = {
     return [{
       tag: `div`, flags: {class: `_Ysz`}, tagChild: [{
         tag: `div`, flags: {class: `_uCX`}, tagChild: [{
-                    tag: `div`, flags: {class: `_txU`}, closure: `register account`}, {
-                    tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
-                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                    tag: `input`, flags: {class: `_RRD`, placeholder: `name`, type: `text`}
-                  }]
-                }, {
-                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                    tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `text`}
-                  }]
-                }, {
-                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                    tag: `input`, flags: {class: `_RRD`, placeholder: `password`, type: `password`}
-                  }]
-                }]
-              }, {
-                tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-                  tag: `button`, flags: {class: `RRc RRe GHc _bsZ`}, closure: `Proceed`
-                }]
+          tag: `div`, flags: {class: `_txU`}, closure: `register account`}, {
+            tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
+              tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                tag: `input`, flags: {class: `_RRD`, placeholder: `name`, type: `text`}
               }]
-      }]
+            }, {
+              tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `email`}
+              }]
+            }, {
+              tag: `div`, flags: {class: `_UFA`}, tagChild: [{
+                tag: `input`, flags: {class: `_RRD`, placeholder: `password`, type: `password`}
+              }]
+            }]
+          }, {
+            tag: `div`, flags: {class: `_FFe`}, tagChild: [{
+              tag: `button`, flags: {class: `_bsZ`}, closure: `Proceed`
+            }]
+          }]
+        }]
+    }];
+  },
+
+  mode () {
+    return [{
+      tag: `div`, flags: {class: `_Ysz`}, tagChild: [{
+        tag: `div`, flags: {class: `_uCX`}, tagChild: [{
+          tag: `div`, flags: {class: `_txU`}, closure: `choose mode to proceed`}, {
+            tag: `div`, flags: {class: `_FFe`}, tagChild: [{
+              tag: `button`, flags: {class: `_bsZ`}, closure: `Client Mode`
+            }]
+          }, {
+            tag: `div`, flags: {class: `_FFe`}, tagChild: [{
+              tag: `button`, flags: {class: `_bsZ`}, closure: `Freelance Mode`
+            }]
+          }]
+        }]
     }];
   }
 }
