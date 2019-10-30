@@ -1,4 +1,8 @@
 const fs = require(`fs`),
+  crypto = require(`crypto`),
+  mysql = require(`mysql`),
+  cookie = require(`cookie`),
+  
   config = require(`./corrde-config`),
   model = require(`./corrde-model`)
 
@@ -13,6 +17,52 @@ class Auxll {
       }
       return callback(SString);
     });
+  }
+}
+
+class Sql extends Auxll {
+  
+  constructor () {
+    super();
+    this.iniSql = mysql.createConnection({
+      host: config.sqlPass.h,
+      user: config.sqlPass.u,
+      password: config.sqlPass.p});
+    this.uniSql = mysql.createConnection({
+      host: config.sqlPass.h,
+      user: config.sqlPass.u,
+      password: config.sqlPass.p,
+      database: config.sqlPass.d});
+    this.multiSql = mysql.createConnection({
+      host: config.sqlPass.h,
+      user: config.sqlPass.u,
+      password: config.sqlPass.p,
+      database: config.sqlPass.d,
+      multipleStatements: true});
+  }
+
+  ini () {
+    this.iniSql.query(config.sql.db, () => {
+      this.multiSql.query(
+        `${config.sql.u};`);
+      this.multiSql.end();
+    });
+    this.iniSql.end();
+  }
+
+  fValue (allVars, call) {
+    this.uniSql.query({
+      sql: config.sql.fv,
+      values: [allVars.table, allVars.field, allVars.fieldValue]
+    }, (A, B, C) => call(A, B, C));
+    this.uniSql.end();
+  }
+
+  to (allVars, call) {
+    this.uniSql.query({
+      sql: config.sql.to,
+      values: allVars}, (A, B, C) => call(A, B, C));
+    this.uniSql.end();
   }
 }
 
@@ -58,6 +108,8 @@ class ViaAJX {
     if (this.q.setup) {
       this.setup(JSON.parse(this.q.setup));
     }
+
+    if (this.q.ini) this.ini(JSON.parse(this.q.ini));
   }
 
   setup (q) {
@@ -67,9 +119,51 @@ class ViaAJX {
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify(model.modal(modelMapping)));
   }
+
+  ini (q) {
+    new Sql().fValue({
+      table: `u`, 
+      field: `mail`, fieldValue: q[1]}, (A, B, C) => {console.log(A)
+
+        if (B.length === 0) {
+
+          let localSt_ = new Date().valueOf();
+
+          let localSt_Sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
+
+          let mailPass = crypto.createHash(`md5`).update(q[2], `utf8`);
+
+          new Sql().to([`u`, {
+            alt: q[0],
+            mail: q[1],
+            mug: `null`,
+            pass: mailPass.digest(`hex`),
+            St_: localSt_,
+            sum: localSt_Sum}], (A, B, C) => {
+              this.iniCookie(`u`, localSt_Sum);
+
+              let modelMapping = {
+                appendModel: model.mode()};
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify(model.modal(modelMapping)));
+            });
+        }});
+  }
+
+  iniCookie (field, value) {
+    this.app.to.setHeader(`Set-Cookie`, cookie.serialize(field, value, {
+      httpOnly: true,
+      path: `/`,
+      secure: true}));
+  }
 }
 
 module.exports = {
+
+  mysql () {
+    new Sql().ini();
+  },
 
   UAPublic (level, req, res) {
     new UAPublic(level, req, res).handleUACalls();
