@@ -2,9 +2,9 @@ const {createSecureServer} = require(`http2`);
 const fs = require(`fs`);
 
 const {router} = require(`./corrde-control`);
-//const {mysql} = require(`./corrde-util`);
+const {mysql} = require(`./corrde-util`);
 
-//mysql();
+mysql();
 
 let app = createSecureServer({
   key: fs.readFileSync(`http2/ssl/server.key`),
