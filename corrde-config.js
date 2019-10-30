@@ -28,6 +28,23 @@ module.exports = {
 
   reqMime: {
     htm: {mimeTitle: `text/html`},
-    json: {mimeTitle: `application/json`}
-  }
+    json: {mimeTitle: `application/json`}},
+
+  sqlPass: {
+    h: `localhost`,
+    u: `root`,
+    p: `Mann2asugo`,
+    d: `corrde`,},
+
+  sql: {
+    db: `CREATE DATABASE IF NOT EXISTS corrde`,
+    u: `CREATE TABLE IF NOT EXISTS u (
+          alt TEXT NOT NULL,
+          mail TEXT NOT NULL,
+          mug TEXT NOT NULL,
+          pass TEXT NOT NULL,
+          St_ TEXT NOT NULL,
+          sum VARCHAR(320) NOT NULL)`,
+    fv: `select * from ?? where ?? = ?`,
+    to: `insert into ?? set ?`,}
 }
