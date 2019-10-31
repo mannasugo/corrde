@@ -449,6 +449,144 @@ body {
   justify-content: flex-end;
 }
 
+/**
+  @-u-
+  **/
+
+._tXa {
+  font-weight: 600;
+  font-size: 22px;
+  text-transform: lowercase;
+}
+
+._gM_a {
+  border: 1px solid #1185fe;
+  border-radius: 6px;
+}
+
+._agM {
+  background: #1185fe;
+  border-radius: 100px;
+}
+
+._TX_a, ._TX_a:visited {
+  min-width: 92px;
+  text-align: center;
+  box-sizing: border-box;
+  color: #1185fe;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 8.5px 16px;
+}
+
+._TX_a:active {
+  background: rgba(17,133,254,.1);
+}
+
+._atX, ._atX:visited {
+  color: #fff;
+}
+
+._aGX {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+  width: 100%;
+}
+
+._qQS {
+  max-width: 50%;
+  margin: auto;
+}
+
+._-gs {
+  border-top: 1px solid #eee;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 19;
+}
+
+._xGy {
+  -webkit-flex-basis: 55px;
+  -ms-flex-preferred-size: 55px;
+  flex-basis: 55px;
+  height: 100%;
+}
+
+._gMX {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+._uxq {
+  background: #fff;
+  box-shadow: 0 15px 50px 0 rgba(0,34,77,.08);
+}
+
+.-_tX {
+  display: block;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+}
+
+.closelighticonUA, .dissentlighticonUA, .electiconUA, .MailColor, .MugColor,
+.poolsiconUA, .rooticonUA, .SearchColor, .SellColor, .StatsCircleColor, 
+.StatsPlaneColor, .twineiconUA, .verifylighticonUA {
+  background-image: url(/gp/css/icons/canvas.png);
+}
+
+.closelighticonUA, .dissentlighticonUA, .electiconUA, .MailColor, .MugColor,
+.poolsiconUA, .rooticonUA, .SearchColor, .SellColor, .StatsCircleColor, 
+.StatsPlaneColor, .twineiconUA, .verifylighticonUA {
+  background-repeat: no-repeat;
+  height: 24px;
+  width: 24px;
+}
+
+.MailColor {
+  background-position: -135px -180px;
+}
+
+.MugColor {
+  background-position: -102px -120px;
+}
+
+.SearchColor {
+  background-position: -166px -120px;
+}
+
+.SellColor {
+  background-position: -134px -120px;
+}
+
+.StatsCircleColor {
+  background-position: -70px -180px;
+}
+
+.StatsPlaneColor {
+  background-position: -106px -180px;
+}
+
 @media (min-width: 481px) {
   ._UfX::after, ._UfX::before {
     content: '';

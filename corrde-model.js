@@ -218,5 +218,129 @@ module.exports = {
           }]
         }]
     }];
+  },
+
+  uModel () {
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px`}, tagChild: [{
+              tag: `div`, flags: {class: `_aGX`}, tagChild: [{
+                tag: `div`, tagChild: [{
+                    tag: `div`, flags: {style: `max-width: 75%`, class: `_qQS _gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `post job to boost activity`}]
+                  }]
+              }, {
+                tag: `div`, flags: {style: `bottom: 10px`, class: `_gHm _aGX _-gs`}, tagChild: [{
+                  tag: `div`, flags: {class: `_xGy`}, tagChild: [{
+                    tag: `div`, flags: {style: `border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX StatsPlaneColor`}, closure: `Stats`
+                      }]
+                    },{
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX SearchColor`}, closure: `Search`
+                      }]
+                    },{
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX SellColor`}, closure: `Sell`
+                      }]
+                    }, {
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX MailColor`}, closure: `Mail`
+                      }]
+                    }, {
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX MugColor`}, closure: `Mug`
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg`}, tagChild: [{
+                    tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `switch to freelance`}]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    };
+  },
+
+  pModel () {
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px`}, tagChild: [{
+              tag: `div`, flags: {class: `_aGX`}, tagChild: [{
+                tag: `div`, tagChild: [{
+                    tag: `div`, flags: {style: `max-width: 75%`, class: `_qQS _gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `select skills to view jobs`}]
+                  }]
+              }, {
+                tag: `div`, flags: {style: `bottom: 10px`, class: `_gHm _aGX _-gs`}, tagChild: [{
+                  tag: `div`, flags: {class: `_xGy`}, tagChild: [{
+                    tag: `div`, flags: {style: `border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX StatsPlaneColor`}, closure: `Stats`
+                      }]
+                    },{
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX SearchColor`}, closure: `Search`
+                      }]
+                    },{
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX SellColor`}, closure: `Sell`
+                      }]
+                    }, {
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX MailColor`}, closure: `Mail`
+                      }]
+                    }, {
+                      tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `-_tX MugColor`}, closure: `Mug`
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg`}, tagChild: [{
+                    tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `switch to seller`}]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    };
   }
 }

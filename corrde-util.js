@@ -77,6 +77,10 @@ class UAPublic extends Auxll {
   handleUACalls () {
 
     if (this.levelState === ``) this.rootCall();
+
+    if (this.levelState === `u`) this.u();
+
+    if (this.levelState === `p`) this.p();
   }
 
   rootCall () {
@@ -96,10 +100,50 @@ class UAPublic extends Auxll {
       });
   }
 
-  u () {}
+  isPassValid () {
+    let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+    if (!cJar.u) return;
+
+    return cJar.u;
+  }
+
+  u () {
+
+    if (typeof this.isPassValid() !== `string`) return;
+
+    this.modelStyler(config.cd.css, CSSString => {
+
+      let modelMapping = {
+        title: `Corrde`,
+        css: CSSString,
+        appendModel: ``
+      };
+
+      modelMapping[`appendModel`] = [model.uModel()];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(modelMapping));
+      });
+  }
 
   p () {
-    
+
+    if (typeof this.isPassValid() !== `string`) return;
+
+    this.modelStyler(config.cd.css, CSSString => {
+
+      let modelMapping = {
+        title: `Corrde`,
+        css: CSSString,
+        appendModel: ``
+      };
+
+      modelMapping[`appendModel`] = [model.pModel()];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(modelMapping));
+      });
   }
 }
 
@@ -193,6 +237,14 @@ class ViaAJX {
           }
         }
       });
+  }
+
+  isPassValid () {
+    let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+    if (!cJar.u) return;
+
+    return cJar.u;
   }
 }
 
