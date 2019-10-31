@@ -88,7 +88,7 @@ module.exports = {
                     tag: `div`, flags: {class: `_txU`}, closure: `Account login`}, {
                     tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
                   tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                    tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `text`}
+                    tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `email`}
                   }]
                 }, {
                   tag: `div`, flags: {class: `_UFA`}, tagChild: [{
@@ -97,7 +97,7 @@ module.exports = {
                 }]
               }, {
                 tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-                  tag: `button`, flags: {class: `RRc RRe GHc _bsZ`}, closure: `Sign in`
+                  tag: `button`, flags: {class: `_bsZ`}, closure: `Sign in`
                 }]
               }, {
                 tag: `p`, flags: {class: `_GXe`}, tagChild: [{

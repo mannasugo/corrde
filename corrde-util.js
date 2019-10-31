@@ -95,6 +95,12 @@ class UAPublic extends Auxll {
       this.app.to.end(model.call(modelMapping));
       });
   }
+
+  u () {}
+
+  p () {
+    
+  }
 }
 
 class ViaAJX {
@@ -110,6 +116,10 @@ class ViaAJX {
     }
 
     if (this.q.ini) this.ini(JSON.parse(this.q.ini));
+
+    if (this.q.urlCall) this.urlCall(JSON.parse(this.q.urlCall));
+
+    if (this.q.passValid) this.passValid(JSON.parse(this.q.passValid));
   }
 
   setup (q) {
@@ -156,6 +166,33 @@ class ViaAJX {
       httpOnly: true,
       path: `/`,
       secure: true}));
+  }
+
+  urlCall (q) {
+    let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+    if (!cJar.u) return;
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify({
+      url: q.url}));
+  }
+
+  passValid (q) {
+    new Sql().fValue({
+      table: `u`,
+      field: `mail`,
+      fieldValue: q[0]}, (A, B, C) => {
+        if (B.length === 1) {
+          let hexPass = crypto.createHash(`md5`).update(q[1], `utf8`);
+          if (B[0].pass === hexPass.digest(`hex`)) {
+            this.iniCookie(`u`, B[0].sum);
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({url: config.cd.u}));
+          }
+        }
+      });
   }
 }
 

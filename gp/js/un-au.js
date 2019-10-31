@@ -5,12 +5,18 @@
   //const REQS = `//corrde-reqs.corrde.com/`;
   const REQS = `/corrde-reqs/ua/`;
 
-  function main (e) {
+  const main = e => {
     let el = e.target;
 
     if (el.innerHTML === `Sign Up`) setup();
 
     if (el.parentNode.previousElementSibling && el.parentNode.previousElementSibling.getElementsByTagName(`input`).length === 3) ini(el);
+
+    if (el.innerHTML === `Client Mode`) urlCall(`u/`);
+
+    if (el.innerHTML === `Freelance Mode`) urlCall(`p/`);
+
+    if (el.parentNode.previousElementSibling && el.parentNode.previousElementSibling.getElementsByTagName(`input`).length === 2) passValid(el);
   }
 
   const setup = () => {
@@ -26,7 +32,7 @@
     });
   }
 
-  const createModal = (model) => {
+  const createModal = model => {
     delModal();
 
     let div = document.body.appendChild(document.createElement(`div`));
@@ -38,7 +44,7 @@
     if (document.querySelector(`div > #modal`)) document.body.removeChild(document.querySelector(`div > #modal`).parentNode);
   }
 
-  const ini = (e) => {
+  const ini = e => {
     let listSlims = [], listSpaces = e.parentNode.previousElementSibling.querySelectorAll(`input`);
 
     for (let value = 0; value < listSpaces.length; ++value) {
@@ -46,7 +52,7 @@
       (slimValue) ? listSlims[value] = slimValue: listSlims= [];
     }
 
-    if (listSlims.length !== 3) return; console.log(listSlims) //slimsAll/allSlims 
+    if (listSlims.length !== 3) return; //slimsAll/allSlims 
 
     let req = new Req();
 
@@ -60,5 +66,51 @@
     });
   }
 
-  document.addEventListener(`click`, main); 
+  const urlCall = to => {
+    let req = new Req();
+
+    req.call(`POST`, REQS, {
+      title: `urlCall`,
+      JSON: JSON.stringify({url: to}),
+      to: () => {
+        if (req.req.responseText.length < 1) return;
+        if (typeof JSON.parse(req.req.responseText) === `object`) {
+          let fro = JSON.parse(req.req.responseText);
+          if (fro.url) {
+            window.location = `/` + fro.url;
+          }
+        }
+      }
+    });
+  }
+
+  const passValid = e => {
+    let listSlims = [], listSpaces = e.parentNode.previousElementSibling.querySelectorAll(`input`);
+
+    for (let value = 0; value < listSpaces.length; ++value) {
+      let slimValue = new Auxll().longSlim(listSpaces[value].value);
+      (slimValue) ? listSlims[value] = slimValue: listSlims = [];
+    }
+
+    if (listSlims.length !== 2) return; //slimsAll/allSlims 
+
+    let req = new Req();
+
+    req.call(`POST`, REQS, {
+      title: `passValid`,
+      JSON: JSON.stringify(listSlims),
+      to: () => {
+        if (req.req.responseText.length < 1) return;
+        if (typeof JSON.parse(req.req.responseText) === `object`) {
+          let fro = JSON.parse(req.req.responseText);
+          if (fro.url) {
+            window.location = fro.url;
+          }
+        }
+      }
+    });
+  }
+
+  document.addEventListener(`click`, main);
+  document.querySelector(`form`).addEventListener(`submit`, e => e.preventDefault());
 })();
