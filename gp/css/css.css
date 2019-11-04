@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Gothic';
+  /*src: url('https://public.twineall.com/gp/font/GOTHIC.TTF') format('truetype');*/
+  src: url('/gp/font/GOTHIC.TTF') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
 a, article, body, div, footer, form, h1, h2, header, html, img, label, li, nav, p, section, span, time, ul {
   margin: 0;
   padding: 0;
@@ -41,7 +49,7 @@ a, a:visited {
 }
 
 body, button, input, textarea {
-  font-family: Century Gothic;
+  font-family: Gothic;
   font-size: 14px;
   line-height: 18px;
 }
@@ -587,6 +595,76 @@ body {
   background-position: -106px -180px;
 }
 
+._tCx {
+  color: #000;
+  text-transform: capitalize;
+  padding: 8px 0;
+}
+
+._tCw {
+  padding-left: 4px;
+  text-transform: capitalize;
+}
+
+._tSx {
+  padding: 12px;
+  color: #1185fe;
+  text-transform: capitalize;
+  font-weight: 600;
+  letter-spacing: .2px;
+  background: rgba(193, 193, 193, 0.27);
+}
+
+.-_tyq {
+  display: block;
+  padding: 12px;
+  width: 100%;
+  height: 250px;
+  border: 1px solid #e7eaf1;
+  border-radius: 3px;
+  box-sizing: border-box;
+  resize: none;
+  outline: none;
+  color: inherit;
+  transition: box-shadow .15s ease-out;
+  overflow: auto;
+}
+
+._yCR {
+  padding-top: 22px;
+}
+
+._tXv {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+._eYG {
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  margin-left: 12px;
+  overflow: hidden;
+}
+
+.-_-Z {
+  display: none;
+}
+
 @media (min-width: 481px) {
   ._UfX::after, ._UfX::before {
     content: '';
@@ -604,5 +682,33 @@ body {
     pointer-events: none;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
+  }
+}
+
+@media (max-width: 740px) {
+  ._xCQ {
+    display: none
+  }
+
+  ._UGA {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  ._CuH > ._gxM {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  ._uHB {
+    padding: 5px;
+  }
+
+  .-_-Z {
+    display: flex;
+    width: 75%;
   }
 }

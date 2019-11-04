@@ -8,7 +8,8 @@ const fs = require(`fs`),
 
 class Auxll {
 
-  constructor () {}
+  constructor () {
+    this.allSubs = {};}
 
   modelStyler (file, callback) {
     fs.readFile(file, {encoding: `utf8`}, (err, SString) => {
@@ -17,6 +18,23 @@ class Auxll {
       }
       return callback(SString);
     });
+  }
+
+  literalFormat (configText) {
+    let allSubs = {};
+    for (let sub in this.allSubs) {
+      allSubs[sub] = this.allSubs[sub];
+    }
+    for (let sub in allSubs) {
+      allSubs[sub] = new RegExp(`{` + allSubs[sub] + `}`, `g`);
+      configText = configText.replace(allSubs[sub], sub);
+    }
+    return configText;
+  }
+
+  availSubs (allSubs) {
+    this.allSubs = allSubs;
+    return this.allSubs;
   }
 }
 
@@ -44,7 +62,7 @@ class Sql extends Auxll {
   ini () {
     this.iniSql.query(config.sql.db, () => {
       this.multiSql.query(
-        `${config.sql.u};`);
+        `${config.sql.u};${config.sql.i};${config.sql.m}`);
       this.multiSql.end();
     });
     this.iniSql.end();
@@ -63,6 +81,13 @@ class Sql extends Auxll {
       sql: config.sql.to,
       values: allVars}, (A, B, C) => call(A, B, C));
     this.uniSql.end();
+  }
+
+  multi (allSubs, conca, call) {
+    this.availSubs(allSubs);
+
+    this.multiSql.query(this.literalFormat(conca), (A, B, C) =>  call(A, B, C));
+    this.multiSql.end();
   }
 }
 
@@ -85,7 +110,7 @@ class UAPublic extends Auxll {
 
   rootCall () {
 
-    this.modelStyler(config.cd.css, CSSString => {
+    this.modelStyler(config.lvl.css, CSSString => {
 
       let modelMapping = {
         title: `Corrde`,
@@ -112,18 +137,47 @@ class UAPublic extends Auxll {
 
     if (typeof this.isPassValid() !== `string`) return;
 
-    this.modelStyler(config.cd.css, CSSString => {
+    this.modelStyler(config.lvl.css, CSSString => {
 
-      let modelMapping = {
-        title: `Corrde`,
-        css: CSSString,
-        appendModel: ``
-      };
+      this.availSubs({[this.isPassValid()]: `sum`});
 
-      modelMapping[`appendModel`] = [model.uModel()];
+      let conca = this.literalFormat(config.sql.j);
 
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(modelMapping));
+      conca += `;` + this.literalFormat(config.sql.a_u);
+
+      conca += `;` + this.literalFormat(config.sql.a_p);
+
+      conca += `;` + config.sql.all + `;` + config.sql.lmtDsc;
+
+      new Sql().multi({
+        [this.isPassValid()]: `sum`, 
+        [`j_` + this.isPassValid()]: `tab`,
+        [`St_`]: `field`, [`10`]: `int`}, conca, (A, B, C) => {console.log(A)
+
+          let modelMapping = {
+            title: `Corrde`,
+            css: CSSString,
+            appendModel: ``,
+            JSStore: {
+              u: this.isPassValid()}};
+
+          modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
+
+          if (B[3].length === 0) {
+            modelMapping.raw = `post job to boost activity`;
+            modelMapping[`appendModel`] = [model.null(modelMapping)];
+          }
+
+          if (B[3].length > 0) {
+            modelMapping[`s`] = B[4];
+            modelMapping[`appendModel`] = model.sales(modelMapping);
+          }
+
+          modelMapping[`appendModel`] = [model.uModel(modelMapping)];
+
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(modelMapping));
+        });
       });
   }
 
@@ -131,18 +185,46 @@ class UAPublic extends Auxll {
 
     if (typeof this.isPassValid() !== `string`) return;
 
-    this.modelStyler(config.cd.css, CSSString => {
+    this.modelStyler(config.lvl.css, CSSString => {
 
-      let modelMapping = {
-        title: `Corrde`,
-        css: CSSString,
-        appendModel: ``
-      };
+      //default to skill filter when scaling i.e. iterate over market table with user skills.
 
-      modelMapping[`appendModel`] = [model.pModel()];
+      let conca = config.sql.j + `;` + 
+                  config.sql.a + `;` +
+                  config.sql.a_p;
 
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(modelMapping));
+      new Sql().multi({
+        [this.isPassValid()]: `sum`}, conca, (A, B, C) => {
+
+          let modelMapping = {
+            title: `Corrde`,
+            css: CSSString,
+            appendModel: ``,
+            JSStore: {
+              u: this.isPassValid()}};
+
+          modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
+
+          //if (B[1].length === 0) {
+          //  modelMapping.raw = `select skills to view jobs`;
+          //  modelMapping[`appendModel`] = [model.null(modelMapping)];
+          //}
+
+          new Sql().multi({
+            [`j`]: `tab`,
+            [`St_`]: `field`, [`10`]: `int`}, config.sql.lmtDsc, (A,B,C) => {console.log(B)
+
+              if (B.length > 0) {
+                modelMapping[`s`] = B;
+                modelMapping[`appendModel`] = model.market(modelMapping);
+              }
+
+              modelMapping[`appendModel`] = [model.pModel(modelMapping)];
+
+              this.app.to.writeHead(200, config.reqMime.htm);
+              this.app.to.end(model.call(modelMapping));
+            });
+        });
       });
   }
 }
@@ -164,6 +246,14 @@ class ViaAJX {
     if (this.q.urlCall) this.urlCall(JSON.parse(this.q.urlCall));
 
     if (this.q.passValid) this.passValid(JSON.parse(this.q.passValid));
+
+    if (this.q.iniSale) this.iniSale(JSON.parse(this.q.iniSale)); //iniSale
+
+    if (this.q.fieldSale) this.fieldSale(JSON.parse(this.q.fieldSale));
+
+    if (this.q.subSale) this.subSale(JSON.parse(this.q.subSale));
+
+    if (this.q.sale) this.sale(JSON.parse(this.q.sale));
   }
 
   setup (q) {
@@ -245,6 +335,74 @@ class ViaAJX {
     if (!cJar.u) return;
 
     return cJar.u;
+  }
+
+  iniSale (q) {
+    if (typeof this.isPassValid() !== `string`) return;
+
+    let modelMapping = {appendModel: model.fieldSale()};
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(model.modal(modelMapping)));
+  }
+
+  fieldSale (q) {
+    if (typeof this.isPassValid() !== `string`) return;
+
+    let modelMapping = {
+      u: q};
+
+    modelMapping[`appendModel`] = model.subSale(modelMapping);
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(model.modal(modelMapping)));
+  }
+
+  subSale (q) {
+    if (typeof this.isPassValid() !== `string`) return;
+
+    let modelMapping = {
+      u: q};
+
+    modelMapping[`appendModel`] = model.sale(modelMapping);
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(model.modal(modelMapping)));
+  }
+
+  sale (q) {
+
+    if (typeof this.isPassValid() !== `string`) return;
+
+    let localSt_ = new Date().valueOf();
+
+    let localSt_Sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
+
+    let sale = q.lastSale;
+
+    new Sql().to([`j_` + q.u, {
+      blab: sale[4],
+      location: sale[2] + `-` + sale[3],
+      pay: sale[1],
+      St_: localSt_,
+      St_to: sale[0],
+      sum: localSt_Sum,
+      type: q.field + `:` + q.fieldSub}], (A, B, C) => {
+        //this.iniCookie(`u`, localSt_Sum);
+
+        new Sql().to([`j`, {
+          blab: sale[4],
+          location: sale[2] + `-` + sale[3],
+          pay: sale[1],
+          St_: localSt_,
+          St_to: sale[0],
+          sum: localSt_Sum,
+          type: q.field + `:` + q.fieldSub}], (A, B, C) => {
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({url: config.cd.u}));
+          });
+        });
   }
 }
 

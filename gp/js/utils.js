@@ -83,3 +83,34 @@ const Model = (function () {
   
   return Model;
 })();
+
+const WebStore = (function () {
+
+  function WebStore () {
+    this.allValues = {};
+  }
+
+  WebStore.prototype = {
+    to: function (allValues) {
+
+      if (sessionStorage.u) {
+        this.allValues = JSON.parse(sessionStorage.u);
+      }
+
+      for (let value in allValues) {
+        this.allValues[value] = allValues[value];
+      }
+
+      sessionStorage.setItem(`u`, JSON.stringify(this.allValues));
+      return sessionStorage;
+    },
+
+    avail: function () {
+      return JSON.parse(sessionStorage.u);
+    }
+  }
+
+  return WebStore;
+})();
+
+let JSStore = new WebStore();

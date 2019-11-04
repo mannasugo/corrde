@@ -17,6 +17,8 @@
     if (el.innerHTML === `Freelance Mode`) urlCall(`p/`);
 
     if (el.parentNode.previousElementSibling && el.parentNode.previousElementSibling.getElementsByTagName(`input`).length === 2) passValid(el);
+
+    if (el.innerHTML === `post job to boost activity`) simpleCall(`iniSale`, {});//iniSale();
   }
 
   const setup = () => {
@@ -107,6 +109,19 @@
             window.location = fro.url;
           }
         }
+      }
+    });
+  }
+
+  const simpleCall = (reqs, allMeta) => {
+    let req = new Req();
+
+    req.call(`POST`, REQS, {
+      title: reqs,
+      JSON: JSON.stringify(allMeta),
+      to: () => {
+        if (req.req.responseText.length < 1) return;
+        createModal(JSON.parse(req.req.responseText));
       }
     });
   }
