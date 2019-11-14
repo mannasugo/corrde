@@ -56,36 +56,85 @@ module.exports = {
           type TEXT NOT NULL)`,
     m: `CREATE TABLE IF NOT EXISTS j (
           blab TEXT NOT NULL,
+          freq INT NOT NULL,
           location TEXT NOT NULL,
           pay INT NOT NULL,
+          report TEXT NOT NULL,
           St_ TEXT NOT NULL,
+          status TEXT NOT NULL,
           sum VARCHAR(320) NOT NULL,
           St_to TEXT NOT NULL,
+          type TEXT NOT NULL,
+          uSum VARCHAR(320) NOT NULL)`,
+    freqs: `CREATE TABLE IF NOT EXISTS freq (
+          jobs_total INT NOT NULL,
+          sum VARCHAR(320) NOT NULL,
+          rate_total INT NOT NULL,
           type TEXT NOT NULL)`,
     j: `CREATE TABLE IF NOT EXISTS j_{sum} (
           blab TEXT NOT NULL,
+          freq INT NOT NULL,
           location TEXT NOT NULL,
           pay INT NOT NULL,
+          report TEXT NOT NULL,
           St_ TEXT NOT NULL,
+          status TEXT NOT NULL,
           sum VARCHAR(320) NOT NULL,
           St_to TEXT NOT NULL,
-          type TEXT NOT NULL)`,
+          type TEXT NOT NULL,uSum VARCHAR(320) NOT NULL)`,
     a_u: `CREATE TABLE IF NOT EXISTS a_{sum} (
           jsum VARCHAR(320) NOT NULL,
           res TEXT NOT NULL,
           sum VARCHAR(320) NOT NULL,
           St_ TEXT NOT NULL,
-          type TEXT NOT NULL)`,
+          type TEXT NOT NULL)`, //user's applicants
     a_p: `CREATE TABLE IF NOT EXISTS a_p_{sum} (
           jsum VARCHAR(320) NOT NULL,
           res TEXT NOT NULL,
           sum VARCHAR(320) NOT NULL,
           St_ TEXT NOT NULL,
-          type TEXT NOT NULL)`,
-    all: `select * from {tab}`,
+          type TEXT NOT NULL)`, //user's applications
+
+    interactions: 
+      `CREATE TABLE IF NOT EXISTS interactions (
+          cord VARCHAR(320) NOT NULL,
+          fro VARCHAR(320) NOT NULL,
+          ilk TEXT NOT NULL,
+          jsum VARCHAR(320) NOT NULL,
+          last_fro VARCHAR(320) NOT NULL,
+          last_fro_log TEXT NOT NULL,
+          last_to_log TEXT NOT NULL,
+          log TEXT NOT NULL,
+          src_to VARCHAR(320) NOT NULL,
+          src VARCHAR(320) NOT NULL,
+          toward VARCHAR(320) NOT NULL,
+          txt TEXT NOT NULL)`,
+
+    texts:
+      `CREATE TABLE IF NOT EXISTS texts (
+        cord VARCHAR(320) NOT NULL,
+        fro VARCHAR(320) NOT NULL,
+        ilk TEXT NOT NULL,
+        jilk TEXT NOT NULL,
+        jsum VARCHAR(320) NOT NULL,
+        log TEXT NOT NULL,
+        src_to VARCHAR(320) NOT NULL,
+        src VARCHAR(320) NOT NULL,
+        toward VARCHAR(320) NOT NULL,
+        txt TEXT NOT NULL)`,
+
+    all: `select * from {tab}`, //adapt python's string-format value filling i.e {0} {1}, one, two
     fv: `select * from ?? where ?? = ?`,
+    tfv: `select * from {tab} where {field} = '{value}'`,
     to: `insert into ?? set ?`,
-    lmtDsc: `select * from {tab} ORDER BY {field} desc limit {int}`},
+    lmtDsc: `select * from {tab} ORDER BY {field} desc limit {int}`,
+    tf_v_: `select * from {tab} where {field} = '{value}' and {field_} = '{value_}'`,
+    lmtDscf_v_: `select * from {tab} where {field} ='{value}' and {field_} = '{value_}' ORDER BY {lmtV} desc limit {int}`,
+    f_veq: `select * from {tab} join {tab_} on {tab}.{field} = {tab_}.{field_} where {tab}.{field__} = '{value}'`,
+    triple_tfv: `select * from {tab} where {field} = '{value}' and {field_} = '{value_}' and {field__} = '{value__}'`,
+    uvf2: `update {tab} set {fieldsValues} where {field} = '{value}' and {field_} = '{value_}'`,
+    delf2: `delete from {tab} where {field} = '{value}' and {field_} = '{value_}'`,
+    f__: `alter table {tab}`},
 
   fields: {
     [`arts`]: [

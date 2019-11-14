@@ -12,9 +12,9 @@
 
     if (el.parentNode.previousElementSibling && el.parentNode.previousElementSibling.getElementsByTagName(`input`).length === 3) ini(el);
 
-    if (el.innerHTML === `Client Mode`) urlCall(`u/`);
+    if (el.innerHTML === `seller`) urlCall(`u/`);
 
-    if (el.innerHTML === `Freelance Mode`) urlCall(`p/`);
+    if (el.innerHTML === `market`) urlCall(`p/`);
 
     if (el.parentNode.previousElementSibling && el.parentNode.previousElementSibling.getElementsByTagName(`input`).length === 2) passValid(el);
 

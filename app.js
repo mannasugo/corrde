@@ -7,8 +7,8 @@ const {mysql} = require(`./corrde-util`);
 mysql();
 
 let app = createSecureServer({
-  key: fs.readFileSync(`http2/ssl/server.key`),
-  cert: fs.readFileSync(`http2/ssl/server.crt`),
+  key: fs.readFileSync(`http2/ssl/privkey.pem`),
+  cert: fs.readFileSync(`http2/ssl/fullchain.pem`),
   allowHTTP1: true
 }, (req, res) => {
   router(req, res);

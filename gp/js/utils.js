@@ -97,6 +97,12 @@ const WebStore = (function () {
         this.allValues = JSON.parse(sessionStorage.u);
       }
 
+      if (this.allValues.u) {
+        if (allValues.u) {
+          allValues.u = this.allValues.u;
+        }
+      }
+
       for (let value in allValues) {
         this.allValues[value] = allValues[value];
       }

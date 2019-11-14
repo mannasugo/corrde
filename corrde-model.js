@@ -68,11 +68,52 @@ class Util {
     
     return lapseString;
   }
+
+  ticker (time) {
+
+    let then = new Date(parseInt(time)), lapse = (then - new Date)/1000, lapseString;console.log(time)
+
+    if (lapse < 86400*5) {
+
+      if (lapse >= 0) lapseString = Math.floor(lapse) + ` second`;
+
+      if (lapse >= 60) lapseString = Math.floor(lapse/60) + ` minute`;
+
+      if (lapse >= 3600) lapseString = Math.floor(lapse/3600) + ` hour`;
+
+      if (lapse >= 86400) lapseString = Math.floor(lapse/86400) + ` day`;
+
+      if (parseInt(lapseString) >= 2) lapseString = `${lapseString}s`;
+
+      //lapseString += ` ago`;
+    } else {
+
+      let listMonths = [
+        `January`,
+        `February`,
+        `March`,
+        `April`,
+        `May`,
+        `June`,
+        `July`,
+        `August`,
+        `September`,
+        `October`,
+        `November`,
+        `December`];
+
+      lapseString = then.getDate() + ` ` + listMonths[then.getMonth()] + ` ` + then.getFullYear();
+    }
+    
+    return lapseString;
+  }
 }
 
 module.exports = {
 
   log: (time) => new Util().timeFormat(time),
+
+  tick: sec => new Util().ticker(sec),
 
   modelString (model) {
     return new ModelString().modelStringify(model);
@@ -129,7 +170,7 @@ module.exports = {
               tag: `div`, flags: {class: `_xCQ_`}, tagChild: [{
                 tag: `div`, flags: {style: `text-align: center`}, tagChild: [{
                   tag: `form`, flags: {class: `_UGA`, autocomplete: `off`}, tagChild: [{
-                    tag: `div`, flags: {class: `_txU`}, closure: `Account login`}, {
+                    tag: `div`, flags: {class: `_txU`}, closure: `Sign In`}, {
                     tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
                   tag: `div`, flags: {class: `_UFA`}, tagChild: [{
                     tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `email`}
@@ -238,11 +279,11 @@ module.exports = {
         tag: `div`, flags: {class: `_uCX`}, tagChild: [{
           tag: `div`, flags: {class: `_txU`}, closure: `choose mode to proceed`}, {
             tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-              tag: `button`, flags: {class: `_bsZ`}, closure: `Client Mode`
+              tag: `button`, flags: {class: `_bsZ`}, closure: `seller`
             }]
           }, {
             tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-              tag: `button`, flags: {class: `_bsZ`}, closure: `Freelance Mode`
+              tag: `button`, flags: {class: `_bsZ`}, closure: `market`
             }]
           }]
         }]
@@ -267,7 +308,7 @@ module.exports = {
             }]
           }, {
             tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
-              tag: `a`, flags: {href: `#`, class: `-_tX MailColor`}, closure: `Mail`
+              tag: `a`, flags: {role: `isMail`, href: `#`, class: `-_tX MailColor`}, closure: `Mail`
             }]
           }, {
             tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
@@ -301,7 +342,7 @@ module.exports = {
                 }, {
                   tag: `div`, flags: {class: `_QZg`}, tagChild: [{
                     tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `switch to freelance`}]
+                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `switch to market`}]
                   }]
                 }]
               }]
@@ -492,7 +533,7 @@ module.exports = {
       let cord = sale.location.split(`-`);
 
       salesModel[index] = {
-        tag: `div`, flags: {style: `margin: 0 0 15px`, class: `_uxq`}, tagChild: [{
+        tag: `div`, flags: {style: `margin: 0 0 55px`, class: `_uxq`}, tagChild: [{
           tag: `div`, flags: {style: `background: #e3e3e6`}, tagChild: [{
             tag: `span`, flags: {class: `_tSx _tXv`}, closure: sale.type.split(`:`)[0] + ` : ` + sale.type.split(`:`)[1]
           }]
@@ -517,7 +558,8 @@ module.exports = {
             tag: `div`, flags: {style: `padding: 10px 0`, class: `_gxM`}, tagChild: [{
               tag: `div`, flags: {class: `eYG uxq`}, tagChild: [{
                 tag: `div`, flags: {class: `geQ gMX`}, tagChild: [{
-                  tag: `a`, flags: {href: `#`, class: `-_tX StatsCircleColor`}, closure: `StatsCircle`
+                  tag: `a`, flags: {role: `stats-` + sale.sum + `-` + sale.uSum, href: `#`, class: `-_tX StatsCircleColor`}, closure:
+                   `StatsCircle`
                 }]
               }]
             }, {
@@ -541,7 +583,7 @@ module.exports = {
       let cord = sale.location.split(`-`);
 
       salesModel[index] = {
-        tag: `div`, flags: {style: `margin: 0 0 15px`, class: `_uxq`}, tagChild: [{
+        tag: `div`, flags: {style: `margin: 0 0 55px`, class: `_uxq`}, tagChild: [{
           tag: `div`, flags: {style: `background: #e3e3e6`}, tagChild: [{
             tag: `span`, flags: {class: `_tSx _tXv`}, closure: sale.type.split(`:`)[0] + ` : ` + sale.type.split(`:`)[1]
           }]
@@ -551,14 +593,27 @@ module.exports = {
               tag: `div`, flags: {style: `margin: 0`, class: `_eYG`}, tagChild: [{
                 tag: `span`, flags: {style: `color: #999`, class: `_tXv`}, closure: cord[0] + `, ` + cord[1]
               }]
-            }, {
-              tag: `div`, flags: {class: `_QZg`}, tagChild: [{
-                tag: `span`, flags: {style: `font-weight: 600`,}, closure: `$` + sale.pay
-              }]
             }]
           }, {
             tag: `div`, flags: {style: `padding: 10px 0`}, tagChild: [{
               tag: `span`, closure: sale.blab
+            }]
+          }, {
+            tag: `div`, flags: {style: `padding: 10px 0`,}, tagChild: [{
+              tag: `div`, flags: {class: `_gxM`}, tagChild: [{
+                tag: `div`, flags: {style: `padding-right: 25px`,class: `_tXx`}, tagChild: [{
+                  tag: `span`, flags: {class: `_tCx`}, closure: `Earn`
+                }, {
+                  tag: `span`, flags: {class: `_szU`}, closure: sale.pay
+                }]
+              }, {
+                tag: `div`, flags: {class: `_tXx`}, tagChild: [{
+                  tag: `span`, flags: {class: `_tCx`}, closure: `Closes in`
+                }, {
+                  tag: `span`, flags: {class: `_szU`}, closure: 
+                  this.tick(parseInt(sale.St_) + (parseInt(sale.St_to) * 86400000))
+                }]
+              }]
             }]
           }]
         }, {
@@ -566,7 +621,8 @@ module.exports = {
             tag: `div`, flags: {style: `padding: 10px 0`, class: `_gxM`}, tagChild: [{
               tag: `div`, flags: {class: `eYG uxq`}, tagChild: [{
                 tag: `div`, flags: {class: `geQ gMX`}, tagChild: [{
-                  tag: `a`, flags: {href: `#`, class: `-_tX StatsCircleColor`}, closure: `StatsCircle`
+                  tag: `a`, flags: {role: `stats-` + sale.sum + `-` + sale.uSum, href: `#`, class: `-_tX StatsCircleColor`}, closure: 
+                  `StatsCircle`
                 }]
               }]
             }, {
@@ -580,5 +636,520 @@ module.exports = {
     });
 
     return salesModel;
+  },
+
+  metric (mapping) {
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px`}, tagChild: [{
+              tag: `div`, flags: {class: `_aGX`}, tagChild: [{
+                tag: `div`, tagChild: [{
+                  tag: `div`, flags: {style: `border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
+                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
+                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `2`
+                      }, {
+                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Users`
+                      }]
+                    }]
+                  }, {
+                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
+                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `0`
+                      }, {
+                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Orders`
+                      }]
+                    }]
+                  }, {
+                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
+                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `0`
+                      }, {
+                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Complete Orders`
+                      }]
+                    }]
+                  }, {
+                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
+                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `2`
+                      }, {
+                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Today's Orders`
+                      }]
+                    }]
+                  }]
+                }]
+              }, {}]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg`}, tagChild: [{
+                    tag: `a`, flags: {class: `_tXa`, href: `/metric`}, closure: `corrde metrics`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `Server Metrics`}]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        tag: `aside`, tagChild: []
+      }]
+    };
+  },
+
+  uStats (mapping) {
+
+    //mapping = mapping.s;
+
+    let activeModel = [];
+
+    mapping.active.forEach((active, index) => {
+      activeModel[index] = { tag: 
+        `div`, flags: {class: `gxM`}, tagChild: [{ tag: 
+          `div`, flags: {class: `_eYG uxq`}, tagChild: [{ tag: 
+            `div`, flags: {class: `geQ gMX`}, tagChild: [{ tag: 
+              `a`, flags: {style: `text-transform: capitalize`, href: `#`}, closure: 
+                active.type.split(`:`)[0] + ` : ` + active.type.split(`:`)[1]
+              }]
+            }]
+          }, { tag: 
+            `div`, flags: {class: `_gMX`}, tagChild: [{ tag: 
+              `div`, flags: {class: `_eYG uxq`}, tagChild: [{ tag: 
+                `div`, flags: {class: `geQ gMX`}, tagChild: [{ tag: 
+                  `span`, flags: {}, closure: `Budget`
+                  }]
+                }]
+              }, { tag: 
+                `div`, flags: {class: `QZg`}, tagChild: [{ tag: 
+                  `span`, flags: {class: `szU`}, closure: active.pay
+                  }]
+                }]
+            }]
+      }
+    });
+
+    return { tag: 
+      `div`, flags: {class: `_uxq`}, tagChild: [{ tag: 
+        `div`, flags: {style: `background: #e3e3e6`}, tagChild: [{ tag: 
+          `span`, flags: {class: `_tSx _tXv`}, closure: mapping.title
+          }]
+        }, { tag: 
+          `div`, flags: {class: `_Ysz _uCX`}, tagChild: [{ tag: 
+            `div`, flags: {class: `gBC`}, tagChild: [{ tag: 
+              `div`, flags: {style: `margin: 10px 0`}, tagChild: [{ tag: 
+                `span`, closure: mapping.desc
+                }]
+              }, { tag: 
+                `div`, flags: {style: `padding: 10px 0`, class: `_gxM`}, tagChild: [{ tag: 
+                  `div`, flags: {style: `margin: 0`, class: `_eYG`}, tagChild: [{ tag: 
+                    `span`, flags: {style: `color: #999`, class: `_tXv`}, closure: mapping.geo
+                    }]
+                  }, { tag: 
+                    `div`, flags: {class: `_QZg`}, tagChild: [{ tag: 
+                      `span`, flags: {style: `font-weight: 600`,}, closure: mapping.pay
+                      }]
+                    }]
+                }, { tag: 
+                  `div`, flags: {class: `_yCR`}, tagChild: [{ tag: 
+                    `div`, flags: {style: `margin: auto`, class: `_gM_a _agM`}, tagChild: [{ tag: 
+                      `a`, flags: {role: mapping.rl + mapping.sums, href: `#`, class: `_TX_a _atX`}, closure: 
+                      mapping.action
+                      }]
+                    }]
+                  }, { tag: 
+                    `div`, flags: {class: `_yCR _tXx`}, tagChild:[{ tag: 
+                      `div`, flags: {class: `_tCx _uHg`}, closure: `Status`
+                      }, { tag: 
+                        `div`, flags: {class: `gBC gBA`}, tagChild: [{ tag: 
+                          `div`, flags: {class: `_gxM`}, tagChild: [{ tag: 
+                            `div`, flags: {class: `_eYG uxq`}, tagChild: [{ tag: 
+                              `div`, flags: {class: `geQ gMX`}, tagChild: [{ tag: 
+                                `span`, flags: {}, closure: `Due in`
+                                }]
+                              }]
+                            }, { tag: 
+                              `div`, flags: {class: `_QZg`}, tagChild: [{ tag: 
+                                `span`, flags: {class: `_szU`}, closure: 
+                                this.tick(parseInt(mapping.then) + (parseInt(mapping.timer) * 1000))
+                                }]
+                              }]
+                          }, { tag: 
+                            `div`, flags: {class: `_gxM`}, tagChild: [{ tag: 
+                              `div`, flags: {class: `_eYG uxq`}, tagChild: [{ tag: 
+                                `div`, flags: {class: `geQ gMX`}, tagChild: [{ tag: 
+                                  `span`, flags: {}, closure: `Applications`
+                                  }]
+                                }]
+                              }, { tag: 
+                                `div`, flags: {class: `_QZg`}, tagChild: [{ tag: 
+                                  `span`, flags: {class: `_szU`}, closure: mapping.applications
+                                  }]
+                                }]
+                            }, { tag: 
+                              `div`, flags: {class: `_gxM`}, tagChild: [{ tag: 
+                                `div`, flags: {class: `_eYG uxq`}, tagChild: [{ tag: 
+                                  `div`, flags: {class: `geQ gMX`}, tagChild: [{ tag: 
+                                    `span`, flags: {}, closure: `Hires`
+                                    }]
+                                  }]
+                                }, { tag: 
+                                  `div`, flags: {class: `_QZg`}, tagChild: [{ tag: 
+                                    `span`, flags: {class: `_szU`}, closure: mapping[`hires`]
+                                    }]
+                                  }]
+                              }]
+                        }]
+                    }, { tag: 
+                      `div`, flags: {class: `_yCR _tXx`}, tagChild:[{ tag: 
+                        `div`, flags: {class: `_tCx _uHg`}, closure: `Seller's History`
+                        }, { tag: 
+                          `div`, flags: {class: `yCR`}, tagChild:[{ tag: 
+                            `div`, flags: {class: `_tCx`}, closure: `Active Jobs`
+                            }, { tag: 
+                              `div`, flags: {class: `gBC gBA`}, tagChild: activeModel
+                              }]
+                          }]
+                      }]
+            }]
+      }]
+    } 
+  },
+
+  pStats (mapping) {
+
+    let /*poolsStack = mapping.poolsStack,*/ pModel = [];
+
+    mapping.pool.forEach((pool, index) => {
+
+      pModel[index] = {
+        tag: `div`, flags: {class: `_gMB _gcQ`}, tagChild: [{
+          tag: `span`, flags: {class: `_cCq`, style: `width: 30px; height: 30px`}, tagChild: [{
+            tag: `img`, flags: {src: ``, alt: ``}
+          }]
+        }, {
+          tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+            tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+              tag: `span`, flags: {class: `_tXv`}, closure: pool.alt}]
+          }/*, {
+            tag: `div`, closure: `22`}*/]
+        }, {
+          tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+            tag: `div`, flags: {class: `geQ gMX`}, tagChild: [{
+              tag: `a`, flags: {role: `pool-` + pool.jsum + `-` + mapping.u + `-` + pool.sum,
+               href: `#`, class: `-_tX ProceedColor`}, closure:
+                   `uProceed`
+              }]
+            }]
+        }]
+      };
+    });
+
+    return {tag: 
+      `div`, flags: {class: `_Ysz`}, tagChild: [{tag: 
+        `div`, flags: {class: `_tSx`}, closure: `Applications`
+        }, {tag: 
+          `div`, flags: {class: `_uCX`}, tagChild: pModel
+          }]
+      };
+  },
+
+  poolStats (pool) {
+    return {tag: 
+      `div`, flags: {class: `_Ysz`}, tagChild: [{tag: 
+        `div`, flags: {class: `_tSx _gxM _geQ`}, tagChild: [{tag: 
+          `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+            `a`, flags: {role: `fro`, href: `#`, class: `-_tX FroColor`}, closure:`fro`
+            }]
+          }, {
+          tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+            tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+              tag: `a`, flags: {role: `talkto-` + pool.logSum + `-` + pool.sum + `-` + pool.pro,
+               class: `_TX_a _atX`, href: `#`}, closure: `Interview`}]
+            }]
+        }]
+        }, {tag: 
+          `div`, flags: {class: `_uCX`}, tagChild: [{
+        tag: `div`, flags: {class: `_gMB _gcQ`}, tagChild: [{
+          tag: `span`, flags: {class: `_cCq`, style: `width: 60px; height: 60px`}, tagChild: [{
+            tag: `img`, flags: {src: ``, alt: ``}
+          }]
+        }, {
+          tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
+            tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+              tag: `span`, flags: {class: `_tXv`}, closure: pool.alt}]
+          }, {
+            tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
+              tag: `span`, flags: {class: `_utC`}, closure: pool.freq + ` `
+            }, {
+              tag: `span`, flags: {class: `-_tX StarMiniColor`}, closure:
+                   `uProceed`
+              }]
+            }]
+        }, {
+          tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+            tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+              tag: `a`, flags: {role: `giveto-` + pool.logSum + `-` + pool.sum + `-` + pool.pro,
+               class: `_TX_a _atX`, href: `#`}, closure: `Book`}]
+            }]
+        }]
+      },/* { tag: 
+          `div`, flags: {class: `_yCR _tXx`}, tagChild:[{ tag: 
+            `div`, flags: {class: `_tCx _uHg`}, closure: `Ratings`
+            }, { tag: 
+                `div`, flags: {class: `yCR _gxM`}, tagChild:[{ tag: 
+                  `div`, flags: {class: `_gxM _eYG`}, tagChild: [{ tag: 
+                    //`div`,  tagChild: [{tag: 
+                      `span`, flags: {class: `_tCx _tXv`}, closure: `Machinery : Electrical Repair and Maintenance`//}]
+                    }] 
+                  }, {
+                      tag: `div`, flags: {class:`_gxM`}, tagChild: [{tag: 
+                        `div`, flags: {class: `_geQ _gxM`}, tagChild: [{
+                          tag: `div`, flags: {class: `_utC`}, tagChild: [{
+                            tag: `span`, flags: {class: `_utC`}, closure: `0.0 `
+                          }]
+                        }, {
+                          tag: `div`, tagChild: [{
+                            tag: `span`, flags: {role: `pool`, class: `-_tX StarMiniColor`}, closure:
+                          `uProceed`
+                          }]
+                        }]
+                      }]
+                    }]
+                }]
+            }, { tag: 
+          `div`, flags: {class: `_yCR _tXx`}, tagChild:[{ tag: 
+            `div`, flags: {class: `_tCx _uHg`}, closure: `Recent Jobs Completed`
+            }, { tag: 
+                `div`, flags: {class: `yCR gxM`}, tagChild:[{ tag: 
+                  `div`, flags: {class: `_gxM _eYG`}, tagChild: [{ tag: 
+                    //`div`,  tagChild: [{tag: 
+                      `a`, flags: {href: `#`,class: `_tCx _tXv`}, closure: `Machinery : Electrical Repair and Maintenance`//}]
+                    }] 
+                  }, {
+                    tag: `div`, tagChild: [{
+                      tag: `span`, flags: {class: `_tCx`}, closure: `Client's Remarks`
+                    }, {
+                      tag: `div`, tagChild: [{
+                        tag: `span`, flags: {style: `font-style: italic`}, closure: 
+                        `Can do attitude towards work, looking forward to more work with him.`
+                      }]
+                    }, {tag: 
+                        `div`, flags: {class: `_geQ _gxM`}, tagChild: [{
+                          tag: `div`, flags: {class: `_utC`}, tagChild: [{
+                            tag: `span`, flags: {class: `_utC`}, closure: `0.0 `
+                          }]
+                        }, {
+                          tag: `div`, tagChild: [{
+                            tag: `span`, flags: {role: `pool`, class: `-_tX StarMiniColor`}, closure:
+                          `uProceed`
+                          }]
+                        }]
+                      }]
+                  }]
+                }]
+            }*/]
+          }]
+      };
+  },
+
+  bidSuccess () {
+
+    return {
+      tag: `div`, flags: {class: `_Ysz`}, tagChild: [{tag: 
+        `div`, flags: {class: `_tSx _gxM _geQ`}, tagChild: [{tag: 
+          `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+            `a`, flags: {role: `fro`, href: `#`, class: `-_tX FroColor`}, closure:`fro`
+            }]
+          }, {
+            tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
+              `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+                `a`, flags: {role: `close`, href: `#`, class: `-_tX DelColor`}, closure:`Del`
+              }]
+            }]
+          }]
+      }, {tag: 
+          `div`, flags: {class: `_uCX`}, tagChild: [{
+            tag: `div`, flags: {class: `_gMB _gcQ`}, tagChild: [{
+              tag: `span`, flags: {}, closure: `Your bid Was Successful.`
+            }]
+          }]
+        }]
+      }
+
+  },
+
+  talkto (pool) {
+
+    let lvl, lvlModel = [];
+
+    pool.pool.forEach((text, index) => {
+
+      if (pool.situ.u === text.toward) {
+        lvl = {
+                  tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
+                    tag: `div`, flags: {style: `overflow: unset`, class: `_aCz _eYG _MtX`}, tagChild: [{
+                      tag: `span`, flags: {class: `_aCz _szU`}, closure: this.log(text.log)
+                    }] 
+                  }, {
+                    tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                      tag: `span`, flags: {class: `_tEx`},  closure: text.txt
+                    }]
+                  }]
+                }
+      } else {
+        lvl = {
+          tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
+            tag: `div`, flags: {style: `overflow: unset; margin: 0`, class: `_eYG`}, tagChild: [{
+              tag: `span`, flags: {class: `_tWx`}, closure: text.txt
+             }]
+          }, {
+            tag: `div`, flags: {class: `_aGz _QZg`}, tagChild:[{
+              tag: `span`, flags: {class: `_aCz _szU`}, closure: this.log(text.log)
+            }] }]
+          }
+      }
+
+      lvlModel[index] = lvl;
+
+    });
+
+    return [{
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 30px`}, tagChild: [{
+              tag: `div`, flags: {class: `_aGX`}, tagChild: [{
+                tag: `div`, flags: {style: `padding: 0 0 75px`}, tagChild: lvlModel
+              }, {
+      tag: `div`, flags: {style: `bottom: 10px`, class: `_gHm _aGX _-gs`}, tagChild: [{
+        tag: `div`, flags: {class: `_xGy`}, tagChild: [{
+          tag: `div`, flags: {style: `padding: 0 15px`, class: `_gxM _gMX`}, tagChild: [{
+            tag: `div`, flags: {class: `_eYG _3qg`}, tagChild: [{
+              tag: `textarea`, flags: {id: `txt`, placeholder: `Type text here`, class: `_Wtx`}
+            }]
+          }, {
+          tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+            tag: `div`, flags: {class: `geQ gMX`}, tagChild: [{
+              tag: `a`, flags: {role: `talk`, href: `#`, class: `-_tX ProceedColor`}, closure:
+                   `uProceed`
+              }]
+            }]
+        }]
+        }]
+      }]
+    }]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{
+            tag: `div`, flags: {class: `_xCt`}
+          }, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {style: `padding: 0`,class: `_aXz`}, tagChild: [{tag: 
+                  `div`, flags: {style: `background: #fff`,class: `_gBC _gxM _geQ`}, tagChild: [{tag: 
+                    `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+                      `a`, flags: {role: `fro`, href: `#`, class: `-_tX FroColor`}, closure:`fro`
+                    }]
+                }, {
+        tag: `div`, flags: {style: `padding: 0`,class: `_eYG _gMB _gcQ`}, tagChild: [{
+          tag: `span`, flags: {class: `_cCq`, style: `width: 30px; height: 30px`}, tagChild: [{
+            tag: `img`, flags: {src: ``, alt: ``}
+          }]
+        }, {
+          tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
+            tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+              tag: `span`, flags: {class: `_tXv`}, closure: pool.alt}]
+          }, {
+            tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
+              tag: `span`, flags: {class: `_utC`}, //closure: pool.freq + ` `
+            }, {
+              tag: `span`, flags: {style: `display: none`, class: `-_tX `}, closure:
+                   `uProceed`
+              }]
+            }]
+        }]
+        }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
+                    `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+                      `a`, flags: {role: `close`, href: `#`, class: `-_tX StatsPlaneColor`}, closure:`Del`
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        tag: `aside`, tagChild: this.JS(pool)
+      }]
+    }]
+    }];
+  },
+
+  isMail(pool) {
+
+    let lvlVar, poolModel = [];
+
+    pool.forEach((lvl, index) => {
+
+      if (lvl.ilk === `apply`) lvl[`txt`] = `sent you an application.`;
+
+      poolModel[index] = {tag: 
+        `div`, flags: {class: `_yZS _gxM _geQ`}, tagChild: [{
+          tag: `div`, flags: {class: `_ZSg _ZCg _eYG _gcQ`}, tagChild: [{
+            tag: `span`, flags: {class: `_cCq`, style: `width: 40px; height: 40px`}, tagChild: [{
+              tag: `img`, flags: {src: ``, alt: ``}
+            }]
+          }, {
+            tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
+              tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+                tag: `span`, flags: {class: `_tXv`}, closure: lvl.alt}]
+            }, {
+              tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
+                tag: `a`, flags: {role: `talkto-` + lvl.jsum + `-` + lvl.src + `-` + lvl.src_to, href: `#`},
+                 closure: lvl[`txt`]
+              }]
+            }]
+          }]
+        }, {
+          tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
+            `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+              `span`, flags: {class: `_szU`}, closure:this.log(lvl[`log`])
+            }]
+          }]
+        }]
+      }
+    });
+
+    return {tag: 
+      `div`, flags: {class: `_Ysz`}, tagChild: [{tag: 
+        `div`, flags: {class: `_tSx _gxM`}, tagChild: [{
+          tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
+            tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+              tag: `span`, flags: {class: `_tXv`}, closure: `Notifications`}]
+          }]
+        }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
+                    `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+                      `a`, flags: {role: `close`, href: `#`, class: `-_tX StatsPlaneColor`}, closure:`Del`
+                    }]
+                  }]
+                }]
+      }, {tag: 
+        `div`, flags: {class: `_uCX`}, tagChild: poolModel
+      }]
+    };
+
   }
 }

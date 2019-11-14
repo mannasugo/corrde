@@ -22,9 +22,57 @@
 
     if (el.getAttribute(`role`) === `sale`) sale(el);
 
-    if (el.innerHTML === `switch to freelance`) window.location = `/p`;
+    if (el.innerHTML === `switch to market`) window.location = `/p`;
 
     if (el.innerHTML === `switch to seller`) window.location = `/u`;
+
+    if (el.getAttribute(`class`) === `_HUa`) delModal();
+
+    if (el.hasAttribute(`role`) && el.getAttribute(`role`).split(`-`)[0] === `stats`) {
+      JSStore.to({lastStat: [
+        el.getAttribute(`role`).split(`-`)[1],
+        el.getAttribute(`role`).split(`-`)[2]]});
+      simpleCall(`stats`, JSStore.avail());
+    }
+
+    if (el.hasAttribute(`role`) && el.getAttribute(`role`).split(`-`)[0] === `bid`) {
+      JSStore.to({lastBid: [
+        el.getAttribute(`role`).split(`-`)[1],
+        el.getAttribute(`role`).split(`-`)[2]]});
+      simpleCall(`bidSale`, JSStore.avail());
+    }
+
+    if (el.hasAttribute(`role`) && el.getAttribute(`role`).split(`-`)[0] === `pool`) {
+      JSStore.to({lastBidView: [
+        el.getAttribute(`role`).split(`-`)[1],
+        el.getAttribute(`role`).split(`-`)[2],
+        el.getAttribute(`role`).split(`-`)[3]]});
+      simpleCall(`toPool`, JSStore.avail());
+    }
+
+    if (el.hasAttribute(`role`) && el.getAttribute(`role`).split(`-`)[0] === `talkto`) {
+      JSStore.to({lasttalkto: [
+        el.getAttribute(`role`).split(`-`)[1],
+        el.getAttribute(`role`).split(`-`)[2],
+        el.getAttribute(`role`).split(`-`)[3]]});
+      pushCall(`talkto`, JSStore.avail());
+    }
+
+    if (el.getAttribute(`role`) === `isMail`) simpleCall(`isMail`, JSStore.avail());
+
+    if (el.getAttribute(`role`) === `talk`) {
+
+      let e = document.querySelector(`#txt`);
+
+      let slimValue = new Auxll().longSlim(e.value);
+
+      if (!slimValue) return; 
+
+      JSStore.to({txt: slimValue})
+      pushCall(`talk`, JSStore.avail());
+
+    }
+
   }
 
   const setup = () => {
@@ -114,6 +162,27 @@
           let fro = JSON.parse(req.req.responseText);
           if (fro.url) {
             window.location = fro.url;
+          }
+        }
+      }
+    });
+  }
+
+  pushCall = (reqs, allMeta) => {
+    let req = new Req();
+
+    req.call(`POST`, REQS, {
+      title: reqs,
+      JSON: JSON.stringify(allMeta),
+      to: () => {
+        if (req.req.responseText.length < 1) return;
+        if (typeof JSON.parse(req.req.responseText) === `object`) {
+          let fro = JSON.parse(req.req.responseText);
+          if (fro.url) {
+            history.pushState({}, fro.title, fro.url);
+            document.body.innerHTML = ``;
+            document.body.innerHTML = new Model().modelString(JSON.parse(fro.model));
+            //console.log(JSON.parse(fro.model))
           }
         }
       }
