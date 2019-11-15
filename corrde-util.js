@@ -154,12 +154,19 @@ class UAPublic extends Auxll {
 
       conca += `;` + this.literalFormat(config.sql.a_p);
 
-      conca += `;` + config.sql.all + `;` + config.sql.lmtDsc;
+      this.availSubs({
+        [this.isPassValid()]: `sum`, 
+        [`j`/*_` + this.isPassValid()*/]: `tab`,
+        [`uSum`]: `field`, [this.isPassValid()]: `value`,
+        [`St_`]: `way`, [`10`]: `int`})
+
+      conca += `;` + this.literalFormat(config.sql.all + `;` + config.sql.limself);
 
       new Sql().multi({
         [this.isPassValid()]: `sum`, 
         [`j`/*_` + this.isPassValid()*/]: `tab`,
-        [`St_`]: `field`, [`10`]: `int`}, conca, (A, B, C) => {console.log(B[3])
+        [`uSum`]: `field`, [this.isPassValid()]: `value`,
+        [`St_`]: `way`, [`10`]: `int`}, conca, (A, B, C) => {console.log(B[4])
 
           let modelMapping = {
             title: `Corrde`,
@@ -170,14 +177,14 @@ class UAPublic extends Auxll {
 
           modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
 
-          if (B[3].length === 0) {
+          if (B[4].length === 0) {
             modelMapping.raw = `post job to boost activity`;
             modelMapping[`appendModel`] = [model.null(modelMapping)];
           }
 
-          if (B[3].length > 0) {
+          if (B[4].length > 0) {
             modelMapping[`s`] = B[4];
-            modelMapping[`appendModel`] = model.sales(modelMapping);
+            modelMapping[`appendModel`] = model.market(modelMapping);
           }
 
           modelMapping[`appendModel`] = [model.uModel(modelMapping)];

@@ -316,7 +316,7 @@ body {
   width: 100%;
   background-color: #1185fe;
   border-color: #1185fe;
-  font-weight: 700;
+  /*font-weight: 700;*/
   cursor: pointer;
 }
 
@@ -823,6 +823,25 @@ flex: 3 0 0%;
   padding: 0;
 }
 
+._vC- {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+._tCc {
+  margin: 0 0 0 5px;
+  background: #66f066;
+  padding: 2px 12px;
+  border-radius: 8px;
+  color: #fff;/*! text-transform: uppercase; */
+  font-size: 11px;
+}
+
+
 @media (min-width: 481px) {
   ._UfX::after, ._UfX::before {
     content: '';
@@ -843,9 +862,15 @@ flex: 3 0 0%;
   }
 }
 
+@media (min-width: 640px) {
+  ._vC- {
+    max-width: 350px;
+  }
+}
+
 @media (max-width: 740px) {
   ._xCQ {
-    display: none
+    /*display: none*/
   }
 
   ._UGA {
@@ -868,5 +893,33 @@ flex: 3 0 0%;
   .-_-Z {
     display: flex;
     width: 75%;
+  }
+}
+
+@media (max-width: 640px) {
+
+  ._XQ2 {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  ._xCQ {
+    text-align: center;
+    flex-basis: 0;
+  }
+
+  ._sxC {
+    max-width: 100%;
+  }
+
+  ._aXz {
+    padding: 10px;
+  }
+
+  ._uxq {
+    background: none;
   }
 }

@@ -134,6 +134,7 @@ module.exports = {
     triple_tfv: `select * from {tab} where {field} = '{value}' and {field_} = '{value_}' and {field__} = '{value__}'`,
     uvf2: `update {tab} set {fieldsValues} where {field} = '{value}' and {field_} = '{value_}'`,
     delf2: `delete from {tab} where {field} = '{value}' and {field_} = '{value_}'`,
+    limself: `select * from {tab} where {field} ='{value}' ORDER BY {way} desc limit {int}`,
     f__: `alter table {tab}`},
 
   fields: {

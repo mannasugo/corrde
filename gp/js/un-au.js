@@ -8,6 +8,8 @@
   const main = e => {
     let el = e.target;
 
+    if (el.getAttribute(`class`) === `_HUa`) delModal();
+
     if (el.innerHTML === `Sign Up`) setup();
 
     if (el.parentNode.previousElementSibling && el.parentNode.previousElementSibling.getElementsByTagName(`input`).length === 3) ini(el);

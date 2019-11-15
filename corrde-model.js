@@ -142,8 +142,12 @@ module.exports = {
           tag: `main`, flags: {class: `_xC2`}, tagChild: [{
             tag: `article`, flags: {class: `_XQ2`}, tagChild: [{
               tag: `div`, flags: {class: `_xCQ`}, tagChild: [{
-                tag: `div`, flags: {style: `padding: 30px 15px; font-size: 15px;`}, tagChild: [{
-                  tag: `div`, flags: {class: `_Ctx`}, closure: `corrde.`
+                tag: `div`, flags: {style: `padding: 30px 15px; font-size: 13px;`}, tagChild: [{
+                  tag: `div`, flags: {class: `_gxM _gcQ`}, tagChild: [{
+                    tag: `span`, flags: {class: `_Ctx`}, closure: `corrde.`
+                  }, {
+                    tag: `span`, flags: {class: `_tCc`}, closure: `beta`
+                  }]
                 }, {
                   tag: `p`, flags: {class: ``}, closure: `Corrde is both a job hailing and job 
                    outsourcing web service for informal and casual tasks. Corrde acts as a 'cord' 
@@ -192,7 +196,7 @@ module.exports = {
             }, {
               tag: `div`, flags: {class: `_Ctx`}, closure: ``
             }, {
-              tag: `div`, flags: {class: `_yCR`}, tagChild: [{
+              tag: `div`, flags: {style: `display: none`, class: `_yCR`}, tagChild: [{
                 tag: `div`, flags: {style: `margin: auto`, class: `-_-Z _gM_a _agM`}, tagChild: [{
                   tag: `a`, flags: {role: `sale`, href: `#`, class: `_TX_a _atX`}, closure: `Sign Up`
                 }]
@@ -294,7 +298,7 @@ module.exports = {
     return {
       tag: `div`, flags: {style: `bottom: 10px`, class: `_gHm _aGX _-gs`}, tagChild: [{
         tag: `div`, flags: {class: `_xGy`}, tagChild: [{
-          tag: `div`, flags: {style: `border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
+          tag: `div`, flags: {style: `background: #fff;border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
             tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
               tag: `a`, flags: {href: `#`, class: `-_tX StatsPlaneColor`}, closure: `Stats`
             }]
@@ -1117,7 +1121,7 @@ module.exports = {
                 tag: `span`, flags: {class: `_tXv`}, closure: lvl.alt}]
             }, {
               tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
-                tag: `a`, flags: {role: `talkto-` + lvl.jsum + `-` + lvl.src + `-` + lvl.src_to, href: `#`},
+                tag: `a`, flags: {class: `_vC-`, role: `talkto-` + lvl.jsum + `-` + lvl.src + `-` + lvl.src_to, href: `#`},
                  closure: lvl[`txt`]
               }]
             }]
@@ -1153,3 +1157,6 @@ module.exports = {
 
   }
 }
+
+//<span style="margin: 0 0 0 5px;background: #66f066;padding: 2px 12px;border-radius: 8px;color: #fff;/*! text-transform: uppercase; */font-size: 11px;">beta
+//</span>
