@@ -340,8 +340,10 @@ module.exports = {
             tag: `div`, flags: {class: ``}, tagChild: [{
               tag: `div`, flags: {class: `_-tY`}, tagChild: [{
                 tag: `div`, flags: {class: `_aXz`}, tagChild: [{
-                  tag: `div`, flags: {class: `_-Xg`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg _gxM`}, tagChild: [{
                     tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }, {
+                    tag: `span`, flags: {class: `_tCc`}, closure: `beta`
                   }]
                 }, {
                   tag: `div`, flags: {class: `_QZg`}, tagChild: [{
@@ -375,8 +377,10 @@ module.exports = {
             tag: `div`, flags: {class: ``}, tagChild: [{
               tag: `div`, flags: {class: `_-tY`}, tagChild: [{
                 tag: `div`, flags: {class: `_aXz`}, tagChild: [{
-                  tag: `div`, flags: {class: `_-Xg`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg _gxM`}, tagChild: [{
                     tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }, {
+                    tag: `span`, flags: {class: `_tCc`}, closure: `beta`
                   }]
                 }, {
                   tag: `div`, flags: {class: `_QZg`}, tagChild: [{
@@ -1002,7 +1006,7 @@ module.exports = {
         lvl = {
                   tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
                     tag: `div`, flags: {style: `overflow: unset`, class: `_aCz _eYG _MtX`}, tagChild: [{
-                      tag: `span`, flags: {class: `_aCz _szU`}, closure: this.log(text.log)
+                      tag: `span`, flags: {id: text.cord, class: `_aCz _szU`}, closure: this.log(text.log)
                     }] 
                   }, {
                     tag: `div`, flags: {class: `_QZg`}, tagChild: [{
@@ -1014,7 +1018,7 @@ module.exports = {
         lvl = {
           tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
             tag: `div`, flags: {style: `overflow: unset; margin: 0`, class: `_eYG`}, tagChild: [{
-              tag: `span`, flags: {class: `_tWx`}, closure: text.txt
+              tag: `span`, flags: {id: text.cord, class: `_tWx`}, closure: text.txt
              }]
           }, {
             tag: `div`, flags: {class: `_aGz _QZg`}, tagChild:[{
@@ -1121,7 +1125,7 @@ module.exports = {
                 tag: `span`, flags: {class: `_tXv`}, closure: lvl.alt}]
             }, {
               tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
-                tag: `a`, flags: {class: `_vC-`, role: `talkto-` + lvl.jsum + `-` + lvl.src + `-` + lvl.src_to, href: `#`},
+                tag: `a`, flags: {id: lvl.cord, class: `_vC-`, role: `talkto-` + lvl.jsum + `-` + lvl.src + `-` + lvl.src_to, href: `#`},
                  closure: lvl[`txt`]
               }]
             }]
