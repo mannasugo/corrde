@@ -135,6 +135,7 @@ module.exports = {
     uvf2: `update {tab} set {fieldsValues} where {field} = '{value}' and {field_} = '{value_}'`,
     delf2: `delete from {tab} where {field} = '{value}' and {field_} = '{value_}'`,
     limself: `select * from {tab} where {field} ='{value}' ORDER BY {way} desc limit {int}`,
+    falsef2: `select * from {tab} where {field} != '{value}' and {field_} = '{value_}'`,
     f__: `alter table {tab}`},
 
   fields: {

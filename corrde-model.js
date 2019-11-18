@@ -316,7 +316,7 @@ module.exports = {
             }]
           }, {
             tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
-              tag: `a`, flags: {href: `#`, class: `-_tX MugColor`}, closure: `Mug`
+              tag: `a`, flags: {href: `/mug/`, class: `-_tX MugColor`}, closure: `Mug`
             }]
           }]
         }]
@@ -1159,8 +1159,98 @@ module.exports = {
       }]
     };
 
-  }
-}
+  },
 
-//<span style="margin: 0 0 0 5px;background: #66f066;padding: 2px 12px;border-radius: 8px;color: #fff;/*! text-transform: uppercase; */font-size: 11px;">beta
-//</span>
+  mug (pool) {
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px`}, tagChild: [{
+              tag: `div`, flags: {class: `_aGX`}, tagChild: [{
+                tag: `div`, tagChild: [{
+                  tag: `div`, flags: {style: `border-radius: 4px`, class: `_uxq`}, tagChild: [{
+        tag: `div`, flags: {style: `padding: 30px 15px`, class: `_gMB _gcQ`}, tagChild: [{
+          tag: `span`, flags: {class: `_cCq`, style: `width: 60px; height: 60px`}, tagChild: [{
+            tag: `img`, flags: {src: ``, alt: ``}
+          }]
+        }, {
+          tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
+            tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+              tag: `span`, flags: {class: `_tXv`}, closure: pool.alt}]
+          }, {
+            tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
+              tag: `span`, flags: {class: `_utC`}, closure: pool.freq + ` `
+            }, {
+              tag: `span`, flags: {class: `-_tX StarMiniColor`}, closure:
+                   `uProceed`
+              }]
+            }]
+        }, {
+          tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+            tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+              tag: `a`, flags: {/*role: giveto-` `+ pool.logSum + `-` + pool.sum + `-` + pool.pro`*,*/
+               class: `_TX_a _atX`, href: `#`}, closure: `edit`}]
+            }]
+        }]
+      }, {
+                tag: `div`, flags: {class: `_Ycl`}, tagChild: [{
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `a`, flags: {href: `#`, class: `_szU`}, closure: pool.to + ` clients`
+                  }]
+                }]
+                  }, {
+                tag: `div`, flags: {class: `_Ycl`}, tagChild: [{
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `a`, flags: {href: `#`, class: `_szU`}, closure: pool.from + ` orders`
+                  }]
+                }]
+                  }, {
+                  tag: `div`, flags: {style: ``, class: `_gxM _gMX _Ycl`}, tagChild: [{
+                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                      tag: `div`, flags: {class: `Sq_a`}, tagChild: [{
+                        tag: `div`, flags: {class:`_gMX _btx`}, closure: pool.from_
+                      }, {
+                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `earned`
+                      }]
+                    }]
+                  }, {
+                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
+                      tag: `div`, flags: {class: `Sq_a`}, tagChild: [{
+                        tag: `div`, flags: {class:`_gMX _btx`}, closure: pool.to_
+                      }, {
+                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `spent`
+                      }]
+                    }]
+                  }]
+                }]
+                }]
+              }, this.controls()]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg _gxM`}, tagChild: [{
+                    tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }, {
+                    tag: `span`, flags: {class: `_tCc`}, closure: `beta`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `settings`}]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        tag: `aside`, tagChild: this.JS(pool)
+      }]
+    };
+  },
+}

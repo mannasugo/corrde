@@ -841,6 +841,11 @@ flex: 3 0 0%;
   font-size: 11px;
 }
 
+._Ycl {
+  border-top: 1px solid #e6e6e6;
+  padding: 12px;
+}
+
 
 @media (min-width: 481px) {
   ._UfX::after, ._UfX::before {

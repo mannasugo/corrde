@@ -113,6 +113,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `p`) this.p();
 
     if (this.levelState === `metric`) this.metric();
+
+    if (this.levelState === `mug`) this.mug();
   }
 
   rootCall () {
@@ -259,6 +261,71 @@ class UAPublic extends Auxll {
 
       this.app.to.writeHead(200, config.reqMime.htm);
       this.app.to.end(model.call(modelMapping));
+      });
+  }
+
+  mug () {
+
+    this.isPassValid();
+
+    this.modelStyler(config.lvl.css, CSSString => {
+
+      this.availSubs({
+      [`u`]: `tab`,
+      [`sum`]: `field`, [this.isPassValid()]: `value`});
+
+      let conca = this.literalFormat(config.sql.tfv);
+
+      this.availSubs({
+      [`j`]: `tab`,
+      [`status`]: `field`, [this.isPassValid()]: `value`});
+
+      conca += `;` + this.literalFormat(config.sql.tfv);
+
+      this.availSubs({
+      [`j`]: `tab`,
+      [`status`]: `field`, [`null`]: `value`,
+      [`uSum`]: `field_`, [this.isPassValid()]: `value_`});
+
+      conca += `;` + this.literalFormat(config.sql.falsef2);
+
+      let freqs = 0,
+        pays = 0,
+        payto = 0;
+
+      new Sql().multi({}, conca, (A,B,C) => {
+
+        for (let i = 0; i < B[1].length; i++) {
+          freqs += B[1][i].freq;
+          pays += B[1][i].pay;
+        }
+
+        if (B[1].length === 0) freqs = parseFloat(B[1].length) * 1.0
+
+        for (let i = 0; i < B[2].length; i++) {
+          payto += B[2][i].pay;
+        }
+
+        let modelMapping = {
+          title: `My Corrde Account.`,
+          css: CSSString,
+          alt: B[0][0].alt,
+          freq: freqs * 1.0,
+          to: B[2].length, //orders
+          from: B[1].length,
+          to_ : payto.toString(),
+          from_: pays.toString(),
+          JSStore: {
+            u: this.isPassValid()}};
+
+      modelMapping[`appendModel`] = [model.mug(modelMapping)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(modelMapping));
+
+      });
+
+      
       });
   }
 }
