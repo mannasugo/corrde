@@ -115,6 +115,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `metric`) this.metric();
 
     if (this.levelState === `mug`) this.mug();
+
+    if (this.levelState === `quora`) this.quora();
   }
 
   rootCall () {
@@ -189,7 +191,7 @@ class UAPublic extends Auxll {
             modelMapping[`appendModel`] = model.market(modelMapping);
           }
 
-          modelMapping[`appendModel`] = [model.uModel(modelMapping)];
+          modelMapping[`appendModel`] = model.uModel(modelMapping);
 
           this.app.to.writeHead(200, config.reqMime.htm);
           this.app.to.end(model.call(modelMapping));
@@ -235,7 +237,8 @@ class UAPublic extends Auxll {
                 modelMapping[`appendModel`] = model.market(modelMapping);
               }
 
-              modelMapping[`appendModel`] = [model.pModel(modelMapping)];
+              modelMapping[`appendModel`] = 
+                model.pModel(modelMapping);
 
               this.app.to.writeHead(200, config.reqMime.htm);
               this.app.to.end(model.call(modelMapping));
@@ -328,6 +331,73 @@ class UAPublic extends Auxll {
       
       });
   }
+
+  quora () {
+
+    this.isPassValid();
+
+    this.modelStyler(config.lvl.css, CSSString => {
+
+      this.availSubs({
+      [`u`]: `tab`,
+      [`sum`]: `field`, [this.isPassValid()]: `value`});
+
+      let conca = this.literalFormat(config.sql.tfv);
+
+      this.availSubs({
+      [`j`]: `tab`,
+      [`status`]: `field`, [this.isPassValid()]: `value`});
+
+      conca += `;` + this.literalFormat(config.sql.tfv);
+
+      this.availSubs({
+      [`j`]: `tab`,
+      [`status`]: `field`, [`null`]: `value`,
+      [`uSum`]: `field_`, [this.isPassValid()]: `value_`});
+
+      conca += `;` + this.literalFormat(config.sql.falsef2);
+
+      let freqs = 0,
+        pays = 0,
+        payto = 0;
+
+      new Sql().multi({}, conca, (A,B,C) => {
+
+        for (let i = 0; i < B[1].length; i++) {
+          freqs += B[1][i].freq;
+          pays += B[1][i].pay;
+        }
+
+        if (B[1].length === 0) freqs = parseFloat(B[1].length) * 1.0
+
+        for (let i = 0; i < B[2].length; i++) {
+          payto += B[2][i].pay;
+        }
+
+        let modelMapping = {
+          title: `Corrde Community`,
+          css: CSSString,
+          alt: B[0][0].alt,
+          freq: freqs * 1.0,
+          to: B[2].length, //orders
+          from: B[1].length,
+          to_ : payto.toString(),
+          from_: pays.toString(),
+          JSStore: {
+            u: this.isPassValid()}};
+
+      modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
+
+      modelMapping[`appendModel`] = [model.quora(modelMapping)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(modelMapping));
+
+      });
+
+      
+      });
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -368,6 +438,8 @@ class ViaAJX extends Auxll {
     if (this.q.talk) this.talk(JSON.parse(this.q.talk));
 
     if (this.q.isMail) this.isMail(JSON.parse(this.q.isMail));
+
+    if (this.q.issue) this.issue(JSON.parse(this.q.issue));
   }
 
   setup (q) {
@@ -922,6 +994,16 @@ class ViaAJX extends Auxll {
       this.app.to.end(JSON.stringify(model.modal(pool)));
 
     })
+  }
+
+  issue (q) {
+
+    this.isPassValid();
+
+    let modelMapping = {[`appendModel`]: [model.quoraMenu(`issue`)]};
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(model.modal(modelMapping)));
   }
 }
 

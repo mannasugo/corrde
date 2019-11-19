@@ -19,6 +19,10 @@ a, a:visited {
   text-decoration: none;
 }
 
+ol, ul {
+  list-style: none;
+}
+
 #corrde-root, article, div, footer, header, main, nav, section {
   -webkit-box-align: stretch;
   -webkit-align-items: stretch;
@@ -837,7 +841,7 @@ flex: 3 0 0%;
   background: #66f066;
   padding: 2px 12px;
   border-radius: 8px;
-  color: #fff;/*! text-transform: uppercase; */
+  color: #fff;
   font-size: 11px;
 }
 
@@ -846,6 +850,81 @@ flex: 3 0 0%;
   padding: 12px;
 }
 
+._-tQ {
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #555;
+}
+
+._zY- {
+  position: fixed;
+  bottom: 80px;
+  right: 10px;
+  z-index: 19;
+  width: 40px;
+  height: 40px;
+}
+
+._aQz {
+  width: 30px;
+  height: 30px;
+  width: 100%;
+  height: 100%;
+  background: #1185fe;
+  border-radius: 50%;
+}
+
+._th0, ._th0:visited, ._Yax, ._Yax:visited {
+  /*0 defaults font size on hex scale*/
+  color: #fff;
+  font-size: 11px;
+}
+
+._qYx, ._qYx:visited {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 45px;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  color: #1185fe;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+._clz:last-child {
+  border-bottom-width: 0;
+}
+
+._Yax {
+  line-height: 30px;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  font-size: 18px;
+}
+
+@media (min-width: 414px) {
+
+  ._QXs {
+    margin: 0 auto;
+  }
+}
+
+/*@media (min-width: 414px) and (max-width: 735px) {*/
+
+  ._clz {
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  ._QXs, ._clz {
+    width: 100%;
+  }
+/*}*/
 
 @media (min-width: 481px) {
   ._UfX::after, ._UfX::before {
@@ -871,6 +950,10 @@ flex: 3 0 0%;
   ._vC- {
     max-width: 350px;
   }
+
+  ._zY- {
+    right: 50px;
+  }
 }
 
 @media (max-width: 740px) {
@@ -892,7 +975,7 @@ flex: 3 0 0%;
   }
 
   ._uHB {
-    padding: 5px;
+    padding: 15px;
   }
 
   .-_-Z {

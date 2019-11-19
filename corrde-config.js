@@ -5,8 +5,9 @@ let cdto = {
   //reqs: `corrde-reqs.corrde.com/`,
   //gp: `gp.corrde.com/`,
   gp: `/gp/`,
+  quora: `https://quora.corrde.com/`,
   dev: `https://developer.corrde.com/`,
-  support: `https://help.corrde.com/`},
+  support: `https://support.corrde.com/`},
 
   root = `gp/`,
 
@@ -24,6 +25,7 @@ module.exports = {
     platform: cdto.res + `about/`,
     us: cdto.res + `about/` + `us/`,
     jobs: cdto.res + `about/` + `jobs/`,
+    quora: cdto.res + `quora/`,
     css: cdto.gp + `css/css.css`,
     utilJS: cdto.gp + `js/utils.js`,
     unauJS: cdto.gp + `js/un-au.js`,
@@ -175,5 +177,14 @@ module.exports = {
       `curios and artifacts`,
       `archives`,
       `tour guide`]
-  }
+  }, 
+
+  quora: [
+
+    `account and profile`,
+    `applications and market`,
+    `bookings and orders`,
+    `developers and APIs`,
+    `mail and notifications`,
+    `user interface`]
 }

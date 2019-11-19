@@ -28,6 +28,8 @@
 
     if (el.getAttribute(`class`) === `_HUa`) delModal();
 
+    if (el.getAttribute(`role`) === `close`) delModal();
+
     if (el.hasAttribute(`role`) && el.getAttribute(`role`).split(`-`)[0] === `stats`) {
       JSStore.to({lastStat: [
         el.getAttribute(`role`).split(`-`)[1],
@@ -72,6 +74,10 @@
       pushCall(`talk`, JSStore.avail());
 
     }
+
+    if (el.getAttribute(`role`) === `issues`) simpleCall(`issue`, JSStore.avail());
+
+    if (el.getAttribute(`role`) === `fieldQuora`) simpleCall(`fieldQuora`, JSStore.avail());
 
   }
 

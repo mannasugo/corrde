@@ -300,7 +300,7 @@ module.exports = {
         tag: `div`, flags: {class: `_xGy`}, tagChild: [{
           tag: `div`, flags: {style: `background: #fff;border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
             tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
-              tag: `a`, flags: {href: `#`, class: `-_tX StatsPlaneColor`}, closure: `Stats`
+              tag: `a`, flags: {href: `/p/`, class: `-_tX StatsPlaneColor`}, closure: `Stats`
             }]
           },{
             tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
@@ -325,7 +325,7 @@ module.exports = {
   },
 
   uModel (mapping) {
-    return {
+    return [{
       tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
         tag: `section`, flags: {class: `_miY`}, tagChild: [{
           tag: `main`, flags: {class: `_xC2`}, tagChild: [{
@@ -358,11 +358,15 @@ module.exports = {
       }, {
         tag: `aside`, tagChild: this.JS(mapping)
       }]
-    };
+    }, {
+        tag: `div`, tagChild: this.modal({
+          appendModel: [this.beta()]
+        })
+      }];
   },
 
   pModel (mapping) {
-    return {
+    return [{
       tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
         tag: `section`, flags: {class: `_miY`}, tagChild: [{
           tag: `main`, flags: {class: `_xC2`}, tagChild: [{
@@ -395,7 +399,11 @@ module.exports = {
       }, {
         tag: `aside`, tagChild: this.JS(mapping)
       }]
-    };
+    }, {
+        tag: `div`, tagChild: this.modal({
+          appendModel: [this.beta()]
+        })
+      }];
   },
 
   null (mapping) {
@@ -1150,7 +1158,7 @@ module.exports = {
         }, {
                   tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
                     `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
-                      `a`, flags: {role: `close`, href: `#`, class: `-_tX StatsPlaneColor`}, closure:`Del`
+                      `a`, flags: {role: `close`, href: `#`, class: `-_tX DelColor`}, closure:`Del`
                     }]
                   }]
                 }]
@@ -1253,4 +1261,91 @@ module.exports = {
       }]
     };
   },
+
+  beta () {
+
+    return {
+      tag: `div`, tagChild: [{
+        tag: `div`, flags: {class: `_gcQ _QZg`}, tagChild: [{
+          tag: `span`, tagChild: [{tag: 
+            `a`, flags: {role: `close`, href: `#`, class: `-_tX DelColor`}, closure:`Del`
+          }]
+        }]
+      }, {
+        tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
+          tag: `span`, flags: {class: `_-tQ`}, closure: 
+          `corrde is currently on its beta phase development, optimum plus user experience is greatly
+          important to us, as such we have dedicated a channel to ask for assistance and express your 
+          views and suggestions, particularly on user experience, interaction and integration, 
+          this would in turn help us tailor a more fluid platform for you.`
+        }]
+      }, {
+        tag: `div`, flags: {style: `padding: 22px`, class: `_QZg _gcQ`}, tagChild: [{
+          tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+            tag: `a`, flags: {role: `quora`, class: `_TX_a _atX`, href: `/quora/`}, closure: `participate`}]
+          }]
+        }]
+    };
+  },
+
+  quora (pool) {
+
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px`}, tagChild: [{
+              tag: `div`, flags: {class: `_aGX`}, tagChild: [{
+                tag: `div`, tagChild: []
+              }, {
+                tag: `div`, flags: {class: `_aGX _zY-`}, tagChild: [{
+                  tag: `div`, flags: {class: `_aQz _geQ _gMX`}, tagChild: [{
+                    tag: `a`, flags: {role: `issues`, href: `#`, class: `_Yax`}, closure: `+`
+                  }]
+                }]
+              }, this.controls()]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg _gxM`}, tagChild: [{
+                    tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }, {
+                    tag: `span`, flags: {class: `_tCc`}, closure: `beta`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {role: `fieldQuora`, class: `_TX_a _atX`, href: `#`}, closure: `topics`}]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        tag: `aside`, tagChild: this.JS(pool)
+      }]
+    };
+  },
+
+  quoraMenu (e) {
+
+    let menusModel = [];
+
+    config.quora.forEach((menus, index) => {
+      menusModel[index] = {
+        tag: `li`, flags: {class: `_clz`}, tagChild: [{
+          tag: `a`, flags: {href: `#`, e: menus, class: `_qYx`}, closure: menus
+        }]
+      }
+    });
+
+    return {
+      tag: `ul`,flags: {class: `_QXs`}, tagChild: menusModel
+    }
+  }
 }
