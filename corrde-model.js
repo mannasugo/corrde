@@ -1290,9 +1290,9 @@ module.exports = {
 
   quora (pool) {
 
-    let issueModel = [], plusModel = [], support = {};
+    let issueModel = [],  support = {};
 
-    pool.pool.forEach((issue, index) => {console.log(pool)
+    pool.pool.forEach((issue, index) => {
 
       if (issue.view === `true`) {
         support = {
@@ -1306,7 +1306,9 @@ module.exports = {
           }
       }
 
-      issue.pool.forEach((plus, a) => {
+      let plusModel = [];
+
+      issue.pool.forEach((plus, a) => {console.log(plus.txt)
 
         plusModel[a] = {tag: 
           `div`, flags: {class: `_yZS _gxM _geQ`}, tagChild: [{
@@ -1320,7 +1322,7 @@ module.exports = {
                   tag: `span`, flags: {class: `_tXv`}, closure: plus.alt}]
               }, {
                 tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
-                  tag: `a`, flags: {id: plus.self_cord, class: `_vC-`, role: `talk`, href: `#`},
+                  tag: `a`, flags: {id: `plus.self_cord`, class: `_vC-`, role: `talk`, href: `#`},
                     closure: plus.txt
                 }]
               }]
@@ -1365,7 +1367,8 @@ module.exports = {
             tag: `div`, flags: {class: `_CYc`}, tagChild: [{
               tag: `span`, closure: issue.text
             }]
-          }, support, {
+          }, support]
+        }, {
             tag: `div`, flags: {style: `border-top: 1px solid #e6e6e6`, class: `_gcl _gBC`}, tagChild: [{
               tag: `div`, flags: {class: `_CYc _gxM _gcQ`}, tagChild: [{
                 tag: `a`, flags: {href: `#`, class: `-_tX StatsPlaneColor`}
@@ -1376,7 +1379,8 @@ module.exports = {
               }, {
                 tag: `div`, flags: {class: `_ZSg _QZg`}, tagChild: [{
                   tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                    tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `comment`
+                    tag: `a`, flags: {id: issue.cord + `-` + issue._src, role: `add-on`, href: `#`, class: `_TX_a _atX qXS`}, closure:
+                     `comment`
                   }]
                 }]
               }]
@@ -1384,7 +1388,6 @@ module.exports = {
           }, {
             tag: `div`, flags: {class: `_gBC`}, tagChild: plusModel
           }]
-        }, ]
       }
     });
 
@@ -1454,7 +1457,7 @@ module.exports = {
         tag: `div`, flags: {class: `_uCX`}, tagChild: [{
           tag: `div`, flags: {class: ``}, tagChild: [{
             tag: `span`, flags: {class: `_tCx`}, closure: 
-            `Address your questions, opinions and suggestions about this topic here.`
+            `Start thread to address your questions, opinions and suggestions about this topic here.`
           }]
         }, {
         tag: `div`, flags: {class: `_eYG`}, tagChild: [{
@@ -1463,7 +1466,31 @@ module.exports = {
       }, {
         tag: `div`, flags: {class: `_yCR`}, tagChild: [{
           tag: `div`, flags: {class: `_gM_a _agM`, style: `margin: auto`}, tagChild: [{
-            tag: `a`, flags: {role: `issueTalk`, class: `_TX_a _atX`,}, closure: `post`
+            tag: `a`, flags: {href: `#`, role: `issueTalk`, class: `_TX_a _atX`,}, closure: `post`
+          }]
+        }]
+      }]
+      }]
+    }
+  },
+
+  isissue () {
+
+    return {
+      tag: `div`, flags: {class: `_Ysz`}, tagChild: [{
+        tag: `div`, flags: {class: `_uCX`}, tagChild: [{
+          tag: `div`, flags: {class: ``}, tagChild: [{
+            tag: `span`, flags: {class: `_tCx`}, closure: 
+            `Provide comment.`
+          }]
+        }, {
+        tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+          tag: `textarea`, flags: {id: `issue-to-talk`, class: `-_tyq`, placeholder: `type text here`}
+        }]
+      }, {
+        tag: `div`, flags: {class: `_yCR`}, tagChild: [{
+          tag: `div`, flags: {class: `_gM_a _agM`, style: `margin: auto`}, tagChild: [{
+            tag: `a`, flags: {href: `#`, role: `issue-to`, class: `_TX_a _atX`,}, closure: `post comment`
           }]
         }]
       }]

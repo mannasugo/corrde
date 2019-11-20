@@ -97,6 +97,29 @@
 
     }
 
+    if (el.getAttribute(`role`) === `add-on`) {
+
+      let all = el.id.split(`-`);
+
+      JSStore.to({
+        to_issue_sum: all[0],
+        to_issue_src: all[1]}); 
+      simpleCall(`isissue`, JSStore.avail());
+    }
+
+    if (el.getAttribute(`role`) === `issue-to`) {
+
+      let e = document.querySelector(`#issue-to-talk`);
+
+      let slimValue = new Auxll().longSlim(e.value);
+
+      if (!slimValue) return; 
+
+      JSStore.to({to_issue_last: slimValue})
+      urlCall_(`isissueTalk`, JSStore.avail());
+
+    }
+
   }
 
   const setup = () => {

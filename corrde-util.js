@@ -354,7 +354,7 @@ class UAPublic extends Auxll {
       conca += `;` + this.literalFormat(config.sql.join_sel_field);
 
       let issue = [],
-        plus = [],
+        //plus = [],
         support = 0,
         stats = 0;
 
@@ -365,15 +365,18 @@ class UAPublic extends Auxll {
 
         for (let i = 0; i < B[0].length; i++) {
 
+          let plus = []
+          //B[0][i][`plus`] = []
+
           for (let a = 0; a < B[1].length; a++) {
 
-            if (B[1][a].cord === B[0][i].cord) {
+            if (B[0][i].cord === B[1][a].cord) {
 
               if (B[1][a].fro === `admin`) support += 1;
 
-              plus[a] = B[1][a];
+              plus.push(B[1][a]);
             }
-          }
+          };
 
           (support > 0) ? support = `true` : support = `false`;
 
@@ -386,8 +389,10 @@ class UAPublic extends Auxll {
             text: B[0][i].txt,
             view: support,
             stat: stats,
-            pool: plus}
-        }console.log(issue)
+            cord: B[0][i].cord,
+            _src: B[0][i].src,
+            pool: plus};
+        };console.log(issue)
 
         let modelMapping = {
           title: `Corrde Quora`,
@@ -454,6 +459,10 @@ class ViaAJX extends Auxll {
     if (this.q.issueMail) this.issueMail(JSON.parse(this.q.issueMail));
 
     if (this.q.issueTalk) this.issueTalk(JSON.parse(this.q.issueTalk));
+
+    if (this.q.isissue) this.isissue(JSON.parse(this.q.isissue));
+
+    if (this.q.isissueTalk) this.isissueTalk(JSON.parse(this.q.isissueTalk));
   }
 
   setup (q) {
@@ -1048,6 +1057,51 @@ class ViaAJX extends Auxll {
         this.app.to.writeHead(200, config.reqMime.json);
         this.app.to.end(JSON.stringify({
           url: `quora/`,}));
+    })
+  }
+
+  isissue () {
+
+    this.isPassValid();
+
+    let pool = {appendModel: [model.isissue()]};
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(model.modal(pool)));
+  }
+
+  isissueTalk (q) {
+
+    this.isPassValid();
+
+    this.availSubs({
+      [`quora`]: `tab`,
+      [`cord`]: `field`, [q.to_issue_sum]: `value`,
+      [`src`]: `field_`, [q.to_issue_src]: `value_`});
+
+    let conca = this.literalFormat(config.sql.tf_v_);
+
+    new Sql().multi({}, conca, (A,B,C) => {
+
+      if (B.length === 0) return
+
+      let localSt_ = new Date().valueOf();
+
+      let localSt_Sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
+
+      new Sql().to([`quora_comments`, {
+        cord: B[0].cord,
+        fro: q.u,
+        ilk: B[0].ilk,
+        log: localSt_,
+        self_cord: localSt_Sum,
+        src: B[0].src,
+        txt: q.to_issue_last}], (A,B,C) => {
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify({
+          url: `quora/`,}));
+    })
     })
   }
 }
