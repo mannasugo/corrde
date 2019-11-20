@@ -67,7 +67,9 @@ class Sql extends Auxll {
         ;${config.sql.m}
         ;${config.sql.freqs}
         ;${config.sql.texts}
-        ;${config.sql.interactions}`);
+        ;${config.sql.interactions}
+        ;${config.sql.quora}
+        ;${config.sql.quora_comments}`);
       this.multiSql.end();
     });
     this.iniSql.end();
@@ -292,9 +294,9 @@ class UAPublic extends Auxll {
 
       conca += `;` + this.literalFormat(config.sql.falsef2);
 
-      let freqs = 0,
-        pays = 0,
-        payto = 0;
+      let freqs = 0.0,
+        pays = 0.0,
+        payto = 0.0;
 
       new Sql().multi({}, conca, (A,B,C) => {
 
@@ -313,7 +315,7 @@ class UAPublic extends Auxll {
           title: `My Corrde Account.`,
           css: CSSString,
           alt: B[0][0].alt,
-          freq: freqs * 1.0,
+          freq: (freqs * 1.0) + 0.0,
           to: B[2].length, //orders
           from: B[1].length,
           to_ : payto.toString(),
@@ -339,50 +341,58 @@ class UAPublic extends Auxll {
     this.modelStyler(config.lvl.css, CSSString => {
 
       this.availSubs({
-      [`u`]: `tab`,
-      [`sum`]: `field`, [this.isPassValid()]: `value`});
+      [`quora`]: `tab`, [`u`]: `tab_1`,
+      [`src`]: `field`, [`sum`]: `field_1`,
+      [`log`]: `rule`, [`10`]: `int`});
 
-      let conca = this.literalFormat(config.sql.tfv);
-
-      this.availSubs({
-      [`j`]: `tab`,
-      [`status`]: `field`, [this.isPassValid()]: `value`});
-
-      conca += `;` + this.literalFormat(config.sql.tfv);
+      let conca = this.literalFormat(config.sql.join_csc_sel_field);
 
       this.availSubs({
-      [`j`]: `tab`,
-      [`status`]: `field`, [`null`]: `value`,
-      [`uSum`]: `field_`, [this.isPassValid()]: `value_`});
+      [`quora_comments`]: `tab`, [`u`]: `tab_1`,
+      [`src`]: `field`, [`sum`]: `field_1`,});
 
-      conca += `;` + this.literalFormat(config.sql.falsef2);
+      conca += `;` + this.literalFormat(config.sql.join_sel_field);
 
-      let freqs = 0,
-        pays = 0,
-        payto = 0;
+      let issue = [],
+        plus = [],
+        support = 0,
+        stats = 0;
 
       new Sql().multi({}, conca, (A,B,C) => {
 
-        for (let i = 0; i < B[1].length; i++) {
-          freqs += B[1][i].freq;
-          pays += B[1][i].pay;
-        }
+        B[1].sort((a,b) => {
+          return (b.log - a.log)});
 
-        if (B[1].length === 0) freqs = parseFloat(B[1].length) * 1.0
+        for (let i = 0; i < B[0].length; i++) {
 
-        for (let i = 0; i < B[2].length; i++) {
-          payto += B[2][i].pay;
-        }
+          for (let a = 0; a < B[1].length; a++) {
+
+            if (B[1][a].cord === B[0][i].cord) {
+
+              if (B[1][a].fro === `admin`) support += 1;
+
+              plus[a] = B[1][a];
+            }
+          }
+
+          (support > 0) ? support = `true` : support = `false`;
+
+          (plus.length > 0) ? stats = plus.length.toString() : stats = ``;
+
+          issue[i] = {
+            alt: B[0][i].alt,
+            log: B[0][i].log,
+            ilk: B[0][i].ilk,
+            text: B[0][i].txt,
+            view: support,
+            stat: stats,
+            pool: plus}
+        }console.log(issue)
 
         let modelMapping = {
-          title: `Corrde Community`,
+          title: `Corrde Quora`,
           css: CSSString,
-          alt: B[0][0].alt,
-          freq: freqs * 1.0,
-          to: B[2].length, //orders
-          from: B[1].length,
-          to_ : payto.toString(),
-          from_: pays.toString(),
+          pool: issue,
           JSStore: {
             u: this.isPassValid()}};
 
@@ -440,6 +450,10 @@ class ViaAJX extends Auxll {
     if (this.q.isMail) this.isMail(JSON.parse(this.q.isMail));
 
     if (this.q.issue) this.issue(JSON.parse(this.q.issue));
+
+    if (this.q.issueMail) this.issueMail(JSON.parse(this.q.issueMail));
+
+    if (this.q.issueTalk) this.issueTalk(JSON.parse(this.q.issueTalk));
   }
 
   setup (q) {
@@ -1004,6 +1018,37 @@ class ViaAJX extends Auxll {
 
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify(model.modal(modelMapping)));
+  }
+
+  issueMail (q) {
+
+    this.isPassValid();
+
+    let pool = {appendModel: [model.issueMail()]};
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(model.modal(pool)));
+  }
+
+  issueTalk (q) {
+
+    this.isPassValid();
+
+    let localSt_ = new Date().valueOf();
+
+    let localSt_Sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
+
+    new Sql().to([`quora`, {
+      cord: localSt_Sum,
+      ilk: q.issue,
+      log: localSt_,
+      src: q.u,
+      txt: q.issueText}], (A,B,C) => {console.log(A)
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify({
+          url: `quora/`,}));
+    })
   }
 }
 

@@ -125,6 +125,24 @@ module.exports = {
         toward VARCHAR(320) NOT NULL,
         txt TEXT NOT NULL)`,
 
+    quora:
+      `CREATE TABLE IF NOT EXISTS quora (
+        cord VARCHAR(320) NOT NULL,
+        ilk TEXT NOT NULL,
+        log TEXT NOT NULL,
+        src VARCHAR(320) NOT NULL,
+        txt TEXT NOT NULL)`,
+
+    quora_comments:
+      `CREATE TABLE IF NOT EXISTS quora_comments (
+        cord VARCHAR(320) NOT NULL,
+        fro VARCHAR(320) NOT NULL,
+        ilk TEXT NOT NULL,
+        log TEXT NOT NULL,
+        self_cord VARCHAR(320) NOT NULL,
+        src VARCHAR(320) NOT NULL,
+        txt TEXT NOT NULL)`,
+
     all: `select * from {tab}`, //adapt python's string-format value filling i.e {0} {1}, one, two
     fv: `select * from ?? where ?? = ?`,
     tfv: `select * from {tab} where {field} = '{value}'`,
@@ -138,7 +156,12 @@ module.exports = {
     delf2: `delete from {tab} where {field} = '{value}' and {field_} = '{value_}'`,
     limself: `select * from {tab} where {field} ='{value}' ORDER BY {way} desc limit {int}`,
     falsef2: `select * from {tab} where {field} != '{value}' and {field_} = '{value_}'`,
-    f__: `alter table {tab}`},
+    f__: `alter table {tab}`,
+    join_sel_field:
+      `select * from {tab} join {tab_1} on {tab}.{field} = {tab_1}.{field_1}`, 
+    join_csc_sel_field: 
+      `select * from {tab} join {tab_1} on {tab}.{field} = {tab_1}.{field_1} ORDER BY {rule} desc limit {int}`,//cascade
+  },
 
   fields: {
     [`arts`]: [

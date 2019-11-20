@@ -855,6 +855,7 @@ flex: 3 0 0%;
   padding: 15px;
   font-size: 13px;
   color: #555;
+  font-weight: 600;
 }
 
 ._zY- {
@@ -907,6 +908,20 @@ flex: 3 0 0%;
   font-size: 18px;
 }
 
+._qXS {
+  font-weight: 300;
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+._CYc {
+  padding: 10px 0;
+}
+
+._SYz {
+  margin: 0 0 55px;
+}
+
 @media (min-width: 414px) {
 
   ._QXs {
@@ -916,9 +931,13 @@ flex: 3 0 0%;
 
 /*@media (min-width: 414px) and (max-width: 735px) {*/
 
-  ._clz {
+  ._clz, ._gcl {
     background: #fff;
     border-bottom: 1px solid #e6e6e6;
+  }
+
+  ._gcl {
+    background: none;
   }
 
   ._QXs, ._clz {

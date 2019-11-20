@@ -227,7 +227,7 @@ module.exports = {
               tag: `div`, flags: {class: `_geQ`}, tagChild: [{
                 tag: `a`, flags: {href: config.to.dev, class: `_uHB`}, closure: `Developers`
               }]
-            }, {tag: `span`, flags: {class: `_szU`}, closure: `2019 CORRDE.`}]
+            }, {tag: `span`, flags: {class: `_szU`}, closure: `© 2019 CORRDE.`}]
           }]
         }]
       }, {
@@ -1274,7 +1274,7 @@ module.exports = {
       }, {
         tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
           tag: `span`, flags: {class: `_-tQ`}, closure: 
-          `corrde is currently on its beta phase development, optimum plus user experience is greatly
+          `Corrde is currently on its beta phase development, optimum plus user experience is greatly
           important to us, as such we have dedicated a channel to ask for assistance and express your 
           views and suggestions, particularly on user experience, interaction and integration, 
           this would in turn help us tailor a more fluid platform for you.`
@@ -1290,13 +1290,111 @@ module.exports = {
 
   quora (pool) {
 
+    let issueModel = [], plusModel = [], support = {};
+
+    pool.pool.forEach((issue, index) => {console.log(pool)
+
+      if (issue.view === `true`) {
+        support = {
+            tag: `div`, flags: {class: `_CYc`}, tagChild: [{
+              tag: `div`, flags: {class: `_ZSg _QZg`}, tagChild: [{
+                tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                  tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS`}, closure: issue.ilk
+                }]
+              }]
+            }]
+          }
+      }
+
+      issue.pool.forEach((plus, a) => {
+
+        plusModel[a] = {tag: 
+          `div`, flags: {class: `_yZS _gxM _geQ`}, tagChild: [{
+            tag: `div`, flags: {class: `_ZSg _ZCg _eYG _gcQ`}, tagChild: [{
+              tag: `span`, flags: {class: `_cCq`, style: `width: 30px; height: 30px`}, tagChild: [{
+                tag: `img`, flags: {src: ``, alt: ``}
+              }]
+            }, {
+              tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
+                tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+                  tag: `span`, flags: {class: `_tXv`}, closure: plus.alt}]
+              }, {
+                tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
+                  tag: `a`, flags: {id: plus.self_cord, class: `_vC-`, role: `talk`, href: `#`},
+                    closure: plus.txt
+                }]
+              }]
+            }]
+          }, {
+            tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
+              `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
+                `span`, flags: {class: `_szU`}, closure:this.log(plus.log)
+              }]
+            }]
+          }]
+        }
+      });
+
+      issueModel[index] = {
+        tag: `div`, flags: {class: `_uxq _SYz`}, tagChild: [{
+          tag: `div`, flags: {class: `_gcQ _gcl`}, tagChild: [{
+            tag: `span`, flags: {style: `width: 30px; height: 30px;`, class: `_cCq`}, tagChild: [{
+              tag: `img`, flags: {class: ``}
+            }]
+          }, {
+            tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+              tag: `div`, flags: {class: `_QxM`}, tagChild: [{
+                tag: `span`, flags: {class: `_tXv _tXx`}, closure: issue.alt
+              }]
+            }]
+          }, {
+            tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+              tag: `span`, flags: {class: `_szU _tXv`}, closure: this.log(issue.log)
+            }]
+          }]
+        }, {
+          tag: `div`, flags: {class: `_gBC`}, tagChild: [{
+            tag: `div`, flags: {class: `_CYc`}, tagChild: [{
+              tag: `div`, flags: {class: `_ZSg _eYG`}, tagChild: [{
+                tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                  tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS`}, closure: issue.ilk
+                }]
+              }]
+            }]
+          }, {
+            tag: `div`, flags: {class: `_CYc`}, tagChild: [{
+              tag: `span`, closure: issue.text
+            }]
+          }, support, {
+            tag: `div`, flags: {style: `border-top: 1px solid #e6e6e6`, class: `_gcl _gBC`}, tagChild: [{
+              tag: `div`, flags: {class: `_CYc _gxM _gcQ`}, tagChild: [{
+                tag: `a`, flags: {href: `#`, class: `-_tX StatsPlaneColor`}
+              }, {
+                tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+                  tag: `span`, flags: {class: `_tXx`} , closure: issue.stat
+                }]
+              }, {
+                tag: `div`, flags: {class: `_ZSg _QZg`}, tagChild: [{
+                  tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                    tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `comment`
+                  }]
+                }]
+              }]
+            }]
+          }, {
+            tag: `div`, flags: {class: `_gBC`}, tagChild: plusModel
+          }]
+        }, ]
+      }
+    });
+
     return {
       tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
         tag: `section`, flags: {class: `_miY`}, tagChild: [{
           tag: `main`, flags: {class: `_xC2`}, tagChild: [{
-            tag: `section`, flags: {style: `padding-top: 60px`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px; font-size: 13px;`}, tagChild: [{
               tag: `div`, flags: {class: `_aGX`}, tagChild: [{
-                tag: `div`, tagChild: []
+                tag: `div`, tagChild: issueModel
               }, {
                 tag: `div`, flags: {class: `_aGX _zY-`}, tagChild: [{
                   tag: `div`, flags: {class: `_aQz _geQ _gMX`}, tagChild: [{
@@ -1319,7 +1417,7 @@ module.exports = {
                 }, {
                   tag: `div`, flags: {class: `_QZg`}, tagChild: [{
                     tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                      tag: `a`, flags: {role: `fieldQuora`, class: `_TX_a _atX`, href: `#`}, closure: `topics`}]
+                      tag: `a`, flags: {role: `fieldQuora`, class: `_TX_a _atX`, href: `#`}, closure: `sort by topic`}]
                   }]
                 }]
               }]
@@ -1346,6 +1444,30 @@ module.exports = {
 
     return {
       tag: `ul`,flags: {class: `_QXs`}, tagChild: menusModel
+    }
+  },
+
+  issueMail () {
+
+    return {
+      tag: `div`, flags: {class: `_Ysz`}, tagChild: [{
+        tag: `div`, flags: {class: `_uCX`}, tagChild: [{
+          tag: `div`, flags: {class: ``}, tagChild: [{
+            tag: `span`, flags: {class: `_tCx`}, closure: 
+            `Address your questions, opinions and suggestions about this topic here.`
+          }]
+        }, {
+        tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+          tag: `textarea`, flags: {id: `issue-talk`, class: `-_tyq`, placeholder: `type text here`}
+        }]
+      }, {
+        tag: `div`, flags: {class: `_yCR`}, tagChild: [{
+          tag: `div`, flags: {class: `_gM_a _agM`, style: `margin: auto`}, tagChild: [{
+            tag: `a`, flags: {role: `issueTalk`, class: `_TX_a _atX`,}, closure: `post`
+          }]
+        }]
+      }]
+      }]
     }
   }
 }

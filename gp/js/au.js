@@ -79,6 +79,24 @@
 
     if (el.getAttribute(`role`) === `fieldQuora`) simpleCall(`fieldQuora`, JSStore.avail());
 
+    if (el.hasAttribute(`e`)) {
+      JSStore.to({issue: el.getAttribute(`e`)});
+      simpleCall(`issueMail`, JSStore.avail());
+    }
+
+    if (el.getAttribute(`role`) === `issueTalk`) {
+
+      let e = document.querySelector(`#issue-talk`);
+
+      let slimValue = new Auxll().longSlim(e.value);
+
+      if (!slimValue) return; 
+
+      JSStore.to({issueText: slimValue})
+      urlCall_(`issueTalk`, JSStore.avail());
+
+    }
+
   }
 
   const setup = () => {
@@ -133,6 +151,24 @@
       to: () => {
         if (req.req.responseText.length < 1) return;
         createModal(JSON.parse(req.req.responseText));
+      }
+    });
+  }
+
+  const urlCall_ = (reqs, allMeta) => {
+    let req = new Req();
+
+    req.call(`POST`, REQS, {
+      title: reqs,
+      JSON: JSON.stringify(allMeta),
+      to: () => {
+        if (req.req.responseText.length < 1) return;
+        if (typeof JSON.parse(req.req.responseText) === `object`) {
+          let fro = JSON.parse(req.req.responseText);
+          if (fro.url) {
+            window.location = `/` + fro.url;
+          }
+        }
       }
     });
   }
