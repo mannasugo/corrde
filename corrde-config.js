@@ -164,18 +164,28 @@ module.exports = {
   },
 
   fields: {
-    [`arts`]: [
+    [`art`]: [
       `art installation`, 
       `painting restoration`, 
       `art design`, 
       `art supplies`],
     [`fashion and appeal`]: [
-      `accessories`, 
+      `accessories`,
+      `dermatology`,
+      `hairstyling`,
+      `makeup`,
+      `manicure`,
+      `makeup and hair`,
+      `pedicure`,
       `wear design`, 
       `wear fitting`, 
       `tailoring`, 
       `apparel production and supply`],
     [`home`]: [
+      `carpet cleaning`,
+      `cooking`,
+      `cleaning`,
+      `home painting`,
       `interior design`,
       `furniture fitting`, 
       `furniture repair and maintenance`, 
@@ -183,7 +193,8 @@ module.exports = {
       `gardening`,
       `landscaping`,
       `plumbing`,
-      `electrical repair and maintenance`],
+      `electrical repair and maintenance`,
+      `wash and fold`],
     [`machinery`]: [
       `electrical repair and maintenance`,
       `mechanical repair and maintenance`,
