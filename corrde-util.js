@@ -114,11 +114,13 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `p`) this.p();
 
-    if (this.levelState === `metric`) this.metric();
+    if (this.levelState === `analytics`) this.metric();
 
     if (this.levelState === `mug`) this.mug();
 
     if (this.levelState === `quora`) this.quora();
+
+    if (this.levelState === `jobs`) this.vacant();
   }
 
   rootCall () {
@@ -411,6 +413,26 @@ class UAPublic extends Auxll {
       });
 
       
+      });
+  }
+
+  vacant () {
+
+    this.modelStyler(config.lvl.css, CSSString => {
+
+      let modelMapping = {
+        title: `Corrde Jobs`,
+        css: CSSString,
+        appendModel: ``,
+        JSStore: {
+          u: `this.isPassValid()`}};
+
+      modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
+
+      modelMapping[`appendModel`] = [model.vacant(modelMapping)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(modelMapping));
       });
   }
 }

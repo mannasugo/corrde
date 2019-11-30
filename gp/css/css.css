@@ -6,7 +6,7 @@
   font-style: normal;
 }
 
-a, article, body, div, footer, form, h1, h2, header, html, img, label, li, nav, p, section, span, time, ul {
+a, article, body, div, footer, form, h1, h2, h3, header, html, img, label, li, nav, p, section, span, time, ul {
   margin: 0;
   padding: 0;
   border: 0;
@@ -53,7 +53,7 @@ ol, ul {
 }
 
 body, button, input, textarea {
-  font-family: Gothic;
+  font-family: Geomanist, Gothic;
   font-size: 14px;
   line-height: 18px;
 }
@@ -924,6 +924,41 @@ flex: 3 0 0%;
 
 ._egZ {
   border-radius: 100px;
+}
+
+._uZC {
+  border-bottom: 1px solid #dbdbdb;
+  padding: 30px 25px 25px;
+}
+
+._YtS {
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 30px;
+  padding: 12px 0;
+}
+
+._ytx, ._ytx:visited {
+    line-height: 1.6em;
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 0 0 15px;
+}
+
+._ttx, ._ttx:visited {
+    color:  #000;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+._uZM {
+  border-bottom: 1px solid #dbdbdb;
 }
 
 @media (min-width: 414px) {

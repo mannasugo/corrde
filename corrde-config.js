@@ -23,8 +23,10 @@ module.exports = {
   cd : { //site_map
     uareq: cdto.reqs + `ua/`,
     platform: cdto.res + `about/`,
-    us: cdto.res + `about/` + `us/`,
-    jobs: cdto.res + `about/` + `jobs/`,
+    us: cdto.res + `us/`,
+    jobs: cdto.res + `jobs/`,
+    dev: cdto.res + `dev/`,
+    support: cdto.res + `support/`,
     quora: cdto.res + `quora/`,
     css: cdto.gp + `css/css.css`,
     utilJS: cdto.gp + `js/utils.js`,

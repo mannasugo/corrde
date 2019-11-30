@@ -221,11 +221,11 @@ module.exports = {
               }]
           }, {
               tag: `div`, flags: {class: `_geQ`}, tagChild: [{
-                tag: `a`, flags: {href: config.to.support, class: `_uHB`}, closure: `Support`
+                tag: `a`, flags: {href: config.cd.support, class: `_uHB`}, closure: `Support`
               }]
           }, {
               tag: `div`, flags: {class: `_geQ`}, tagChild: [{
-                tag: `a`, flags: {href: config.to.dev, class: `_uHB`}, closure: `Developers`
+                tag: `a`, flags: {href: config.cd.dev, class: `_uHB`}, closure: `Developers`
               }]
             }, {tag: `span`, flags: {class: `_szU`}, closure: `© 2019 CORRDE.`}]
           }]
@@ -1515,5 +1515,103 @@ module.exports = {
       }]
       }]
     }
+  },
+
+  vacant (pool) {
+
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px; font-size: 13px;`}, tagChild: [{
+              tag: `div`, flags: {style: `max-width: 900px;`, class: `_aGX`}, tagChild: [{
+                tag: `div`, tagChild: [{
+                  tag: `div`, tagChild: [{
+                    tag: `span`, flags: {class: `_txU`} , closure: `Come join the corrde team`
+                  }]
+                }, {
+                  tag: `div`, tagChild: [{
+                    tag: `span`, flags: {class: `_YtS`} , closure: 
+                    `We are simplifying the market for blue-collar professionals. We need talented people like you
+                    to help us support and expand our high performance web service.`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_uZM _CYc`}, tagChild: [{
+                    tag: `div`, flags: {class: `ZSg _eYG`}, tagChild: [{
+                      tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `engineering`
+                      }]
+                    }]
+                  }]
+                }, {
+                  tag: `div`, flags: {id: `dept`}, tagChild: [{
+                    tag: `div`, flags: {class: `_uZC`}, tagChild: [{
+                      tag: `div`, tagChild: [{
+                        tag: `div`, tagChild: [{
+                          tag: `h3`, tagChild: [{
+                            tag: `a`, flags: {class: `_ttx`, href: `#`}, closure: `System Administrator`
+                          }]
+                        }, {
+                          tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
+                            tag: `div`, flags: {class: `ZSg _eYG`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS`}, closure: `On-site`
+                              }]
+                            }]
+                          }, {
+                            tag: `div`, flags: {class: `ZSg _eYG`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS`}, closure: `Remote`
+                              }]
+                            }]
+                          }]
+                        }]
+                      }, {
+                        tag: `div`, tagChild: [{
+                          tag: `a`, flags: {class: `_ytx`, href: `#`}, closure: 
+                            `corrde.com SysAdmins deliver outstanding technical support support to clients around the clock,
+                             around the globe. We are interested in talented technicians to improve our solid foundations
+                              while keeping support resources supplies ahead of the demand curve.`
+                        }]
+                      } , {
+                          tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
+                            tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `Read More`
+                              }]
+                            }]
+                          //}]
+                    }]
+                  }   ]
+                    }]
+                  }]
+                }]
+              }, `this.controls()`]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg _gxM`}, tagChild: [{
+                    tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }, {
+                    tag: `span`, flags: {class: `_tCc`}, closure: `jobs`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {role: `fieldQuora`, class: `_TX_a _atX`, href: `#`}, closure: `filter by Department`}]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        tag: `aside`, tagChild: this.JS(pool)
+      }]
+    };
   }
 }
