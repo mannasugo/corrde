@@ -296,9 +296,9 @@ module.exports = {
 
   controls () {
     return {
-      tag: `div`, flags: {style: `bottom: 10px`, class: `_gHm _aGX _-gs`}, tagChild: [{
+      tag: `div`, flags: {class: `_gHm _aGX _-gs`}, tagChild: [{
         tag: `div`, flags: {class: `_xGy`}, tagChild: [{
-          tag: `div`, flags: {style: `background: #fff;border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
+          tag: `div`, flags: {style: `background: #fff;`, class: `_gxM _gMX _uxq _egZ`}, tagChild: [{
             tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
               tag: `a`, flags: {href: `/p/`, class: `-_tX StatsPlaneColor`}, closure: `Stats`
             }]
@@ -574,7 +574,7 @@ module.exports = {
             tag: `div`, flags: {style: `padding: 10px 0`, class: `_gxM`}, tagChild: [{
               tag: `div`, flags: {class: `eYG uxq`}, tagChild: [{
                 tag: `div`, flags: {class: `geQ gMX`}, tagChild: [{
-                  tag: `a`, flags: {role: `stats-` + sale.sum + `-` + sale.uSum, href: `#`, class: `-_tX StatsCircleColor`}, closure:
+                  tag: `a`, flags: {role: `stats-` + sale.sum + `-` + sale.uSum, href: `#`, class: `-_tX StatsPlaneColor`}, closure:
                    `StatsCircle`
                 }]
               }]
@@ -629,6 +629,13 @@ module.exports = {
                   tag: `span`, flags: {class: `_szU`}, closure: 
                   this.tick(parseInt(sale.St_) + (parseInt(sale.St_to) * 86400000))
                 }]
+              }, {
+                tag: `div`, flags: {class: `_ZSg _QZg`}, tagChild: [{
+                  tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                    tag: `a`, flags: {role: `stats-` + sale.sum + `-` + sale.uSum, href: `#`, class: `_TX_a _atX qXS`}, closure:
+                     `explore`
+                  }]
+                }]
               }]
             }]
           }]
@@ -637,7 +644,7 @@ module.exports = {
             tag: `div`, flags: {style: `padding: 10px 0`, class: `_gxM`}, tagChild: [{
               tag: `div`, flags: {class: `eYG uxq`}, tagChild: [{
                 tag: `div`, flags: {class: `geQ gMX`}, tagChild: [{
-                  tag: `a`, flags: {role: `stats-` + sale.sum + `-` + sale.uSum, href: `#`, class: `-_tX StatsCircleColor`}, closure: 
+                  tag: `a`, flags: {role: `stats-` + sale.sum + `-` + sale.uSum, href: `#`, class: `-_tX StatsPlaneColor`}, closure: 
                   `StatsCircle`
                 }]
               }]
@@ -872,7 +879,19 @@ module.exports = {
 
     return {tag: 
       `div`, flags: {class: `_Ysz`}, tagChild: [{tag: 
-        `div`, flags: {class: `_tSx`}, closure: `Applications`
+        `div`, flags: {class: `_tSx`}, tagChild: [{
+              tag: `div`, flags: {class: `_ZCg _gxM _gcQ`}, tagChild: [ {
+                tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+                  tag: `span`, flags: {class: `_tXx`} , closure: `Applications`
+                }]
+              }, {
+                tag: `div`, flags: {class: `_ZSg _QZg`}, tagChild: [{
+                  tag: `div`, flags: {class: `gM_a agM`}, tagChild: [{
+                    tag: `a`, flags: {role: `close`, href: `#`, class: `-_tX DelColor`}
+                  }]
+                }]
+              }]
+            }]
         }, {tag: 
           `div`, flags: {class: `_uCX`}, tagChild: pModel
           }]
@@ -884,7 +903,7 @@ module.exports = {
       `div`, flags: {class: `_Ysz`}, tagChild: [{tag: 
         `div`, flags: {class: `_tSx _gxM _geQ`}, tagChild: [{tag: 
           `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
-            `a`, flags: {role: `fro`, href: `#`, class: `-_tX FroColor`}, closure:`fro`
+            `a`, flags: {role: `close`, href: `#`, class: `-_tX FroColor`}, closure:`fro`
             }]
           }, {
           tag: `div`, flags: {class: `_QZg`}, tagChild: [{
@@ -1308,7 +1327,7 @@ module.exports = {
 
       let plusModel = [];
 
-      issue.pool.forEach((plus, a) => {console.log(plus.txt)
+      issue.pool.forEach((plus, a) => {
 
         plusModel[a] = {tag: 
           `div`, flags: {class: `_yZS _gxM _geQ`}, tagChild: [{
@@ -1420,7 +1439,7 @@ module.exports = {
                 }, {
                   tag: `div`, flags: {class: `_QZg`}, tagChild: [{
                     tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                      tag: `a`, flags: {role: `fieldQuora`, class: `_TX_a _atX`, href: `#`}, closure: `sort by topic`}]
+                      tag: `a`, flags: {role: `fieldQuora`, class: `_TX_a _atX`, href: `#`}, closure: `filter by topic`}]
                   }]
                 }]
               }]

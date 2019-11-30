@@ -517,8 +517,8 @@ body {
 }
 
 ._-gs {
-  border-top: 1px solid #eee;
-  bottom: 0;
+  /*border-top: 1px solid #eee;*/
+  bottom: 10px;
   position: fixed;
   width: 100%;
   z-index: 19;
@@ -922,6 +922,10 @@ flex: 3 0 0%;
   margin: 0 0 55px;
 }
 
+._egZ {
+  border-radius: 100px;
+}
+
 @media (min-width: 414px) {
 
   ._QXs {
@@ -1028,5 +1032,13 @@ flex: 3 0 0%;
 
   ._uxq {
     background: none;
+  }
+
+  ._-gs {
+    bottom : 0;
+  }
+
+ ._egZ {
+    border-radius: 0;
   }
 }
