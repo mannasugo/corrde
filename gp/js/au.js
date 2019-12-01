@@ -120,6 +120,21 @@
 
     }
 
+    if (el.getAttribute(`role`) === `job-bin`) {
+
+      if (document.querySelector(`#-` + el.id)) {
+        let status = document.querySelector(`#-` + el.id),
+          txt = document.querySelector(`#lever > #` + el.id);
+
+        if (status.className === `_Yxc`) {
+          status.className = `Yxc`;
+          txt.innerHTML = `Less`;
+        } else if (status.className === `Yxc`) {
+          status.className = `_Yxc`; 
+          txt.innerHTML = `Read More`}
+      }
+    }
+
   }
 
   const setup = () => {

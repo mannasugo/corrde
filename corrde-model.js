@@ -1553,31 +1553,123 @@ module.exports = {
                           }]
                         }, {
                           tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
-                            tag: `div`, flags: {class: `ZSg _eYG`}, tagChild: [{
-                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS`}, closure: `On-site`
+                            tag: `div`, flags: {class: `_axS`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM _guZ`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS _utQ`}, closure: `On-site`
                               }]
                             }]
                           }, {
-                            tag: `div`, flags: {class: `ZSg _eYG`}, tagChild: [{
-                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS`}, closure: `Remote`
+                            tag: `div`, flags: {class: `_axS`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM _guZ`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS _utQ`}, closure: `Remote`
                               }]
                             }]
                           }]
                         }]
                       }, {
-                        tag: `div`, tagChild: [{
-                          tag: `a`, flags: {class: `_ytx`, href: `#`}, closure: 
+                        tag: `div`, flags: {id: `-j0`, class: `_Yxc`}, tagChild: [{
+                          tag: `a`, flags: {id: `j0`, role: `job-bin`, class: `_ytx`, href: `#`}, closure: 
                             `corrde.com SysAdmins deliver outstanding technical support support to clients around the clock,
                              around the globe. We are interested in talented technicians to improve our solid foundations
                               while keeping support resources supplies ahead of the demand curve.`
+                        }, {
+                          tag: `h4`, closure: `Qualifications`
+                        }, {
+                          tag: `ul`, flags: {class: `_SCz`}, tagChild: [{
+                            tag: `li`, closure: 
+                              `2+ years admin experience in Linux or BSD (both is a plus)`
+                          }, {
+                            tag: `li`, closure: 
+                              `Possesses superior written and verbal communication skills`
+                          }, {
+                            tag: `li`, closure: 
+                              `Pays attention to detail`
+                          }, {
+                            tag: `li`, closure: 
+                              `Can demonstrate understanding of the following concepts: `,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- Server/Application Architecture and Hardening`
+                                }, {
+                                  tag: `li`, closure: `- Storage Solutions (e.g., Ceph)`
+                                }, , {
+                                  tag: `li`, closure: `- SMTP Daemons`
+                                }, {
+                                  tag: `li`, closure: `- TCP/IP (IPv6 familiarity)`
+                                }, {
+                                  tag: `li`, closure: `- Load Balancing`
+                                }, {
+                                  tag: `li`, closure: `- Virtualization`
+                                }]
+                              }]
+                          }, {
+                            tag: `li`, closure: 
+                              `Has experience with the following applications: `,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- MySQL (more DBs: a plus)`
+                                }, {
+                                  tag: `li`, closure: `- iptables (FirewallD)`
+                                }, , {
+                                  tag: `li`, closure: `- Apache, NGINX`
+                                }, {
+                                  tag: `li`, closure: `- QEMU/KVM`
+                                }, {
+                                  tag: `li`, closure: `- cPanel`
+                                }, {
+                                  tag: `li`, closure: `- R1Soft`
+                                }]
+                              }]
+                          }, {
+                            tag: `li`, closure: 
+                              `Is familiar with:`,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- Log Analysis/Troubleshooting`
+                                }, {
+                                  tag: `li`, closure: `- Linux Core Utilities`
+                                }, , {
+                                  tag: `li`, closure: `- SMTP Daemons`
+                                }, {
+                                  tag: `li`, closure: `- Bash`
+                                }]
+                              }]
+                          }, {
+                            tag: `li`, closure: 
+                              `Desirable traits/exposure (bonus items):`,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- Overnight and Weekend Coverage`
+                                }, {
+                                  tag: `li`, closure: `- Ansible/Chef/Puppet`
+                                }, , {
+                                  tag: `li`, closure: `- VPN/Tunnel/VLANs`
+                                }, {
+                                  tag: `li`, closure: `- IPMI KVM`
+                                }, {
+                                  tag: `li`, closure: `- BGP/Bird`
+                                }, {
+                                  tag: `li`, closure: `- Python`
+                                }, {
+                                  tag: `li`, closure: `- ZFS`
+                                }]
+                              }]
+                          }]
+                        }, {
+                          tag: `div`, flags: {class: `_gxM _CYc _gcQ _geQ _gMX`}, tagChild: [{
+                            tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX`}, closure: `Apply for Position`
+                              }]
+                            }]
+                          }]
                         }]
-                      } , {
+                      }, {
                           tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
                             tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
-                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `Read More`
+                              tag: `div`, flags: {id: `lever`, class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {[`-j0`]: `var`, id: `j0`, role: `job-bin`, href: `#`, class: `_TX_a _atX qXS`}, closure: 
+                                `Read More`
                               }]
                             }]
                           //}]

@@ -6,7 +6,7 @@
   font-style: normal;
 }
 
-a, article, body, div, footer, form, h1, h2, h3, header, html, img, label, li, nav, p, section, span, time, ul {
+a, article, body, div, footer, form, h1, h2, h3, h4, header, html, img, label, li, nav, p, section, span, time, ul {
   margin: 0;
   padding: 0;
   border: 0;
@@ -17,6 +17,18 @@ a, article, body, div, footer, form, h1, h2, h3, header, html, img, label, li, n
 a, a:visited {
   color: #003569;
   text-decoration: none;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  color: #363b40;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+h4 {
+  margin: 18px 0;
+  line-height: 22px;
+  font-size: 14px;
 }
 
 ol, ul {
@@ -939,11 +951,11 @@ flex: 3 0 0%;
 }
 
 ._ytx, ._ytx:visited {
-    line-height: 1.6em;
-    max-height: 100px;
+    line-height: 28px;
+    /*max-height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap;*/
     color: inherit;
     font-weight: 700;
     font-size: 13px;
@@ -959,6 +971,53 @@ flex: 3 0 0%;
 
 ._uZM {
   border-bottom: 1px solid #dbdbdb;
+}
+
+._axS {
+  margin: 0 0 0 10px;
+}
+
+._guZ {
+  background: none;
+}
+
+._utQ, ._utQ:visited {
+  color: #1185fe;
+  font-weight: 300;
+}
+
+._SCz {
+  color: #616366;
+  line-height: 25px;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+._SCz > li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 6px;
+}
+
+._SCz > li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  content: "+";
+}
+
+._iSa {
+  margin: 10px 0 0 !important;
+}
+
+._iSa > li {
+  margin-bottom: 5px;
+}
+
+._Yxc {
+  height: 100px;
+  overflow: hidden;
 }
 
 @media (min-width: 414px) {
