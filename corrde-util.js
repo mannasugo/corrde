@@ -327,8 +327,8 @@ class UAPublic extends Auxll {
           from: B[1].length,
           to_ : payto.toString(),
           from_: pays.toString(),
-          JSStore: {
-            u: this.isPassValid()}};
+          JSStore: JSON.stringify({
+            u: this.isPassValid()})};
 
       modelMapping[`appendModel`] = [model.mug(modelMapping)];
 
