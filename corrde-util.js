@@ -142,13 +142,15 @@ class UAPublic extends Auxll {
 
   isPassValid () {
 
-    if (!this.app.fro.headers.cookie) this.rootCall();
+    if (this.app.fro.headers.cookie) {
 
-    let cJar = cookie.parse(this.app.fro.headers.cookie);
+      let cJar = cookie.parse(this.app.fro.headers.cookie);
 
-    if (!cJar.u) return;
+      if (!cJar.u) return;
 
-    return cJar.u;
+      return cJar.u;
+
+    } else this.rootCall();
   }
 
   u () {
