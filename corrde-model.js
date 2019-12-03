@@ -1705,5 +1705,229 @@ module.exports = {
         tag: `aside`, tagChild: this.JS(pool)
       }]
     };
+  },
+
+  about (pool) {
+
+    return {
+      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
+        tag: `section`, flags: {class: `_miY`}, tagChild: [{
+          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
+            tag: `section`, flags: {style: `padding-top: 60px; font-size: 13px;`}, tagChild: [{
+              tag: `div`, flags: {style: `max-width: 900px;`, class: `_4Sx _aGX`}, tagChild: [{
+                tag: `div`, tagChild: [{
+                  tag: `div`, tagChild: [{
+                    tag: `span`, flags: {class: `_txU`} , closure: `HOW IT WORKS`
+                  }]
+                }, {
+                  tag: `div`, tagChild: [{
+                    tag: `span`, flags: {class: `_YtS _Atx`} , closure: 
+                    `growing your client base in an industry you love shouldn't feel difficult, at corrde, we're ready
+                     to give you another way to attract and satisfy your clients. our web booking platform service
+                      allows you to receive bookings around the clock, with greater exposure and the chance to
+                       seize control of your business growth. it's time to learn what we can do for you.`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: ``}, tagChild: [{
+                    tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+                      tag: `span`, flags: {class: `_ytx _Qtx _3tx`}, closure: `1. Adjust Your Working Page`
+                    }]
+                  }, {
+                    tag: `div`, tagChild: [{
+                      tag: `span`, flags: {class: `_YtS _Atx`} , closure: 
+                      `once a registered user of corrde, when logged in, you will automatically proceed to a working page 
+                      equiped with a double option for a service provider or seller. on the top right corner of the 
+                      page/application within the header resides a button for switching to either options, as a 
+                      professional please make sure you are adjusted to the market. if the button reads as the 
+                      snapshot below, please click on it.
+                      `
+                    }]
+                  }, {
+                    tag: `div`, flags: {class: `_eSQ`}, tagChild: [{
+                      tag: `img`, flags: {class: `_uXZ`, src: `/gp/p/about/pro_640_-_0.png`}
+                    }]
+                  }]
+                }, {
+                  tag: `div`, flags: {class: ``}, tagChild: [{
+                    tag: `div`, flags: {class: `_eYG`}, tagChild: [{
+                      tag: `span`, flags: {class: `_ytx _Qtx _3tx`}, closure: `2. Browse Market, Select Suited Task Available`
+                    }]
+                  }, {
+                    tag: `div`, tagChild: [{
+                      tag: `span`, flags: {class: `_YtS _Atx`} , closure: 
+                      `once a registered user of corrde, when logged in, you will automatically proceed to a working page 
+                      equiped with a double option for a service provider or seller. on the top right corner of the 
+                      page/application within the header resides a button for switching to either options, as a 
+                      professional please make sure you are adjusted to the market. if the button reads as the 
+                      snapshot below, please click on it.
+                      `
+                    }]
+                  }, {
+                    tag: `div`, flags: {class: `_eSQ`}, tagChild: [{
+                      tag: `img`, flags: {class: `_uXZ`, src: `/gp/p/about/pro_640_-_1.png`}
+                    }]
+                  }]
+                }, {
+                  tag: `div`, flags: {id: `dept`}, tagChild: [{
+                    tag: `div`, flags: {class: `_uZC`}, tagChild: [{
+                      tag: `div`, tagChild: [{
+                        tag: `div`, tagChild: [{
+                          tag: `h3`, tagChild: [{
+                            tag: `a`, flags: {class: `_ttx`, href: `#`}, closure: `System Administrator`
+                          }]
+                        }, {
+                          tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
+                            tag: `div`, flags: {class: `_axS`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM _guZ`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS _utQ`}, closure: `On-site`
+                              }]
+                            }]
+                          }, {
+                            tag: `div`, flags: {class: `_axS`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM _guZ`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS _utQ`}, closure: `Remote`
+                              }]
+                            }]
+                          }]
+                        }]
+                      }, {
+                        tag: `div`, flags: {id: `-j0`, class: `_Yxc`}, tagChild: [{
+                          tag: `a`, flags: {id: `j0`, role: `job-bin`, class: `_ytx`, href: `#`}, closure: 
+                            `corrde.com SysAdmins deliver outstanding technical support support to clients around the clock,
+                             around the globe. We are interested in talented technicians to improve our solid foundations
+                              while keeping support resources supplies ahead of the demand curve.`
+                        }, {
+                          tag: `h4`, closure: `Qualifications`
+                        }, {
+                          tag: `ul`, flags: {class: `_SCz`}, tagChild: [{
+                            tag: `li`, closure: 
+                              `2+ years admin experience in Linux or BSD (both is a plus)`
+                          }, {
+                            tag: `li`, closure: 
+                              `Possesses superior written and verbal communication skills`
+                          }, {
+                            tag: `li`, closure: 
+                              `Pays attention to detail`
+                          }, {
+                            tag: `li`, closure: 
+                              `Can demonstrate understanding of the following concepts: `,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- Server/Application Architecture and Hardening`
+                                }, {
+                                  tag: `li`, closure: `- Storage Solutions (e.g., Ceph)`
+                                }, , {
+                                  tag: `li`, closure: `- SMTP Daemons`
+                                }, {
+                                  tag: `li`, closure: `- TCP/IP (IPv6 familiarity)`
+                                }, {
+                                  tag: `li`, closure: `- Load Balancing`
+                                }, {
+                                  tag: `li`, closure: `- Virtualization`
+                                }]
+                              }]
+                          }, {
+                            tag: `li`, closure: 
+                              `Has experience with the following applications: `,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- MySQL (more DBs: a plus)`
+                                }, {
+                                  tag: `li`, closure: `- iptables (FirewallD)`
+                                }, , {
+                                  tag: `li`, closure: `- Apache, NGINX`
+                                }, {
+                                  tag: `li`, closure: `- QEMU/KVM`
+                                }, {
+                                  tag: `li`, closure: `- cPanel`
+                                }, {
+                                  tag: `li`, closure: `- R1Soft`
+                                }]
+                              }]
+                          }, {
+                            tag: `li`, closure: 
+                              `Is familiar with:`,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- Log Analysis/Troubleshooting`
+                                }, {
+                                  tag: `li`, closure: `- Linux Core Utilities`
+                                }, , {
+                                  tag: `li`, closure: `- SMTP Daemons`
+                                }, {
+                                  tag: `li`, closure: `- Bash`
+                                }]
+                              }]
+                          }, {
+                            tag: `li`, closure: 
+                              `Desirable traits/exposure (bonus items):`,
+                              tagChild: [{
+                                tag: `ul`, flags: {class: `_iSa`}, tagChild: [{
+                                  tag: `li`, closure: `- Overnight and Weekend Coverage`
+                                }, {
+                                  tag: `li`, closure: `- Ansible/Chef/Puppet`
+                                }, , {
+                                  tag: `li`, closure: `- VPN/Tunnel/VLANs`
+                                }, {
+                                  tag: `li`, closure: `- IPMI KVM`
+                                }, {
+                                  tag: `li`, closure: `- BGP/Bird`
+                                }, {
+                                  tag: `li`, closure: `- Python`
+                                }, {
+                                  tag: `li`, closure: `- ZFS`
+                                }]
+                              }]
+                          }]
+                        }, {
+                          tag: `div`, flags: {class: `_gxM _CYc _gcQ _geQ _gMX`}, tagChild: [{
+                            tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX`}, closure: `Apply for Position`
+                              }]
+                            }]
+                          }]
+                        }]
+                      }, {
+                          tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
+                            tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
+                              tag: `div`, flags: {id: `lever`, class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {[`-j0`]: `var`, id: `j0`, role: `job-bin`, href: `#`, class: `_TX_a _atX qXS`}, closure: 
+                                `Read More`
+                              }]
+                            }]
+                          //}]
+                    }]
+                  }   ]
+                    }]
+                  }]
+                }]
+              }, `this.controls()`]
+            }]
+          }]
+        }, {
+          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
+            tag: `div`, flags: {class: ``}, tagChild: [{
+              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
+                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
+                  tag: `div`, flags: {class: `_-Xg _gxM`}, tagChild: [{
+                    tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
+                  }, {
+                    tag: `span`, flags: {class: `_tCc`}, closure: `about`
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
+                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                      tag: `a`, flags: {role: `client`, class: `_TX_a _atX`, href: `#`}, closure: `FOR CUSTOMERS`}]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        tag: `aside`, tagChild: this.JS(pool)
+      }]
+    };
   }
 }

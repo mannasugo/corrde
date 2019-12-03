@@ -121,6 +121,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `quora`) this.quora();
 
     if (this.levelState === `jobs`) this.vacant();
+
+    if (this.levelState === `about`) this.about();
   }
 
   rootCall () {
@@ -430,11 +432,31 @@ class UAPublic extends Auxll {
         css: CSSString,
         appendModel: ``,
         JSStore: {
-          u: `this.isPassValid()`}};
+          jobs: true}};
 
       modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
 
       modelMapping[`appendModel`] = [model.vacant(modelMapping)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(modelMapping));
+      });
+  }
+
+  about () {
+
+    this.modelStyler(config.lvl.css, CSSString => {
+
+      let modelMapping = {
+        title: `About Corrde`,
+        css: CSSString,
+        appendModel: ``,
+        JSStore: {
+          about: true}};
+
+      modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
+
+      modelMapping[`appendModel`] = [model.about(modelMapping)];
 
       this.app.to.writeHead(200, config.reqMime.htm);
       this.app.to.end(model.call(modelMapping));

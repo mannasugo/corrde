@@ -1020,6 +1020,55 @@ flex: 3 0 0%;
   overflow: hidden;
 }
 
+._Atx {
+  text-transform: capitalize;
+  color: #363b40;
+  font-weight: 300;
+  line-height: 25px;
+}
+
+._2tx {
+  font-size: 12px;
+}
+
+._3tx {
+  font-size: 18px
+}
+
+._4tx {
+  font-size: 24px;
+}
+
+._Qtx {
+  text-align: center;
+}
+
+._eSQ {
+  margin: auto;
+}
+
+._4Sx {
+  padding: 0 16px;
+}
+
+._uXZ {
+  width: 100%;
+  box-shadow: 0 15px 50px 0 rgba(0,34,77,.08);
+}
+
+._Ccc {
+    position: absolute;
+    left: 145px;
+    background: #0f76e3;
+border-radius: 50%;
+width: 20px;
+text-align: center;
+height: 20px;
+color:
+    #fff;
+    top: 5px;
+}
+
 @media (min-width: 414px) {
 
   ._QXs {
