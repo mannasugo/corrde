@@ -1539,7 +1539,7 @@ module.exports = {
                   tag: `div`, flags: {class: `_uZM _CYc`}, tagChild: [{
                     tag: `div`, flags: {class: `ZSg _eYG`}, tagChild: [{
                       tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                        tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `engineering`
+                        tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `System Architecture`
                       }]
                     }]
                   }]
@@ -1665,16 +1665,88 @@ module.exports = {
                           }]
                         }]
                       }, {
-                          tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
-                            tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
-                              tag: `div`, flags: {id: `lever`, class: `_gM_a _agM`}, tagChild: [{
-                                tag: `a`, flags: {[`-j0`]: `var`, id: `j0`, role: `job-bin`, href: `#`, class: `_TX_a _atX qXS`}, closure: 
+                        tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
+                          tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
+                            tag: `div`, flags: {id: `lever`, class: `_gM_a _agM`}, tagChild: [{
+                              tag: `a`, flags: {[`-j0`]: `var`, id: `j0`, role: `job-bin`, href: `#`, class: `_TX_a _atX qXS`}, closure: 
                                 `Read More`
+                            }]
+                          }]
+                        }]
+                      }]
+                    }]
+                  }]
+                }, {
+                  tag: `div`, flags: {class: `_uZM _CYc`}, tagChild: [{
+                    tag: `div`, flags: {class: `ZSg _eYG`}, tagChild: [{
+                      tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                        tag: `a`, flags: {href: `#`, class: `_TX_a _atX qXS`}, closure: `Communications`
+                      }]
+                    }]
+                  }]
+                }, {
+                  tag: `div`, flags: {id: `dept`}, tagChild: [{
+                    tag: `div`, flags: {class: `_uZC`}, tagChild: [{
+                      tag: `div`, tagChild: [{
+                        tag: `div`, tagChild: [{
+                          tag: `h3`, tagChild: [{
+                            tag: `a`, flags: {class: `_ttx`, href: `#`}, closure: `Communications Director`
+                          }]
+                        }, {
+                          tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
+                            tag: `div`, flags: {class: `_axS`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM _guZ`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS _utQ`}, closure: `On-site`
                               }]
                             }]
-                          //}]
-                    }]
-                  }   ]
+                          }, {
+                            tag: `div`, flags: {class: `_axS`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM _guZ`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX _qXS _utQ`}, closure: `Remote`
+                              }]
+                            }]
+                          }]
+                        }]
+                      }, {
+                        tag: `div`, flags: {id: `-j1`, class: `_Yxc`}, tagChild: [{
+                          tag: `a`, flags: {id: `j1`, role: `job-bin`, class: `_ytx`, href: `#`}, closure: 
+                            `Join our development team as a communications coordinator while helping curate our brand on the social
+                            media front. Help elevate our user experience on adding creative flair by collaborating with the front-end team.`
+                        }, {
+                          tag: `h4`, closure: `Qualifications`
+                        }, {
+                          tag: `ul`, flags: {class: `_SCz`}, tagChild: [{
+                            tag: `li`, closure: 
+                              `Capacity to manage a public realtions and communications team.`
+                          }, {
+                            tag: `li`, closure: 
+                              `Possesses superior written and verbal communication skills.`
+                          }, {
+                            tag: `li`, closure: 
+                              `Savvy in digital advertisement and brand management.`
+                          }, {
+                            tag: `li`, closure: 
+                              `High energy and positive attitude with interest in creating new and unique concepts.`
+                          }]
+                        }, {
+                          tag: `div`, flags: {class: `_gxM _CYc _gcQ _geQ _gMX`}, tagChild: [{
+                            tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
+                              tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
+                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX`}, closure: `Apply for Position`
+                              }]
+                            }]
+                          }]
+                        }]
+                      }, {
+                        tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
+                          tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
+                            tag: `div`, flags: {id: `lever`, class: `_gM_a _agM`}, tagChild: [{
+                              tag: `a`, flags: {[`-j1`]: `var`, id: `j1`, role: `job-bin`, href: `#`, class: `_TX_a _atX qXS`}, closure: 
+                                `Read More`
+                            }]
+                          }]
+                        }]
+                      }]
                     }]
                   }]
                 }]
