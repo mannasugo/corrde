@@ -1573,7 +1573,7 @@ module.exports = {
                              around the globe. We are interested in talented technicians to improve our solid foundations
                               while keeping support resources supplies ahead of the demand curve.`
                         }, {
-                          tag: `h4`, closure: `Qualifications`
+                          tag: `h4`, flags: {id: `j0` }, closure: `Qualifications`
                         }, {
                           tag: `ul`, flags: {class: `_SCz`}, tagChild: [{
                             tag: `li`, closure: 
@@ -1668,7 +1668,7 @@ module.exports = {
                         tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
                           tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
                             tag: `div`, flags: {id: `lever`, class: `_gM_a _agM`}, tagChild: [{
-                              tag: `a`, flags: {[`-j0`]: `var`, id: `j0`, role: `job-bin`, href: `#`, class: `_TX_a _atX qXS`}, closure: 
+                              tag: `a`, flags: {[`-j0`]: `var`, id: `j0`, role: `job-bin`, href: `#j0`, class: `_TX_a _atX qXS`}, closure: 
                                 `Read More`
                             }]
                           }]
@@ -1689,7 +1689,7 @@ module.exports = {
                     tag: `div`, flags: {class: `_uZC`}, tagChild: [{
                       tag: `div`, tagChild: [{
                         tag: `div`, tagChild: [{
-                          tag: `h3`, tagChild: [{
+                          tag: `h3`, flags: {id: `j1` }, tagChild: [{
                             tag: `a`, flags: {class: `_ttx`, href: `#`}, closure: `Communications Director`
                           }]
                         }, {
@@ -1713,7 +1713,7 @@ module.exports = {
                             `Join our development team as a communications coordinator while helping curate our brand on the social
                             media front. Help elevate our user experience on adding creative flair by collaborating with the front-end team.`
                         }, {
-                          tag: `h4`, closure: `Qualifications`
+                          tag: `h4`, flags: {for: `j1`}, closure: `Qualifications`
                         }, {
                           tag: `ul`, flags: {class: `_SCz`}, tagChild: [{
                             tag: `li`, closure: 
@@ -1741,7 +1741,8 @@ module.exports = {
                         tag: `div`, flags: {class: `_gxM _CYc`}, tagChild: [{
                           tag: `div`, flags: {class: `ZSg _QZg`}, tagChild: [{
                             tag: `div`, flags: {id: `lever`, class: `_gM_a _agM`}, tagChild: [{
-                              tag: `a`, flags: {[`-j1`]: `var`, id: `j1`, role: `job-bin`, href: `#`, class: `_TX_a _atX qXS`}, closure: 
+                              tag: `a`, flags: {[`-j1`]: `var`, id: `j1`, role: `job-bin`, href: `#j1`, class: `_TX_a _atX qXS`},
+                               closure: 
                                 `Read More`
                             }]
                           }]
