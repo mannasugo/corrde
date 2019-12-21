@@ -3,6 +3,7 @@ const fs = require(`fs`);
 
 const {router} = require(`./corrde-control`);
 const {mysql} = require(`./corrde-util`);
+const {modelString} = require(`./corrde-model`);
 
 mysql();
 

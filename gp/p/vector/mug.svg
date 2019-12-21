@@ -1,0 +1,24 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    .icon-user__shape {
+      fill: #1185fe
+    }
+
+    .icon-user__fill {
+      fill: none;
+      stroke-width: 2px; 
+      stroke: #1185fe
+    }
+
+    .icon-user__circle {
+      stroke: none
+    }
+  </style>
+	<g transform="translate(-4207 -165)">
+	<path class="icon-user__shape" d="M4198.193,99A12.007,12.007,0,0,1,4195,96.944V96.2a3,3,0,0,1,1.64-2.671,13.987,13.987,0,0,1,12.72,0A3,3,0,0,1,4211,96.2v.746A12.012,12.012,0,0,1,4207.808,99ZM4199,85a4,4,0,1,1,4,4A4,4,0,0,1,4199,85Z" transform="translate(16 89)"></path>
+	<g class="icon-user__fill" transform="translate(4207 165)">
+		<circle class="icon-user__circle" cx="12" cy="12" r="12"></circle>
+		<circle class="icon-user__circle-fill" cx="12" cy="12" r="11"></circle>
+	</g>
+	</g>
+  </svg>

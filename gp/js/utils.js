@@ -119,4 +119,29 @@ const WebStore = (function () {
   return WebStore;
 })();
 
+const AJXFile = (function () {
+
+  function AJXFile () {
+    this.init = (navigator.msie && intval(navigator.version) < 10) ? window.XDomainRequest : window.XMLHttpRequest;
+    this.req = new this.init();
+  }
+  
+  AJXFile.prototype = {
+    /**
+     * @override
+     */
+    call: function (url, mail, file) {
+      this.req.open(`POST`, url, true);
+      this.req.setRequestHeader(`corrde-reqs`, mail.value);
+      this.req.onload = function () {
+        mail.to();
+      };
+      this.req.send(file);
+    }
+  };
+  
+  return AJXFile;
+
+})();
+
 let JSStore = new WebStore();

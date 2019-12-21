@@ -110,6 +110,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === ``) this.rootCall();
 
+    if (this.levelState === `in`) this.in();
+
     if (this.levelState === `u`) this.u();
 
     if (this.levelState === `p`) this.p();
@@ -123,36 +125,133 @@ class UAPublic extends Auxll {
     if (this.levelState === `jobs`) this.vacant();
 
     if (this.levelState === `about`) this.about();
+
+    if (this.levelState === `meta`) this.meta();
+
+    if (this.levelState === `setup`) this.setup();
   }
 
   rootCall () {
 
     this.modelStyler(config.lvl.css, CSSString => {
 
-      let modelMapping = {
+      const modelMapping = {
         title: `Corrde`,
         css: CSSString,
+        jSStore: JSON.stringify({State: `offline`}),
+        jsState: config.cd.auJS,
         appendModel: ``
       };
 
-      modelMapping[`appendModel`] = [model.rootModel()];
+      const a2 = {};
+      a2[`appendModel`] = model.mugger();
+      modelMapping[`appendModel`] = [
+        model.main({
+          appendModel: [
+            model.banner(), 
+            model.products(),
+            model.hows(), model.feature(),
+            model.footer()]}), model.header(a2)];
+      modelMapping[`appendModel`] = [model.wrapper(modelMapping), model.jS(modelMapping)];
 
       this.app.to.writeHead(200, config.reqMime.htm);
       this.app.to.end(model.call(modelMapping));
       });
   }
 
-  isPassValid () {
+  in () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        title: `Corrde - Sign in`,
+        css: CSS, 
+        jSStore: JSON.stringify({State: `Sign in`}),
+        jsState: config.cd.auJS};
+
+      pool.appendModel = [
+        model.main({
+          appendModel: [
+            model.in(),
+            model.footer()]
+        })];
+
+      pool.appendModel = [
+        model.wrapper(pool),
+        model.jS(pool)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(pool));
+    })
+  }
+
+  meta () {
+
+    this.isValid(`is_mail`);
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        title: `Corrde - Sign Up`,
+        css: CSS, 
+        jSStore: JSON.stringify({State: `Sign up`}),
+        jsState: config.cd.auJS};
+
+      pool.appendModel = [
+        model.main({
+          appendModel: [
+            model.inMeta(),
+            model.footer()]
+        })];
+
+      pool.appendModel = [
+        model.wrapper(pool),
+        model.jS(pool)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(pool));
+    })
+  }
+
+  isValid (is) {
 
     if (this.app.fro.headers.cookie) {
 
       let cJar = cookie.parse(this.app.fro.headers.cookie);
 
-      if (!cJar.u) return;
+      if (!cJar[is]) return;
 
-      return cJar.u;
+      return cJar[is];
 
     } else this.rootCall();
+  }
+
+  setup () {
+
+    this.isValid(`is_full_set`);
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        title: `Corrde - Set Up Pro Account`,
+        css: CSS, 
+        jSStore: JSON.stringify({State: `setup`}),
+        jsState: config.cd.auJS};
+
+      pool.appendModel = [
+        model.main({
+          appendModel: [
+            model.setPro(),
+            model.footer()]
+        })];
+
+      pool.appendModel = [
+        model.wrapper(pool),
+        model.jS(pool)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(pool));
+    })
   }
 
   u () {
@@ -473,10 +572,6 @@ class ViaAJX extends Auxll {
   }
 
   AJXCalls () {
-    if (this.q.setup) {
-      this.setup(JSON.parse(this.q.setup));
-    }
-
     if (this.q.ini) this.ini(JSON.parse(this.q.ini));
 
     if (this.q.urlCall) this.urlCall(JSON.parse(this.q.urlCall));
@@ -512,14 +607,10 @@ class ViaAJX extends Auxll {
     if (this.q.isissue) this.isissue(JSON.parse(this.q.isissue));
 
     if (this.q.isissueTalk) this.isissueTalk(JSON.parse(this.q.isissueTalk));
-  }
 
-  setup (q) {
-    let modelMapping = {
-      appendModel: model.setup()};
+    if (this.q.isMail_) this.isMail_(JSON.parse(this.q.isMail_));
 
-    this.app.to.writeHead(200, config.reqMime.json);
-    this.app.to.end(JSON.stringify(model.modal(modelMapping)));
+    if (this.q.isFull) this.isFull(JSON.parse(this.q.isFull));
   }
 
   ini (q) {
@@ -1153,6 +1244,110 @@ class ViaAJX extends Auxll {
     })
     })
   }
+
+  isMail_ (q) {
+
+    this.availSubs({
+      [`u`]: `tab`,
+      [`mail`]: `field`,
+      [q[`make_mail`]]: `value`});
+
+    let conca = this.literalFormat(config.sql.tfv);
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      let pool = {
+        err: {}};
+
+      if (B.length > 0) {
+        pool.is_mail = true;
+        pool.err.is_mail = true;
+      }
+
+      else if (B.length === 0) {
+        pool.is_mail = false;
+        this.iniCookie(`is_mail`, false);
+      }
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify(pool));
+    })
+  }
+
+  isValid (is) {
+
+    if (this.app.fro.headers.cookie) {
+
+      let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+      if (!cJar[is]) return false;
+
+      return cJar[is];
+
+    } else return false;
+  }
+
+  isFull (q) {
+
+    let pool = {
+        err: {}};
+
+    if (!q[`make_full`]) {
+      pool.is_full_set = false;
+      pool.err.cookie_err = true;
+    }
+
+    else {
+      pool.is_full_set = true;
+      this.iniCookie(`is_full_set`, true);
+    }
+
+    if (config.meta_to[0] === q.in_as) {
+      pool.url = `/setup`;
+    }
+
+    else if (config.meta_to[1] === q.in_as) pool.url = `/explore` //public
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify(pool));
+    
+  }
+}
+
+class AJXJPEG {
+
+  constructor (file, req, res) {
+    this.file = file;
+    this.app = {
+      fro: req,
+      to: res};
+    this.q = JSON.parse(req.headers[`corrde-reqs`]);
+  }
+
+  AJXCalls () {
+
+    if (this.q.file === `ini_ava`) this.iniAva();
+  }
+
+  iniAva () {
+
+    let localSt_ = new Date().valueOf();
+
+    let mail = crypto.createHash(`md5`).update(`${this.q.make_mail}`, `utf8`).digest(`hex`);
+
+    const u = config.lvl_ini_ava + mail + `/`;
+
+    fs.mkdir(u, {recursive: true}, (err) => {
+
+      fs.writeFile(u + localSt_ + `.jpg`, this.file, err => {
+
+        let pool = {lvl_ini_ava: u + localSt_ + `.jpg`}
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify(pool));
+      });
+    });
+  }
 }
 
 module.exports = {
@@ -1167,5 +1362,9 @@ module.exports = {
 
   viaAJX (q, to, fro) {
     new ViaAJX(q, to, fro).AJXCalls();
+  },
+
+  AJXJPEG(file, req, res) {
+    new AJXJPEG(file, req, res).AJXCalls();
   }
 }

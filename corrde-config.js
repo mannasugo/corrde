@@ -7,9 +7,11 @@ let cdto = {
   gp: `/gp/`,
   quora: `https://quora.corrde.com/`,
   dev: `https://developer.corrde.com/`,
-  support: `https://support.corrde.com/`},
+  support: `https://support.corrde.com/`,
+  instagram: `https://instagram.com/corrde_llc`,
+  twitter: `https://twitter.com/corrde_llc`,},
 
-  root = `gp/`,
+  gp = `gp/`,
 
   mimeTitle = `Content-Type`
 
@@ -17,8 +19,10 @@ module.exports = {
 
   to: cdto,
 
+  lvl_ini_ava: gp + `img-ssl/ini/sq/`,
+
   lvl: {//svr_map
-    css: root + `css/css.css`},
+    css: gp + `css/css.css`},
 
   cd : { //site_map
     uareq: cdto.reqs + `ua/`,
@@ -31,7 +35,9 @@ module.exports = {
     css: cdto.gp + `css/css.css`,
     utilJS: cdto.gp + `js/utils.js`,
     unauJS: cdto.gp + `js/un-au.js`,
-    auJS: cdto.gp + `js/au.js`,u: cdto.res + `u/`},
+    auJS: cdto.gp + `js/au.js`,
+    u: cdto.res + `u/`,
+    ini_ava: cdto.gp + `img-ssl/ini/sq/`},
 
   rexp: {
     cssSlim: {'{ ': /\s*{/g, '{': /{\s*/g, ';': /;\s*/g, ' }': /\s*}/g, '}': /}\s*/g}}, //{[`{`]: RegExp}
@@ -183,6 +189,11 @@ module.exports = {
       `wear fitting`, 
       `tailoring`, 
       `apparel production and supply`],
+    [`Fitness and Health`]: [
+      `Fitness instructor`,
+      `Physical therapy`,
+      `Yoga instructor`,
+      `Masseuse`],
     [`home`]: [
       `carpet cleaning`,
       `cooking`,
@@ -222,5 +233,186 @@ module.exports = {
     `bookings and orders`,
     `developers and APIs`,
     `mail and notifications`,
-    `user interface`]
+    `user interface`],
+
+  hows: {
+    [`Post a job (free  service)`]:
+      `Post a detailed description of your job then corrde coordinates you with respective experts for your task within your locale.`,
+    [`Receive Applications and bids`]:
+      `Get live applications after your post. Compare experts' bids, previous job reviews and ratings then hire or interview.`,
+    [`Collaborate Freely`]: 
+      `Use Corrde's chat and video call services for your work's coordination.`,
+    [`Payment simplified`]:
+      `Pay hourly or fixed-price and receive invoices through Corrde. Pay for work you authorize.`},
+
+  foots: {
+    [`About`]: `/about`,
+    [`Team`]: `/team`,
+    [`Jobs`]: `/jobs`,
+    [`Support`]: `/support`},
+
+  feature: {
+    [`Adaptable Location Matching`]: 
+      `Corrde is inherently a location-based service and therefore utilises your location to match you with a client or 
+      proffesional. This is not a fixed feature though, as either proffesional or client can be on the move and as such
+      change location. Apart from the automatic GPS locations, proffesionals can customize their preferred locations of 
+      operation to any part of the world to find job matches at any time, they can also adjust the distance range for jobs 
+      they would like to see near them based on their current location while clients can also do the same to fit their needs.`,
+    [`Customizable Portfolio`]: 
+      `Proffesionals can curate their own profile with simple but essential details that easily attracts clients,
+      these include working rates(hourly/fixed), availability and work schedules to facilitate client bookings. 
+      To make sure you show your best side, we have built an adaptable portfolio service that allows you to upload
+      tantalising pics that highlight your best work both on and off corrde.`,
+    [`Real Time Communication`]: 
+      `Enjoy our free collaboration services like our text and video chats (voice call included) to facilitate interviews and 
+      work coordination. Corrde aims to run a trusted and transparent web service through these instant and direct 
+      communication channels.`,
+    [`Payment Simplified`]: 
+      `Receive and send payments seamlessly with our wide array of payment gateways. Corrde accepts Mastercard, Visa, Paypal,
+      Bitcoin and Ethereum for payments as a convention, though we strive to accept other conventional mobile money payments 
+      in certain regions (check support page to confirm eligibility for your region). Corrde also manages a transparent 
+      and organized invoice system for all transactions and client authorized payments`,
+  },
+
+  meta_to: [
+    `Proceed to set up your proffesional account as a freelancer`,
+    `Proceed directly to your account to post job or browse proffesionals`],
+
+  qual: [
+    `Diploma`, `Degree`],
+
+  qual_diploma: [
+    `Certificate`, `Higher Certificate`],
+
+  qual_degree: [
+    `Certificate`, `Higher Certificate`, `Bachelors Degree`, `Masters Degree`, `Doctorate`],
+
+  bann: 
+    `The Blue Collar Hub`,
+  TM:
+    `™`,
+  byline:
+    `Easily book appointments and clients or post jobs and find proffesionals with our service.`,
+  promptSign:
+    `Get started in Corrde`,
+  placeMail:
+    `&@placeholder>Email`,
+  placePass:
+    `&@placeholder>Password`,
+  valText:
+    `&@type>text`,
+  valPass:
+    `&@type>password`,
+  MakeAccount:
+    `~@Make Account`,
+  nullSrc:
+    `&@href>#`,
+  products_sect_title:
+    `~@Post your job with Corrde`,
+  products_sect_desc:
+    `~@For these services book blue collar proffesionals within your locale`,
+  nav_down_svg:
+    `&@src>/gp/p/vector/nav_down.svg`,
+  home_how:
+    `~@How it works`,
+  ip:
+    `~@© Corrde 2019 LLC`,
+  valjS:
+    `&@type>text/javascript`,
+  out_to: 
+    `&@target>_blank`,
+  to_insta: 
+    `&@href>${cdto.instagram}`,
+  to_twitter: 
+    `&@href>${cdto.twitter}`,
+  to_mug: 
+    `&@href>#mug`,
+  feature_title:
+    `~@Our Features`,
+  in_title:
+    `~@Welcome Back`,
+  in_to:
+    `~@Log in`,
+  in_meta_title:
+    `~@Get Started`,
+  placeName:
+    `&@placeholder>Full Name`,
+  meta_to_title: 
+    `~@Select an option from below to proceed`,
+  pro_title: 
+    `~@Pro Account`,
+  set_avatar_title:
+    `~@1. Set up Profile Picture`,
+  to_ava:
+    `&@href>#ava`,
+  ava_to:
+    `~@*Click circle to add profile picture`,
+  set_field_title:
+    `~@2. Select Your Skills' Categories`,
+  fields_para:
+    `~@*Maximum number of fields is 3`,
+  set_fieldsub_title:
+    `~@3. Select Your Skills' Specialties`,
+  fieldsub_para:
+    `~@*Maximum number of specialties is 3`,
+  set_field_desc_title:
+    `~@4. Skill Description`,
+  field_desc_para:
+    `~@Give a summary of your skills and qualifications.`,
+  set_appraise_title:
+    `~@5. Work Rate`,
+  appraise_para:
+    `~@Your rate in Dollars per Hour`,
+  set_academia_title:
+    `~@6. Studies, Qualifications and Academic Merit`,
+  academia_para:
+    `~@Merit`, 
+  qual_para:
+    `~@Merit Level`,
+  fill_off:
+    `&@autocomplete>off`,
+  place_long:
+    `&@placeholder>Type Text Here`,
+  place_appraise_rate:
+    `&@placeholder>Dollars/Hour`,
+  place_instut:
+    `&@placeholder>School/Institution`,
+  place_era_a:
+    `&@placeholder>Year Started`,
+  place_era_z:
+    `&@placeholder>Finish Year`, 
+  instut_para:
+    `~@School`,
+  instut_era_para:
+    `~@Period`,
+  add_instut:
+    `~@+ Add School`,
+  to_instut:
+    `&@href>#school`,
+  place_workplace:
+    `&@placeholder>Company`,
+  place_role:
+    `&@placeholder>Position`,
+  set_work_title:
+    `~@7. Employment Details`,
+  work_para:
+    `~@Work Place Details`,
+  work_era_para:
+    `~@Period`,
+  add_work:
+    `~@+ Add Work Place`,
+  to_work:
+    `&@href>#work`,
+  study_yet_para:
+    `~@*If current school, leave Finish Year blank and mark option below.`,
+  study_yet:
+    `~@This is my Current School.`,
+  work_yet_para:
+    `~@*If current work place, leave Finish Year blank and mark option below.`,
+  work_yet:
+    `~@This is my Current Work Place.`,
+  save_pro:
+    `~@Save`,
+  to_save:
+    `&@href>#save`
 }

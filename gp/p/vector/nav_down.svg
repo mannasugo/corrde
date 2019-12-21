@@ -1,0 +1,12 @@
+<svg class="icon-ui icon-ui--18" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
+  <style>
+    .stroke {
+      stroke: #142149;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+  <path class="stroke" d="M5,7l4,4l4-4"></path>
+</svg>

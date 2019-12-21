@@ -32,13 +32,13 @@ class RouteControl {
         bufferOffset += data.length;
         endData += data;
 
-      }).on(`end`, () => {console.log(``)
+      }).on(`end`, () => {
 
-        //if (req.headers[`x-simplehttpblob`]) {
-        //  Util.blobViaHttps(blob, req.headers[`x-simplehttpblob`], req, res);
-        //} else {
+        if (req.headers[`content-type`] === `image/jpeg`) {
+          Util.AJXJPEG(blob, req, res);
+        } else {
           Util.viaAJX(parse(endData), req, res);
-        //}
+        }
       });
     }
 

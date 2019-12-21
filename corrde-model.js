@@ -5,25 +5,52 @@ class ModelString {
   constructor() {
     this.appendString = ``;
   }
-  
+
   modelStringify (model) {
     if (typeof model !== `object`) return;
-    model.forEach(miniModel => {
-      let a = miniModel.tag;
-      let z = a;
-      if (miniModel.tag_) a = miniModel.tag_;
+
+    for (let lev = 0; lev < model.length; lev++) {
+
+      let a = model[lev][0];
+      let t2, lv2, z = a;
+
+      if (a === `html`) a = `!doctype html><html`;
+
       this.appendString += `<` + a;
-      if (miniModel.flags) {
-        for (let flag in miniModel.flags) {
-          this.appendString += ` ` + flag + `='` + miniModel.flags[flag] + `'`;
+
+      for (let lev_ = 0; lev_ < model[lev].length; lev_++) {
+
+        let l2 = model[lev][lev_];
+
+        if (typeof l2 === `string` && l2.split(`@`)[0] === `#`) {
+          this.appendString += ` id='` + l2.split(`@`)[1] + `'`;
         }
+
+        else if (typeof l2 === `string` && l2.split(`@`)[0] === `.`) {
+          this.appendString += ` class='` + l2.split(`@`)[1] + `'`;
+        }
+
+        else if (typeof l2 === `string` && l2.split(`@`)[0] === `&`) {
+          let plus = l2.split(`@`)[1].split(`>`);
+          this.appendString += ` ` + plus[0] + `='` + plus[1] + `'`;
+        }
+
+        if (typeof l2 === `object`) {lv2 = l2;}
+
+        if (typeof l2 === `string` && l2.split(`@`)[0] === `~`) { t2 = l2;}
+
       }
+
       this.appendString += `>`;
-      if (miniModel.closure) this.appendString += miniModel.closure;
-      if (miniModel.tagChild) this.modelStringify(miniModel.tagChild);
+
+      if (typeof t2 === `string` && t2.split(`@`)[0] === `~`) {this.appendString += t2.substring(2, t2.length+1);}
+
+      if (typeof lv2 === `object`) {this.modelStringify(lv2);}
+
       let queer = [`img`, `input`, `meta`];
-      if (queer.indexOf(miniModel.tag) === -1) this.appendString += `</` + z + `>`; 
-    });
+
+      if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`; 
+    }
     return this.appendString;
   }
 }
@@ -71,7 +98,7 @@ class Util {
 
   ticker (time) {
 
-    let then = new Date(parseInt(time)), lapse = (then - new Date)/1000, lapseString;console.log(time)
+    let then = new Date(parseInt(time)), lapse = (then - new Date)/1000, lapseString;
 
     if (lapse < 86400*5) {
 
@@ -120,124 +147,9 @@ module.exports = {
   },
 
   call (mapping) {
-    return this.modelString(this.root(mapping));
-  },
-
-  root (mapping) {
-    return [{
-      tag: `html`, tag_: `!doctype html><html`, flags: {lang: `en`}, tagChild: [{
-        tag: `head`, tagChild: [
-          {tag: `meta`, flags: {charset: `utf-8`}},
-          {tag: `title`, closure: mapping.title}, {tag: `meta`, flags: {
-            name: `viewport`, content: `width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no`}
-          }, {tag: `style`, flags: {type: `text/css`}, closure: mapping.css}]
-      }, {tag: `body`, tagChild: mapping.appendModel}]
-    }];
+    return this.modelString(this.html(mapping));
   },
   
-  rootModel () {
-    return {
-      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
-        tag: `section`, flags: {class: `_miY`}, tagChild: [{
-          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
-            tag: `article`, flags: {class: `_XQ2`}, tagChild: [{
-              tag: `div`, flags: {class: `_xCQ`}, tagChild: [{
-                tag: `div`, flags: {style: `padding: 30px 15px; font-size: 13px;`}, tagChild: [{
-                  tag: `div`, flags: {class: `_gxM _gcQ`}, tagChild: [{
-                    tag: `span`, flags: {class: `_Ctx`}, closure: `corrde.`
-                  }, {
-                    tag: `span`, flags: {class: `_tCc`}, closure: `beta`
-                  }]
-                }, {
-                  tag: `p`, flags: {class: ``}, closure: `Corrde is both a job hailing and job 
-                   outsourcing web service for informal and casual tasks. Corrde acts as a 'cord' 
-                   between the client (job-source) and the service-provider (job-hailer).`
-                }, {
-                  tag: `div`, flags: {style: `padding: 40px 0 0`}, tagChild: [{
-                    tag: `p`, closure: `Are You a Client looking for a Quick Fix or interested in a quick and casual job?`
-                  }, {
-                    tag: `div`, flags: {class: `_sxC`}, tagChild: [{
-                      tag: `button`, flags: {class: `_bsZ`}, closure: `Sign Up`
-                    }]
-                  }]
-                }/*, {
-                  tag: `div`, flags: {style: `padding: 40px 0 0`}, tagChild: [{
-                    tag: `p`, closure: `Are You looking for a Quick Fix Job ?`
-                  }, {
-                    tag: `div`, flags: {class: `_sxC`}, tagChild: [{
-                      tag: `button`, flags: {class: `_bsZ`}, closure: `Sign Up as a Service-Provider`
-                    }]
-                  }]
-                }*/]
-              }]
-            }, {
-              tag: `div`, flags: {class: `_xCQ_`}, tagChild: [{
-                tag: `div`, flags: {style: `text-align: center`}, tagChild: [{
-                  tag: `form`, flags: {class: `_UGA`, autocomplete: `off`}, tagChild: [{
-                    tag: `div`, flags: {class: `_txU`}, closure: `Sign In`}, {
-                    tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
-                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                    tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `email`}
-                  }]
-                }, {
-                  tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                    tag: `input`, flags: {class: `_RRD`, placeholder: `password`, type: `password`}
-                  }]
-                }]
-              }, {
-                tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-                  tag: `button`, flags: {class: `_bsZ`}, closure: `Sign in`
-                }]
-              }, {
-                tag: `p`, flags: {class: `_GXe`}, tagChild: [{
-                  tag: `a`, flags: {class: `_THa`, href: `javascript:;`}, closure: `Forgot Password?`
-                }]
-              }]
-            }, {
-              tag: `div`, flags: {class: `_Ctx`}, closure: ``
-            }, {
-              tag: `div`, flags: {style: `display: none`, class: `_yCR`}, tagChild: [{
-                tag: `div`, flags: {style: `margin: auto`, class: `-_-Z _gM_a _agM`}, tagChild: [{
-                  tag: `a`, flags: {role: `sale`, href: `#`, class: `_TX_a _atX`}, closure: `Sign Up`
-                }]
-              }]
-            }]
-              }]
-            }]
-          }]
-        }, {
-          tag: `footer`, flags: {class: `_CuH`}, tagChild: [{
-            tag: `div`, flags: {style: `padding: 38px 0;`, class: `_gxM _XQ2`}, tagChild: [{
-              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
-                tag: `a`, flags: {href: config.cd.platform, class: `_uHB`}, closure: `About`
-              }]
-          }, {
-              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
-                tag: `a`, flags: {href: config.cd.us, class: `_uHB`}, closure: `Team`
-              }]
-          }, {
-              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
-                tag: `a`, flags: {href: config.cd.jobs, class: `_uHB`}, closure: `Jobs`
-              }]
-          }, {
-              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
-                tag: `a`, flags: {href: config.cd.support, class: `_uHB`}, closure: `Support`
-              }]
-          }, {
-              tag: `div`, flags: {class: `_geQ`}, tagChild: [{
-                tag: `a`, flags: {href: config.cd.dev, class: `_uHB`}, closure: `Developers`
-              }]
-            }, {tag: `span`, flags: {class: `_szU`}, closure: `© 2019 CORRDE.`}]
-          }]
-        }]
-      }, {
-        tag: `script`, flags: {src: config.cd.utilJS}
-      }, {
-        tag: `script`, flags: {src:  config.cd.unauJS}
-      }]
-    };
-  },
-
   modal (mapping) {
     return [{
       tag: `div`, flags: {class: `_UQe`, id: `modal`}, tagChild: [{
@@ -247,50 +159,6 @@ module.exports = {
           tag: `div`, flags: {class: `_oPQ`}, tagChild:  mapping.appendModel
         }]
       }]
-    }];
-  },
-
-  setup () {
-    return [{
-      tag: `div`, flags: {class: `_Ysz`}, tagChild: [{
-        tag: `div`, flags: {class: `_uCX`}, tagChild: [{
-          tag: `div`, flags: {class: `_txU`}, closure: `register account`}, {
-            tag: `div`, flags: {class: `_gBC _gBA`}, tagChild: [{
-              tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                tag: `input`, flags: {class: `_RRD`, placeholder: `name`, type: `text`}
-              }]
-            }, {
-              tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                tag: `input`, flags: {class: `_RRD`, placeholder: `email`, type: `email`}
-              }]
-            }, {
-              tag: `div`, flags: {class: `_UFA`}, tagChild: [{
-                tag: `input`, flags: {class: `_RRD`, placeholder: `password`, type: `password`}
-              }]
-            }]
-          }, {
-            tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-              tag: `button`, flags: {class: `_bsZ`}, closure: `Proceed`
-            }]
-          }]
-        }]
-    }];
-  },
-
-  mode () {
-    return [{
-      tag: `div`, flags: {class: `_Ysz`}, tagChild: [{
-        tag: `div`, flags: {class: `_uCX`}, tagChild: [{
-          tag: `div`, flags: {class: `_txU`}, closure: `choose mode to proceed`}, {
-            tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-              tag: `button`, flags: {class: `_bsZ`}, closure: `seller`
-            }]
-          }, {
-            tag: `div`, flags: {class: `_FFe`}, tagChild: [{
-              tag: `button`, flags: {class: `_bsZ`}, closure: `market`
-            }]
-          }]
-        }]
     }];
   },
 
@@ -1659,7 +1527,7 @@ module.exports = {
                           tag: `div`, flags: {class: `_gxM _CYc _gcQ _geQ _gMX`}, tagChild: [{
                             tag: `div`, flags: {class: `_gcQ`}, tagChild: [{
                               tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                                tag: `a`, flags: {href: `#`, class: `_TX_a _atX`}, closure: `Apply for Position`
+                                tag: `a`, flags: {href: `#apply`, class: `_TX_a _atX`}, closure: `Apply for Position`
                               }]
                             }]
                           }]
@@ -1933,5 +1801,376 @@ module.exports = {
         tag: `aside`, tagChild: this.JS(pool)
       }]
     };
+  }, 
+
+  html (mapping) {
+    return [[
+      `html`, `&@lang>en`, [[
+        `head`, [[
+          `meta`, `&@charset>utf-8`], [
+          `title`, `~@${mapping.title}`], [
+          `meta`, `&@name>viewport`, `&@content>width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no`], [
+          `style`, `&@type>text/css`, `~@${mapping.css}`]]], [
+        `body`, mapping.appendModel]]]]
+  },
+
+  wrapper (pool ) {
+    return [
+      `span`, `#@corrde-root`, [[
+        `section`, `.@_miY`, pool.appendModel]]];
+  },
+
+  main (pool) {
+    return [`main`, `.@_xC2`, pool.appendModel]
+  },
+
+  header (pool) {
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc`, `~@beta`]]], [
+              `div`, `.@_QZg`, pool.appendModel], [
+              `div`, `#@mug`, `.@_aYx _-Zz`, [[
+                `ul`, `.@_aYy _tXx`, [[
+                  `li`, `.@_-zZx`, [[
+                    `a`, `.@_-xQy`, `&@href>/in`, [[`span`, `.@_Xtx _tAx`, `~@log in`]]]]], [
+                  `li`, `.@_-zZx`, [[
+                    `a`, `.@_-xQy`, `&@role>signup`, config.nullSrc + `signup`, [[`span`, `.@_Xtx _tAx`, `~@sign up`]]]]]]]]]]]]]]]]]
+  },
+
+  mugger () {
+    return [[
+    `div`, `.@_y4x`, [[
+      `a`, `&@role>mug`, `.@-_tX MugColorv`, config.to_mug, `~@Mug`]]]]
+  },
+
+  banner () {
+    return [
+      `header`, `.@_cXz`, [[
+        `div`, `.@_XsQ`, [[
+          `div`, [[
+            `h1`, `.@_tQz`, [[
+              `span`, `.@_-X`, `~@${config.TM}`]], 
+              `~@${config.bann}`], [
+            `p`, `.@_t4z`, `~@${config.byline}`], [
+            `div`, `.@_SaQ`, [[
+              `h2`, `.@_uHg _-SZ6 h4`, `~@${config.promptSign}`], [
+              `form`, `.@_cQc`, [[
+                `div`, `.@_cQX`, [[
+                  `input`, `#@signup`, `.@_-Yz`, config.placeMail, config.valText]]], [
+                `div`, `.@_cQX`, [[
+                  `input`, `#@make-pass`, `.@_-Yz`, config.placePass, config.valPass]]], [
+                  `div`, `.@_agM _gM_a _cQc`, [[
+                    `a`, `#@make`, `.@_TX_a _atX _c5Q`, config.nullSrc + `go`, config.MakeAccount]]]]]]]]]]], [`div`, `.@_-ZCc`]]]
+  },
+
+  products () {
+
+    let fieldAll = [], i = 0;
+
+    for (let field in config.fields) {
+
+      let subAll = [], a = 0, subs = config.fields[field];
+
+      for (let sub in subs) {
+        subAll[a] = [`li`, `.@_-zZx`, [[
+          `a`, `.@_-xQy`, config.nullSrc + `null`, [[`div`, `.@_gXs`, [[`p`, `.@_Xtx _tAx`, `~@${subs[a]}`]]]]]]]
+        a++
+      }
+
+      fieldAll[i] = [`li`, `.@aXy _-_y`, [[
+        `a`, `.@_Xxt _A`, config.nullSrc + `null`, [[
+          `span`, `&@role>pro`, `#@${i}`, `.@_aXx _tAx`, `~@${field}`], [
+          `i`, `#@${i}`, `&@role>pro`, `.@_yXx NavDownColor`]]], [`div`, `#@pro-${i}`, `.@_-aX _-Zz`, [[`ul`, `.@_aYz`, subAll]]]]]
+
+      i++
+    }
+
+    return [
+      `section`, `.@_C9y`, [[
+        `div`, `.@_XsQ _xsQ-`, [[
+          `h2`, `.@_SCx`, config.products_sect_title], [
+          `p`, `.@_tqS`, config.products_sect_desc], [
+          `div`, [[
+            `div`, `.@_aXy`, [[
+              `ul`, `.@_aYy`, fieldAll]]]]]]], [`div`, `.@_aAx`]]]
+  },
+
+  hows () {
+
+    let stepsAll = [], i = 0;
+
+    for (let step in config.hows) {
+
+      stepsAll[i] = [
+        `li`, `.@_WtX`, `~@${step}`, [[`ul`, `.@_iSa`, [[`li`, `~@${config.hows[step]}`]]]]]
+
+      i++
+    }
+
+    return [
+      `section`, `.@_C9y`, [[
+        `div`, `.@_XsQ _xsQ-`, [ [
+          `p`, `.@_tqS _WtX`, config.home_how], [
+          `div`, [[
+            `div`, `.@aXy`, [[
+              `ul`, `.@_SCz`, stepsAll]]]]]]], [`div`, `.@_aAx _aAz`]]]
+  },
+
+  feature () {
+
+    let featAll = [], i = 0;
+
+    for (let feat in config.feature) {
+
+      featAll[i] = [
+        `div`, `.@_SCz `, [[`p`, `.@tqS _qSz`, `~@${feat}`], [`div`, `.@_txx`, [[`p`, `~@${config.feature[feat]}`]]]]]
+
+      i++
+    }
+
+    return [
+      `section`, `.@_C9y`, [[
+        `div`, `.@_XsQ _xsQ-`, [[
+          `h2`, `.@_SCx`, config.feature_title], [`div`, featAll]]]]]
+  },
+
+  footer () {
+
+    let footAll = [], i = 0;
+
+    for (let foot in config.foots) {
+
+      footAll[i] = [
+        `div`, `.@_geQ`, [[`a`, `.@_uHB`, `&@href>${config.foots[foot]}`, `~@${foot}`]]]
+
+      i++
+    }
+    return [
+      `footer`, `.@_CuH`, [[  
+        `div`, `.@_gxM _aYS`, footAll], [
+        `div`, `.@_gMX _aYS`, [[
+          `a`, `.@-_tX _4Qx GramColor`, config.out_to, config.to_insta, `~@instagram`], [
+          `a`, `.@-_tX _4Qx TwitterColor`,config.out_to, config.to_twitter, `~@twitter`]]], [
+        `div`, `.@_geQ _aYS`, [[`span`, `.@_uHB`, config.ip]]]]]
+  },
+
+  jS (pool) {
+    return [
+      `aside`, [[
+        `script`, `&@src>${config.cd.utilJS}`], [
+        `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], [
+        `script`, `&@src>${pool.jsState}`]]]
+  },
+
+  in () {
+    return [
+      `header`, `.@_cXz`, [[
+        `div`, `.@_XsQ`, [[
+          `div`, [[
+            `div`, `.@_SaQ`, [[
+              `h2`, `.@_uHg _-SZ6 h4`, config.in_title], [
+              `form`, `.@_cQc`, [[
+                `div`, `.@_cQX`, [[
+                  `input`, `#@sign`, `.@_-Yz`, config.placeMail, config.valText]]], [
+                `div`, `.@_cQX`, [[
+                  `input`, `.@_-Yz`, config.placePass, config.valPass]]], [
+                  `div`, `.@_agM _gM_a _cQc`, [[
+                    `a`, `#@sigin`, `.@_TX_a _atX _c5Q`, config.nullSrc + `in`, config.in_to]]]]]]]]]]], [`div`, `.@_-ZCc`]]]
+  },
+
+  inMeta () {
+
+    let metaAll = [], i = 0;
+
+    for (let meta in config.meta_to) {
+
+      metaAll[i] = [
+        `div`, `.@_dVP`, [[
+          `label`, `.@_cVP _btX`, `&@role>radio`, [[
+            `input`, `#@0`, `&@type>radio`, `&@name>meta-to`, `&@value>${config.meta_to[meta]}`], [
+            `span`, `.@_tCw _axX`, `~@${config.meta_to[meta]}`]]]]]
+
+      i++
+    }
+    return [
+      `header`, `.@_cXz`, [[
+        `div`, `.@_XsQ`, [[
+          `div`, [[
+            `div`, `.@_SaQ`, [[
+              `h2`, `.@_uHg _-SZ6 h4`, config.in_meta_title], [
+              `form`, `.@_cQc`, [[
+                `div`, `.@_cQX`, [[
+                  `input`, `#@full`, `.@_-Yz`, config.placeName, config.valText]]], [
+                `div`, `.@_aSz`, [[
+                  `span`, `.@_tCx`, config.meta_to_title], [
+                  `div`, metaAll]]], [
+                  `div`, `.@_agM _gM_a _cQc`, [[
+                    `a`, `#@meta-sign`, `.@_TX_a _atX _c5Q`, config.nullSrc + `meta`, config.MakeAccount]]]]]]]]]]], [`div`, `.@_-ZCc`]]]
+  },
+
+  inputFile () {
+    return [
+      `form`, `&@enctype>multipart/form-data`, [[`input`, `#@file`, `&@type>file`]]]
+  },
+
+  setPro () {
+
+    let fieldAll = [], subAll = [], qualAll = [], workAll = [], i = 0;
+
+    for (let field in config.fields) {
+
+      fieldAll[i] = [
+        `div`, `.@_qXq`, [[
+          `label`, `.@_tXv`, `&@role>checkbox`, [[
+            `input`, `#@field-${i}-0`, `&@type>checkbox`, `&@name>field-top`, `&@value>${field}`], [
+            `span`, `.@_tCw axX`, `~@${field}`]]], [`div`]]]
+
+      let lvlAll = [], a = 0, subs = config.fields[field];
+
+      for (let sub in subs) {
+        lvlAll[a] = [`div`, `.@_qXq`, [[
+          `label`, `.@_tXv`, `&@role>checkbox`, [[
+            `input`, `#@sub-${i}-${a}-0`, `&@type>checkbox`, `&@name>field-last`, `&@value>${subs[a]}`], [
+            `span`, `.@_tCw axX`, `~@${subs[a]}`]]], [`div`]]]
+        a++
+      }
+
+      subAll[i] = [`div`, `#@sub-${i}`, `.@_-Zz`, [[`a`, `.@_qS2`, `&@href>#sub-${i}`, `~@${field}`], [`div`, `.@_gZy`, lvlAll]]]
+
+      i++
+    }
+
+    for (let i = 0; i < 4; i++) {
+
+      let levAll = [], quallevAll = [], lev2All = [], a = 0, c = 0, s = 0;
+      
+      for (let qual in config.qual) {
+        levAll[a] = [
+            `div`, `.@_qXq`, [[
+              `label`, `.@_tXv`, `&@role>radio`, [[
+                `input`, `#@qual-${i}`, `&@type>radio`, `&@name>qual`, `&@value>${a}`], [
+                `span`, `.@_tCw axX`, `~@${config.qual[a]}`]]]]]
+        a++;
+      }
+
+      for (let lev in config.qual_diploma) {
+        quallevAll[c] = [
+            `div`, `.@_qXq`, [[
+              `label`, `.@_tXv`, `&@role>radio`, [[
+                `input`, `#@quallev-${i}`, `&@type>radio`, `&@name>qual-lev`, `&@value>${config.qual_diploma[c]}`], [
+                `span`, `.@_tCw axX`, `~@${config.qual_diploma[c]}`]]]]]
+        c++;
+      }
+
+      for (let lev2 in config.qual_degree) {
+        lev2All[s] = [
+            `div`, `.@_qXq`, [[
+              `label`, `.@_tXv`, `&@role>radio`, [[
+                `input`, `#@qual-${i}-0`, `&@type>radio`, `&@name>qual`, `&@value>${config.qual_degree[s]}`], [
+                `span`, `.@_tCw axX`, `~@${config.qual_degree[s]}`]]]]]
+        s++;
+      }
+
+      qualAll[i] = [`div`, `#@level-${i}-0`, `&@role>schule`, `.@_-Zz _sZ2`, [[
+        `a`, `.@_tAa _tXx`, `&@href>#s-${i}`, `~@School #${i + 1}`], [
+        `div`, `.@_gZy _caZ`, `levAll`], [
+        `p`, `.@_tCx _t2x`, config.qual_para], /*[
+        `div`, `.@_gZy _caZ`, quallevAll],*/ [
+        `div`, `.@_gZy _caZ`, lev2All], [
+        `div`, [[
+          `p`, `.@_tCx`, config.instut_para], [
+          `div`, `.@_UFA`, [[
+            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_instut]]]]], [
+        `div`, [[
+          `p`, `.@_tCx`, config.instut_era_para], [
+          `div`, `.@_UFA`, [[
+            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_a]]], [
+          `div`, `.@_UFA`, [[
+            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_z]]], [
+          `div`, `.@_yCR`, [[
+            `p`, `.@_axX`, config.study_yet_para], [
+            `label`, `.@_tXv`, `&@role>checkbox`, [[
+              `input`, `#@aca-${i}`, `&@type>checkbox`, `&@name>school-yet`, `&@value>0`], [
+              `span`, `.@_tCw _t2x`, config.study_yet]]]]]]]]];
+
+      workAll[i] = [`div`, `#@wpl-${i}-0`, `&@role>arbeit`, `.@_-Zz _sZ2`, [[
+        `a`, `.@_tAa _tXx`, `&@href>#w-${i}`, `~@Work #${i + 1}`], [
+        `div`, [[
+          `p`, `.@_tCx`, config.work_para], [
+          `div`, `.@_UFA`, [[
+            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_workplace]]], [
+          `div`, `.@_UFA`, [[
+            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_role]]]]], [
+        `div`, [[
+          `p`, `.@_tCx`, config.work_era_para], [
+          `div`, `.@_UFA`, [[
+            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_a]]], [
+          `div`, `.@_UFA`, [[
+            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_z]]], [
+          `div`, `.@_yCR`, [[
+            `p`, `.@_axX`, config.work_yet_para], [
+            `label`, `.@_tXv`, `&@role>checkbox`, [[
+              `input`, `#@work-${i}`, `&@type>checkbox`, `&@name>work-yet`, `&@value>0`], [
+              `span`, `.@_tCw _t2x`, config.work_yet]]]]]]]]];
+    }
+
+   return [
+      `section`, `.@_C9y`, [[
+        `div`, `.@_XsQ _xsQ-`, [[
+          `h2`, `.@_SCx`, config.pro_title], [
+          `div`, `.@_aSz`, [[
+            `div`, `.@_sZ2`, [[
+              `p`, `.@_yCR _eZz`, config.set_avatar_title], [
+              `div`, `.@_4sC _dMG`, [[
+                `label`, `.@_cCq _gS6`, `#@ini-ava`, `&@for>file`, config.to_ava, [[
+                  `img`, `#@ini-ava`, `.@_aWz`]]], [
+                `p`, `.@_axX`, config.ava_to], 
+                this.inputFile()]]]], [
+            `div`, `.@_sZ2`, [[
+              `p`, `.@_yCR _eZz`, config.set_field_title], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_axX _gxM _gMX`, config.fields_para], [
+                `div`, `.@_gZy`, fieldAll]]]]], [
+            `div`, `.@_sZ2`, [[
+              `p`, `.@_yCR _eZz`, config.set_fieldsub_title], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_axX _gxM _gMX`, config.fieldsub_para], [
+                `div`, subAll]]]]], [
+            `div`, `.@_sZ2`, [[
+              `p`, `.@_yCR _eZz`, config.set_field_desc_title], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_tCx`, config.field_desc_para], [
+                `div`, [[
+                  `textarea`, `.@-_tyq`, config.fill_off, config.place_long]]]]]]], [
+            `div`, `.@_sZ2`, [[
+              `p`, `.@_yCR _eZz`, config.set_appraise_title], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_tCx`, config.appraise_para], [
+                `div`, `.@_UFA`, [[
+                  `input`, `.@_RRD _Ccs`, config.fill_off, config.place_appraise_rate]]]]]]], [
+            `div`, `.@_sZ2`, [[
+              `p`, `.@_yCR _eZz`, config.set_academia_title], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_tCx _caZ`, config.academia_para], [`div`, qualAll]]], [
+              `div`, `.@_gxM _CYc`, [[
+                `div`, `.@_QZg`, [[
+                `div`, `.@_gM_a _agM`, [[`a`, `#@schule`, `.@_TX_a _atX`, config.add_instut, config.to_instut]]]]]]]]], [
+            `div`, `.@_sZ2`, [[
+              `p`, `.@_yCR _eZz`, config.set_work_title], [
+              `div`, `.@_4sC _XsQ`, [[
+                `div`, workAll]]], [
+              `div`, `.@_gxM _CYc`, [[
+                `div`, `.@_QZg`, [[
+                `div`, `.@_gM_a _agM`, [[`a`, `#@wpl`, `.@_TX_a _atX`, config.add_work, config.to_work]]]]]]]]]]], [
+          `div`, `.@_gxM _CYc _gcQ _geQ _gMX`, [[
+            `div`, `.@QZg`, [[
+              `div`, `.@_gM_a _agM`, [[`a`, `#@save`, `.@_TX_a _atX`, config.save_pro, config.to_save]]]]]]]]]]] 
   }
+
 }
