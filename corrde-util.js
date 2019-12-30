@@ -129,6 +129,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `meta`) this.meta();
 
     if (this.levelState === `setup`) this.setup();
+
+    if (this.levelState === `explore`) this.inView();
   }
 
   rootCall () {
@@ -150,6 +152,7 @@ class UAPublic extends Auxll {
           appendModel: [
             model.banner(), 
             model.products(),
+            model.SVGMetrics(),
             model.hows(), model.feature(),
             model.footer()]}), model.header(a2)];
       modelMapping[`appendModel`] = [model.wrapper(modelMapping), model.jS(modelMapping)];
@@ -561,6 +564,56 @@ class UAPublic extends Auxll {
       this.app.to.end(model.call(modelMapping));
       });
   }
+
+  inView () {
+
+    this.isValid(`u`);
+
+    let conca = `select * from u`;
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      new Sql().multi({}, conca, (A, B, C) => {
+
+        let isAuth = false;
+
+        for (let u in B) {
+
+          if (B[u].sum === this.isValid(`u`)) isAuth = B[u];
+        }
+
+        if (isAuth !== false) {
+
+          let alt = JSON.parse(isAuth.alt);
+
+          const pool = {
+            title: `Corrde Overview`,
+            css: CSS, 
+            jSStore: JSON.stringify({
+              ava: alt.ava,
+              full: alt.full,
+              State: `overview`,
+              in: this.isValid(`u`)}),
+              jsState: config.cd.auJS};
+
+      pool.appendModel = [
+        model.main({
+          appendModel: [
+            model.inView(alt),
+            model.footer()]
+        }), model.top(alt)];
+
+      pool.appendModel = [
+        model.wrapper(pool),
+        model.jS(pool)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(pool));
+        }
+      })
+})
+      
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -572,11 +625,8 @@ class ViaAJX extends Auxll {
   }
 
   AJXCalls () {
-    if (this.q.ini) this.ini(JSON.parse(this.q.ini));
 
     if (this.q.urlCall) this.urlCall(JSON.parse(this.q.urlCall));
-
-    if (this.q.passValid) this.passValid(JSON.parse(this.q.passValid));
 
     if (this.q.iniSale) this.iniSale(JSON.parse(this.q.iniSale)); //iniSale
 
@@ -611,37 +661,12 @@ class ViaAJX extends Auxll {
     if (this.q.isMail_) this.isMail_(JSON.parse(this.q.isMail_));
 
     if (this.q.isFull) this.isFull(JSON.parse(this.q.isFull));
-  }
 
-  ini (q) {
-    new Sql().fValue({
-      table: `u`, 
-      field: `mail`, fieldValue: q[1]}, (A, B, C) => {console.log(A)
+    if (this.q.isPro) this.isPro(JSON.parse(this.q.isPro));
 
-        if (B.length === 0) {
+    if (this.q.isAuth) this.isAuth(JSON.parse(this.q.isAuth));
 
-          let localSt_ = new Date().valueOf();
-
-          let localSt_Sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
-
-          let mailPass = crypto.createHash(`md5`).update(q[2], `utf8`);
-
-          new Sql().to([`u`, {
-            alt: q[0],
-            mail: q[1],
-            mug: `null`,
-            pass: mailPass.digest(`hex`),
-            St_: localSt_,
-            sum: localSt_Sum}], (A, B, C) => {
-              this.iniCookie(`u`, localSt_Sum);
-
-              let modelMapping = {
-                appendModel: model.mode()};
-
-              this.app.to.writeHead(200, config.reqMime.json);
-              this.app.to.end(JSON.stringify(model.modal(modelMapping)));
-            });
-        }});
+    if (this.q.isClient) this.isClient(JSON.parse(this.q.isClient));
   }
 
   iniCookie (field, value) {
@@ -659,23 +684,6 @@ class ViaAJX extends Auxll {
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify({
       url: q.url}));
-  }
-
-  passValid (q) {
-    new Sql().fValue({
-      table: `u`,
-      field: `mail`,
-      fieldValue: q[0]}, (A, B, C) => {
-        if (B.length === 1) {
-          let hexPass = crypto.createHash(`md5`).update(q[1], `utf8`);
-          if (B[0].pass === hexPass.digest(`hex`)) {
-            this.iniCookie(`u`, B[0].sum);
-
-            this.app.to.writeHead(200, config.reqMime.json);
-            this.app.to.end(JSON.stringify({url: config.cd.u}));
-          }
-        }
-      });
   }
 
   isPassValid () {
@@ -1312,6 +1320,154 @@ class ViaAJX extends Auxll {
     this.app.to.end(JSON.stringify(pool));
     
   }
+
+  isPro (q) {
+
+    let conca = `select * from u`;
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      let is_mail, pool = {};
+
+      for (let u in B) {
+
+        if (B[u].mail === q.make_mail) is_mail = true;
+      }
+
+      if (is_mail !== true) {
+
+        let localSt_ = new Date().valueOf();
+
+          let ini_sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
+
+          let mailPass = crypto.createHash(`md5`).update(q.make_pass, `utf8`),
+              is_ava = false;
+
+          if (q.lvl_ini_ava) {
+
+            let ava = config.lvl_ava + ini_sum + `/`;
+
+            fs.mkdirSync(ava, {recursive: true});
+            fs.copyFileSync(q.lvl_ini_ava, ava + localSt_ + `.jpg`);
+
+            is_ava = ava + localSt_ + `.jpg`;
+          }
+          
+          new Sql().to([`u`, {
+            alt: JSON.stringify({
+              appraisal: q.ini_rate,
+              ava: is_ava,
+              edu: q.ini_edu,
+              desc: q.ini_desc,
+              full: q.make_full,
+              log: localSt_,
+              mail: q.make_mail,
+              pass: mailPass.digest(`hex`),
+              skills: q.ini_skills,
+              sum: ini_sum,
+              wpl: q.ini_wpl}),
+            mail: q.make_mail,
+            mug: `null`,
+            pass: 'mailPass.digest(`hex`)',
+            St_: localSt_,
+            sum: ini_sum}], (A, B, C) => {
+              this.iniCookie(`u`, ini_sum);
+
+              pool[`is_pro`] = true;
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify(pool));
+            });
+      }
+
+      else pool[err].push(`true_mail`);
+    })
+  }
+
+
+  isAuth (q) {
+
+    let conca = `select * from u`,
+      is_mail = false,
+      pool = {};
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      for (let u in B) {
+
+        if (B[u].mail === q.mail) is_mail = B[u];
+      }
+
+      if (is_mail !== false) {
+
+        let hexPass = crypto.createHash(`md5`).update(q.pass, `utf8`),
+            alt = JSON.parse(is_mail.alt);
+
+        if (alt.pass === hexPass.digest(`hex`)) {
+
+          this.iniCookie(`u`, is_mail.sum);
+
+          pool.is_auth = true; 
+
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify(pool));
+        }
+      }
+    });
+  }
+
+  isClient (q) {
+
+    let conca = `select * from u`;
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      let is_mail, pool = {};
+
+      for (let u in B) {
+
+        if (B[u].mail === q.make_mail) is_mail = true;
+      }
+
+      if (is_mail !== true) {
+
+        let localSt_ = new Date().valueOf();
+
+          let ini_sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
+
+          let mailPass = crypto.createHash(`md5`).update(q.make_pass, `utf8`),
+              is_ava = false;
+          
+          new Sql().to([`u`, {
+            alt: JSON.stringify({
+              appraisal: false,
+              ava: is_ava,
+              edu: [],
+              desc: false,
+              full: q.make_full,
+              log: localSt_,
+              mail: q.make_mail,
+              pass: mailPass.digest(`hex`),
+              skills: [],
+              sum: ini_sum,
+              wpl: []}),
+            mail: q.make_mail,
+            mug: `null`,
+            pass: 'mailPass.digest(`hex`)',
+            St_: localSt_,
+            sum: ini_sum}], (A, B, C) => {
+              this.iniCookie(`u`, ini_sum);
+
+              pool[`is_mail`] = false;
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify(pool));
+            });
+      }
+
+      else pool[err].push(`true_mail`);
+    })
+  }
 }
 
 class AJXJPEG {
@@ -1350,6 +1506,28 @@ class AJXJPEG {
   }
 }
 
+class UATCP {
+
+  TCPCalls (tcp) {
+
+    let totals = {};
+
+    tcp.on(`connection`, tls => {
+
+      totals[`totals`] = totals[`totals`] || 0;
+      totals[`totals`] += 1;
+
+      tls.on(`disconnect`, () => {
+        totals[`totals`] -= 1
+      });
+
+      tls.on(`analytics`, (t, call) => {
+        console.log(t)
+        call(totals)})
+    });
+  }
+}
+
 module.exports = {
 
   mysql () {
@@ -1366,5 +1544,9 @@ module.exports = {
 
   AJXJPEG(file, req, res) {
     new AJXJPEG(file, req, res).AJXCalls();
+  },
+
+  UATCP(tcp) {
+    new UATCP().TCPCalls(tcp);
   }
 }

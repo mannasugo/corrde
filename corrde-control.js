@@ -1,5 +1,7 @@
 const {basename} = require(`path`),
   {parse} = require(`querystring`),
+  
+  tcp = require(`./app`),
 
   Util = require(`./corrde-util`),
   config = require(`./corrde-config`);
@@ -48,8 +50,23 @@ class RouteControl {
   }
 }
 
+class RouteTCP {
+
+  router (tcp) {
+
+    //tcp.on(`connection`, tls => {
+
+      Util.UATCP(tcp);
+    //})
+  }
+}
+
 module.exports = {
   router (req, res) {
     new RouteControl().router(req, res);
+  },
+
+  RouteTCP (tcp) {
+    new RouteTCP().router(tcp);
   }
-}
+} 

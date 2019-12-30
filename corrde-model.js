@@ -1901,6 +1901,42 @@ module.exports = {
               `ul`, `.@_aYy`, fieldAll]]]]]]], [`div`, `.@_aAx`]]]
   },
 
+  SVGMetrics () {
+    return [
+      `section`, `.@_C9y _uZ0`, [[
+        `div`, `.@_XsQ _xsQ-`, [[
+          `h2`, `.@3tx _WtX`, `~@Our Metrics`], [
+          `div`, [[
+            `h4`, `.@_ax2 _ut0`, `~@Jobs Activity`], [
+            `div`, `.@_gMX _geQ _sZ2 _XY0`, [[
+              `div`, `.@_geQ`, [[
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Jobs Posted`], [`span`, `.@_ax4 _ut0`, `~@180,678,003`]]], [
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Freelancers`], [`span`, `.@_ax4 _ut0`, `~@180,678,003`]]]]], [
+              `div`, `.@_geQ`, [[
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0 _qaZ`, `~@Open Jobs`]]], [
+                  `svg`, `.@geQ`, [[
+                    `circle`, `.@_cC8`, `&@r>90`, `&@cy>100`, `&@cx>100`], [
+                    `circle`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
+                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@62.5`], [`span`, `.@_t2X`, `~@%`]]]]], [
+              `div`, `.@_geQ`, [[
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0 _qaZ`, `~@Active Freelancers`]]], [
+                  `svg`, `.@geQ`, [[
+                    `circle`, `.@_cC8`, `&@r>90`, `&@cy>100`, `&@cx>100`], [
+                    `circle`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
+                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@100`], [`span`, `.@_t2X`, `~@%`]]]]]]], [
+              `div`, [[
+              `h4`, `.@_ax2 _ut0`, `~@Top Jobs`], [
+              `div`, `.@_sZ2`, [[
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Jobs`], [`span`, `.@_ax4 _ut0`, `~@180,678,003`]]],
+                this.XBARAnalysis([
+                    `carpet cleaning`,
+                    `home painting`,
+                    `interior design`,
+                    `furniture fitting`, 
+                    `furniture repair and maintenance`], [
+                    `20`, `40`, `25`, `5`, `10`])]]]]]]]]]]
+  },
+
   hows () {
 
     let stepsAll = [], i = 0;
@@ -1963,6 +1999,7 @@ module.exports = {
   jS (pool) {
     return [
       `aside`, [[
+        `script`, `&@src>/socket.io/socket.io.js`], [
         `script`, `&@src>${config.cd.utilJS}`], [
         `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], [
         `script`, `&@src>${pool.jsState}`]]]
@@ -1977,11 +2014,11 @@ module.exports = {
               `h2`, `.@_uHg _-SZ6 h4`, config.in_title], [
               `form`, `.@_cQc`, [[
                 `div`, `.@_cQX`, [[
-                  `input`, `#@sign`, `.@_-Yz`, config.placeMail, config.valText]]], [
+                  `input`, `#@mail`, `.@_-Yz`, config.placeMail, config.valText]]], [
                 `div`, `.@_cQX`, [[
-                  `input`, `.@_-Yz`, config.placePass, config.valPass]]], [
+                  `input`, `#@pass`, `.@_-Yz`, config.placePass, config.valPass]]], [
                   `div`, `.@_agM _gM_a _cQc`, [[
-                    `a`, `#@sigin`, `.@_TX_a _atX _c5Q`, config.nullSrc + `in`, config.in_to]]]]]]]]]]], [`div`, `.@_-ZCc`]]]
+                    `a`, `#@signin`, `.@_TX_a _atX _c5Q`, config.nullSrc + `in`, config.in_to]]]]]]]]]]], [`div`, `.@_-ZCc`]]]
   },
 
   inMeta () {
@@ -1993,7 +2030,7 @@ module.exports = {
       metaAll[i] = [
         `div`, `.@_dVP`, [[
           `label`, `.@_cVP _btX`, `&@role>radio`, [[
-            `input`, `#@0`, `&@type>radio`, `&@name>meta-to`, `&@value>${config.meta_to[meta]}`], [
+            `input`, `#@false`, `&@type>radio`, `&@name>meta-to`, `&@value>${i}`], [
             `span`, `.@_tCw _axX`, `~@${config.meta_to[meta]}`]]]]]
 
       i++
@@ -2086,17 +2123,21 @@ module.exports = {
         `div`, [[
           `p`, `.@_tCx`, config.instut_para], [
           `div`, `.@_UFA`, [[
-            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_instut]]]]], [
+            `input`, `#@sc-${i}`, `.@_RRD _Ccs`, config.fill_off, config.place_instut]]]]], [
+        `div`, [[
+          `p`, `.@_tCx`, `~@Course`], [
+          `div`, `.@_UFA`, [[
+            `input`, `#@crs-${i}`, `.@_RRD _Ccs`, config.fill_off, `&@placeholder>Course`]]]]], [
         `div`, [[
           `p`, `.@_tCx`, config.instut_era_para], [
           `div`, `.@_UFA`, [[
-            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_a]]], [
+            `input`, `#@sca-${i}`, `.@_RRD _Ccs`, config.fill_off, config.place_era_a]]], [
           `div`, `.@_UFA`, [[
-            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_z]]], [
+            `input`, `#@scz-${i}`, `.@_RRD _Ccs`, config.fill_off, config.place_era_z]]], [
           `div`, `.@_yCR`, [[
             `p`, `.@_axX`, config.study_yet_para], [
             `label`, `.@_tXv`, `&@role>checkbox`, [[
-              `input`, `#@aca-${i}`, `&@type>checkbox`, `&@name>school-yet`, `&@value>0`], [
+              `input`, `#@ugrad-${i}`, `&@type>checkbox`, `&@name>school-yet`, `&@value>0`], [
               `span`, `.@_tCw _t2x`, config.study_yet]]]]]]]]];
 
       workAll[i] = [`div`, `#@wpl-${i}-0`, `&@role>arbeit`, `.@_-Zz _sZ2`, [[
@@ -2104,19 +2145,19 @@ module.exports = {
         `div`, [[
           `p`, `.@_tCx`, config.work_para], [
           `div`, `.@_UFA`, [[
-            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_workplace]]], [
+            `input`, `#@place-${i}`, `.@_RRD _Ccs`, config.fill_off, config.place_workplace]]], [
           `div`, `.@_UFA`, [[
-            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_role]]]]], [
+            `input`, `#@pos-${i}`, `.@_RRD _Ccs`, config.fill_off, config.place_role]]]]], [
         `div`, [[
           `p`, `.@_tCx`, config.work_era_para], [
           `div`, `.@_UFA`, [[
-            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_a]]], [
+            `input`, `#@empa-${i}`, `.@_RRD _Ccs`, config.fill_off, config.place_era_a]]], [
           `div`, `.@_UFA`, [[
-            `input`, `.@_RRD _Ccs`, config.fill_off, config.place_era_z]]], [
+            `input`, `#@empz-${i}`, `.@_RRD _Ccs`, config.fill_off, config.place_era_z]]], [
           `div`, `.@_yCR`, [[
             `p`, `.@_axX`, config.work_yet_para], [
             `label`, `.@_tXv`, `&@role>checkbox`, [[
-              `input`, `#@work-${i}`, `&@type>checkbox`, `&@name>work-yet`, `&@value>0`], [
+              `input`, `#@emp-${i}`, `&@type>checkbox`, `&@name>work-yet`, `&@value>0`], [
               `span`, `.@_tCw _t2x`, config.work_yet]]]]]]]]];
     }
 
@@ -2147,13 +2188,13 @@ module.exports = {
               `div`, `.@_4sC _XsQ`, [[
                 `p`, `.@_tCx`, config.field_desc_para], [
                 `div`, [[
-                  `textarea`, `.@-_tyq`, config.fill_off, config.place_long]]]]]]], [
+                  `textarea`, `#@summ`, `.@-_tyq`, config.fill_off, config.place_long]]]]]]], [
             `div`, `.@_sZ2`, [[
               `p`, `.@_yCR _eZz`, config.set_appraise_title], [
               `div`, `.@_4sC _XsQ`, [[
                 `p`, `.@_tCx`, config.appraise_para], [
                 `div`, `.@_UFA`, [[
-                  `input`, `.@_RRD _Ccs`, config.fill_off, config.place_appraise_rate]]]]]]], [
+                  `input`, `#@rate`, `.@_RRD _Ccs`, config.fill_off, config.place_appraise_rate]]]]]]], [
             `div`, `.@_sZ2`, [[
               `p`, `.@_yCR _eZz`, config.set_academia_title], [
               `div`, `.@_4sC _XsQ`, [[
@@ -2171,6 +2212,166 @@ module.exports = {
           `div`, `.@_gxM _CYc _gcQ _geQ _gMX`, [[
             `div`, `.@QZg`, [[
               `div`, `.@_gM_a _agM`, [[`a`, `#@save`, `.@_TX_a _atX`, config.save_pro, config.to_save]]]]]]]]]]] 
+  },
+
+  top (pool) {
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc`, `~@beta`]]], [
+              `div`, `.@_QZg`, [[
+                `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>#ava-tools`, [[
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`]]]]], [
+              `div`, `#@mug`, `.@_aYx _-Zz`, [[
+                `ul`, `.@_aYy _tXx`, [[
+                  `li`, `.@_-zZx`, [[
+                    `div`, `.@_-xQy`, [[`span`, `.@_Xtx _tAx _dMG _4tx`, `~@${pool.full}`]]]]], [
+                  `li`, `.@_-zZx`, [[
+                    `div`, `.@_-xQy`, [[
+                      `div`, `.@_gxM _ZCg _gcQ _geQ _gMX`, [[
+                        `div`, `.@_gM_a _agM`, [[`a`, `#@u`, `.@_TX_a _atX`, `&@href>#u`, `~@Switch to Client`]]]]]]]]], [
+                  `li`, `.@_-zZx`, [[
+                    `div`, `.@_-xQy`, [[
+                      `div`, `.@_gxM _ZCg _gcQ _geQ _gMX`, [[
+                        `div`, `.@_gM_a _agM`, [[`a`, `#@p`, `.@_TX_a _atX`, `&@href>#p`, `~@Switch to Proffesional`]]]]]]]]]]]]]]]]]]]]]
+  },
+
+  inView (pool) {
+
+    return [
+      `section`, `.@_C3y`, [[
+        `div`, `.@_XsQ _xsQ-`, [[
+          `h2`, `.@3tx`, `~@Overview`],/*, [
+          `div`, `.@_sZ2 _UFA`, [[
+            `input`, `#@locate`, `.@_RRD _Ccs`, config.fill_off, `&@placeholder>Search location for Activity`]]],*/ [
+          `div`, [[
+            `div`, [[
+              `div`, `.@_gxM _gcQ _CYc`, [[
+                `div`, [[`a`, `.@_tX PrevGrayColor`, `&@href>#m2`]]], [
+                `div`, `.@_dMG eYG _geQ`, [[`span`, `.@_utQ`, `~@Home`]]], [
+                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX NextGrayColor`, `&@href>#a2`]]]]], [
+              `h4`, `.@_ax2 _sZ2`, `~@Popular Experts in Home`], [
+              `div`, `.@_gxM _gcQ _CYc _sZ2`, [[
+                `div`, [[`a`, `.@_tX ChevFroGrayColor`, `&@href>#p2`]]], [
+                `div`, `.@_gxM _geQ`, [[
+                  `div`, `.@_geQ`, [[
+                    `a`, `.@_Cc2`, [[
+                      `img`, `.@_aWz`, `#@src`], [
+                      `div`, `.@_qz-`, [[
+                        `div`, [[
+                          `span`, `.@_yCR`, `~@Mann Asugo`]]], [
+                        `div`, [[
+                          `div`, `.@_gM_a _agM _guZ _eX2 _SxQ _gxM _dMG`, [[
+                            `span`, `.@-_tX StarMiniColor`], [
+                            `span`, `.@_utQ _tAx`, `~@0.0`]]]]]]]]]]]/*, [
+                  `div`, `.@_geQ`, [[`a`, `.@_Cc2`, [[`img`, `.@_aWz`, `#@src`]]]]], [
+                  `div`, `.@_geQ`, [[`a`, `.@_Cc2`, [[`img`, `.@_aWz`, `#@src`]]]]]*/]], [
+                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX ChevToGrayColor`, `&@href>#u2`]]]]], /*[
+              `h4`, `.@_ax2`, `~@Activity in Home`], [
+              `div`, `.@_gMX _sZ2`, [[
+                `div`, `.@_gxM _dMG`, [[`span`, `.@_aWc _uH2`], [`span`, `.@_AXt`, `~@Jobs`]]], [
+                `div`, `.@_gxM _dMG`, [[`span`, `.@_aWc _uH4`], [`span`, `.@_AXt`, `~@Bids`]]], [
+                `div`, `.@_gxM _dMG`, [[`span`, `.@_aWc _uH8`], [`span`, `.@_AXt`, `~@Hires`]]]]], [
+              `div`, `.@_gxM _CYc _sZ2`, [[
+                `div`, `.@_axS`, [[
+                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `~@Month`]]]]], [
+                `div`, `.@_axS`, [[
+                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `~@Weeks`]]]]], [
+                `div`, `.@_axS`, [[
+                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `~@Today`]]]]]]], [
+              `div`, `.@_sZ2`, [[`canvas`, `#@line`]]], [
+              `div`, `.@_gxM _CYc _sZ2`, [[
+                `div`, `.@_axS _geQ`, [[
+                  `div`, `.@_gM_a _agM _guZ _eX2`, [[`a`, `.@_TX_a _atX _qXS _utQ _tX2`, `~@0 Jobs/Hour`]]]]], [
+                `div`, `.@_axS _geQ`, [[
+                  `div`, `.@_gM_a _agM _guZ _eX4`, [[`a`, `.@_TX_a _atX _qXS _utQ _tX4`, `~@0 Bids/Hour`]]]]], [
+                `div`, `.@_axS _geQ`, [[
+                  `div`, `.@_gM_a _agM _guZ _eX8`, [[`a`, `.@_TX_a _atX _qXS _utQ _tX8`, `~@0 Hires/Hour`]]]]]]],*/ [
+                `h4`, `.@_ax2`, `~@Experts' Activity in Home`], [
+                `div`, `.@_gMX _geQ _sZ2 _XY0`, [[
+                  `svg`, `.@_geQ`, [[
+                    `circle`, `.@_cC2`, `&@r>20`, `&@cy>100`, `&@cx>100`], [
+                    `circle`, `.@_cC4`, `&@r>40`, `&@cy>100`, `&@cx>100`], [
+                    `circle`, `.@_cC6`, `&@r>60`, `&@cy>100`, `&@cx>100`], [
+                    `circle`, `.@_cC4-`, `&@r>40`, `&@cy>100`, `&@cx>100`], [
+                    `circle`, `.@_cC6-`, `&@r>60`, `&@cy>100`, `&@cx>100`]]], [
+                  `div`, `.@_geQ`, [[
+                    `div`, `.@_aXZ`, [[`span`, `.@_Ax0`, `~@Total`], [`span`, `.@_ax4`, `~@180,678,003`]]], [
+                    `div`, `.@_aXZ`, [[
+                      `div`, `.@aXZ _gxM`, [[
+                        `div`, `.@_gxM _Cy0 _dMG`, [[
+                          `span`, `.@_aWc _uH3`], [
+                          `span`, `.@_AXt`, `~@Active freelancers`]]], [
+                        `div`, `.@_QZg`, [[`span`, `~@65%`]]]]], [
+                      `div`, `.@_gxM`, [[
+                        `div`, `.@_gxM _Cy0 _dMG`, [[
+                          `span`, `.@_aWc _uH6`], [
+                          `span`, `.@_AXt`, `~@Inactive freelancers`]]], [
+                        `div`, `.@_QZg`, [[`span`, `~@35%`]]]]]]]]]]], [
+                `h4`, `.@_ax2`, `~@Categories in Home by Popularity`], [
+                `div`, `.@_sZ2`, [[
+                  `div`, `.@_aXZ`, [[`span`, `.@_Ax0`, `~@Total Jobs`], [`span`, `.@_ax4`, `~@180,678,003`]]],
+                  this.XBARAnalysis([
+                    `carpet cleaning`,
+                    `home painting`,
+                    `interior design`,
+                    `furniture fitting`, 
+                    `furniture repair and maintenance`], [
+                    `20`, `40`, `25`, `5`, `10`])]], [
+                `h4`, `.@_ax2`, `~@Recent Jobs in Home`], [
+                `div`, `.@_gZ0`, [[
+                  `table`, [[
+                    `colgroup`, [[`col`], [`col`], [`col`], [`col`], [`col`], [`col`]]], [
+                    `thead`, [[
+                      `tr`, [[
+                        `th`, `~@Category`], [
+                        `th`, `~@Date`], [
+                        `th`, `~@Pay`], [
+                        `th`, `~@Applications`], [
+                        `th`, `~@Deadline`], [
+                        `th`, `~@Status`]]]]], [
+                    `tbody`, [[
+                      `tr`, [[
+                        `td`, `.@_szU`, `~@Cleaning`], [
+                        `td`, `.@_szU`, `~@2 JAN 2020`], [
+                        `td`, `.@_szU`, `~@$ 300`], [
+                        `td`, `.@_szU`, `~@24 Bids`], [
+                        `td`, `.@_szU`, `~@to: 3 JAN 2020`], [
+                        `td`, `.@_tu2`, `~@Open`]]], [
+                      `tr`, [[
+                        `td`, `.@_szU`, `~@Cleaning`], [
+                        `td`, `.@_szU`, `~@2 JAN 2020`], [
+                        `td`, `.@_szU`, `~@$ 300`], [
+                        `td`, `.@_szU`, `~@24 Bids`], [
+                        `td`, `.@_szU`, `~@to: 3 JAN 2020`], [
+                        `td`, `.@_tu2`, `~@Open`]]]]]]]]]]]]]]]]]
+  },
+
+
+  XBARAnalysis (keyPool, valPool) {
+
+    let XBARPool = [];
+
+    valPool.sort((a,b) => {
+      return (b - a)});
+
+    for (let val = 0; val < valPool.length; ++val) {
+
+      XBARPool[val] = [
+        `g`, [[
+          `rect`, `.@_aW2`, `&@x>9%`, `&@y>${(val + 1) * 50}`, `&@width>90%`, `&@height>30`], [
+          `text`, `&@x>1%`, `&@y>${(val + 1) * 50 + 18}`, `~@${valPool[val]}%`], [
+          `rect`, `.@_aX0`, `&@x>9%`, `&@y>${(val + 1) * 50}`, `&@width>${parseInt(valPool[val]) * (10/9)}%`, `&@height>30`], [
+          `text`, `&@x>12%`, `&@y>${(val + 1) * 50 + 20}`, `~@${keyPool[val]}`]]]
+    }
+
+    return [
+      `svg`, `.@_aXZ`, `&@style>height: ${valPool.length*50+50}px`, [[`g`, XBARPool]]]
   }
 
 }

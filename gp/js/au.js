@@ -184,9 +184,13 @@
 
     if (el.getAttribute(`name`) === `meta-to`) {
       JSStore.to({in_as: el.value});
+
+      if (el.id === `false`) el.value = `true`;
+
+      if (el.id === `true`) el.value = `false`;
     }
 
-    if (el.id === `meta-sign`) {//in_as
+    if (el.id === `meta-sign`) {
       if (JSStore.avail().in_as) fullGo();
     }
 
@@ -334,15 +338,16 @@
 
       if (el.id.split(`-`)[2] === `0`) {
 
-        let vars = document.querySelectorAll(`[name = 'qual']`),
-            a = [];
+        let vars = document.querySelectorAll(`[name = 'qual']`);
 
-        for (var i = 0; i < vars.length; i++) {
+        if (document.querySelector(`#qual-${el.id.split(`-`)[1]}-1`)) {
 
-          if (vars[i].id.split(`-`)[2] === `1`) {
+          let quals = document.querySelectorAll(`#qual-${el.id.split(`-`)[1]}-1`);
 
-            vars[i].nextElementSibling.style.fontWeight = 300;
-            vars[i].setAttribute(`id`, `qual-${vars[i].id.split(`-`)[1]}-0`);
+          for (let qual = 0; qual < quals.length; qual++) {
+
+            quals[qual].nextElementSibling.style.fontWeight = 300;
+            quals[qual].setAttribute(`id`, `qual-${el.id.split(`-`)[1]}-0`);
           }
         }
 
@@ -398,10 +403,14 @@
 
       let level_errors_ = [],
           level_skills_ = [],
-          level_edu_ = [],
+          level_edu_ = {},
+          level_wpl_ = {},
+          level_summary_ = new Auxll().longSlim(document.querySelector(`#summ`).value), 
+          level_rate_ = new Auxll().longSlim(document.querySelector(`#rate`).value),
 
           vars_level_0 = document.querySelectorAll(`[name = 'field-top']`),
           level_5_ = document.querySelectorAll(`[role = 'schule']`),
+          level_6_ = document.querySelectorAll(`[role = 'arbeit']`),
           is_level_0 = [], is_a = [];
 
       for (let i = 0; i < vars_level_0.length; i++) {
@@ -426,28 +435,285 @@
 
         if (level_5_[__a].id.split(`-`)[2] === `1`) {
         
-          if (document.querySelector(`#qual-${__a}-0`)) {
+          if (level_5_[__a].querySelector(`#qual-${__a}-1`)) {
 
-            level_errors_.push(`false_edu_5_${__a}`);
-          } else level_edu_[__a] = document.querySelector(`#qual-${__a}-0`).value;
+            (level_edu_[`edu_` + __a]) ? level_edu_[`edu_` + __a] = level_edu_[`edu_` + __a]: level_edu_[`edu_` + __a] = [];
+
+            let sc = new Auxll().longSlim(level_5_[__a].querySelector(`#sc-${__a}`).value);
+            
+            if (!sc) {
+
+              sc = false;
+              level_errors_.push(`false_edu_sc_${__a}`);
+            }
+
+            else sc = sc;
+
+            let crs = new Auxll().longSlim(level_5_[__a].querySelector(`#crs-${__a}`).value);
+            
+            if (!crs) {
+
+              crs = false;
+              level_errors_.push(`false_edu_crs_${__a}`);
+            }
+
+            else crs = crs;
+
+            let sca = new Auxll().longSlim(level_5_[__a].querySelector(`#sca-${__a}`).value);
+            
+            if (!sca) {
+
+              sca = false;
+              level_errors_.push(`false_edu_sca_${__a}`);
+            }
+
+            else if (!parseInt(sca)) {
+
+              sca = false;
+              level_errors_.push(`false_edu_sca_type_${__a}`);
+            }
+
+            else sca = sca;
+
+            let scz = new Auxll().longSlim(level_5_[__a].querySelector(`#scz-${__a}`).value),
+                ugrad = level_5_[__a].querySelector(`#ugrad-${__a}`).value;
+            
+            if (!scz && ugrad === `0`) {
+
+              scz = false;
+              level_errors_.push(`false_edu_scz_${__a}`);
+            }
+
+            else if (!parseInt(scz) && ugrad === `0`) {
+
+              scz = false;
+              level_errors_.push(`false_edu_scz_type_${__a}`);
+            }
+
+            else if (parseInt(scz) && ugrad === `0`) {
+
+              scz = scz;
+            }
+
+            else if (!scz && ugrad === `1`) {
+
+              scz = true;
+            }
+
+            else if (parseInt(scz) && ugrad === `1`) {
+
+              scz = true;
+            }
+
+            level_edu_[`edu_` + __a] = [
+              document.querySelector(`#qual-${__a}-1`).value, sc, crs, sca, scz];
+
+          } 
+
+          else if (level_5_[__a].querySelector(`#sc-${__a}`).value.length > 0 ||
+                  level_5_[__a].querySelector(`#crs-${__a}`).value.length > 0 ||
+                  level_5_[__a].querySelector(`#sca-${__a}`).value.length > 0 ||
+                  level_5_[__a].querySelector(`#scz-${__a}`).value.length > 0) {
+
+            level_errors_.push(`false_edu_root_${__a}`);
+          }
+
         }
+      }
+
+      for (let wpl = 0; wpl < level_6_.length; wpl++) {
+
+        if (level_6_[wpl].id.split(`-`)[2] === `1`) {
+
+          (level_wpl_[`wpl_` + wpl]) ? level_wpl_[`wpl_` + wpl] = level_wpl_[`wpl_` + wpl]: level_wpl_[`wpl_` + wpl] = [];
+
+          let place = new Auxll().longSlim(level_6_[wpl].querySelector(`#place-${wpl}`).value),
+              pos = new Auxll().longSlim(level_6_[wpl].querySelector(`#pos-${wpl}`).value),
+              empa = new Auxll().longSlim(level_6_[wpl].querySelector(`#empa-${wpl}`).value),
+              empz = new Auxll().longSlim(level_6_[wpl].querySelector(`#empz-${wpl}`).value),
+              emp = level_6_[wpl].querySelector(`#emp-${wpl}`).value;
+            
+            if (place && !pos || !empa || !empz || emp === `0`) {
+
+              place = false;
+              level_errors_.push(`false_wpl_all_${wpl}`);
+            }
+
+            else if (!place) {
+
+              place = false;
+              level_errors_.push(`false_wpl_place_${wpl}`);
+            }
+
+            else place = place;
+
+            if (pos && !place || !empa || !empz || emp === `0`) {
+
+              pos = false;
+              level_errors_.push(`false_wpl_all_${wpl}`);
+            }
+
+            else if (!pos) {
+
+              place = false;
+              level_errors_.push(`false_wpl_pos_${wpl}`);
+            }
+
+            else pos = pos;
+
+            if (empa && !place || !pos || !empa || !empz || emp === `0`) {
+
+              empa = false;
+              level_errors_.push(`false_wpl_all_${wpl}`);
+            }
+
+            else if (!empa) {
+
+              place = false;
+              level_errors_.push(`false_wpl_empa_${wpl}`);
+            }
+
+            else if (!parseInt(empa)) {
+
+              empa = false;
+              level_errors_.push(`false_wpl_empa_type_${wpl}`);
+            }
+
+            else empa = empa;
+
+            if (empz || emp === `1` && !place || !pos || !empa) {
+
+              empz = false;
+              level_errors_.push(`false_wpl_all_${wpl}`);
+            }
+            
+            if (!empz && emp === `0`) {
+
+              empz = false;
+              level_errors_.push(`false_edu_empz_${wpl}`);
+            }
+
+            else if (!parseInt(empz) && emp === `0`) {
+
+              empz = false;
+              level_errors_.push(`false_edu_empz_type_${wpl}`);
+            }
+
+            else if (parseInt(empz) && emp === `0`) {
+
+              empz = empz;
+            }
+
+            else if (!empz && emp === `1`) {
+
+              empz = true;
+            }
+
+            else if (parseInt(empz) && emp === `1`) {
+
+              empz = true;
+            }
+
+            level_wpl_[`wpl_` + wpl] = [place, pos, empa, empz];
+
+        }
+      }
+
+      if (!level_summary_) {
+
+        level_summary_ = false;
+        level_errors_.push(`false_summary_`);
+      }
+
+      if (!level_rate_) {
+
+        level_rate_ = false;
+        level_errors_.push(`false_rate_`)
+      }
+
+      else if (!parseInt(level_rate_)) {
+
+        level_rate_ = false;
+        level_errors_.push(`false_rate_type_`);
       }
 
       if (is_level_0.length === 0) level_errors_.push(`false_skills_`);
 
       if (level_skills_.length === 0) level_errors_.push(`false_specialties_`);
+
+      if (level_errors_.length === 0) {
+
+        JSStore.to({
+          ini_skills: level_skills_,
+          ini_desc: level_summary_,
+          ini_rate: level_rate_,
+          ini_edu: level_edu_,
+          ini_wpl: level_wpl_});
+
+        AJXCall(`isPro`, JSStore.avail(), (A, B) => {
+
+          if (B.is_pro === true) {
+            window.location = `/explore`;
+          }
+        })
+      }
+    }
+
+    if (el.id === `signin`) {
+
+      let mail = new Auxll().longSlim(document.querySelector(`#mail`).value),
+          pass = new Auxll().longSlim(document.querySelector(`#pass`).value),
+          sign_in_errors = [];
+
+      if (!mail) {
+
+        mail = false;
+        sign_in_errors.push(`false_mail_`)
+      }
+
+      else if (!pass) {
+
+        pass = false;
+        sign_in_errors.push(`false_pass_`);
+      }
+
+      if (sign_in_errors.length === 0) {
+
+        JSStore.to({
+          [`mail`]: mail,
+          [`pass`]: pass});
+
+        AJXCall(`isAuth`, JSStore.avail(), (A, B) => {
+
+          if (B.is_auth === true) window.location = `/explore`
+        })
+      } 
+    }
+
+    if (el.id === `mug-ava`) {
+
+      let to = document.querySelector(`#mug`);
+
+      if (to.className === `_aYx _-Zz`) {
+        to.className = `_aYx -Zz`;
+      }
+
+      else if (to.className === `_aYx -Zz`) {
+        to.className = `_aYx _-Zz`;
+      }
     }
 
   }
 
   const emailGo = e => {
+
     let listSlims = [], listSpaces = [
       document.querySelector(`#signup`),
       document.querySelector(`#make-pass`)];
 
     for (let value = 0; value < listSpaces.length; ++value) {
       let slimValue = new Auxll().longSlim(listSpaces[value].value);
-      (slimValue) ? listSlims[value] = slimValue: listSlims= [];
+      (slimValue) ? listSlims[value] = slimValue: listSlims = [];
     }
 
     if (listSlims.length !== 2) return;
@@ -456,11 +722,30 @@
       make_mail: listSlims[0],
       make_pass: listSlims[1]});
 
-    AJXCall(`isMail_`, JSStore.avail(), (A, B) => {
-      if (B.is_mail === false) {
-        window.location = `/meta`;
+    if (document.querySelector(`#true`)) {
+
+      let val = document.querySelector(`#true`).value;
+
+      if (val === `0`) {
+
+        AJXCall(`isMail_`, JSStore.avail(), (A, B) => {
+          if (B.is_mail === false) {
+            window.location = `/meta`;
+          }
+        })
       }
-    })
+
+      else if (val = `1`) {
+
+        AJXCall(`isClient`, JSStore.avail(), (A, B) => {
+          if (B.is_mail === false) {
+            window.location = `/explore`;
+          }
+        })
+      }
+    }
+
+    
 
   }
 
@@ -613,19 +898,6 @@
     });
   }
 
-  const setup = () => {
-    let req = new Req();
-
-    req.call(`POST`, REQS, {
-      title: `setup`,
-      JSON: JSON.stringify({}),
-      to: () => {
-        if (req.req.responseText.length < 1) return;
-        createModal(JSON.parse(req.req.responseText));
-      }
-    });
-  }
-
   const createModal = model => {
     delModal();
 
@@ -745,7 +1017,128 @@
     });
   }
 
+  function planes (e) {
+    
+    /*let lineGraph = document.querySelector(`#line`);
+
+    lineGraph.width = lineGraph.parentNode.clientWidth;
+    lineGraph.height = 360; //360/200
+
+    let linePlane = lineGraph.getContext(`2d`);
+
+    linePlane.beginPath();
+    linePlane.strokeStyle = '#888';
+    linePlane.fillStyle = '#888';
+    linePlane.font = '6pt Gothic';
+
+    linePlane.fillText(`Dec 20`, lineGraph.width*1/8, lineGraph.height - 5);
+    linePlane.fillText(`Dec 21`, lineGraph.width*2/8, lineGraph.height - 5);
+    linePlane.fillText(`Dec 22`, lineGraph.width*3/8, lineGraph.height - 5);
+    linePlane.fillText(`Dec 23`, lineGraph.width*4/8, lineGraph.height - 5);
+    linePlane.fillText(`Dec 24`, lineGraph.width*5/8, lineGraph.height - 5);
+    linePlane.fillText(`Dec 25`, lineGraph.width*6/8, lineGraph.height - 5);
+    linePlane.fillText(`Dec 26`, lineGraph.width*7/8, lineGraph.height - 5);
+
+    let eY = lineGraph.width
+
+    linePlane.fillText(`0`, lineGraph.width*0.5/7, lineGraph.height*7/8);
+    linePlane.fillText(`100`, lineGraph.width*0.5/7, lineGraph.height*6/8);
+    linePlane.fillText(`200`, lineGraph.width*0.5/7, lineGraph.height*5/8);
+    linePlane.fillText(`300`, lineGraph.width*0.5/7, lineGraph.height*4/8);
+    linePlane.fillText(`400`, lineGraph.width*0.5/7, lineGraph.height*3/8);
+    linePlane.fillText(`500`, lineGraph.width*0.5/7, lineGraph.height*2/8);
+    linePlane.fillText(`600`, lineGraph.width*0.5/7, lineGraph.height*1/8);
+
+
+    linePlane.fill()
+
+    linePlane.lineWidth = 1;
+    linePlane.strokeStyle = `#efefef`
+
+    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*7/8);
+    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*7/8);
+    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*6/8);
+    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*6/8);
+    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*5/8);
+    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*5/8);
+    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*4/8);
+    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*4/8);
+    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*3/8);
+    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*3/8);
+    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*2/8);
+    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*2/8);
+    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*1/8);
+    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*1/8);
+    //linePlane.stroke()
+
+    linePlane.beginPath()
+    linePlane.lineWidth = 2;
+    linePlane.strokeStyle = `#1185fe`;
+
+    linePlane.moveTo(lineGraph.width*1/7.6, lineGraph.height*3.7/8);
+    linePlane.lineTo(lineGraph.width*2/7.6, lineGraph.height*3.3/8);
+    linePlane.lineTo(lineGraph.width*3/7.6, lineGraph.height*2.7/8);
+    linePlane.lineTo(lineGraph.width*4/7.6, lineGraph.height*4.2/8);
+    linePlane.lineTo(lineGraph.width*5/7.6, lineGraph.height*3.3/8);
+    linePlane.lineTo(lineGraph.width*6/7.6, lineGraph.height*3.7/8);
+    linePlane.lineTo(lineGraph.width*7/7.6, lineGraph.height*2.4/8);
+    linePlane.stroke()
+
+    linePlane.beginPath();
+    linePlane.strokeStyle = `#ff5443`;
+
+    linePlane.moveTo(lineGraph.width*1/7.6, lineGraph.height*5.7/8);
+    linePlane.lineTo(lineGraph.width*2/7.6, lineGraph.height*3.2/8);
+    linePlane.lineTo(lineGraph.width*3/7.6, lineGraph.height*6.6/8);
+    linePlane.lineTo(lineGraph.width*4/7.6, lineGraph.height*3.2/8);
+    linePlane.lineTo(lineGraph.width*5/7.6, lineGraph.height*4.1/8);
+    linePlane.lineTo(lineGraph.width*6/7.6, lineGraph.height*2.2/8);
+    linePlane.lineTo(lineGraph.width*7/7.6, lineGraph.height*1.9/8);
+    linePlane.stroke();*/
+
+    let srcPlanes = document.querySelectorAll(`#src`),
+        isPlane = document.createElement(`canvas`),
+        img = new Image();
+
+    img.src = JSStore.avail().ava;
+
+    img.onload = () => {
+
+      let img_x = img.naturalWidth, img_y = img.naturalHeight;
+        let left_x, left_y, dim_x, dim_y;
+
+        let ratio_xy = img_x/img_y;
+
+        if (ratio_xy > 200/360) {
+          left_y = 0;
+          dim_y = img_y;
+          dim_x = img_y * 200/360;
+          left_x = (img_x - dim_x)/2;
+        } else {
+          left_x = 0;
+          dim_x = img_x;
+          dim_y = img_x * 360/200;
+          left_y = (img_y - dim_y)/2;
+        }
+
+        isPlane.width = dim_x, isPlane.height = dim_y;
+
+        let plane = isPlane.getContext(`2d`);
+        plane.drawImage(img, left_x, left_y, dim_x, dim_y, 0, 0, dim_x, dim_y);
+
+        let imageData = isPlane.toDataURL(`image/jpeg`);
+
+        //document.querySelector(`#src`).src = imageData
+    }
+    
+  }
+
   document.addEventListener(`click`, main);
   document.addEventListener(`change`, files);
-  //document.querySelector(`form`).addEventListener(`submit`, e => e.preventDefault());
+  document.addEventListener(`DOMContentLoaded`, planes);
+
+  let tls = io.connect();
+
+  setInterval(() => {
+    tls.emit(`analytics`, JSStore.avail(), data => console.log(data))}, 1000);
 })();

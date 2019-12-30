@@ -1,7 +1,8 @@
 const {createSecureServer} = require(`http2`);
 const fs = require(`fs`);
 
-const {router} = require(`./corrde-control`);
+const {router} = require(`./corrde-control`),
+      {RouteTCP} = require(`./corrde-control`);
 const {mysql} = require(`./corrde-util`);
 const {modelString} = require(`./corrde-model`);
 
@@ -14,6 +15,8 @@ let app = createSecureServer({
 }, (req, res) => {
   router(req, res);
 });
+
+RouteTCP(require(`socket.io`)(app));
 
 app.on(`error`, (err) => console.error(err));
 app.listen(8124);

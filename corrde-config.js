@@ -20,6 +20,7 @@ module.exports = {
   to: cdto,
 
   lvl_ini_ava: gp + `img-ssl/ini/sq/`,
+  lvl_ava: gp + `img-ssl/ava/sq/`,
 
   lvl: {//svr_map
     css: gp + `css/css.css`},
