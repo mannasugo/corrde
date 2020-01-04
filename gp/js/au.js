@@ -183,15 +183,25 @@
     if (el.id === `make`) emailGo(el);
 
     if (el.getAttribute(`name`) === `meta-to`) {
-      JSStore.to({in_as: el.value});
+      
+      let mt;
 
-      if (el.id === `false`) el.value = `true`;
+      if (document.querySelector(`#mt2`)) {
 
-      if (el.id === `true`) el.value = `false`;
+          document.querySelector(`#mt2`).id = `mt0`
+        }
+
+      if (el.id === `mt0`) {
+
+        el.id = `mt2`;
+      }
+
+      else if (el.id === `mt2`) el.setAttribute(`id`, `mt0`)
     }
 
     if (el.id === `meta-sign`) {
-      if (JSStore.avail().in_as) fullGo();
+
+     fullGo();
     }
 
     if (el.id === `ini-ava`) {
@@ -722,30 +732,11 @@
       make_mail: listSlims[0],
       make_pass: listSlims[1]});
 
-    if (document.querySelector(`#true`)) {
-
-      let val = document.querySelector(`#true`).value;
-
-      if (val === `0`) {
-
-        AJXCall(`isMail_`, JSStore.avail(), (A, B) => {
+    AJXCall(`isMail_`, JSStore.avail(), (A, B) => {
           if (B.is_mail === false) {
             window.location = `/meta`;
           }
         })
-      }
-
-      else if (val = `1`) {
-
-        AJXCall(`isClient`, JSStore.avail(), (A, B) => {
-          if (B.is_mail === false) {
-            window.location = `/explore`;
-          }
-        })
-      }
-    }
-
-    
 
   }
 
@@ -758,11 +749,29 @@
 
     JSStore.to({make_full: slimValue});
 
-    AJXCall(`isFull`, JSStore.avail(), (A, B) => {
-      if (B.is_full_set === true) {
-        window.location = B.url;
+    if (document.querySelector(`#mt2`)) {console.log(`e`)
+
+      let val = document.querySelector(`#mt2`).value;
+
+      if (val === `0`) {
+
+        AJXCall(`isFull`, JSStore.avail(), (A, B) => {
+          if (B.is_full_set === true) {
+            window.location = B.url;
+          }
+        })
+
       }
-    })
+
+      else if (val = `1`) {
+
+        AJXCall(`isClient`, JSStore.avail(), (A, B) => {
+          if (B.is_mail === false) {
+            window.location = `/explore`;
+          }
+        })
+      }
+    }
 
   }
 
@@ -1096,7 +1105,7 @@
     linePlane.lineTo(lineGraph.width*7/7.6, lineGraph.height*1.9/8);
     linePlane.stroke();*/
 
-    let srcPlanes = document.querySelectorAll(`#src`),
+    /*let srcPlanes = document.querySelectorAll(`#src`),
         isPlane = document.createElement(`canvas`),
         img = new Image();
 
@@ -1129,16 +1138,27 @@
         let imageData = isPlane.toDataURL(`image/jpeg`);
 
         //document.querySelector(`#src`).src = imageData
-    }
-    
+    }*/
+
+    let tls = io.connect(); 
+
+    tls.on(`quick_analytics`, a => JSStore.to(a))
+
+    setInterval(() => {
+
+      if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail().in)
+
+      tls.emit(`analytics`, {})
+    }, 1000)
+
   }
 
+  setInterval(() => {
+
+
+  }, 2500)
   document.addEventListener(`click`, main);
   document.addEventListener(`change`, files);
   document.addEventListener(`DOMContentLoaded`, planes);
 
-  let tls = io.connect();
-
-  setInterval(() => {
-    tls.emit(`analytics`, JSStore.avail(), data => console.log(data))}, 1000);
 })();

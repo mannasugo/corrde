@@ -1901,7 +1901,16 @@ module.exports = {
               `ul`, `.@_aYy`, fieldAll]]]]]]], [`div`, `.@_aAx`]]]
   },
 
-  SVGMetrics () {
+  SVGMetrics (pool) {
+
+    let SVGPool = [[], []];
+
+    for (let pane in pool.field_count) {
+
+      SVGPool[0].push(pool.field_count[pane].field);
+      SVGPool[1].push(pool.field_count[pane][`modulus`]);
+    }
+
     return [
       `section`, `.@_C9y _uZ0`, [[
         `div`, `.@_XsQ _xsQ-`, [[
@@ -1910,31 +1919,25 @@ module.exports = {
             `h4`, `.@_ax2 _ut0`, `~@Jobs Activity`], [
             `div`, `.@_gMX _geQ _sZ2 _XY0`, [[
               `div`, `.@_geQ`, [[
-                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Jobs Posted`], [`span`, `.@_ax4 _ut0`, `~@180,678,003`]]], [
-                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Freelancers`], [`span`, `.@_ax4 _ut0`, `~@180,678,003`]]]]], [
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Jobs Posted`], [`span`, `.@_ax4 _ut0`, `~@${pool.all_jobs}`]]], [
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Freelancers`], [`span`, `.@_ax4 _ut0`, `~@${pool.all_pro}`]]]]], [
               `div`, `.@_geQ`, [[
                 `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0 _qaZ`, `~@Open Jobs`]]], [
                   `svg`, `.@geQ`, [[
                     `circle`, `.@_cC8`, `&@r>90`, `&@cy>100`, `&@cx>100`], [
-                    `circle`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
-                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@62.5`], [`span`, `.@_t2X`, `~@%`]]]]], [
+                    `circle`, `&@style>stroke-dashoffset: ${600-pool.open_modulus/100*565}px`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
+                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@${pool.open_modulus}`], [`span`, `.@_t2X`, `~@%`]]]]], [
               `div`, `.@_geQ`, [[
                 `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0 _qaZ`, `~@Active Freelancers`]]], [
                   `svg`, `.@geQ`, [[
                     `circle`, `.@_cC8`, `&@r>90`, `&@cy>100`, `&@cx>100`], [
-                    `circle`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
-                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@100`], [`span`, `.@_t2X`, `~@%`]]]]]]], [
+                    `circle`, `&@style>stroke-dashoffset: ${600-pool.pro_modulus/100*565}px`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
+                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@${pool.pro_modulus}`], [`span`, `.@_t2X`, `~@%`]]]]]]], [
               `div`, [[
               `h4`, `.@_ax2 _ut0`, `~@Top Jobs`], [
               `div`, `.@_sZ2`, [[
-                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Jobs`], [`span`, `.@_ax4 _ut0`, `~@180,678,003`]]],
-                this.XBARAnalysis([
-                    `carpet cleaning`,
-                    `home painting`,
-                    `interior design`,
-                    `furniture fitting`, 
-                    `furniture repair and maintenance`], [
-                    `20`, `40`, `25`, `5`, `10`])]]]]]]]]]]
+                `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0`, `~@Total Jobs`], [`span`, `.@_ax4 _ut0`, `~@${pool.all_jobs}`]]],
+                this.XBARAnalysis(SVGPool[0], SVGPool[1])]]]]]]]]]]
   },
 
   hows () {
@@ -2030,7 +2033,7 @@ module.exports = {
       metaAll[i] = [
         `div`, `.@_dVP`, [[
           `label`, `.@_cVP _btX`, `&@role>radio`, [[
-            `input`, `#@false`, `&@type>radio`, `&@name>meta-to`, `&@value>${i}`], [
+            `input`, `#@mt0`, `&@type>radio`, `&@name>meta-to`, `&@value>${i}`], [
             `span`, `.@_tCw _axX`, `~@${config.meta_to[meta]}`]]]]]
 
       i++

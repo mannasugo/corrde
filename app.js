@@ -16,7 +16,7 @@ let app = createSecureServer({
   router(req, res);
 });
 
-RouteTCP(require(`socket.io`)(app));
+RouteTCP(require(`socket.io`).listen(app));
 
 app.on(`error`, (err) => console.error(err));
 app.listen(8124);

@@ -1,3 +1,5 @@
+`use strict`;
+
 const fs = require(`fs`),
   crypto = require(`crypto`),
   mysql = require(`mysql`),
@@ -137,29 +139,33 @@ class UAPublic extends Auxll {
 
     this.modelStyler(config.lvl.css, CSSString => {
 
-      const modelMapping = {
-        title: `Corrde`,
-        css: CSSString,
-        jSStore: JSON.stringify({State: `offline`}),
-        jsState: config.cd.auJS,
-        appendModel: ``
-      };
+      this.analytics(msg => {
 
-      const a2 = {};
-      a2[`appendModel`] = model.mugger();
-      modelMapping[`appendModel`] = [
-        model.main({
-          appendModel: [
-            model.banner(), 
-            model.products(),
-            model.SVGMetrics(),
-            model.hows(), model.feature(),
-            model.footer()]}), model.header(a2)];
-      modelMapping[`appendModel`] = [model.wrapper(modelMapping), model.jS(modelMapping)];
+        const modelMapping = {
+          title: `Corrde`,
+          css: CSSString,
+          jSStore: JSON.stringify({State: `offline`}),
+          jsState: config.cd.auJS,
+          appendModel: ``
+        };
 
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(modelMapping));
+        const a2 = {};
+        a2[`appendModel`] = model.mugger();
+        modelMapping[`appendModel`] = [
+          model.main({
+            appendModel: [
+              model.banner(), 
+              model.products(),
+              model.SVGMetrics(msg),
+              model.hows(), model.feature(),
+              model.footer()]}), model.header(a2)];
+        modelMapping[`appendModel`] = [model.wrapper(modelMapping), model.jS(modelMapping)];
+
+        this.app.to.writeHead(200, config.reqMime.htm);
+        this.app.to.end(model.call(modelMapping));
       });
+    })
+      
   }
 
   in () {
@@ -222,7 +228,7 @@ class UAPublic extends Auxll {
 
       let cJar = cookie.parse(this.app.fro.headers.cookie);
 
-      if (!cJar[is]) return;
+      if (!cJar[is]) this.rootCall();
 
       return cJar[is];
 
@@ -611,8 +617,120 @@ class UAPublic extends Auxll {
       this.app.to.end(model.call(pool));
         }
       })
-})
+    })
       
+  }
+
+  analytics (call) {
+
+    let allJobs = [],
+      fieldCount = [],
+      auMap = new Map(),
+      conca = `select * from j;`;
+      conca += `select * from u;`;
+
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      if (B && parseInt(B[0].length)) allJobs = B[0];
+
+        let allPro = new Map(),
+          openTasks = new Map(),
+          fCount = 0;
+
+        if (B && B[0]) {
+
+          for (let task in B[0]) {
+
+            if (B[0][task].blab[0] === `{`) {
+
+              let alt_ = JSON.parse(B[0][task].blab);
+
+              if (alt_.status === `is_open`) {
+
+                openTasks.set(alt_.sum, alt_.job_sum);
+              }
+
+            }
+          }
+
+          for (let field in config.fields) {
+
+            let sFields = [];
+
+            for (let task in B[0]) {
+
+              if (B[0][task].blab[0] === `{`) {
+
+                let alt_ = JSON.parse(B[0][task].blab);
+
+                if (field === alt_.field) {
+
+                  sFields.push(alt_.subfield)
+                }
+              }
+            }
+              
+            let fieldModus;
+
+            if (allJobs.length === 0) {
+
+              fieldModus = 0;
+            } 
+
+            else {
+
+              fieldModus = parseInt(sFields.length/allJobs.length) * 100;
+            }
+
+            fieldCount[fCount] = {field: field, count: sFields.length, modulus: fieldModus}
+            fCount++
+          }
+        }
+
+        if (B && B[1]) {
+
+          for (let auth in B[1]) {
+
+            if (B[1][auth].alt[0] === `{`) {
+
+              let alt_ = JSON.parse(B[1][auth].alt);
+
+              if (alt_.skills.length > 0) {
+
+                allPro.set(alt_.sum, alt_.skills);
+              }
+            }
+          }
+        }
+
+        let openMod, proMod;
+
+        if (allPro.size === 0 || allJobs.length === 0) {
+
+          openMod = 0;
+          proMod = 0;
+        } 
+
+        else {
+
+          openMod = parseInt(openTasks.size/allJobs.length) * 100;
+          proMod = parseInt(auMap.size/allPro.size) * 100;
+        }
+          
+        fieldCount.sort((a,b) => {
+          return (b.count.length - a.count.length)});
+
+        let analytics = {
+            all_active_pros: auMap.size,
+            all_jobs: allJobs.length,
+            all_pro: allPro.size,
+            field_count: fieldCount,
+            open_modulus: openMod,
+            pro_modulus: proMod}
+
+        call(analytics);
+      })
   }
 }
 
@@ -1310,11 +1428,13 @@ class ViaAJX extends Auxll {
       this.iniCookie(`is_full_set`, true);
     }
 
-    if (config.meta_to[0] === q.in_as) {
+    /*if (config.meta_to[0] === q.in_as) {
       pool.url = `/setup`;
     }
 
-    else if (config.meta_to[1] === q.in_as) pool.url = `/explore` //public
+    else if (config.meta_to[1] === q.in_as) pool.url = `/meta`*/
+
+    pool.url = `/setup` //public
 
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify(pool));
@@ -1506,24 +1626,231 @@ class AJXJPEG {
   }
 }
 
-class UATCP {
+class UATCP extends UAPublic {
+
+  constructor () {
+
+    super();
+    this.u = false;
+    this.uid = false;
+  }
 
   TCPCalls (tcp) {
 
-    let totals = {};
+    let totals = {},
+      auMap = new Map(),
+      allJobs = [],
+      fieldCount = [],
+      conca = `select * from j;`;
+      conca += `select * from u;`;
 
     tcp.on(`connection`, tls => {
 
-      totals[`totals`] = totals[`totals`] || 0;
-      totals[`totals`] += 1;
+      tls.on(`analytics`, msg => {
 
+        new Sql().multi({}, conca, (A, B, C) => {
+
+          if (B && parseInt(B[0].length)) allJobs = B[0];
+
+          let allPro = new Map(),
+              openTasks = new Map(),
+              fCount = 0;
+
+          if (B && B[0]) {
+
+            for (let task in B[0]) {
+
+              if (B[0][task].blab[0] === `{`) {
+
+                let alt_ = JSON.parse(B[0][task].blab);
+
+                if (alt_.status === `is_open`) {
+
+                    openTasks.set(alt_.sum, alt_.job_sum);
+                }
+
+              }
+            }
+
+            for (let field in config.fields) {
+
+              let sFields = [];
+
+              for (let task in B[0]) {
+
+                if (B[0][task].blab[0] === `{`) {
+
+                  let alt_ = JSON.parse(B[0][task].blab);
+
+                  if (field === alt_.field) {
+
+                    sFields.push(alt_.subfield)
+                  }
+                }
+              }
+              
+              let fieldModus;
+
+              if (allJobs.length === 0) {
+
+                fieldModus = 0;
+              } 
+
+              else {
+
+                fieldModus = parseInt(sFields.length/allJobs.length) * 100;
+              }
+
+              fieldCount[fCount] = {field: field, count: sFields.length, modulus: fieldModus}
+              fCount++
+            }
+          }
+
+          if (B && B[1]) {
+
+            for (let auth in B[1]) {
+
+              if (B[1][auth].alt[0] === `{`) {
+
+                let alt_ = JSON.parse(B[1][auth].alt);
+
+                if (alt_.skills.length > 0) {
+
+                  allPro.set(alt_.sum, alt_.skills);
+                }
+              }
+            }
+          }
+
+          let openMod, proMod;
+
+          if (allPro.size === 0 || allJobs.length === 0) {
+
+            openMod = 0;
+            proMod = 0;
+          } 
+
+          else {
+
+            openMod = parseInt(openTasks.size/allJobs.length) * 100;
+            proMod = parseInt(auMap.size/allPro.size) * 100;
+          }
+          
+          fieldCount.sort((a,b) => {
+            return (b.count.length - a.count.length)});console.log({
+            all_active_pros: auMap.size,
+            all_jobs: allJobs.length,
+            all_pro: allPro.size,
+            field_count: fieldCount,
+            open_modulus: openMod,
+            pro_modulus: proMod})
+
+          tls.emit(`quick_analytics`, {
+            all_active_pros: auMap.size,
+            all_jobs: allJobs.length,
+            all_pro: allPro.size,
+            field_count: fieldCount,
+            open_modulus: openMod,
+            pro_modulus: proMod})
+        });
+
+      })
+
+      tls.on(`is_au`, u => {
+
+        if (!auMap.has(u)) {
+
+          this.uid = u;
+          auMap.set(u, new Date().valueOf());
+        }
+
+        tls.emit(`quick_analytics`, {all_active_pros: auMap.size})
+
+          //if (cookie.parse(tls.request.headers.cookie).u) this.uid = cookie.parse(tls.request.headers.cookie).u;
+      })
+      //tls.on(`analytics`, (tcpData, call) => {
+
+        //setInterval(() => {console.log(new Date().valueOf());//console.log(tls.request.headers)
+          
+          //this.tcpMap = tcpData;
+
+          //if (this.tcpMap.in) {
+
+            //console.log(this.auMap); this.auMap = this.auMap || new Map()
+            //this.auMap.set(this.tcpMap.in, new Date().valueOf());
+          //}
+
+          //call({[`now`]: new Date().valueOf()}/*total*/)}, 3000);
+      //})
+      
+
+      /*tls.on(`analytics`, (tcpData, call) => {
+
+        this.tcpMap = tcpData;
+
+        if (this.tcpMap.in) {
+
+          console.log(this.auMap); this.auMap = this.auMap || new Map()
+          this.auMap.set(this.tcpMap.in, new Date().valueOf());
+        }
+        /*if (tcpData.in) {console.log(auMap.size)
+
+          this.u = tcpData.in;
+
+          if (!auMap.has(tcpData.in)) {
+
+            auMap.set(tcpData.in, new Date().valueOf());
+
+            if (totals[`auth_in`]) {
+
+              totals[`auth_in`] += 1//totals[`auth_in`]
+            }
+
+            else {
+
+              totals[`auth_in`] = 0
+              totals[`auth_in`] += 1;
+            }
+          }
+
+          else if (auMap.has(tcpData.in)) {
+
+            auMap.set(tcpData.in, new Date().valueOf());
+
+            if (totals[`auth_in`]) {
+
+              totals[`auth_in`] = totals[`auth_in`];
+            }
+
+            else {
+
+              totals[`auth_in`] = 0
+              totals[`auth_in`] += 1;
+            }
+            //totalsAuth[tcpData.in] = true;//if (totalsAuth[tcpData.in] && totalsAuth[tcpData.in] === true) {
+
+              //totals[`auth_in`] -= 1;
+              //totalsAuth[tcpData.in] = false;
+            //}
+
+            //else if (totalsAuth[tcpData.in] && totalsAuth[tcpData.in] === false) {
+
+              //totals[`auth_in`] += 1;
+              //totalsAuth[tcpData.in] = true;
+            //}
+          }
+        }
+        
+        call(totals)})*/
+      
       tls.on(`disconnect`, () => {
-        totals[`totals`] -= 1
-      });
+        totals[`totals`] -= 1;
 
-      tls.on(`analytics`, (t, call) => {
-        console.log(t)
-        call(totals)})
+        if (this.uid !== false && auMap.has(this.uid)) {
+
+          auMap = new Map()
+        }
+      });
     });
   }
 }
