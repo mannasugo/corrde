@@ -59,24 +59,53 @@ const Model = (function () {
   
   Model.prototype = {
     
-    modelString: function (stack) {
-      if (typeof stack !== `object`) return;
-      stack.forEach(cluster => {
-        let a = cluster.tag;
-        let z = a;
-        if (cluster.tag_) a = cluster.tag_;
+    modelStringify: (model) => {
+
+      if (typeof model !== `object`) return;
+
+      for (let lev = 0; lev < model.length; lev++) {
+
+        let a = model[lev][0];
+        let t2, lv2, z = a;
+
+        if (a === `html`) a = `!doctype html><html`;
+
         this.appendString += `<` + a;
-        if (cluster.flags) {
-          for (let flag in cluster.flags) {
-            this.appendString += ` ${flag}='${cluster.flags[flag]}'`;
+
+        for (let lev_ = 0; lev_ < model[lev].length; lev_++) {
+
+          let l2 = model[lev][lev_];
+
+          if (typeof l2 === `string` && l2.split(`@`)[0] === `#`) {
+            this.appendString += ` id='` + l2.split(`@`)[1] + `'`;
           }
+
+          else if (typeof l2 === `string` && l2.split(`@`)[0] === `.`) {
+            this.appendString += ` class='` + l2.split(`@`)[1] + `'`;
+          }
+
+          else if (typeof l2 === `string` && l2.split(`@`)[0] === `&`) {
+            let plus = l2.split(`@`)[1].split(`>`);
+            this.appendString += ` ` + plus[0] + `='` + plus[1] + `'`;
+          }
+
+          if (typeof l2 === `object`) {lv2 = l2;}
+
+          if (typeof l2 === `string` && l2.split(`@`)[0] === `~`) { t2 = l2;}
+
         }
+
         this.appendString += `>`;
-        if (cluster.closure) this.appendString += cluster.closure;
-        if (cluster.tagChild) this.modelString(cluster.tagChild);
+
+        if (typeof t2 === `string` && t2.split(`@`)[0] === `~`) {this.appendString += t2.substring(2, t2.length+1);}
+
+        if (typeof lv2 === `object`) {this.modelStringify(lv2);}
+
         let queer = [`img`, `input`, `meta`];
-        if (queer.indexOf(cluster.tag) === -1) this.appendString += `</${z}>`;  
-      });
+
+        if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`; 
+      }
+
       return this.appendString;
     }
   }

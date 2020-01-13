@@ -732,10 +732,11 @@
       JSStore.to({to_field: el.querySelector(`span`).innerHTML})
 
       AJXCall(`isField`, JSStore.avail(), (A, B) => {
-          if (B.is_mail === false) {
-            window.location = `/explore`;
-          }
-        })
+        
+        if (B.is_mail === false) {
+          window.location = `/explore`;
+        }
+      })
 
       delModal();
     }
