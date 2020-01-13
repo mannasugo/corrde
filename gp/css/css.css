@@ -1472,7 +1472,7 @@ flex: 3 0 0%;
   position: relative;
 }
 
-._-zZx + ._-zZx {
+._-zZx + ._-zZx, ._cS2 + ._cS2 {
   border-top: 1px solid #e6e7eb;
 }
 
@@ -1549,7 +1549,7 @@ flex: 3 0 0%;
   margin: auto;
   width: calc(100% - 48px);
   max-width: 684px;
-  max-height: calc(100vh - 70px);
+  max-height: calc(100vh - 24px * 2);
   overflow: auto;
 }
 
@@ -1937,7 +1937,7 @@ table > thead > tr > th {
   margin: 40px auto 20px;
 }
 
-._cC8, ._cC8- {
+._cC8, ._cC8-, ._cC4, ._cC4- {
   fill: none;
 }
 
@@ -1976,6 +1976,144 @@ table > thead > tr > th {
 ._t2X {
   font-size: 11px;
   padding: 0 2px 0;
+}
+
+._aAY {
+  background: #fff;
+  border-radius: 3px;
+  max-width: 684px;
+  box-shadow: 0 4px 32px 0 rgba(10,14,29,.02), 0 8px 64px 0 rgba(10,14,29,.08);
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: calc(100% - 48px);
+  max-width: 684px;
+}
+
+._aXY { 
+  max-height: calc(100vh - 70px);
+  overflow: auto;
+}
+
+._aAY > ._gcQ {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+._zZx ._-xQy {
+
+}
+
+._aAY ._Xtx, ._aA2 {
+  color: #000;
+}
+
+._aA2 {
+  font-weight: 300;
+  font-size: 12.5px;
+}
+
+._aA4 {
+  color: #1185fe;
+}
+
+._pg0 {
+  fill: #4f4f4f;
+  height: 0.5px;
+}
+
+._pg2 {
+  fill: #e4f1ff;
+}
+
+._pg2- {
+  fill: #1185fe;
+}
+
+._aA8, ._aA8:visited {
+  border-bottom: 2px solid transparent;
+  font-size: 12.5px;
+  line-height: 1.1;
+  display: inline;
+  /*font-weight: 700;*/
+  text-transform: capitalize;
+  color: #000;
+}
+
+._aA8:hover, ._aA8:focus {
+  transition: border-bottom .1s ease-in-out;
+  border-bottom: 2px solid #000;
+  color: #000
+}
+
+._zg0 {
+  min-height: 0;
+  width: 40px;
+  height: 40px;
+}
+
+._QZg > svg {
+  margin: 0 15px 0;
+}
+
+._cC4 {
+  stroke-width: 1;
+  stroke: #86868638;
+}
+
+._cC4- {
+  stroke-width: 1.5;
+  stroke: #1dcae1;
+  stroke-dasharray: 600px;
+  stroke-dashoffset: 485px;
+}
+
+._-cC4 {
+  position: absolute;
+  display: block;
+  top: 50%;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  color: #1dcae1;
+  margin-top: -10px;
+}
+
+._xg2 {
+  min-width: 62px;
+  text-align: right;
+}
+
+._q2s {
+  margin: 40px 0 20px;
+}
+
+._aX2 {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+._aA6 {
+  color: #4f4f4f;
+}
+
+._zY0, ._zY0:visited {
+  line-height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 0 15px;
+  color: inherit;
+}
+
+._cS2 {
+  padding: 15px 0;
+}
+
+._zYg {
+  white-space: normal;
 }
 
 @media (min-width: 414px) {

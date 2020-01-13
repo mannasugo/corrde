@@ -415,5 +415,19 @@ module.exports = {
   save_pro:
     `~@Save`,
   to_save:
-    `&@href>#save`
+    `&@href>#save`,
+
+  listReducMonths: [
+    `Jan`,
+    `Feb`,
+    `Mar`,
+    `Apr`,
+    `May`,
+    `Jun`,
+    `Jul`,
+    `Aug`,
+    `Sep`,
+    `Oct`,
+    `Nov`,
+    `Dec`],
 }

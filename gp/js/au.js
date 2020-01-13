@@ -713,6 +713,46 @@
       }
     }
 
+    if (el.id === `fields`) {
+
+      document.querySelector(`#fields_modal`).setAttribute(`class`, `_aAY -Zz`);
+    }
+
+    if (el.id === `to_field`) {
+
+      let toFields = document.querySelectorAll(`#to_field`);
+
+      for (var i = 0; i < toFields.length; i++) {
+
+        toFields[i].querySelector(`span`).style.color = `#000`;
+      }
+
+      el.querySelector(`span`).style.color = `#1185fe`;
+
+      JSStore.to({to_field: el.querySelector(`span`).innerHTML})
+
+      AJXCall(`isField`, JSStore.avail(), (A, B) => {
+          if (B.is_mail === false) {
+            window.location = `/explore`;
+          }
+        })
+
+      delModal();
+    }
+
+    if (el.id === `del`) {
+
+      let modals = document.querySelectorAll(`[for = 'modal']`);
+
+      for (let i = 0; i < modals.length; i++) {
+        
+        if (modals[i].className === `_aAY -Zz`) {
+
+          modals[i].setAttribute(`class`, `_aAY _-Zz`);
+        }
+      }
+    }
+
   }
 
   const emailGo = e => {
@@ -905,18 +945,6 @@
         inCall(A, B);
       }
     });
-  }
-
-  const createModal = model => {
-    delModal();
-
-    let div = document.body.appendChild(document.createElement(`div`));
-    div.innerHTML = ``;
-    div.innerHTML = new Model().modelString(model)
-  }
-
-  const delModal = () => {
-    if (document.querySelector(`div > #modal`)) document.body.removeChild(document.querySelector(`div > #modal`).parentNode);
   }
 
   const urlCall = to => {
@@ -1140,25 +1168,48 @@
         //document.querySelector(`#src`).src = imageData
     }*/
 
-    let tls = io.connect(); 
+    //let tls = io.connect(); 
 
-    tls.on(`quick_analytics`, a => JSStore.to(a))
+    //tls.on(`quick_analytics`, a => JSStore.to(a))
 
-    setInterval(() => {
+    setInterval(() => { 
 
-      if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail().in)
+      //if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail().in)
 
-      tls.emit(`analytics`, {})
+      //tls.emit(`analytics`, {})
     }, 1000)
 
   }
 
-  setInterval(() => {
+  delModal = () => {
 
+    let modals = document.querySelectorAll(`[for = 'modal']`);
 
-  }, 2500)
+      for (let i = 0; i < modals.length; i++) {
+        
+        if (modals[i].className === `_aAY -Zz`) {
+
+          modals[i].setAttribute(`class`, `_aAY _-Zz`);
+        }
+      }
+  }
+
   document.addEventListener(`click`, main);
   document.addEventListener(`change`, files);
   document.addEventListener(`DOMContentLoaded`, planes);
+
+  const geo = position => {
+
+    let gps = position.coords,
+      lat = gps.latitude,
+      long = gps.longitude;
+
+      alert (lat + ` ` + long);
+  }
+
+  const geoError = (errorObj) => alert(errorObj.message)
+
+  //navigator.geolocation.getCurrentPosition(geo, geoError)
+  //console.log(navigator.geolocation)
 
 })();

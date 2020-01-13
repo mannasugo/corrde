@@ -2218,6 +2218,14 @@ module.exports = {
   },
 
   top (pool) {
+
+    let skillFields = []
+
+    for (let field in config.fields) {
+
+      skillFields.push(field)
+    }
+
     return [`nav`, 
       `.@_uHC`, [[
         `div`, `.@_xCt`], [
@@ -2229,7 +2237,8 @@ module.exports = {
                 `span`, `.@_tCc`, `~@beta`]]], [
               `div`, `.@_QZg`, [[
                 `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>#ava-tools`, [[
-                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`]]]]], [
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`]]]]], 
+              this.inModal({id: `fields_modal`, in: this.aModal(skillFields)}), [
               `div`, `#@mug`, `.@_aYx _-Zz`, [[
                 `ul`, `.@_aYy _tXx`, [[
                   `li`, `.@_-zZx`, [[
@@ -2244,7 +2253,7 @@ module.exports = {
                         `div`, `.@_gM_a _agM`, [[`a`, `#@p`, `.@_TX_a _atX`, `&@href>#p`, `~@Switch to Proffesional`]]]]]]]]]]]]]]]]]]]]]
   },
 
-  inView (pool) {
+  inView (A, B) {
 
     return [
       `section`, `.@_C3y`, [[
@@ -2254,11 +2263,17 @@ module.exports = {
             `input`, `#@locate`, `.@_RRD _Ccs`, config.fill_off, `&@placeholder>Search location for Activity`]]],*/ [
           `div`, [[
             `div`, [[
-              `div`, `.@_gxM _gcQ _CYc`, [[
-                `div`, [[`a`, `.@_tX PrevGrayColor`, `&@href>#m2`]]], [
-                `div`, `.@_dMG eYG _geQ`, [[`span`, `.@_utQ`, `~@Home`]]], [
-                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX NextGrayColor`, `&@href>#a2`]]]]], [
-              `h4`, `.@_ax2 _sZ2`, `~@Popular Experts in Home`], [
+              `div`, `.@_gxM _gcQ _CYc _sZ2`, [[
+                `div`, [[`a`, `#@fields`, `.@_tX PrevGrayColor`, `&@href>#a2`]]], [
+                `div`, `.@_dMG eYG _geQ`, [[`span`, `.@_utQ`, `~@${B.field}`]]], [
+                `div`, `.@_QZg _gMz`, [[`a`, `#@fields`, `.@_tX NextGrayColor`, `&@href>#a2`]]]]], [
+                  `div`, `.@_geQ _sZ2`, [[
+                    `div`, `.@_aXZ`, [[
+                      `span`, `.@_Ax0 _aA2`, `~@Total ${B.field} Jobs Today`], [
+                      `span`, `.@_ax4 _aA4`, `~@${A[0].total}`]]]]], [
+                `div`, `.@_sZ2`, [this.SVG_YBAR(A, B)]],
+                this.SVGlinePie(A, B),
+                this.tasksReduc(B, 5)/*, [
               `div`, `.@_gxM _gcQ _CYc _sZ2`, [[
                 `div`, [[`a`, `.@_tX ChevFroGrayColor`, `&@href>#p2`]]], [
                 `div`, `.@_gxM _geQ`, [[
@@ -2271,30 +2286,10 @@ module.exports = {
                         `div`, [[
                           `div`, `.@_gM_a _agM _guZ _eX2 _SxQ _gxM _dMG`, [[
                             `span`, `.@-_tX StarMiniColor`], [
-                            `span`, `.@_utQ _tAx`, `~@0.0`]]]]]]]]]]]/*, [
+                            `span`, `.@_utQ _tAx`, `~@0.0`]]]]]]]]]]], [
                   `div`, `.@_geQ`, [[`a`, `.@_Cc2`, [[`img`, `.@_aWz`, `#@src`]]]]], [
-                  `div`, `.@_geQ`, [[`a`, `.@_Cc2`, [[`img`, `.@_aWz`, `#@src`]]]]]*/]], [
-                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX ChevToGrayColor`, `&@href>#u2`]]]]], /*[
-              `h4`, `.@_ax2`, `~@Activity in Home`], [
-              `div`, `.@_gMX _sZ2`, [[
-                `div`, `.@_gxM _dMG`, [[`span`, `.@_aWc _uH2`], [`span`, `.@_AXt`, `~@Jobs`]]], [
-                `div`, `.@_gxM _dMG`, [[`span`, `.@_aWc _uH4`], [`span`, `.@_AXt`, `~@Bids`]]], [
-                `div`, `.@_gxM _dMG`, [[`span`, `.@_aWc _uH8`], [`span`, `.@_AXt`, `~@Hires`]]]]], [
-              `div`, `.@_gxM _CYc _sZ2`, [[
-                `div`, `.@_axS`, [[
-                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `~@Month`]]]]], [
-                `div`, `.@_axS`, [[
-                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `~@Weeks`]]]]], [
-                `div`, `.@_axS`, [[
-                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `~@Today`]]]]]]], [
-              `div`, `.@_sZ2`, [[`canvas`, `#@line`]]], [
-              `div`, `.@_gxM _CYc _sZ2`, [[
-                `div`, `.@_axS _geQ`, [[
-                  `div`, `.@_gM_a _agM _guZ _eX2`, [[`a`, `.@_TX_a _atX _qXS _utQ _tX2`, `~@0 Jobs/Hour`]]]]], [
-                `div`, `.@_axS _geQ`, [[
-                  `div`, `.@_gM_a _agM _guZ _eX4`, [[`a`, `.@_TX_a _atX _qXS _utQ _tX4`, `~@0 Bids/Hour`]]]]], [
-                `div`, `.@_axS _geQ`, [[
-                  `div`, `.@_gM_a _agM _guZ _eX8`, [[`a`, `.@_TX_a _atX _qXS _utQ _tX8`, `~@0 Hires/Hour`]]]]]]],*/ [
+                  `div`, `.@_geQ`, [[`a`, `.@_Cc2`, [[`img`, `.@_aWz`, `#@src`]]]]]]], [
+                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX ChevToGrayColor`, `&@href>#u2`]]]]],  [
                 `h4`, `.@_ax2`, `~@Experts' Activity in Home`], [
                 `div`, `.@_gMX _geQ _sZ2 _XY0`, [[
                   `svg`, `.@_geQ`, [[
@@ -2315,44 +2310,7 @@ module.exports = {
                         `div`, `.@_gxM _Cy0 _dMG`, [[
                           `span`, `.@_aWc _uH6`], [
                           `span`, `.@_AXt`, `~@Inactive freelancers`]]], [
-                        `div`, `.@_QZg`, [[`span`, `~@35%`]]]]]]]]]]], [
-                `h4`, `.@_ax2`, `~@Categories in Home by Popularity`], [
-                `div`, `.@_sZ2`, [[
-                  `div`, `.@_aXZ`, [[`span`, `.@_Ax0`, `~@Total Jobs`], [`span`, `.@_ax4`, `~@180,678,003`]]],
-                  this.XBARAnalysis([
-                    `carpet cleaning`,
-                    `home painting`,
-                    `interior design`,
-                    `furniture fitting`, 
-                    `furniture repair and maintenance`], [
-                    `20`, `40`, `25`, `5`, `10`])]], [
-                `h4`, `.@_ax2`, `~@Recent Jobs in Home`], [
-                `div`, `.@_gZ0`, [[
-                  `table`, [[
-                    `colgroup`, [[`col`], [`col`], [`col`], [`col`], [`col`], [`col`]]], [
-                    `thead`, [[
-                      `tr`, [[
-                        `th`, `~@Category`], [
-                        `th`, `~@Date`], [
-                        `th`, `~@Pay`], [
-                        `th`, `~@Applications`], [
-                        `th`, `~@Deadline`], [
-                        `th`, `~@Status`]]]]], [
-                    `tbody`, [[
-                      `tr`, [[
-                        `td`, `.@_szU`, `~@Cleaning`], [
-                        `td`, `.@_szU`, `~@2 JAN 2020`], [
-                        `td`, `.@_szU`, `~@$ 300`], [
-                        `td`, `.@_szU`, `~@24 Bids`], [
-                        `td`, `.@_szU`, `~@to: 3 JAN 2020`], [
-                        `td`, `.@_tu2`, `~@Open`]]], [
-                      `tr`, [[
-                        `td`, `.@_szU`, `~@Cleaning`], [
-                        `td`, `.@_szU`, `~@2 JAN 2020`], [
-                        `td`, `.@_szU`, `~@$ 300`], [
-                        `td`, `.@_szU`, `~@24 Bids`], [
-                        `td`, `.@_szU`, `~@to: 3 JAN 2020`], [
-                        `td`, `.@_tu2`, `~@Open`]]]]]]]]]]]]]]]]]
+                        `div`, `.@_QZg`, [[`span`, `~@35%`]]]]]]]]]]],*/ ]]]]]]]]
   },
 
 
@@ -2375,6 +2333,182 @@ module.exports = {
 
     return [
       `svg`, `.@_aXZ`, `&@style>height: ${valPool.length*50+50}px`, [[`g`, XBARPool]]]
+  },
+
+  inModal (pool) {
+
+    return [
+      `div`, `#@${pool.id}`, `&@for>modal`, `.@_aAY _-Zz`, [[
+        `div`, `.@_gcQ _gxM _geQ`, [[
+          `div`, `.@_QZg`, [[
+            `div`, [[`a`, `#@del`, `&@href>#x`, `.@-_tX DelColor`]]]]]]], 
+        [`div`, `.@_aXY`, [pool.in]]]]
+  },
+
+  aModal (pool) {
+
+    let inPool = []
+
+    for (let i = 0; i < pool.length; i++) {
+
+      inPool[i] = [`li`, `.@_-zZx`, [[`a`, `#@to_field`, `&@href>#field`, `.@_-xQy`, [[`span`, `.@_tAx _Xtx`, `~@${pool[i]}`]]]]];
+    }
+
+    return [
+      `ul`, `.@_aYy _tXx`, inPool]
+  },
+
+  UTCDayMin (UTC) {
+
+    let day = new Date(parseInt(UTC)),
+      listMonths = config.listReducMonths,
+
+      dayReduc = listMonths[day.getUTCMonth()] + ` ` + day.getUTCDate();
+    
+    return dayReduc;
+  },
+
+  SVG_YBAR (A, B) {
+
+    let xPlot = [],
+      today = ``,
+      SVGlays = [], 
+      SVGCount = [];
+
+    if (B.days_totals[0] < 2) {
+
+      xPlot = [0, 1, 2];
+    }
+
+    else if (B.days_totals[0] > 2 && B.days_totals[0] < 4) xPlot = [0, 2, 4];
+
+    else if (B.days_totals[0] > 4 && B.days_totals[0] < 6) xPlot = [0, 3, 6];
+
+    else if (B.days_totals[0] > 6 && B.days_totals[0] < 8) xPlot = [0, 2, 4, 6, 8];
+
+    else if (B.days_totals[0] > 8 && B.days_totals[0] < 10) xPlot = [0, 5, 10];
+
+    else if (B.days_totals[0] > 10 && B.days_totals[0] < 20) xPlot = [0, 10, 20];
+
+    else if (B.days_totals[0] > 20 && B.days_totals[0] < 40) xPlot = [0, 20, 40];
+
+    else if (B.days_totals[0] > 40 && B.days_totals[0] < 60) xPlot = [0, 30, 60];
+
+    else if (B.days_totals[0] > 60 && B.days_totals[0] < 80) xPlot = [0, 20, 40, 60, 80];
+
+    else if (B.days_totals[0] > 80 && B.days_totals[0] < 100) xPlot = [0, 50, 100];
+
+    let xKey = [`Jan 10`, `Jan 9`, `Jan 8`, `Jan 7`, `Jan 6`, `Jan 5`, `Jan 4`],
+      freqs = [1, 1, 2, 0, 1, 2, 0]
+
+    for (let lay = 0; lay < xPlot.length; lay++) {
+      
+      SVGlays[lay] = [
+        `g`, [[
+          `rect`, `.@_pg0`, `&@x>0%`, `&@y>${185 - (lay * 180/(xPlot.length - 1))}`, `&@width>90%`, `&@height>1`], [
+          `text`, `&@x>95%`, `&@y>${187.5 - (lay * 180/(xPlot.length - 1))}`, `~@${xPlot[lay]}`]]]
+    }
+
+    for (let day = 0; day < A.length; day++) {
+
+      if (parseInt(A[day].UTC) === parseInt(new Date(new Date().setUTCHours(0)).valueOf())) {
+
+        today = ` _pg2-`;
+      }
+
+      else {today = ``;}
+      
+      SVGCount[day] = [
+        `g`, [[
+          `text`, `&@x>${80 - (day * 77.5/(A.length - 1))}%`, `&@y>197.5`, `~@${this.UTCDayMin(A[day].UTC)}`], [
+          `rect`,
+          `.@_pg2${today}`,
+          `&@x>${80 - (day * 77.5/(A.length - 1))}%`, 
+          `&@y>${185 - (parseInt(A[day].total) * 180/(xPlot.length - 1))}`, 
+          `&@width>10%`, 
+          `&@height>${185 - (185 - (A[day].total * 180/(xPlot.length - 1)))}`]]]
+    }
+
+    return [
+      `svg`, `.@_aXZ`, `&@style>height: ${200}px`, [[`g`, SVGlays], [`g`, SVGCount]]]
+  },
+
+  SVGlinePie (A, B) {
+
+    let CatPanes = [],
+      index = 0,
+      modus = 0,
+      cats = A[0].sub_totals;
+
+    for (let pane in cats) {
+
+      if (parseInt(A[0].total) > 0) {
+
+        modus = parseInt(cats[pane])/parseInt(A[0].total) * 100;
+      }
+
+      CatPanes[index] = [
+        `div`, `.@_gMX _geQ _sZ2`, [[
+          `a`, `.@_aA8`, `~@${pane}`, `&@href>#${pane}`], [
+          `div`, `.@_QZg`, [[
+            `div`, [[
+              `svg`, `.@_zg0`, [[
+                `g`, [[
+                  `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
+                  `circle`, `&@style>stroke-dashoffset: ${600-modus/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]], [
+              `div`, `.@_-cC4`, [[`span`, `~@${modus}`], [`span`, `~@%`]]]]], [
+            `span`, `.@_xg2 _ax4 _aA4`, `~@${cats[pane]}`]]]]]
+
+      index++;
+    }
+
+    return [`div`, `.@_sZ2 _aA2 _q2s`, CatPanes];
+  },
+
+  tasksReduc (B, offSet) {
+
+    return [
+      `div`, `.@_aA2`, [[
+        `h4`, `.@_Ax0 _aA2`, `~@Recent Jobs in ${B.field}`], [
+        `section`, [[
+          `div`, `.@_uZM _CYc`, [[
+            `div`, `.@_eYG`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>#task`, `~@art`]]]]]]], [
+          `div`, `#@dept`, [[
+            `div`, `.@_uZC`, [[
+              `div`, [[
+                `div`, `.@-Zz`, [[
+                  `h4`, `#@task_0`, [[`a`, `.@_tX2 _aX2 _aA4`, `&@href>#task_0`, `~@art curator`]]], [
+                  `div`, `.@_sZ2`, [[`span`, `.@_szU _aA6`, `~@Posted - 20 MAY 2020`]]], [
+                  `div`, `.@_gMX _geQ _sZ2`, [[
+                    `div`, [[`span`, `.@_tXx`, `~@10`], [`span`, `.@_aA6`, `~@Hourly`]]], [
+                    `div`, `.@_QZg`, [[`div`, [[`span`, `.@_tXx`, `~@Under 2 weeks`], [`span`, `.@_aA6`, `~@Duration`]]]]]]], [
+                    `div`, `.@`, [[`a`, `.@_zY0`, `&@href>#txt`, `~@this is a demo text field with a null line break for the entire grid. this additional text is a measure taken for a wide media field.`]]], [
+                  `div`, `.@_gxM _CYc`, [[
+                    `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@On-site`]]]]], [
+                    `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@Remote`]]]]]]]]], [
+                `div`, [[
+                  `div`, [[
+                  `h4`, `#@task_0`, [[`a`, `.@_tX2 _aX2 _aA4`, `&@href>#task_0`, `~@art curator`]]], [
+                  `div`, `.@_QZg _sZ2`, [[`span`, `.@ _aA6`, `~@20 May 2020`]]], [
+                    `div`, `.@_sZ2`, [[`span`, `.@_zY0 _zYg`, `~@this is a demo text field with a null line break for the entire grid. this additional text is a measure taken for a wide media field.`]]], [
+                    `div`, `.@_cS2 _geQ _gMX sZ2`, [[
+                      `span`, `.@_tXx`, `~@Work Options`], [
+                      `div`, `.@_QZg`, [[
+                        `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@On-site`]]]]], [
+                        `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@Remote`]]]]]]]]], [
+                    `div`, `.@_cS2 _geQ _gMX sZ2`, [[
+                      `div`, [[`span`, `.@_tXx`, `~@10`], [`span`, `.@_aA6`, `~@Hourly`]]], [
+                      `div`, `.@_QZg`, [[`div`, [[`span`, `.@_tXx`, `~@Under 2 weeks`], [`span`, `.@_aA6`, `~@Duration`]]]]]]], [
+                    `div`, `.@_sZ2 _cS2 gxM`, [[
+                      `span`, `.@_tXx _ytx`, `~@Activity on this job`], [
+                      `div`, `.@_gxM`, [[`span`, `.@_aA6`, `~@Applications: `], [`span`, `.@_axS`, `~@ 20`]] ] ]], [
+                    `div`, `.@_gHm _aGX -gs`, [[
+                      `div`, `.@_xGy`, [[`div`, `.@_gxM _CYc _gcQ _geQ _gMX`, [[
+                        `div`, `.@_gcQ`, [[
+                          `div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>#apply`, `~@Send Application`]]]]]]]]]]]]]]], [
+                `div`, `.@_geQ _gMX _CYc`, [[
+                  `span`, `.@_aA6`, `~@Kenya, Kisumu`], [
+                  `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `~@Read More`]]]]]]]]]]]]]]]]]
   }
 
 }

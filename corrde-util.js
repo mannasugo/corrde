@@ -590,22 +590,24 @@ class UAPublic extends Auxll {
 
         if (isAuth !== false) {
 
-          let alt = JSON.parse(isAuth.alt);
+          this.fieldAnalysis(`art`, (A, B) => {
 
-          const pool = {
-            title: `Corrde Overview`,
-            css: CSS, 
-            jSStore: JSON.stringify({
-              ava: alt.ava,
-              full: alt.full,
-              State: `overview`,
-              in: this.isValid(`u`)}),
-              jsState: config.cd.auJS};
+            let alt = JSON.parse(isAuth.alt);
 
-      pool.appendModel = [
+            const pool = {
+              title: `Corrde Overview`,
+              css: CSS, 
+              jSStore: JSON.stringify({
+                ava: alt.ava,
+                full: alt.full,
+                State: `overview`,
+                in: this.isValid(`u`)}),
+                jsState: config.cd.auJS};
+
+            pool.appendModel = [
         model.main({
           appendModel: [
-            model.inView(alt),
+            model.inView(A, B),
             model.footer()]
         }), model.top(alt)];
 
@@ -615,6 +617,8 @@ class UAPublic extends Auxll {
 
       this.app.to.writeHead(200, config.reqMime.htm);
       this.app.to.end(model.call(pool));
+          })
+
         }
       })
     })
@@ -731,6 +735,89 @@ class UAPublic extends Auxll {
 
         call(analytics);
       })
+  }
+
+  fieldAnalysis(field, call) {
+
+    let conca = `select * from j;`,
+      fieldPool = [],
+      dayTotals = [],
+      taskPool = [],
+      subsPool = config.fields[field]; 
+
+    new Sql().multi({}, conca, (A,B,C) => {
+
+      if (B && parseInt(B.length)) {
+
+        for (let day = 0; day < 7; day++) {
+
+          let a = new Date(new Date().setUTCHours(0) - (day * 86400000)).toUTCString(),
+            z  = new Date(new Date().setUTCHours(24) - (day * 86400000)).toUTCString();
+
+          let sFields = [], subsCount = {}; 
+      
+          for (let task in B) {
+
+            if (B[task].blab === `{`) {
+
+              let alt_ = JSON.parse(B[task].blab);
+
+              if (field === alt_.field) {
+
+                if (parseInt(alt_.log) > a && parseInt(alt_.log) < z) {
+
+                  sFields.push(alt_.subfield)
+                }
+              }
+            }
+          }
+
+          for (let sub in subsPool) {
+
+            subsCount[subsPool[sub]] = subsCount[subsPool[sub]] || 0;
+
+            for (let sub_ in sFields) {
+
+              if (subsPool[sub] === sFields[sub_]) {
+
+                subsCount[subsPool[sub]] += 1;
+              }
+            }
+          }
+
+          dayTotals.push(sFields.length);
+
+          fieldPool[day] = {
+            day: a, 
+            sub_totals: subsCount, 
+            total: sFields.length,
+            UTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()}
+        }
+
+        for (let task in B) {
+
+          if (B[task].blab === `{`) {
+
+            let alt_ = JSON.parse(B[task].blab);
+
+            if (field === alt_.field) {
+
+              taskPool.push(alt_);
+            }
+          }
+        }
+      }
+
+      dayTotals.sort((a, b) => {
+        return (b - a)
+      });
+
+      taskPool.sort((a, b) => {
+        return (b.log - a.log)
+      })
+
+      call(fieldPool, {days_totals: dayTotals, field: field, task_pool: taskPool});
+    })
   }
 }
 
@@ -1646,7 +1733,7 @@ class UATCP extends UAPublic {
 
     tcp.on(`connection`, tls => {
 
-      tls.on(`analytics`, msg => {
+      tls.on(`analytics`, msg => {//console.log(this.fieldAnalysis(`art`, ``))
 
         new Sql().multi({}, conca, (A, B, C) => {
 
@@ -1737,13 +1824,7 @@ class UATCP extends UAPublic {
           }
           
           fieldCount.sort((a,b) => {
-            return (b.count.length - a.count.length)});console.log({
-            all_active_pros: auMap.size,
-            all_jobs: allJobs.length,
-            all_pro: allPro.size,
-            field_count: fieldCount,
-            open_modulus: openMod,
-            pro_modulus: proMod})
+            return (b.count.length - a.count.length)});
 
           tls.emit(`quick_analytics`, {
             all_active_pros: auMap.size,
