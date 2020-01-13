@@ -2256,24 +2256,25 @@ module.exports = {
   inView (A, B) {
 
     return [
-      `section`, `.@_C3y`, [[
-        `div`, `.@_XsQ _xsQ-`, [[
-          `h2`, `.@3tx`, `~@Overview`],/*, [
+      `section`, `#@field_root`, [[
+        `section`, `.@_C3y`, [[
+          `div`, `.@_XsQ _xsQ-`, [[
+            `h2`, `.@3tx`, `~@Overview`],/*, [
           `div`, `.@_sZ2 _UFA`, [[
             `input`, `#@locate`, `.@_RRD _Ccs`, config.fill_off, `&@placeholder>Search location for Activity`]]],*/ [
-          `div`, [[
             `div`, [[
-              `div`, `.@_gxM _gcQ _CYc _sZ2`, [[
-                `div`, [[`a`, `#@fields`, `.@_tX PrevGrayColor`, `&@href>#a2`]]], [
-                `div`, `.@_dMG eYG _geQ`, [[`span`, `.@_utQ`, `~@${B.field}`]]], [
-                `div`, `.@_QZg _gMz`, [[`a`, `#@fields`, `.@_tX NextGrayColor`, `&@href>#a2`]]]]], [
-                  `div`, `.@_geQ _sZ2`, [[
-                    `div`, `.@_aXZ`, [[
-                      `span`, `.@_Ax0 _aA2`, `~@Total ${B.field} Jobs Today`], [
-                      `span`, `.@_ax4 _aA4`, `~@${A[0].total}`]]]]], [
-                `div`, `.@_sZ2`, [this.SVG_YBAR(A, B)]],
-                this.SVGlinePie(A, B),
-                this.tasksReduc(B, 5)/*, [
+              `div`, [[
+                `div`, `.@_gxM _gcQ _CYc _sZ2`, [[
+                  `div`, [[`a`, `#@fields`, `.@_tX PrevGrayColor`, `&@href>#a2`]]], [
+                  `div`, `.@_dMG eYG _geQ`, [[`span`, `.@_utQ`, `~@${B.field}`]]], [
+                  `div`, `.@_QZg _gMz`, [[`a`, `#@fields`, `.@_tX NextGrayColor`, `&@href>#a2`]]]]], [
+                    `div`, `.@_geQ _sZ2`, [[
+                      `div`, `.@_aXZ`, [[
+                        `span`, `.@_Ax0 _aA2`, `~@Total ${B.field} Jobs Today`], [
+                        `span`, `.@_ax4 _aA4`, `~@${A[0].total}`]]]]], [
+                  `div`, `.@_sZ2`, [this.SVG_YBAR(A, B)]],
+                  this.SVGlinePie(A, B)//,
+                /*this.tasksReduc(B, 5)*//*, [
               `div`, `.@_gxM _gcQ _CYc _sZ2`, [[
                 `div`, [[`a`, `.@_tX ChevFroGrayColor`, `&@href>#p2`]]], [
                 `div`, `.@_gxM _geQ`, [[
@@ -2310,7 +2311,7 @@ module.exports = {
                         `div`, `.@_gxM _Cy0 _dMG`, [[
                           `span`, `.@_aWc _uH6`], [
                           `span`, `.@_AXt`, `~@Inactive freelancers`]]], [
-                        `div`, `.@_QZg`, [[`span`, `~@35%`]]]]]]]]]]],*/ ]]]]]]]]
+                        `div`, `.@_QZg`, [[`span`, `~@35%`]]]]]]]]]]],*/ ]]]]]]]]]]
   },
 
 

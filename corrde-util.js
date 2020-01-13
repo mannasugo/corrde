@@ -872,6 +872,8 @@ class ViaAJX extends Auxll {
     if (this.q.isAuth) this.isAuth(JSON.parse(this.q.isAuth));
 
     if (this.q.isClient) this.isClient(JSON.parse(this.q.isClient));
+
+    if (this.q.isField) this.isField(JSON.parse(this.q.isField));
   }
 
   iniCookie (field, value) {
@@ -1674,6 +1676,31 @@ class ViaAJX extends Auxll {
 
       else pool[err].push(`true_mail`);
     })
+  }
+
+  isField (q) {
+
+    if (q.to_field && config.fields[q.to_field]) {
+
+      new UAPublic().fieldAnalysis(q.to_field, (A, B) => {
+
+        let pool = {};
+
+        if (A.length > 0) {
+
+          pool[`is_field`] = true;
+          pool[`model`] = model.inView(A, B);
+        }
+
+        else {
+
+          pool[`is_field`] = false;
+        }
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify(pool));
+      })
+    }
   }
 }
 

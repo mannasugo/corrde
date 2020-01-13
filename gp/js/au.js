@@ -733,8 +733,12 @@
 
       AJXCall(`isField`, JSStore.avail(), (A, B) => {
         
-        if (B.is_mail === false) {
-          window.location = `/explore`;
+        if (B.is_field === true) {
+          
+          let sect = document.querySelector(`#field_root`);
+
+          sect.innerHTML = ``;
+          sect.innerHTML = new Model().modelStringify([B.model]);
         }
       })
 

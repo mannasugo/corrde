@@ -59,7 +59,7 @@ const Model = (function () {
   
   Model.prototype = {
     
-    modelStringify: (model) => {
+    modelStringify: function (model) {
 
       if (typeof model !== `object`) return;
 
