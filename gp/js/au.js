@@ -6,9 +6,26 @@
   const REQS = `/corrde-reqs/ua/`;
 
   const main = e => {
+
     let el = e.target;
 
-    if (el.innerHTML === `post job to boost activity` || el.innerHTML === `Sell`) simpleCall(`iniSale`, JSStore.avail());
+    poolModalsOut(el);
+
+    availForm4Contract(el);
+
+    availField4Contract(el);
+
+    availSkill4Contract(el);
+
+    availPay4Contract(el);
+
+    saveContract(el);
+
+    filterModalOut(el);
+
+    filterModalClose(el);
+
+    putValidModal(el); fallModal(el, `validclose`, `validmodal`);
 
     if (el.getAttribute(`name`) === `field`) {
       JSStore.to({field: el.getAttribute(`value`)});
@@ -437,7 +454,8 @@
         
         if (vars_level_1[_a].id.split(`-`)[3] === `1`) {
 
-          level_skills_.push(`field_` + vars_level_1[_a].id.split(`-`)[1] + `_` + vars_level_1[_a].id.split(`-`)[2]);
+          //level_skills_.push(`field_` + vars_level_1[_a].id.split(`-`)[1] + `_` + vars_level_1[_a].id.split(`-`)[2]);
+          level_skills_.push(vars_level_1[_a].value)
         }
       }
 
@@ -663,7 +681,7 @@
         AJXCall(`isPro`, JSStore.avail(), (A, B) => {
 
           if (B.is_pro === true) {
-            window.location = `/explore`;
+            window.location = `/explore/`;
           }
         })
       }
@@ -695,21 +713,21 @@
 
         AJXCall(`isAuth`, JSStore.avail(), (A, B) => {
 
-          if (B.is_auth === true) window.location = `/explore`
+          if (B.is_auth === true) window.location = `/explore/`
         })
       } 
     }
 
     if (el.id === `mug-ava`) {
 
-      let to = document.querySelector(`#mug`);
+      let to = document.querySelector(`#mug_modal`);
 
-      if (to.className === `_aYx _-Zz`) {
-        to.className = `_aYx -Zz`;
+      if (to.className === `_aAY _-Zz`) {
+        to.className = `_aAY -Zz`;
       }
 
-      else if (to.className === `_aYx -Zz`) {
-        to.className = `_aYx _-Zz`;
+      else if (to.className === `_aAY -Zz`) {
+        to.className = `_aAY _-Zz`;
       }
     }
 
@@ -794,7 +812,7 @@
 
     JSStore.to({make_full: slimValue});
 
-    if (document.querySelector(`#mt2`)) {console.log(`e`)
+    if (document.querySelector(`#mt2`)) {
 
       let val = document.querySelector(`#mt2`).value;
 
@@ -1060,129 +1078,17 @@
   }
 
   function planes (e) {
-    
-    /*let lineGraph = document.querySelector(`#line`);
 
-    lineGraph.width = lineGraph.parentNode.clientWidth;
-    lineGraph.height = 360; //360/200
-
-    let linePlane = lineGraph.getContext(`2d`);
-
-    linePlane.beginPath();
-    linePlane.strokeStyle = '#888';
-    linePlane.fillStyle = '#888';
-    linePlane.font = '6pt Gothic';
-
-    linePlane.fillText(`Dec 20`, lineGraph.width*1/8, lineGraph.height - 5);
-    linePlane.fillText(`Dec 21`, lineGraph.width*2/8, lineGraph.height - 5);
-    linePlane.fillText(`Dec 22`, lineGraph.width*3/8, lineGraph.height - 5);
-    linePlane.fillText(`Dec 23`, lineGraph.width*4/8, lineGraph.height - 5);
-    linePlane.fillText(`Dec 24`, lineGraph.width*5/8, lineGraph.height - 5);
-    linePlane.fillText(`Dec 25`, lineGraph.width*6/8, lineGraph.height - 5);
-    linePlane.fillText(`Dec 26`, lineGraph.width*7/8, lineGraph.height - 5);
-
-    let eY = lineGraph.width
-
-    linePlane.fillText(`0`, lineGraph.width*0.5/7, lineGraph.height*7/8);
-    linePlane.fillText(`100`, lineGraph.width*0.5/7, lineGraph.height*6/8);
-    linePlane.fillText(`200`, lineGraph.width*0.5/7, lineGraph.height*5/8);
-    linePlane.fillText(`300`, lineGraph.width*0.5/7, lineGraph.height*4/8);
-    linePlane.fillText(`400`, lineGraph.width*0.5/7, lineGraph.height*3/8);
-    linePlane.fillText(`500`, lineGraph.width*0.5/7, lineGraph.height*2/8);
-    linePlane.fillText(`600`, lineGraph.width*0.5/7, lineGraph.height*1/8);
-
-
-    linePlane.fill()
-
-    linePlane.lineWidth = 1;
-    linePlane.strokeStyle = `#efefef`
-
-    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*7/8);
-    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*7/8);
-    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*6/8);
-    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*6/8);
-    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*5/8);
-    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*5/8);
-    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*4/8);
-    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*4/8);
-    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*3/8);
-    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*3/8);
-    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*2/8);
-    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*2/8);
-    linePlane.moveTo(lineGraph.width*1/8, lineGraph.height*1/8);
-    linePlane.lineTo(lineGraph.width*8/8, lineGraph.height*1/8);
-    //linePlane.stroke()
-
-    linePlane.beginPath()
-    linePlane.lineWidth = 2;
-    linePlane.strokeStyle = `#1185fe`;
-
-    linePlane.moveTo(lineGraph.width*1/7.6, lineGraph.height*3.7/8);
-    linePlane.lineTo(lineGraph.width*2/7.6, lineGraph.height*3.3/8);
-    linePlane.lineTo(lineGraph.width*3/7.6, lineGraph.height*2.7/8);
-    linePlane.lineTo(lineGraph.width*4/7.6, lineGraph.height*4.2/8);
-    linePlane.lineTo(lineGraph.width*5/7.6, lineGraph.height*3.3/8);
-    linePlane.lineTo(lineGraph.width*6/7.6, lineGraph.height*3.7/8);
-    linePlane.lineTo(lineGraph.width*7/7.6, lineGraph.height*2.4/8);
-    linePlane.stroke()
-
-    linePlane.beginPath();
-    linePlane.strokeStyle = `#ff5443`;
-
-    linePlane.moveTo(lineGraph.width*1/7.6, lineGraph.height*5.7/8);
-    linePlane.lineTo(lineGraph.width*2/7.6, lineGraph.height*3.2/8);
-    linePlane.lineTo(lineGraph.width*3/7.6, lineGraph.height*6.6/8);
-    linePlane.lineTo(lineGraph.width*4/7.6, lineGraph.height*3.2/8);
-    linePlane.lineTo(lineGraph.width*5/7.6, lineGraph.height*4.1/8);
-    linePlane.lineTo(lineGraph.width*6/7.6, lineGraph.height*2.2/8);
-    linePlane.lineTo(lineGraph.width*7/7.6, lineGraph.height*1.9/8);
-    linePlane.stroke();*/
-
-    /*let srcPlanes = document.querySelectorAll(`#src`),
-        isPlane = document.createElement(`canvas`),
-        img = new Image();
-
-    img.src = JSStore.avail().ava;
-
-    img.onload = () => {
-
-      let img_x = img.naturalWidth, img_y = img.naturalHeight;
-        let left_x, left_y, dim_x, dim_y;
-
-        let ratio_xy = img_x/img_y;
-
-        if (ratio_xy > 200/360) {
-          left_y = 0;
-          dim_y = img_y;
-          dim_x = img_y * 200/360;
-          left_x = (img_x - dim_x)/2;
-        } else {
-          left_x = 0;
-          dim_x = img_x;
-          dim_y = img_x * 360/200;
-          left_y = (img_y - dim_y)/2;
-        }
-
-        isPlane.width = dim_x, isPlane.height = dim_y;
-
-        let plane = isPlane.getContext(`2d`);
-        plane.drawImage(img, left_x, left_y, dim_x, dim_y, 0, 0, dim_x, dim_y);
-
-        let imageData = isPlane.toDataURL(`image/jpeg`);
-
-        //document.querySelector(`#src`).src = imageData
-    }*/
-
-    //let tls = io.connect(); 
-
-    //tls.on(`quick_analytics`, a => JSStore.to(a))
+    let tls = io.connect(); 
 
     setInterval(() => { 
 
-      //if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail().in)
+      if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail())
 
-      //tls.emit(`analytics`, {})
-    }, 1000)
+      tls.emit(`analytics`, {});
+    }, 1500)
+
+    tls.on(`quick_analytics`, a => JSStore.to(a));
 
   }
 
@@ -1202,19 +1108,606 @@
   document.addEventListener(`click`, main);
   document.addEventListener(`change`, files);
   document.addEventListener(`DOMContentLoaded`, planes);
+  window.addEventListener(`resize`, (e) => {
+    console.log(document.querySelector(`.d3JS`).clientWidth)})
 
-  const geo = position => {
+  /*d3.json(`/gp/twineJSON/otc.geojson`)
+
+    .then((json) => {
+
+      let UAdimX = parseInt(document.querySelector(`body`).clientWidth),
+        UAdimY = parseInt(document.querySelector(`body`).clientHeight);
+
+      let displace = d3.geoDistance([34.718, -.538], [34.728, -.528])//([34.760, -.112], [34.770, -.102])
+
+      let scale = UAdimX / displace;console.log(scale.toLocaleString())
+
+      let projection = d3.geoMercator()
+        .scale(950000)//(scale)
+        .translate([UAdimX / 2, UAdimY / 2])
+        .center([34.723, -.533]),
+
+        USA = void 0;
+
+      let path = d3.geoPath().projection(projection);
+
+      let svg = d3.select(`#map`)
+        .selectAll(`svg`).data([json])
+        .attr(`width`, UAdimX)
+        .attr(`height`, parseInt(document.querySelector(`body`).clientHeight));
+
+      svg.attr(`class`, `d3JS _aXZ`)
+
+      let map = svg.append(`g`).attr(`class`, `boundary`);
+
+      USA = map.selectAll(`path`).data(json.features);
+
+      USA.enter()
+        .append(`path`)
+        .attr(`d`, path);
+    })
+    
+    .catch(error => {throw error;});*/
+
+  ///etc/letsencrypt/live/corrde.com/fullchain.pem; {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}
+
+  /**
+  @constants
+  **/
+
+  const uaX = parseInt(document.querySelector(`body`).clientWidth),
+    uaY = parseInt(document.querySelector(`body`).clientHeight);
+
+  /**
+  @eventHandling
+  **/
+
+  let poolModalsOut = e => {
+
+    if (e.id === `jobs_pool`) {
+
+      let to = document.querySelector(`#jobs_modal`);
+
+      if (to.className === `_aAY _-Zz`) {
+        to.className = `_aAY -Zz`;
+      }
+
+      else if (to.className === `_aAY -Zz`) {
+        to.className = `_aAY _-Zz`;
+      }
+    }
+  }
+
+  let labelSVG = (e, json, angle) => {
+
+    let labels = e.selectAll(`text`).data(json.features)
+      .enter()
+      .append(`text`)
+      .attr(`x`, d => {
+      
+          return angle(d.geometry.coordinates) [0] + 5;
+      })
+      .attr(`y`, d => {
+      
+        return angle(d.geometry.coordinates) [1] + 5;
+      })
+      .text(d => {return d.properties.name;})
+      .attr(`id`, `pins`)
+      .attr(`stroke`, `#4f4f4f`)
+      .attr(`font-size`, `7px`)
+  };
+
+  let zoomSVG = (e, json, angle) => {
+
+    e.selectAll(`path`).attr(`stroke-width`, 1.1 * .5)
+
+    let zoomScale = d3.event.transform.k;
+
+    if (zoomScale > 1.2) {e.selectAll(`path`).attr(`stroke-width`, 1.1 * .5)}
+    
+    if (zoomScale > 1.8) {e.selectAll(`path`).attr(`stroke-width`, 1.1 * .5)}
+
+    if (zoomScale > 2) {e.selectAll(`path`).attr(`stroke-width`, 1.1 * .5)}
+
+    let labelSVGZoom = () => {
+
+      e.selectAll(`#pins`)
+        .attr(`stroke-width`, 1.0 * .15)
+        .attr(`font-size`, 6 * 0.7 + `px`);
+    }
+
+    let onlabelSVGZoom = () => {
+
+      if (zoomScale > 2) labelSVGZoom();
+
+      if (zoomScale > 2.2) labelSVGZoom();
+
+      if (zoomScale > 2.4) labelSVGZoom();
+
+      if (zoomScale > 2.6) labelSVGZoom();
+
+      if (zoomScale > 2.8) labelSVGZoom();
+
+    }
+
+    if (zoomScale > 2.2) {
+
+      e.selectAll(`path`).attr(`stroke-width`, 1.1 * .25);
+      
+    }
+
+    onlabelSVGZoom()
+  }
+
+  let availForm4Contract = e => {
+
+    contractState();
+
+    if (e.id === `contract`) {
+
+      AJXCall(`isContract`, JSStore.avail(), (A, B) => {
+
+        if (B.is_auth_valid === true) {
+              
+          window.location = B.url;
+        }
+      })
+    }
+  }
+
+  let availField4Contract = e => {
+
+    if (e.id === `xoption`) {
+
+      let options = document.querySelectorAll(`#xoption`),
+        sect = document.querySelector(`#field2skill`);
+
+      for (var i = 0; i < options.length; i++) {
+
+        options[i].setAttribute(`class`, `_utQ _TX_a _tXv _aX2`);
+        options[i].parentNode.setAttribute(`class`, `_guZ _agM _gM_a`);
+      }
+
+      e.setAttribute(`class`, `_TX_a _tXv _atX`);
+      e.parentNode.setAttribute(`class`, `_agM _gM_a`);
+      sect.innerHTML = ``;
+
+      JSStore.to({contract_field: e.innerHTML, contract_skill: false})
+
+      AJXCall(`field2skill`, JSStore.avail(), (A, B) => {
+        
+        if (B.is_field === true) {
+
+          sect.innerHTML = ``;
+          sect.innerHTML = new Model().modelStringify([B.model]);
+        }
+      })
+    }
+  }
+
+  let availSkill4Contract = e => {
+
+    if (e.id === `contractskill`) {
+
+      let contractskills = document.querySelectorAll(`#contractskill`);
+
+      for (var skill = 0; skill < contractskills.length; skill++) {
+
+        contractskills[skill].nextElementSibling.setAttribute(`class`, `_tCw _aA2`);
+      }
+
+      e.nextElementSibling.setAttribute(`class`, `_tCw _tXv`);
+
+      JSStore.to({contract_skill: e.value})
+    }
+  }
+
+  let availPay4Contract = e => {
+
+    if (e.id === `payrate`) {
+
+      let contractpay = document.querySelectorAll(`#payrate`);
+
+      for (var pay = 0; pay < contractpay.length; pay++) {
+
+        contractpay[pay].nextElementSibling.setAttribute(`class`, `_tCw _aA2`);
+      }
+
+      e.nextElementSibling.setAttribute(`class`, `_tCw _tXv`);
+
+      JSStore.to({contract_payway: e.value})
+    }
+  }
+
+  let saveContract = e => {
+
+    if (e.id === `savecontract`) {
+
+      e.id = `savedcontract`;
+
+      if (JSStore.avail().contract_field && JSStore.avail().contract_skill && JSStore.avail().contract_payway) {
+
+        if (JSStore.avail().contract_skill !== false) {
+
+          let lead = new Auxll().longSlim(document.querySelector(`#contracttitle`).value),
+              detail = new Auxll().longSlim(document.querySelector(`#contractdetail`).value),
+              pay    = new Auxll().longSlim(document.querySelector(`#contractpay`).value),
+              days   = new Auxll().longSlim(document.querySelector(`#contractdays`).value);
+
+          pay = parseInt(pay);
+          days = parseInt(days);
+
+          if (lead && detail && pay && days) {
+
+            if (typeof pay === `number` && typeof days === `number`) {
+
+              JSStore.to({
+                contract_days: days,
+                contract_detail: detail,
+                contract_lead: lead,
+                contract_pay: pay})
+
+              GPS(a => {
+
+                isCoords(a);
+
+                AJXCall(`saveContract`, JSStore.avail(), (A, B) => {
+
+                  if (B.is_contract_valid === true) {
+              
+                    window.location = B.url;
+                  }
+                })
+              }, (b) => {
+
+                /**
+                @dev
+                **/
+
+                JSStore.to({gps: [34.765, -0.107]})
+
+                AJXCall(`saveContract`, JSStore.avail(), (A, B) => {
+
+                  if (B.is_contract_valid === true) {
+              
+                    window.location = B.url;
+                  }
+                })
+              }, {enableHighAccuracy: true, timeout: 5000, maximumAge: 0})
+            }
+          }
+        }
+      }
+    }
+  }
+
+  let availRealtimeStats = () => {
+
+    if (JSStore.avail().State !== `offline`) return;
+
+    let poolA = [`proSVG`],
+        poolAAlias = [],
+        poolB = [JSStore.avail().pro_modulus];
+
+    poolAAlias[`proSVG`] = `proOffSVG`
+    
+    for (let e = 0; e < poolA.length; e++) {
+
+      let value = document.querySelector(`#${poolA[e]}`).innerHTML;
+      
+      if (parseInt(value) > parseInt(poolB[e]) || parseInt(value) < parseInt(poolB[e])) {
+
+        document.querySelector(`#${poolA[e]}`).innerHTML = poolB[e];
+
+        if (poolAAlias[poolA[e]] && (poolA[e] === `proSVG` || poolA[e] === `openSVG`)) {
+
+          document.querySelector(`#${poolAAlias[poolA[e]]}`).style.strokeDashoffset = `${600-poolB[e]/100*565}px`
+        }
+      }
+    }
+  }
+
+  let filterModalOut = e => {
+
+    if (e.className === `_tX FilterColor`) {
+
+      let to = document.querySelector(`#filtermodal`);
+
+      if (to.className === `_-Zz`) {
+        to.className = `-Zz`;
+      }
+
+      else if (to.className === `-Zz`) {
+        to.className = `_-Zz`;
+      }
+    }
+  }
+
+  let filterModalClose = e => {
+
+    if (e.id === `filterclose`) {
+
+      let to = document.querySelector(`#filtermodal`);
+
+      if (to.className === `_-Zz`) {
+        to.className = `-Zz`;
+      }
+
+      else if (to.className === `-Zz`) {
+        to.className = `_-Zz`;
+      }
+    }
+  }
+
+  let putValidModal = e => {
+
+    contractState();
+
+    let valids = JSStore.avail().locus_valid, put = [];
+
+    if (e.id === `valid`) {
+
+      for (let sum in valids) {
+
+        if (valids[sum].sum === e.getAttribute(`sum`)) {
+
+          put[`ava`] = valids[sum].ava;
+          put[`fields`] = valids[sum].fields;
+          put[`full`] = valids[sum].full;
+          put[`gps`] = valids[sum].gps;
+          put[`per`] = valids[sum].per;
+          put[`sum`] = valids[sum].sum;
+        }
+      }
+    }  
+
+    if (!put.sum) return;
+
+    let to = document.querySelector(`#validmodal`);
+
+    to.innerHTML = ``;
+    to.innerHTML = new Model().modelStringify([new Model().locusValidView(put)]);
+
+    if (to.className === `_-Zz`) {
+      to.className = `-Zz`;
+    }
+
+  }
+
+  let fallModal = (e, fall, put) => {
+
+    if (e.id === `${fall}`) {
+
+      let to = document.querySelector(`#${put}`);
+
+      if (to.className === `-Zz`) {
+        to.className = `_-Zz`;
+      }
+    }
+  }
+
+  let availMugView = () => {
+
+    if (JSStore.avail().ava && document.querySelector(`#mug-ava > #mug-ava`)) {
+
+      document.querySelector(`#mug-ava > #mug-ava`).setAttribute(`src`, `/${JSStore.avail().ava}`)
+    }
+  }
+
+  let slides = d3.select(`.sliderTransform`)
+  d3.select(`.sliderContent`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    slides.style(`transform`, `translate(${d3.event.transform.x}px)`)
+  }))
+
+  /**
+  @util
+  **/
+
+  let GPS = (dealGPS, dealBugs) => {//let i = 34.98999; console.log(i.toString().substr(0, i.toString().lastIndexOf(`.`) + 4))
+    navigator.geolocation.getCurrentPosition(a => {dealGPS(a)}, b => {dealBugs(b)});
+  }
+
+  let isCoords = (position) => {
 
     let gps = position.coords,
       lat = gps.latitude,
       long = gps.longitude;
 
-      alert (lat + ` ` + long);
+    if (typeof lat === `number` && typeof long === `number`) {
+
+      JSStore.to({gps: [long, lat]});
+    }
   }
 
-  const geoError = (errorObj) => alert(errorObj.message)
+  let availGPSMatrix = (point, call) => {
 
-  //navigator.geolocation.getCurrentPosition(geo, geoError)
-  //console.log(navigator.geolocation)
+    if (point.length === 2) {
+
+      AJXCall(`isMatrixAvailable`, {gps: point}, (A, B) => {
+
+        if (B.is_matrix_avail === true) {
+              
+          call(point, B.matrix);
+        }
+      })
+    }
+  }
+
+  let D3SVGView = (gps, matrix) => {
+
+    let geoJSON = (matrix.toString().replace(new RegExp(`,`, `g`), `_`)) + `.geoJSON`;
+
+    d3.json(`/gp/twineJSON/` + geoJSON)
+      
+      .then(json => {
+
+        //**
+        //@todo
+
+        let viewPort = d3.geoDistance(
+          [(gps[0] - .005), (gps[1] - .005)], [(gps[0] + .005), (gps[1] + .005)])//([34.760, -.112], [34.770, -.102])
+
+        //let scale = uaX / viewPort;console.log(scale.toLocaleString())
+
+        //**/
+
+        let projection = d3.geoMercator()
+          .scale(950000)//(scale)
+          .translate([uaX / 2, uaY / 2])
+          .center(gps),
+
+          path = d3.geoPath().projection(projection);
+
+        let svg = d3.select(`#map`)
+          .selectAll(`svg`).data([json])
+          .style(`width`, uaX + `px`)
+          .style(`height`, (uaY - 55) + `px`)
+          .attr(`class`, `d3JS _aXZ`)
+
+        let map = svg.append(`g`)
+          .attr(`class`, `boundary`);
+
+        map.selectAll(`path`).data(json.features)
+          .enter()
+          .append(`path`)
+          .attr(`d`, path);
+
+        svg.select(`g`)
+          .attr(`fill`, `#d7d7dd`)
+          .attr(`stroke`, `#fff`)
+          //.attr(`stroke-width`, 1.2)
+
+        //labelSVG(map, json, projection)
+
+        svg
+          .call(d3.zoom()
+            .scaleExtent([0.8, 3])
+            .on(`zoom`, () => {
+
+              map.attr(`transform`, d3.event.transform);
+              zoomSVG(map, json, projection);
+            }));
+
+        /**
+        @dev - mylocation
+        **/
+
+        if (JSStore.avail().locus_valid.length > 0) {
+
+          setInterval(() => {
+
+            if (JSStore.avail().locus_valid.length > 0) {
+
+              map.selectAll(`#valid`).remove();
+
+              map.selectAll(`text.valid`).data(JSStore.avail().locus_valid)
+                .enter()
+                .append(`rect`)
+                .attr(`x`, d => {
+                  return parseInt(projection(d.gps) [0]) - 20;})
+                .attr(`y`, d => {
+                  return parseInt(projection(d.gps) [1]) - 20;})
+                .attr(`id`, `valid`)
+                .attr(`width`, `20`)
+                .attr(`height`, `20`)
+                .attr(`fill`, `#1185fe`)
+                .attr(`stroke`, `none`)
+                .attr(`sum`, d => {return d.sum})
+
+              map.selectAll(`text.valid`).data(JSStore.avail().locus_valid)
+                .enter()
+                .append(`circle`)
+                .attr(`cx`, d => {
+                  return parseInt(projection(d.gps) [0]) - 20;})
+                .attr(`cy`, d => {
+                  return parseInt(projection(d.gps) [1]) - 20;})
+                .attr(`r`, 20)
+                .attr(`id`, `valid`)
+                .attr(`cursor`, `pointer`)
+                .attr(`fill`, `#1185fe`)
+                .attr(`stroke`, `none`)
+                .attr(`sum`, d => {return d.sum})
+
+              map.selectAll(`text.valid`).data(JSStore.avail().locus_valid)
+                .enter()
+                .append(`text`)
+                .attr(`x`, d => {
+                  return parseInt(projection(d.gps) [0]) - 20;})
+                .attr(`y`, d => {
+                  return parseInt(projection(d.gps) [1]) - 15;})
+                .text(d => {return d.per;})
+                .attr(`id`, `valid`)
+                .style(`fill`, `#fff`)
+                .attr(`text-anchor`, `middle`)
+                .attr(`stroke-width`, `0.24`)
+                .attr(`font-size`, `10`)
+                .attr(`cursor`, `pointer`)
+                .attr(`sum`, d => {return d.sum})
+            }
+          }, 3000)
+        }
+      })
+
+    .catch(error => {throw error;});
+  }
+
+  let inStateGPS = () => {
+
+    if (JSStore.avail().State === `contracts`) {
+
+      GPS(a => {
+
+        isCoords(a);
+
+        availGPSMatrix(JSStore.avail().gps, (d2, d4) => {
+
+          D3SVGView(d2, d4);
+        })
+      }, (b) => {
+
+        /**
+        @dev
+        **/
+
+        JSStore.to({gps: [34.723, -.533]})
+
+        availGPSMatrix(JSStore.avail().gps/*[34.723, -.533][34.765, -.107][34.459, -.528]*/, (d2, d4 )=> {
+
+          D3SVGView(d2, d4)
+        })
+      })//, {enableHighAccuracy: true, timeout: 5000, maximumAge: 0})
+    }
+  }
+
+  let contractState = () => {
+
+    if (JSStore.avail().State !== `contracts`) return;
+  }
+
+  let trackDisplacement = () => {
+
+    GPS(a => {
+
+      isCoords(a);//JSStore.to({gps: [34.726, -.539]})
+
+      }, (b) => {
+
+        /**
+        *@dev
+        **/
+
+        JSStore.to({gps: [34.723, -.533]})
+      })    
+  }
+
+  inStateGPS();
+
+  availMugView();
+
+  setInterval(() => {
+
+    availRealtimeStats();
+    trackDisplacement();
+  }, 2500)
 
 })();

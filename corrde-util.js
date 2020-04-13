@@ -6,7 +6,9 @@ const fs = require(`fs`),
   cookie = require(`cookie`),
   
   config = require(`./corrde-config`),
-  model = require(`./corrde-model`)
+  model = require(`./corrde-model`),
+
+  gyro = require(`./corrde-geoJSON`)
 
 class Auxll {
 
@@ -37,6 +39,82 @@ class Auxll {
   availSubs (allSubs) {
     this.allSubs = allSubs;
     return this.allSubs;
+  }
+
+  availContracts4Field (B, field) {
+
+    let alt = [];
+
+    for (let task in B) {
+
+      if (B[task].blab[0] === `{`) {
+
+        let alt_ = JSON.parse(B[task].blab);
+
+        if (field === alt_.field) {
+
+          alt.push(alt_);
+        }
+      }
+    }
+
+    return alt;
+  }
+
+  availSelfsActivity (u, call) {
+
+    new Sql().multi({}, `select * from u;select * from j;`, (A, B, C) => {
+
+      let is_valid = false,
+        is_valid_dual = false, 
+        selfContracts = [],
+        fields = [];
+      
+      for (let uself in B[0]) {
+
+        let alt = JSON.parse(B[0][uself].alt);
+
+        if (alt.sum && alt.sum === u) is_valid = alt;
+
+        if (alt.skills.length > 0) {
+
+          is_valid_dual = true;
+          fields = alt.skills;
+        }
+      }
+
+      for (let jself in B[1]) {
+
+        let alt = JSON.parse(B[1][jself].blab);
+
+        if (alt.sum && alt.sum === u) selfContracts.push(alt);
+      }
+
+      call (is_valid, selfContracts, {
+        fields: fields,
+        is_valid: is_valid,
+        is_valid_dual: is_valid_dual});
+    })
+  }
+
+  locusGPS (locus, gps, radius) {
+
+    let is_locus_valid = false;
+
+    if (typeof locus === `object` && typeof gps === `object`) {
+
+      let locussquare = [locus[0] - radius, locus[1] - radius, locus[0] + radius, locus[1] + radius];
+
+      if (gps[0] >= locussquare[0] && gps[0] <= locussquare[2]) {
+
+        if (gps[1] >= locussquare[1] && gps[1] <= locussquare[3]) {
+          
+          is_locus_valid = true;
+        }
+      }
+    }
+
+    return is_locus_valid;
   }
 }
 
@@ -98,6 +176,7 @@ class Sql extends Auxll {
     this.multiSql.query(this.literalFormat(conca), (A, B, C) =>  call(A, B, C));
     this.multiSql.end();
   }
+
 }
 
 class UAPublic extends Auxll {
@@ -112,9 +191,22 @@ class UAPublic extends Auxll {
 
     if (this.levelState === ``) this.rootCall();
 
+    /**
+    Adhere to Alphabetic Order
+    Perpendicularly Bisect Countries to find tiles-to-quadrant origin.
+    **/
+
+    if (this.levelState === `contracts`) this.contractsMap();
+
+    if (this.levelState === `getjobs`) this.getJobs();
+
     if (this.levelState === `in`) this.in();
 
-    if (this.levelState === `u`) this.u();
+    if (this.levelState === `mycontract`) this.formContract();
+
+    if (this.levelState === `myjobs`) this.selfContracts();
+
+    if (this.levelState === `myjobs/u`) this.selfContracts();
 
     if (this.levelState === `p`) this.p();
 
@@ -133,6 +225,14 @@ class UAPublic extends Auxll {
     if (this.levelState === `setup`) this.setup();
 
     if (this.levelState === `explore`) this.inView();
+
+    if (this.levelState === `u`) this.uView();
+  }
+
+
+  subCalls () {
+
+    //console.log(this.levelState)
   }
 
   rootCall () {
@@ -149,8 +249,25 @@ class UAPublic extends Auxll {
           appendModel: ``
         };
 
-        const a2 = {};
-        a2[`appendModel`] = model.mugger();
+        let rootDualCall, a2 = {};
+
+        if (this.app.fro.headers.cookie) {
+
+          let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+          if (cJar[`u`]) {
+
+            a2[`ava`] = ``;
+            rootDualCall = model.top(a2);
+          } 
+          
+          else {
+
+            a2[`appendModel`] = model.mugger();
+            rootDualCall = model.header(a2);
+          }
+        }
+
         modelMapping[`appendModel`] = [
           model.main({
             appendModel: [
@@ -158,7 +275,7 @@ class UAPublic extends Auxll {
               model.products(),
               model.SVGMetrics(msg),
               model.hows(), model.feature(),
-              model.footer()]}), model.header(a2)];
+              model.footer()]}), rootDualCall];
         modelMapping[`appendModel`] = [model.wrapper(modelMapping), model.jS(modelMapping)];
 
         this.app.to.writeHead(200, config.reqMime.htm);
@@ -232,7 +349,27 @@ class UAPublic extends Auxll {
 
       return cJar[is];
 
-    } else this.rootCall();
+    } 
+
+    else this.rootCall();
+  }
+
+  isCookieValid (is, callView) {
+
+    if (this.app.fro.headers.cookie) {
+
+      let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+      if (!cJar[is]) {
+
+        this.rootCall();
+      }
+      
+      else callView();
+
+    } 
+
+    else this.rootCall();
   }
 
   setup () {
@@ -590,7 +727,7 @@ class UAPublic extends Auxll {
 
         if (isAuth !== false) {
 
-          this.fieldAnalysis(`art`, (A, B) => {
+          this.availSelfsActivity(this.isValid(`u`), (A, B, C) => {
 
             let alt = JSON.parse(isAuth.alt);
 
@@ -599,30 +736,30 @@ class UAPublic extends Auxll {
               css: CSS, 
               jSStore: JSON.stringify({
                 ava: alt.ava,
+                fields: C.fields,
                 full: alt.full,
+                is_valid_dual: C.is_valid_dual,
+                per: A.appraisal,
                 State: `overview`,
                 in: this.isValid(`u`)}),
                 jsState: config.cd.auJS};
 
-            pool.appendModel = [
-        model.main({
-          appendModel: [
-            model.inView(A, B),
-            model.footer()]
-        }), model.top(alt)];
+            this.fieldAnalysis(`Art`, (A, B) => {
 
-      pool.appendModel = [
-        model.wrapper(pool),
-        model.jS(pool)];
+              pool.appendModel = [
+                model.main({
+                  appendModel: [ model.inView(A, B), model.footer()]
+                }), model.top(alt)];
 
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(pool));
-          })
+              pool.appendModel = [model.wrapper(pool), model.jS(pool)];
 
+              this.app.to.writeHead(200, config.reqMime.htm);
+              this.app.to.end(model.call(pool));
+            })
+          }); 
         }
       })
-    })
-      
+    })    
   }
 
   analytics (call) {
@@ -650,9 +787,9 @@ class UAPublic extends Auxll {
 
               let alt_ = JSON.parse(B[0][task].blab);
 
-              if (alt_.status === `is_open`) {
+              if (alt_.is_open === true) {
 
-                openTasks.set(alt_.sum, alt_.job_sum);
+                openTasks.set(alt_.ini_sum, alt_.sum);
               }
 
             }
@@ -684,7 +821,7 @@ class UAPublic extends Auxll {
 
             else {
 
-              fieldModus = parseInt(sFields.length/allJobs.length) * 100;
+              fieldModus = parseInt(sFields.length/allJobs.length * 100);
             }
 
             fieldCount[fCount] = {field: field, count: sFields.length, modulus: fieldModus}
@@ -718,8 +855,8 @@ class UAPublic extends Auxll {
 
         else {
 
-          openMod = parseInt(openTasks.size/allJobs.length) * 100;
-          proMod = parseInt(auMap.size/allPro.size) * 100;
+          openMod = parseInt(openTasks.size/allJobs.length * 100);
+          proMod = parseInt(auMap.size/allPro.size * 100);
         }
           
         fieldCount.sort((a,b) => {
@@ -731,7 +868,7 @@ class UAPublic extends Auxll {
             all_pro: allPro.size,
             field_count: fieldCount,
             open_modulus: openMod,
-            pro_modulus: proMod}
+            pro_modulus: proMod};
 
         call(analytics);
       })
@@ -751,20 +888,22 @@ class UAPublic extends Auxll {
 
         for (let day = 0; day < 7; day++) {
 
-          let a = new Date(new Date().setUTCHours(0) - (day * 86400000)).toUTCString(),
-            z  = new Date(new Date().setUTCHours(24) - (day * 86400000)).toUTCString();
+          let a = new Date(new Date().setUTCHours(0) - (day * 86400000)).toUTCString().valueOf(),
+            z = new Date(new Date().setUTCHours(24) - (day * 86400000)).toUTCString().valueOf(),
+            A = new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf(),
+            Z = new Date(new Date().setUTCHours(24) - (day * 86400000)).valueOf();
 
           let sFields = [], subsCount = {}; 
       
           for (let task in B) {
 
-            if (B[task].blab === `{`) {
+            if (B[task].blab[0] === `{`) {
 
               let alt_ = JSON.parse(B[task].blab);
 
               if (field === alt_.field) {
 
-                if (parseInt(alt_.log) > a && parseInt(alt_.log) < z) {
+                if (parseInt(alt_.ini_log) > A && parseInt(alt_.ini_log) < Z) {
 
                   sFields.push(alt_.subfield)
                 }
@@ -791,12 +930,13 @@ class UAPublic extends Auxll {
             day: a, 
             sub_totals: subsCount, 
             total: sFields.length,
-            UTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()}
+            UTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()};
+
         }
 
         for (let task in B) {
 
-          if (B[task].blab === `{`) {
+          if (B[task].blab[0] === `{`) {
 
             let alt_ = JSON.parse(B[task].blab);
 
@@ -813,11 +953,158 @@ class UAPublic extends Auxll {
       });
 
       taskPool.sort((a, b) => {
-        return (b.log - a.log)
-      })
+        return (b.ini_log - a.ini_log)
+      });
 
-      call(fieldPool, {days_totals: dayTotals, field: field, task_pool: taskPool});
+      call(fieldPool, {
+        days_totals: dayTotals, 
+        field: field, 
+        task_pool: taskPool,
+        contracts: this.availContracts4Field(B, field)});
     })
+  }
+
+  contractsMap () {
+
+    this.isCookieValid(`u`, () => {
+
+      this.modelStyler(config.lvl.css, CSS => {
+
+        const pool = {
+          title: `Contract Work & Find Proffessionals for your Work.`,
+          css: CSS, 
+          jSStore: JSON.stringify({
+                //ava: alt.ava,
+                //full: alt.full,*/
+            State: `contracts`,
+            gps: false,
+            in: this.isValid(`u`)}),
+          jsState: config.cd.auJS};
+
+        pool.appendModel = [
+          model.main({
+            appendModel: [
+              model.MapSVGView()]
+          }), model.ContractsView(), model.sellViaMapView()];
+
+        pool.appendModel = [
+          model.wrapper(pool),
+          model.jS(pool), 
+          model.loadDOMModalView([], `validmodal`), 
+          model.loadDOMModalView([model.modalView([model.filterContractView()])], `filtermodal`)];
+
+        this.app.to.writeHead(200, config.reqMime.htm);
+        this.app.to.end(model.call(pool));
+      });
+    });
+  }
+
+  formContract () {
+
+    this.isCookieValid(`u`, () => {
+
+      this.modelStyler(config.lvl.css, CSS => {
+
+        const pool = {
+          title: `Set Contract form for applications.`,
+          css: CSS, 
+          jSStore: JSON.stringify({
+                //ava: alt.ava,
+                //full: alt.full,*/
+            State: `mycontract`,
+            gps: false,
+            in: this.isValid(`u`)}),
+          jsState: config.cd.auJS};
+
+        pool.appendModel = [
+          model.main({
+            appendModel: [
+              model.mycontractView(), model.footer()]
+          })];
+
+        pool.appendModel = [
+          model.wrapper(pool),
+          model.jS(pool)];
+
+        this.app.to.writeHead(200, config.reqMime.htm);
+        this.app.to.end(model.call(pool));
+      });
+    })
+  }
+
+  selfContracts () {
+
+    this.isCookieValid(`u`, () => {
+
+      this.modelStyler(config.lvl.css, CSS => {
+
+        this.availSelfsActivity(this.isValid(`u`), (A, B, C) => {
+
+          const pool = {
+            title: `Corrde Contracts' Work & Proffessionals' Activity.`,
+            css: CSS, 
+            jSStore: JSON.stringify({
+              ava: A.ava,
+              full: A.full,
+              State: `mycontracts`,
+              gps: false,
+              in: this.isValid(`u`)}),
+            jsState: config.cd.auJS};
+
+          pool.appendModel = [
+            model.main({
+              appendModel: [model.px900JobsView(B)]
+            }), model.navView(`My Contracts`), model.footer()];
+
+          pool.appendModel = [
+            model.wrapper(pool),
+            model.jS(pool)];
+
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));
+      
+        });
+
+      });
+    });
+  }
+
+  getJobs () {
+
+    this.isCookieValid(`u`, () => {
+
+      this.modelStyler(config.lvl.css, CSS => {
+
+        this.availSelfsActivity(this.isValid(`u`), (A, B, C) => {
+
+          const pool = {
+            title: `Get Jobs fit for your Proffession and field Preferences.`,
+            css: CSS, 
+            jSStore: JSON.stringify({
+              ava: A.ava,
+              fields: C.fields,
+              is_valid_dual: C.is_valid_dual,
+              State: `getjobs`,
+              gps: false,
+              in: this.isValid(`u`)}),
+            jsState: config.cd.auJS};
+
+          pool.appendModel = [
+            model.main({
+              appendModel: [model.px900JobsView(B)]
+            }), model.navView(`Find Work`), model.footer()];
+
+          pool.appendModel = [
+            model.wrapper(pool),
+            model.jS(pool)];
+
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));
+      
+        });
+
+      });
+    });
   }
 }
 
@@ -830,6 +1117,14 @@ class ViaAJX extends Auxll {
   }
 
   AJXCalls () {
+
+    if (this.q.field2skill) this.fieldtoSkill(JSON.parse(this.q.field2skill));
+
+    if (this.q.isContract) this.isContract(JSON.parse(this.q.isContract));
+
+    if (this.q.isMatrixAvailable) this.isMatrixAvailable(JSON.parse(this.q.isMatrixAvailable));
+
+    if (this.q.saveContract) this.saveContract(JSON.parse(this.q.saveContract));
 
     if (this.q.urlCall) this.urlCall(JSON.parse(this.q.urlCall));
 
@@ -1702,6 +1997,135 @@ class ViaAJX extends Auxll {
       })
     }
   }
+
+  isMatrixAvailable (q) {
+
+    let pool = {is_matrix_avail: false};
+
+    if (q.gps && q.gps.length > 1) {
+
+      let matrixPool = gyro.pool_matrices,
+        gps = q.gps;
+
+      for (let matrix = 0; matrix < matrixPool.length; ++matrix) {
+
+        if (gps[0] >= matrixPool[matrix][0] && gps[0] <= matrixPool[matrix][2]) {
+
+          if (gps[1] >= matrixPool[matrix][1] && gps[1] <= matrixPool[matrix][3]) {
+
+            pool[`matrix`] = matrixPool[matrix];
+            pool[`is_matrix_avail`] = true; 
+          }
+        }
+      }
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify(pool));
+    }
+  }
+
+  isCookieValid (is, callView) {
+
+    if (this.app.fro.headers.cookie) {
+
+      let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+      if (!cJar[is]) {
+
+        return//this.rootCall();
+      }
+      
+      else callView();
+
+    } 
+
+    else return//this.rootCall();
+  }
+
+  isContract (q) {
+
+    this.isCookieValid(`u`, () => {
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({
+        is_auth_valid: true,
+        url: config.lvl_mycontract}));
+    })
+  }
+
+  fieldtoSkill (q) {
+
+    this.isCookieValid(`u`, () => {
+
+      if (q.contract_field && config.fields[q.contract_field]) {
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify({
+          is_field: true,
+          model: model.fieldtoSkillView(config.fields[q.contract_field], `contractskill`)}));
+      }
+    })
+  }
+
+  saveContract (q) {
+
+    let conca = `select * from u`;
+
+    this.isCookieValid(`u`, () => {
+
+      new Sql().multi({}, conca, (A, B, C) => {
+
+        let is_mail, pool = {};
+
+        for (let u in B) {
+
+          if (B[u].mail === q.mail) is_mail = true;
+        }
+
+        if (is_mail === true) {
+
+          let ini_log = new Date().valueOf();
+
+          let ini_sum = crypto.createHash(`md5`).update(`${ini_log}`, `utf8`).digest(`hex`);
+
+          let contractPool = {
+            days: q.contract_days,
+            detail: q.contract_detail,
+            field: q.contract_field,
+            gps: q.gps,
+            ini_log: ini_log,
+            ini_sum: ini_sum,
+            is_open: true,
+            lead: q.contract_lead,
+            pay: q.contract_pay,
+            payway: q.contract_payway,
+            subfield: q.contract_skill,
+            sum: q.in}
+          
+          new Sql().to([`j`, {
+            blab: JSON.stringify(contractPool),
+            freq: 0,
+            location: `gps`,
+            pay: 0,
+            report: `null`,
+            St_: `localSt_`,
+            status: `null`,
+            sum: `localSt_Sum`,
+            St_to: `sale[0]`,
+            type: `{q.field_q.fieldSub}`,
+            uSum: `q.u`}], (A, B, C) => {
+
+              pool[`is_contract_valid`] = true;
+              pool[`url`] = config.lvl_myjobs;
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify(pool));
+            });
+        }
+
+      })
+    })
+  }
 }
 
 class AJXJPEG {
@@ -1742,17 +2166,13 @@ class AJXJPEG {
 
 class UATCP extends UAPublic {
 
-  constructor () {
-
-    super();
-    this.u = false;
-    this.uid = false;
-  }
+  constructor () {super();}
 
   TCPCalls (tcp) {
 
-    let totals = {},
-      auMap = new Map(),
+    let valids = [],
+      dualValids = [],
+      locusValid = [],
       allJobs = [],
       fieldCount = [],
       conca = `select * from j;`;
@@ -1760,7 +2180,7 @@ class UATCP extends UAPublic {
 
     tcp.on(`connection`, tls => {
 
-      tls.on(`analytics`, msg => {//console.log(this.fieldAnalysis(`art`, ``))
+      tls.on(`analytics`, msg => {
 
         new Sql().multi({}, conca, (A, B, C) => {
 
@@ -1778,9 +2198,9 @@ class UATCP extends UAPublic {
 
                 let alt_ = JSON.parse(B[0][task].blab);
 
-                if (alt_.status === `is_open`) {
+                if (alt_.is_open === true) {
 
-                    openTasks.set(alt_.sum, alt_.job_sum);
+                    openTasks.set(alt_.ini_sum, alt_.sum);
                 }
 
               }
@@ -1846,15 +2266,15 @@ class UATCP extends UAPublic {
 
           else {
 
-            openMod = parseInt(openTasks.size/allJobs.length) * 100;
-            proMod = parseInt(auMap.size/allPro.size) * 100;
+            openMod = parseInt(openTasks.size/allJobs.length * 100);
+            proMod = parseInt(dualValids.length/allPro.size * 100);
           }
           
           fieldCount.sort((a,b) => {
             return (b.count.length - a.count.length)});
 
           tls.emit(`quick_analytics`, {
-            all_active_pros: auMap.size,
+            all_active_pros: dualValids.length,
             all_jobs: allJobs.length,
             all_pro: allPro.size,
             field_count: fieldCount,
@@ -1866,98 +2286,50 @@ class UATCP extends UAPublic {
 
       tls.on(`is_au`, u => {
 
-        if (!auMap.has(u)) {
+        if (!valids[u.in]) {
 
-          this.uid = u;
-          auMap.set(u, new Date().valueOf());
+          valids[u.in] = u.in;
+
+          if (u.is_valid_dual === true && (u.gps && u.gps !== false)) {
+
+            dualValids.push({
+              ava: u.ava,
+              fields: u.fields,
+              full: u.full,
+              gps: u.gps,
+              per: u.per,
+              sum: u.in,})
+          }   
         }
 
-        tls.emit(`quick_analytics`, {all_active_pros: auMap.size})
+        for (let valid in dualValids) {
 
-          //if (cookie.parse(tls.request.headers.cookie).u) this.uid = cookie.parse(tls.request.headers.cookie).u;
+          if (new Auxll().locusGPS(u.gps, dualValids[valid].gps, .010) === true) {
+
+            locusValid[valid] = {};
+            locusValid[valid][`ava`] = dualValids[valid].ava;
+            locusValid[valid][`fields`] = dualValids[valid].fields;
+            locusValid[valid][`full`] = dualValids[valid].full;
+            locusValid[valid][`gps`] = dualValids[valid].gps;
+            locusValid[valid][`per`] = dualValids[valid].per;
+            locusValid[valid][`sum`] = dualValids[valid].sum;
+          }
+        }
+
+        tls.emit(`quick_analytics`, {
+          all_active_pros: dualValids.length,
+          locus_valid: locusValid});
+
       })
-      //tls.on(`analytics`, (tcpData, call) => {
-
-        //setInterval(() => {console.log(new Date().valueOf());//console.log(tls.request.headers)
-          
-          //this.tcpMap = tcpData;
-
-          //if (this.tcpMap.in) {
-
-            //console.log(this.auMap); this.auMap = this.auMap || new Map()
-            //this.auMap.set(this.tcpMap.in, new Date().valueOf());
-          //}
-
-          //call({[`now`]: new Date().valueOf()}/*total*/)}, 3000);
-      //})
-      
-
-      /*tls.on(`analytics`, (tcpData, call) => {
-
-        this.tcpMap = tcpData;
-
-        if (this.tcpMap.in) {
-
-          console.log(this.auMap); this.auMap = this.auMap || new Map()
-          this.auMap.set(this.tcpMap.in, new Date().valueOf());
-        }
-        /*if (tcpData.in) {console.log(auMap.size)
-
-          this.u = tcpData.in;
-
-          if (!auMap.has(tcpData.in)) {
-
-            auMap.set(tcpData.in, new Date().valueOf());
-
-            if (totals[`auth_in`]) {
-
-              totals[`auth_in`] += 1//totals[`auth_in`]
-            }
-
-            else {
-
-              totals[`auth_in`] = 0
-              totals[`auth_in`] += 1;
-            }
-          }
-
-          else if (auMap.has(tcpData.in)) {
-
-            auMap.set(tcpData.in, new Date().valueOf());
-
-            if (totals[`auth_in`]) {
-
-              totals[`auth_in`] = totals[`auth_in`];
-            }
-
-            else {
-
-              totals[`auth_in`] = 0
-              totals[`auth_in`] += 1;
-            }
-            //totalsAuth[tcpData.in] = true;//if (totalsAuth[tcpData.in] && totalsAuth[tcpData.in] === true) {
-
-              //totals[`auth_in`] -= 1;
-              //totalsAuth[tcpData.in] = false;
-            //}
-
-            //else if (totalsAuth[tcpData.in] && totalsAuth[tcpData.in] === false) {
-
-              //totals[`auth_in`] += 1;
-              //totalsAuth[tcpData.in] = true;
-            //}
-          }
-        }
-        
-        call(totals)})*/
       
       tls.on(`disconnect`, () => {
-        totals[`totals`] -= 1;
 
-        if (this.uid !== false && auMap.has(this.uid)) {
+        //delete valids[cookie.parse(tls.request.headers.cookie).u];
 
-          auMap = new Map()
-        }
+        valids = [];
+        dualValids = [];
+        locusValid = [];
+
       });
     });
   }
@@ -1972,6 +2344,8 @@ module.exports = {
   UAPublic (level, req, res) {
     new UAPublic(level, req, res).handleUACalls();
   },
+
+  SublevelCalls: (level, req, res) => new UAPublic(level, req, res).subCalls(),
 
   viaAJX (q, to, fro) {
     new ViaAJX(q, to, fro).AJXCalls();

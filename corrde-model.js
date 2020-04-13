@@ -129,10 +129,42 @@ class Util {
         `November`,
         `December`];
 
-      lapseString = then.getDate() + ` ` + listMonths[then.getMonth()] + ` ` + then.getFullYear();
+      lapseString = then.getUTCDate() + ` ` + listMonths[then.getUTCMonth()] + ` ` + then.getUTCFullYear();
     }
     
     return lapseString;
+  }
+
+  availtimeleft(sec) {
+
+    sec = parseInt(sec);
+
+    let left = false;
+
+    if (sec > new Date().valueOf()) {
+
+      let secs = sec - new Date().valueOf();
+
+      if (secs > 86400000 * 93) left = `over 3 Months`;
+
+      else if (secs >= 86400000 * 30) left = Math.floor(secs / (86400000 * 30)) + ` Month`;
+
+      else if (secs >= 86400000 * 14) left = Math.floor(secs / (86400000 * 7)) + ` Week`;
+
+      else if (secs >= 86400000) left = Math.floor(secs / (86400000)) + ` Day`;
+
+      else if (secs >= 3600000) left = Math.floor(secs / (3600000)) + ` Hour`;
+
+      else if (secs >= 60000) left = Math.floor(secs / (60000)) + ` Minute`;
+
+      else if (secs >= 0) left = Math.floor(secs) + ` Second`;
+
+      if (parseInt(left) >= 2) left = `${left}s`;
+    }
+
+    else if (sec < new Date().valueOf()) left = `timeout`;
+
+    return left;
   }
 }
 
@@ -142,24 +174,14 @@ module.exports = {
 
   tick: sec => new Util().ticker(sec),
 
+  availtimeleft: sec => new Util().availtimeleft(sec),
+
   modelString (model) {
     return new ModelString().modelStringify(model);
   },
 
   call (mapping) {
     return this.modelString(this.html(mapping));
-  },
-  
-  modal (mapping) {
-    return [{
-      tag: `div`, flags: {class: `_UQe`, id: `modal`}, tagChild: [{
-        tag: `div`, flags: {class: `_HUa`}
-      }, {
-        tag: `div`, flags: {class: `_UfX`, flag: `smallScreen`}, tagChild: [{
-          tag: `div`, flags: {class: `_oPQ`}, tagChild:  mapping.appendModel
-        }]
-      }]
-    }];
   },
 
   controls () {
@@ -1925,14 +1947,14 @@ module.exports = {
                 `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0 _qaZ`, `~@Open Jobs`]]], [
                   `svg`, `.@geQ`, [[
                     `circle`, `.@_cC8`, `&@r>90`, `&@cy>100`, `&@cx>100`], [
-                    `circle`, `&@style>stroke-dashoffset: ${600-pool.open_modulus/100*565}px`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
-                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@${pool.open_modulus}`], [`span`, `.@_t2X`, `~@%`]]]]], [
+                    `circle`, `#@openOffSVG`, `&@style>stroke-dashoffset: ${600-pool.open_modulus/100*565}px`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
+                  `div`, `.@_-Qc _a00`, [[`span`, `#@openSVG`, `.@_tX7`, `~@${pool.open_modulus}`], [`span`, `.@_t2X`, `~@%`]]]]], [
               `div`, `.@_geQ`, [[
                 `div`, `.@_aXZ`, [[`span`, `.@_Ax0 _ut0 _qaZ`, `~@Active Freelancers`]]], [
                   `svg`, `.@geQ`, [[
                     `circle`, `.@_cC8`, `&@r>90`, `&@cy>100`, `&@cx>100`], [
-                    `circle`, `&@style>stroke-dashoffset: ${600-pool.pro_modulus/100*565}px`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
-                  `div`, `.@_-Qc`, [[`span`, `.@_tX7`, `~@${pool.pro_modulus}`], [`span`, `.@_t2X`, `~@%`]]]]]]], [
+                    `circle`, `#@proOffSVG`, `&@style>stroke-dashoffset: ${600-pool.pro_modulus/100*565}px`, `.@_cC8-`, `&@r>90`, `&@cy>100`, `&@cx>100`]]], [
+                  `div`, `.@_-Qc _a00`, [[`span`, `#@proSVG`, `.@_tX7`, `~@${pool.pro_modulus}`], [`span`, `.@_t2X`, `~@%`]]]]]]], [
               `div`, [[
               `h4`, `.@_ax2 _ut0`, `~@Top Jobs`], [
               `div`, `.@_sZ2`, [[
@@ -2003,6 +2025,8 @@ module.exports = {
     return [
       `aside`, [[
         `script`, `&@src>/socket.io/socket.io.js`], [
+        `script`, `&@src>/gp/d3.js`]/*, [
+        `script`, `&@src>/gp/topojson-client-master/src/index.js`]*/, [
         `script`, `&@src>${config.cd.utilJS}`], [
         `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], [
         `script`, `&@src>${pool.jsState}`]]]
@@ -2076,7 +2100,7 @@ module.exports = {
       for (let sub in subs) {
         lvlAll[a] = [`div`, `.@_qXq`, [[
           `label`, `.@_tXv`, `&@role>checkbox`, [[
-            `input`, `#@sub-${i}-${a}-0`, `&@type>checkbox`, `&@name>field-last`, `&@value>${subs[a]}`], [
+            `input`, `#@sub-${i}-${a}-0`, `&@type>checkbox`, `&@name>field-last`, `&@value>${field}_${subs[a]}`], [
             `span`, `.@_tCw axX`, `~@${subs[a]}`]]], [`div`]]]
         a++
       }
@@ -2219,7 +2243,11 @@ module.exports = {
 
   top (pool) {
 
-    let skillFields = []
+    let skillFields = [],
+      to = config,
+      mugPool = [`Profile`, `Find Work`, `Contract Work`, `Notifications`, `Settings`],
+      mugPoolids = [`tomug`, `towork`, `tosell`, `tomail`, `toadjust`],
+      mugPooltos = [to.lvl_mug, to.lvl_work, to.lvl_sell, to.lvl_mail, to.lvl_settings];
 
     for (let field in config.fields) {
 
@@ -2237,20 +2265,9 @@ module.exports = {
                 `span`, `.@_tCc`, `~@beta`]]], [
               `div`, `.@_QZg`, [[
                 `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>#ava-tools`, [[
-                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`]]]]], 
-              this.inModal({id: `fields_modal`, in: this.aModal(skillFields)}), [
-              `div`, `#@mug`, `.@_aYx _-Zz`, [[
-                `ul`, `.@_aYy _tXx`, [[
-                  `li`, `.@_-zZx`, [[
-                    `div`, `.@_-xQy`, [[`span`, `.@_Xtx _tAx _dMG _4tx`, `~@${pool.full}`]]]]], [
-                  `li`, `.@_-zZx`, [[
-                    `div`, `.@_-xQy`, [[
-                      `div`, `.@_gxM _ZCg _gcQ _geQ _gMX`, [[
-                        `div`, `.@_gM_a _agM`, [[`a`, `#@u`, `.@_TX_a _atX`, `&@href>#u`, `~@Switch to Client`]]]]]]]]], [
-                  `li`, `.@_-zZx`, [[
-                    `div`, `.@_-xQy`, [[
-                      `div`, `.@_gxM _ZCg _gcQ _geQ _gMX`, [[
-                        `div`, `.@_gM_a _agM`, [[`a`, `#@p`, `.@_TX_a _atX`, `&@href>#p`, `~@Switch to Proffesional`]]]]]]]]]]]]]]]]]]]]]
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>/${pool.ava}`]]]]], 
+              this.inModal({id: `fields_modal`, in: this.aModal(skillFields)}), 
+              this.inModal({id: `mug_modal`, in: this.aPoolModal(mugPool, mugPoolids, mugPooltos)})]]]]]]]]
   },
 
   inView (A, B) {
@@ -2273,8 +2290,8 @@ module.exports = {
                         `span`, `.@_Ax0 _aA2`, `~@Total ${B.field} Jobs Today`], [
                         `span`, `.@_ax4 _aA4`, `~@${A[0].total}`]]]]], [
                   `div`, `.@_sZ2`, [this.SVG_YBAR(A, B)]],
-                  this.SVGlinePie(A, B)//,
-                /*this.tasksReduc(B, 5)*//*, [
+                  this.SVGlinePie(A, B), 
+                  this.recentContractsView(B.field, B.contracts.sort((a,b) => {return (b.ini_log - a.ini_log)})) /*, [
               `div`, `.@_gxM _gcQ _CYc _sZ2`, [[
                 `div`, [[`a`, `.@_tX ChevFroGrayColor`, `&@href>#p2`]]], [
                 `div`, `.@_gxM _geQ`, [[
@@ -2319,8 +2336,8 @@ module.exports = {
 
     let XBARPool = [];
 
-    valPool.sort((a,b) => {
-      return (b - a)});
+    //valPool.sort((a,b) => {
+    //  return (b - a)});
 
     for (let val = 0; val < valPool.length; ++val) {
 
@@ -2328,12 +2345,12 @@ module.exports = {
         `g`, [[
           `rect`, `.@_aW2`, `&@x>9%`, `&@y>${(val + 1) * 50}`, `&@width>90%`, `&@height>30`], [
           `text`, `&@x>1%`, `&@y>${(val + 1) * 50 + 18}`, `~@${valPool[val]}%`], [
-          `rect`, `.@_aX0`, `&@x>9%`, `&@y>${(val + 1) * 50}`, `&@width>${parseInt(valPool[val]) * (10/9)}%`, `&@height>30`], [
+          `rect`, `.@_aX0`, `&@x>9%`, `&@y>${(val + 1) * 50}`, `&@width>${parseInt(valPool[val] * (9/10))}%`, `&@height>30`], [
           `text`, `&@x>12%`, `&@y>${(val + 1) * 50 + 20}`, `~@${keyPool[val]}`]]]
     }
 
     return [
-      `svg`, `.@_aXZ`, `&@style>height: ${valPool.length*50+50}px`, [[`g`, XBARPool]]]
+      `svg`, `.@_aXZ _a02`, `&@style>height: ${valPool.length*50+50}px`, [[`g`, XBARPool]]]
   },
 
   inModal (pool) {
@@ -2342,7 +2359,7 @@ module.exports = {
       `div`, `#@${pool.id}`, `&@for>modal`, `.@_aAY _-Zz`, [[
         `div`, `.@_gcQ _gxM _geQ`, [[
           `div`, `.@_QZg`, [[
-            `div`, [[`a`, `#@del`, `&@href>#x`, `.@-_tX DelColor`]]]]]]], 
+            `div`, [[`a`, `#@del`, `&@href>javascript:;`, `.@-_tX DelColor`]]]]]]], 
         [`div`, `.@_aXY`, [pool.in]]]]
   },
 
@@ -2353,6 +2370,19 @@ module.exports = {
     for (let i = 0; i < pool.length; i++) {
 
       inPool[i] = [`li`, `.@_-zZx`, [[`a`, `#@to_field`, `&@href>#field`, `.@_-xQy`, [[`span`, `.@_tAx _Xtx`, `~@${pool[i]}`]]]]];
+    }
+
+    return [
+      `ul`, `.@_aYy _tXx`, inPool]
+  },
+
+  aPoolModal (pool, idPool, toPool) {
+
+    let inPool = []
+
+    for (let i = 0; i < pool.length; i++) {
+
+      inPool[i] = [`li`, `.@_-zZx`, [[`a`, `#@${idPool[i]}`, `&@href>${toPool[i]}`, `.@_-xQy`, [[`span`, `.@_tAx _Xtx`, `~@${pool[i]}`]]]]];
     }
 
     return [
@@ -2376,22 +2406,22 @@ module.exports = {
       SVGlays = [], 
       SVGCount = [];
 
-    if (B.days_totals[0] < 2) {
+    if (B.days_totals[0] <= 2) {
 
       xPlot = [0, 1, 2];
     }
 
-    else if (B.days_totals[0] > 2 && B.days_totals[0] < 4) xPlot = [0, 2, 4];
+    else if (B.days_totals[0] > 2 && B.days_totals[0] <= 4) xPlot = [0, 2, 4];
 
-    else if (B.days_totals[0] > 4 && B.days_totals[0] < 6) xPlot = [0, 3, 6];
+    else if (B.days_totals[0] > 4 && B.days_totals[0] <= 6) xPlot = [0, 3, 6];
 
-    else if (B.days_totals[0] > 6 && B.days_totals[0] < 8) xPlot = [0, 2, 4, 6, 8];
+    else if (B.days_totals[0] > 6 && B.days_totals[0] <= 8) xPlot = [0, 2, 4, 6, 8];
 
-    else if (B.days_totals[0] > 8 && B.days_totals[0] < 10) xPlot = [0, 5, 10];
+    else if (B.days_totals[0] > 8 && B.days_totals[0] <= 10) xPlot = [0, 5, 10];
 
-    else if (B.days_totals[0] > 10 && B.days_totals[0] < 20) xPlot = [0, 10, 20];
+    else if (B.days_totals[0] > 10 && B.days_totals[0] <= 20) xPlot = [0, 10, 20];
 
-    else if (B.days_totals[0] > 20 && B.days_totals[0] < 40) xPlot = [0, 20, 40];
+    else if (B.days_totals[0] > 20 && B.days_totals[0] <= 40) xPlot = [0, 20, 40];
 
     else if (B.days_totals[0] > 40 && B.days_totals[0] < 60) xPlot = [0, 30, 60];
 
@@ -2410,14 +2440,14 @@ module.exports = {
           `text`, `&@x>95%`, `&@y>${187.5 - (lay * 180/(xPlot.length - 1))}`, `~@${xPlot[lay]}`]]]
     }
 
-    for (let day = 0; day < A.length; day++) {
+    for (let day = 0; day < A.length; day++) {//console.log(new Date(parseInt(A[day].UTC)).toUTCString())
 
-      if (parseInt(A[day].UTC) === parseInt(new Date(new Date().setUTCHours(0)).valueOf())) {
+      if (parseInt(A[day].UTC) < parseInt(new Date(new Date().setUTCHours(0) - new Date().getUTCMinutes()).valueOf())) {
 
-        today = ` _pg2-`;
+        today = ``;
       }
 
-      else {today = ``;}
+      else {today = ` _pg2-`;}
       
       SVGCount[day] = [
         `g`, [[
@@ -2425,13 +2455,13 @@ module.exports = {
           `rect`,
           `.@_pg2${today}`,
           `&@x>${80 - (day * 77.5/(A.length - 1))}%`, 
-          `&@y>${185 - (parseInt(A[day].total) * 180/(xPlot.length - 1))}`, 
+          `&@y>${185 - (parseInt(A[day].total) * 180/xPlot[(xPlot.length - 1)]/*(xPlot.length - 1)*/)}`, 
           `&@width>10%`, 
-          `&@height>${185 - (185 - (A[day].total * 180/(xPlot.length - 1)))}`]]]
+          `&@height>${185 - (185 - (A[day].total * 180/xPlot[(xPlot.length - 1)]/*(xPlot.length - 1)*/))}`]]]
     }
 
     return [
-      `svg`, `.@_aXZ`, `&@style>height: ${200}px`, [[`g`, SVGlays], [`g`, SVGCount]]]
+      `svg`, `.@_aXZ _a02`, `&@style>height: ${200}px`, [[`g`, SVGlays], [`g`, SVGCount]]]
   },
 
   SVGlinePie (A, B) {
@@ -2457,36 +2487,172 @@ module.exports = {
                 `g`, [[
                   `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
                   `circle`, `&@style>stroke-dashoffset: ${600-modus/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]], [
-              `div`, `.@_-cC4`, [[`span`, `~@${modus}`], [`span`, `~@%`]]]]], [
+              `div`, `.@_-cC4 _a00`, [[`span`, `~@${Math.floor(modus)}`], [`span`, `~@%`]]]]], [
             `span`, `.@_xg2 _ax4 _aA4`, `~@${cats[pane]}`]]]]]
 
       index++;
     }
 
-    return [`div`, `.@_sZ2 _aA2 _q2s`, CatPanes];
+    return [
+      `div`, [[`div`, `.@_QZg _q2s`, [[`span`, `.@_ytx _tXx _aA6`, `~@Jobs`]]], [`div`, `.@_sZ2 _aA2 q2s`, CatPanes]]];
   },
 
-  tasksReduc (B, offSet) {
+  ContractsView () { //separate from find work navigation
+
+    let to = config;
+
+    let mapPool = [`Contract Work`, `Explore`, `My Contracts`, `Find Work`],
+      mapPoolids = [`togyro`, `toexplore`, `tofeed`, `towork`],
+      mapPoolto = [to.lvl_sell, to.lvl_explore, to.lvl_myjobs, to.lvl_work];
 
     return [
-      `div`, `.@_aA2`, [[
-        `h4`, `.@_Ax0 _aA2`, `~@Recent Jobs in ${B.field}`], [
+      `nav`, `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY _eXz`, [[
+            `div`, `.@_aXz _xQz`, [[
+              `div`, `.@_gcQ _aXZ`, [[
+                `div`, [[`a`, `#@jobs_pool`, `.@_tX PrevGrayColor`, `&@href>#jobs`]]], [
+                `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Find Experts`]]], [
+                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX FilterColor`, `&@href>javascript:;`]]],
+                this.inModal({id: `jobs_modal`, in: this.aPoolModal(mapPool, mapPoolids, mapPoolto)})]]]]]]]]]];
+  },
+
+  MapSVGView () {
+
+    return [`section`, `#@map`, [[`svg`, `.@_aXZ`]]]
+  },
+
+  slideDemoView () {
+
+    return [
+      `div`, `.@sliderView`, [[`div`, `.@sliderContainer`, [[`div`, [[`div`, `.@sliderContent`, [[`div`, `.@sliderTransform _gxM`, [[
+        `div`, `.@slide`, [[`div`]]], [`div`, `.@slide`, [[`div`]]], [`div`, `.@slide`, [[`div`]]]]]]]]]]]]]
+  },
+
+  sellViaMapView () {
+
+    return [
+      `div`, `.@_xZ-`, [[
+        `div`, `.@_c5Q`, [[
+          `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM _z2a`, [[`a`, `#@contract`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Post a Job`]]]]]]]]
+    ]
+  },
+
+  mycontractView () {
+
+    let xPool = [];
+
+    for (let i in config.fields) {
+
+      xPool.push(i)
+    }
+
+    return [
+      `section`, `.@_C3y`, [[
+        `div`, `.@_XsQ _xsQ- _aA2`, [[
+          `h4`, `.@_aX2 _tAa`, `~@Define Your Contract`], [
+          `div`, [[
+            `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@Choose field of work`]]], 
+            this.XOptions(xPool, xPool), [`div`, `#@field2skill`], [
+            `div`, `.@_eZz`, [[
+              `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@Work Title`]]], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_tCx _aA2`, `~@Provide brief and precise title to headline your post.`], [
+                `div`, `.@_UFA _cS2`, [[
+                  `input`, `#@contracttitle`, `.@_RRD _Ccs`, `&@autocomplete>off`, `&@placeholder>Title`]]]]]]], [
+            `div`, `.@_eZz`, [[
+              `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@Work Description`]]], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_tCx _aA2`, `~@Give a detailed description for your contract.`], [
+                `div`, `.@ _cS2`, [[
+                  `textarea`, `#@contractdetail`, `.@-_tyq`, `&@autocomplete>off`, `&@placeholder>Type Text Here`]]]]]]], [
+            `div`, `.@_eZz`, [[
+              `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@Set Payment Rate`]]], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_tCx _aA2`, `~@Select an Option.`], this.labelRadioView([`Hourly`, `Fixed-Price`], `payrate`), [
+                `div`, `.@_UFA _cS2`, [[
+                  `input`, `#@contractpay`, `.@_RRD _Ccs`, `&@autocomplete>off`, `&@placeholder>Figure in Dollars`]]]]]]], [
+            `div`, `.@_eZz`, [[
+              `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@Application Duration`]]], [
+              `div`, `.@_4sC _XsQ`, [[
+                `p`, `.@_tCx _aA2`, `~@Set days to contract application deadline.`], [
+                `div`, `.@_UFA _cS2`, [[
+                  `input`, `#@contractdays`, `.@_RRD _Ccs`, `&@autocomplete>off`, `&@placeholder>Days to deadline`]]]]]]], [
+            `div`, `.@_gxM _CYc _gcQ _geQ _gMX`, [[
+              `div`, `.@QZg`, [[
+                `div`, `.@_gM_a _agM`, [[
+                  `a`, `#@savecontract`, `.@_TX_a _tXv _atX`, `&@href>javascript:;`, `~@Post Job`]]]]]]]]]]]]]
+
+  },
+
+  XOptions (pool, idPool) {
+
+    let xPool = []
+
+    for (let i = 0; i < pool.length; i++) {
+
+      xPool[i] = [`div`, `.@_qXc geQ`, [[
+        `div`, `.@_guZ _agM _gM_a`, [[`a`, `.@_utQ _TX_a _tXv _aX2`, `#@xoption`, `&@href>javascript:;`, `~@${pool[i]}`]]]]];
+    }
+
+    return [
+      `div`, `.@_eZz`, [[`div`, [[`div`, `.@_aVz`, [[`div`, `.@_xXx _gxM`, xPool]]]]]]]
+  },
+
+  fieldtoSkillView (skills, id) {
+
+    return [
+      `div`, `.@_eZz`, [[
+        `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@Choose skill for work`]]], 
+        this.labelRadioView(skills, id)]]
+  },
+
+  labelRadioView (pool, id) {
+
+    let labelPool = [];
+
+    for (let i = 0; i < pool.length;++i) {
+
+      labelPool[i] = [`div`, [[
+        `label`, `.@_tXv`, `&@role>radio`, [
+          [`input`, `&@type>radio`, `#@${id}`, `&@value>${pool[i]}`, `&@name>${id}`], [`span`, `.@_tCw _aA2`, `~@${pool[i]}`]]]]]
+    }
+
+    return [
+      `div`, `.@_caZ`, labelPool]
+  },
+
+  ContractsRangeView (B, range) {
+
+    let contracts = B.slice(range[0], range[1]),
+      pool = [];
+
+    for (let index = 0; index < contracts.length; index++) {
+
+      let sale =contracts[index];
+
+      pool[index] = [
         `section`, [[
           `div`, `.@_uZM _CYc`, [[
-            `div`, `.@_eYG`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>#task`, `~@art`]]]]]]], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@${contracts[index][`subfield`]}`]]]]]]], [
           `div`, `#@dept`, [[
             `div`, `.@_uZC`, [[
               `div`, [[
                 `div`, `.@-Zz`, [[
-                  `h4`, `#@task_0`, [[`a`, `.@_tX2 _aX2 _aA4`, `&@href>#task_0`, `~@art curator`]]], [
-                  `div`, `.@_sZ2`, [[`span`, `.@_szU _aA6`, `~@Posted - 20 MAY 2020`]]], [
+                  `h4`, `#@c_${index}`, [[
+                    `a`, `.@_tX2 _aX2 _aA4`, `&@href>#c_${index}`, `~@${contracts[index][`lead`]}`]]], [
                   `div`, `.@_gMX _geQ _sZ2`, [[
-                    `div`, [[`span`, `.@_tXx`, `~@10`], [`span`, `.@_aA6`, `~@Hourly`]]], [
-                    `div`, `.@_QZg`, [[`div`, [[`span`, `.@_tXx`, `~@Under 2 weeks`], [`span`, `.@_aA6`, `~@Duration`]]]]]]], [
-                    `div`, `.@`, [[`a`, `.@_zY0`, `&@href>#txt`, `~@this is a demo text field with a null line break for the entire grid. this additional text is a measure taken for a wide media field.`]]], [
+                    `div`, [[`span`, `.@_tXx`, `~@$${contracts[index][`pay`]}`], [`span`, `.@_aA6`, `~@${contracts[index][`payway`]}`]]], [
+                    `div`, `.@_QZg`, [[
+                      `div`, [[
+                        `span`, `.@_tXx`, `~@${this.availtimeleft(parseInt((sale.days * 86400000) + sale.ini_log))}`], [
+                        `span`, `.@_aA6`, `~@Duration`]]]]]]], [
+                    `div`, `.@`, [[`a`, `.@_zY0`, `&@href>#txt`, `~@${sale.detail}`]]], [
                   `div`, `.@_gxM _CYc`, [[
-                    `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@On-site`]]]]], [
-                    `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@Remote`]]]]]]]]], [
+                    `div`, `.@_axS`, [[
+                      `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@View Activity on Map`]]]]]]]]], /*[
                 `div`, [[
                   `div`, [[
                   `h4`, `#@task_0`, [[`a`, `.@_tX2 _aX2 _aA4`, `&@href>#task_0`, `~@art curator`]]], [
@@ -2498,7 +2664,7 @@ module.exports = {
                         `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@On-site`]]]]], [
                         `div`, `.@_axS`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>#site`, `~@Remote`]]]]]]]]], [
                     `div`, `.@_cS2 _geQ _gMX sZ2`, [[
-                      `div`, [[`span`, `.@_tXx`, `~@10`], [`span`, `.@_aA6`, `~@Hourly`]]], [
+                      `div`, [[`span`, `.@_tXx`, `~@$10`], [`span`, `.@_aA6`, `~@Hourly`]]], [
                       `div`, `.@_QZg`, [[`div`, [[`span`, `.@_tXx`, `~@Under 2 weeks`], [`span`, `.@_aA6`, `~@Duration`]]]]]]], [
                     `div`, `.@_sZ2 _cS2 gxM`, [[
                       `span`, `.@_tXx _ytx`, `~@Activity on this job`], [
@@ -2506,10 +2672,117 @@ module.exports = {
                     `div`, `.@_gHm _aGX -gs`, [[
                       `div`, `.@_xGy`, [[`div`, `.@_gxM _CYc _gcQ _geQ _gMX`, [[
                         `div`, `.@_gcQ`, [[
-                          `div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>#apply`, `~@Send Application`]]]]]]]]]]]]]]], [
+                          `div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>#apply`, `~@Submit Application`]]]]]]]]]]]]]]],*/ [
                 `div`, `.@_geQ _gMX _CYc`, [[
-                  `span`, `.@_aA6`, `~@Kenya, Kisumu`], [
-                  `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `~@Read More`]]]]]]]]]]]]]]]]]
-  }
+                  `span`, `.@_aA6 _a2X`, `~@${this.log(sale.ini_log)}`], [
+                  `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `~@Read More`]]]]]]]]]]]]]]]
+    }
 
+    return [`section`, pool];
+    
+  },
+
+  recentContractsView (field, B) {
+
+    if (B.length > 0) {
+
+      return [
+        `div`, `.@_aA2`, [[
+          `h4`, `.@_Ax0 _aA2`, `~@Recent Jobs in ${field}`], this.ContractsRangeView(B, [0, 5])]]
+    } else return []
+
+  },
+
+  px900JobsView (B) {
+
+    return [
+      `section`, `.@_C3y`, [[
+        `div`, `.@_XsQ _xsQ- _aA2`, [this.ContractsRangeView(B.sort((a,b) => {return (b.ini_log - a.ini_log)}), [0, 10])]]]]
+  },
+
+  navView (title) {
+
+    let to = config;
+
+    let mapPool = [`Contract Work`, `Explore`, `My Contracts`, `Find Work`],
+      mapPoolids = [`togyro`, `toexplore`, `tofeed`, `towork`],
+      mapPoolto = [to.lvl_sell, to.lvl_explore, to.lvl_myjobs, to.lvl_work];
+
+    return [
+      `nav`, `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY _eXz`, [[
+            `div`, `.@_aXz _xQz`, [[
+              `div`, `.@_gcQ _aXZ`, [[
+                `div`, [[`a`, `#@jobs_pool`, `.@_tX PrevGrayColor`, `&@href>javascript:;`]]], [
+                `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@${title}`]]], [
+                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>javascript:;`]]],
+                this.inModal({id: `jobs_modal`, in: this.aPoolModal(mapPool, mapPoolids, mapPoolto)})]]]]]]]]]];
+  },
+  
+  modalView (modelPool) {
+
+    return [
+      `div`, `.@_UQe`, `#@modalView`, [[
+        `div`, `.@_HUa`], [`div`, `.@_UfX`, [[
+          `div`, `.@_oPQ`, modelPool]]]]];
+  },
+
+  filterContractView () {
+
+    let poolA = [];
+
+    for (let field in config.fields) { poolA.push(field) }; 
+
+    return [
+      `div`, [[
+        `div`, `.@_gcQ _aXZ`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@filterclose`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@cancel`]]]]], [
+          `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@SEARCH FILTER`]]], [
+          `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Apply`]]]]]]], [
+        `div`, `.@_aXY _XsQ`, [[
+          `div`, `.@_eZz`, [[
+            `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@filter by field`]]], 
+              this.labelMultiCheckFitView(poolA, `filterfield`)]]]]]];
+  },
+
+  labelMultiCheckFitView (pool, id) {
+
+    let labelPool = [];
+
+    for (let i = 0; i < pool.length;++i) {
+
+      labelPool[i] = [`div`, `.@_qXq`, [[
+        `label`, `.@_tXv`, `&@role>checkbox`, [[
+          `input`, `&@type>checkbox`, `#@${id}`, `&@value>${pool[i]}`, `&@name>${id}`], [`span`, `.@_tCw _aA2`, `~@${pool[i]}`]]]]]
+    }
+
+    return [`div`, `.@_gZy _caZ`, labelPool];
+  },
+
+  loadDOMModalView: (model, id) => {return [`div`, `.@_-Zz`, `#@${id}`, model];},
+
+  locusValidModalView (pool) {
+
+    return [
+      `div`, `.@_-gAZ _aA2`, [[
+        `div`, `.@_AZc`, [[
+          `div`, `.@_oPQ`, [[
+            `div`, `.@_AZx`, [[
+              `div`, `.@_AZs _gxM gs0`, [[
+                `div`, `.@_aXZ _gp0`, [[
+                  `div`, `.@_uxq _gBA oPQ`, [[
+                    `div`, `.@_gMB _gcQ`, `&@style>padding: 20px 15px`, [[
+                      `span`, `.@_cCq`, `&@style>width: 60px;height: 60px`, [[`img`, `&@alt>`, `&@src>`]]], [
+                      `div`, `.@tXx _eYG`, [[
+                        `div`, `.@_QxM`, [[`span`, `.@_tXx`, `~@Mann Asugo`]]], [
+                        `div`, [[`span`, `.@_aA6`, `~@Kasimba, Oyugis, Kenya`]]]]], [
+                      `div`, `.@_QZg`, [[`div`, [[`span`, `.@_tXx`, `~@$15`], [`span`, `.@_aA6`, `~@Hourly`]]]]]]], [
+                    `div`, `.@_pV0 _gxM`, [[
+                      `div`, `.@_axS`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@validclose`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Return to Map`]]]]], [
+                      `div`, `.@_QZg gMz`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Book`]]]]]]]]]]]]]]]]]]]]]
+  },
 }
