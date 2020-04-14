@@ -268,6 +268,12 @@ class UAPublic extends Auxll {
           }
         }
 
+        else {
+
+          a2[`appendModel`] = model.mugger();
+          rootDualCall = model.header(a2);
+        }
+
         modelMapping[`appendModel`] = [
           model.main({
             appendModel: [
