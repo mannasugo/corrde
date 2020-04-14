@@ -10,6 +10,15 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Litera';
+  src: url('/gp/font/litera regular.ttf') format('truetype');
+  /*src: url('/gp/font/89d8fba73b6d10c300478fad02d4871d.svg') format('svg'),
+  src:url("/gp/font/89d8fba73b6d10c300478fad02d4871d.woff2") format("woff2");*/
+  font-weight: 100;
+  font-style: normal;
+}
+
 a, article, body, div, footer, form, h1, h2, h3, h4, header, html, img, label, li, nav, p, section, span, time, ul {
   margin: 0;
   padding: 0;
@@ -90,7 +99,7 @@ ol, ul {
 }
 
 body, button, input, textarea {
-  font-family: Geomanist, Gothic;
+  font-family: Litera;
   font-size: 14px;
   line-height: 18px;
 }
@@ -396,7 +405,7 @@ body {
   align-items: center;
 }
 
-._szU {
+._szU, ._a2X {
   font-size: 11px;
   color: #999;
   letter-spacing: .3px;
@@ -612,7 +621,7 @@ body {
   background-image: url(/gp/css/icons/canvas.png);
 }
 
-.closelighticonUA, .DelColor, .dissentlighticonUA, .electiconUA, .GramColor, .FroColor, 
+.closelighticonUA, .DelColor, .dissentlighticonUA, .electiconUA, .FilterColor, .GramColor, .FroColor, 
 .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .verifylighticonUA, ._y4x {
@@ -637,6 +646,10 @@ body {
 
 .DelColor {
   background-position: -350px -118px;
+}
+
+.FilterColor {
+  background-image: url(/gp/p/vector/filter.svg);
 }
 
 .FroColor {
@@ -923,7 +936,7 @@ flex: 3 0 0%;
   font-size: 11px;
 }
 
-._Ycl {
+._Ycl, ._pV0 {
   border-top: 1px solid #e6e6e6;
   padding: 12px;
 }
@@ -1606,6 +1619,7 @@ flex: 3 0 0%;
 
 label {
   cursor: pointer;
+  line-height: 24px;
 }
 
 ._gZy {
@@ -1842,6 +1856,21 @@ svg {
   width: 100%;
 }
 
+.overlay, ._a0z {
+  fill: none;
+  pointer-events: all;
+}
+
+.d3JS {
+  height: 100%;
+  min-height: 0;
+  background: #d7d7dd;
+}
+
+.d3JS text {
+  text-transform: none;
+}
+
 ._Cy0 {
   padding: 4px 0;
 }
@@ -1855,7 +1884,7 @@ svg {
 }
 
 text {
-  font-size: 10px;
+  /*font-size: 10px;*/
   fill: #594b4b;
   font-weight: bold;
   text-transform: uppercase;
@@ -2114,6 +2143,122 @@ table > thead > tr > th {
 
 ._zYg {
   white-space: normal;
+}
+
+._eXz {
+  border: none;
+  background: transparent;
+}
+
+._xQz {
+  max-width: 100%;
+}
+
+/**
+ SliderView
+ **/
+
+.sliderView, ._-gAZ {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.sliderContainer, ._AZc {
+  padding: 24px;
+  z-index: 2;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sliderContent, ._AZx {
+  z-index: 1;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+  overflow: visible;
+}
+
+.sliderTransform, ._AZs {
+  z-index: 1;
+  height: 100%;
+  flex-wrap: nowrap;
+  transition-property: transform;
+  margin: 0 -12px;
+}
+
+._gs0 {
+  margin: 0;
+}
+
+.slide {
+  width: 100%;
+  min-height: 1px;
+  padding: 0 12px;
+  flex: 0 0 25%;
+  max-width: 25%;
+  min-width: 92%;
+  height: 45px;
+}
+
+.slide div {
+  background: #fff;
+  height: 100%
+}
+
+#map {
+  /*margin-top: -51px;*/
+}
+
+._xZ- {
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  z-index: 2;
+}
+
+._z2a {
+  box-shadow: 0 15px 50px 0 rgba(0,34,77,.3);
+}
+
+._aVz {
+  z-index: 1;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+  overflow: visible;
+}
+
+._xXx {
+  z-index: 1;
+  height: 100%;
+  flex-wrap: nowrap;
+  transition-property: transform;
+  margin: 0 -12px;
+}
+
+._qXc {
+  width: 100%;
+  min-height: 1px;
+  padding: 0 12px;
+  flex: 0 0 25%;
+  max-width: 50%;
+  /*min-width: 25%;*/
+  height: 45px;
+}
+
+._a02 {
+  font-size: 10px;
+}
+
+._a00 {
+  font-family: Gothic;
+}
+
+._gp0 {
+  background: #fff;
 }
 
 @media (min-width: 414px) {

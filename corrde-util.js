@@ -981,10 +981,12 @@ class UAPublic extends Auxll {
           css: CSS, 
           jSStore: JSON.stringify({
                 //ava: alt.ava,
-                //full: alt.full,*/
+                //full: alt.full,
+            //filter_valid_pool: [],
             State: `contracts`,
             gps: false,
-            in: this.isValid(`u`)}),
+            in: this.isValid(`u`),
+            valid_filter: `field`}),
           jsState: config.cd.auJS};
 
         pool.appendModel = [

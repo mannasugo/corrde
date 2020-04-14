@@ -2739,9 +2739,9 @@ module.exports = {
       `div`, [[
         `div`, `.@_gcQ _aXZ`, [[
           `div`, `.@_axS`, [[
-            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@filterclose`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@cancel`]]]]], [
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@filterclose`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@exit`]]]]], [
           `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@SEARCH FILTER`]]], [
-          `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Apply`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM`, [[`a`, `#@filterapply`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Apply`]]]]]]], [
         `div`, `.@_aXY _XsQ`, [[
           `div`, `.@_eZz`, [[
             `div`, `.@_cS2`, [[`span`, `.@_tXx`, `~@filter by field`]]], 

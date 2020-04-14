@@ -27,6 +27,10 @@
 
     putValidModal(el); fallModal(el, `validclose`, `validmodal`);
 
+    availValidFilterString(el);
+
+    applyValidFilter(el);
+
     if (el.getAttribute(`name`) === `field`) {
       JSStore.to({field: el.getAttribute(`value`)});
       simpleCall(`fieldSale`, JSStore.avail());
@@ -1494,6 +1498,47 @@
     }
   }
 
+  let availValidFilterString = (e) => {
+
+    if (e.id === `filterfield`) {
+
+      if (!JSStore.avail().valid_filter) JSStore.to({valid_filter: `field`});
+
+      if (e.nextElementSibling.className === `_tCw _aA2`) {
+
+        let filter = (JSStore.avail().valid_filter.replace(new RegExp(`,${e.value}`, `g`), ``));
+        JSStore.to({valid_filter: filter + `,${e.value}`});
+        e.nextElementSibling.setAttribute(`class`, `_tCw _tXv`);
+      }
+
+      else if (e.nextElementSibling.className === `_tCw _tXv`) {
+
+        let filter = (JSStore.avail().valid_filter.replace(new RegExp(`,${e.value}`, `g`), ``));
+        JSStore.to({valid_filter: filter});
+        e.nextElementSibling.setAttribute(`class`, `_tCw _aA2`);
+      }
+    }
+  }
+
+  let applyValidFilter = (e) => {
+
+    if (e.id === `filterapply`) {
+
+      JSStore.to({filter_valid_pool: JSStore.avail().valid_filter.split(`,`)});
+
+      let to = document.querySelector(`#filtermodal`);
+
+      if (to.className === `_-Zz`) {
+        to.className = `-Zz`;
+      }
+
+      else if (to.className === `-Zz`) {
+        to.className = `_-Zz`;
+      }
+
+    }
+  }
+
   let slides = d3.select(`.sliderTransform`)
   d3.select(`.sliderContent`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     slides.style(`transform`, `translate(${d3.event.transform.x}px)`)
@@ -1531,6 +1576,40 @@
         }
       })
     }
+  }
+
+  let filterValid = (valid) => {
+
+    let filteredValid = [];
+
+    if (JSStore.avail().filter_valid_pool) {
+
+      let unfiltered = valid, filterPool = JSStore.avail().filter_valid_pool, indices = [];
+
+      for (let pool in unfiltered) {
+
+        let fieldPool = unfiltered[pool][`fields`];
+
+        for (let field = 0; field < fieldPool.length; ++field) {
+
+          if (filterPool.indexOf(fieldPool[field].split(`_`)[0]) !== -1) {
+
+            if (indices.indexOf(pool) === -1) indices.push(pool);
+          }
+        }
+
+      }
+
+      for (let i = 0; i < indices.length; ++i) {
+
+        filteredValid.push(unfiltered[indices[i]]);
+      }
+
+    }
+
+    else filteredValid = valid;
+
+    return filteredValid;
   }
 
   let D3SVGView = (gps, matrix) => {
@@ -1600,7 +1679,7 @@
 
               map.selectAll(`#valid`).remove();
 
-              map.selectAll(`text.valid`).data(JSStore.avail().locus_valid)
+              map.selectAll(`text.valid`).data(filterValid(JSStore.avail().locus_valid))
                 .enter()
                 .append(`rect`)
                 .attr(`x`, d => {
