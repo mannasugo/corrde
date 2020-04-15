@@ -2717,7 +2717,7 @@ module.exports = {
               `div`, `.@_gcQ _aXZ`, [[
                 `div`, [[`a`, `#@jobs_pool`, `.@_tX PrevGrayColor`, `&@href>javascript:;`]]], [
                 `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@${title}`]]], [
-                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>javascript:;`]]],
+                `div`, `.@_QZg _gMz`, [[`a`, `.@_tX FilterColor`, `&@href>javascript:;`]]],
                 this.inModal({id: `jobs_modal`, in: this.aPoolModal(mapPool, mapPoolids, mapPoolto)})]]]]]]]]]];
   },
   
@@ -2729,7 +2729,7 @@ module.exports = {
           `div`, `.@_oPQ`, modelPool]]]]];
   },
 
-  filterContractView () {
+  filterView () {
 
     let poolA = [];
 
@@ -2785,4 +2785,40 @@ module.exports = {
                         `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@validclose`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Return to Map`]]]]], [
                       `div`, `.@_QZg gMz`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Book`]]]]]]]]]]]]]]]]]]]]]
   },
+
+  labelSingleCheckFitView (pool, id) {
+
+    let labelPool = [];
+
+    for (let i = 0; i < pool.length;++i) {
+
+      labelPool[i] = [`div`, `.@_qXq`, [[
+        `label`, `.@_tXv`, `&@role>radio`, [[
+          `input`, `&@type>radio`, `#@${id}`, `&@value>${pool[i]}`, `&@name>${id}`], [`span`, `.@_tCw _aA2`, `~@${pool[i]}`]]]]]
+    }
+
+    return [`div`, `.@_gZy _caZ`, labelPool];
+  },
+
+  filterView2 () {
+
+    let poolA = [];
+
+    for (let field in config.fields) { poolA.push(field) };
+
+    return [
+      `div`, [[
+        `div`, `.@_gcQ _aXZ`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@filterclose`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@exit`]]]]], [
+          `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Search Filter`]]], [
+          `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM`, [[`a`, `#@filterapply`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Apply`]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, [[
+          `div`, `.@_eZz`, [[
+            `div`, `.@_caZ`, [[`span`, `.@_tXx aA2`, `~@filter by location`]]], 
+              this.labelSingleCheckFitView([`My locale`, `Everywhere`], `filterlocation`)]], [
+          `div`, `.@eZz`, [[
+            `div`, `.@_caZ`, [[`span`, `.@_tXx aA2`, `~@filter by location`]]], 
+              this.labelMultiCheckFitView(poolA, `filterfield`)]]]]]];
+  }
 }

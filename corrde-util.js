@@ -66,7 +66,8 @@ class Auxll {
     new Sql().multi({}, `select * from u;select * from j;`, (A, B, C) => {
 
       let is_valid = false,
-        is_valid_dual = false, 
+        is_valid_dual = false,
+        contracts = [],
         selfContracts = [],
         fields = [];
       
@@ -87,10 +88,13 @@ class Auxll {
 
         let alt = JSON.parse(B[1][jself].blab);
 
+        contracts.push(alt);
+
         if (alt.sum && alt.sum === u) selfContracts.push(alt);
       }
 
       call (is_valid, selfContracts, {
+        contracts: contracts,
         fields: fields,
         is_valid: is_valid,
         is_valid_dual: is_valid_dual});
@@ -872,6 +876,7 @@ class UAPublic extends Auxll {
             all_active_pros: auMap.size,
             all_jobs: allJobs.length,
             all_pro: allPro.size,
+            //contracts: allJobs,
             field_count: fieldCount,
             open_modulus: openMod,
             pro_modulus: proMod};
@@ -999,7 +1004,7 @@ class UAPublic extends Auxll {
           model.wrapper(pool),
           model.jS(pool), 
           model.loadDOMModalView([], `validmodal`), 
-          model.loadDOMModalView([model.modalView([model.filterContractView()])], `filtermodal`)];
+          model.loadDOMModalView([model.modalView([model.filterView()])], `filtermodal`)];
 
         this.app.to.writeHead(200, config.reqMime.htm);
         this.app.to.end(model.call(pool));
@@ -1083,34 +1088,39 @@ class UAPublic extends Auxll {
 
       this.modelStyler(config.lvl.css, CSS => {
 
-        this.availSelfsActivity(this.isValid(`u`), (A, B, C) => {
+        this.analytics(msg => {
 
-          const pool = {
-            title: `Get Jobs fit for your Proffession and field Preferences.`,
-            css: CSS, 
-            jSStore: JSON.stringify({
-              ava: A.ava,
-              fields: C.fields,
-              is_valid_dual: C.is_valid_dual,
-              State: `getjobs`,
-              gps: false,
-              in: this.isValid(`u`)}),
-            jsState: config.cd.auJS};
+          //let contracts = msg[`contracts`];
 
-          pool.appendModel = [
+          this.availSelfsActivity(this.isValid(`u`), (A, B, C) => {
+
+            const pool = {
+              title: `Get Jobs fit for your Proffession and field Preferences.`,
+              css: CSS, 
+              jSStore: JSON.stringify({
+                ava: A.ava,
+                fields: C.fields,
+                is_valid_dual: C.is_valid_dual,
+                State: `getjobs`,
+                gps: false,
+                in: this.isValid(`u`)}),
+              jsState: config.cd.auJS};
+
+            pool.appendModel = [
             model.main({
-              appendModel: [model.px900JobsView(B)]
-            }), model.navView(`Find Work`), model.footer()];
+              appendModel: [model.px900JobsView(C.contracts)]
+              }), model.navView(`Find Work`), model.footer()];
 
-          pool.appendModel = [
-            model.wrapper(pool),
-            model.jS(pool)];
+            pool.appendModel = [
+              model.wrapper(pool),
+              model.jS(pool), 
+              model.loadDOMModalView([model.modalView([model.filterView2()])], `filtermodal`)];
 
-          this.app.to.writeHead(200, config.reqMime.htm);
-          this.app.to.end(model.call(pool));
+            this.app.to.writeHead(200, config.reqMime.htm);
+            this.app.to.end(model.call(pool));
       
+          });
         });
-
       });
     });
   }
