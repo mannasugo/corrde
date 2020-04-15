@@ -120,6 +120,25 @@ class Auxll {
 
     return is_locus_valid;
   }
+
+  inisumAvail (sum, call) {
+
+    new Sql().multi({}, `select * from j`, (A, B, C) => {
+
+      let job = [], is_avail = false;
+
+      for (let task in B) {
+
+        let alt = JSON.parse(B[task].blab);
+
+        if (alt.ini_sum && alt.ini_sum === sum) job.push(alt);
+      }
+
+      if (job.length > 0) is_avail = true;
+
+      call(is_avail, job);
+    });
+  }
 }
 
 class Sql extends Auxll {
@@ -236,7 +255,16 @@ class UAPublic extends Auxll {
 
   subCalls () {
 
-    //console.log(this.levelState)
+    if (this.levelState[1] === `p`) {
+
+      this.inisumAvail(this.levelState[2], (A, B) => {
+
+        if (A === true) {
+
+          this.contractDetailed(B[0]);
+        }
+      });
+    }
   }
 
   rootCall () {
@@ -1122,6 +1150,28 @@ class UAPublic extends Auxll {
           });
         });
       });
+    });
+  }
+
+  contractDetailed (task) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+      
+      const pool = {
+        title: task.lead,
+        css: CSS,jsState: config.cd.auJS}
+
+      pool.appendModel = [
+        model.main({
+              appendModel: [model.px900JobsView([])]
+            }), model.navView(`My Contracts`), model.footer()];
+
+          pool.appendModel = [
+            model.wrapper(pool),
+            model.jS(pool)];
+
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));
     });
   }
 }

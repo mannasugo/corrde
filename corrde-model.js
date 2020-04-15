@@ -2642,14 +2642,14 @@ module.exports = {
               `div`, [[
                 `div`, `.@-Zz`, [[
                   `h4`, `#@c_${index}`, [[
-                    `a`, `.@_tX2 _aX2 _aA4`, `&@href>#c_${index}`, `~@${contracts[index][`lead`]}`]]], [
+                    `a`, `.@_tX2 _aX2 _aA4`, `&@href>/p/${sale.ini_sum}/`, `~@${contracts[index][`lead`]}`]]], [
                   `div`, `.@_gMX _geQ _sZ2`, [[
                     `div`, [[`span`, `.@_tXx`, `~@$${contracts[index][`pay`]}`], [`span`, `.@_aA6`, `~@${contracts[index][`payway`]}`]]], [
                     `div`, `.@_QZg`, [[
                       `div`, [[
                         `span`, `.@_tXx`, `~@${this.availtimeleft(parseInt((sale.days * 86400000) + sale.ini_log))}`], [
                         `span`, `.@_aA6`, `~@Duration`]]]]]]], [
-                    `div`, `.@`, [[`a`, `.@_zY0`, `&@href>#txt`, `~@${sale.detail}`]]], [
+                    `div`, `.@`, [[`a`, `.@_zY0`, `&@href>/p/${sale.ini_sum}/`, `~@${sale.detail}`]]], [
                   `div`, `.@_gxM _CYc`, [[
                     `div`, `.@_axS`, [[
                       `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@View Activity on Map`]]]]]]]]], /*[
@@ -2675,7 +2675,7 @@ module.exports = {
                           `div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>#apply`, `~@Submit Application`]]]]]]]]]]]]]]],*/ [
                 `div`, `.@_geQ _gMX _CYc`, [[
                   `span`, `.@_aA6 _a2X`, `~@${this.log(sale.ini_log)}`], [
-                  `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `~@Read More`]]]]]]]]]]]]]]]
+                  `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM`, [[`a`, `.@_TX_a _atX`, `&@href>/p/${sale.ini_sum}/`, `~@Read More`]]]]]]]]]]]]]]]
     }
 
     return [`section`, pool];

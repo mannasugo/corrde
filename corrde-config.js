@@ -22,6 +22,15 @@ module.exports = {
   lvl_ini_ava: gp + `img-ssl/ini/sq/`,
   lvl_ava: gp + `img-ssl/ava/sq/`,
 
+  lvl_explore: cdto.res + `explore/`,
+  lvl_mycontract: cdto.res + `mycontract/`,
+  lvl_myjobs: cdto.res + `myjobs/`,
+  lvl_work: cdto.res + `getjobs/`,
+  lvl_sell: cdto.res + `contracts/`,
+  lvl_mail: cdto.res + `mail/`,
+  lvl_mug: cdto.res + `mug/`,
+  lvl_settings: cdto.res + `settings/`,
+
   lvl: {//svr_map
     css: gp + `css/css.css`},
 
@@ -173,12 +182,12 @@ module.exports = {
   },
 
   fields: {
-    [`art`]: [
+    [`Art`]: [
       `art installation`, 
       `painting restoration`, 
       `art design`, 
       `art supplies`],
-    [`fashion and appeal`]: [
+    [`Fashion and Appeal`]: [
       `accessories`,
       `dermatology`,
       `hairstyling`,
@@ -195,7 +204,7 @@ module.exports = {
       `Physical therapy`,
       `Yoga instructor`,
       `Masseuse`],
-    [`home`]: [
+    [`Home`]: [
       `carpet cleaning`,
       `cooking`,
       `cleaning`,
@@ -209,19 +218,19 @@ module.exports = {
       `plumbing`,
       `electrical repair and maintenance`,
       `wash and fold`],
-    [`machinery`]: [
+    [`Machinery`]: [
       `electrical repair and maintenance`,
       `mechanical repair and maintenance`,
       `installation`,
       `supply`],
-    [`office`]: [
+    [`Office`]: [
       `interior design`,
       `stationery supply`,
       `plumbing`,
       `electrical repair and maintenance`,
       `interior fitting`,
       `office temp work`],
-    [`tourism`]: [
+    [`Tourism`]: [
       `curios and artifacts`,
       `archives`,
       `tour guide`]

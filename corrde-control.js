@@ -47,6 +47,10 @@ class RouteControl {
     if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {
       Util.UAPublic(levelState, req, res);
     }
+
+    else if (level === 3 && lastChar !== `/` || level === 4 && lastChar === `/`) {
+      Util.SublevelCalls(levels, req, res);
+    }
   }
 }
 
