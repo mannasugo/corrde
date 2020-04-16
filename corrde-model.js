@@ -2263,8 +2263,8 @@ module.exports = {
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
                 `span`, `.@_tCc`, `~@beta`]]], [
-              `div`, `.@_QZg`, [[
-                `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>#ava-tools`, [[
+              `div`, `.@_QZg _-Zz`, `#@mugvisibility`, [[
+                `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
                   `img`, `#@mug-ava`, `.@_aWz`, `&@src>/${pool.ava}`]]]]], 
               this.inModal({id: `fields_modal`, in: this.aModal(skillFields)}), 
               this.inModal({id: `mug_modal`, in: this.aPoolModal(mugPool, mugPoolids, mugPooltos)})]]]]]]]]

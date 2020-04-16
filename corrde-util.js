@@ -1163,12 +1163,10 @@ class UAPublic extends Auxll {
 
       pool.appendModel = [
         model.main({
-              appendModel: [model.px900JobsView([])]
-            }), model.navView(`My Contracts`), model.footer()];
+          appendModel: [model.footer()]
+        }), model.top({ava: ``})];
 
-          pool.appendModel = [
-            model.wrapper(pool),
-            model.jS(pool)];
+      pool.appendModel = [model.wrapper(pool), model.jS(pool)];
 
           this.app.to.writeHead(200, config.reqMime.htm);
           this.app.to.end(model.call(pool));

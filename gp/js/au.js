@@ -1494,7 +1494,8 @@
 
     if (JSStore.avail().ava && document.querySelector(`#mug-ava > #mug-ava`)) {
 
-      document.querySelector(`#mug-ava > #mug-ava`).setAttribute(`src`, `/${JSStore.avail().ava}`)
+      document.querySelector(`#mug-ava > #mug-ava`).setAttribute(`src`, `/${JSStore.avail().ava}`);
+      document.querySelector(`#mugvisibility`).setAttribute(`class`, `_QZg`);
     }
   }
 
