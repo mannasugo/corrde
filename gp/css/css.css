@@ -2261,6 +2261,20 @@ table > thead > tr > th {
   background: #fff;
 }
 
+
+._azX- {
+  border-top: 1px solid #eee;
+  bottom: 0;
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  /* display: flex;
+   max-width: 600px; */
+  padding: 12px 15px;
+  position: fixed;
+  width: 100%;
+  z-index: 19;
+  left: 0;
+}
 @media (min-width: 414px) {
 
   ._QXs {

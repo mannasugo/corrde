@@ -1387,7 +1387,7 @@
 
   let availRealtimeStats = () => {
 
-    if (JSStore.avail().State !== `offline`) return;
+    if (!document.querySelector(`#make`)) return;
 
     let poolA = [`proSVG`],
         poolAAlias = [],
@@ -1535,6 +1535,28 @@
 
       else if (to.className === `-Zz`) {
         to.className = `_-Zz`;
+      }
+
+    }
+  }
+
+  let availSubmitView = () => {
+
+    if (document.querySelector(`#submitvisibility`)) {
+
+      let to = document.querySelector(`#contractsubmit`),
+        data = JSON.parse(to.getAttribute(`data`));
+
+      if (data.is_avail && data.is_avail === false) {//_gM_a _agM _guZ   _TX_a _atX qXS _utQ
+
+        to.setAttribute(`class`, `_TX_a _atX qXS _utQ _gMX`);
+        to.parentNode.setAttribute(`class`, `_gM_a _agM _guZ _gMX`);
+        to.innerHTML = `Job is Closed`;
+      }
+
+      if (JSStore.avail().in && data.sum) {
+
+        if (JSStore.avail().in !== data.sum) document.querySelector(`#submitvisibility`).setAttribute(`class`, `_azX- _gMX`);
       }
 
     }
@@ -1783,6 +1805,8 @@
   inStateGPS();
 
   availMugView();
+
+  availSubmitView();
 
   setInterval(() => {
 

@@ -2820,5 +2820,22 @@ module.exports = {
           `div`, `.@eZz`, [[
             `div`, `.@_caZ`, [[`span`, `.@_tXx aA2`, `~@filter by location`]]], 
               this.labelMultiCheckFitView(poolA, `filterfield`)]]]]]];
+  },
+
+  detailedContractView (pool) {
+
+    let inlineJSON = `&@data>{
+      &quot;sum&quot;: &quot;${pool.sum}&quot;,
+      &quot;ini_sum&quot;: &quot;${pool.ini_sum}&quot;,
+      &quot;is_avail&quot;: ${pool.is_open}}`;
+
+    return [`main`, `.@_xC2`, [[
+      `section`, `.@_C3y`, [[
+        `div`, `.@_XsQ _xsQ- _aA2`, [[
+          `div`, `#@submitvisibility`, `.@_-Zz _azX- _gMX`, [[
+            `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
+              `div`, `.@_gMX gcQ`, [[
+                `div`, `.@_gM_a _agM _gMX`, `&@style>max-width: 500px`, [[
+                  `a`, `#@contractsubmit`, inlineJSON, `.@_TX_a _atX _gMX`, `&@href>javascript:;`, `~@Submit an Application`]]]]]]]]]]]]]]]
   }
 }
