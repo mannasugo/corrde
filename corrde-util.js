@@ -139,6 +139,54 @@ class Auxll {
       call(is_avail, job);
     });
   }
+
+  inisumAssoc (ini_sum, u, call) {
+
+    let assoc = [], valid = false;
+
+    this.inisumAvail(ini_sum, (A, B) => {
+
+      let is_avail = A, job = B[0];
+
+      this.availSelfsActivity(u, (A, B, C) => {
+
+        if (is_avail === true && C.is_valid_dual === true) {
+
+          let field = job[`field`] + `_` + job[`subfield`];
+
+          if (C.fields.indexOf(field) !== -1) valid = true;
+
+        }
+
+        assoc[`open`] = job[`is_open`];
+
+        if (valid === true && job.activity) {
+
+          assoc[`valid`] = valid;
+
+          let actsState = e => {
+
+            let state = false;
+
+            for (let act in e) {
+
+              if (e[act].sum === u) state = true;
+            }
+
+            return state;
+          }
+
+          assoc[`applications`] = actsState(job.activity.applications);
+          assoc[`gives`] = actsState(job.activity.gives);
+          assoc[`interviews`] = actsState(job.activity.interviews);
+        }
+
+        call(assoc)
+      });
+    });
+
+    
+  }
 }
 
 class Sql extends Auxll {
@@ -1235,6 +1283,8 @@ class ViaAJX extends Auxll {
     if (this.q.isClient) this.isClient(JSON.parse(this.q.isClient));
 
     if (this.q.isField) this.isField(JSON.parse(this.q.isField));
+
+    if (this.q.submitContract) this.submitContract(JSON.parse(this.q.submitContract));
   }
 
   iniCookie (field, value) {
@@ -2155,6 +2205,7 @@ class ViaAJX extends Auxll {
           let ini_sum = crypto.createHash(`md5`).update(`${ini_log}`, `utf8`).digest(`hex`);
 
           let contractPool = {
+            activity: {applications: [], gives: [], interviews: []},
             days: q.contract_days,
             detail: q.contract_detail,
             field: q.contract_field,
@@ -2191,6 +2242,22 @@ class ViaAJX extends Auxll {
 
       })
     })
+  }
+
+  submitContract (q) {
+
+    this.isCookieValid(`u`, () => {
+
+      if (q.u !== q.sum) {
+
+        this.inisumAssoc(q.ini_sum, q.u, (A => {
+
+          console.log(A);
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify({}));
+        }));
+      }
+    });
   }
 }
 

@@ -57,6 +57,16 @@ class ModelString {
 
 class Util {
 
+  secs2UTC (sec) {
+
+    let day = new Date(parseInt(sec)),
+      listMonths = config.listReducMonths,
+
+      dayReduc = listMonths[day.getUTCMonth()] + ` ` + day.getUTCDate() + ` ` + day.getUTCFullYear();
+    
+    return dayReduc;
+  }
+
   timeFormat (time) {
 
     let then = new Date(parseInt(time)), lapse = (new Date - then)/1000, lapseString;
@@ -173,6 +183,8 @@ module.exports = {
   log: (time) => new Util().timeFormat(time),
 
   tick: sec => new Util().ticker(sec),
+
+  secs2UTC: sec => new Util().secs2UTC(sec),
 
   availtimeleft: sec => new Util().availtimeleft(sec),
 
@@ -2630,7 +2642,7 @@ module.exports = {
 
     for (let index = 0; index < contracts.length; index++) {
 
-      let sale =contracts[index];
+      let sale = contracts[index];
 
       pool[index] = [
         `section`, [[
@@ -2764,28 +2776,6 @@ module.exports = {
 
   loadDOMModalView: (model, id) => {return [`div`, `.@_-Zz`, `#@${id}`, model];},
 
-  locusValidModalView (pool) {
-
-    return [
-      `div`, `.@_-gAZ _aA2`, [[
-        `div`, `.@_AZc`, [[
-          `div`, `.@_oPQ`, [[
-            `div`, `.@_AZx`, [[
-              `div`, `.@_AZs _gxM gs0`, [[
-                `div`, `.@_aXZ _gp0`, [[
-                  `div`, `.@_uxq _gBA oPQ`, [[
-                    `div`, `.@_gMB _gcQ`, `&@style>padding: 20px 15px`, [[
-                      `span`, `.@_cCq`, `&@style>width: 60px;height: 60px`, [[`img`, `&@alt>`, `&@src>`]]], [
-                      `div`, `.@tXx _eYG`, [[
-                        `div`, `.@_QxM`, [[`span`, `.@_tXx`, `~@Mann Asugo`]]], [
-                        `div`, [[`span`, `.@_aA6`, `~@Kasimba, Oyugis, Kenya`]]]]], [
-                      `div`, `.@_QZg`, [[`div`, [[`span`, `.@_tXx`, `~@$15`], [`span`, `.@_aA6`, `~@Hourly`]]]]]]], [
-                    `div`, `.@_pV0 _gxM`, [[
-                      `div`, `.@_axS`, [[
-                        `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@validclose`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Return to Map`]]]]], [
-                      `div`, `.@_QZg gMz`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Book`]]]]]]]]]]]]]]]]]]]]]
-  },
-
   labelSingleCheckFitView (pool, id) {
 
     let labelPool = [];
@@ -2832,10 +2822,78 @@ module.exports = {
     return [`main`, `.@_xC2`, [[
       `section`, `.@_C3y`, [[
         `div`, `.@_XsQ _xsQ- _aA2`, [[
-          `div`, `#@submitvisibility`, `.@_-Zz _azX- _gMX`, [[
+        `section`, [[
+          `div`, `#@dept`, [[
+            `div`, `.@cS2`, [[
+              `div`, [[
+                `div`, [[
+                  `div`, [[
+                    `h4`, [[
+                      `a`, `.@_tX2 _aX2 _aA4`, `&@href>/p/${pool.ini_sum}/`, `~@${pool[`lead`]}`]]], [
+                  `div`, `.@_QZg _sZ2`, [[`span`, `.@ _aA6 _a2X`, `~@${this.log(pool.ini_log)}`]]], [
+                  `div`, `.@_sZ2`, [[`span`, `.@_zY0 _zYg`, `~@${pool.detail}`]]], [
+          `div`, `.@_uZM _CYc`, [[
+            `div`, `.@_gxM _sZ2`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${pool[`subfield`]}`]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, `.@eYG _`, [[`span`, `.@aA2 _tXx`, `~@Duration`]]], [
+            `div`, `.@_QZg _gxM`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${this.availtimeleft(parseInt((pool.days * 86400000) + pool.ini_log))}`]]], [
+                `span`, `.@ _aA6 _a2X _axS`, `~@${this.secs2UTC(pool.ini_log)} - ${this.secs2UTC(parseInt((pool.days * 86400000) + pool.ini_log))}`]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, `.@eYG _`, [[`span`, `.@aA2 _tXx`, `~@Pay`]]], [
+            `div`, `.@_QZg _gxM`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${pool[`payway`]}`]]], [
+              `span`, `.@ _aA6 _a2X _axS _tXx`, `~@$ ${pool[`pay`]}`]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+            `div`, `.@eYG _`, [[`span`, `.@aA2 _tXx`, `~@Location`]]], [
+                      `div`, `.@_QZg _gxM`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[
+                          `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@View on Map`]]], [
+                        `span`, `.@ _aA6 _a2X _axS _tXx`, `~@${pool[`gps`].toString()}`]]]]], [
+                    `div`, [
+                      this.actsSliceView([], [0, 5], {id: `applications`, tally: 0, title: `applications`, to: `Book`}), 
+                      this.actsSliceView([], [0, 5], {id: `interviews`, tally: 0, title: `interviews`, to: `Hire`}), 
+                      this.actsSliceView([], [0, 5], {id: `gives`, tally: 0, title: `hires`, to: `Terminate`})]]]]]]]]]]]]]], [
+          `div`, `#@submitvisibility`, `.@_-Zz _azX- _gMX _gp0`, [[
             `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
               `div`, `.@_gMX gcQ`, [[
                 `div`, `.@_gM_a _agM _gMX`, `&@style>max-width: 500px`, [[
                   `a`, `#@contractsubmit`, inlineJSON, `.@_TX_a _atX _gMX`, `&@href>javascript:;`, `~@Submit an Application`]]]]]]]]]]]]]]]
+  },
+
+  actsSliceView (pool, off, att) {
+
+    let B = pool.slice(off[0], off[1]), model = [], plus;
+
+    for (let index = 0; index < B.length; index++) {
+
+      let act = B[index];
+
+      model[index] = [
+        `div`, `.@_gMB _gcQ`, `&@style>padding: 20px 7px 0`, [[
+          `span`, `.@_cCq`, `&@style>width: 36px;height: 36px`, [[`img`, `.@_aWz`, `&@alt>`, `&@src>/${act.ava}`]]], [
+          `div`, `.@tXx _eYG`, [[
+            `div`, `.@_QxM`, [[`span`, `.@_tXx _aA6`, `~@${act.full}`]]], [
+            `div`, [[`span`, `.@_aA6 _a2X`, `~@$${act.per}/HR`]]]]], [
+          `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${att.to}`]]]]]]];
+    }
+
+    plus = [
+      `div`, `.@_gHm _aGX -gs -Zz`, `#@plus${att.id}visible`, [[
+        `div`, `.@_xGy`, [[
+          `div`, `.@_gxM _CYc _gcQ _geQ _gMX`, [[
+            `div`, `.@_gcQ`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@All ${att.title}`]]]]]]]]]]];
+
+    return [
+      `div`, [[
+        `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+          `div`, `.@eYG`, [[`span`, `.@aA2 _tXx`, `~@${att.title}`]]], [
+          `div`, `.@_QZg _gxM`, [[`span`, `.@ _aA6 _a2X _axS tXx`, `~@${att.tally}`]]]]], [
+        `div`, `#@${att.id}visible`, model], ((att.tally > 4) ? plus = plus : plus = [])]];
   }
 }

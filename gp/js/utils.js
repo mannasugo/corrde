@@ -107,6 +107,31 @@ const Model = (function () {
       }
 
       return this.appendString;
+    },
+
+    locusValidView: function (pool) {
+
+      return [
+      `div`, `.@_-gAZ _aA2`, [[
+        `div`, `.@_AZc`, [[
+          `div`, `.@_oPQ`, [[
+            `div`, `.@_AZx`, [[
+              `div`, `.@_AZs _gxM gs0`, [[
+                `div`, `.@_aXZ _gp0`, [[
+                  `div`, `.@_uxq _gBA oPQ`, [[
+                    `div`, `.@_gMB _gcQ`, `&@style>padding: 20px 15px 0`, [[
+                      `span`, `.@_cCq`, `&@style>width: 60px;height: 60px`, [[`img`, `.@_aWz`, `&@alt>`, `&@src>/${pool.ava}`]]], [
+                      `div`, `.@tXx _eYG`, [[
+                        `div`, `.@_QxM`, [[`span`, `.@_tXx`, `~@${pool.full}`]]], [
+                        `div`, [[`span`, `.@_aA6`, `~@${pool.gps.toString()}`]]]]], [
+                      `div`, `.@_QZg`, [[`div`, [[`span`, `.@_tXx`, `~@$${pool.per}`], [`span`, `.@_aA6`, `~@Hourly`]]]]]]], [
+                    `div`, `&@style>padding: 10px 15px 20px`, `.@_`, [[
+                      `div`, `.@caZ`, [[`span`, `.@_tXx`, `~@expertise`]]], [
+                      `div`, `.@_aA6`, `&@style>padding: 4px 0 0`, [[`p`, `~@${pool.fields.toString()}`]]]]], [
+                    `div`, `.@_pV0 _gxM`, [[
+                      `div`, `.@_axS`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@validclose`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Return to Map`]]]]], [
+                      `div`, `.@_QZg gMz`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Book`]]]]]]]]]]]]]]]]]]]]]
     }
   }
   
@@ -170,6 +195,57 @@ const AJXFile = (function () {
   };
   
   return AJXFile;
+
+})();
+
+const GPS = (function () {
+
+  function GPS (dealGPS, dealError) {
+
+    this.coords = [];
+    this.bugPool = false;
+
+    this.dealBugs = dealError;
+    this.dealGPS = dealGPS
+  }
+  
+  GPS.prototype = {
+    /**
+     * @override
+     */
+    geo: function (position) {
+
+      let gps = position.coords,
+        lat = gps.latitude,
+        long = gps.longitude;
+
+      if (typeof lat === `number` && typeof long === `number`) {
+
+        this.coords.push(long);
+        this.coords.push(lat);
+      }
+
+      return this.coords;
+    },
+
+    isError: function (errorObj) {
+
+      if (errorObj.message && errorObj.message.length > 0) {
+        
+        this.bugPool = errorObj;
+      }
+
+      this.dealBugs(this.bugPool);
+    },
+
+    isgps: function () {
+
+      navigator.geolocation.getCurrentPosition(this.geo, this.isError);
+      //return {gps: this.coords, error: this.bugPool};
+    }
+  };
+  
+  return GPS;
 
 })();
 

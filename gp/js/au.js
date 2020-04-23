@@ -31,6 +31,8 @@
 
     applyValidFilter(el);
 
+    submitContract(el);
+
     if (el.getAttribute(`name`) === `field`) {
       JSStore.to({field: el.getAttribute(`value`)});
       simpleCall(`fieldSale`, JSStore.avail());
@@ -1556,9 +1558,30 @@
 
       if (JSStore.avail().in && data.sum) {
 
-        if (JSStore.avail().in !== data.sum) document.querySelector(`#submitvisibility`).setAttribute(`class`, `_azX- _gMX`);
+        if (JSStore.avail().in !== data.sum) document.querySelector(`#submitvisibility`).setAttribute(`class`, `_azX- _gMX _gp0`);
       }
 
+    }
+  }
+
+  let submitContract = e => {
+
+    if (e.id === `contractsubmit`) {
+
+      let data = JSON.parse(e.getAttribute(`data`));
+
+      if (data.sum !== JSStore.avail().in) {
+
+        data[`u`] = JSStore.avail().in;
+
+        AJXCall(`submitContract`, data, (A, B) => {
+
+          if (B.is_matrix_avail === true) {
+              
+            //call(point, B.matrix);
+          }
+        });
+      }
     }
   }
 
