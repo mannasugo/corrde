@@ -151,6 +151,9 @@ module.exports = {
         toward VARCHAR(320) NOT NULL,
         txt TEXT NOT NULL)`,
 
+    messages: 
+      `CREATE TABLE IF NOT EXISTS messages (json LONGTEXT NOT NULL)`,
+
     quora:
       `CREATE TABLE IF NOT EXISTS quora (
         cord VARCHAR(320) NOT NULL,

@@ -225,14 +225,9 @@ class Sql extends Auxll {
   ini () {
     this.iniSql.query(config.sql.db, () => {
       this.multiSql.query(
-        `${config.sql.u}
-        ;${config.sql.i}
-        ;${config.sql.m}
-        ;${config.sql.freqs}
-        ;${config.sql.texts}
-        ;${config.sql.interactions}
-        ;${config.sql.quora}
-        ;${config.sql.quora_comments}`);
+        `${config.sql.m}
+        ;${config.sql.messages}
+        ;${config.sql.u}`);
       this.multiSql.end();
     });
     this.iniSql.end();
