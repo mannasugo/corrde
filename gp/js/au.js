@@ -1559,6 +1559,15 @@
       if (JSStore.avail().in && data.sum) {
 
         if (JSStore.avail().in !== data.sum) document.querySelector(`#submitvisibility`).setAttribute(`class`, `_azX- _gMX _gp0`);
+
+        let alive = false, e = JSStore.avail().j[`activity`][`applications`];
+
+        for (let act in e) {
+
+          if (e[act].sum === JSStore.avail().in) alive = true;
+        }
+
+        if (alive === true) to.innerHTML = `Withdraw Application`;
       }
 
     }
