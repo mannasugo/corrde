@@ -154,7 +154,7 @@ class Auxll {
 
       this.availSelfsActivity(u, (A, B, C) => {
 
-        if (is_avail === true && C.is_valid_dual === true) {console.log(C)
+        if (is_avail === true && C.is_valid_dual === true) {
 
           let field = job[`field`] + `_` + job[`subfield`];
 
@@ -163,6 +163,7 @@ class Auxll {
         }
 
         assoc[`open`] = job[`is_open`];
+        assoc[`pool`] = job;
 
         if (valid === true && job.activity) {
 
@@ -183,13 +184,20 @@ class Auxll {
           assoc[`applications`] = actsState(job.activity.applications);
           assoc[`gives`] = actsState(job.activity.gives);
           assoc[`interviews`] = actsState(job.activity.interviews);
+
+          assoc[`u`] = C.is_valid;
         }
 
         call(assoc)
       });
     });
+  }
 
-    
+  applicationPush (pool) {
+
+    new Sql().multi({}, `select * from j where blab = '${JSON.stringify(pool)}'`, (A, B, C) => {
+      console.log(B)
+    })
   }
 }
 
@@ -2258,7 +2266,50 @@ class ViaAJX extends Auxll {
 
         this.inisumAssoc(q.ini_sum, q.u, (A => {
 
-          console.log(A);
+          let blobValue = JSON.stringify(A.pool)
+
+          let column = A.pool;
+
+          if (A.open === true && A.valid === true) {
+
+            let actValue = {}, longText, notify = false;
+
+            let displaceValue = (value, list) => {
+
+              let list2 = [];
+
+              for (let u = 0; u < list.length; u++) {
+
+                if (list[u].sum !== value) list2.push(list[u]);
+              }
+
+              return list2;
+            };
+
+            if (A.gives === false && A.applications === false) {
+
+              column[`activity`][`applications`].push({
+                ava: A.u[`ava`],
+                full: A.u[`full`],
+                per: A.u[`appraisal`],
+                sum: A.u[`sum`]});
+            }
+
+            else if (A.gives === false && A.applications === true) {
+
+              column[`activity`][`applications`] = displaceValue(A.u[`sum`], A.pool[`activity`][`applications`]);
+            }
+
+            new Sql().multi({}, 
+              `update j set blab = '${JSON.stringify(column)}' where blab = '${blobValue}'`,
+              (A, B, C) => {
+
+                if (A === null) {
+
+
+                }
+            });
+          }
           this.app.to.writeHead(200, config.reqMime.json);
           this.app.to.end(JSON.stringify({}));
         }));
