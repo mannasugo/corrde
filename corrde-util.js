@@ -75,12 +75,16 @@ class Auxll {
 
         let alt = JSON.parse(B[0][uself].alt);
 
-        if (alt.sum && alt.sum === u) is_valid = alt;
+        if (alt.sum && alt.sum === u) {
 
-        if (alt.skills.length > 0) {
+          is_valid = alt;
 
-          is_valid_dual = true;
-          fields = alt.skills;
+          if (is_valid.skills.length > 0) {
+
+            is_valid_dual = true;
+            fields = is_valid.skills;
+          }
+
         }
       }
 
@@ -150,7 +154,7 @@ class Auxll {
 
       this.availSelfsActivity(u, (A, B, C) => {
 
-        if (is_avail === true && C.is_valid_dual === true) {
+        if (is_avail === true && C.is_valid_dual === true) {console.log(C)
 
           let field = job[`field`] + `_` + job[`subfield`];
 
