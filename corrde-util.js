@@ -1206,8 +1206,10 @@ class UAPublic extends Auxll {
     this.modelStyler(config.lvl.css, CSS => {
       
       const pool = {
+        jSStore: JSON.stringify({j: task}),
         title: task.lead,
-        css: CSS,jsState: config.cd.auJS}
+        css: CSS,
+        jsState: config.cd.auJS}
 
       pool.appendModel = [
         model.main({

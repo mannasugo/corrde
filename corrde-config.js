@@ -22,6 +22,14 @@ module.exports = {
   lvl_ini_ava: gp + `img-ssl/ini/sq/`,
   lvl_ava: gp + `img-ssl/ava/sq/`,
 
+  /**
+  @dev
+  **/
+
+  lvl_covid_19: cdto.res + `covid-19/`,
+
+  /** ---------------------------  **/
+
   lvl_explore: cdto.res + `explore/`,
   lvl_mycontract: cdto.res + `mycontract/`,
   lvl_myjobs: cdto.res + `myjobs/`,
@@ -259,7 +267,7 @@ module.exports = {
     [`About`]: `/about`,
     [`Team`]: `/team`,
     [`Jobs`]: `/jobs`,
-    [`Support`]: `/support`},
+    [`Support`]: `/support`, [`Covid-19 Watch`]: `/covid-19/`},
 
   feature: {
     [`Adaptable Location Matching`]: 
