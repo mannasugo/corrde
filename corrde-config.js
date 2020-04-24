@@ -73,7 +73,7 @@ module.exports = {
   sql: {
     db: `CREATE DATABASE IF NOT EXISTS corrde`,
     u: `CREATE TABLE IF NOT EXISTS u (
-          alt TEXT NOT NULL,
+          alt LONGTEXT NOT NULL,
           mail TEXT NOT NULL,
           mug TEXT NOT NULL,
           pass TEXT NOT NULL,
@@ -81,9 +81,9 @@ module.exports = {
           sum VARCHAR(320) NOT NULL)`,
     i: `CREATE TABLE IF NOT EXISTS i (
           sum VARCHAR(320) NOT NULL,
-          type TEXT NOT NULL)`,
+          type LONGTEXT NOT NULL)`,
     m: `CREATE TABLE IF NOT EXISTS j (
-          blab TEXT NOT NULL,
+          blab LONGTEXT NOT NULL,
           freq INT NOT NULL,
           location TEXT NOT NULL,
           pay INT NOT NULL,
