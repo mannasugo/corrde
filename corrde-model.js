@@ -2819,6 +2819,10 @@ module.exports = {
       &quot;ini_sum&quot;: &quot;${pool.ini_sum}&quot;,
       &quot;is_avail&quot;: ${pool.is_open}}`;
 
+    let acts = [];
+
+    (pool.activity) ? acts = pool.activity : acts = [];
+
     return [`main`, `.@_xC2`, [[
       `section`, `.@_C3y`, [[
         `div`, `.@_XsQ _xsQ- _aA2`, [[
@@ -2854,9 +2858,12 @@ module.exports = {
                           `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@View on Map`]]], [
                         `span`, `.@ _aA6 _a2X _axS _tXx`, `~@${pool[`gps`].toString()}`]]]]], [
                     `div`, [
-                      this.actsSliceView([], [0, 5], {id: `applications`, tally: 0, title: `applications`, to: `Book`}), 
-                      this.actsSliceView([], [0, 5], {id: `interviews`, tally: 0, title: `interviews`, to: `Hire`}), 
-                      this.actsSliceView([], [0, 5], {id: `gives`, tally: 0, title: `hires`, to: `Terminate`})]]]]]]]]]]]]]], [
+                      this.actsSliceView(acts.applications, [0, 5], {
+                        id: `applications`, tally: acts.applications.length, title: `Applications`, to: `Book`}), 
+                      this.actsSliceView(acts.interviews, [0, 5], {
+                        id: `interviews`, tally: acts.interviews.length, title: `Interviews`, to: `Hire`}), 
+                      this.actsSliceView(acts.gives, [0, 5], {
+                        id: `gives`, tally: acts.gives.length, title: `Hires`, to: `Terminate`})]]]]]]]]]]]]]], [
           `div`, `#@submitvisibility`, `.@_-Zz _azX- _gMX _gp0`, [[
             `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
               `div`, `.@_gMX gcQ`, [[
