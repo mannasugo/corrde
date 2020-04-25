@@ -193,7 +193,7 @@ class Auxll {
     });
   }
 
-  applicationPush (pool) {
+  pushMessage (pool) {
 
     new Sql().multi({}, `select * from j where blab = '${JSON.stringify(pool)}'`, (A, B, C) => {
       console.log(B)
@@ -278,6 +278,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `getjobs`) this.getJobs();
 
+    if (this.levelState === `mail`) this.mailSliced();
+
     if (this.levelState === `in`) this.in();
 
     if (this.levelState === `mycontract`) this.formContract();
@@ -296,15 +298,11 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `jobs`) this.vacant();
 
-    if (this.levelState === `about`) this.about();
-
     if (this.levelState === `meta`) this.meta();
 
     if (this.levelState === `setup`) this.setup();
 
     if (this.levelState === `explore`) this.inView();
-
-    if (this.levelState === `u`) this.uView();
   }
 
 
@@ -781,26 +779,6 @@ class UAPublic extends Auxll {
       });
   }
 
-  about () {
-
-    this.modelStyler(config.lvl.css, CSSString => {
-
-      let modelMapping = {
-        title: `About Corrde`,
-        css: CSSString,
-        appendModel: ``,
-        JSStore: {
-          about: true}};
-
-      modelMapping[`JSStore`] = JSON.stringify(modelMapping[`JSStore`]);
-
-      modelMapping[`appendModel`] = [model.about(modelMapping)];
-
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(modelMapping));
-      });
-  }
-
   inView () {
 
     this.isValid(`u`);
@@ -1225,8 +1203,30 @@ class UAPublic extends Auxll {
 
       pool.appendModel = [model.wrapper(pool), model.jS(pool)];
 
-          this.app.to.writeHead(200, config.reqMime.htm);
-          this.app.to.end(model.call(pool));
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(pool));
+    });
+  }
+
+  mailSliced () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Notifications`,
+        css: CSS,
+        jsState: config.cd.auJS};
+
+      pool.appendModel = [
+        model.main({
+          appendModel: [model.mailSlicedView(), model.footer()]
+        }), model.top({ava: ``})];
+
+      pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(pool));
     });
   }
 }

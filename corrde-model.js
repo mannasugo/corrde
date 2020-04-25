@@ -1682,161 +1682,6 @@ module.exports = {
     };
   },
 
-  about (pool) {
-
-    return {
-      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
-        tag: `section`, flags: {class: `_miY`}, tagChild: [{
-          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
-            tag: `section`, flags: {style: `padding-top: 60px; font-size: 13px;`}, tagChild: [{
-              tag: `div`, flags: {style: `max-width: 900px;`, class: `_4Sx _aGX`}, tagChild: [{
-                tag: `div`, tagChild: [{
-                  tag: `div`, tagChild: [{
-                    tag: `span`, flags: {class: `_txU`} , closure: `HOW IT WORKS`
-                  }]
-                }, {
-                  tag: `div`, tagChild: [{
-                    tag: `span`, flags: {class: `_YtS _Atx`} , closure: 
-                    `growing your client base in an industry you love shouldn't feel difficult, at corrde, we're ready
-                     to give you another way to attract and satisfy your clients. our web booking platform service
-                      allows you to receive bookings around the clock, with greater exposure and the chance to
-                       seize control of your business growth. it's time to learn what we can do for you.`
-                  }]
-                }, {
-                  tag: `div`, flags: {class: ``}, tagChild: [{
-                    tag: `div`, flags: {class: `_eYG`}, tagChild: [{
-                      tag: `span`, flags: {class: `_ytx _Qtx 3tx`}, closure: `1. Adjust Your Working Page`
-                    }]
-                  }, {
-                    tag: `div`, tagChild: [{
-                      tag: `span`, flags: {class: `_YtS _2tx _Atx _0tx`} , closure: 
-                      `Once a registered user of corrde, when logged in, you will automatically proceed to a working page 
-                      equiped with a double option for a service provider or seller. On the top right corner of the 
-                      page/application within the header resides a button for switching to either options, as a 
-                      professional please make sure you are adjusted to the market. If the button reads as the 
-                      snapshot below, please click on it.
-                      `
-                    }]
-                  }, {
-                    tag: `div`, flags: {class: `_eSQ`}, tagChild: [{
-                      tag: `img`, flags: {class: `_uXZ _Sz6`, src: `/gp/p/about/pro_640_-_0.png`}
-                    }]
-                  }]
-                }, {
-                  tag: `div`, flags: {class: ``}, tagChild: [{
-                    tag: `div`, flags: {class: `_eYG`}, tagChild: [{
-                      tag: `span`, flags: {class: `_ytx _Qtx 3tx`}, closure: `2. Browse Market, Select Suited Task Available`
-                    }]
-                  }, {
-                    tag: `div`, tagChild: [{
-                      tag: `span`, flags: {class: `_YtS _2tx _Atx _0tx`} , closure: 
-                      `Below is a job slide posted by a client looking for cleaning help. The tagged sections describe how
-                      to navigate a job slide.
-                      `
-                    }]
-                  }, {
-                    tag: `div`, flags: {class: `_eSQ`}, tagChild: [{
-                      tag: `img`, flags: {class: `_uXZ _Sz6`, src: `/gp/p/about/pro_640_-_1.png`}
-                    }]
-                  }, {
-                    tag: `ul`, flags: {style: `margin: 0 auto 12px`, class: `_SCz`}, tagChild: [{
-                      tag: `li`, tagChild: [{
-                        tag: `span`, flags: {class: `_tXx`}, closure: `(1) `
-                      }, {
-                        tag: `span`, closure: `task/job category`
-                      }]
-                    }, {
-                      tag: `li`, tagChild: [{
-                        tag: `span`, flags: {class: `_tXx`}, closure: `(2) `
-                      }, {
-                        tag: `span`, closure: `task/job location`
-                      }]
-                    }, {
-                      tag: `li`, tagChild: [{
-                        tag: `span`, flags: {class: `_tXx`}, closure: `(3) `
-                      }, {
-                        tag: `span`, closure: `task/job description`
-                      }]
-                    }, {
-                      tag: `li`, tagChild: [{
-                        tag: `span`, flags: {class: `_tXx`}, closure: `(4) `
-                      }, {
-                        tag: `span`, closure: `task/job completion deadline and client budget in dollars`
-                      }]
-                    }, {
-                      tag: `li`, tagChild: [{
-                        tag: `span`, flags: {class: `_tXx`}, closure: `(5) `
-                      }, {
-                        tag: `span`, closure: `task/job insight (similar effect to explore button when clicked)`
-                      }]
-                    }, {
-                      tag: `li`, tagChild: [{
-                        tag: `span`, flags: {class: `_tXx`}, closure: `(6) `
-                      }, {
-                        tag: `span`, closure: `time since job was posted`
-                      }]
-                    }]
-                  }]
-                }, {
-                  tag: `div`, flags: {class: ``}, tagChild: [{
-                    tag: `div`, flags: {class: `_eYG`}, tagChild: [{
-                      tag: `span`, flags: {class: `_ytx _Qtx 3tx`}, closure: `3. Explore, Apply if Suited for Task`
-                    }]
-                  }, {
-                    tag: `div`, tagChild: [{
-                      tag: `span`, flags: {class: `_YtS _2tx _Atx _0tx`} , closure: 
-                      `If you need to explore more details about the job, you may click the insight icon or explore
-                       button and you'll get below prompt.
-                      `
-                    }]
-                  }, {
-                    tag: `div`, flags: {class: `_eSQ`}, tagChild: [{
-                      tag: `img`, flags: {class: `_uXZ _Sz6`, src: `/gp/p/about/pro_640_-_2.png`}
-                    }]
-                  }]
-                }, {
-                  tag: `div`, flags: {class: ``}, tagChild: [{
-                    tag: `div`, flags: {class: `_eYG`}, tagChild: [{
-                      tag: `span`, flags: {class: `_ytx _Qtx 3tx`}, closure: `4. Client Booking and Job Assignment`
-                    }]
-                  }, {
-                    tag: `div`, tagChild: [{
-                      tag: `span`, flags: {class: `_YtS _2tx _Atx _0tx`} , closure: 
-                      `If you are a Successful candidate for the job you will get a booking notification in your mail,
-                        prompting a chat thread with the client.
-                      `
-                    }]
-                  }]
-                }]
-              }, `this.controls()`]
-            }]
-          }]
-        }, {
-          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
-            tag: `div`, flags: {class: ``}, tagChild: [{
-              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
-                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
-                  tag: `div`, flags: {class: `_-Xg _gxM`}, tagChild: [{
-                    tag: `a`, flags: {class: `_tXa`, href: `/`}, closure: `corrde`
-                  }, {
-                    tag: `span`, flags: {class: `_tCc`}, closure: `about`
-                  }]
-                }, {
-                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
-                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                      tag: `a`, flags: {role: `client`, class: `_TX_a _atX`, href: `#`}, closure: `FOR CUSTOMERS`}]
-                  }]
-                }]
-              }]
-            }]
-          }]
-        }]
-      }, {
-        tag: `aside`, tagChild: this.JS(pool)
-      }]
-    };
-  }, 
-
   html (mapping) {
     return [[
       `html`, `&@lang>en`, [[
@@ -2902,5 +2747,34 @@ module.exports = {
           `div`, `.@eYG`, [[`span`, `.@aA2 _tXx`, `~@${att.title}`]]], [
           `div`, `.@_QZg _gxM`, [[`span`, `.@ _aA6 _a2X _axS tXx`, `~@${att.tally}`]]]]], [
         `div`, `#@${att.id}visible`, model], ((att.tally > 4) ? plus = plus : plus = [])]];
+  },
+
+  mailSlicedView () {
+
+    return [
+      `main`, `.@_xC2`, [[
+        `section`, `._@_C3y`, [[
+          `div`, `.@_XsQ _xsQ- _aA2`, [[
+            `div`, `&@style>margin:56px 0 0;font-size:16px`, [[
+              `div`, `.@_eZz`, [[`span`, `~@Notifications`]]], [
+              `div`, [[
+                `div`, `.@_yZS _gxM _geQ`, [[
+                  `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                    `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                      `img`, `&@src>`, `&@alt>`]]], [
+                    `div`, `.@_eYG`, [[
+                      `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@Mann Asugo`]]], [
+                      `div`, `.@_gxM _geQ`, [[
+                        `a`, `.@_vC-`, `~@This is a sample text. Here is an extended part to simulate a responsive grid.`]]]]]]], [
+                  `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@APR 22 2019`]]]]]]], [
+                `div`, `.@_yZS _gxM _geQ`, [[
+                  `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                    `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                      `img`, `&@src>`, `&@alt>`]]], [
+                    `div`, `.@_eYG`, [[
+                      `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@Mann Asugo`]]], [
+                      `div`, `.@_gxM _geQ`, [[
+                        `a`, `.@_vC-`, `~@This is a sample text. Here is an extended part to simulate a responsive grid.`]]]]]]], [
+                  `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@APR 22 2019`]]]]]]]]]]]]]]]]];
   }
 }
