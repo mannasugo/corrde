@@ -2856,7 +2856,7 @@ module.exports = {
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
                           `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@View on Map`]]], [
-                        `span`, `.@ _aA6 _a2X _axS _tXx`, `~@${pool[`gps`].toString()}`]]]]], [
+                        `span`, `.@ _aA6 _a2X _axS _tXx`, `~@${pool[`gps`].toString().replace(`,`, `, `)}`]]]]], [
                     `div`, [
                       this.actsSliceView(acts.applications, [0, 5], {
                         id: `applications`, tally: acts.applications.length, title: `Applications`, to: `Book`}), 
@@ -2884,7 +2884,7 @@ module.exports = {
           `span`, `.@_cCq`, `&@style>width: 36px;height: 36px`, [[`img`, `.@_aWz`, `&@alt>`, `&@src>/${act.ava}`]]], [
           `div`, `.@tXx _eYG`, [[
             `div`, `.@_QxM`, [[`span`, `.@_tXx _aA6`, `~@${act.full}`]]], [
-            `div`, [[`span`, `.@_aA6 _a2X`, `~@$${act.per}/HR`]]]]], [
+            `div`, [[`span`, `.@_aA6 _a2X`, `~@$${act.per}/hour`]]]]], [
           `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${att.to}`]]]]]]];
     }
 
