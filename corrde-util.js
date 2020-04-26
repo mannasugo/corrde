@@ -2267,7 +2267,7 @@ class ViaAJX extends Auxll {
 
           if (A.open === true && A.valid === true) {
 
-            let actValue = {}, longText, notify = false;
+            let actValue = {}, longText, mail, mode, notify = false;
 
             let displaceValue = (value, list) => {
 
@@ -2281,6 +2281,12 @@ class ViaAJX extends Auxll {
               return list2;
             };
 
+            let ava = A.u[`ava`], sumsrc = A.u[`sum`], altsrc = A.u[`full`];
+
+            let maillog = new Date().valueOf();
+
+            let maillog_sum = crypto.createHash(`md5`).update(`${maillog}`, `utf8`).digest(`hex`);
+
             if (A.gives === false && A.applications === false) {
 
               column[`activity`][`applications`].push({
@@ -2288,11 +2294,19 @@ class ViaAJX extends Auxll {
                 full: A.u[`full`],
                 per: A.u[`appraisal`],
                 sum: A.u[`sum`]});
+
+              mail = column[`subfield`];
+
+              mode = `push`
             }
 
             else if (A.gives === false && A.applications === true) {
 
               column[`activity`][`applications`] = displaceValue(A.u[`sum`], A.pool[`activity`][`applications`]);
+
+              mail = column[`subfield`];
+
+              mode = `revert`
             }
 
             new Sql().multi({}, 
@@ -2301,12 +2315,30 @@ class ViaAJX extends Auxll {
 
                 if (A === null) {
 
+                  this.availSelfsActivity(column[`sum`], (A, B, C) => {
 
+                    new Sql().to([`messages`, {json: JSON.stringify({
+                      alt_src: altsrc,
+                      alt_to: A.full,
+                      ava_src: ava,
+                      ava_to: A.ava,
+                      ini_sum: q.ini_sum,
+                      mail: mail,
+                      mail_log: maillog,
+                      mail_log_sum: maillog_sum,
+                      mode: mode,
+                      read: false,
+                      sum_src: q.u,
+                      sum_to: A.sum,
+                      title: column[`lead`]})}], (A, B, C) => {
+
+                      this.app.to.writeHead(200, config.reqMime.json);
+                      this.app.to.end(JSON.stringify({}));
+                    }); 
+                  });
                 }
             });
           }
-          this.app.to.writeHead(200, config.reqMime.json);
-          this.app.to.end(JSON.stringify({}));
         }));
       }
     });
