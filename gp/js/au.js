@@ -1585,9 +1585,9 @@
 
         AJXCall(`submitContract`, data, (A, B) => {
 
-          if (B.is_matrix_avail === true) {
+          if (B.exit === true) {
               
-            //call(point, B.matrix);
+            window.location = `/p/${data[`ini_sum`]}/`
           }
         });
       }
