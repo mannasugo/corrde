@@ -1210,23 +1210,26 @@ class UAPublic extends Auxll {
 
   mailSliced () {
 
-    this.modelStyler(config.lvl.css, CSS => {
+    this.isCookieValid(`u`, () => {
 
-      const pool = {
-        jSStore: JSON.stringify({}),
-        title: `Notifications`,
-        css: CSS,
-        jsState: config.cd.auJS};
+      this.modelStyler(config.lvl.css, CSS => {
 
-      pool.appendModel = [
-        model.main({
-          appendModel: [model.mailSlicedView(), model.footer()]
-        }), model.top({ava: ``})];
+        const pool = {
+          jSStore: JSON.stringify({}),
+          title: `Notifications`,
+          css: CSS,
+          jsState: config.cd.auJS};
 
-      pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+        pool.appendModel = [
+          model.main({
+            appendModel: [model.mailSlicedView(), model.footer()]
+          }), model.top({ava: ``})];
 
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(pool));
+        pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+
+        this.app.to.writeHead(200, config.reqMime.htm);
+        this.app.to.end(model.call(pool));
+      });
     });
   }
 }
