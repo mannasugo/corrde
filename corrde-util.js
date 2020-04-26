@@ -2333,7 +2333,7 @@ class ViaAJX extends Auxll {
                       title: column[`lead`]})}], (A, B, C) => {
 
                       this.app.to.writeHead(200, config.reqMime.json);
-                      this.app.to.end(JSON.stringify({}));
+                      this.app.to.end(JSON.stringify({exit: true}));
                     }); 
                   });
                 }
