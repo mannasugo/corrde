@@ -2749,7 +2749,34 @@ module.exports = {
         `div`, `#@${att.id}visible`, model], ((att.tally > 4) ? plus = plus : plus = [])]];
   },
 
-  mailSlicedView () {
+  mailSlicedView (pool, off) {
+
+    let poolSlice = pool.slice(off[0], off[1]), model = [];
+
+    for (let mail = 0; mail < poolSlice.length; mail++) {
+
+      let slice = poolSlice[mail], msg;
+
+      if (slice[`mode`] === `push`) {
+
+        msg = `${slice.alt_src} applied for your ${slice.title} job post`;
+      }
+
+      else if (slice[`mode`] === `revert`) {
+
+       msg = `${slice.alt_src} withdrew their application for your ${slice.title} job post`;}
+
+      model[mail] = [
+        `div`, `.@_yZS _gxM _geQ`, [[
+          `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+              `img`, `.@_aWz`, `&@src>/${slice[`ava_src`]}`, `&@alt>`]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@${slice[`title`]}`]]], [
+                    `div`, `.@_gxM _geQ`, [[
+                        `a`, `.@_vC-`, `~@${msg}`]]]]]]], [
+                  `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@${this.log(slice[`mail_log`])}`]]]]]]]
+    }
 
     return [
       `main`, `.@_xC2`, [[
@@ -2757,24 +2784,6 @@ module.exports = {
           `div`, `.@_XsQ _xsQ- _aA2`, [[
             `div`, `&@style>margin:56px 0 0;font-size:16px`, [[
               `div`, `.@_eZz`, [[`span`, `~@Notifications`]]], [
-              `div`, [[
-                `div`, `.@_yZS _gxM _geQ`, [[
-                  `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                    `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-                      `img`, `&@src>`, `&@alt>`]]], [
-                    `div`, `.@_eYG`, [[
-                      `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@Mann Asugo`]]], [
-                      `div`, `.@_gxM _geQ`, [[
-                        `a`, `.@_vC-`, `~@This is a sample text. Here is an extended part to simulate a responsive grid.`]]]]]]], [
-                  `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@APR 22 2019`]]]]]]], [
-                `div`, `.@_yZS _gxM _geQ`, [[
-                  `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                    `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-                      `img`, `&@src>`, `&@alt>`]]], [
-                    `div`, `.@_eYG`, [[
-                      `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@Mann Asugo`]]], [
-                      `div`, `.@_gxM _geQ`, [[
-                        `a`, `.@_vC-`, `~@This is a sample text. Here is an extended part to simulate a responsive grid.`]]]]]]], [
-                  `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@APR 22 2019`]]]]]]]]]]]]]]]]];
+              `div`, model]]]]]]]]];
   }
 }
