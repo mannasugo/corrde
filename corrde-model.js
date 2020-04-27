@@ -2784,7 +2784,7 @@ module.exports = {
       `main`, `.@_xC2`, [[
         `section`, `._@_C3y`, [[
           `div`, `.@_XsQ _xsQ- _aA2`, [[
-            `div`, `&@style>margin:56px 0 0;font-size:16px`, [[
+            `div`, `&@style>margin:56px 0 0;font-size:15px`, [[
               `div`, `.@_eZz`, [[`span`, `~@Notifications`]]], [
               `div`, model]]]]]]]]];
   }
