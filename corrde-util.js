@@ -193,10 +193,23 @@ class Auxll {
     });
   }
 
-  pushMessage (pool) {
+  mailCluster (peer, call) {
 
-    new Sql().multi({}, `select * from j where blab = '${JSON.stringify(pool)}'`, (A, B, C) => {
-      console.log(B)
+    new Sql().multi({}, `select * from messages`, (A, B, C) => {
+      
+      let mailSliced = [];
+
+      for (let msg in B) {
+
+        let mailPool = JSON.parse(B[msg][`json`]);
+
+        if (mailPool[`sum_to`] === peer) {
+
+          mailSliced.push(mailPool);
+        }
+      }
+
+      call(mailSliced);
     })
   }
 }
@@ -1214,7 +1227,9 @@ class UAPublic extends Auxll {
 
       this.modelStyler(config.lvl.css, CSS => {
 
-        const pool = {
+        this.mailCluster(this.isValid(`u`), A => {
+
+          const pool = {
           jSStore: JSON.stringify({}),
           title: `Notifications`,
           css: CSS,
@@ -1222,13 +1237,14 @@ class UAPublic extends Auxll {
 
         pool.appendModel = [
           model.main({
-            appendModel: [model.mailSlicedView(), model.footer()]
+            appendModel: [model.mailSlicedView(A, [0, 5]), model.footer()]
           }), model.top({ava: ``})];
 
         pool.appendModel = [model.wrapper(pool), model.jS(pool)];
 
         this.app.to.writeHead(200, config.reqMime.htm);
         this.app.to.end(model.call(pool));
+        });
       });
     });
   }
