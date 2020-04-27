@@ -2753,6 +2753,8 @@ module.exports = {
 
     let poolSlice = pool.slice(off[0], off[1]), model = [];
 
+    poolSlice = poolSlice.sort((a,b) => {return (b.mail_log - a.mail_log)});
+
     for (let mail = 0; mail < poolSlice.length; mail++) {
 
       let slice = poolSlice[mail], msg;
