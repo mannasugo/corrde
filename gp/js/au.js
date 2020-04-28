@@ -33,6 +33,8 @@
 
     submitContract(el);
 
+    setPeerCookie(el);
+
     if (el.getAttribute(`name`) === `field`) {
       JSStore.to({field: el.getAttribute(`value`)});
       simpleCall(`fieldSale`, JSStore.avail());
@@ -1587,10 +1589,26 @@
 
           if (B.exit === true) {
               
-            window.location = `/p/${data[`ini_sum`]}/`
+            window.location = `/p/${data[`ini_sum`]}/`;
           }
         });
       }
+    }
+  }
+
+  let setPeerCookie = e => {
+
+    if (e.id === `mailcookie`) {
+
+      let peers = e.getAttribute(`peers`).split(`:`);
+
+      AJXCall(`setPeerCookie`, {[`peers`]: peers}, (A, B) => {
+
+        if (B.exit === true) {
+              
+          window.location = `/mail/${e.getAttribute()}/`;
+        }
+      });
     }
   }
 
