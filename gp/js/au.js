@@ -1606,7 +1606,7 @@
 
         if (B.exit === true) {
               
-          window.location = `/mail/${e.getAttribute()}/`;
+          window.location = `/mail/${e.getAttribute(`mail`)}/`;
         }
       });
     }
