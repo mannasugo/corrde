@@ -1234,7 +1234,7 @@ class UAPublic extends Auxll {
 
       this.modelStyler(config.lvl.css, CSS => {
 
-        this.mailCluster(this.isValid(`u`), A => {
+        this.mailCluster(this.isValid(`u`), (A, B) => {
 
           const pool = {
           jSStore: JSON.stringify({}),
