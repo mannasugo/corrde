@@ -1313,6 +1313,8 @@ class ViaAJX extends Auxll {
     if (this.q.isField) this.isField(JSON.parse(this.q.isField));
 
     if (this.q.submitContract) this.submitContract(JSON.parse(this.q.submitContract));
+
+    if (this.q.setPeerCookie) this.setPeerCookie(JSON.parse(this.q.setPeerCookie));
   }
 
   iniCookie (field, value) {
@@ -2360,6 +2362,17 @@ class ViaAJX extends Auxll {
           }
         }));
       }
+    });
+  }
+
+  setPeerCookie(q) {
+
+    this.isCookieValid(`u`, () => {
+
+      this.iniCookie(`msgpeer`, JSON.stringify(q.peers));
+      
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({exit: true}));
     });
   }
 }
