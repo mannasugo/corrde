@@ -197,7 +197,7 @@ class Auxll {
 
     new Sql().multi({}, `select * from messages`, (A, B, C) => {
       
-      let mailSliced = [];
+      let mailSliced = [], mailPaired = [];
 
       for (let msg in B) {
 
@@ -206,10 +206,17 @@ class Auxll {
         if (mailPool[`sum_to`] === peer) {
 
           mailSliced.push(mailPool);
+          mailPaired.push(mailPool);
+
+        }
+
+        if (mailPool[`sum_src`] === peer) {
+
+          mailPaired.push(mailPool);
         }
       }
 
-      call(mailSliced);
+      call(mailSliced, mailPaired);
     })
   }
 }
@@ -2370,7 +2377,7 @@ class ViaAJX extends Auxll {
     this.isCookieValid(`u`, () => {
 
       this.iniCookie(`msgpeer`, JSON.stringify(q.peers));
-      
+
       this.app.to.writeHead(200, config.reqMime.json);
       this.app.to.end(JSON.stringify({exit: true}));
     });
