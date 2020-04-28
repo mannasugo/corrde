@@ -2773,11 +2773,11 @@ module.exports = {
           `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
             `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
               `img`, `.@_aWz`, `&@src>/${slice[`ava_src`]}`, `&@alt>`]]], [
-                `div`, `.@_eYG`, [[
-                  `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@${slice[`title`]}`]]], [
-                    `div`, `.@_gxM _geQ`, [[
-                        `a`, `.@_vC-`, `~@${msg}`]]]]]]], [
-                  `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@${this.log(slice[`mail_log`])}`]]]]]]]
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@${slice[`title`]}`]]], [
+            `div`, `.@_gxM _geQ`, [[
+              `a`, `#@mailcookie`, `&@peers>${sum_to}:${sum_src}` `.@_vC-`,  `&@href>javascript:;`, `~@${msg}`]]]]]]], [
+          `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@${this.log(slice[`mail_log`])}`]]]]]]]
     }
 
     return [
