@@ -2776,7 +2776,7 @@ module.exports = {
             `div`, `.@_eYG`, [[
               `div`, `.@_QxM`, [[`span`, `.@_tXv _aA2`, `~@${slice[`title`]}`]]], [
             `div`, `.@_gxM _geQ`, [[
-              `a`, `#@mailcookie`, `&@peers>${sum_to}:${sum_src}` `.@_vC-`,  `&@href>javascript:;`, `~@${msg}`]]]]]]], [
+              `a`, `#@mailcookie`, `&@mail>${slice.ini_sum}`, `&@peers>${slice.sum_to}:${slice.sum_src}`, `.@_vC-`,  `&@href>javascript:;`, `~@${msg}`]]]]]]], [
           `div`, `.@_QZg`, [[`div`, [[`span`, `.@_szU`, `~@${this.log(slice[`mail_log`])}`]]]]]]]
     }
 
