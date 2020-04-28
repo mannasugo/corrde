@@ -338,6 +338,14 @@ class UAPublic extends Auxll {
         }
       });
     }
+
+    else if (this.levelState[1] === `mail`) {
+
+      this.inisumAvail(this.levelState[2], (A, B) => {
+
+        this.mailPeers(A, B[0]);
+      });
+    }
   }
 
   rootCall () {
@@ -1252,6 +1260,34 @@ class UAPublic extends Auxll {
         this.app.to.writeHead(200, config.reqMime.htm);
         this.app.to.end(model.call(pool));
         });
+      });
+    });
+  }
+
+  mailPeers (state, more) {
+
+    this.isCookieValid(`u`, () => {
+
+      this.modelStyler(config.lvl.css, CSS => {
+
+        if (state === true) {
+
+          const pool = {
+          jSStore: JSON.stringify({}),
+          title: more[`lead`],
+          css: CSS,
+          jsState: config.cd.auJS};
+
+        pool.appendModel = [
+          model.main({
+            appendModel: [ model.footer()]
+          }), model.top({ava: ``})];
+
+        pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+
+        this.app.to.writeHead(200, config.reqMime.htm);
+        this.app.to.end(model.call(pool));
+        }
       });
     });
   }
