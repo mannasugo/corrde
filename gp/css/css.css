@@ -2275,6 +2275,15 @@ table > thead > tr > th {
   z-index: 19;
   left: 0;
 }
+
+._tY2- {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.0975);
+  position: fixed;
+  top: 55px;
+  width: 100%;
+  z-index: 22;
+}
 @media (min-width: 414px) {
 
   ._QXs {

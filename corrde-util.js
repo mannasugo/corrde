@@ -1268,26 +1268,67 @@ class UAPublic extends Auxll {
 
     this.isCookieValid(`u`, () => {
 
-      this.modelStyler(config.lvl.css, CSS => {
+      this.isCookieValid(`msgpeer`, () => {
 
         if (state === true) {
 
-          const pool = {
-          jSStore: JSON.stringify({}),
-          title: more[`lead`],
-          css: CSS,
-          jsState: config.cd.auJS};
+          let peer = JSON.parse(this.isValid(`msgpeer`));
 
-        pool.appendModel = [
-          model.main({
-            appendModel: [ model.footer()]
-          }), model.top({ava: ``})];
+          this.mailCluster(this.isValid(`u`), (A, B) => {
 
-        pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            let mailPeered = [], to = [];
 
-        this.app.to.writeHead(200, config.reqMime.htm);
-        this.app.to.end(model.call(pool));
+            for (let msg in B) {
+
+              let mailPool = B[msg];
+
+              if (mailPool[`ini_sum`] === more[`ini_sum`]) {
+
+                if (mailPool[`sum_to`] === peer[0] || mailPool[`sum_src`] === peer[0]) mailPeered.push(mailPool);
+
+                if (mailPool[`sum_to`] === peer[1]) {
+
+                  to[`alt`] = mailPool[`alt_to`];
+                  to[`ava`] = mailPool[`ava_to`];
+                }
+
+                if (mailPool[`sum_src`] === peer[1]) {
+
+                  to[`alt`] = mailPool[`alt_src`];
+                  to[`ava`] = mailPool[`ava_src`];
+                }
+                
+              }
+            }
+
+            if (mailPeered.length > 0) {
+
+              this.modelStyler(config.lvl.css, CSS => {
+
+                const pool = {
+                  jSStore: JSON.stringify({}),
+                  title: more[`lead`],
+                  css: CSS,
+                  jsState: config.cd.auJS};
+
+                pool.appendModel = [
+                  model.main({
+                    appendModel: [ model.footer()]
+                  }), model.top({ava: ``}), model.peerAvaView({alt: to.alt, ava: to.ava, title: more.lead})];
+
+                pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+
+                this.app.to.writeHead(200, config.reqMime.htm);
+                this.app.to.end(model.call(pool));
+        
+              });
+            }
+
+            else this.rootCall();
+          });
         }
+
+        else this.rootCall();
       });
     });
   }

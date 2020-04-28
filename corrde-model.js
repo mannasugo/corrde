@@ -2787,5 +2787,18 @@ module.exports = {
             `div`, `&@style>margin:56px 0 0;font-size:15px`, [[
               `div`, `.@_eZz`, [[`span`, `~@Notifications`]]], [
               `div`, model]]]]]]]]];
+  },
+
+  peerAvaView(pool) {
+
+    return [
+      `header`, `.@_uHC`, [[
+        `div`, `.@_xCt`], [`div`, `.@_tY2-`, [[
+          `div`, `&@style>padding:0 8px`, [[
+            `div`, `.@_gMB _gcQ`, [[
+              `span`, `.@_cCq`, `&@style>width: 36px;height: 36px`, [[`img`, `.@_aWz`, `&@alt>`, `&@src>/${pool.ava}`]]], [
+            `div`, `.@tXx _eYG`, [[
+            `div`, `.@_QxM`, [[`span`, `.@_tXx _aA6`, `~@${pool.title}`]]], [
+            `div`, [[`span`, `.@_aA6 _a2X`, `~@${pool.alt}`]]]]]]]]]]]]];
   }
 }
