@@ -1399,6 +1399,8 @@ class ViaAJX extends Auxll {
     if (this.q.submitContract) this.submitContract(JSON.parse(this.q.submitContract));
 
     if (this.q.setPeerCookie) this.setPeerCookie(JSON.parse(this.q.setPeerCookie));
+
+    if (this.q.pushChat) this.pushChat(JSON.parse(this.q.pushChat));
   }
 
   iniCookie (field, value) {
@@ -2457,6 +2459,65 @@ class ViaAJX extends Auxll {
 
       this.app.to.writeHead(200, config.reqMime.json);
       this.app.to.end(JSON.stringify({exit: true}));
+    });
+  }
+
+  pushChat (q) {
+
+    this.isCookieValid(`u`, () => {
+
+      this.mailCluster(q.in, (A, B) => {
+
+        let mailPeered = [], top = [];
+
+        for (let msg in B) {
+
+          let mailPool = B[msg];
+
+          if (mailPool[`ini_sum`] === q[`peer_ini_sum`]) {
+
+            if (mailPool[`sum_to`] === q[`peer`] || mailPool[`sum_src`] === q[`peer`]) {
+
+              mailPeered.push(mailPool);
+
+              top = mailPool[`title`];
+            }
+          }
+        }
+
+        if (mailPeered.length > 0) {
+
+          this.availSelfsActivity(q.peer, (A, B, C) => {
+
+            //let ava = A.u[`ava`], sumsrc = A.u[`sum`], altsrc = A.u[`full`];
+
+            let maillog = new Date().valueOf();
+
+            let maillog_sum = crypto.createHash(`md5`).update(`${maillog}`, `utf8`).digest(`hex`);
+
+            new Sql().to([`messages`, {json: JSON.stringify({
+              alt_src: q.full,
+              alt_to: A.full,
+              ava_src: q.ava,
+              ava_to: A.ava,
+              ini_sum: q.peer_ini_sum,
+              mail: q.peer_msg,
+              mail_log: maillog,
+              mail_log_sum: maillog_sum,
+              mode: `text`,
+              read: false,
+              sum_src: q.in,
+              sum_to: A.sum,
+              title: top})}], (A, B, C) => {
+
+                this.app.to.writeHead(200, config.reqMime.json);
+                this.app.to.end(JSON.stringify({
+                  exit: true,
+                  model: model.mailPush({log: maillog, msg: q.peer_msg})}));
+            });
+          }); 
+        }
+      });
     });
   }
 }
