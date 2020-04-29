@@ -2762,7 +2762,7 @@ module.exports = {
           `div`, `.@_gcQ`, [[
             `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
               `span`, `.@_aCz _szU`, `~@${this.log(slice.mail_log)}`]]], [
-            `div`, `.@_QZg`, [[`span`, `.@_pV3 tEx`, `~@${slice.mode}`]]]]];
+            `div`, `.@_QZg`, [[`span`, `.@_pV3 tEx`, `~@${slice.mail}`]]]]];
       }
 
       else {
@@ -2793,5 +2793,14 @@ module.exports = {
                   `textarea`, `#@msgplace`, `.@_Wtx`, `&@placeholder>Type Text Here`]]], [
                 `div`, `.@_QZg`, [[
                   `div`, `.@_`, [[`a`, `#@msg`, `.@-_tX ProceedColor`, `&@href>javascript:;`]]]]]]]]]]]]]]]]]]]
+  },
+
+  mailPush (msg) {
+
+    return [
+      `div`, `.@_gcQ`, [[
+        `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
+          `span`, `.@_aCz _szU`, `~@${this.log(msg.log)}`]]], [
+        `div`, `.@_QZg`, [[`span`, `.@_pV3 tEx`, `~@${msg.msg}`]]]]];
   }
 }
