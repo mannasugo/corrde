@@ -2790,7 +2790,7 @@ module.exports = {
             `div`, `.@_xGy`, [[
               `div`, `&@style>padding:0 15px`, `.@_gxM _gMX`, [[
                 `div`, `.@_eYG _3qg`, [[
-                  `textarea`, `.@_Wtx`, `&@placeholder>Type Text Here`]]], [
+                  `textarea`, `#@msgplace`, `.@_Wtx`, `&@placeholder>Type Text Here`]]], [
                 `div`, `.@_QZg`, [[
                   `div`, `.@_`, [[`a`, `#@msg`, `.@-_tX ProceedColor`, `&@href>javascript:;`]]]]]]]]]]]]]]]]]]]
   }
