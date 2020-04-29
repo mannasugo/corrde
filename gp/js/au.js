@@ -1624,11 +1624,17 @@
 
         if (!slimMsg) return;
 
+        JSStore.to({peer_msg: slimMsg});
+
          AJXCall(`pushChat`, JSStore.avail(), (A, B) => {
 
           if (B.exit === true) {
               
-            //window.location = `/mail/${e.getAttribute(`mail`)}/`;
+            let msg = document.createElement(`div`);
+
+            msg.innerHTML = new Model().modelStringify([B.model]);
+
+            document.querySelector(`.aGX > section`).appendChild(msg);
           }
         });
       }
