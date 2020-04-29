@@ -35,6 +35,8 @@
 
     setPeerCookie(el);
 
+    pushChat(el);
+
     if (el.getAttribute(`name`) === `field`) {
       JSStore.to({field: el.getAttribute(`value`)});
       simpleCall(`fieldSale`, JSStore.avail());
@@ -1611,6 +1613,26 @@
       });
     }
   }
+
+    let pushChat = e => {
+
+      if (e.id === `msg`) {
+
+        let slimMsg = new Auxll().longSlim(document.querySelector(`#msgplace`).value);
+
+        document.querySelector(`#msgplace`).value = ``;
+
+        if (!slimMsg) return;
+
+         AJXCall(`pushChat`, JSStore.avail(), (A, B) => {
+
+          if (B.exit === true) {
+              
+            //window.location = `/mail/${e.getAttribute(`mail`)}/`;
+          }
+        });
+      }
+    }
 
   let slides = d3.select(`.sliderTransform`)
   d3.select(`.sliderContent`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
