@@ -1034,62 +1034,6 @@ module.exports = {
     }];
   },
 
-  isMail(pool) {
-
-    let lvlVar, poolModel = [];
-
-    pool.forEach((lvl, index) => {
-
-      if (lvl.ilk === `apply`) lvl[`txt`] = `sent you an application.`;
-
-      poolModel[index] = {tag: 
-        `div`, flags: {class: `_yZS _gxM _geQ`}, tagChild: [{
-          tag: `div`, flags: {class: `_ZSg _ZCg _eYG _gcQ`}, tagChild: [{
-            tag: `span`, flags: {class: `_cCq`, style: `width: 40px; height: 40px`}, tagChild: [{
-              tag: `img`, flags: {src: ``, alt: ``}
-            }]
-          }, {
-            tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
-              tag: `div`, flags: {class: `_QxM`}, tagChild: [{
-                tag: `span`, flags: {class: `_tXv`}, closure: lvl.alt}]
-            }, {
-              tag: `div`, flags: {class: `_gxM _geQ`}, tagChild: [{
-                tag: `a`, flags: {id: lvl.cord, class: `_vC-`, role: `talkto-` + lvl.jsum + `-` + lvl.src + `-` + lvl.src_to, href: `#`},
-                 closure: lvl[`txt`]
-              }]
-            }]
-          }]
-        }, {
-          tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
-            `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
-              `span`, flags: {class: `_szU`}, closure:this.log(lvl[`log`])
-            }]
-          }]
-        }]
-      }
-    });
-
-    return {tag: 
-      `div`, flags: {class: `_Ysz`}, tagChild: [{tag: 
-        `div`, flags: {class: `_tSx _gxM`}, tagChild: [{
-          tag: `div`, flags: {style: `font-weight:600`, class: `_eYG`}, tagChild: [{
-            tag: `div`, flags: {class: `_QxM`}, tagChild: [{
-              tag: `span`, flags: {class: `_tXv`}, closure: `Notifications`}]
-          }]
-        }, {
-                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{tag: 
-                    `div`, flags: {class: `geQ gMX`}, tagChild: [{tag: 
-                      `a`, flags: {role: `close`, href: `#`, class: `-_tX DelColor`}, closure:`Del`
-                    }]
-                  }]
-                }]
-      }, {tag: 
-        `div`, flags: {class: `_uCX`}, tagChild: poolModel
-      }]
-    };
-
-  },
-
   mug (pool) {
     return {
       tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
@@ -2794,11 +2738,60 @@ module.exports = {
     return [
       `header`, `.@_uHC`, [[
         `div`, `.@_xCt`], [`div`, `.@_tY2-`, [[
-          `div`, `&@style>padding:0 8px`, [[
-            `div`, `.@_gMB _gcQ`, [[
+          `div`, `.@_aXz`, `&style>padding:0 8px`, [[
+            `div`, `.@_gMB _geQ _gcQ`, [[
               `span`, `.@_cCq`, `&@style>width: 36px;height: 36px`, [[`img`, `.@_aWz`, `&@alt>`, `&@src>/${pool.ava}`]]], [
             `div`, `.@tXx _eYG`, [[
             `div`, `.@_QxM`, [[`span`, `.@_tXx _aA6`, `~@${pool.title}`]]], [
             `div`, [[`span`, `.@_aA6 _a2X`, `~@${pool.alt}`]]]]]]]]]]]]];
+  },
+
+  mailPeersView (pool, peer2) {
+
+    let poolSlice = pool, model = [];
+
+    //poolSlice = poolSlice.sort((a,b) => {return (b.mail_log - a.mail_log)});
+
+    for (let mail = 0; mail < poolSlice.length; mail++) {
+
+      let slice = poolSlice[mail], msg;
+
+      if (slice.sum_src === peer2) {
+
+        model[mail] = [
+          `div`, `.@_gcQ`, [[
+            `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
+              `span`, `.@_aCz _szU`, `~@${this.log(slice.mail_log)}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@_pV3 tEx`, `~@${slice.mode}`]]]]];
+      }
+
+      else {
+
+        if (slice.mode === `push`) msg = `${slice.alt_src} applied for your '${slice.title}' job post`;
+
+        if (slice.mode === `revert`) msg = `${slice.alt_src} withdrew their application for your '${slice.title}' job post`;
+
+        model[mail] = [
+          `div`, `.@_gcQ`, [[
+            `div`, `.@aCz _eYG MtX`, `&@style>overflow:unset;margin: 0`, [[
+              `span`, `.@_pV9 tWx`, `~@${msg}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@_aCz _szU`, `~@${this.log(slice.mail_log)}`]]]]];
+
+      }
+    }
+
+    return [`main`, `.@_xC2`, `&@style>/*background: #f4f4f4*/`, [[
+      `section`, `.@_C3y`, [[
+        `div`, `.@_XsQ _xsQ- _aA2`, [[
+          `section`, `&@style>padding:0 0 30px`, [[
+            `div`, `.@aGX`, [[
+              `section`, `&@style>padding:0 0 75px`, model]]]]], [
+          `div`, `.@_gHm _azX- -gs`, [[`div`, `.@_aGX`, [[
+            `div`, `.@_xGy`, [[
+              `div`, `&@style>padding:0 15px`, `.@_gxM _gMX`, [[
+                `div`, `.@_eYG _3qg`, [[
+                  `textarea`, `.@_Wtx`, `&@placeholder>Type Text Here`]]], [
+                `div`, `.@_QZg`, [[
+                  `div`, `.@_`, [[`a`, `#@msg`, `.@-_tX ProceedColor`, `&@href>javascript:;`]]]]]]]]]]]]]]]]]]]
   }
 }

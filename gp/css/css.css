@@ -574,6 +574,7 @@ body {
   position: fixed;
   width: 100%;
   z-index: 19;
+  left: 0;
 }
 
 ._xGy {
@@ -2284,6 +2285,21 @@ table > thead > tr > th {
   width: 100%;
   z-index: 22;
 }
+
+._pV3 {
+  padding: 10px;
+  border: 1px solid #d2d2d2;
+  border-radius: 100px 0 100px 100px;
+}
+
+._pV9 {
+  color: #666;
+  border-radius: 0 100px 100px 100px;
+  margin-right: 4px;
+  padding: 10px;
+  border: 1px solid #d2d2d2;
+}
+
 @media (min-width: 414px) {
 
   ._QXs {

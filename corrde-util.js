@@ -1306,14 +1306,14 @@ class UAPublic extends Auxll {
               this.modelStyler(config.lvl.css, CSS => {
 
                 const pool = {
-                  jSStore: JSON.stringify({}),
+                  jSStore: JSON.stringify({peer: peer[1], peer_ini_sum: more[`ini_sum`]}),
                   title: more[`lead`],
                   css: CSS,
                   jsState: config.cd.auJS};
 
                 pool.appendModel = [
                   model.main({
-                    appendModel: [ model.footer()]
+                    appendModel: [model.mailPeersView(mailPeered, this.isValid(`u`))]
                   }), model.top({ava: ``}), model.peerAvaView({alt: to.alt, ava: to.ava, title: more.lead})];
 
                 pool.appendModel = [model.wrapper(pool), model.jS(pool)];
