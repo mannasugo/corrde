@@ -300,13 +300,13 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `mail`) this.mailSliced();
 
+    if (this.levelState === `monitor`) this.monitor();
+
     if (this.levelState === `in`) this.in();
 
     if (this.levelState === `mycontract`) this.formContract();
 
     if (this.levelState === `myjobs`) this.selfContracts();
-
-    if (this.levelState === `myjobs/u`) this.selfContracts();
 
     if (this.levelState === `p`) this.p();
 
@@ -1330,6 +1330,28 @@ class UAPublic extends Auxll {
 
         else this.rootCall();
       });
+    });
+  }
+
+  monitor () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+      
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Monitor`,
+        css: CSS,
+        jsState: config.cd.auJS}
+
+      pool.appendModel = [
+        model.main({
+          appendModel: [model.monitorView()]
+        }), model.tp2()];
+
+      pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(pool));
     });
   }
 }

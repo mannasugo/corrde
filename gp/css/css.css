@@ -622,7 +622,8 @@ body {
   background-image: url(/gp/css/icons/canvas.png);
 }
 
-.closelighticonUA, .DelColor, .dissentlighticonUA, .electiconUA, .FilterColor, .GramColor, .FroColor, 
+.closelighticonUA, .DelColor, .dissentlighticonUA, .electiconUA,
+.FilterColor, .GramColor, .Graph000, .FroColor, 
 .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .verifylighticonUA, ._y4x {
@@ -659,6 +660,10 @@ body {
 
 .GramColor {
   background-image: url(/gp/p/vector/instagram.svg);
+}
+
+.Graph000 {
+  background-image: url(/gp/p/vector/infograph.svg);
 }
 
 .MailColor {
@@ -2298,6 +2303,12 @@ table > thead > tr > th {
   margin-right: 4px;
   padding: 10px;
   border: 1px solid #d2d2d2;
+}
+
+._pV4 {
+  color: #000;
+  border: 1px solid #4f4f4f;
+  background: none;
 }
 
 @media (min-width: 414px) {

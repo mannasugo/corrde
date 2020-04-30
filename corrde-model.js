@@ -2802,5 +2802,34 @@ module.exports = {
         `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
           `span`, `.@_aCz _szU`, `~@${this.log(msg.log)}`]]], [
         `div`, `.@_QZg`, [[`span`, `.@_pV3 tEx`, `~@${msg.msg}`]]]]];
+  },
+
+  tp2 () {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@Monitor`]]], [
+              `div`, `.@_QZg`, [[
+                `div`, `.@_y4x`, [[
+                  `a`, `&@role>monitor`, `.@-_tX Graph000`, `&@href>javascript:;`, `~@Monitor`]]]]]]]]]]]]]
+  },
+
+  monitorView () {
+
+    let alinks = [`Overview`, `Graphs`, `Analyze`],
+      placers = [`admin-root`, `admin-infograph`, `admin-detail`],
+      to = [`/monitor/`, `/monitor/graphs/`, `/monitor/analytics/`];
+
+    return [
+      `main`, `.@_xC2`, [[
+        `section`, `.@_C3y`, [[
+          `div`, `.@_XsQ _xsQ- _aA2`, [[
+            `section`, [this.aPoolModal(alinks, placers, to)]]]]]]]]
   }
 }
