@@ -37,6 +37,8 @@
 
     pushChat(el);
 
+    handleMonitorMenu(el);
+
     if (el.getAttribute(`name`) === `field`) {
       JSStore.to({field: el.getAttribute(`value`)});
       simpleCall(`fieldSale`, JSStore.avail());
@@ -1639,6 +1641,26 @@
         });
       }
     }
+
+  let handleMonitorMenu = (e) => {
+
+    if (e.id === `monitor-top`) {
+
+      let to = document.querySelector(`#monitor-menu`);
+
+      if (to.className === `_-Zz`) {
+        to.focus();
+        e.className = `-_tX DelColor`;
+        to.className = `-Zz`;
+      }
+
+      else if (to.className === `-Zz`) {
+        e.className = `-_tX Graph000`;
+        to.className = `_-Zz`;
+      }
+
+    }
+  }
 
   let slides = d3.select(`.sliderTransform`)
   d3.select(`.sliderContent`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
