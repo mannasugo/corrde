@@ -2817,7 +2817,7 @@ module.exports = {
                 `span`, `.@_tCc _pV4`, `~@Monitor`]]], [
               `div`, `.@_QZg`, [[
                 `div`, `.@_y4x`, [[
-                  `a`, `&@role>monitor`, `.@-_tX Graph000`, `&@href>javascript:;`, `~@Monitor`]]]]]]]]]]]]]
+                  `a`, `#@monitor-top`, `.@-_tX Graph000`, `&@href>javascript:;`, `~@Monitor`]]]]]]]]]]]]]
   },
 
   monitorView () {
@@ -2830,6 +2830,6 @@ module.exports = {
       `main`, `.@_xC2`, [[
         `section`, `.@_C3y`, [[
           `div`, `.@_XsQ _xsQ- _aA2`, [[
-            `section`, [this.aPoolModal(alinks, placers, to)]]]]]]]]
+            `section`, [[`div`, `#@monitor-menu`, `.@_-Zz`, [this.aPoolModal(alinks, placers, to)]]]]]]]]]]
   }
 }
