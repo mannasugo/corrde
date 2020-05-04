@@ -219,6 +219,20 @@ class Auxll {
       call(mailSliced, mailPaired);
     })
   }
+
+  pushReq (req) {
+
+    req.headers[`log`] = new Date().valueOf();
+
+    if (cookie.parse(req.headers.cookie).gps) {
+
+       req.headers[`gps`] = cookie.parse(req.headers.cookie).gps 
+     } 
+
+     else req.headers[`gps`] = false;
+     
+    new Sql().to([`traffic`, {json: JSON.stringify(req.headers)}], (A, B, C) => {});
+  }
 }
 
 class Sql extends Auxll {
@@ -1424,6 +1438,8 @@ class ViaAJX extends Auxll {
     if (this.q.setPeerCookie) this.setPeerCookie(JSON.parse(this.q.setPeerCookie));
 
     if (this.q.pushChat) this.pushChat(JSON.parse(this.q.pushChat));
+
+    if (this.q.setGPSCookie) this.setGPSCookie(JSON.parse(this.q.setGPSCookie));
   }
 
   iniCookie (field, value) {
@@ -2543,6 +2559,14 @@ class ViaAJX extends Auxll {
       });
     });
   }
+
+  setGPSCookie (q) {
+
+    this.iniCookie(`gps`, JSON.stringify(q.gps));
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify({exit: true}));
+  }
 }
 
 class AJXJPEG {
@@ -2771,6 +2795,8 @@ module.exports = {
   AJXJPEG(file, req, res) {
     new AJXJPEG(file, req, res).AJXCalls();
   },
+
+  pushReq: (req) => new Auxll().pushReq(req),
 
   UATCP(tcp) {
     new UATCP().TCPCalls(tcp);
