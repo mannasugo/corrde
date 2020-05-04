@@ -9,6 +9,9 @@ const {basename} = require(`path`),
 class RouteControl {
   
   router (req, res) {
+
+    Util.pushReq(req);
+    
     let url = (`./${req.url}`).replace(`//`, `/`).replace(/%(..)/g, function (match, hex) {
       return String.fromCharCode(parseInt(hex, 16))
     });
