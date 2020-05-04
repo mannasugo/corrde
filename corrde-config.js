@@ -154,6 +154,9 @@ module.exports = {
     messages: 
       `CREATE TABLE IF NOT EXISTS messages (json LONGTEXT NOT NULL)`,
 
+    traffic: 
+      `CREATE TABLE IF NOT EXISTS traffic (json LONGTEXT NOT NULL)`,
+
     quora:
       `CREATE TABLE IF NOT EXISTS quora (
         cord VARCHAR(320) NOT NULL,
