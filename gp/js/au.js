@@ -1097,7 +1097,7 @@
 
       if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail())
 
-      tls.emit(`analytics`, {});
+      tls.emit(`analytics`, JSStore.avail());
     }, 1500)
 
     tls.on(`quick_analytics`, a => JSStore.to(a));
@@ -1902,11 +1902,33 @@
       })    
   }
 
+  let setGPSCookie = () => {
+
+    JSStore.to({gps: false});
+
+    GPS(a => {
+
+      isCoords(a);
+
+      AJXCall(`setGPSCookie`, JSStore.avail(), (A, B) => {});
+
+      }, (b) => {
+
+        /**
+        *@dev
+        **/
+
+        AJXCall(`setGPSCookie`, JSStore.avail(), (A, B) => {});
+    })    
+  }
+
   inStateGPS();
 
   availMugView();
 
   availSubmitView();
+
+  setGPSCookie();
 
   setInterval(() => {
 
