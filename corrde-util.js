@@ -247,6 +247,7 @@ class Sql extends Auxll {
       this.multiSql.query(
         `${config.sql.m}
         ;${config.sql.messages}
+        ;${config.sql.traffic}
         ;${config.sql.u}`);
       this.multiSql.end();
     });
