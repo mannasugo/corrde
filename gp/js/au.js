@@ -1504,7 +1504,9 @@
 
   let availMugView = () => {
 
-    if (JSStore.avail().ava && document.querySelector(`#mug-ava > #mug-ava`)) {
+    (JSStore.avail().ava === false) ? JSStore.to({ava: `gp/p/vector/mug.svg`}): JSStore.avail().ava = JSStore.avail().ava;
+
+    if (JSStore.avail().ava !== false && document.querySelector(`#mug-ava > #mug-ava`)) {
 
       document.querySelector(`#mug-ava > #mug-ava`).setAttribute(`src`, `/${JSStore.avail().ava}`);
       document.querySelector(`#mugvisibility`).setAttribute(`class`, `_QZg`);
