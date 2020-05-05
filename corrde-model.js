@@ -2820,16 +2820,88 @@ module.exports = {
                   `a`, `#@monitor-top`, `.@-_tX Graph000`, `&@href>javascript:;`, `~@Monitor`]]]]]]]]]]]]]
   },
 
-  monitorView () {
+  monitorView (pool) {
 
     let alinks = [`Overview`, `Graphs`, `Analyze`],
       placers = [`admin-root`, `admin-infograph`, `admin-detail`],
       to = [`/monitor/`, `/monitor/graphs/`, `/monitor/analytics/`];
 
+    let rawDA = pool[`raw`], rawPlus = 0;
+
+    if (parseInt(rawDA[0][`poolDay`].length) > parseInt(rawDA[1][`poolDay`].length)) {
+
+     rawPlus = rawDA[0][`poolDay`].length - rawDA[1][`poolDay`].length
+    }
+
+    let rawAnalysis = [
+      [`Current`, `Active`, `Gain`], 
+      [pool[`raw`][0][`poolDay`].length, 0, rawPlus],
+      [`sum-raw`, `dedicated-raw`, `gain-raw`]];
+
+    let DUA = [
+      [`Current`, `Registered & Active`, `Unregistered & Active`], 
+      [0, 0, 0], 
+      [`raw-DUA`, `reg-DUA`, `unreg-DUA`]];
+
+    let regs = [
+      [`Current`,`Total Freelancers`, `Total Contractors`, `Gain`], 
+      [pool[`regs`][0][`poolDay`].length, pool[`regs`][0][`pool2`].length ,pool[`regs`][0][`pool0`].length, pool[`regs`][0][`gain`].length], 
+      [`raw-regs`, `mono-regs`, `di-regs`, `gain-regs`]]
+
+    let poolAct = pool[`acts`][0], work = [
+      [`Current`,`Open`, `Gain`], 
+      [poolAct[`poolDay`].length, poolAct[`avails`].length, poolAct[`gain`].length], 
+      [`raw-wrk`, `active-wrk`, `gain-wrk`]]
+
     return [
       `main`, `.@_xC2`, [[
         `section`, `.@_C3y`, [[
           `div`, `.@_XsQ _xsQ- _aA2`, [[
-            `section`, [[`div`, `#@monitor-menu`, `.@_-Zz`, [this.aPoolModal(alinks, placers, to)]]]]]]]]]]
+            `section`, [[
+              `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 0 0 30px`, [this.aPoolModal(alinks, placers, to)]], [
+              `div`, `#@semver`, [[`div`, `.@_uZM`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_aA6`, `~@Version`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _tXx`, `~@corrde.0.0-beta.0`]]]]], [
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_aA6`, `~@Address`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _tXx`, `~@127.0.0.1:8124`]]]]]]]]], [
+              `div`, `&@style>margin: 25px 0`, [[`div`, `.@_uZM`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Traffic (Requests)`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], 
+                this.wideSliceView(rawAnalysis[0], rawAnalysis[1], rawAnalysis[2])]]]], [
+              `div`, `&@style>margin: 25px 0`, [[`div`, `.@_uZM`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Daily User Activity`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], 
+                this.wideSliceView(DUA[0], DUA[1], DUA[2])]]]], [
+              `div`, `&@style>margin: 25px 0`, [[`div`, `.@_uZM`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Registered User Activity`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], 
+                this.wideSliceView(regs[0], regs[1], regs[2])]]]], [
+              `div`, `&@style>margin: 25px 0`, [[`div`, `.@_uZM`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Jobs Activity`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], 
+                this.wideSliceView(work[0], work[1], work[2])]]]]]]]]]]]]
+  },
+
+  wideSliceView (keys, values, placers) {
+
+    let model = [];
+
+    for (let slice = 0; slice < keys.length; slice++) {
+
+      model[slice] = [
+        `div`, `.@_yZS _gxM _geQ _gMX`, [[
+          `div`, `.@_aYS`, [[
+            `span`, `.@_aA6`, `~@${keys[slice]}`]]], 
+          [`div`, `.@_QZg _gxM`, [[`span`, `#@${placers[slice]}`, `.@_ax4 _aAe _a00`, `~@${values[slice]}`]]]]]
+    }
+
+    return [
+      `div`, `.@gMX _geQ sZ2 _XY0 _Qtx`, model];
   }
 }
