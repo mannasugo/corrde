@@ -2089,7 +2089,7 @@ module.exports = {
                     `div`, `.@_geQ _sZ2`, [[
                       `div`, `.@_aXZ`, [[
                         `span`, `.@_Ax0 _aA2`, `~@Total ${B.field} Jobs Today`], [
-                        `span`, `.@_ax4 _aA4`, `~@{A[0].total}`]]]]], [
+                        `span`, `.@_ax4 _aA4`, `~@${A[0].total}`]]]]], [
                   `div`, `.@_sZ2`, [this.SVG_YBAR(A, B)]],
                   this.SVGlinePie(A, B), 
                   this.recentContractsView(B.field, B.contracts.sort((a,b) => {return (b.ini_log - a.ini_log)})) /*, [
