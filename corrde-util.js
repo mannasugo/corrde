@@ -2710,7 +2710,7 @@ class UATCP extends UAPublic {
 
   TCPCalls (tcp) {
 
-    let valids = [],
+    let logs = [], reqs = [], regreqs = [], valids = [],
       dualValids = [],
       locusValid = [],
       allJobs = [],
@@ -2839,7 +2839,9 @@ class UATCP extends UAPublic {
               gps: u.gps,
               per: u.per,
               sum: u.in,})
-          }   
+          }
+
+          regreqs.push({log: u.in});
         }
 
         for (let valid in dualValids) {
@@ -2860,7 +2862,25 @@ class UATCP extends UAPublic {
           all_active_pros: dualValids.length,
           locus_valid: locusValid});
 
-      })
+      });
+
+      tls.on(`appAnalytics`, msg => {
+
+        if (!logs[msg.log]) {
+
+          logs[msg.log] = [];
+
+          reqs.push({log: msg.log})
+        }
+
+        new Auxll().appAnalytics(A => {
+
+          tls.emit(`quick_analytics`, {
+            app: A,
+            regs: regreqs,
+            reqs: reqs});
+        });
+      });
       
       tls.on(`disconnect`, () => {
 
@@ -2869,6 +2889,8 @@ class UATCP extends UAPublic {
         valids = [];
         dualValids = [];
         locusValid = [];
+        reqs = [];
+        regreqs = [];
 
       });
     });
