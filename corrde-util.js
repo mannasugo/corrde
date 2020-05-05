@@ -1096,8 +1096,6 @@ class UAPublic extends Auxll {
 
     new Sql().multi({}, conca, (A,B,C) => {
 
-      if (B && parseInt(B.length)) {
-
         for (let day = 0; day < 7; day++) {
 
           let a = new Date(new Date().setUTCHours(0) - (day * 86400000)).toUTCString().valueOf(),
@@ -1109,16 +1107,13 @@ class UAPublic extends Auxll {
       
           for (let task in B) {
 
-            if (B[task].blab[0] === `{`) {
+            let alt_ = JSON.parse(B[task].blab);
 
-              let alt_ = JSON.parse(B[task].blab);
+            if (field === alt_.field) {
 
-              if (field === alt_.field) {
+              if (parseInt(alt_.ini_log) > A && parseInt(alt_.ini_log) < Z) {
 
-                if (parseInt(alt_.ini_log) > A && parseInt(alt_.ini_log) < Z) {
-
-                  sFields.push(alt_.subfield)
-                }
+                sFields.push(alt_.subfield)
               }
             }
           }
@@ -1158,7 +1153,6 @@ class UAPublic extends Auxll {
             }
           }
         }
-      }
 
       dayTotals.sort((a, b) => {
         return (b - a)
