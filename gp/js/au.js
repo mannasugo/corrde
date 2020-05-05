@@ -1098,6 +1098,10 @@
       if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail())
 
       tls.emit(`analytics`, JSStore.avail());
+
+      if (!JSStore.avail().log) JSStore.to({log: new Date().valueOf()})
+
+      tls.emit(`appAnalytics`, JSStore.avail());
     }, 1500)
 
     tls.on(`quick_analytics`, a => JSStore.to(a));
@@ -1662,6 +1666,43 @@
     }
   }
 
+  let availRealtimeAppStats = () => {
+
+    if (!document.querySelector(`#semver`)) return;
+
+    let placers = [
+      `sum-raw`, `dedicated-raw`, `gain-raw`,
+      `raw-DUA`, `reg-DUA`, `unreg-DUA`,
+      `raw-regs`, `mono-regs`, `di-regs`, `gain-regs`,
+      `raw-wrk`, `active-wrk`, `gain-wrk`], avail = JSStore.avail(), availApp = JSStore.avail().app;
+
+    let rawPlus = 0;
+
+    if (availApp[`raw`][0][`poolDay`].length > availApp[`raw`][1][`poolDay`].length) {
+
+     rawPlus = availApp[`raw`][0][`poolDay`].length - availApp[`raw`][1][`poolDay`].length
+    }
+
+    let poolAct = availApp[`acts`][0];
+
+    let values = [
+      availApp[`raw`][0][`poolDay`].length, avail.reqs.length, rawPlus,
+      avail.reqs.length, avail.regs.length, (avail.reqs.length - avail.regs.length),
+      availApp.regs[0][`poolDay`].length, availApp.regs[0][`pool2`].length, availApp.regs[0][`pool0`].length, availApp.regs[0][`gain`].length,
+      poolAct[`poolDay`].length, poolAct[`avails`].length, poolAct[`gain`].length];
+    
+    for (let e = 0; e < placers.length; e++) {
+
+      let value = document.querySelector(`#${placers[e]}`).innerHTML;
+      
+      if (parseInt(value) > parseInt(values[e]) || parseInt(value) < parseInt(values[e])) {
+
+        document.querySelector(`#${placers[e]}`).innerHTML = values[e];
+
+      }
+    }
+  }
+
   let slides = d3.select(`.sliderTransform`)
   d3.select(`.sliderContent`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     slides.style(`transform`, `translate(${d3.event.transform.x}px)`)
@@ -1934,6 +1975,7 @@
 
     availRealtimeStats();
     trackDisplacement();
+    availRealtimeAppStats();
   }, 2500)
 
 })();
