@@ -224,14 +224,111 @@ class Auxll {
 
     req.headers[`log`] = new Date().valueOf();
 
-    if (cookie.parse(req.headers.cookie).gps) {
+    if (req.headers.cookie && cookie.parse(req.headers.cookie).gps) {
 
        req.headers[`gps`] = cookie.parse(req.headers.cookie).gps 
      } 
 
      else req.headers[`gps`] = false;
-     
+
     new Sql().to([`traffic`, {json: JSON.stringify(req.headers)}], (A, B, C) => {});
+  }
+
+  appAnalytics (call) {
+
+    new Sql().multi({},
+     `select * from traffic
+     ;select * from u
+     ;select * from j`, (A, B, C) => {
+
+      let week = [], regulars = [], acts = [], gainCount = 0;
+
+      for (let day = 0; day < 7; day++) {
+
+        let a = new Date(new Date().setUTCHours(0) - (day * 86400000)).toUTCString().valueOf(),
+          z = new Date(new Date().setUTCHours(24) - (day * 86400000)).toUTCString().valueOf(),
+          A = new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf(),
+          Z = new Date(new Date().setUTCHours(24) - (day * 86400000)).valueOf();
+
+        let dayOfWeek = [], gain = 0; 
+      
+        for (let log in B[0]) {
+
+          let logStack = JSON.parse(B[0][log].json);
+
+          if (parseInt(logStack.log) > A && parseInt(logStack.log) < Z) {
+
+            dayOfWeek.push(logStack)
+          }
+        }
+
+        (dayOfWeek.length > gainCount) ? gain = dayOfWeek.length - gainCount : gain = gain;
+
+        gainCount = dayOfWeek.length;
+
+        let regs = [], regStackPlus = [], regStack0 = [], regStack2 = [];
+
+        for (let regular in B[1]) {
+
+          if (B[1][regular].alt[0] === `{`) {
+
+            let regStack = JSON.parse(B[1][regular].alt);
+
+            regs.push(regStack);
+
+            if (parseInt(regStack.log) > A && parseInt(regStack.log) < Z) regStackPlus.push(regStack);
+
+            if (regStack[`skills`].length > 0) {
+
+              regStack2.push(regStack);
+            }
+
+            else regStack0.push(regStack);
+          }
+        }
+
+        let poolActs = [], actsPlus = [], avails = [];
+
+        for (let task in B[2]) {
+
+          if (B[2][task].blab[0] === `{`) {
+
+            let act = JSON.parse(B[2][task].blab);
+
+            poolActs.push(act);
+
+            if (parseInt(act.ini_log) > A && parseInt(act.ini_log) < Z) actsPlus.push(act);
+
+            if (act.is_open === true && model.availtimeleft(parseInt((act.days * 86400000) + act.ini_log)) !== `timeout`) avails.push(act);
+
+          }
+        }
+
+        week[day] = {
+          day: a,
+          gain: gain,
+          poolDay: dayOfWeek,
+          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()};
+
+        regulars[day] = {
+          day: a,
+          gain: regStackPlus,
+          poolDay: regs,
+          pool2: regStack2,
+          pool0: regStack0,
+          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()};
+
+        acts[day] = {
+          avails: avails, 
+          day: a,
+          gain: actsPlus,
+          poolDay: poolActs,
+          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()}
+
+      }
+
+      call({raw: week, regs: regulars, acts: acts});
+    });
   }
 }
 
@@ -1358,15 +1455,17 @@ class UAPublic extends Auxll {
         css: CSS,
         jsState: config.cd.auJS}
 
-      pool.appendModel = [
-        model.main({
-          appendModel: [model.monitorView()]
-        }), model.tp2()];
+      this.appAnalytics(A => {
 
-      pool.appendModel = [model.wrapper(pool), model.jS(pool)];
-
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(pool));
+        pool.appendModel = [
+          model.main({
+                      appendModel: [model.monitorView(A)]
+                    }), model.tp2()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));})
     });
   }
 }
