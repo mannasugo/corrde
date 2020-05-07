@@ -2311,6 +2311,10 @@ table > thead > tr > th {
   background: none;
 }
 
+._Ss0 {
+  margin: 10px 10px 10px 0; 
+}
+
 @media (min-width: 414px) {
 
   ._QXs {
