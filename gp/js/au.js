@@ -37,7 +37,7 @@
 
     pushChat(el);
 
-    handleMonitorMenu(el);
+    //handleMonitorMenu(el);
 
     if (el.getAttribute(`name`) === `field`) {
       JSStore.to({field: el.getAttribute(`value`)});
@@ -1101,7 +1101,7 @@
 
       if (!JSStore.avail().log) JSStore.to({log: new Date().valueOf()})
 
-      tls.emit(`appAnalytics`, JSStore.avail());
+      //tls.emit(`appAnalytics`, JSStore.avail());
     }, 1500)
 
     tls.on(`quick_analytics`, a => JSStore.to(a));
@@ -1504,7 +1504,7 @@
 
   let availMugView = () => {
 
-    (JSStore.avail().ava === false) ? JSStore.to({ava: `gp/p/vector/mug.svg`}): JSStore.avail().ava = JSStore.avail().ava;
+    (JSStore.avail().ava !== false) ? JSStore.avail().ava = JSStore.avail().ava: JSStore.to({ava: `gp/p/vector/mug.svg`});
 
     if (JSStore.avail().ava !== false && document.querySelector(`#mug-ava > #mug-ava`)) {
 
@@ -1668,7 +1668,7 @@
     }
   }
 
-  let availRealtimeAppStats = () => {
+  /*let availRealtimeAppStats = () => {
 
     if (!document.querySelector(`#semver`)) return;
 
@@ -1703,7 +1703,7 @@
 
       }
     }
-  }
+  }*/
 
   let slides = d3.select(`.sliderTransform`)
   d3.select(`.sliderContent`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
