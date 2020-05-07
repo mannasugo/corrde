@@ -2909,10 +2909,23 @@ class UATCP extends UAPublic {
 
         new Auxll().appAnalytics(A => {
 
+          let rawPlus = 0;
+
+          if (A[`raw`][0][`poolDay`].length > A[`raw`][1][`poolDay`].length) {
+
+            rawPlus = A[`raw`][0][`poolDay`].length - A[`raw`][1][`poolDay`].length
+          }
+
+          let poolAct = A[`acts`][0];
+
+          let values = [
+            A[`raw`][0][`poolDay`].length, reqs.length, rawPlus,
+            reqs.length, regreqs.length, (reqs.length - regreqs.length),
+            A.regs[0][`poolDay`].length, A.regs[0][`pool2`].length, A.regs[0][`pool0`].length, A.regs[0][`gain`].length,
+            poolAct[`poolDay`].length, poolAct[`avails`].length, poolAct[`gain`].length];
+
           tls.emit(`quick_analytics`, {
-            app: A,
-            regs: regreqs,
-            reqs: reqs});
+            app: values});
         });
       });
       
