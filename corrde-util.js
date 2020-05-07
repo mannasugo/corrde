@@ -65,7 +65,7 @@ class Auxll {
 
     new Sql().multi({}, `select * from u;select * from j;`, (A, B, C) => {
 
-      let is_valid = false,
+      let t2 = [], is_valid = false, //t2 tasks accepted
         is_valid_dual = false,
         contracts = [],
         selfContracts = [],
@@ -95,13 +95,18 @@ class Auxll {
         contracts.push(alt);
 
         if (alt.sum && alt.sum === u) selfContracts.push(alt);
+
+        for (let t in alt.activity.gives) {
+
+          if (alt.activity.gives[t].sum === u) t2.push(alt);
+        }
       }
 
       call (is_valid, selfContracts, {
         contracts: contracts,
         fields: fields,
         is_valid: is_valid,
-        is_valid_dual: is_valid_dual});
+        is_valid_dual: is_valid_dual, t0: selfContracts, t2: t2});
     })
   }
 
@@ -754,7 +759,7 @@ class UAPublic extends Auxll {
       });
   }
 
-  mug () {
+  /*mug () {
 
     this.isPassValid();
 
@@ -817,7 +822,7 @@ class UAPublic extends Auxll {
 
       
       });
-  }
+  }*/
 
   quora () {
 
@@ -1439,7 +1444,35 @@ class UAPublic extends Auxll {
     });
   }
 
+  mug () {
+
+    this.isCookieValid(`u`, () => {
+
+      this.availSelfsActivity(this.isValid(`u`), (A, B, C) => {
+
+        this.modelStyler(config.lvl.css, CSS => {
+      
+          const pool = {
+            jSStore: JSON.stringify({ava: A.ava}),
+            title: A[`full`],
+            css: CSS,
+            jsState: config.cd.auJS};
+
+          pool.appendModel = [
+            model.main({
+              appendModel: [model.mugView(C)]
+              }), model.top({ava: ``})];
+            
+          pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));
+    });});});
+  }
+
   monitor () {
+
+    
 
     this.modelStyler(config.lvl.css, CSS => {
       
@@ -1460,6 +1493,7 @@ class UAPublic extends Auxll {
             
                   this.app.to.writeHead(200, config.reqMime.htm);
                   this.app.to.end(model.call(pool));})
+    
     });
   }
 }
