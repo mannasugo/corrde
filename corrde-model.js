@@ -2023,14 +2023,14 @@ module.exports = {
                 `p`, `.@_tCx`, config.appraise_para], [
                 `div`, `.@_UFA`, [[
                   `input`, `#@rate`, `.@_RRD _Ccs`, config.fill_off, config.place_appraise_rate]]]]]]], [
-            `div`, `.@_sZ2`, [[
+            `div`, `.@_sZ2 -Zz`, [[
               `p`, `.@_yCR _eZz`, config.set_academia_title], [
               `div`, `.@_4sC _XsQ`, [[
                 `p`, `.@_tCx _caZ`, config.academia_para], [`div`, qualAll]]], [
               `div`, `.@_gxM _CYc`, [[
                 `div`, `.@_QZg`, [[
                 `div`, `.@_gM_a _agM`, [[`a`, `#@schule`, `.@_TX_a _atX`, config.add_instut, config.to_instut]]]]]]]]], [
-            `div`, `.@_sZ2`, [[
+            `div`, `.@_sZ2 _-Zz`, [[
               `p`, `.@_yCR _eZz`, config.set_work_title], [
               `div`, `.@_4sC _XsQ`, [[
                 `div`, workAll]]], [
@@ -2903,5 +2903,207 @@ module.exports = {
 
     return [
       `div`, `.@gMX _geQ sZ2 _XY0 _Qtx`, model];
-  }
+  },
+
+  mugView (C) {
+
+    let roles = `Contractor`;
+
+    let listify = (pool) => {
+
+      let pool2 = [];
+
+      for (let key in pool) {
+
+        pool2.push(pool[key]);
+      }
+
+      return pool2;
+    };
+
+    let clusterScopes = (scopes) => {
+
+      let pool3 = [];
+
+      for (let scope = 0; scope < scopes.length; ++scope) {
+
+        if (!pool3[scopes[scope].split(`_`)[0]]) pool3[scopes[scope].split(`_`)[0]] = [];
+
+        pool3[scopes[scope].split(`_`)[0]].push(scopes[scope].split(`_`)[1]);
+      }
+
+      return pool3;
+    }
+
+    let sliceScopesView = (scopes) => {
+
+      let model0 = [];
+
+      for (let scope = 0; scope < scopes.length; scope++) {
+
+        model0[scope] = [
+          `div`, `.@_aYS _uZM`, [[
+            `div`, `.@yZS _gxM _geQ _gMX`, [[
+              `div`, `.@_eYG`, [[`span`, `.@aA2`, `~@${scopes[scope][0]} in ${scopes[scope][2]}`]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX`, [[
+              `div`, `.@_eYG`, [[`span`, `.@_aA6 _a2X`, `~@${scopes[scope][1]}`]]], [
+            `div`, `.@_QZg _gxM`, [[
+              `span`, `.@_a2X _aA6 _tXv`, `~@${scopes[scope][3]} - ${scopes[scope][4]}`]]]]]]]
+      }
+
+      return model0
+    }
+
+    let clusterScopesView = (fields) => {
+
+      let index = 0, model = [];
+
+      for(let scope in fields) {
+
+        let model2 = [];
+
+        for (let scope2 = 0; scope2 < fields[scope].length; ++scope2) {
+
+          model2[scope2] = [
+            `div`, `.@_gM_a _agM _guZ _Ss0`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${fields[scope][scope2]}`]]]
+        };
+
+        model[index] = [
+          `div`, `.@_aYS _uZM`, [[
+            `div`, `.@yZS _gxM`, [[`span`, `~@${scope}`]]], [
+          `div`, `.@_gZy`, model2]]];
+
+        ++index;
+      };
+
+      return [`div`, model];
+    }
+
+    let availFields = () => {
+
+      let fields = [
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, [[`span`, `.@_tXx`, `~@Expertise and Skills`]]], [
+            `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], clusterScopesView(clusterScopes(C.is_valid.skills))]];
+
+      (C.is_valid.skills.length === 0) ? fields = []: fields = fields;
+
+      return fields;
+    }
+
+    let availDesc = () => {
+
+      let desc = [
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, [[`span`, `.@_tXx`, `~@Proffessional Summary`]]], [
+            `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], [
+          `div`, `.@_sZ2`, [[`span`, `.@_zY0 _zYg`, `~@${C.is_valid.desc}`]]]]];
+
+      (C.is_valid.desc === false) ? desc = []: desc = desc;
+
+      return desc;
+    }
+
+    let availPortfolio = () => {
+
+      let portfolio = [
+              `div`, `.@_sZ2`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Work Experience`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], [
+                `div`, `.@_aYS _uZM`, [[
+                  `div`, `.@yZS _gxM _geQ _gMX`, [[
+                    `div`, `.@_eYG`, [[`span`, `.@aA2`, `~@Data Analyst`]]]]], [
+                  `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                    `div`, `.@_eYG`, [[`span`, `.@_aA6 _a2X`, `~@Cambridge Analytica`]]], [
+                    `div`, `.@_QZg _gxM`, [[
+                      `span`, `.@_a2X _aA6`, `~@sept 2018 - `]]]]]]]]];
+
+      (C.is_valid.wpl.length === 0) ? portfolio = []: portfolio = portfolio;
+
+      return portfolio;
+    }
+
+    let availt2 = () => {
+
+      let t2 = [
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, [[`span`, `.@_tXx`, `~@Jobs History`]]], [
+            `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], [
+                `div`, `.@_aYS _uZM`, [[
+                  `div`, `.@yZS _gxM _geQ _gMX`, [[
+                    `div`, `.@_eYG`, [[`span`, `.@aA2`, `~@Senior Java Developer`]]], [
+                    `div`, `.@_QZg _gxM`, [[
+                      `div`, `.@_gM_a _agM _guZ`, [[
+                        `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Fixed-Price`]]]]]]], [
+                  `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                    `div`, `.@_eYG`, [[`span`, `.@_aA6`, `~@$ 1500`]]], [
+                    `div`, `.@_QZg _gxM`, [[
+                      `span`, `.@_a2X _aA6`, `~@1 JAN 2019 - 4 MAR 2020`]]]]]]]]];
+      
+      (C.t2.length === 0) ? t2 = []: t2 = t2;
+
+      return t2; 
+    }
+
+    let availScopes = () => {
+
+      let scopes = [
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, [[`span`, `.@_tXx`, `~@Education`]]], [
+          `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], [`div`, sliceScopesView(listify(C.is_valid.edu))]]];
+      
+      (listify(C.is_valid.edu).length === 0) ? scopes = []: scopes = scopes;
+
+      return scopes; 
+    }
+
+    let availt0 = () => {
+
+      let t0 = [
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, [[`span`, `.@_tXx`, `~@Job Listings`]]], [
+            `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], [
+                `div`, `.@_aYS _uZM`, [[
+                  `div`, `.@yZS _gxM _geQ _gMX`, [[
+                    `div`, `.@_eYG`, [[`span`, `.@aA2`, `~@Senior Java Developer`]]], [
+                    `div`, `.@_QZg _gxM`, [[
+                      `div`, `.@_gM_a _agM _guZ`, [[
+                        `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Fixed-Price`]]]]]]], [
+                  `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                    `div`, `.@_eYG`, [[`span`, `.@_aA6`, `~@$ 1500`]]], [
+                    `div`, `.@_QZg _gxM`, [[
+                      `span`, `.@_a2X _aA6`, `~@1 JAN 2019 - 4 MAR 2020`]]]]]]]]];
+      
+      (C.t2.length === 0) ? t0 = []: t0 = t0;
+
+      return t0; 
+    }
+
+    return [
+      `main`, `.@_xC2`, [[
+        `section`, `.@_C3y`, [[
+          `div`, `.@_XsQ _xsQ- _aA2`, [[
+            `section`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[
+                `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                  `span`, `.@_cCq`, `&@style>width:60px;height:60px`, [[
+                    `img`, `.@_aWz`, `&@src>/${C.is_valid.ava}`, `&@alt>avatar`]]], [
+                  `div`, `.@_eYG`, [[
+                    `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${C.is_valid.full}`]]], [
+                    `div`, `.@_gxM _geQ`, [[
+                      `span`, `.@_aA6`, `~@${(C.is_valid_dual === true) ? roles = `Contractor & Freelancer`: roles = roles}`]]]]]]]]], [
+              `div`, `.@_-Zz azX- _gMX _gp0 _sZ2`, `&@style>margin-top: 20px`, [[
+                `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
+                  `div`, `.@_gMX gcQ`, [[
+                    `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX qXS _utQ _gMX`, `&@href>javascript:;`, `~@Edit Profile`]]]]]]]]], 
+              availDesc(), availFields(), /*availPortfolio(),*/ availt2(), availScopes(), availt0()]]]]]]]]
+  },
+
 }
