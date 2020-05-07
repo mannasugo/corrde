@@ -1451,6 +1451,14 @@ class UAPublic extends Auxll {
       this.availSelfsActivity(this.isValid(`u`), (A, B, C) => {
 
         this.modelStyler(config.lvl.css, CSS => {
+
+          let preJS = {};
+
+          preJS[`self`] = true;
+          preJS[`sum`] = this.isValid(`u`);
+          preJS[`mug_ejs_value`] = `Edit Profile`;
+
+          const JS = JSON.stringify(preJS);
       
           const pool = {
             jSStore: JSON.stringify({ava: A.ava}),
@@ -1460,7 +1468,7 @@ class UAPublic extends Auxll {
 
           pool.appendModel = [
             model.main({
-              appendModel: [model.mugView(C)]
+              appendModel: [model.mugView(C, JS)]
               }), model.top({ava: ``})];
             
           pool.appendModel = [model.wrapper(pool), model.jS(pool)];
@@ -1471,8 +1479,6 @@ class UAPublic extends Auxll {
   }
 
   monitor () {
-
-    
 
     this.modelStyler(config.lvl.css, CSS => {
       
