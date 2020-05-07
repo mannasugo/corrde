@@ -2905,7 +2905,7 @@ module.exports = {
       `div`, `.@gMX _geQ sZ2 _XY0 _Qtx`, model];
   },
 
-  mugView (C) {
+  mugView (C, JS) {
 
     let roles = `Contractor`;
 
@@ -3085,6 +3085,10 @@ module.exports = {
       return t0; 
     }
 
+    let preJS = 
+
+      `let preJS = JSON.parse('${JS}');`;
+
     return [
       `main`, `.@_xC2`, [[
         `section`, `.@_C3y`, [[
@@ -3098,12 +3102,13 @@ module.exports = {
                     `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${C.is_valid.full}`]]], [
                     `div`, `.@_gxM _geQ`, [[
                       `span`, `.@_aA6`, `~@${(C.is_valid_dual === true) ? roles = `Contractor & Freelancer`: roles = roles}`]]]]]]]]], [
-              `div`, `.@_-Zz azX- _gMX _gp0 _sZ2`, `&@style>margin-top: 20px`, [[
-                `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
+              `div`, `.@azX- _gMX _gp0 _sZ2`, `&@style>margin-top: 20px`, [[
+                `div`, `.@_-Zz _gxM _gMX`, [[
                   `div`, `.@_gMX gcQ`, [[
                     `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _atX qXS _utQ _gMX`, `&@href>javascript:;`, `~@Edit Profile`]]]]]]]]], 
-              availDesc(), availFields(), /*availPortfolio(),*/ availt2(), availScopes(), availt0()]]]]]]]]
-  },
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@mug-ejs`, `&@href>javascript:;`, `~@Edit Profile`]]]]]]]]], 
+              availDesc(), availFields(), /*availPortfolio(),*/ availt2(), availScopes(), availt0()]]]]]], [
+        `script`, `&@type>text/javascript`, `~@${preJS}`]]]
+  }
 
 }
