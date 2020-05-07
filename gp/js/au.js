@@ -1668,6 +1668,19 @@
     }
   }
 
+  let availMug_ejs = () => {
+
+    if (!document.querySelector(`#mug-ejs`)) return;
+
+    if (preJS.self === true) {
+
+      let _ejs = document.querySelector(`#mug-ejs`);
+
+      _ejs.parentNode.parentNode.parentNode.setAttribute(`class`, `-Zz _gxM _gMX`);
+
+    }
+  }
+
   /*let availRealtimeAppStats = () => {
 
     if (!document.querySelector(`#semver`)) return;
@@ -1973,11 +1986,13 @@
 
   setGPSCookie();
 
+  availMug_ejs();
+
   setInterval(() => {
 
     availRealtimeStats();
     trackDisplacement();
-    availRealtimeAppStats();
+    //availRealtimeAppStats();
   }, 2500)
 
 })();
