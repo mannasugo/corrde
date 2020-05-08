@@ -1095,15 +1095,15 @@
 
     let tls = io.connect();
 
-    if (!JSStore.avail().log) JSStore.to({log: new Date().valueOf()})
+    if (!JSStore.avail().log) JSStore.to({log: `sess_` + new Date().valueOf().toString()})
 
     setInterval(() => { 
 
       if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail())
 
-      tls.emit(`analytics`, {});
+      if (JSStore.avail().log) tls.emit(`appAnalytics`, JSStore.avail())
 
-      tls.emit(`appAnalytics`, JSStore.avail());
+      tls.emit(`analytics`, {});;
     }, 1500)
 
     tls.on(`quick_analytics`, a => JSStore.to(a));
@@ -1657,9 +1657,11 @@
       let to = document.querySelector(`#monitor-menu`);
 
       if (to.className === `_-Zz`) {
-        to.focus();
+
+    //e.preventDefault()
         e.className = `-_tX DelColor`;
         to.className = `-Zz`;
+        
       }
 
       else if (to.className === `-Zz`) {
