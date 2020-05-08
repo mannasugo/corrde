@@ -255,7 +255,9 @@ class Auxll {
           A = new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf(),
           Z = new Date(new Date().setUTCHours(24) - (day * 86400000)).valueOf();
 
-        let dayOfWeek = [], gain = 0; 
+        let dayOfWeek = [], gain = 0;
+
+        if (!B || !B[0]) return;
       
         for (let log in B[0]) {
 
