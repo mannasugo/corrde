@@ -2954,6 +2954,30 @@ module.exports = {
       return model0
     }
 
+    let tSlicedView = (scopes) => {
+
+      let model0 = [];
+
+      for (let scope = 0; scope < scopes.length; scope++) {
+
+        let t = scopes[scope];
+
+        model0[scope] = [
+          `div`, `.@_aYS _uZM`, [[
+            `div`, `.@yZS _gxM _geQ _gMX`, [[
+              `div`, `.@_eYG`, [[`span`, `.@aA2`, `~@${t.lead}`]]], [
+                    `div`, `.@_QZg _gxM`, [[
+                      `div`, `.@_gM_a _agM _guZ`, [[
+                        `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${t.payway}`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX`, [[
+              `div`, `.@_eYG`, [[`span`, `.@_aA6 _a2X`, `~@ $ ${t.pay}`]]], [
+            `div`, `.@_QZg _gxM`, [[
+              `span`, `.@_a2X _aA6 _tXv`, `~@${this.secs2UTC(t.ini_log)} - ${this.secs2UTC(parseInt((t.days * 86400000) + t.ini_log))}`]]]]]]]
+      }
+
+      return model0
+    }
+
     let clusterScopesView = (fields) => {
 
       let index = 0, model = [];
@@ -3068,19 +3092,9 @@ module.exports = {
         `div`, `.@_sZ2`, [[
           `div`, `.@_yZS _gxM _geQ _gMX`, [[
             `div`, [[`span`, `.@_tXx`, `~@Job Listings`]]], [
-            `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], [
-                `div`, `.@_aYS _uZM`, [[
-                  `div`, `.@yZS _gxM _geQ _gMX`, [[
-                    `div`, `.@_eYG`, [[`span`, `.@aA2`, `~@Senior Java Developer`]]], [
-                    `div`, `.@_QZg _gxM`, [[
-                      `div`, `.@_gM_a _agM _guZ`, [[
-                        `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Fixed-Price`]]]]]]], [
-                  `div`, `.@_yZS _gxM _geQ _gMX`, [[
-                    `div`, `.@_eYG`, [[`span`, `.@_aA6`, `~@$ 1500`]]], [
-                    `div`, `.@_QZg _gxM`, [[
-                      `span`, `.@_a2X _aA6`, `~@1 JAN 2019 - 4 MAR 2020`]]]]]]]]];
+            `div`, `.@_QZg _gxM`, [[`span`, `.@_axS _a2X _aA6`, `~@`]]]]], [`div`, tSlicedView(C.t0)]]];
       
-      (C.t2.length === 0) ? t0 = []: t0 = t0;
+      (C.t0.length === 0) ? t0 = []: t0 = t0;
 
       return t0; 
     }
