@@ -2817,7 +2817,7 @@ module.exports = {
                 `span`, `.@_tCc _pV4`, `~@Monitor`]]], [
               `div`, `.@_QZg`, [[
                 `div`, `.@_y4x`, [[
-                  `a`, `#@monitor-top`, `.@-_tX Graph000`, `&@href>javascript:;`, `~@Monitor`]]]]]]]]]]]]]
+                  `a`, `#@monitor-top`, `.@-_tX Graph000`, `&@href>#app-ejs`, `~@Monitor`]]]]]]]]]]]]]
   },
 
   monitorView (pool) {
@@ -2855,10 +2855,12 @@ module.exports = {
 
     return [
       `main`, `.@_xC2`, [[
-        `section`, `.@_C3y`, [[
+        `section`, `#@app-ejs`, `.@_C3y`, [[
           `div`, `.@_XsQ _xsQ- _aA2`, [[
             `section`, [[
-              `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 0 0 30px`, [this.aPoolModal(alinks, placers, to)]], [
+              `div`, [[
+                `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 0 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
+              `div`], [
               `div`, `#@semver`, [[`div`, `.@_uZM`, [[
                 `div`, `.@_yZS _gxM _geQ _gMX`, [[
                   `div`, [[`span`, `.@_aA6`, `~@Version`]]], [
@@ -3123,6 +3125,125 @@ module.exports = {
                       `a`, `.@_TX_a _atX _utQ _gMX`, `#@mug-ejs`, `&@href>javascript:;`, `~@Edit Profile`]]]]]]]]], 
               availDesc(), availFields(), /*availPortfolio(),*/ availt2(), availScopes(), availt0()]]]]]], [
         `script`, `&@type>text/javascript`, `~@${preJS}`]]]
+  },
+
+  plotY (Y_MAX) {
+
+    let YPool = [] 
+
+    if (Y_MAX <= 2) yPlots = [0, 1, 2];
+
+    else if (Y_MAX > 2 && Y_MAX <= 4) xPlot = [0, 2, 4];
+
+    else if (Y_MAX > 4 && Y_MAX <= 6) xPlot = [0, 3, 6];
+
+    else if (Y_MAX > 6 && Y_MAX <= 8) yPlots = [0, 2, 4, 6, 8];
+
+    else if (Y_MAX > 8 && Y_MAX <= 10) yPlots = [0, 5, 10];
+
+    else if (Y_MAX > 10 && Y_MAX <= 20) yPlots = [0, 10, 20];
+
+    else if (Y_MAX > 20 && Y_MAX <= 40) yPlots = [0, 20, 40];
+
+    else if (Y_MAX > 40 && Y_MAX < 60) yPlots = [0, 30, 60];
+
+    else if (Y_MAX > 60 && Y_MAX < 80) yPlots = [0, 20, 40, 60, 80];
+
+    else if (Y_MAX > 80 && Y_MAX < 100) yPlots = [0, 50, 100];
+
+    else if (Y_MAX > 100 && Y_MAX <= 200) yPlots = [0, 100, 200];
+
+    else if (Y_MAX > 200 && Y_MAX <= 400) yPlots = [0, 200, 400];
+
+    else if (Y_MAX > 400 && Y_MAX <= 600) yPlots = [0, 300, 600];
+
+    else if (Y_MAX > 600 && Y_MAX <= 800) yPlots = [0, 200, 400, 600, 800];
+
+    else if (Y_MAX > 800 && Y_MAX <= 1000) yPlots = [0, 500, 1000];
+
+    else if (Y_MAX > 1000 && Y_MAX <= 2000) yPlots = [0, 1000, 2000];
+
+    else if (Y_MAX > 2000 && Y_MAX <= 4000) yPlots = [0, 2000, 4000];
+
+    else if (Y_MAX > 4000 && Y_MAX <= 6000) yPlots = [0, 3000, 6000];
+
+    else if (Y_MAX > 6000 && Y_MAX <= 8000) yPlots = [0, 2000, 4000, 6000, 8000];
+
+    else if (Y_MAX > 8000 && Y_MAX <= 10000) yPlots = [0, 5000, 10000];
+
+    return yPlots;
+  },
+
+  BarPlotView (A) {
+
+    let SVGlays = [], SVGCount = [];
+
+    let _A = A[0].yPlots.sort((a,b) => {
+      return b - a});
+
+    let yPlots = this.plotY(_A[0]);
+
+    for (let lay = 0; lay < yPlots.length; lay++) {
+      
+      SVGlays[lay] = [
+        `g`, [[
+          `rect`, `.@_pg4`, `&@x>0%`, `&@y>${215 - (lay * 200/(yPlots.length - 1))}`, `&@width>90%`, `&@height>1`]]]
+    }
+
+    for (let day = 0; day < A.length; day++) {
+
+      //if (parseInt(A[day].UTC) < parseInt(new Date(new Date().setUTCHours(0) - new Date().getUTCMinutes()).valueOf())) {
+
+      //  today = ``;
+      //}
+
+      //else {today = ` _pg2-`;}
+
+      let loop = ``, top = ``;
+
+      if (day === 1 || day === 3 || day === 5) loop = `&@style>display:none;`
+
+      if (A[day].poolDay.length > 0) top = A[day].poolDay.length;
+      
+      SVGCount[day] = [
+        `g`, [[
+          `text`, loop, `&@x>${80 - (day * 77.5/(A.length - 1))}%`, `&@y>232.5`, `~@${this.UTCDayMin(A[day].secsUTC)}`], [
+          `text`, `@style>text-anchor:middle;`, `&@x>${82.5 - (day * 77.5/(A.length - 1))}%`, `&@y>${215 - (parseInt(A[day].poolDay.length) * 207/yPlots[(yPlots.length - 1)])}`, `~@${top}`], [
+          `rect`,
+          `.@_pg6`,
+          `&@x>${80 - (day * 77.5/(A.length - 1))}%`, 
+          `&@y>${215 - (parseInt(A[day].poolDay.length) * 200/yPlots[(yPlots.length - 1)])}`, 
+          `&@width>10%`, 
+          `&@height>${215 - (215 - (A[day].poolDay.length * 200/yPlots[(yPlots.length - 1)]))}`]]]
+    }
+
+    return [
+      `svg`, `.@_aXZ _a02`, `&@style>height: ${240}px`, [[`g`, SVGlays], [`g`, SVGCount]]]
+  },
+
+  graphsRepView (A) {
+
+    let alinks = [`Overview`, `Graphs`, `Analyze`],
+      placers = [`admin-root`, `admin-infograph`, `admin-detail`],
+      to = [`/monitor/`, `/monitor/graphs/`, `/monitor/analytics/`];
+
+    return [
+      `main`, `.@_xC2`, [[
+        `section`, `.@_C3y`, `#@app-ejs`,[[
+          `div`, `.@_XsQ _xsQ- _aA2`, [[
+            `section`, [[
+              `div`, [[
+                `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 0 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
+              `div`], [
+              `div`, `#@reqs-graph`, [[
+                `div`, [[
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `div`, `.@_`, [[`span`, `.@_tXx`, `~@Requests`]]], [
+                      `div`, `.@_QZg _gxM`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[
+                          `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((7 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                    `div`, [this.BarPlotView(A.raw)]]]]]]]]]]]]]]]];
   }
 
 }
