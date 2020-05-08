@@ -683,6 +683,8 @@
 
       if (level_errors_.length === 0) {
 
+        el.setAttribute(`id`, `sent`);
+
         JSStore.to({
           ini_skills: level_skills_,
           ini_desc: level_summary_,
@@ -1091,15 +1093,15 @@
 
   function planes (e) {
 
-    let tls = io.connect(); 
+    let tls = io.connect();
+
+    if (!JSStore.avail().log) JSStore.to({log: new Date().valueOf()})
 
     setInterval(() => { 
 
       if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail())
 
-      tls.emit(`analytics`, JSStore.avail());
-
-      if (!JSStore.avail().log) JSStore.to({log: new Date().valueOf()})
+      tls.emit(`analytics`, {});
 
       tls.emit(`appAnalytics`, JSStore.avail());
     }, 1500)
