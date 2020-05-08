@@ -246,7 +246,7 @@ class Auxll {
      ;select * from u
      ;select * from j`, (A, B, C) => {
 
-      let week = [], regulars = [], acts = [], gainCount = 0;
+      let week = [], regulars = [], acts = [], yPlots0 = [], gainCount = 0;
 
       for (let day = 0; day < 7; day++) {
 
@@ -265,9 +265,11 @@ class Auxll {
 
           if (parseInt(logStack.log) > A && parseInt(logStack.log) < Z) {
 
-            dayOfWeek.push(logStack)
+            dayOfWeek.push(logStack);
           }
         }
+
+         yPlots0.push(dayOfWeek.length);
 
         (dayOfWeek.length > gainCount) ? gain = dayOfWeek.length - gainCount : gain = gain;
 
@@ -315,7 +317,8 @@ class Auxll {
           day: a,
           gain: gain,
           poolDay: dayOfWeek,
-          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()};
+          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf(),
+          yPlots: yPlots0};
 
         regulars[day] = {
           day: a,
@@ -464,6 +467,11 @@ class UAPublic extends Auxll {
 
         this.mailPeers(A, B[0]);
       });
+    }
+
+    else if (this.levelState[1] === `monitor`) {
+
+      if (this.levelState[2] === `graphs`) this.graphsRep()
     }
   }
 
@@ -1495,6 +1503,31 @@ class UAPublic extends Auxll {
         pool.appendModel = [
           model.main({
                       appendModel: [model.monitorView(A)]
+                    }), model.tp2()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));})
+    
+    });
+  }
+
+  graphsRep () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+      
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Monitor Graphs`,
+        css: CSS,
+        jsState: config.cd.auJS}
+
+      this.appAnalytics(A => {
+
+        pool.appendModel = [
+          model.main({
+                      appendModel: [model.graphsRepView(A)]
                     }), model.tp2()];
             
                   pool.appendModel = [model.wrapper(pool), model.jS(pool)];
@@ -2880,6 +2913,13 @@ class UATCP extends UAPublic {
           regreqs.push({log: u.in});
         }
 
+        if (!logs[u.log]) {
+
+          logs[u.log] = u.log;
+
+          reqs.push({log: u.log})
+        }
+
         for (let valid in dualValids) {
 
           if (new Auxll().locusGPS(u.gps, dualValids[valid].gps, .010) === true) {
@@ -2904,12 +2944,12 @@ class UATCP extends UAPublic {
 
         if (!logs[msg.log]) {
 
-          logs[msg.log] = [];
+          logs[msg.log] = msg.log;
 
           reqs.push({log: msg.log})
         }
 
-        new Auxll().appAnalytics(A => {
+        new Auxll().appAnalytics(A => {console.log(logs)
 
           let rawPlus = 0;
 
