@@ -1095,18 +1095,23 @@
 
     let tls = io.connect();
 
-    if (!JSStore.avail().log) JSStore.to({log: `sess_` + new Date().valueOf().toString()})
+    if (!JSStore.avail().log) JSStore.to({log: `sess` + new Date().valueOf().toString()})
 
     setInterval(() => { 
 
-      if (JSStore.avail().in) tls.emit(`is_au`, JSStore.avail())
+      //if (JSStore.avail().in) 
+        tls.emit(`is_au`, JSStore.avail());
 
-      if (JSStore.avail().log) tls.emit(`appAnalytics`, JSStore.avail())
+      //else {
 
-      tls.emit(`analytics`, {});;
-    }, 1500)
+        tls.emit(`app_analytics`, JSStore.avail());
+        tls.emit(`analytics`, {});
+      //}
+    }, 2000)
 
     tls.on(`quick_analytics`, a => JSStore.to(a));
+
+    tls.on(`analytics_reqs`, a => JSStore.to(a));
 
   }
 
@@ -1127,7 +1132,16 @@
   document.addEventListener(`change`, files);
   document.addEventListener(`DOMContentLoaded`, planes);
   window.addEventListener(`resize`, (e) => {
-    console.log(document.querySelector(`.d3JS`).clientWidth)})
+    
+    let availDUAOffset = () => {
+
+      if (!document.querySelector(`#duaplot`)) return;
+
+      let _tjs = document.querySelector(`#line`).getAttribute(`d`).split(`,`);
+    }
+
+    availDUAOffset()
+  })
 
   /*d3.json(`/gp/twineJSON/otc.geojson`)
 
@@ -1709,6 +1723,69 @@
     }
   }
 
+  const poolReqs = [];
+
+  let availDUA = () => {
+
+    if (!document.querySelector(`#duas-graph`)) return;
+
+    setInterval(() => {
+
+      let X = document.querySelector(`#duaplot`).clientWidth;
+
+      //let poolReqs = [];
+
+      let reqs = [];
+
+      poolReqs.push(JSStore.avail().reqs)
+
+      //poolReqs.reverse()
+
+      let sortReqs = JSON.stringify(poolReqs);
+
+      reqs = JSON.parse(sortReqs).sort((a, b) => {return b - a});
+
+      let yPlots = plotY(reqs[0]);
+
+      let SVG = d3.select(`#duaplot`);
+
+      SVG.selectAll(`#plots`).remove();
+
+      SVG.selectAll(`plot`).data(yPlots)
+        .enter()
+        .append(`text`)
+        .attr(`id`, `plots`)
+        .attr(`x`, (d, c) => {return `95%`})
+        .attr(`y`, (d,c) => {return 215 - (c * 200/(yPlots.length - 1))})
+        .text(d => {return d});
+
+      SVG.select(`#line`).remove();
+
+      let dString = ``;
+
+      for (let d = 0; d < poolReqs.length; d++) {
+
+        dString += ` ${(parseInt(X - (poolReqs.length) + (d)) * 0.9) + 4} ${215 - parseInt(poolReqs[d] * 200/yPlots[(yPlots.length - 1)])}  ${(parseInt(X - (poolReqs.length) + (d)) * 0.9) + 3} ${(215 - parseInt(poolReqs[d] * 200/yPlots[(yPlots.length - 1)]))}`
+      }
+
+      SVG.append(`path`)
+        .attr(`id`, `line`)
+        .attr(`class`, `_sV0`)
+        .attr(`d`, `M${dString}`)
+
+      let hours = new Date().getHours();
+
+      if (hours < 10) hours = `0` + hours;
+
+      let mins = new Date().getMinutes();
+
+      if (mins < 10) mins = `0` + mins;
+
+      document.querySelector(`#secs`).innerHTML = `${hours}${mins}:${new Date().getSeconds()}`
+
+    }, 1500)
+  }
+
   let slides = d3.select(`.sliderTransform`)
   d3.select(`.sliderContent`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     slides.style(`transform`, `translate(${d3.event.transform.x}px)`)
@@ -1717,6 +1794,57 @@
   /**
   @util
   **/
+
+  let plotY = (Y_MAX) => {
+
+    Y_MAX = parseInt(Y_MAX);
+
+    let YPool = [];
+
+    let yPlots = [];
+
+    if (Y_MAX <= 2) yPlots = [0, 1, 2];
+
+    else if (Y_MAX > 2 && Y_MAX <= 4) {yPlots = [0, 2, 4];}
+
+    else if (Y_MAX > 4 && Y_MAX <= 6) yPlots = [0, 3, 6];
+
+    else if (Y_MAX > 6 && Y_MAX <= 8) yPlots = [0, 2, 4, 6, 8];
+
+    else if (Y_MAX > 8 && Y_MAX <= 10) yPlots = [0, 5, 10];
+
+    else if (Y_MAX > 10 && Y_MAX <= 20) yPlots = [0, 10, 20];
+
+    else if (Y_MAX > 20 && Y_MAX <= 40) yPlots = [0, 20, 40];
+
+    else if (Y_MAX > 40 && Y_MAX < 60) yPlots = [0, 30, 60];
+
+    else if (Y_MAX > 60 && Y_MAX < 80) yPlots = [0, 20, 40, 60, 80];
+
+    else if (Y_MAX > 80 && Y_MAX < 100) yPlots = [0, 50, 100];
+
+    else if (Y_MAX > 100 && Y_MAX <= 200) yPlots = [0, 100, 200];
+
+    else if (Y_MAX > 200 && Y_MAX <= 400) yPlots = [0, 200, 400];
+
+    else if (Y_MAX > 400 && Y_MAX <= 600) yPlots = [0, 300, 600];
+
+    else if (Y_MAX > 600 && Y_MAX <= 800) yPlots = [0, 200, 400, 600, 800];
+
+    else if (Y_MAX > 800 && Y_MAX <= 1000) yPlots = [0, 500, 1000];
+
+    else if (Y_MAX > 1000 && Y_MAX <= 2000) yPlots = [0, 1000, 2000];
+
+    else if (Y_MAX > 2000 && Y_MAX <= 4000) yPlots = [0, 2000, 4000];
+
+    else if (Y_MAX > 4000 && Y_MAX <= 6000) yPlots = [0, 3000, 6000];
+
+    else if (Y_MAX > 6000 && Y_MAX <= 8000) yPlots = [0, 2000, 4000, 6000, 8000];
+
+    else if (Y_MAX > 8000 && Y_MAX <= 10000) yPlots = [0, 5000, 10000];
+
+    return yPlots;
+  }
 
   let GPS = (dealGPS, dealBugs) => {//let i = 34.98999; console.log(i.toString().substr(0, i.toString().lastIndexOf(`.`) + 4))
     navigator.geolocation.getCurrentPosition(a => {dealGPS(a)}, b => {dealBugs(b)});
@@ -1979,11 +2107,13 @@
 
   availMug_ejs();
 
+  availDUA();
+
   setInterval(() => {
 
     availRealtimeStats();
     trackDisplacement();
     availRealtimeAppStats();
-  }, 2500)
+  }, 3000)
 
 })();
