@@ -2067,6 +2067,14 @@ table > thead > tr > th {
   fill: #1185fe;
 }
 
+._pg4 {
+  fill: #efeeee;
+}
+
+._pg6 {
+  fill: #bbdcff;
+}
+
 ._aA8, ._aA8:visited {
   border-bottom: 2px solid transparent;
   font-size: 12.5px;
@@ -2313,6 +2321,12 @@ table > thead > tr > th {
 
 ._Ss0 {
   margin: 10px 10px 10px 0; 
+}
+
+._sV0 {
+  stroke: #4f4f4f;
+  stroke-width: 1;
+  fill: none;
 }
 
 @media (min-width: 414px) {
