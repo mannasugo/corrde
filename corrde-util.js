@@ -2787,7 +2787,31 @@ class UATCP extends UAPublic {
       conca = `select * from j;`;
       conca += `select * from u;`;
 
+    let tlsCount = 0;
+
+    let tlsReqs = [];
+
+    let poolReqs = [];
+
     tcp.on(`connection`, tls => {
+
+      /**
+      @dev
+      **
+
+      let tlsReq = tls.id;
+
+      if (!tlsReqs.hasOwnProperty(tlsReq)) {
+
+        tlsReqs[tlsReq] = 1;
+        tlsCount++;
+
+        tls.emit(`analytics_reqs`, {tls_reqs: tlsCount});
+      }
+
+      /**
+      @enddev
+      **/
 
       tls.on(`analytics`, msg => {
 
@@ -2895,7 +2919,7 @@ class UATCP extends UAPublic {
 
       tls.on(`is_au`, u => {
 
-        if (!valids[u.in]) {
+        if (u.in && !valids[u.in]) {
 
           valids[u.in] = u.in;
 
@@ -2913,11 +2937,11 @@ class UATCP extends UAPublic {
           regreqs.push({log: u.in});
         }
 
-        if (!logs[u.log]) {
+        else if (u.log && !logs[u.log]) {
 
           logs[u.log] = u.log;
 
-          reqs.push({log: u.log})
+          reqs.push({secs: u.log})
         }
 
         for (let valid in dualValids) {
@@ -2936,20 +2960,26 @@ class UATCP extends UAPublic {
 
         tls.emit(`quick_analytics`, {
           all_active_pros: dualValids.length,
-          locus_valid: locusValid});
+          locus_valid: locusValid, reqs: tls.conn.server.clientsCount});
 
       });
 
-      tls.on(`appAnalytics`, msg => {
+      tls.on(`app_analytics`, js => {
 
-        if (!logs[msg.log]) {
+        //poolReqs.push(tls.conn.server.clientsCount);
 
-          logs[msg.log] = msg.log;
+        new Auxll().appAnalytics(A => {
 
-          reqs.push({log: msg.log})
-        }
+          /**
+          @dev; call before async above, if ever bug
 
-        new Auxll().appAnalytics(A => {console.log(logs)
+          if (js.log && !logs[js.log]) {
+
+            logs[js.log] = js.log;
+
+            reqs.push({secs: js.log})
+          }
+          **/
 
           let rawPlus = 0;
 
@@ -2961,25 +2991,39 @@ class UATCP extends UAPublic {
           let poolAct = A[`acts`][0];
 
           let values = [
-            A[`raw`][0][`poolDay`].length, reqs.length, rawPlus,
-            reqs.length, regreqs.length, (reqs.length - regreqs.length),
+            A[`raw`][0][`poolDay`].length, tls.conn.server.clientsCount, rawPlus,
+            tls.conn.server.clientsCount, regreqs.length, (tls.conn.server.clientsCount - regreqs.length),
             A.regs[0][`poolDay`].length, A.regs[0][`pool2`].length, A.regs[0][`pool0`].length, A.regs[0][`gain`].length,
             poolAct[`poolDay`].length, poolAct[`avails`].length, poolAct[`gain`].length];
 
-          tls.emit(`quick_analytics`, {
-            app: values});
+          tls.emit(`analytics_reqs`, {
+            app: values, tls_reqs: tls.conn.server.clientsCount, pool_reqs: poolReqs});
         });
       });
       
       tls.on(`disconnect`, () => {
-
-        //delete valids[cookie.parse(tls.request.headers.cookie).u];
 
         valids = [];
         dualValids = [];
         locusValid = [];
         reqs = [];
         regreqs = [];
+
+        /**
+        @dev; result might vary on endianness
+        **
+
+        if (tlsReqs.hasOwnProperty(tls.id)) {
+
+          delete tlsReqs[tls.id];
+          tlsCount--;
+
+          tls.emit(`analytics_reqs`, {tls_reqs: tlsCount});
+        }
+
+        /**
+        @enddev
+        **/
 
       });
     });
