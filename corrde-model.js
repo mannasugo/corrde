@@ -3133,9 +3133,9 @@ module.exports = {
 
     if (Y_MAX <= 2) yPlots = [0, 1, 2];
 
-    else if (Y_MAX > 2 && Y_MAX <= 4) xPlot = [0, 2, 4];
+    else if (Y_MAX > 2 && Y_MAX <= 4) yPlots = [0, 2, 4];
 
-    else if (Y_MAX > 4 && Y_MAX <= 6) xPlot = [0, 3, 6];
+    else if (Y_MAX > 4 && Y_MAX <= 6) yPlots = [0, 3, 6];
 
     else if (Y_MAX > 6 && Y_MAX <= 8) yPlots = [0, 2, 4, 6, 8];
 
@@ -3187,7 +3187,7 @@ module.exports = {
       
       SVGlays[lay] = [
         `g`, [[
-          `rect`, `.@_pg4`, `&@x>0%`, `&@y>${215 - (lay * 200/(yPlots.length - 1))}`, `&@width>90%`, `&@height>1`]]]
+          `rect`, `.@_pg4`, `&@x>0%`, `&@y>${215 - (lay * 200/(yPlots.length - 1))}`, `&@width>95%`, `&@height>1`]]]
     }
 
     for (let day = 0; day < A.length; day++) {
@@ -3201,13 +3201,13 @@ module.exports = {
 
       let loop = ``, top = ``;
 
-      if (day === 1 || day === 3 || day === 5) loop = `&@style>display:none;`
+      if (day === 1 || day === 3 || day === 5) loop = `@style>display:none;`
 
       if (A[day].poolDay.length > 0) top = A[day].poolDay.length;
       
       SVGCount[day] = [
         `g`, [[
-          `text`, loop, `&@x>${80 - (day * 77.5/(A.length - 1))}%`, `&@y>232.5`, `~@${this.UTCDayMin(A[day].secsUTC)}`], [
+          `text`, loop, `&@x>${82 - (day * 77.5/(A.length - 1))}%`, `&@y>232.5`, `~@${this.UTCDayMin(A[day].secsUTC)}`], [
           `text`, `@style>text-anchor:middle;`, `&@x>${82.5 - (day * 77.5/(A.length - 1))}%`, `&@y>${215 - (parseInt(A[day].poolDay.length) * 207/yPlots[(yPlots.length - 1)])}`, `~@${top}`], [
           `rect`,
           `.@_pg6`,
@@ -3220,6 +3220,31 @@ module.exports = {
     return [
       `svg`, `.@_aXZ _a02`, `&@style>height: ${240}px`, [[`g`, SVGlays], [`g`, SVGCount]]]
   },
+
+  linePlotHour () {
+
+    let SVGCount = [];
+
+    for (let sect = 0; sect < 12; sect++) {
+
+      let secs = ``; let placer = ``;
+
+      if (sect === 0 || sect === 5 || sect === 11) {
+
+        //secs = `${new Date(parseInt((new Date().valueOf() + 3600) - (sect * 300000))).getUTCHours()}${new Date(parseInt((new Date().valueOf() + 3600) - (sect * 300000))).getUTCMinutes()}`;
+      }
+
+      if (sect === 0) placer = `secs`;
+
+      SVGCount[sect] = [
+        `g`, [[
+          `text`, `.@_aA2`, `#@${placer}`, `&@x>${82 - (sect * 77.5/(12 - 1))}%`, `&@y>232.5`, `~@${secs}`]
+      ]];
+    }
+
+    return [
+      `svg`, `#@duaplot`, `.@_aXZ _a02`, `&@style>height: ${240}px`, [[`g`, SVGCount]/*, [`path`, `.@_sV0`, `#@line`, `&@d>M150 100, h4 V130 h16 V100`]*/]]
+  }, 
 
   graphsRepView (A) {
 
@@ -3235,15 +3260,24 @@ module.exports = {
               `div`, [[
                 `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 0 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
               `div`], [
-              `div`, `#@reqs-graph`, [[
+              `div`, `#@reqs-graph`, `.@_sZ2`, [[
                 `div`, [[
                   `div`, `.@_sZ2`, [[
                     `div`, `.@_yZS _gxM _geQ _gMX`, [[
                       `div`, `.@_`, [[`span`, `.@_tXx`, `~@Requests`]]], [
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((7 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
-                    `div`, [this.BarPlotView(A.raw)]]]]]]]]]]]]]]]];
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((7 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                    `div`, [this.BarPlotView(A.raw)]]]]]]]], [
+              `div`, `#@duas-graph`, `.@_sZ2`, [[
+                `div`, [[
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `div`, `.@_`, [[`span`, `.@_tXx`, `~@Daily User Activity`]]], [
+                      `div`, `.@_QZg _gxM`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@active/sec`]]]]]]], [
+                    `div`, [this.linePlotHour()]]]]]]]]]]]]]]]];
   }
 
 }
