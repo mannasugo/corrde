@@ -2859,7 +2859,7 @@ module.exports = {
           `div`, `.@_XsQ _xsQ- _aA2`, [[
             `section`, [[
               `div`, [[
-                `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 0 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
+                `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 50px 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
               `div`], [
               `div`, `#@semver`, [[`div`, `.@_uZM`, [[
                 `div`, `.@_yZS _gxM _geQ _gMX`, [[
@@ -3258,7 +3258,7 @@ module.exports = {
           `div`, `.@_XsQ _xsQ- _aA2`, [[
             `section`, [[
               `div`, [[
-                `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 0 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
+                `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 50px 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
               `div`], [
               `div`, `#@reqs-graph`, `.@_sZ2`, [[
                 `div`, [[
@@ -3267,17 +3267,35 @@ module.exports = {
                       `div`, `.@_`, [[`span`, `.@_tXx`, `~@Requests`]]], [
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((7 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
                     `div`, [this.BarPlotView(A.raw)]]]]]]]], [
               `div`, `#@duas-graph`, `.@_sZ2`, [[
                 `div`, [[
                   `div`, `.@_sZ2`, [[
                     `div`, `.@_yZS _gxM _geQ _gMX`, [[
-                      `div`, `.@_`, [[`span`, `.@_tXx`, `~@Daily User Activity`]]], [
+                      `div`, `.@_`, [[`span`, `.@_tXx`, `~@Daily user activity`]]], [
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
                           `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@active/sec`]]]]]]], [
-                    `div`, [this.linePlotHour()]]]]]]]]]]]]]]]];
+                    `div`, [this.linePlotHour()]]]]]]]], [
+              `div`, `#@regs-graph`, `.@_sZ2`, [[
+                `div`, [[
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `div`, `.@_`, [[`span`, `.@_tXx`, `~@Registered users`]]], [
+                      `div`, `.@_QZg _gxM`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                    `div`, [this.BarPlotView(A.regs)]]]]]]]], [
+              `div`, `#@regs-graph`, `.@_sZ2`, [[
+                `div`, [[
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `div`, `.@_`, [[`span`, `.@_tXx`, `~@Jobs activity`]]], [
+                      `div`, `.@_QZg _gxM`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                    `div`, [this.BarPlotView(A.acts)]]]]]]]]]]]]]]]];
   }
 
 }
