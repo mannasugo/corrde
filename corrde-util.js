@@ -246,7 +246,9 @@ class Auxll {
      ;select * from u
      ;select * from j`, (A, B, C) => {
 
-      let week = [], regulars = [], acts = [], yPlots0 = [], gainCount = 0;
+      let week = [], regulars = [], acts = [], yPlots0 = [], yPlots2 = [], gainCount = 0;
+
+      let yPlotsActs = [];
 
       for (let day = 0; day < 7; day++) {
 
@@ -296,6 +298,8 @@ class Auxll {
           }
         }
 
+        yPlots2.push(regs.length);
+
         let poolActs = [], actsPlus = [], avails = [];
 
         for (let task in B[2]) {
@@ -313,6 +317,8 @@ class Auxll {
           }
         }
 
+        yPlotsActs.push(poolActs.length)
+
         week[day] = {
           day: a,
           gain: gain,
@@ -326,14 +332,16 @@ class Auxll {
           poolDay: regs,
           pool2: regStack2,
           pool0: regStack0,
-          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()};
+          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf(),
+          yPlots: yPlots2};
 
         acts[day] = {
           avails: avails, 
           day: a,
           gain: actsPlus,
           poolDay: poolActs,
-          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf()}
+          secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf(),
+          yPlots: yPlotsActs}
 
       }
 
