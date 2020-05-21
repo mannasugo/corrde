@@ -40,7 +40,7 @@ const Req = (function () {
      */
     call: function (type, url, tag) {
       this.req.open(type, url, true);
-      this.req.setRequestHeader(`Content-Type`, `application/x-www-form-urlencoded`);
+      this.req.setRequestHeader(`Content-Type`, `application/json`); //x-www-form-urlencoded
       this.req.onload = function () {
         tag.to();
       };

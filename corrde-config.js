@@ -17,6 +17,17 @@ let cdto = {
 
 module.exports = {
 
+  reqs: {
+    analytics: `/analytics_reqs/`,
+    devs_ava: `/gp/img-ssl/devs/ava/sq/`,
+    devs_reqs: `/devs_reqs/`,
+    devs_js: `/gp/js/devs_js.js`
+  },
+
+  write_reqs: {
+    devs_ava: `gp/img-ssl/devs/ava/sq/`,
+  },
+
   to: cdto,
 
   lvl_ini_ava: gp + `img-ssl/ini/sq/`,
@@ -151,8 +162,14 @@ module.exports = {
         toward VARCHAR(320) NOT NULL,
         txt TEXT NOT NULL)`,
 
+    devs: 
+      `CREATE TABLE IF NOT EXISTS devs (json LONGTEXT NOT NULL)`,
+
     messages: 
       `CREATE TABLE IF NOT EXISTS messages (json LONGTEXT NOT NULL)`,
+
+    devs_traffic: 
+      `CREATE TABLE IF NOT EXISTS devs_traffic (json LONGTEXT NOT NULL)`,
 
     traffic: 
       `CREATE TABLE IF NOT EXISTS traffic (json LONGTEXT NOT NULL)`,

@@ -25,7 +25,7 @@ class RouteControl {
       Util.UAPublic(``, req, res);
     }
 
-    if (req.method === `POST` && req.url === config.to.reqs) {
+    if (req.method === `POST`) {
 
       let blob = new Buffer.alloc(+req.headers[`content-length`]);
       let endData = ``;
@@ -39,21 +39,31 @@ class RouteControl {
 
       }).on(`end`, () => {
 
-        if (req.headers[`content-type`] === `image/jpeg`) {
-          Util.AJXJPEG(blob, req, res);
-        } else {
-          Util.viaAJX(parse(endData), req, res);
+        if (req.url === config.to.reqs) {
+
+          if (req.headers[`content-type`] === `image/jpeg`) Util.AJXJPEG(blob, req, res);
+          
+          else Util.viaAJX(parse(endData), req, res);
+        }
+
+        else if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {
+
+          if (req.headers[`content-type`] === `image/jpeg`) Util.AJXJPEG(blob, req, res); 
+
+          else Util.AJXReqs(levels, parse(endData), req, res);
         }
       });
     }
 
     if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {
-      Util.UAPublic(levelState, req, res);
+
+      if (req.method === `GET`) Util.UAPublic(levelState, req, res);
     }
 
     else if (level === 3 && lastChar !== `/` || level === 4 && lastChar === `/`) {
       Util.SublevelCalls(levels, req, res);
     }
+
   }
 }
 

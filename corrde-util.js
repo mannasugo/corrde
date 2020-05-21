@@ -348,6 +348,99 @@ class Auxll {
       call({raw: week, regs: regulars, acts: acts});
     });
   }
+
+  availDev (dev_md5, async) {
+
+    new Sql().multi({},
+      `select * from devs`, (A, B, C) => {
+
+        let devObj = [];
+
+        for (let dev in B) {
+
+          let devs = JSON.parse(B[dev].json);
+
+          if (devs.dev_md5 === dev_md5) devObj.push(devs);
+        }
+
+        async({dev: devObj});
+      })
+  }
+
+  logDevs (call) {
+
+    new Sql().multi({},
+      `select * from devs
+      ;select * from devs_traffic`, (A, B, C) => {
+
+        let devObj = [];
+
+        const utc_Z = new Date().valueOf();
+
+        const utc_A = new Date(new Date() - (6 * 86400000)).valueOf();
+
+        for (let dev in B[0]) {
+
+          let logCount = 0;
+
+          let utcCount = 0;
+
+          let diff = 0;
+
+          let utc;
+
+          let logObj = [];
+
+          let devs = JSON.parse(B[0][dev].json);
+
+          //if (devs.dev_md5 === dev_md5) devObj.push(devs);
+
+          devs[`gps`] = false;
+          devs[`pre_utc`] = false;
+          devs[`reqs_per_secs`] = 0.0;
+
+          for (let log in B[1]) {
+
+            let logs = JSON.parse(B[1][log].json);
+
+            if (logs.utc > utc_A && logs.utc < utc_Z && logs.headers.dev_md5 === devs.dev_md5) {
+
+              if (logCount > 0 && logCount%2 !== 0) {
+
+                utc = logs.utc;
+
+                if (utc === NaN) diff = diff
+              }
+
+              else if (logCount > 1 && logCount%2 === 0) {
+
+                if (utc === NaN) diff = diff
+
+                diff = parseInt(logs.utc) - parseInt(utc)
+
+                utcCount += diff;
+
+                devs[`reqs_per_secs`] = ((utcCount/(86400000*7))*100).toFixed(1);
+              }
+
+              logObj.push(logs);
+
+              logObj.sort((a,b) => {return b.utc - a.utc});
+
+              if (logObj[0].gps && (logObj[0].gps !== false || logObj[0].gps !== `false`)) devs[`gps`] = logObj[0].gps;
+
+              devs[`pre_utc`] = logObj[0].utc;
+
+              logCount++
+            }
+          }
+
+          devObj.push(devs);
+        }
+
+        call({dev: devObj})
+      })
+  }
 }
 
 class Sql extends Auxll {
@@ -374,7 +467,9 @@ class Sql extends Auxll {
   ini () {
     this.iniSql.query(config.sql.db, () => {
       this.multiSql.query(
-        `${config.sql.m}
+        `${config.sql.devs}
+        ;${config.sql.devs_traffic}
+        ;${config.sql.m}
         ;${config.sql.messages}
         ;${config.sql.traffic}
         ;${config.sql.u}`);
@@ -426,6 +521,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `contracts`) this.contractsMap();
 
+    if (this.levelState === `devs`) this.toDevs();
+
     if (this.levelState === `getjobs`) this.getJobs();
 
     if (this.levelState === `mail`) this.mailSliced();
@@ -458,7 +555,12 @@ class UAPublic extends Auxll {
 
   subCalls () {
 
-    if (this.levelState[1] === `p`) {
+    if (this.levelState[1] === `devs`) {
+
+      if (this.levelState[2] === `add`) this.addDevs()
+    }
+
+    else if (this.levelState[1] === `p`) {
 
       this.inisumAvail(this.levelState[2], (A, B) => {
 
@@ -1544,6 +1646,128 @@ class UAPublic extends Auxll {
                   this.app.to.end(model.call(pool));})
     
     });
+  }
+
+  toDevs () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`dev_md5`, (A, B) => {
+
+        if (A === true) {
+
+          const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Administration & Management System`,
+        css: CSS,
+        jsState: config.reqs.devs_js}
+
+      this.appAnalytics(A => {
+
+        pool.appendModel = [
+          model.main({
+            appendModel: [model.toDevsView()]
+                    }), model.footer()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));})
+        }
+
+        else if (A === false) {
+
+          let dev_md5 = B;
+
+          this.availDev(dev_md5, A => {
+
+            let dev = A.dev[0];
+
+            this.logDevs(A => {
+
+              let devs = A.dev;
+
+              let ava = ``;
+
+              const pool = {
+                jSStore: JSON.stringify({dev_md5: dev.dev_md5}),
+                title: `Corrde Administration & Management System`,
+                css: CSS,
+                jsState: config.reqs.devs_js}
+
+              pool.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.topDevsView({
+                      ava: ((dev.ava === false) ? ava = ava: ava = dev.ava), 
+                      mail: dev.mail}), 
+                    model.controlsView(), 
+                    model.rootDevsView(dev, devs), 
+                    model.jS(pool), 
+                    model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`), 
+                    model.loadDOMModalView([model.modalView([model.passResetModal()])], `pass-reset-modal-ejs`)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
+
+            
+          }); 
+        }
+      });
+    });
+  }
+
+  addDevs () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+      
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Administrator Creator`,
+        css: CSS,
+        jsState: config.reqs.devs_js}
+
+      this.appAnalytics(A => {
+
+        pool.appendModel = [
+          model.main({
+            appendModel: [model.addDevsView()]
+                    }), model.footer()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));})
+    
+    });
+  }
+
+  getCookie (is, call) {
+
+    let A = true;
+
+    let B = null;
+
+    if (this.app.fro.headers.cookie) {
+
+      let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+      if (!cJar[is]) A = true;
+
+      else {
+
+        A = false;
+
+        B = cJar[is];
+      }
+
+    } 
+
+    else A = true;
+
+    call(A, B);
   }
 }
 
@@ -2758,6 +2982,8 @@ class AJXJPEG {
   AJXCalls () {
 
     if (this.q.file === `ini_ava`) this.iniAva();
+
+    else if (this.q.file === `dev_ava`) this.devAva();
   }
 
   iniAva () {
@@ -2776,6 +3002,38 @@ class AJXJPEG {
 
         this.app.to.writeHead(200, config.reqMime.json);
         this.app.to.end(JSON.stringify(pool));
+      });
+    });
+  }
+
+  devAva () {
+
+    let localSt_ = new Date().valueOf();
+
+    //let mail = crypto.createHash(`md5`).update(`${this.q.dev_md5}`, `utf8`).digest(`hex`);
+
+    const u = config.write_reqs.devs_ava + this.q.dev_md5 + `/`;
+
+    fs.mkdir(u, {recursive: true}, (err) => {
+
+      fs.writeFile(u + localSt_ + `.jpg`, this.file, err => {
+
+        let pool = {reqs_devs_ava: u + localSt_ + `.jpg`}
+
+        new Auxll().availDev(this.q.dev_md5, A => {
+
+          let dev = JSON.stringify(A.dev[0]);
+
+          A.dev[0].ava = `/` + pool.reqs_devs_ava;
+
+          new Sql().multi({}, 
+            `update devs set json = '${JSON.stringify(A.dev[0])}' where json = '${dev}'`,
+            (A, B, C) => {
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify(pool));
+            })
+        })
       });
     });
   }
@@ -2803,6 +3061,15 @@ class UATCP extends UAPublic {
 
     tcp.on(`connection`, tls => {
 
+      if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).dev_md5) {
+
+        tls.handshake[`utc`] = new Date().valueOf();
+
+        tls.handshake.headers[`dev_md5`] = cookie.parse(tls.handshake.headers.cookie).dev_md5;
+        tls.handshake.headers[`gps`] = cookie.parse(tls.handshake.headers.cookie).gps;
+
+        new Sql().to([`devs_traffic`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});
+      }
       /**
       @dev
       **
@@ -3018,7 +3285,7 @@ class UATCP extends UAPublic {
         regreqs = [];
 
         /**
-        @dev; result might vary on endianness
+        @dev; result might vary with endianness
         **
 
         if (tlsReqs.hasOwnProperty(tls.id)) {
@@ -3033,12 +3300,180 @@ class UATCP extends UAPublic {
         @enddev
         **/
 
+        if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).dev_md5) {
+
+          new Sql().to([`devs_traffic`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});}
+
       });
     });
   }
 }
 
+class AJXReqs extends Auxll {
+
+  constructor (levels, args, req, res) {
+    super();
+    this.levels = levels;
+    this.args = args;
+    this.app = {fro: req, to: res};
+  }
+
+  createCookie (field, value) {
+
+    this.app.to.setHeader(`Set-Cookie`, cookie.serialize(field, value, {
+      httpOnly: true,
+      path: `/`,
+      secure: true}));
+  }
+
+  AJXCalls () {
+
+    if (this.levels[1] === `devs_reqs`) {
+
+      if (this.args.createDev) this.createDev(JSON.parse(this.args.createDev));
+
+      else if (this.args.accessDev) this.accessDev(JSON.parse(this.args.accessDev));
+
+      else if (this.args.devPassReset) this.devPassReset(JSON.parse(this.args.devPassReset));
+
+      else if (this.args.setGPSCookie) this.setGPSCookie(JSON.parse(this.args.setGPSCookie));
+    }
+  }
+
+  createDev (args) {
+
+    if (args.devs_token !== `mannasugo`) {
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({exit: false}))
+    }
+
+    else {
+
+      let log = new Date().valueOf();
+
+      let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+      let pass_sum = crypto.createHash(`md5`).update(args.devs_pass, `utf8`);
+
+      new Sql().to([`devs`, {
+        json: JSON.stringify({
+          access: [`universal`],
+          alt: args.devs_name,
+          alt2: args.devs_surname,
+          ava: false,
+          dev: `001`,
+          dev_log: log,
+          dev_md5: log_sum,
+          group: `Research & Development`,
+          mail: `mannasugo@devs.corrde.com`,
+          role: `Systems Architect`,
+          pass: pass_sum.digest(`hex`),
+          pass_reset: false})}], (A, B, C) => {
+
+            this.createCookie(`dev_md5`, log_sum);
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true}))
+        })
+    }
+  }
+
+  accessDev (args) {
+
+    let conca = `select * from devs`;
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      let poolDev = [];
+
+      for (let dev in B) {
+
+        let obj = JSON.parse(B[dev].json)
+
+        if (obj.dev === args.dev) poolDev.push(obj);
+      }
+
+      if (poolDev.length === 1) {
+
+        let hexPass = crypto.createHash(`md5`).update(args.pass, `utf8`);
+
+        if (poolDev[0].pass === hexPass.digest(`hex`)) {
+
+          this.createCookie(`dev_md5`, poolDev[0].dev_md5);
+
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify({exit: true}));
+        }
+      }
+    });
+  }
+
+  getCookie (is, call) {
+
+    let A = true;
+
+    let B = null;
+
+    if (this.app.fro.headers.cookie) {
+
+      let cJar = cookie.parse(this.app.fro.headers.cookie);
+
+      if (!cJar[is]) A = true;
+
+      else {
+
+        A = false;
+
+        B = cJar[is];
+      }
+
+    } 
+
+    else A = true;
+
+    call(A, B);
+  }
+
+  devPassReset (args) {
+
+    this.getCookie(`dev_md5`, (A, B) => {
+
+      if (A === false) {
+
+        this.availDev(args.dev_md5, A => {
+
+          let dev = JSON.stringify(A.dev[0]);
+
+          let pass_md5 = crypto.createHash(`md5`).update(args.pass_reset, `utf8`);
+
+          A.dev[0].pass = pass_md5.digest(`hex`);
+          A.dev[0].pass_reset = true;
+
+          new Sql().multi({}, 
+            `update devs set json = '${JSON.stringify(A.dev[0])}' where json = '${dev}'`,
+            (A, B, C) => {
+
+            this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify({exit: true}));
+            })
+        })
+      }
+    });
+  }
+
+  setGPSCookie (q) {
+
+    this.createCookie(`gps`, JSON.stringify(q.gps));
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify({exit: true}));
+  }
+}
+
 module.exports = {
+
+  AJXReqs: (level, arg, req, res) => new AJXReqs(level, arg, req, res).AJXCalls(),
 
   mysql () {
     new Sql().ini();

@@ -385,7 +385,7 @@ body {
   font-size: 11px;
 }
 
-._gxM, ._gcQ {
+._gxM, ._gcQ, ._x2y {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
@@ -616,7 +616,7 @@ body {
 
 .ChevFroGrayColor, .ChevToGrayColor, .closelighticonUA, .DelColor, 
 .dissentlighticonUA, .electiconUA, .FroColor, .MailColor, .MugColor, 
-.poolsiconUA, .ProceedColor, .rooticonUA, .SearchColor, .SellColor, 
+.poolsiconUA, .ProceedColor, .RootGray, .rooticonUA, .SearchColor, .SellColor, 
 .StarColor, .StarMiniColor, .StatsCircleColor, .StatsPlaneColor, 
 .twineiconUA, .verifylighticonUA {
   background-image: url(/gp/css/icons/canvas.png);
@@ -625,7 +625,7 @@ body {
 .closelighticonUA, .DelColor, .dissentlighticonUA, .electiconUA,
 .FilterColor, .GramColor, .Graph000, .FroColor, 
 .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
-.poolsiconUA, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
+.poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .verifylighticonUA, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
@@ -688,6 +688,10 @@ body {
 
 .ProceedColor {
   background-position: -166px -180px;
+}
+
+.RootGray {
+  background-position: -258px -120px;
 }
 
 .SearchColor {
@@ -2329,6 +2333,172 @@ table > thead > tr > th {
   fill: none;
 }
 
+._Ssa {
+  margin-top: 30px;
+}
+
+._gDa {
+  -webkit-flex-basis: 52px;
+  -ms-flex-preferred-size: 52px;
+  flex-basis: 52px;
+  height: 100%;
+}
+
+._STa {
+  padding: 45px 0 0;
+  background-color: #fff;
+  width: 52px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 23;
+  background-clip: border-box;
+  box-shadow: 1px 0 3px rgba(26,26,26, .1);
+  background-clip: content-box;
+}
+
+._gDE {
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 0%;
+  -ms-flex: 1 0 0%;
+  flex: 1 0 0%;
+}
+
+._gyQ {
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+._xSe {
+  width: 100%;
+  max-width: 1050px;
+}
+
+._cx4 { /* 100/4 */
+  padding: 30px 25px 25px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+._Xsa {
+  font-weight: 600;
+  line-height: 1.6em;
+  letter-spacing: 0.5px;
+}
+
+._cX5 { /* X explicit to left and right, x inclusive of all axes */
+  padding: 0 20px;
+}
+
+._X4- {
+  width: 100%;
+  min-height: 1px;
+  padding: 0 12px;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+._x10 {width: 100%}
+
+._sy2 {
+  margin-left: 75px;
+}
+
+@media only screen and (min-width: 1200px) {
+
+  ._Xsa {
+    padding: 0 30px;
+    border-left: 1px solid #ebebeb;
+    max-width: 850px;
+  }
+
+  ._cy0 {
+    padding: 0 20px 0 20px;
+    border-left: 1px solid #ebebeb;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  ._x10 {width: 83.3333333%}
+
+  ._x2y {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  ._x60 {width: 16.66666667%} /* 6.0*50 */
+
+  ._x40 {width: 25%} /* 4.0*50 */
+
+  ._x17 {width: 58.33333%} /*1.7 * 50*/
+
+  ._x13 {width: 75%}
+
+  ._x10 {width: 100%}
+
+  ._X4- {max-width: 23%}
+
+  ._x2y {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+
+  ._gV0 {
+    display: none;
+  }
+
+  ._sy2 {
+    margin: 50px 0;
+  }
+
+  ._x2y {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  ._cX0 {
+    padding: 10px 25px;
+  }
+
+  ._X4- {
+    min-width: 90%;
+  }
+}
+
 @media (min-width: 414px) {
 
   ._QXs {
@@ -2755,3 +2925,4 @@ table > thead > tr > th {
     width: 100%
   }
 }
+

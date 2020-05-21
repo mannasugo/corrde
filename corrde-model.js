@@ -1846,7 +1846,7 @@ module.exports = {
                 `div`, `.@_cQX`, [[
                   `input`, `#@pass`, `.@_-Yz`, config.placePass, config.valPass]]], [
                   `div`, `.@_agM _gM_a _cQc`, [[
-                    `a`, `#@signin`, `.@_TX_a _atX _c5Q`, config.nullSrc + `in`, config.in_to]]]]]]]]]]], [`div`, `.@_-ZCc`]]]
+                    `a`, `#@signin`, `.@_TX_a _atX _c5Q`, config.nullSrc + `in`, config.in_to]]]]]]]]]]], [`div`, `.@_-ZCc`]]];
   },
 
   inMeta () {
@@ -3122,7 +3122,13 @@ module.exports = {
                 `div`, `.@_-Zz _gxM _gMX`, [[
                   `div`, `.@_gMX gcQ`, [[
                     `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@mug-ejs`, `&@href>javascript:;`, `~@Edit Profile`]]]]]]]]], 
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@mug-ejs`, `&@href>javascript:;`, `~@Edit Profile`]]]]]]]]], [
+              `div`, `.@_sZ2`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_aA6`, `~@Standard Rate`]]], [
+                  `div`, `.@_QZg _gxM`, [[`p`, `.@_axS _gxM _tXx`, [[`span`, `~@$`], [`span`, `.@_btx`, `~@${C.is_valid.appraisal}`]]], [
+              `div`, `.@_gM_a _agM _guZ _axS`, [[
+                `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Hourly`]]]]]]]]], 
               availDesc(), availFields(), /*availPortfolio(),*/ availt2(), availScopes(), availt0()]]]]]], [
         `script`, `&@type>text/javascript`, `~@${preJS}`]]]
   },
@@ -3296,6 +3302,286 @@ module.exports = {
                         `div`, `.@_gM_a _agM _guZ`, [[
                           `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
                     `div`, [this.BarPlotView(A.acts)]]]]]]]]]]]]]]]];
+  },
+
+  toDevsView () {
+
+     return [
+      `section`, [[
+            `div`, `.@_aXz _xQz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@devs`]]], [
+              `div`, `.@_QZg`, [[
+                    `div`, `.@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@devs-add-ejs`, `&@href>/devs/add/`, `~@+ Add Dev`]]]]]]], [
+        `div`, `.@_cXz`, [[
+                  `div`, `.@_XsQ`, [[
+                    `div`, [[
+                      `div`, `.@_SaQ`, [[
+                        `h4`, `.@_uHg _-SZ6`, `~@Corrde Administrator login`], [
+                        `form`, `.@_cQc`, [[
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@dev-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>Access Code`, `&@type>text`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@pass-tjs`, `.@_-Yz _txx _aA6`, config.placePass, config.valPass]]], [
+                            `div`, `.@_agM _gM_a _cQc`, [[
+                              `a`, `#@to-devs-ejs`, `.@_TX_a _atX _c5Q`, `&@href>javascript:;`, `~@Sign in`]]]]]]]]]]], [`div`, `.@_-ZCc`]]]]];
+  },
+
+  addDevsView () {
+
+     return [
+      `section`, [[
+            `div`, `.@_aXz _xQz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@devs`]]], [
+              `div`, `.@_QZg`, [[
+                    `div`, `.@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@devs-add-ejs`, `&@href>/devs/`, `~@login`]]]]]]], [
+        `div`, `.@_cXz`, [[
+                  `div`, `.@_XsQ`, [[
+                    `div`, [[
+                      `div`, `.@_SaQ`, [[
+                        `h4`, `.@_uHg _-SZ6`, `~@Corrde Administrator Creator`], [
+                        `form`, `.@_cQc`, [[
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@token-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>Access Token`, `&@type>text`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@pre-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>First name`, `&@type>text`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@suff-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>Surname`, `&@type>text`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@pass-tjs`, `.@_-Yz _txx _aA6`, config.placePass, config.valPass]]], [
+                            `div`, `.@_agM _gM_a _cQc _guZ`, [[
+                              `a`, `#@add-devs-ejs`, `.@_TX_a _atX _c5Q _utQ`, `&@href>javascript:;`, `~@+ Add Dev`]]]]]]]]]]], [`div`, `.@_-ZCc`]]]]];
+  },
+
+  controlsView () {
+
+    let iconRules = [`RootGray`, `MugColor`, `MailColor`, `StatsPlaneColor`];
+
+    let to = [`/devs/`, `/devs/mug/`, `/devs/mail/`, `/devs/analytics/`];
+
+    let model = [];
+
+    iconRules.forEach((rule, index) => {
+
+      model[index] = [`div`, `.@_Ssa`, [[
+        `a`, `.@-_tX ${rule}`, `&@href>${to[index]}`]]];
+    });
+
+    return [`div`, `.@_gV0 _gDa`, [[
+      `div`, `.@_STa`, [[
+        `div`, `.@_gDE`, [[`div`, `.@_gyQ`, model]]]]]]];
+  },
+
+  devSysAlert (Obj) {
+
+    let model = [];
+
+    let modelAlert = alertObj => {
+
+      return [
+            `div`, `#@${alertObj.obj_placer}`, `.@_cx4 _gxM _geQ _gMX`, [ [
+              `div`, `.@_x10`, [[
+                `div`, `.@_gxM _x2y`, `&@style>margin: 0 auto;`, [[
+                  `div`, `.@_x40 _sZ2`, [[`div`, `.@_tXx _a2X _aAe`, `~@Corrde Devs system`], [`div`, `.@_a2X`, `~@${alertObj.setting}`]]], [
+                  `div`, `.@_x17`, [[
+                    `div`, `.@_Xsa`, [[
+                      `a`, `&@href>javascript:;`, `&@style>line-height: 1.6em; padding: 0 0 20px`, `.@_aA2`, `~@${alertObj.alert}`]]]]], [
+                  `div`, `.@_x60`, [[`div`, `.@_cy0`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[
+                          `a`,`#@${alertObj.placer}`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@${alertObj.to}`]]]]]]]]]]]]]
+    }
+
+    if (Obj.ava === false || Obj.pass_reset === false) {
+      let avaObj = {
+        alert: `For administrative assurances you need 
+                to provide an avatar photo for identification, 
+                please upload a photo capturing your front profile clearly.`, obj_placer: `ava-obj-ejs`, placer: `place-devs-ava-ejs`, setting: `profile settings`, to: `upload photo`};
+
+      let passObj = {
+        alert: `For security reasons, you are required 
+                to change your system provided password, 
+                you should choose a personalised and strong 
+                password, preferrably of an alpha-numeric combination 
+                with no whitespace character.`, obj_placer: `reset-obj-ejs`, placer: `reset-devs-pass-ejs`, setting: `security settings`, to: `set password`};
+
+      model = [
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [[
+            `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Alerts`]]], [
+            `div`, `.@_QZg _gxM`, []]]], 
+          ((Obj.ava === false) ? avaObj = modelAlert(avaObj): avaObj = []),
+          ((Obj.pass_reset === false) ? passObj = modelAlert(passObj): passObj = [])]]
+    }
+
+    return model;
+  },
+
+  avaSaveModal () {
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@ava-place-exit-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Revert`]]]]], [
+          `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Set Avatar Photo`]]], [
+          `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM`, [[`a`, `#@ava-place-save-ejs`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Save`]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, [[
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_4sC _dMG _sZ2`, [[
+                `label`, `&@style>width:150px;height:150px`, `.@_cCq _gS6`, `#@devs-ava-ejs`, `&@for>file`, `config.to_ava`, [[
+                  `img`, `#@devs-ava-ejs`, `.@_aWz`]]], [
+                `p`, `.@_axX`, `~@Click on avatar space to upload or change photo`], 
+                this.inputFile()]]]]]]]]
+  },
+
+  passResetModal () {
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _sZ2`, [ [
+          `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Reset Password`]]], [
+          `div`, `.@_QZg _gMz`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@pass-reset-exit-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, [[
+          `div`, `#@reset-response-ejs`, `.@_-Zz _sZ2`, `&@style>padding: 14px; border: 1px solid #ffacac; border-radius: 16px` , [[
+            `p`, `#@pass-match-false`, `.@_aA6`, `~@*passwords do not match.`], [
+            `p`, `#@pass-match-true`, `.@_aA6`, `~@*your changes have been saved successfully.`]]],[
+            `div`, `.@_sZ2`, [[
+                        `form`, `.@_cQc`, [[
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@pass-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>New password`, config.valPass]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@reset-pass-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>Re-type new password`, `&@type>password`]]], [
+                            `div`, `.@_agM _gM_a _cQc _guZ`, [[
+                              `a`, `#@reset-pass-devs-save-ejs`, `.@_TX_a _atX _c5Q _utQ`, `&@href>javascript:;`, `~@reset password`]]]]]]]]]]]
+  },
+
+  devsStat (Obj) {
+
+    let model = [];
+
+    let ava = ``;
+
+    Obj.forEach((dev, e) => {
+
+      model[e] = [
+        `div`, `.@_X4-`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:60px;height:60px`, [[
+            `img`, `.@_aWz`, `&@src>${((dev.ava === false) ? ava = ava: ava = dev.ava)}`, `&@alt>avatar`]]], [
+          `div`, `.@_eYG`, [[
+            `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${dev.alt} ${dev.alt2}`]]], [
+            `div`, `.@_gxM _geQ`, [[
+              `span`, `.@_aA6 _a2X`, `~@${dev.role}`]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, [[`span`, `.@_aA6`, `~@Availability`]]], [
+            `div`, `.@_QZg _gxM`, [[
+              `div`, [[`svg`, `.@_zg0`, [[`g`, [[
+                `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
+                `circle`, `&@style>stroke-dashoffset: ${600-parseFloat(dev.reqs_per_secs)/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]], [
+                `div`, `.@_-cC4 _a00`, [[`span`, `~@${dev.reqs_per_secs}`], [`span`, `&@style>font-size:10px`, `~@%`]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX`, [[
+            `div`, [[`span`, `.@_aA2`, `~@Last Seen`]]], [
+            `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X`, `~@${this.log(dev.pre_utc)}`]]]]], [
+                `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                  `div`, [[`span`, `.@_aA6`, `~@${(dev.gps === false ? dev.gps = `location disabled`: dev.gps = dev.gps)}`]]]]]]];
+    });
+
+    return model;
+  },
+
+  rootDevsView (Obj, Obj2) {
+
+    return [`main`, `.@_aA2 _sy2`, [[
+      `div`, `.@_sZ2 _cX0`, [[`div`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@${Obj.group}`], [`div`, `.@_a2X`, `~@${Obj.role}`]]], [
+      `div`, `.@_pV0`], [
+      `div`, `.@_sZ2 pV0`, [[
+        `div`, `.@xSe`, [this.devSysAlert(Obj)]], [
+          `div`, `.@_sZ2 _-Zz`, [[
+            `div`, `.@_yZS _gxM _geQ _gMX _uZM`, [[
+                      `div`, `&@style>letter-spacing:0.75px`, `.@_gxM`, [[`span`, `.@_tXx`, `~@Work `]]], [
+                      `div`, `.@_QZg _gxM _cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]], [
+            `div`, `&@style>line-height: 1.6em;letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[`div`, `.@_AZc`, [[`div`, [[`div`, `.@_AZx`, [[`div`, `.@_AZs _gxM`, [[
+                `div`, `.@_X4-`, [[
+                  `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [ [
+                  `div`, `.@_ZSg _ZCg _eYG`, [[
+                    `div`, `.@_QxM`, [[`span`, `.@_tXx _aAe _a2X`, `~@Firmware intergration`]]], [
+                    `div`, `.@_gxM _geQ`, [[
+                      `span`, `.@_aA6`, `~@intergrate firmware driver`]]]]]]], [
+                    `div`, `.@_QZg`, [[
+                      `div`, [[
+                        `svg`, `.@_zg0`, [[
+                          `g`, [[
+                            `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
+                            `circle`, `&@style>stroke-dashoffset: ${600-47/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]], [
+              `div`, `.@_-cC4 _a00`, [[`span`, `~@47`], [`span`, `~@%`]]]]]]]]]]]]]]]]]]]]]]]]], [
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [[
+              `div`, `&@style>letter-spacing:0.75px`, `.@_gxM`, [[`span`, `.@_tXx`, `~@Team `]]], [
+              `div`, `.@_QZg _gxM _cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]], [
+            `div`, `.@_gxM _yZS _cX0 _aYS`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Add Team Member`]]]]], [
+            `div`, `&@style>letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[`div`, `.@_AZc`, [[`div`, [[`div`, `.@_AZx`, [[`div`, `.@_AZs _gxM`, this.devsStat(Obj2)]]]]]]]]]]]]], [
+          `div`, `.@_sZ2 _-Zz`, [[
+            `div`, `.@_yZS _gxM _geQ _gMX _uZM`, [[
+                      `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Tasks`]]], [
+                      `div`, `.@_QZg _gxM`, []]]], [
+                      `div`, `&@style>padding:25px 0 0`, `.@_gxM _yZS`, [[
+                        `div`, `.@_gM_a _agM _guZ`, [[
+                          `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Assign a Task`]]]]], [
+            `div`, `.@_cx4 _gxM _geQ _gMX`, [ [
+              `div`, `.@_x10`, [[
+                `div`, `.@_gxM  _gxM _geQ _gMX`, `&@style>margin: 0 auto;`, [[
+                  `div`, `.@_x40`, [[`div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                    `img`, `.@_aWz`, `&@src>`, `&@alt>avatar`]]], [
+                  `div`, `.@_eYG`, [[
+                    `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@Dennis Mutalania`]]], [
+                    `div`, `.@_gxM _geQ`, [[
+                      `span`, `.@_aA6 _a2X`, `~@Product Design`]]]]]]]]], [
+                  `div`, `.@_x13`, [[
+                    `div`, `.@_Xsa`, [[
+                      `a`, `&@href>javascript:;`, `&@style>line-height: 1.6em`, `.@_aA2`, `~@For security reasons, you are required to change your system provided password, you should choose a personalised and strong password, preferrably of an alpha-numeric combination with no whitespace character.`]]]]]]]]]]], [
+            `div`, `.@_cx4 _gxM _geQ _gMX`, [ [
+              `div`, `.@_x10`, [[
+                `div`, `.@_gxM  _gxM _geQ _gMX`, `&@style>margin: 0 auto;`, [[
+                  `div`, `.@_x40`, [[`div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                    `img`, `.@_aWz`, `&@src>`, `&@alt>avatar`]]], [
+                  `div`, `.@_eYG`, [[
+                    `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@Alfred Hitchcock`]]], [
+                    `div`, `.@_gxM _geQ`, [[
+                      `span`, `.@_aA6 _a2X`, `~@Customer`]]]]]]]]], [
+                  `div`, `.@_x13`, [[
+                    `div`, `.@_Xsa`, [[
+                      `a`, `&@href>javascript:;`, `&@style>line-height: 1.6em`, `.@_aA2`, `~@For security reasons, you are required to change your system provided password, you should choose a personalised and strong password, preferrably of an alpha-numeric combination with no whitespace character.`]]]]]]]]]]]]]]]]];
+  },
+
+  rootView (pool ) {
+    return [
+      `span`, `#@corrde-root`, pool.appendModel];
+  },
+
+  topDevsView (pool) {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@devs`]]], [
+              `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${pool.mail}`], [
+                `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`, `&@alt>avatar`]]]]]]]]]]]]]
   }
 
 }
