@@ -3322,7 +3322,7 @@ module.exports = {
                         `h4`, `.@_uHg _-SZ6`, `~@Corrde Administrator login`], [
                         `form`, `.@_cQc`, [[
                           `div`, `.@_cQX`, [[
-                            `input`, `#@dev-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>Access Code`, `&@type>text`]]], [
+                            `input`, `#@dev-tjs`, `.@_-Yz _txx _aA6`, `&@placeholder>work email`, `&@type>text`]]], [
                           `div`, `.@_cQX`, [[
                             `input`, `#@pass-tjs`, `.@_-Yz _txx _aA6`, config.placePass, config.valPass]]], [
                             `div`, `.@_agM _gM_a _cQc`, [[
@@ -3377,37 +3377,113 @@ module.exports = {
         `div`, `.@_gDE`, [[`div`, `.@_gyQ`, model]]]]]]];
   },
 
-  devSysAlert (Obj) {
+  tailControls () {
+
+    let rules = [`RootGray`, `MugColor`, `MailColor`, `StatsPlaneColor`];
+
+    let to = [`/devs/`, `/devs/mug/`, `/devs/mail/`, `/devs/analytics/`];
+
+    let tail = [];
+
+    rules.forEach((rule, e) => {
+
+      tail[e] = [
+        `div`, `.@_geQ _gMX`, [[
+          `a`, `.@-_tX ${rule}`, `&@href>${to[e]}`]]];
+    });
+
+    return [
+      `div`, `&@style>max-width:100%`, `.@_gHm _aGX _-gs -gV0`, [[
+        `div`, `.@_xGy`, [[`div`, `&@style>background:#fff`, `.@_gxM _gMX _uxq _egZ`, tail]]]]];
+  },
+
+  devSysAlert (Obj, MailObj) {
 
     let model = [];
+
+    let mail = [];
 
     let modelAlert = alertObj => {
 
       return [
-            `div`, `#@${alertObj.obj_placer}`, `.@_cx4 _gxM _geQ _gMX`, [ [
-              `div`, `.@_x10`, [[
-                `div`, `.@_gxM _x2y`, `&@style>margin: 0 auto;`, [[
-                  `div`, `.@_x40 _sZ2`, [[`div`, `.@_tXx _a2X _aAe`, `~@Corrde Devs system`], [`div`, `.@_a2X`, `~@${alertObj.setting}`]]], [
-                  `div`, `.@_x17`, [[
-                    `div`, `.@_Xsa`, [[
-                      `a`, `&@href>javascript:;`, `&@style>line-height: 1.6em; padding: 0 0 20px`, `.@_aA2`, `~@${alertObj.alert}`]]]]], [
-                  `div`, `.@_x60`, [[`div`, `.@_cy0`, [[
-                        `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`,`#@${alertObj.placer}`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@${alertObj.to}`]]]]]]]]]]]]]
+        `div`, `#@${alertObj.obj_placer}`, `.@_cx4 _gxM _geQ _gMX`, [[
+          `div`, `.@_x10`, [[
+            `div`, `.@_gxM _x2y`, `&@style>margin: 0 auto;`, [[
+              `div`, `.@_x40 _sZ2`, [[`div`, `.@_tXx _a2X _aAe`, `~@Corrde Devs system`], [`div`, `.@_a2X`, `~@${alertObj.setting}`]]], [
+              `div`, `.@_x17`, [[
+                `div`, `.@_Xsa`, [[
+                  `a`, `&@href>javascript:;`, `&@style>line-height: 1.6em; padding: 0 0 20px`, `.@_aA2`, `~@${alertObj.alert}`]]]]], [
+              `div`, `.@_x60`, [[`div`, `.@_cy0`, [[
+                `div`, `.@_gM_a _agM _guZ`, [[
+                  `a`,`#@${alertObj.placer}`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@${alertObj.to}`]]]]]]]]]]]]]
     }
 
-    if (Obj.ava === false || Obj.pass_reset === false) {
+    let modelMail = ObjMail => {
+
+      return [
+        `div`, `.@_cx4 _gxM _geQ _gMX`, [[
+          `div`, `.@_x10 _x00`, [[
+            `div`, `.@_gxM _x2y _gMX`, `&@style>margin: 0 auto;`, [[
+              `div`, `.@_x40`, `&@style>padding: 0 15px 0 0`, [[
+                `div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                  `img`, `.@_aWz`, `&@src>${ObjMail.ava}`, `&@alt>avatar`]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@_tXx aA2`, `~@${ObjMail.alt}`]]], [
+                    `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X _tXv`, `~@${this.log(ObjMail.utc)}`]]]]], [
+                  `div`, `.@_gxM _geQ`, [[
+                    `span`, `.@_aA6 _a2X`, `~@${ObjMail.dev_group}`]]]]]]]]], [
+              `div`, `.@_x13`, [[
+                `div`, `.@_Xsa`, [[
+                  `a`, `&@href>/devs/mail/${ObjMail.mail_md5}/`, `&@style>line-height: 1.6em`, `.@_aA2 _tXv`, `~@${ObjMail.msg}`]]]]]]]]]]]
+    }
+
+    let msgs = msg => {
+
+      msg.forEach((obj, e) => {
+
+        let g;
+
+        if (msg[e].group === `alerts`) {
+
+          if (msg[e].type === `push dev`) {
+
+            g = {
+              ava: msg[e].src_ava,
+              alt: msg[e].alt_src,
+              dev_group: msg[e].src_group,
+              mail_md5: msg[e].mail_md5,
+              utc: msg[e].mail_log,
+              msg: 
+                `Your new addition to the Corrde Team is all set to go! The user can access the administration panel using these credentials`}
+
+              if (Obj.dev_md5 !== msg[e].src_md5) {
+
+                g[`msg`] = 
+                  `Welcome to the Corrde Development Team, you are all set to go! Below are your work designations and credentials you may use`
+              }
+          }
+        
+          mail[e] = modelMail(g)}
+      });
+
+      return mail;
+    }
+
+    if (Obj.ava === false || Obj.pass_reset === false || MailObj.length > 0) {
+
       let avaObj = {
-        alert: `For administrative assurances you need 
-                to provide an avatar photo for identification, 
-                please upload a photo capturing your front profile clearly.`, obj_placer: `ava-obj-ejs`, placer: `place-devs-ava-ejs`, setting: `profile settings`, to: `upload photo`};
+        alert: 
+          `For administrative assurances you need 
+          to provide an avatar photo for identification, 
+          please upload a photo capturing your front profile clearly.`, obj_placer: `ava-obj-ejs`, placer: `place-devs-ava-ejs`, setting: `profile settings`, to: `upload photo`};
 
       let passObj = {
-        alert: `For security reasons, you are required 
-                to change your system provided password, 
-                you should choose a personalised and strong 
-                password, preferrably of an alpha-numeric combination 
-                with no whitespace character.`, obj_placer: `reset-obj-ejs`, placer: `reset-devs-pass-ejs`, setting: `security settings`, to: `set password`};
+        alert: 
+          `For security reasons, you are required 
+          to change your system provided password, 
+          you should choose a personalised and strong 
+          password, preferrably of an alpha-numeric combination 
+          with no whitespace character.`, obj_placer: `reset-obj-ejs`, placer: `reset-devs-pass-ejs`, setting: `security settings`, to: `set password`};
 
       model = [
         `div`, `.@_sZ2`, [[
@@ -3415,7 +3491,7 @@ module.exports = {
             `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Alerts`]]], [
             `div`, `.@_QZg _gxM`, []]]], 
           ((Obj.ava === false) ? avaObj = modelAlert(avaObj): avaObj = []),
-          ((Obj.pass_reset === false) ? passObj = modelAlert(passObj): passObj = [])]]
+          ((Obj.pass_reset === false) ? passObj = modelAlert(passObj): passObj = []), [`div`, msgs(MailObj)]]]
     }
 
     return model;
@@ -3466,9 +3542,9 @@ module.exports = {
 
     let model = [];
 
-    let ava = ``;
-
     Obj.forEach((dev, e) => {
+
+      let ava = ``;
 
       model[e] = [
         `div`, `.@_X4-`, [[
@@ -3489,19 +3565,102 @@ module.exports = {
             `div`, [[`span`, `.@_aA2`, `~@Last Seen`]]], [
             `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X`, `~@${this.log(dev.pre_utc)}`]]]]], [
                 `div`, `.@_yZS _gxM _geQ _gMX`, [[
-                  `div`, [[`span`, `.@_aA6`, `~@${(dev.gps === false ? dev.gps = `location disabled`: dev.gps = dev.gps)}`]]]]]]];
+                  `div`, [[`span`, `.@_aA6`, `~@${(dev.gps === `false` || dev.gps === false ? dev.gps = `location disabled`: dev.gps = dev.gps)}`]]]]]]];
     });
 
     return model;
   },
 
-  rootDevsView (Obj, Obj2) {
+  appendDevsModal () {
+    
+    let teams = [
+      [`Research & Development`, [`Co-Systems Architect`, `Data Scientist`, `Co-Founder`]],
+      [`Engineering`, [
+        `Network Engineer`,
+        `Node.js Developer`, 
+        `Senior IOS Developer`, 
+        `IOS Developer`, 
+        `Senior Android Developer`, 
+        `Android Developer`, 
+        `Cryptographer`,
+        `Database Administrator`, 
+        `System Administrator`]],
+      [`Product Design`, [`Senior UX Developer`, `Front-end Developer`]],
+      [`Communications & Internal Relations`, [`Head Operations`, `Communications Director`, `Head Marketing`]],
+      [`User Experience`, [`Calls & Mail Support`, `Content Manager`]]];
+
+    let teamModel = [];
+
+    teams.forEach((team, e) => {
+
+      let roles = []
+
+      team[1].forEach((role, e2) => {
+
+        roles[e2] = [
+          `div`, [[
+            `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+              `label`, `.@_tXv`, `&@role>radio`, [[
+                `input`, `&@type>radio`, `#@role-ejs`, `&@value>${team[1][e2]}`, `&@name>role-ejs`], [
+                `span`, `.@_tCw _aA2 _tXx`, `~@${team[1][e2]}`]]]]]]];
+      });
+
+      teamModel[e] = [
+        `div`, `#@team`, [[
+          `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+            `label`, `.@_tXv`, `&@role>radio`, [[
+              `input`, `&@for>${e}`, `&@type>radio`, `#@team-ejs`, `&@value>${team[0]}`, `&@name>team-ejs`], [
+              `span`, `.@_tCw aA2 _tXx`, `~@${team[0]}`]]]]], [
+          `div`, `.@_-Zz`, `&@team>${e}`, `#@roles`, roles]]]
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ sZ2`, [ [
+          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Add a Team Member`]]], [
+          `div`, `.@_QZg _gMz`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-dev-exit-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
+          `div`, `#@add-devs-response-ejs`, `.@_-Zz _sZ2`, `&@style>padding: 14px; border: 1px solid #ffacac; border-radius: 16px` , [[
+            `p`, `#@add-devs-false`, `.@_aA6`, `~@*invalid or empty input.`], [
+            `p`, `#@pass-match-true`, `.@_aA6`, `~@*your changes have been saved successfully.`]]],[
+            `div`, `.@_sZ2`, teamModel], [
+            `div`, [[
+              `div`, `.@_yZS _gxM geQ gMX _uZM`, [[`span`, `.@_tXx`, `~@Names`]]], [
+                `div`, `.@_UFA _cS2`, [[
+                  `input`, `#@add-name-devs-tjs`, `.@_RRD _Ccs`, `&@autocomplete>off`, `&@placeholder>Firstname`]]], [
+                `div`, `.@_UFA _cS2`, [[
+                  `input`, `#@add-surname-devs-tjs`, `.@_RRD _Ccs`, `&@autocomplete>off`, `&@placeholder>Surname`]]]]]]], [
+          `div`, `#@add-dev-see-ejs`, `.@_azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
+              `div`, `.@_gMX gcQ`, [[
+                `div`, `.@_gM_a _agM _gMX`, `&@style>max-width: 500px`, [[
+                  `a`, `#@add-dev-ejs`, `inlineJSON`, `.@_TX_a _atX _gMX`, `&@href>javascript:;`, `~@Add to Team`]]]]]]]]]]]
+  },
+
+  rootDevsView (Obj, MailObj, Obj2) {
+
+    let appendDev = () => {
+
+      let model = [];
+
+      if (Obj.access.indexOf(`universal`) !== -1) {
+
+        model =  [
+            `div`, `.@_gxM _yZS _cX0 _aYS`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `#@append-devs-ejs`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Add Team Member`]]]]]
+      }
+
+      return model;
+    }
 
     return [`main`, `.@_aA2 _sy2`, [[
       `div`, `.@_sZ2 _cX0`, [[`div`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@${Obj.group}`], [`div`, `.@_a2X`, `~@${Obj.role}`]]], [
       `div`, `.@_pV0`], [
       `div`, `.@_sZ2 pV0`, [[
-        `div`, `.@xSe`, [this.devSysAlert(Obj)]], [
+        `div`, `.@xSe`, [this.devSysAlert(Obj, MailObj)]], [
           `div`, `.@_sZ2 _-Zz`, [[
             `div`, `.@_yZS _gxM _geQ _gMX _uZM`, [[
                       `div`, `&@style>letter-spacing:0.75px`, `.@_gxM`, [[`span`, `.@_tXx`, `~@Work `]]], [
@@ -3524,12 +3683,9 @@ module.exports = {
           `div`, `.@_sZ2`, [[
             `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [[
               `div`, `&@style>letter-spacing:0.75px`, `.@_gxM`, [[`span`, `.@_tXx`, `~@Team `]]], [
-              `div`, `.@_QZg _gxM _cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]], [
-            `div`, `.@_gxM _yZS _cX0 _aYS`, [[
-              `div`, `.@_gM_a _agM _guZ`, [[
-                `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Add Team Member`]]]]], [
+              `div`, `.@_QZg _gxM _cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]], appendDev(), [
             `div`, `&@style>letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
-              `div`, `.@_miY _gMX`, [[`div`, `.@_AZc`, [[`div`, [[`div`, `.@_AZx`, [[`div`, `.@_AZs _gxM`, this.devsStat(Obj2)]]]]]]]]]]]]], [
+              `div`, `.@_miY _gMX`, [[`div`, `#@team-slide-ejs`, `.@_AZc`, [[`div`, [[`div`, `.@_AZx ava`, [[`div`, `#@team-rotate-ejs`, `.@_AZs _gxM`, this.devsStat(Obj2)]]]]]]]]]]]]], [
           `div`, `.@_sZ2 _-Zz`, [[
             `div`, `.@_yZS _gxM _geQ _gMX _uZM`, [[
                       `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Tasks`]]], [

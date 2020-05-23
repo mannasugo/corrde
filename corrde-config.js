@@ -165,11 +165,14 @@ module.exports = {
     devs: 
       `CREATE TABLE IF NOT EXISTS devs (json LONGTEXT NOT NULL)`,
 
-    messages: 
-      `CREATE TABLE IF NOT EXISTS messages (json LONGTEXT NOT NULL)`,
+    devs_mail:
+      `CREATE TABLE IF NOT EXISTS devs_mail (json LONGTEXT NOT NULL)`,
 
     devs_traffic: 
       `CREATE TABLE IF NOT EXISTS devs_traffic (json LONGTEXT NOT NULL)`,
+
+    messages: 
+      `CREATE TABLE IF NOT EXISTS messages (json LONGTEXT NOT NULL)`,
 
     traffic: 
       `CREATE TABLE IF NOT EXISTS traffic (json LONGTEXT NOT NULL)`,

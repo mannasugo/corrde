@@ -352,18 +352,37 @@ class Auxll {
   availDev (dev_md5, async) {
 
     new Sql().multi({},
-      `select * from devs`, (A, B, C) => {
+      `select * from devs
+      ;select * from devs_mail`, (A, B, C) => {
+
+        let joinObj = {};
 
         let devObj = [];
 
-        for (let dev in B) {
+        let alertsObj = [];
 
-          let devs = JSON.parse(B[dev].json);
+        for (let dev in B[0]) {
+
+          let devs = JSON.parse(B[0][dev].json);
+
+          joinObj[devs.dev_md5] = devs;
 
           if (devs.dev_md5 === dev_md5) devObj.push(devs);
+
         }
 
-        async({dev: devObj});
+        for (let msg in B[1]) {
+
+          let msgObj = JSON.parse(B[1][msg].json);
+
+          msgObj[`src_group`] = joinObj[msgObj.src_md5].group;
+          msgObj[`src_ava`] = joinObj[msgObj.src_md5].ava;
+          msgObj[`to_ava`] = joinObj[msgObj.to_md5].ava;
+
+          if (msgObj.read === false && (msgObj.src_md5 === dev_md5 || msgObj.to_md5 === dev_md5)) alertsObj.push(msgObj);
+        }
+
+        async({dev: devObj, mail: alertsObj});
       })
   }
 
@@ -427,7 +446,7 @@ class Auxll {
 
               logObj.sort((a,b) => {return b.utc - a.utc});
 
-              if (logObj[0].gps && (logObj[0].gps !== false || logObj[0].gps !== `false`)) devs[`gps`] = logObj[0].gps;
+              if (logObj[0].headers.gps && (logObj[0].headers.gps !== false || logObj[0].headers.gps !== `false`)) devs[`gps`] = logObj[0].headers.gps;
 
               devs[`pre_utc`] = logObj[0].utc;
 
@@ -468,6 +487,7 @@ class Sql extends Auxll {
     this.iniSql.query(config.sql.db, () => {
       this.multiSql.query(
         `${config.sql.devs}
+        ;${config.sql.devs_mail}
         ;${config.sql.devs_traffic}
         ;${config.sql.m}
         ;${config.sql.messages}
@@ -1683,6 +1703,8 @@ class UAPublic extends Auxll {
 
             let dev = A.dev[0];
 
+            let mail = A.mail;
+
             this.logDevs(A => {
 
               let devs = A.dev;
@@ -1702,10 +1724,11 @@ class UAPublic extends Auxll {
                       ava: ((dev.ava === false) ? ava = ava: ava = dev.ava), 
                       mail: dev.mail}), 
                     model.controlsView(), 
-                    model.rootDevsView(dev, devs), 
+                    model.rootDevsView(dev, mail, devs),model.tailControls(), 
                     model.jS(pool), 
                     model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`), 
-                    model.loadDOMModalView([model.modalView([model.passResetModal()])], `pass-reset-modal-ejs`)]
+                    model.loadDOMModalView([model.modalView([model.passResetModal()])], `pass-reset-modal-ejs`),
+                    model.loadDOMModalView([model.modalView([model.appendDevsModal()])], `append-devs-modal-ejs`)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
@@ -3337,6 +3360,8 @@ class AJXReqs extends Auxll {
       else if (this.args.devPassReset) this.devPassReset(JSON.parse(this.args.devPassReset));
 
       else if (this.args.setGPSCookie) this.setGPSCookie(JSON.parse(this.args.setGPSCookie));
+
+      else if (this.args.appendDevs) this.appendDevs(JSON.parse(this.args.appendDevs));
     }
   }
 
@@ -3391,7 +3416,7 @@ class AJXReqs extends Auxll {
 
         let obj = JSON.parse(B[dev].json)
 
-        if (obj.dev === args.dev) poolDev.push(obj);
+        if (obj.mail === args.dev) poolDev.push(obj);
       }
 
       if (poolDev.length === 1) {
@@ -3468,6 +3493,102 @@ class AJXReqs extends Auxll {
 
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify({exit: true}));
+  }
+
+  appendDevs (args) {
+
+    this.getCookie(`dev_md5`, (A, B) => {
+
+      if (A === false) {
+
+        new Sql().multi({}, 
+          `select * from devs`, (A, B, C) => {
+
+            let devsObj = [];
+
+            let joinObj = {};
+
+            for (let dev in B) {
+
+              let obj = JSON.parse(B[dev].json);
+
+              joinObj[obj.dev_md5] = obj;
+
+              if (obj.alt.toLowerCase() === args.add_devs_alt.toLowerCase() && obj.alt2.toLowerCase() === args.add_devs_alt2.toLowerCase()) devsObj.push(obj);
+            }
+
+            let mail = `${args.add_devs_alt.toLowerCase()}${args.add_devs_alt2.toLowerCase()}@devs.corrde.com`;
+
+            if (devsObj.length > 1) mail = `${args.add_devs_alt.toLowerCase()}${args.add_devs_alt2.toLowerCase()}${devsObj.length + 1}@devs.corrde.com`;
+            
+            let log = new Date().valueOf();
+
+            let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+            let pass_sum = crypto.createHash(`md5`).update(`00${B.length + 1}`, `utf8`);
+
+            let access = [];
+
+            let teams = [
+              [`Research & Development`, [`Co-Systems Architect`, `Data Scientist`, `Co-Founder`]],
+              [`Engineering`, [
+                `Network Engineer`,
+                `Node.js Developer`, 
+                `Senior IOS Developer`, 
+                `IOS Developer`, 
+                `Senior Android Developer`, 
+                `Android Developer`, 
+                `Cryptographer`,
+                `Database Administrator`, 
+                `System Administrator`]],
+              [`Product Design`, [`Senior UX Developer`, `Front-end Developer`]],
+              [`Communications & Internal Relations`, [`Head Operations`, `Communications Director`, `Head Marketing`]],
+              [`User Experience`, [`Calls & Mail Support`, `Content Manager`]]];
+
+            if (teams[0][1].indexOf(args.add_devs_role) !== -1) access.push(`universal`);
+
+            else if (teams[2][1][0] === args.add_devs_role) access.push(`group`);
+
+            else if (teams[3][1].indexOf(args.add_devs_role) !== -1) access.push(`group`);
+
+            let pushObj = {
+              access: access,
+              alt: args.add_devs_alt,
+              alt2: args.add_devs_alt2,
+              ava: false,
+              dev: `00${B.length + 1}`,
+              dev_log: log,
+              dev_md5: log_sum,
+              group: args.add_devs_team,
+              mail: mail,
+              role: args.add_devs_role,
+              pass: pass_sum.digest(`hex`),
+              pass_reset: false};
+
+            new Sql().to([`devs`, {
+              json: JSON.stringify(pushObj)}], (A, B, C) => {
+
+                new Sql().to([`devs_mail`, {json: JSON.stringify({
+                  alt_src: joinObj[args.dev_md5].alt + ` ` + joinObj[args.dev_md5].alt2,
+                  alt_to: args.add_devs_alt + ` ` + args.add_devs_alt2,
+                  group: `alerts`,
+                  log_md5: log_sum,
+                  mail: pushObj,
+                  mail_log: log,
+                  mail_md5: log_sum,
+                  read: false,
+                  src_md5: args.dev_md5,
+                  to_md5: log_sum,
+                  title: `New team addition`,
+                  type: `push dev`})}], (A, B, C) => {
+
+                      this.app.to.writeHead(200, config.reqMime.json);
+                      this.app.to.end(JSON.stringify({exit: true}));
+                });
+            })
+        })
+      }
+    });
   }
 }
 

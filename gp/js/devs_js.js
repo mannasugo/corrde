@@ -20,7 +20,15 @@
 
     passReset(e);
 
-    PassResetAlertOut(e);
+    passResetAlertOut(e);
+
+    appendDevsModal(e);
+
+    teams2Roles(e);
+
+    saveRole(e);
+
+    appendDevs(e)
   }
 
   const WSREQS = io.connect(); 
@@ -354,7 +362,7 @@
     }
   }
 
-  let PassResetAlertOut = e => {
+  let passResetAlertOut = e => {
 
     if (e.id === `pass-reset-exit-ejs`) {
 
@@ -364,8 +372,71 @@
     }
   }
 
-  let slides = d3.select(`._AZs`)
-  d3.select(`._AZx`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+  let appendDevsModal = e => {
+
+    if (e.id === `append-devs-ejs`) {
+
+      let modal_ejs = document.querySelector(`#append-devs-modal-ejs`);
+
+      if (modal_ejs.className === `_-Zz`) modal_ejs.className = `-Zz`
+    }
+  }
+
+  let teams2Roles = e => {
+
+    if (e.id === `team-ejs`) {
+
+      document.querySelectorAll(`#roles`).forEach(p => p.setAttribute(`class`, `_-Zz`));
+      document.querySelector(`[team = "${e.getAttribute(`for`)}"]`).setAttribute(`class`, `-Zz`);
+
+      JSStore.to({add_devs_team: e.value.replace(new RegExp(/&/g, `g`), `u/0026`)});
+      JSStore.to({add_devs_role: false})
+    }
+  }
+
+  let saveRole = e => {
+
+    if (e.id === `role-ejs`) JSStore.to({add_devs_role: e.value});
+  }
+
+  let appendDevs = e => {
+
+    if (e.id === `add-dev-ejs`) {
+
+      let listSlims = [], listSpaces = [
+        document.querySelector(`#add-name-devs-tjs`),
+        document.querySelector(`#add-surname-devs-tjs`)];
+
+      for (let value = 0; value < listSpaces.length; ++value) {
+        let slimValue = new Auxll().longSlim(listSpaces[value].value);
+        (slimValue) ? listSlims[value] = slimValue: listSlims = [];
+      }
+
+      if (listSlims.length !== 2 || !JSStore.avail().add_devs_team || !JSStore.avail().add_devs_role || JSStore.avail().add_devs_role === false) {
+
+        document.querySelector(`#add-devs-response-ejs`).setAttribute(`class`, `-Zz _sZ2`);
+        document.querySelector(`#add-devs-response-ejs`).style.border = `1px solid #ffacac`;
+        document.querySelectorAll(`#add-devs-response-ejs > p`).forEach(p => p.setAttribute(`class`, `_-Zz`));
+        document.querySelector(`#add-devs-false`).setAttribute(`class`, `_aA6 -Zz`);
+      }
+
+      else {
+
+        document.querySelector(`#add-dev-see-ejs`).setAttribute(`class`, `_-Zz _azX- _gMX _gp0 _gmg`);
+
+        JSStore.to({
+          add_devs_alt: listSlims[0], add_devs_alt2: listSlims[1]});
+
+        AJXCall(`appendDevs`, JSStore.avail(), (A, B) => {
+
+          if (B.exit === true) window.location = `/devs/`;
+        });
+      }
+    }
+  }
+
+  let slides = d3.select(`#team-rotate-ejs`)
+  d3.select(`#team-slide-ejs`).call(d3.zoom().translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     slides.style(`transform`, `translate(${d3.event.transform.x}px)`)
   }))
 

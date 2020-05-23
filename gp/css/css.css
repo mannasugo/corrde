@@ -2421,6 +2421,11 @@ table > thead > tr > th {
   margin-left: 75px;
 }
 
+._gmg {
+  position: absolute;
+
+} /*gMg, gm0*/
+
 @media only screen and (min-width: 1200px) {
 
   ._Xsa {
@@ -2439,6 +2444,8 @@ table > thead > tr > th {
 @media (min-width: 768px) {
 
   ._x10 {width: 83.3333333%}
+
+  ._x00 {width: 100%}
 
   ._x2y {
     -webkit-box-orient: vertical;
@@ -2461,7 +2468,7 @@ table > thead > tr > th {
 
   ._x10 {width: 100%}
 
-  ._X4- {max-width: 23%}
+  ._X4- {max-width: 24.6777777%}
 
   ._x2y {
     -webkit-box-orient: horizontal;
@@ -2877,9 +2884,14 @@ table > thead > tr > th {
     display: block;
     margin-bottom: 15px;
   }
+
+  #team-rotate-ejs > ._X4- {
+    min-width: 90%
+  }
 }
 
 @media (max-width: 514px) {
+
   ._XY0 {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -2901,6 +2913,11 @@ table > thead > tr > th {
 
 
 @media (min-width: 514px) {
+
+
+  .-gV0 {
+    display: none;
+  }
   ._XsQ {
     max-width: 480px;
   }
@@ -2926,3 +2943,31 @@ table > thead > tr > th {
   }
 }
 
+/**
+@dev
+**/
+
+@media (max-width: 1500px) {
+
+  #team-rotate-ejs > ._X4- {min-width: 34.333333%}
+}
+
+@media (max-width: 1150px) {
+
+  #team-rotate-ejs > ._X4- {min-width: 43.333333%}
+}
+
+@media (max-width: 920px) {
+
+  #team-rotate-ejs > ._X4- {min-width: 48.333333%}
+}
+
+@media (max-width: 768px) {
+
+  #team-rotate-ejs > ._X4- {min-width: 63.333333%}
+}
+
+@media (max-width: 560px) {
+
+  #team-rotate-ejs > ._X4- {min-width: 90%}
+}
