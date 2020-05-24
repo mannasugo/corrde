@@ -2454,6 +2454,10 @@ table > thead > tr > th {
     -ms-flex-direction: column;
     flex-direction: column;
   }
+
+  ._cXq {
+    padding: 0 24px;
+  }
 }
 
 @media (min-width: 1200px) {

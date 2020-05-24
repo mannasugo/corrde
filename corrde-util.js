@@ -279,6 +279,8 @@ class Auxll {
 
         let regs = [], regStackPlus = [], regStack0 = [], regStack2 = [];
 
+        let dayRegs = [];
+
         for (let regular in B[1]) {
 
           if (B[1][regular].alt[0] === `{`) {
@@ -288,6 +290,8 @@ class Auxll {
             regs.push(regStack);
 
             if (parseInt(regStack.log) > A && parseInt(regStack.log) < Z) regStackPlus.push(regStack);
+
+            if (parseInt(regStack.log) < Z) dayRegs.push(regStack)
 
             if (regStack[`skills`].length > 0) {
 
@@ -329,7 +333,7 @@ class Auxll {
         regulars[day] = {
           day: a,
           gain: regStackPlus,
-          poolDay: regs,
+          poolDay: dayRegs,//regStackPlus,//regs,
           pool2: regStack2,
           pool0: regStack0,
           secsUTC: new Date(new Date().setUTCHours(0) - (day * 86400000)).valueOf(),
@@ -359,6 +363,8 @@ class Auxll {
 
         let devObj = [];
 
+        let mailObj = [];
+
         let alertsObj = [];
 
         for (let dev in B[0]) {
@@ -382,7 +388,7 @@ class Auxll {
           if (msgObj.read === false && (msgObj.src_md5 === dev_md5 || msgObj.to_md5 === dev_md5)) alertsObj.push(msgObj);
         }
 
-        async({dev: devObj, mail: alertsObj});
+        async({dev: devObj, alerts: alertsObj});
       })
   }
 
@@ -458,6 +464,47 @@ class Auxll {
         }
 
         call({dev: devObj})
+      })
+  }
+
+  getDevsMail (async) {
+
+    new Sql().multi({},
+      `select * from devs
+      ;select * from devs_mail`, (A, B, C) => {
+
+        let devsObj = [];
+
+        let joinObj = {};
+
+        let mailObj = [];
+
+        let mailKeys = {};
+
+        for (let dev in B[0]) {
+
+          let devs = JSON.parse(B[0][dev].json);
+
+          joinObj[devs.dev_md5] = devs;
+
+          devsObj.push(devs);
+
+        }
+
+        for (let msg in B[1]) {
+
+          let msgObj = JSON.parse(B[1][msg].json);
+
+          msgObj[`src_group`] = joinObj[msgObj.src_md5].group;
+          msgObj[`src_ava`] = joinObj[msgObj.src_md5].ava;
+          msgObj[`to_ava`] = joinObj[msgObj.to_md5].ava;
+
+          mailKeys[msgObj.mail_md5] = msgObj;
+
+          mailObj.push(msgObj);
+        }
+
+        async([mailObj, mailKeys]);
       })
   }
 }
@@ -577,7 +624,16 @@ class UAPublic extends Auxll {
 
     if (this.levelState[1] === `devs`) {
 
-      if (this.levelState[2] === `add`) this.addDevs()
+      if (this.levelState[2] === `add`) this.addDevs();
+
+      else if (this.levelState[2] === `mail`) {
+
+        this.getDevsMail(A => {
+
+          if (A[1][this.levelState[3]]) this.readDevsMail(A[1][this.levelState[3]], A);
+
+        });
+      }
     }
 
     else if (this.levelState[1] === `p`) {
@@ -1703,7 +1759,7 @@ class UAPublic extends Auxll {
 
             let dev = A.dev[0];
 
-            let mail = A.mail;
+            let mail = A.alerts;
 
             this.logDevs(A => {
 
@@ -1791,6 +1847,60 @@ class UAPublic extends Auxll {
     else A = true;
 
     call(A, B);
+  }
+
+  readDevsMail (msg, Obj) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`dev_md5`, (A, B) => {
+
+        if (A === true) this.toDevs();
+
+        else if (A === false) {
+
+          let dev_md5 = B;
+
+          this.availDev(dev_md5, A => {
+
+            let dev = A.dev[0];
+
+            let mail = A.alerts;
+
+            this.logDevs(A => {
+
+              let devs = A.dev;
+
+              let ava = ``;
+
+              msg[`dev_md5`] = dev_md5;
+
+              const pool = {
+                jSStore: JSON.stringify({dev_md5: dev.dev_md5}),
+                title: `Mail - ${msg.alt_src} > ${msg.title}`,
+                css: CSS,
+                jsState: config.reqs.devs_js}
+
+              pool.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.topDevsView({
+                      ava: ((dev.ava === false) ? ava = ava: ava = dev.ava), 
+                      mail: dev.mail}), 
+                    model.controlsView(), 
+                    model.readDevsMail(msg, Obj),model.tailControls(), 
+                    model.jS(pool)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
+
+            
+          }); 
+        }
+      });
+    });
   }
 }
 

@@ -3685,38 +3685,16 @@ module.exports = {
               `div`, `&@style>letter-spacing:0.75px`, `.@_gxM`, [[`span`, `.@_tXx`, `~@Team `]]], [
               `div`, `.@_QZg _gxM _cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]], appendDev(), [
             `div`, `&@style>letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
-              `div`, `.@_miY _gMX`, [[`div`, `#@team-slide-ejs`, `.@_AZc`, [[`div`, [[`div`, `.@_AZx ava`, [[`div`, `#@team-rotate-ejs`, `.@_AZs _gxM`, this.devsStat(Obj2)]]]]]]]]]]]]], [
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@team-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@team-rotate-ejs`, `.@_AZs _gxM`, this.devsStat(Obj2)]]]]]]]]]]]]], [
           `div`, `.@_sZ2 _-Zz`, [[
             `div`, `.@_yZS _gxM _geQ _gMX _uZM`, [[
                       `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Tasks`]]], [
                       `div`, `.@_QZg _gxM`, []]]], [
                       `div`, `&@style>padding:25px 0 0`, `.@_gxM _yZS`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Assign a Task`]]]]], [
-            `div`, `.@_cx4 _gxM _geQ _gMX`, [ [
-              `div`, `.@_x10`, [[
-                `div`, `.@_gxM  _gxM _geQ _gMX`, `&@style>margin: 0 auto;`, [[
-                  `div`, `.@_x40`, [[`div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-                    `img`, `.@_aWz`, `&@src>`, `&@alt>avatar`]]], [
-                  `div`, `.@_eYG`, [[
-                    `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@Dennis Mutalania`]]], [
-                    `div`, `.@_gxM _geQ`, [[
-                      `span`, `.@_aA6 _a2X`, `~@Product Design`]]]]]]]]], [
-                  `div`, `.@_x13`, [[
-                    `div`, `.@_Xsa`, [[
-                      `a`, `&@href>javascript:;`, `&@style>line-height: 1.6em`, `.@_aA2`, `~@For security reasons, you are required to change your system provided password, you should choose a personalised and strong password, preferrably of an alpha-numeric combination with no whitespace character.`]]]]]]]]]]], [
-            `div`, `.@_cx4 _gxM _geQ _gMX`, [ [
-              `div`, `.@_x10`, [[
-                `div`, `.@_gxM  _gxM _geQ _gMX`, `&@style>margin: 0 auto;`, [[
-                  `div`, `.@_x40`, [[`div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-                    `img`, `.@_aWz`, `&@src>`, `&@alt>avatar`]]], [
-                  `div`, `.@_eYG`, [[
-                    `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@Alfred Hitchcock`]]], [
-                    `div`, `.@_gxM _geQ`, [[
-                      `span`, `.@_aA6 _a2X`, `~@Customer`]]]]]]]]], [
-                  `div`, `.@_x13`, [[
-                    `div`, `.@_Xsa`, [[
-                      `a`, `&@href>javascript:;`, `&@style>line-height: 1.6em`, `.@_aA2`, `~@For security reasons, you are required to change your system provided password, you should choose a personalised and strong password, preferrably of an alpha-numeric combination with no whitespace character.`]]]]]]]]]]]]]]]]];
+                          `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Assign a Task`]]]]]]]]]]];
   },
 
   rootView (pool ) {
@@ -3738,6 +3716,71 @@ module.exports = {
               `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${pool.mail}`], [
                 `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
                   `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`, `&@alt>avatar`]]]]]]]]]]]]]
+  },
+
+  readDevsMail (msg, Obj) {
+
+    let sortGroup = () => {
+
+      let mail = [];
+
+      let text = ``;
+
+      if (msg.type === `push dev`) {
+
+        text = 
+          `Your new addition to the Corrde Team is all set to go! Please provide the new user 
+          with the listed credentials so that may they may have access to their designated portal.`;
+
+        if (msg.dev_md5 !== msg.src_md5) {
+
+          text = 
+            `Welcome to the Corrde Development Team, you are all set to go! 
+            Below are your work designations and credentials that you may use to 
+            access your administrative portal. These credentials also serve as 
+            an identity for your work email, you may receive or send emails to your 
+            fellow Corrde Team colleagues using these credentials.`;
+        }
+
+        mail = [
+          `div`,`&@style>line-height:1.6em; width: 100%`, [[
+            `p`,`.@_sZ2`, `~@${text}`], [
+            `div`, `.@_sZ2`, [[
+                `p`, `.@_a2X`, `~@WORK EMAIL`], [
+                `a`, `.@_tXx`, `&@href>javascript:;`, `~@${msg.mail.mail}`], [
+                `p`, `.@_a2X`, `~@PASSWORD`], [
+                `p`, `.@_tXx`, `~@${msg.mail.dev}`], [
+                `p`, `.@_a2X`, `~@ACCESS GROUP`], [
+                `p`, `.@_tXx`, `~@${msg.mail.group}`], [
+                `p`, `.@_a2X`, `~@DESIGNATION`], [
+                `p`, `.@_tXx`, `~@${msg.mail.role}`]]]]]
+
+      }
+        
+      return mail;
+    }
+
+    return [`main`, `&@style>letter-spacing:0.75px`, `.@_aA2 _sy2`, [[
+      `div`, `.@_sZ2 _cX0`, [[`div`, `.@_tXx`, `~@${msg.title}`], [`div`, `.@_a2X`, `~@${msg.group}`]]], [
+      `div`, `.@_pV0`], [
+      `div`, `.@_sZ2 pV0`, [[
+        `div`, `.@cX0`, [[
+          `div`, `.@_sZ2 cX0`, [[
+            `div`, `.@_yZS _gxM _geQ _gMX uZM _cX0`, [[
+                `div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                  `img`, `.@_aWz`, `&@src>${msg.src_ava}`, `&@alt>avatar`]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@_tXx aA2`, `~@${msg.alt_src}`]]], [
+                    `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X _tXv _cXq`, `~@${this.log(msg.mail_log)}`]]]]], [
+                  `div`, `.@_gxM _geQ`, [[
+                    `span`, `.@_aA6 _a2X`, `~@${msg.src_group}`]]]]]]]]]]]]]]], [
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [sortGroup(msg)]]]], [
+        `div`,`&@style>margin: 0 0 60px`, `.@_gcQ _aXZ`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#ava-place-exit-ejs`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `~@Reply`]]]]], [
+          `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@tXx`, `~@`]]], [
+          `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `#ava-place-save-ejs`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `~@Forward`]]]]]]]]];
   }
 
 }
