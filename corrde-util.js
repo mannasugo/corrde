@@ -357,21 +357,30 @@ class Auxll {
 
     new Sql().multi({},
       `select * from devs
-      ;select * from devs_mail`, (A, B, C) => {
+      ;select * from devs_mail
+      ;select * from support_mail`, (A, B, C) => {
 
         let joinObj = {};
 
         let devObj = [];
 
+        let devsObj = [];
+
         let mailObj = [];
 
         let alertsObj = [];
+
+        let mail2Obj = [];
+
+        let mail_ = [];
 
         for (let dev in B[0]) {
 
           let devs = JSON.parse(B[0][dev].json);
 
           joinObj[devs.dev_md5] = devs;
+
+          devsObj.push(devs);
 
           if (devs.dev_md5 === dev_md5) devObj.push(devs);
 
@@ -388,7 +397,20 @@ class Auxll {
           if (msgObj.read === false && (msgObj.src_md5 === dev_md5 || msgObj.to_md5 === dev_md5)) alertsObj.push(msgObj);
         }
 
-        async({dev: devObj, alerts: alertsObj});
+        for (let msg in B[2]) {
+
+          let msgObj = JSON.parse(B[2][msg].json);
+
+          mail2Obj.push(msgObj);
+
+          if (msgObj.to_md5 === devsObj[0].dev_md5) {
+
+            mail_.push(msgObj);
+            mail_.sort((a, b) => {return b.mail_log - a.mail_log});
+          }
+        }
+
+        async({dev: devObj, alerts: alertsObj, mail2: mail2Obj, mail_: mail_});
       })
   }
 
@@ -399,6 +421,8 @@ class Auxll {
       ;select * from devs_traffic`, (A, B, C) => {
 
         let devObj = [];
+
+        let devsKey = {};
 
         const utc_Z = new Date().valueOf();
 
@@ -416,11 +440,14 @@ class Auxll {
 
           let logObj = [];
 
+          let mailObj = [];
+
           let devs = JSON.parse(B[0][dev].json);
 
           //if (devs.dev_md5 === dev_md5) devObj.push(devs);
 
           devs[`gps`] = false;
+          devs[`pre_mail_utc`] = new Date().valueOf();
           devs[`pre_utc`] = false;
           devs[`reqs_per_secs`] = 0.0;
 
@@ -454,6 +481,13 @@ class Auxll {
 
               if (logObj[0].headers.gps && (logObj[0].headers.gps !== false || logObj[0].headers.gps !== `false`)) devs[`gps`] = logObj[0].headers.gps;
 
+              if (logs.headers.referer.split(`/`).length > 2 && logs.headers.referer.split(`/`)[4] === `mail`) {
+
+                mailObj.push(logs);
+
+                devs[`pre_mail_utc`] = mailObj.sort((a, b) => {return b.utc - a.utc})[0].utc;
+              }
+
               devs[`pre_utc`] = logObj[0].utc;
 
               logCount++
@@ -461,9 +495,11 @@ class Auxll {
           }
 
           devObj.push(devs);
+
+          devsKey[devs.dev_md5] = devs
         }
 
-        call({dev: devObj})
+        call({dev: devObj, devsKey: devsKey});
       })
   }
 
@@ -471,7 +507,9 @@ class Auxll {
 
     new Sql().multi({},
       `select * from devs
-      ;select * from devs_mail`, (A, B, C) => {
+      ;select * from devs_mail
+      ;select * from u
+      ;select * from support_mail`, (A, B, C) => {
 
         let devsObj = [];
 
@@ -480,6 +518,8 @@ class Auxll {
         let mailObj = [];
 
         let mailKeys = {};
+
+        let mail2Obj = [];
 
         for (let dev in B[0]) {
 
@@ -504,7 +544,14 @@ class Auxll {
           mailObj.push(msgObj);
         }
 
-        async([mailObj, mailKeys]);
+        for (let msg in B[3]) {
+
+          let msgObj = JSON.parse(B[3][msg].json);
+
+          mail2Obj.push(msgObj);
+        }
+
+        async([mailObj, mailKeys, devsObj, mail2Obj.sort((a,b) => {return b.mail_log - a.mail_log})]);
       })
   }
 }
@@ -538,6 +585,7 @@ class Sql extends Auxll {
         ;${config.sql.devs_traffic}
         ;${config.sql.m}
         ;${config.sql.messages}
+        ;${config.sql.support_mail}
         ;${config.sql.traffic}
         ;${config.sql.u}`);
       this.multiSql.end();
@@ -596,6 +644,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `monitor`) this.monitor();
 
+    if (this.levelState === `support`) this.support();
+
     if (this.levelState === `in`) this.in();
 
     if (this.levelState === `mycontract`) this.formContract();
@@ -636,17 +686,6 @@ class UAPublic extends Auxll {
       }
     }
 
-    else if (this.levelState[1] === `p`) {
-
-      this.inisumAvail(this.levelState[2], (A, B) => {
-
-        if (A === true) {
-
-          this.contractDetailed(B[0]);
-        }
-      });
-    }
-
     else if (this.levelState[1] === `mail`) {
 
       this.inisumAvail(this.levelState[2], (A, B) => {
@@ -658,6 +697,17 @@ class UAPublic extends Auxll {
     else if (this.levelState[1] === `monitor`) {
 
       if (this.levelState[2] === `graphs`) this.graphsRep()
+    }
+
+    else if (this.levelState[1] === `p`) {
+
+      this.inisumAvail(this.levelState[2], (A, B) => {
+
+        if (A === true) {
+
+          this.contractDetailed(B[0]);
+        }
+      });
     }
   }
 
@@ -1761,14 +1811,20 @@ class UAPublic extends Auxll {
 
             let mail = A.alerts;
 
+            let mail_ = A.mail_;
+
+            let preMail = false;
+
             this.logDevs(A => {
 
               let devs = A.dev;
 
               let ava = ``;
 
+              if (mail_.length > 0 && mail_[0].mail_log > A.devsKey[dev_md5].pre_mail_utc) preMail = true;
+
               const pool = {
-                jSStore: JSON.stringify({dev_md5: dev.dev_md5}),
+                jSStore: JSON.stringify({dev_md5: dev.dev_md5, pre_devs_mail: preMail}),
                 title: `Corrde Administration & Management System`,
                 css: CSS,
                 jsState: config.reqs.devs_js}
@@ -1901,6 +1957,29 @@ class UAPublic extends Auxll {
         }
       });
     });
+  }
+
+  support () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Support`,
+                css: CSS,
+                jsState: config.reqs.devs_js}
+
+              pool.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.topSupport(), model.support(), 
+                    model.jS(pool),
+                    model.loadDOMModalView([model.modalView([model.supportMsgModal()])], `support-msg-modal-ejs`)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
   }
 }
 
@@ -3472,6 +3551,8 @@ class AJXReqs extends Auxll {
       else if (this.args.setGPSCookie) this.setGPSCookie(JSON.parse(this.args.setGPSCookie));
 
       else if (this.args.appendDevs) this.appendDevs(JSON.parse(this.args.appendDevs));
+
+      else if (this.args.pushSupportMsg) this.pushSupportMsg(JSON.parse(this.args.pushSupportMsg));
     }
   }
 
@@ -3699,6 +3780,42 @@ class AJXReqs extends Auxll {
         })
       }
     });
+  }
+
+  pushSupportMsg (args) {
+
+    this.getDevsMail( A => {
+
+      if (!A[2].length > 0) return;
+
+      let md5 = false;
+
+      let dev = A[2][0];
+
+      let log = new Date().valueOf();
+
+      let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+      if (args.md5) md5 = args.in
+
+      new Sql().to([`support_mail`, {json: JSON.stringify({
+        group: `helps`, //support requests
+        log_md5: log_sum,
+        mail: args.quiz_to_devs,
+        mail_log: log,
+        mail_md5: log_sum,
+        mailto: args.mail_to_devs,
+        read: false,
+        risk: args.support_msg,
+        src_md5: md5,
+        to_md5: dev.dev_md5,
+        title: args.subj_to_devs,
+        type: `quizes`})}], (A, B, C) => {
+        
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify({exit: true}));
+      });
+    })
   }
 }
 

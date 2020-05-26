@@ -3711,7 +3711,7 @@ module.exports = {
           `div`, `.@_-tY`, [[
             `div`, `.@_aXz`, [[
               `div`, `.@_-Xg _gxM`, [[
-                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
                 `span`, `.@_tCc _pV4`, `~@devs`]]], [
               `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${pool.mail}`], [
                 `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
@@ -3781,6 +3781,94 @@ module.exports = {
             `div`, `.@_gM_a _agM _guZ`, [[`a`, `#ava-place-exit-ejs`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `~@Reply`]]]]], [
           `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@tXx`, `~@`]]], [
           `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `#ava-place-save-ejs`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `~@Forward`]]]]]]]]];
+  },
+
+  topSupport () {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@support`]]], [
+              `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>javascript:;`]]]]]]]]]]];
+  },
+
+  supportMsgModal () {
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px;line-height:1.6rem`, [[
+        `div`, `.@_gcQ _aXZ sZ2`, [ [
+          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@`]]], [
+          `div`, `.@_QZg _gMz`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@support-exit-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@exit`]]]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `div`, `&@style>padding-top:50px;padding-bottom:50px`, `#@push-quiz-true`, `.@_-Zz _sZ2`, [[
+            `p`, `#@quiz-true`, `.@_aA2`, `~@Thank you for using our help service, your question has been delivered to our support team.`]]], [
+          `div`, `#@hide-support-msg-ejs`, [[
+            `div`, `.@sZ2`, `teamModel`], [
+            `div`, `.@_sZ2`, [[
+              `div`, `#@support-to-ejs`, [[
+                `div`, `.@_UFA`, [[
+                  `input`, `#@support-q-mail-tjs`, `.@_RRD Ccs _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Email`]]]]], [
+                `div`, `.@_UFA cS2`, [[
+                  `input`, `#@support-q-subject-tjs`, `.@_RRD Ccs _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Subject`]]]]], [
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_yZS _gxM geQ gMX`, [[
+                `span`, `.@_aA2 _tXx`, `~@Priority level`]]], [
+                            `div`, `.@_gxM _geQ _gMX`, [[
+                              `div`, `.@_miY _gMX`, [[
+                                `div`, `#@priority-slide-ejs`, `.@_AZc`, [[
+                                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@priority-rotate-ejs`, `.@_AZs _gxM`, [[
+                                    `div`, `.@_xX4 _tXv`, [[
+                                      `label`, `.@_tXv`, `&@role>radio`, [[
+                                        `input`, `&@type>radio`, `#@alert-level-ejs`, `&@value>Urgent`, `&@name>alert-level-ejs`], [
+                                          `span`, `.@_tCw aA2 tXx`, `~@Urgent`]]]]], [
+                                    `div`, `.@_xX4 _tXv`, [[
+                                      `label`, `.@_tXv`, `&@role>radio`, [[
+                                        `input`, `&@type>radio`, `#@alert-level-ejs`, `&@value>High`, `&@name>alert-level-ejs`], [
+                                          `span`, `.@_tCw aA2 tXx`, `~@High`]]]]], [
+                                    `div`, `.@_xX4 _tXv`, [[
+                                      `label`, `.@_tXv`, `&@role>radio`, [[
+                                        `input`, `&@type>radio`, `#@alert-level-ejs`, `&@value>Low`, `&@name>alert-level-ejs`], [
+                                          `span`, `.@_tCw aA2 tXx`, `~@Low`]]]]]]]]]]]]]]]]]]], [
+                          `div`, `.@_`, [[
+                            `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                                  `textarea`, `#@support-quiz-tjs`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>Type your question`]]]]], [
+                        `div`, `.@_gcQ _aXZ sZ2`, [ [
+                          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@`]]], [
+                          `div`, `.@_QZg _gMz`, [[
+                          `div`, `.@_axS`, [[
+                            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@push-support-quiz-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Send`]]]]]]]]]]]]]]]
+  },
+
+  support () {
+
+    return [
+      `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px`, [[`section`, `.@_g29`, `&@style>line-height:1.5em`, [[
+        `div`, `.@_cX3`, [[`div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
+          `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[`h1`, `.@_tx1 _atX`, `~@We're here to help`]]], [`div`, `.@_ge0 _c3x`, [[
+          `div`, `~@Support is just a few taps away. 
+          You can slide through our support topics for help, or get your questions answered by using our community chat service.`]]]]]]], [
+            `div`, `&@style>letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@support-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@support-rotate-ejs`, `.@_AZs _gxM`, [[
+                    `div`, `.@_xX4 _tXv`, [[`a`, `.@_tXx _aA0`, `&@href>/community/`, `~@Community`]]]/*, [`div`, `.@_xX4`, `~@How to's`], [
+                    `div`, `.@_xX4 _tXv`, `~@Corrde Maps`], [
+                    `div`, `.@_xX4 _tXv`, `~@Developers`], [
+                    `div`, `.@_xX4 _tXv`, `~@FAQs`], [
+                    `div`, `.@_xX4 _tXv`, `~@RAQs`], [
+                    `div`, `.@_xX4 _tXv`, `~@Corrde Ads`]*/]]]]]]]]]]]]]], [
+          `div`, `@-ejs`, `.@_azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
+              `div`, `.@_gMX gcQ`, [[
+                `div`, `.@_gM_a _agM _gMX _guZ`, `&@style>max-width: 500px`, [[
+                  `a`, `#@support-msg-ejs`, `inlineJSON`, `.@_TX_a _atX _gMX _utQ _tXx`, `&@href>javascript:;`, `~@Ask Support Team a Question`]]]]]]]]]]]
   }
 
 }
