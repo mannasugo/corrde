@@ -1836,7 +1836,7 @@ class UAPublic extends Auxll {
                       ava: ((dev.ava === false) ? ava = ava: ava = dev.ava), 
                       mail: dev.mail}), 
                     model.controlsView(), 
-                    model.rootDevsView(dev, mail, devs),model.tailControls(), 
+                    model.rootDevsView(dev, mail, devs, mail_),model.tailControls(), 
                     model.jS(pool), 
                     model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`), 
                     model.loadDOMModalView([model.modalView([model.passResetModal()])], `pass-reset-modal-ejs`),

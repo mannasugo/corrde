@@ -3639,7 +3639,42 @@ module.exports = {
                   `a`, `#@add-dev-ejs`, `inlineJSON`, `.@_TX_a _atX _gMX`, `&@href>javascript:;`, `~@Add to Team`]]]]]]]]]]]
   },
 
-  rootDevsView (Obj, MailObj, Obj2) {
+  supportReqs (Obj) {
+
+    let reqs = []
+
+    Obj.forEach((Msg, a) => {
+
+      reqs[a] = [
+        `div`, `.@_cx4 _gxM _geQ _gMX`, [[
+          `div`, `.@_x10 _x00`, [[
+            `div`, `.@_gxM _x2y _gMX`, `&@style>margin: 0 auto;`, [[
+              `div`, `.@_x40`, `&@style>padding: 0 15px 0 0`, [[
+                `div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                  `img`, `.@_aWz`, `&@src>`, `&@alt>avatar`]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@_tXx aA2 _tXv`, `~@${Msg.mailto}`]]], [
+                    `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X _tXv`, `~@${this.log(Msg.mail_log)}`]]]]], [
+                  `div`, `.@_gxM _geQ`, [[
+                    `span`, `.@_aA6 _a2X`, `~@Customer`]]]]]]]]], [
+              `div`, `.@_x13`, [[
+                `div`, `.@_Xsa`, [[`span`, `.@_tXv _tXx`, `~@${Msg.title}`], [
+                  `a`, `&@href>/devs/mail/c/${Msg.mail_md5}/`, `&@style>line-height: 1.6em`, `.@_aA2 _tXv`, `~@${Msg.mail}`], [
+                  `span`, `.@_tXx`, `~@#${Msg.risk}`]]]]]]]]]]]
+    })
+
+    let supportReqs = [
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [[
+            `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Support Requests`]]], [
+            `div`, `.@_QZg _gxM`, []]]], [`div`, reqs]]]
+
+    if (!Obj.length > 0) supportReqs = [];
+
+    return supportReqs;
+  },
+
+  rootDevsView (Obj, MailObj, Obj2, Mail2Obj) {
 
     let appendDev = () => {
 
@@ -3687,7 +3722,7 @@ module.exports = {
             `div`, `&@style>letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
               `div`, `.@_miY _gMX`, [[
                 `div`, `#@team-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@team-rotate-ejs`, `.@_AZs _gxM`, this.devsStat(Obj2)]]]]]]]]]]]]], [
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@team-rotate-ejs`, `.@_AZs _gxM`, this.devsStat(Obj2)]]]]]]]]]]]]], this.supportReqs(Mail2Obj), [
           `div`, `.@_sZ2 _-Zz`, [[
             `div`, `.@_yZS _gxM _geQ _gMX _uZM`, [[
                       `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Tasks`]]], [
