@@ -358,7 +358,8 @@ class Auxll {
     new Sql().multi({},
       `select * from devs
       ;select * from devs_mail
-      ;select * from support_mail`, (A, B, C) => {
+      ;select * from support_mail
+      ;select * from u`, (A, B, C) => {
 
         let joinObj = {};
 
@@ -374,6 +375,8 @@ class Auxll {
 
         let mail_ = [];
 
+        let uKeys = {};
+
         for (let dev in B[0]) {
 
           let devs = JSON.parse(B[0][dev].json);
@@ -381,6 +384,8 @@ class Auxll {
           joinObj[devs.dev_md5] = devs;
 
           devsObj.push(devs);
+
+          if (devs.ava === false) devs[`ava`] = this.alternativeMug(devs.alt);
 
           if (devs.dev_md5 === dev_md5) devObj.push(devs);
 
@@ -397,13 +402,41 @@ class Auxll {
           if (msgObj.read === false && (msgObj.src_md5 === dev_md5 || msgObj.to_md5 === dev_md5)) alertsObj.push(msgObj);
         }
 
+        for (let u in B[3]) {
+
+          let uObj = JSON.parse(B[3][u].alt);
+
+          uKeys[uObj.sum] = uObj;
+        }
+
         for (let msg in B[2]) {
 
           let msgObj = JSON.parse(B[2][msg].json);
 
           mail2Obj.push(msgObj);
 
-          if (msgObj.to_md5 === devsObj[0].dev_md5) {
+          if (msgObj.type === `quizes`/*msgObj.to_md5 === devsObj[0].dev_md5*/) {
+
+            if (msgObj.src_md5 === false) {
+
+              msgObj[`src_ava`] = this.alternativeMug(msgObj.mailto);
+              msgObj[`src_alt`] = msgObj.mailto;
+              msgObj[`src_role`] = `customer`}
+
+            else if (msgObj.src_md5 !== false) {
+
+              msgObj[`src_alt`] = uKeys[msgObj.src_md5].full;
+              msgObj[`src_ava`] = `/` + uKeys[msgObj.src_md5].ava;
+              
+              if (uKeys[msgObj.src_md5].skills.length > 0) msgObj[`src_role`] = `contractor & freelancer`;
+
+              else msgObj[`src_role`] = `contractor`;
+
+            }
+
+            else if (msgObj.src_md5 !== false && uKeys[msgObj.src_md5].ava === false) {
+
+              msgObj[`src_ava`] = this.alternativeMug(uKeys[msgObj.src_md5].full);}
 
             mail_.push(msgObj);
             mail_.sort((a, b) => {return b.mail_log - a.mail_log});
@@ -446,6 +479,7 @@ class Auxll {
 
           //if (devs.dev_md5 === dev_md5) devObj.push(devs);
 
+          if (devs.ava === false) devs[`ava`] = this.alternativeMug(devs.alt)
           devs[`gps`] = false;
           devs[`pre_mail_utc`] = new Date().valueOf();
           devs[`pre_utc`] = false;
@@ -553,6 +587,17 @@ class Auxll {
 
         async([mailObj, mailKeys, devsObj, mail2Obj.sort((a,b) => {return b.mail_log - a.mail_log})]);
       })
+  }
+
+  alternativeMug (subj) {
+
+    let alpha = `ABCDEFGHIJKLMNOPQRSTUVWXYZ`;
+
+    subj = parseInt(alpha.indexOf(subj.toUpperCase()[0]) + 1);
+
+    let ava = config.reqs.alt_ava + subj + `_${Math.round(Math.random()*1)}.svg`;
+
+    return ava
   }
 }
 
@@ -1809,7 +1854,7 @@ class UAPublic extends Auxll {
 
             let dev = A.dev[0];
 
-            let mail = A.alerts;
+            let mail = A.alerts.sort((a, b) => {return b.mail_log - a.mail_log});
 
             let mail_ = A.mail_;
 
@@ -1833,7 +1878,7 @@ class UAPublic extends Auxll {
                 model.rootView({
                   appendModel: [
                     model.topDevsView({
-                      ava: ((dev.ava === false) ? ava = ava: ava = dev.ava), 
+                      ava: (dev.ava), 
                       mail: dev.mail}), 
                     model.controlsView(), 
                     model.rootDevsView(dev, mail, devs, mail_),model.tailControls(), 

@@ -3424,7 +3424,7 @@ module.exports = {
         `div`, `.@_cx4 _gxM _geQ _gMX`, [[
           `div`, `.@_x10 _x00`, [[
             `div`, `.@_gxM _x2y _gMX`, `&@style>margin: 0 auto;`, [[
-              `div`, `.@_x40`, `&@style>padding: 0 15px 0 0`, [[
+              `div`, `.@_x25`, `&@style>padding: 0 15px 0 0`, [[
                 `div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
                   `img`, `.@_aWz`, `&@src>${ObjMail.ava}`, `&@alt>avatar`]]], [
                 `div`, `.@_eYG`, [[
@@ -3432,7 +3432,7 @@ module.exports = {
                     `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X _tXv`, `~@${this.log(ObjMail.utc)}`]]]]], [
                   `div`, `.@_gxM _geQ`, [[
                     `span`, `.@_aA6 _a2X`, `~@${ObjMail.dev_group}`]]]]]]]]], [
-              `div`, `.@_x13`, [[
+              `div`, `.@_x16`, [[
                 `div`, `.@_Xsa`, [[
                   `a`, `&@href>/devs/mail/${ObjMail.mail_md5}/`, `&@style>line-height: 1.6em`, `.@_aA2 _tXv`, `~@${ObjMail.msg}`]]]]]]]]]]]
     }
@@ -3549,7 +3549,7 @@ module.exports = {
       model[e] = [
         `div`, `.@_X4-`, [[
           `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:60px;height:60px`, [[
-            `img`, `.@_aWz`, `&@src>${((dev.ava === false) ? ava = ava: ava = dev.ava)}`, `&@alt>avatar`]]], [
+            `img`, `.@_aWz`, `&@src>${dev.ava}`, `&@alt>avatar`]]], [
           `div`, `.@_eYG`, [[
             `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${dev.alt} ${dev.alt2}`]]], [
             `div`, `.@_gxM _geQ`, [[
@@ -3645,28 +3645,36 @@ module.exports = {
 
     Obj.forEach((Msg, a) => {
 
+      let risk = `&@style>color:`;
+
+      if (Msg.risk === `Urgent`) risk += `#db0404`;
+
+      else if (Msg.risk === `High`) risk += `#04db30`;
+
+      else if (Msg.risk === `Low`) risk += `#046cdb`;
+
       reqs[a] = [
         `div`, `.@_cx4 _gxM _geQ _gMX`, [[
           `div`, `.@_x10 _x00`, [[
             `div`, `.@_gxM _x2y _gMX`, `&@style>margin: 0 auto;`, [[
-              `div`, `.@_x40`, `&@style>padding: 0 15px 0 0`, [[
+              `div`, `.@_x25`, `&@style>padding: 0 15px 0 0`, [[
                 `div`, `&@style>letter-spacing:0.75px`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-                  `img`, `.@_aWz`, `&@src>`, `&@alt>avatar`]]], [
+                  `img`, `.@_aWz`, `&@src>${Msg.src_ava}`, `&@alt>avatar`]]], [
                 `div`, `.@_eYG`, [[
-                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@_tXx aA2 _tXv`, `~@${Msg.mailto}`]]], [
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@tXx aA2 _tXv`, `~@${Msg.src_alt}`]]], [
                     `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X _tXv`, `~@${this.log(Msg.mail_log)}`]]]]], [
                   `div`, `.@_gxM _geQ`, [[
-                    `span`, `.@_aA6 _a2X`, `~@Customer`]]]]]]]]], [
-              `div`, `.@_x13`, [[
-                `div`, `.@_Xsa`, [[`span`, `.@_tXv _tXx`, `~@${Msg.title}`], [
-                  `a`, `&@href>/devs/mail/c/${Msg.mail_md5}/`, `&@style>line-height: 1.6em`, `.@_aA2 _tXv`, `~@${Msg.mail}`], [
-                  `span`, `.@_tXx`, `~@#${Msg.risk}`]]]]]]]]]]]
+                    `span`, `.@_aA6 _a2X`, `~@${Msg.src_role}`]]]]]]]]], [
+              `div`, `.@_x16`, [[
+                `div`, `.@_Xsa`, [/*[`span`, `.@_tXv _tXx`, `~@${Msg.title}`], */[
+                  `a`, `&@href>/devs/mail/c/${Msg.mail_md5}/`, `&@style>line-height: 1.6em`, `.@_aA2 _tXx _tXv`, `~@${Msg.title}`], [
+                  `span`, risk, `.@_aA2 tXx`, `~@#${Msg.risk}`]]]]]]]]]]]
     })
 
     let supportReqs = [
         `div`, `.@_sZ2`, [[
           `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [[
-            `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Support Requests`]]], [
+            `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Feedback & Support Requests`]]], [
             `div`, `.@_QZg _gxM`, []]]], [`div`, reqs]]]
 
     if (!Obj.length > 0) supportReqs = [];

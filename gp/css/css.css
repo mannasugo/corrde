@@ -3024,6 +3024,13 @@ table > thead > tr > th {
 @dev
 **/
 
+@media (min-width: 1200px) {
+
+  ._x25 {width: 40%}
+
+  ._x16 {width: 60%}
+}
+
 @media (min-width: 768px) {
 
   ._cX3 {max-width: 720px}
@@ -3082,6 +3089,8 @@ table > thead > tr > th {
     -ms-flex-direction: column;
     flex-direction: column;
   }
+
+  ._x16 {padding-left: 52px}
 }
 
 @media (max-width: 560px) {

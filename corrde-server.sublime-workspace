@@ -4,16 +4,60 @@
 		"selected_items":
 		[
 			[
+				"src",
+				"src_role"
+			],
+			[
+				"src_",
+				"src_ava"
+			],
+			[
+				"mail",
+				"mailto"
+			],
+			[
+				"to",
+				"toUppercase"
+			],
+			[
+				"ma",
+				"mailto"
+			],
+			[
+				"al",
+				"alternativeMug"
+			],
+			[
+				"sub",
+				"subj"
+			],
+			[
+				"to_",
+				"to_md5"
+			],
+			[
+				"padd",
+				"padding-left\tproperty"
+			],
+			[
+				"r",
+				"risk"
+			],
+			[
+				"supp",
+				"support_msg"
+			],
+			[
+				"ti",
+				"title"
+			],
+			[
 				"_tX",
 				"_tXx"
 			],
 			[
 				"M",
 				"Mail2Obj"
-			],
-			[
-				"supp",
-				"supportReqs"
 			],
 			[
 				"pre_",
@@ -92,10 +136,6 @@
 				"line-height"
 			],
 			[
-				"src",
-				"src_ava"
-			],
-			[
 				"read",
 				"readDevsMail"
 			],
@@ -130,10 +170,6 @@
 			[
 				"_Zg",
 				"_ZSg"
-			],
-			[
-				"src_",
-				"src_md5"
 			],
 			[
 				"aler",
@@ -478,42 +514,6 @@
 			[
 				"availM",
 				"availMug_ejs"
-			],
-			[
-				"string",
-				"stringify"
-			],
-			[
-				"clu",
-				"clusterScopes"
-			],
-			[
-				"clust",
-				"clusterScopesView"
-			],
-			[
-				"scope",
-				"scope2"
-			],
-			[
-				"cluster",
-				"clusterScopes"
-			],
-			[
-				"for",
-				"forEach"
-			],
-			[
-				"slice",
-				"sliceScopesView"
-			],
-			[
-				"level",
-				"level_errors_"
-			],
-			[
-				"sel",
-				"selfContracts"
 			]
 		]
 	},
@@ -541,7 +541,7 @@
 			"file": "corrde-util.js",
 			"settings":
 			{
-				"buffer_size": 95423,
+				"buffer_size": 96789,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -550,7 +550,7 @@
 			"file": "corrde-config.js",
 			"settings":
 			{
-				"buffer_size": 14730,
+				"buffer_size": 14771,
 				"encoding": "UTF-8",
 				"line_ending": "CR"
 			}
@@ -559,7 +559,7 @@
 			"file": "corrde-model.js",
 			"settings":
 			{
-				"buffer_size": 162248,
+				"buffer_size": 162459,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -577,7 +577,7 @@
 			"file": "gp/js/devs_js.js",
 			"settings":
 			{
-				"buffer_size": 14580,
+				"buffer_size": 14724,
 				"encoding": "UTF-8",
 				"line_ending": "CR"
 			}
@@ -586,7 +586,7 @@
 			"file": "gp/css/css.css",
 			"settings":
 			{
-				"buffer_size": 45398,
+				"buffer_size": 45504,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -649,6 +649,23 @@
 	},
 	"file_history":
 	[
+		"/C/etc/corrde/gp/img-ssl/ava/vector/4_0.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/10_0.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/10_1.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/4_1.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/1_1.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/19_1.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/5_1.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/19_0.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/5_0.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/1_0.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/14_0.svg",
+		"/D/.etc/remote/nxt/js/x/arrayRandom.htm",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/14_1.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/13_01.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/13_00.svg",
+		"/C/etc/corrde/gp/img-ssl/ava/vector/01_00.svg",
+		"/C/etc/corrde/gp/p/vector/mug.svg",
 		"/C/Users/Mann/twineall/public/gp/css/user.css",
 		"/C/Users/Mann/twineall/twine-model.js",
 		"/C/etc/corrde/corrde-model.js",
@@ -659,7 +676,6 @@
 		"/C/etc/corrde/gp/p/vector/nav_down.svg",
 		"/C/etc/corrde/gp/p/vector/infograph.svg",
 		"/C/etc/corrde/gp/p/vector/instagram.svg",
-		"/C/etc/corrde/gp/p/vector/mug.svg",
 		"/C/etc/corrde/gp/p/vector/next.svg",
 		"/C/etc/corrde/gp/p/vector/prev.svg",
 		"/C/etc/corrde/gp/p/vector/twitter.svg",
@@ -760,23 +776,7 @@
 		"/C/etc/corrde/node_modules/topojson-server/bin/geo2topo",
 		"/C/Users/Mann/Desktop/ss/_scripts_/mapbox.js-mb-pages/README.md",
 		"/C/etc/corrde/gp/twineJSON/t3.geojson",
-		"/C/etc/corrde/node_modules/osmtogeojson/kisumu_full.osm",
-		"/C/Users/Mann/AppData/Local/Main.dat",
-		"/D/__tv__/4/4Report.txt",
-		"/D/__tv__/~git/ff864215009174bc5d164ec3533125c2-b9049d455db3749563705ba06b61a7d73b91662d/README.md",
-		"/D/refs/repos/vector-tile-spec-master/2.1/vector_tile.proto",
-		"/C/etc/corrde/gp/twineJSON/t2.geojson",
-		"/D/__tv__/www/~tech/refs/brave-core-master.zip/brave-core-master/BUILD.gn",
-		"/D/__tv__/d3/API.md",
-		"/D/__tv__/d3/d3.js",
-		"/D/__tv__/d3-d3-v5.15.0-0-g7c711ba/d3-d3-7c711ba/rollup.config.js",
-		"/D/__tv__/d3-d3-v5.15.0-0-g7c711ba/d3-d3-7c711ba/index.js",
-		"/D/__tv__/d3-d3-v5.15.0-0-g7c711ba/d3-d3-7c711ba/test/d3-test.js",
-		"/D/__tv__/d3-d3-v5.15.0-0-g7c711ba/d3-d3-7c711ba/README.md",
-		"/D/__tv__/d3/README.md",
-		"/D/__tv__/natural_earth_vector/tools/build_topology_not_working/ne_10m_cultural_admin_0_line_input.geojson",
-		"/D/__tv__/natural_earth_vector/tools/make-graticules-and-bounding-box/geojson/ne_10m_graticules_5.geojson",
-		"/D/__tv__/natural_earth_vector/tools/make-graticules-and-bounding-box/geojson/ne_10m_graticules_1.geojson"
+		"/C/etc/corrde/node_modules/osmtogeojson/kisumu_full.osm"
 	],
 	"find":
 	{
@@ -794,6 +794,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"upper",
 			"textar",
 			"slid",
 			"X4-",
@@ -920,8 +921,7 @@
 			">",
 			"header",
 			"contractS",
-			"GPS",
-			"inn"
+			"GPS"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -939,7 +939,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -997,7 +997,7 @@
 						"translation.y": 288.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1006,15 +1006,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 95423,
+						"buffer_size": 96789,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								44416,
-								44416
+								44769,
+								44769
 							]
 						],
 						"settings":
@@ -1024,10 +1024,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 60354.0,
+						"translation.y": 46956.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1036,15 +1036,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14730,
+						"buffer_size": 14771,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4275,
-								4275
+								491,
+								491
 							]
 						],
 						"settings":
@@ -1054,7 +1054,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2048.0,
+						"translation.y": 242.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -1066,15 +1066,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 162248,
+						"buffer_size": 162459,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								147939,
-								147939
+								137152,
+								137152
 							]
 						],
 						"settings":
@@ -1084,10 +1084,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 57961.0,
+						"translation.y": 61926.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1114,10 +1114,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 24121.0,
+						"translation.y": 31507.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1126,15 +1126,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14580,
+						"buffer_size": 14724,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								105,
-								105
+								11977,
+								11977
 							]
 						],
 						"settings":
@@ -1144,10 +1144,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 9.0,
+						"translation.y": 7479.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1156,15 +1156,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 45398,
+						"buffer_size": 45504,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								45398,
-								45398
+								45008,
+								45008
 							]
 						],
 						"settings":
@@ -1174,10 +1174,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 49217.0,
+						"translation.y": 48822.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
