@@ -4,6 +4,86 @@
 		"selected_items":
 		[
 			[
+				"job",
+				"jobs-slide-ejs"
+			],
+			[
+				"st",
+				"stories"
+			],
+			[
+				"_axs",
+				"_axS"
+			],
+			[
+				"bac",
+				"background-image\tproperty"
+			],
+			[
+				"_xC",
+				"_xC3"
+			],
+			[
+				"padd",
+				"padding-bottom"
+			],
+			[
+				"pad",
+				"padding\tproperty"
+			],
+			[
+				"marg",
+				"margin\tproperty"
+			],
+			[
+				"_aA",
+				"_aA2"
+			],
+			[
+				"li",
+				"line-height\tproperty"
+			],
+			[
+				"_gx",
+				"_gxM"
+			],
+			[
+				"ba",
+				"background-size\tproperty"
+			],
+			[
+				"alig",
+				"align-items\tproperty"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"fon",
+				"font-size\tproperty"
+			],
+			[
+				"_c",
+				"_c3x"
+			],
+			[
+				"_cx",
+				"_cX3"
+			],
+			[
+				"_g",
+				"_gf3"
+			],
+			[
+				"gx",
+				"_gxQ"
+			],
+			[
+				"_cX",
+				"_cX3"
+			],
+			[
 				"src",
 				"src_role"
 			],
@@ -34,10 +114,6 @@
 			[
 				"to_",
 				"to_md5"
-			],
-			[
-				"padd",
-				"padding-left\tproperty"
 			],
 			[
 				"r",
@@ -80,10 +156,6 @@
 				"getDevsMail"
 			],
 			[
-				"pad",
-				"padding-top"
-			],
-			[
 				"push",
 				"pushSupportMsg"
 			],
@@ -100,19 +172,11 @@
 				"supportMsgModal"
 			],
 			[
-				"font",
-				"font-weight\tproperty"
-			],
-			[
 				"C",
 				"Community"
 			],
 			[
 				"margin",
-				"margin-top\tproperty"
-			],
-			[
-				"marg",
 				"margin-top\tproperty"
 			],
 			[
@@ -238,14 +302,6 @@
 			[
 				"min",
 				"min-width\tproperty"
-			],
-			[
-				"_cX",
-				"_cX0"
-			],
-			[
-				"_aA",
-				"_aA2"
 			],
 			[
 				"_pV",
@@ -458,62 +514,6 @@
 			[
 				"ana",
 				"analytics_reqs"
-			],
-			[
-				"secs",
-				"secsUTCApp"
-			],
-			[
-				"di",
-				"display"
-			],
-			[
-				"text",
-				"text-transform"
-			],
-			[
-				"SV",
-				"SVGCount"
-			],
-			[
-				"Y",
-				"Y_MAX"
-			],
-			[
-				"val",
-				"valueOf"
-			],
-			[
-				"Dat",
-				"Date"
-			],
-			[
-				"graps",
-				"graphsRep"
-			],
-			[
-				"leve",
-				"levelState"
-			],
-			[
-				"pay",
-				"payway"
-			],
-			[
-				"fie",
-				"fieldCount"
-			],
-			[
-				"pro",
-				"proMod"
-			],
-			[
-				"all",
-				"allPro"
-			],
-			[
-				"availM",
-				"availMug_ejs"
 			]
 		]
 	},
@@ -541,7 +541,7 @@
 			"file": "corrde-util.js",
 			"settings":
 			{
-				"buffer_size": 96789,
+				"buffer_size": 97466,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -550,7 +550,7 @@
 			"file": "corrde-config.js",
 			"settings":
 			{
-				"buffer_size": 14771,
+				"buffer_size": 15370,
 				"encoding": "UTF-8",
 				"line_ending": "CR"
 			}
@@ -559,7 +559,7 @@
 			"file": "corrde-model.js",
 			"settings":
 			{
-				"buffer_size": 162459,
+				"buffer_size": 181247,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -577,7 +577,7 @@
 			"file": "gp/js/devs_js.js",
 			"settings":
 			{
-				"buffer_size": 14724,
+				"buffer_size": 16161,
 				"encoding": "UTF-8",
 				"line_ending": "CR"
 			}
@@ -586,7 +586,7 @@
 			"file": "gp/css/css.css",
 			"settings":
 			{
-				"buffer_size": 45504,
+				"buffer_size": 49424,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -609,10 +609,10 @@
 			}
 		},
 		{
-			"file": "/C/Users/Mann/Desktop/ss/_scripts_/mapbox.js-mb-pages/CHANGELOG.md",
+			"file": "/C/Users/Mann/Desktop/ss/_scripts_/cropbox.js",
 			"settings":
 			{
-				"buffer_size": 12490,
+				"buffer_size": 4742,
 				"line_ending": "Unix"
 			}
 		}
@@ -649,6 +649,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Mann/Desktop/ss/_scripts_/cropbox.js",
+		"/C/Users/Mann/Desktop/ss/_scripts_/mapbox.js-mb-pages/CHANGELOG.md",
 		"/C/etc/corrde/gp/img-ssl/ava/vector/4_0.svg",
 		"/C/etc/corrde/gp/img-ssl/ava/vector/10_0.svg",
 		"/C/etc/corrde/gp/img-ssl/ava/vector/10_1.svg",
@@ -681,7 +683,6 @@
 		"/C/etc/corrde/gp/p/vector/twitter.svg",
 		"/C/etc/corrde/corrde-util.js",
 		"/C/etc/corrde/node_modules/mysql/Readme.md",
-		"/C/Users/Mann/Desktop/ss/_scripts_/mapbox.js-mb-pages/CHANGELOG.md",
 		"/D/_areA_/beta/htdocs/dev/trial/facebook/Database/faceback.sql",
 		"/D/_areA_/beta/htdocs/dev/trial/facebook/index.php",
 		"/D/_areA_/beta/htdocs/dev/trial/facebook/Login.php",
@@ -775,8 +776,7 @@
 		"/C/etc/corrde/gp/js/topojson-server.js",
 		"/C/etc/corrde/node_modules/topojson-server/bin/geo2topo",
 		"/C/Users/Mann/Desktop/ss/_scripts_/mapbox.js-mb-pages/README.md",
-		"/C/etc/corrde/gp/twineJSON/t3.geojson",
-		"/C/etc/corrde/node_modules/osmtogeojson/kisumu_full.osm"
+		"/C/etc/corrde/gp/twineJSON/t3.geojson"
 	],
 	"find":
 	{
@@ -794,6 +794,25 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"transla",
+			"scale",
+			"click",
+			"scrol",
+			"pan ",
+			"translateE",
+			"15px",
+			"aMz",
+			"user-s",
+			"position: ab",
+			"padding-bott",
+			"appe",
+			"add ",
+			"background: #fff",
+			"cX3",
+			"cX",
+			"add ",
+			"xx4",
+			"visited",
 			"upper",
 			"textar",
 			"slid",
@@ -902,26 +921,7 @@
 			"border-bot",
 			"border-b",
 			"UTC",
-			"ell",
-			"10px",
-			"max-width: 5",
-			"justify-c",
-			"azx",
-			"fixed",
-			"top",
-			"page",
-			"https",
-			"job",
-			"px",
-			"anal",
-			"ana",
-			"reg",
-			"cancel",
-			" >",
-			">",
-			"header",
-			"contractS",
-			"GPS"
+			"ell"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -939,7 +939,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 9,
 			"sheets":
 			[
 				{
@@ -997,7 +997,7 @@
 						"translation.y": 288.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -1006,15 +1006,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 96789,
+						"buffer_size": 97466,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								44769,
-								44769
+								18705,
+								18705
 							]
 						],
 						"settings":
@@ -1024,10 +1024,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 46956.0,
+						"translation.y": 12615.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1036,15 +1036,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14771,
+						"buffer_size": 15370,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								491,
-								491
+								393,
+								393
 							]
 						],
 						"settings":
@@ -1054,10 +1054,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 242.0,
+						"translation.y": 184.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1066,15 +1066,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 162459,
+						"buffer_size": 181247,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								137152,
-								137152
+								163823,
+								163823
 							]
 						],
 						"settings":
@@ -1084,10 +1084,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 61926.0,
+						"translation.y": 63232.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1103,8 +1103,8 @@
 						"selection":
 						[
 							[
-								38342,
-								38344
+								44651,
+								44658
 							]
 						],
 						"settings":
@@ -1114,10 +1114,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 31507.0,
+						"translation.y": 28352.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1126,15 +1126,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14724,
+						"buffer_size": 16161,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11977,
-								11977
+								15889,
+								15889
 							]
 						],
 						"settings":
@@ -1144,10 +1144,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7479.0,
+						"translation.y": 8800.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1156,15 +1156,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 45504,
+						"buffer_size": 49424,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								45008,
-								45008
+								48806,
+								48806
 							]
 						],
 						"settings":
@@ -1174,10 +1174,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 48822.0,
+						"translation.y": 52316.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1207,7 +1207,7 @@
 						"translation.y": 2545.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1223,8 +1223,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								140571,
+								140571
 							]
 						],
 						"settings":
@@ -1232,19 +1232,19 @@
 							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 23153.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 10,
-					"file": "/C/Users/Mann/Desktop/ss/_scripts_/mapbox.js-mb-pages/CHANGELOG.md",
+					"file": "/C/Users/Mann/Desktop/ss/_scripts_/cropbox.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12490,
+						"buffer_size": 4742,
 						"regions":
 						{
 						},
@@ -1257,15 +1257,15 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1760.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

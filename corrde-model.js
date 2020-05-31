@@ -176,9 +176,22 @@ class Util {
 
     return left;
   }
+
+  alternativeMug (subj) {
+
+    let alpha = `ABCDEFGHIJKLMNOPQRSTUVWXYZ`;
+
+    subj = parseInt(alpha.indexOf(subj.toUpperCase()[0]) + 1);
+
+    let ava = config.reqs.alt_ava + subj + `_${Math.round(Math.random()*1)}.svg`;
+
+    return ava
+  }
 }
 
 module.exports = {
+
+  ava: (subj) => new Util().alternativeMug(subj),
 
   log: (time) => new Util().timeFormat(time),
 
@@ -3892,7 +3905,7 @@ module.exports = {
   support () {
 
     return [
-      `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px`, [[`section`, `.@_g29`, `&@style>line-height:1.5em`, [[
+      `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px`, [[`section`, `.@_g29`, `&@style>line-height:1.5rem`, [[
         `div`, `.@_cX3`, [[`div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
           `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[`h1`, `.@_tx1 _atX`, `~@We're here to help`]]], [`div`, `.@_ge0 _c3x`, [[
           `div`, `~@Support is just a few taps away. 
@@ -3912,6 +3925,281 @@ module.exports = {
               `div`, `.@_gMX gcQ`, [[
                 `div`, `.@_gM_a _agM _gMX _guZ`, `&@style>max-width: 500px`, [[
                   `a`, `#@support-msg-ejs`, `inlineJSON`, `.@_TX_a _atX _gMX _utQ _tXx`, `&@href>javascript:;`, `~@Ask Support Team a Question`]]]]]]]]]]]
-  }
+  },
 
+  supportAlert () {
+
+    return [`section`, `.@_gf3 _aA2`, [[`div`, `.@_cX3`, [[`div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+      `span`, `~@Need any assistance? We now have a fully operational support team to tackle your requests or improve on your suggestions.`]]], [
+      `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+        `div`, `.@_gM_a _agM _guZ`, [[`a`, ``, `.@_TX_a _atX qXS _utQ`, `&@href>/support/`, `~@Request Support`]]]]]]], [
+      `div`, [[
+            `div`, `.@_aXz`, `&@style>max-width:100%;background:#1185fe;`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@`], [
+                `span`, `.@tCc pV4`, `~@`]]], [
+              `div`, `.@_QZg _gMz`, [[
+                    `div`, `.@_pVf _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX utQ _atX _gMX`, `&@href>/tour/`, `~@Take A Tour`]]]]]]]]]]]
+  },
+
+  topTour () {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@explore`]]], [
+              `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>javascript:;`]]]]]]]]]]];
+  },
+
+  tour () {
+
+    return [
+      `main`, `.@_xC2 _aA2 _gf3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%`, [[
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Corrde Users Around You `]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, [[
+                    `div`, `.@_xX0 _tXv`, [[
+                      `span`, `.@_cCq`, `&@style>width:50px;height:50px`, [[
+                        `img`, `.@_aWz`, `&@src>${this.ava(`A`)}`, `&@alt>avatar`]]], [
+                      `span`, `&@style>margin:10px 0 0`, `.@_aA6`, `~@3.2 Mil`]]], [
+                    `div`, `.@_xX0 _tXv`, [[
+                      `span`, `.@_cCq`, `&@style>width:50px;height:50px`, [[
+                        `img`, `.@_aWz`, `&@src>${this.ava(`N`)}`, `&@alt>avatar`]]], [
+                      `span`, `&@style>margin:10px 0 0`, `.@_aA6`, `~@4.7 Mil`]]]]]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Portfolio stories`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, [[
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:116.677777%`, `.@_aMz _gVm`, 
+              `&@src>/gp/img-ssl/stories/68747470733a2f2f637573746f6d65722d73746f726965732d666565642e6769746875622e636f6d2f637573746f6d65725f73746f726965732f7361702f736170332e6a7067.jpeg`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@300`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@4.2K`]]]]], [
+                `div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 10000)}`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Tim McGraw`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`T`)}`, `&@alt>avatar`]]]]]]]]]]]]], [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/hurme-geometric-sans-complete_fp-950x475_2x.png`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@2290`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@500`]]]]], [`div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 133000)}`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Danielle Bradberry`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`D`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Popular`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, [[
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:132.3336%`, `.@_aMz _gVm`, 
+              `&@src>/gp/img-ssl/stories/8d43d99e9b21e853fd1b7648f2efbb62.jpg`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@4.1 Stars`]]]]], [
+                `div`, [[`span`, `.@_a2X _aA6`, `~@$ 9 / Hour`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Tim McGraw`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`T`)}`, `&@alt>avatar`]]]]]]]]]]]]], [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:149.3846%`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/c65d5a34106cffb634b86adbe77abfe3bbb98038.jpeg`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@3.2 Stars`]]]]], [
+                `div`, [[`span`, `.@_a2X _aA6`, `~@$ 9 / Hour`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Danielle Bradberry`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`D`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Jobs Around You`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@jobs-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate-ejs`, `.@_AZs _gxM`, [[
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:100%`, `.@_aMz _gVm`, 
+              `&@src>/gp/img-ssl/stories/0ca0b557661050b67678471ea12f2519.jpg`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX _eYG gcQ`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@_tXx _aA6 _tXv`, `~@Quadcopter Electronics Dealer`]]]]], [
+                  `div`, `.@_gxM _gMX`, [[
+                    `span`, `.@_aA6 _tXv`, `~@Applicants must have prior job completions in corrde with adequate`]]]]]]], [
+              `div`, `.@_yZS _gxM _gMX _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[`div`, `.@aXs`, `~@9.7 Miles`], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@500`]]]]], [`div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 2383000)}`]]]]]]]]]]]]], [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:155.0859%`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/book-p77-3f4bf87d29a1541fcabe683f565d1dfe.png`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX _eYG gcQ`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@_tXx _aA6 _tXv`, `~@Animation Creativity Director`]]]]], [
+                  `div`, `.@_gxM _gMX`, [[
+                    `span`, `.@_aA6 _tXv`, `~@Project 77 is an animation adapted from a graphic novel, we are seeking`]]]]]]], [
+              `div`, `.@_yZS _gxM _gMX _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[`div`, `.@aXs`, `~@3.7 Miles`], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@500`]]]]], [`div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 1383000)}`]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Freelancers Around You`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@near-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@near-rotate-ejs`, `.@_AZs _gxM`, [[
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:133.4%`, `.@_aMz _gVm`, 
+              `&@src>/gp/img-ssl/stories/db913623-1000x667.jpg`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@2.1 Stars`]]]]], [
+                `div`, [[`span`, `.@_a2X _aA6`, `~@$ 27 / Hour`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Mitchell Tenpenny`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`M`)}`, `&@alt>avatar`]]]]]]]]]]]]], [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:111.6363636%`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/image-chromestore-55e0cd9562c0c56cb11d7cec6aac5ce6.jpg`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@3.4 Stars`]]]]], [
+                `div`, [[`span`, `.@_a2X _aA6`, `~@$ 19 / Hour`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Ashley Munroe`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`A`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
+  },
+
+  rootXtra () {
+
+    return [
+      `section`, `.@_tY0 _aA2`, [[
+        `div`, `.@_xC3`, [[
+          `div`, `.@_gxM _yZS cX0 _aYS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[
+              `a`, ``, `.@_TX_a _atX qXS _utQ tXx`, `&@href>/tour/`, `~@COVID-19 Watch`]]]]], [
+          `div`, `.@_gxQ _gxM _X2Y`, [[
+            `div`, `.@_g17 _c3x`, [[
+              `div`, `&@style>height:280px`, [[
+                `div`, `.@_gMr _gfb`, `&@style>margin:14.75% 0 0 9%`], [
+                  `div`, `.@_gMr _gfb`, `&@style>margin:33% 0 0 22.5%;animation-delay:1s`], [
+                  `div`, `.@_gMr _gfb`, `&@style>margin:10.55% 0 0 44.75%;animation-delay:1.75s`], [
+                    `div`, `.@_gMr _gfb`, `&@style>margin:23% 0 0 42%;animation-delay:2.5s`], [
+                    `div`, `.@_gMr _gfb`, `&@style>margin:8% 0 0 71.5%;animation-delay:3.25s`], [
+                    `div`, `.@_gMr _gfb`, `&@style>margin:39% 0 0 51%;animation-delay:4s`], [
+                    `div`, `.@_gMr _gfb`, `&@style>margin:12.75% 0 0 79.25%;animation-delay:4.25s`], [
+                    `div`, `.@_gMr _gfb`, `&@style>margin:37.6% 0 0 93%;animation-delay:5.5s`], [
+                    `div`, `.@_gMr`, `&@style>margin:14.75% 0 0 9%`], [
+                    `div`, `.@_gMr`, `&@style>margin:33% 0 0 22.5%;animation-delay:1s`], [
+                    `div`, `.@_gMr`, `&@style>margin:10.55% 0 0 44.75%;animation-delay:1.75s`], [
+                    `div`, `.@_gMr`, `&@style>margin:23% 0 0 42%;animation-delay:2.5s`], [
+                    `div`, `.@_gMr`, `&@style>margin:8% 0 0 71.5%;animation-delay:3.25s`], [
+                    `div`, `.@_gMr`, `&@style>margin:39% 0 0 51%;animation-delay:4s`], [
+                    `div`, `.@_gMr`, `&@style>margin:12.75% 0 0 79.25%;animation-delay:4.25s`], [
+                    `div`, `.@_gMr`, `&@style>margin:37.6% 0 0 93%;animation-delay:5.5s`]]]]], [
+                `div`, `.@_ge0 _c3x`, [[
+                  `div`, [[
+                    `h1`, `.@_t22`, `~@Move, deliver & earn safely with COVID-19 monitor maps`], [
+                    `p`, `.@_sZ2`, `~@As an augmentation to facilitate services through our live maps, we will be adding globally approved COVID-19 geodata
+                      by regularly marking and tagging (in hazard level color codes) locations and zones with their 
+                      relative COVID-19 distribution patterns.`], [
+                    `div`, `.@_g00 _gxM _sZ2`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Facilitate safe navigation to remote jobs and corrde delivery services.`]]], [
+                    `div`, `.@_g00 _gxM _sZ2`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Find safe & open restuarants or hotels for delivery requests.`]]]]]]]]]]]]];}
 }

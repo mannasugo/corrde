@@ -712,6 +712,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `setup`) this.setup();
 
     if (this.levelState === `explore`) this.inView();
+
+    else if (this.levelState === `tour`) this.tour();
   }
 
 
@@ -797,8 +799,8 @@ class UAPublic extends Auxll {
 
         modelMapping[`appendModel`] = [
           model.main({
-            appendModel: [
-              model.banner(), 
+            appendModel: [model.supportAlert(),
+              model.banner(), model.rootXtra(), 
               model.products(),
               model.SVGMetrics(msg),
               model.hows(), model.feature(),
@@ -2020,6 +2022,28 @@ class UAPublic extends Auxll {
                     model.topSupport(), model.support(), 
                     model.jS(pool),
                     model.loadDOMModalView([model.modalView([model.supportMsgModal()])], `support-msg-modal-ejs`)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
+  }
+
+  tour () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Take A Tour`,
+                css: CSS,
+                jsState: config.reqs.devs_js}
+
+              pool.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.topTour(), model.tour(), 
+                    model.jS(pool)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
