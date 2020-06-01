@@ -477,8 +477,6 @@ class Auxll {
 
           let devs = JSON.parse(B[0][dev].json);
 
-          //if (devs.dev_md5 === dev_md5) devObj.push(devs);
-
           if (devs.ava === false) devs[`ava`] = this.alternativeMug(devs.alt)
           devs[`gps`] = false;
           devs[`pre_mail_utc`] = new Date().valueOf();
@@ -599,6 +597,95 @@ class Auxll {
 
     return ava
   }
+
+  logs_u_md5 (call) {
+
+    new Sql().multi({},
+      `select * from u
+      ;select * from u_md5_logs`, (A, B, C) => {
+
+        let u_md5Obj = [];
+
+        let u_md5Key = {};
+
+        const utc_Z = new Date().valueOf();
+
+        const utc_A = new Date(new Date() - (6 * 86400000)).valueOf();
+
+        for (let u in B[0]) {
+
+          let logCount = 0;
+
+          let utcCount = 0;
+
+          let diff = 0;
+
+          let utc;
+
+          let logObj = [];
+
+          let md5 = JSON.parse(B[0][u].alt);
+
+          if (md5.ava === false) md5[`ava`] = this.alternativeMug(md5.full);
+
+          else if (md5.ava !== false) md5[`ava`] = `/` + md5[`ava`];
+
+          md5[`gps`] = false;
+          md5[`pre_mail_utc`] = new Date().valueOf();
+          md5[`pre_utc`] = new Date().valueOf();
+          md5[`reqs_per_secs`] = 0.0;
+
+          for (let log in B[1]) {
+
+            let logs = JSON.parse(B[1][log].json);
+
+            if (logs.utc > utc_A && logs.utc < utc_Z && logs.u_md5 === md5.sum) {
+
+              if (logCount > 0 && logCount%2 !== 0) {
+
+                utc = logs.utc;
+
+                if (utc === NaN) diff = diff
+              }
+
+              else if (logCount > 1 && logCount%2 === 0) {
+
+                if (utc === NaN) diff = diff
+
+                diff = parseInt(logs.utc) - parseInt(utc)
+
+                utcCount += diff;
+
+                md5[`reqs_per_secs`] = ((utcCount/(86400000*7))*100).toFixed(1);
+              }
+
+              logObj.push(logs);
+
+              logObj.sort((a,b) => {return b.utc - a.utc});
+
+              if (logObj[0].gps && (logObj[0].gps !== false || logObj[0].gps !== `false`)) md5[`gps`] = logObj[0].gps;
+
+              if (logs.headers.referer.split(`/`).length > 2 && logs.headers.referer.split(`/`)[4] === `mail`) {
+
+                mailObj.push(logs);
+
+                md5[`pre_mail_utc`] = mailObj.sort((a, b) => {return b.utc - a.utc})[0].utc;
+              }
+
+              md5[`pre_utc`] = logObj[0].utc;
+
+              logCount++
+            }
+          }
+
+          u_md5Obj.push(md5);
+
+          u_md5Key[md5.sum] = md5;
+        }
+
+        call({md5: u_md5Obj, md5Key: u_md5Key});
+      })
+  }
 }
 
 class Sql extends Auxll {
@@ -632,7 +719,8 @@ class Sql extends Auxll {
         ;${config.sql.messages}
         ;${config.sql.support_mail}
         ;${config.sql.traffic}
-        ;${config.sql.u}`);
+        ;${config.sql.u}
+        ;${config.sql.u_md5_logs}`);
       this.multiSql.end();
     });
     this.iniSql.end();
@@ -698,8 +786,6 @@ class UAPublic extends Auxll {
     if (this.levelState === `myjobs`) this.selfContracts();
 
     if (this.levelState === `p`) this.p();
-
-    if (this.levelState === `analytics`) this.metric();
 
     if (this.levelState === `mug`) this.mug();
 
@@ -768,7 +854,7 @@ class UAPublic extends Auxll {
           title: `Corrde`,
           css: CSSString,
           jSStore: JSON.stringify({State: `offline`}),
-          jsState: config.cd.auJS,
+          jsState: [config.reqs._js, config.cd.auJS],
           appendModel: ``
         };
 
@@ -1029,26 +1115,6 @@ class UAPublic extends Auxll {
               this.app.to.end(model.call(modelMapping));
             });
         });
-      });
-  }
-
-  metric () {
-
-    //if (typeof this.isPassValid() !== `string`) return;
-
-    this.modelStyler(config.lvl.css, CSSString => {
-
-      let modelMapping = {
-        title: `Corrde Metrics`,
-        css: CSSString,
-        appendModel: ``,
-        JSStore: {
-          u: `this.isPassValid()`}};
-
-      modelMapping[`appendModel`] = [model.metric()];
-
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(modelMapping));
       });
   }
 
@@ -2033,7 +2099,9 @@ class UAPublic extends Auxll {
 
     this.modelStyler(config.lvl.css, CSS => {
 
-      const pool = {
+      this.logs_u_md5(A => {
+
+        const pool = {
         jSStore: JSON.stringify({}),
         title: `Take A Tour`,
                 css: CSS,
@@ -2042,13 +2110,14 @@ class UAPublic extends Auxll {
               pool.appendModel = [
                 model.rootView({
                   appendModel: [
-                    model.topTour(), model.tour(), 
+                    model.topTour(), model.tour(A), 
                     model.jS(pool)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
                   this.app.to.end(model.call(pool));
             })
+      })
   }
 }
 
@@ -3351,6 +3420,17 @@ class UATCP extends UAPublic {
 
         new Sql().to([`devs_traffic`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});
       }
+
+      else if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).u) {
+
+        tls.handshake[`utc`] = new Date().valueOf();
+
+        tls.handshake[`u_md5`] = cookie.parse(tls.handshake.headers.cookie).u;
+        tls.handshake[`gps`] = cookie.parse(tls.handshake.headers.cookie).gps;
+
+        new Sql().to([`u_md5_logs`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});
+      }
+
       /**
       @dev
       **
@@ -3585,6 +3665,10 @@ class UATCP extends UAPublic {
 
           new Sql().to([`devs_traffic`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});}
 
+        else if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).u) {
+
+          new Sql().to([`u_md5_logs`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});}
+
       });
     });
   }
@@ -3622,6 +3706,8 @@ class AJXReqs extends Auxll {
       else if (this.args.appendDevs) this.appendDevs(JSON.parse(this.args.appendDevs));
 
       else if (this.args.pushSupportMsg) this.pushSupportMsg(JSON.parse(this.args.pushSupportMsg));
+
+      else if (this.args.setMD5Cookie) this.setMD5Cookie(JSON.parse(this.args.setMD5Cookie));
     }
   }
 
@@ -3885,6 +3971,14 @@ class AJXReqs extends Auxll {
           this.app.to.end(JSON.stringify({exit: true}));
       });
     })
+  }
+
+  setMD5Cookie (args) {
+
+    this.createCookie(`u_md5`, JSON.stringify(args.in));
+
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify({exit: true}));
   }
 }
 

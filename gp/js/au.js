@@ -1927,9 +1927,10 @@
         //let scale = uaX / viewPort;console.log(scale.toLocaleString())
 
         //**/
+        //console.log(d3.geoDistance([34.723, -.533]/*[34.765, -.107]*/,[34.459, -.528]) * 3964)
 
         let projection = d3.geoMercator()
-          .scale(950000)//(scale)
+          .scale(250000)//.scale(viewPort * 3949903)////(scale)
           .translate([uaX / 2, uaY / 2])
           .center(gps),
 

@@ -67,6 +67,23 @@ class Util {
     return dayReduc;
   }
 
+  secsSince (sec) {
+
+    let then = sec, lapse = (new Date().valueOf() - then), lapseString;
+
+    if (lapse >= 86400000) lapseString = Math.floor(lapse/86400000) + `d`;
+
+    else if (lapse >= 3600000) lapseString = Math.floor(lapse/3600000) + `hr`;
+
+    else if (lapse >= 60000) lapseString = Math.floor(lapse/60000) + `min`;
+
+    else if (lapse >= 0) lapseString = Math.floor(lapse/1000) + `sec`;
+
+    else lapseString = new Date(sec).getDate() + ` ` + config.listReducMonths[new Date(sec).getMonth()];
+
+    return lapseString;
+  }
+
   timeFormat (time) {
 
     let then = new Date(parseInt(time)), lapse = (new Date - then)/1000, lapseString;
@@ -198,6 +215,8 @@ module.exports = {
   tick: sec => new Util().ticker(sec),
 
   secs2UTC: sec => new Util().secs2UTC(sec),
+
+  pre_utc: sec => new Util().secsSince(sec),
 
   availtimeleft: sec => new Util().availtimeleft(sec),
 
@@ -1836,14 +1855,30 @@ module.exports = {
   },
 
   jS (pool) {
+
+    let JS;
+
+    if (typeof pool.jsState === `object`) {
+
+      let JS_ = [];
+
+      pool.jsState.forEach(script => {
+
+        JS_[pool.jsState.indexOf(script)]  = [`script`, `&@src>${script}`];
+      })
+
+      JS = [`div`, JS_]
+    }
+
+    else JS = [`script`, `&@src>${pool.jsState}`];
+
     return [
       `aside`, [[
         `script`, `&@src>/socket.io/socket.io.js`], [
         `script`, `&@src>/gp/d3.js`]/*, [
         `script`, `&@src>/gp/topojson-client-master/src/index.js`]*/, [
         `script`, `&@src>${config.cd.utilJS}`], [
-        `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], [
-        `script`, `&@src>${pool.jsState}`]]]
+        `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], JS]]
   },
 
   in () {
@@ -3957,11 +3992,29 @@ module.exports = {
               `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>javascript:;`]]]]]]]]]]];
   },
 
-  tour () {
+  u_md5_y_scroll (A) {
+
+    let Obj = A.md5;
+
+    let u_md5_y_scroll = [];
+
+    Obj.forEach(md5 => {
+
+      u_md5_y_scroll[Obj.indexOf(md5)] = [
+        `div`, `.@_xX0 _tXv`, [[
+          `span`, `.@_cCq`, `&@style>width:50px;height:50px`, [[
+            `img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]], [
+          `span`, `&@style>margin:10px 0 0`, `.@_aA6 _a2X`, `~@${this.pre_utc(md5.pre_utc)}`]]];
+    })
+
+    return u_md5_y_scroll;
+  },
+
+  tour (A) {
 
     return [
       `main`, `.@_xC2 _aA2 _gf3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%`, [[
-        `section`, `.@cX3 _ss7`, [[
+        `section`, `&@style>margin-top: 70px`, `.@cX3 _ss7`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
@@ -3970,15 +4023,8 @@ module.exports = {
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@_miY _gMX`, [[
                 `div`, `#@around-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, [[
-                    `div`, `.@_xX0 _tXv`, [[
-                      `span`, `.@_cCq`, `&@style>width:50px;height:50px`, [[
-                        `img`, `.@_aWz`, `&@src>${this.ava(`A`)}`, `&@alt>avatar`]]], [
-                      `span`, `&@style>margin:10px 0 0`, `.@_aA6`, `~@3.2 Mil`]]], [
-                    `div`, `.@_xX0 _tXv`, [[
-                      `span`, `.@_cCq`, `&@style>width:50px;height:50px`, [[
-                        `img`, `.@_aWz`, `&@src>${this.ava(`N`)}`, `&@alt>avatar`]]], [
-                      `span`, `&@style>margin:10px 0 0`, `.@_aA6`, `~@4.7 Mil`]]]]]]]]]]]]]]]]]]], [
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
+                    this.u_md5_y_scroll(A)]]]]]]]]]]]]]]], [
         `section`, `.@cX3 _ss7`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
