@@ -626,7 +626,7 @@ class Auxll {
 
           let md5 = JSON.parse(B[0][u].alt);
 
-          if (md5.ava === false) md5[`ava`] = this.alternativeMug(md5.full);
+          if (md5.ava === false) {md5[`ava`] = this.alternativeMug(md5.full); md5[`ava_alert`] = true;}
 
           else if (md5.ava !== false) md5[`ava`] = `/` + md5[`ava`];
 
@@ -799,7 +799,11 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `explore`) this.inView();
 
+    else if (this.levelState === `feed`) this.feed();
+
     else if (this.levelState === `tour`) this.tour();
+
+    else if (this.levelState === `portfolio`) this.createStory();
   }
 
 
@@ -2119,6 +2123,75 @@ class UAPublic extends Auxll {
             })
       })
   }
+
+  feed () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.rootCall();
+        
+        else if (A === false) {
+
+          this.logs_u_md5(A => {
+
+            const pool = {
+              jSStore: JSON.stringify({u_md5: B}),
+              title: `The Blue Collar Hub.`,
+              css: CSS,
+              jsState: [config.reqs._js]}
+
+              pool.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.feed(A, A.md5Key[B]), 
+                    model.feedTop(A.md5Key[B]), model.tailFeedControls(), 
+                    model.jS(pool), 
+                    model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
+        }
+      })
+      })
+  }
+
+  createStory () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.rootCall();
+        
+        else if (A === false) {
+
+          this.logs_u_md5(A => {
+
+            const pool = {
+              jSStore: JSON.stringify({u_md5: B}),
+              title: `Create Your Portfolio Stories`,
+              css: CSS,
+              jsState: [config.reqs._js]}
+
+              pool.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.createStory(A, A.md5Key[B]), 
+                    model.pfolioTop(A.md5Key[B]), model.tailFeedControls(), 
+                    model.jS(pool)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
+        }
+      })
+      })
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -3334,6 +3407,8 @@ class AJXJPEG {
     if (this.q.file === `ini_ava`) this.iniAva();
 
     else if (this.q.file === `dev_ava`) this.devAva();
+
+    else if (this.q.file === `u_md5_ava`) this.md5Ava();
   }
 
   iniAva () {
@@ -3378,6 +3453,47 @@ class AJXJPEG {
 
           new Sql().multi({}, 
             `update devs set json = '${JSON.stringify(A.dev[0])}' where json = '${dev}'`,
+            (A, B, C) => {
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify(pool));
+            })
+        })
+      });
+    });
+  }
+
+  md5Ava () {
+
+    let localSt_ = new Date().valueOf();
+
+    const u = config.write_reqs.u_md5_ava + this.q.u_md5 + `/`;
+
+    fs.mkdir(u, {recursive: true}, (err) => {
+
+      fs.writeFile(u + localSt_ + `.jpg`, this.file, err => {
+
+        let pool = {u_md5_ava: u + localSt_ + `.jpg`}
+
+        new Sql().multi({}, 
+            `select * from u`,
+            (A, B, C) => {
+
+          let md5;
+
+          for (let u in B) {
+
+            let Obj = JSON.parse(B[u].alt);
+
+            if (Obj.sum === this.q.u_md5) md5 = Obj;
+          }
+
+          let _md5 = JSON.stringify(md5);
+
+          md5.ava = pool.u_md5_ava;
+
+          new Sql().multi({}, 
+            `update u set alt = '${JSON.stringify(md5)}' where alt = '${_md5}'`,
             (A, B, C) => {
 
               this.app.to.writeHead(200, config.reqMime.json);

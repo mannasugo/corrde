@@ -69,7 +69,7 @@ ol, ul {
   list-style: none;
 }
 
-#corrde-root, article, div, footer, header, main, nav, section {
+#corrde-root, #root, article, div, footer, header, main, nav, section {
   -webkit-box-align: stretch;
   -webkit-align-items: stretch;
   -ms-flex-align: stretch;
@@ -584,7 +584,7 @@ body {
   height: 100%;
 }
 
-._gMX {
+#root, ._gMX {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
@@ -614,7 +614,7 @@ body {
   white-space: nowrap;
 }
 
-.ChevFroGrayColor, .ChevToGrayColor, .closelighticonUA,  .DelColor, 
+.AddStoriesColor, .ChevFroGrayColor, .ChevToGrayColor, .closelighticonUA,  .DelColor, 
 .dissentlighticonUA, .electiconUA, .FroColor, .MailColor, .MugColor, 
 .poolsiconUA, .ProceedColor, .RootGray, .rooticonUA, .SearchColor, .SellColor, 
 .StarColor, .StarMiniColor, .StatsCircleColor, .StatsPlaneColor, 
@@ -624,7 +624,7 @@ body {
 
 .CommentsGray, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
 
-.closelighticonUA, .CommentsGray, .DelColor, .dissentlighticonUA, .electiconUA,
+.AddStoriesColor, .closelighticonUA, .CommentsGray, .DelColor, .dissentlighticonUA, .electiconUA,
 .FilterColor, .GramColor, .Graph000, .FroColor, 
 .HeartsGray, .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
@@ -708,7 +708,7 @@ body {
   background-position: -166px -120px;
 }
 
-.SellColor {
+.AddStoriesColor, .SellColor {
   background-position: -134px -120px;
 }
 
@@ -954,6 +954,7 @@ flex: 3 0 0%;
   border-radius: 8px;
   color: #fff;
   font-size: 11px;
+  letter-spacing: .75px;
 }
 
 ._Ycl, ._pV0 {

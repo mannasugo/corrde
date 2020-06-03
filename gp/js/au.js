@@ -727,7 +727,10 @@
 
         AJXCall(`isAuth`, JSStore.avail(), (A, B) => {
 
-          if (B.is_auth === true) window.location = `/explore/`
+          if (B.is_auth === true) {
+
+            window.location = `/explore/`;
+          }
         })
       } 
     }

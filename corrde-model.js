@@ -3551,7 +3551,7 @@ module.exports = {
       `div`, `&@style>letter-spacing:0.75px`, [[
         `div`, `.@_gcQ _aXZ`, [[
           `div`, `.@_axS`, [[
-            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@ava-place-exit-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Revert`]]]]], [
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@ava-place-exit-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Exit`]]]]], [
           `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Set Avatar Photo`]]], [
           `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM`, [[`a`, `#@ava-place-save-ejs`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Save`]]]]]]], [
         `div`, `.@_aXY _XsQ _aA2`, [[
@@ -4247,5 +4247,201 @@ module.exports = {
                       `p`, `.@_aA6`, `~@Facilitate safe navigation to remote jobs and corrde delivery services.`]]], [
                     `div`, `.@_g00 _gxM _sZ2`, [[
                       `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
-                      `p`, `.@_aA6`, `~@Find safe & open restuarants or hotels for delivery requests.`]]]]]]]]]]]]];}
+                      `p`, `.@_aA6`, `~@Find safe & open restuarants or hotels for delivery requests.`]]]]]]]]]]]]];},
+
+  feedControls () {
+
+    let iconRules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
+
+    let to = [`/feed/`, `/search/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
+
+    let model = [];
+
+    iconRules.forEach((rule, index) => {
+
+      model[index] = [`div`, `.@_Ssa`, [[
+        `a`, `.@-_tX ${rule}`, `&@href>${to[index]}`]]];
+    });
+
+    return [`div`, `.@_gV0 _gDa`, [[
+      `div`, `.@_STa`, [[
+        `div`, `.@_gDE`, [[`div`, `.@_gyQ`, model]]]]]]];
+  },
+
+  tailFeedControls () {
+
+    let rules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
+
+    let to = [`/feed/`, `/search/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
+
+    let tail = [];
+
+    rules.forEach((rule, e) => {
+
+      tail[e] = [
+        `div`, `.@_geQ _gMX`, [[
+          `a`, `.@-_tX ${rule}`, `&@href>${to[e]}`]]];
+    });
+
+    return [
+      `div`, `&@style>max-width:100%`, `.@_gHm _aGX _-gs -gV0`, [[
+        `div`, `.@_xGy`, [[`div`, `&@style>background:#fff`, `.@_gxM _gMX _uxq _egZ`, tail]]]]];
+  }, 
+
+  feedTop (A) {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@feed`]]], [
+              `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${A.full}`], [
+                `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
+  },
+
+  md5Alerts (Obj) {
+
+    let alerts = [
+      `div`, `#@ava-obj-ejs`, `.@_cX3`, [[
+        `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+        `span`, `~@You seem to have no visual identity, 
+          please upload a photo capturing your front profile clearly.`]]], [
+          `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+        `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@place-devs-ava-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@upload photo`]]]]]]];
+
+    let md5Alerts = [
+      `section`, `&@style>margin-top: 70px`, `.@_ss7 _aA2`, [[
+        `div`, `.@_sZ2 _uZM`, [[`div`, `.@_cX3 uZM`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [[
+            `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Alerts`]]], [
+            `div`, `.@_QZg _gxM`, []]]], [`div`, [alerts]]]]]]]]
+
+    if (!Obj.ava_alert) md5Alerts = [];
+
+    return md5Alerts;
+  },
+
+  iniStories () {
+
+    return [`div`, `.@_cX3`, [[
+      `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+        `span`, `.@_tXx _uHg`, `~@Market Your Best Work`], [
+        `div`, `.@_gyQ`, [[
+          `span`, `.@_Qtx`, `&@style>padding:24px 0`, `~@Post video and photo snippets of your best work to advertise your skills.`]]], [
+          `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+        `div`, `.@_gM_a _agM _guZ`, [[`a`, `@place-devs-ava-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>/portfolio/`, `~@Get Started`]]]]]]]]]
+  },
+
+  feed (A, B) {
+
+    return [`span`, `#@root`, [
+      this.feedControls(), [
+        `main`, `.@_xC2 _aA2 gf3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [
+        this.md5Alerts(B), [
+        `section`, `&@style>margin-top: 70px`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Corrde Users Around You `]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
+                    this.u_md5_y_scroll(A)]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Portfolio stories`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>/portfolio/`]]]]]]],
+                this.iniStories(), [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, [[
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>height:116.677777%`, `.@_aMz _gVm`, 
+              `&@src>/gp/img-ssl/stories/68747470733a2f2f637573746f6d65722d73746f726965732d666565642e6769746875622e636f6d2f637573746f6d65725f73746f726965732f7361702f736170332e6a7067.jpeg`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX _eYG gcQ`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `&@href>javascript:;`, `.@_tXx _aA6 _tXv`, `~@Quadcopter Electronics Dealer`]]]]], [
+                  `div`, `.@_ZSg _gxM _eYG`, [[
+                    `span`, `.@_aA6 _tXv`, `~@200 views`]]]]]]], [
+              `div`, `.@_yZS _gxM _geQ _gMX`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@300`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@4.2K`]]]]], [
+                `div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 10000)}`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Tim McGraw`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`T`)}`, `&@alt>avatar`]]]]]]]]]]]]], [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/hurme-geometric-sans-complete_fp-950x475_2x.png`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@2290`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@500`]]]]], [`div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 133000)}`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Danielle Bradberry`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+            `img`, `.@_aWz`, `&@src>${this.ava(`D`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  }, 
+
+  pfolioTop (A) {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@portfolio`]]], [
+              `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${A.full}`], [
+                `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
+  },
+
+  createStory (A) {
+
+    return [`span`, `#@root`, [
+      this.feedControls(), [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+        `section`, `&@style>margin-top: 70px`, `.@_ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_xC3`, [[
+              `div`, `.@_yZS _gxM _geQ _eYG _uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Select Your Service`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
+                    this.u_md5_y_scroll(A)]]]]]]]]]]]]]]]]]]];
+  }
 }
