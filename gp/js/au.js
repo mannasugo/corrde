@@ -729,7 +729,7 @@
 
           if (B.is_auth === true) {
 
-            window.location = `/explore/`;
+            window.location = `/feed/`;
           }
         })
       } 
@@ -1523,11 +1523,11 @@
 
   let availMugView = () => {
 
-    (JSStore.avail().ava !== false) ? JSStore.avail().ava = JSStore.avail().ava: JSStore.to({ava: `gp/p/vector/mug.svg`});
+    //(JSStore.avail().ava !== false) ? JSStore.avail().ava = JSStore.avail().ava: JSStore.to({ava: `gp/p/vector/mug.svg`});
 
-    if (JSStore.avail().ava !== false && document.querySelector(`#mug-ava > #mug-ava`)) {
+    if (JSStore.avail().u_md5) {
 
-      document.querySelector(`#mug-ava > #mug-ava`).setAttribute(`src`, `/${JSStore.avail().ava}`);
+      //document.querySelector(`#mug-ava > #mug-ava`).setAttribute(`src`, `/${JSStore.avail().ava}`);
       document.querySelector(`#mugvisibility`).setAttribute(`class`, `_QZg`);
     }
   }

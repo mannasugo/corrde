@@ -602,11 +602,14 @@ class Auxll {
 
     new Sql().multi({},
       `select * from u
-      ;select * from u_md5_logs`, (A, B, C) => {
+      ;select * from u_md5_logs
+      ;select * from stories`, (A, B, C) => {
 
         let u_md5Obj = [];
 
         let u_md5Key = {};
+
+        let polygs = [];
 
         const utc_Z = new Date().valueOf();
 
@@ -623,6 +626,8 @@ class Auxll {
           let utc;
 
           let logObj = [];
+
+          let polygs_ = [];
 
           let md5 = JSON.parse(B[0][u].alt);
 
@@ -678,12 +683,52 @@ class Auxll {
             }
           }
 
+          let miniKey = {};
+
+          for (let u in B[0]) {
+
+            let md5_ = JSON.parse(B[0][u].alt);
+
+            miniKey[md5_.sum] = md5_;
+          }
+
+          for (let img in B[2]) {
+
+            let pfolio = JSON.parse(B[2][img].json);
+
+            let seen = 0;
+
+            logObj.forEach(logs => {
+
+              if (logs.headers.referer.split(`/`).length > 2 && logs.headers.referer.split(`/`)[4] === pfolio.log_md5) {
+
+                seen++;
+              }
+            });
+
+            if (miniKey[pfolio.u_md5].ava === false) {pfolio[`ava`] = this.alternativeMug(miniKey[pfolio.u_md5].full);}
+
+            else if (miniKey[pfolio.u_md5].ava !== false) pfolio[`ava`] = `/` + miniKey[pfolio.u_md5].ava;
+
+            pfolio[`full`] = miniKey[pfolio.u_md5].full;
+
+            pfolio[`seen`] = seen;
+
+            if (pfolio.text === false) pfolio.text = `${pfolio.tag[0]}, ${pfolio.tag[1]}`;
+
+            polygs_.push(pfolio);
+
+            polygs_.sort((a,b) => {return b.log_secs - a.log_secs});
+          }
+
           u_md5Obj.push(md5);
 
           u_md5Key[md5.sum] = md5;
+
+          polygs = polygs_;
         }
 
-        call({md5: u_md5Obj, md5Key: u_md5Key});
+        call({md5: u_md5Obj, md5Key: u_md5Key, polygs: polygs});
       })
   }
 }
@@ -717,6 +762,7 @@ class Sql extends Auxll {
         ;${config.sql.devs_traffic}
         ;${config.sql.m}
         ;${config.sql.messages}
+        ;${config.sql.stories}
         ;${config.sql.support_mail}
         ;${config.sql.traffic}
         ;${config.sql.u}
@@ -854,6 +900,8 @@ class UAPublic extends Auxll {
 
       this.analytics(msg => {
 
+        this.logs_u_md5(A => {
+
         const modelMapping = {
           title: `Corrde`,
           css: CSSString,
@@ -870,7 +918,7 @@ class UAPublic extends Auxll {
 
           if (cJar[`u`]) {
 
-            a2[`ava`] = ``;
+            a2 = A.md5Key[cJar[`u`]];
             rootDualCall = model.top(a2);
           } 
           
@@ -900,8 +948,9 @@ class UAPublic extends Auxll {
         this.app.to.writeHead(200, config.reqMime.htm);
         this.app.to.end(model.call(modelMapping));
       });
-    })
-      
+    });
+
+    });
   }
 
   in () {
@@ -3409,6 +3458,8 @@ class AJXJPEG {
     else if (this.q.file === `dev_ava`) this.devAva();
 
     else if (this.q.file === `u_md5_ava`) this.md5Ava();
+
+    else if (this.q.file === `u_md5_pfolio_img`) this.md5Story();
   }
 
   iniAva () {
@@ -3500,6 +3551,25 @@ class AJXJPEG {
               this.app.to.end(JSON.stringify(pool));
             })
         })
+      });
+    });
+  }
+
+  md5Story () {
+
+    let localSt_ = new Date().valueOf();
+
+    const u = config.write_reqs.u_md5_pfolio_img + this.q.u_md5 + `/`;
+
+    fs.mkdir(u, {recursive: true}, (err) => {
+
+      fs.writeFile(u + this.q.pfolio_secs + `.jpg`, this.file, err => {
+
+        let pool = {u_md5_pfolio_img: u + this.q.pfolio_secs + `.jpg`}
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify(pool));
+            
       });
     });
   }
@@ -3824,6 +3894,8 @@ class AJXReqs extends Auxll {
       else if (this.args.pushSupportMsg) this.pushSupportMsg(JSON.parse(this.args.pushSupportMsg));
 
       else if (this.args.setMD5Cookie) this.setMD5Cookie(JSON.parse(this.args.setMD5Cookie));
+
+       else if (this.args.pushStory) this.pushStory(JSON.parse(this.args.pushStory));
     }
   }
 
@@ -4095,6 +4167,64 @@ class AJXReqs extends Auxll {
 
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify({exit: true}));
+  }
+
+  pushStory (args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        let img = [{src: args.u_md5_pfolio_img, img_2d: [args.pfolio_img_x, args.pfolio_img_y]}];
+
+        new Sql().to([`stories`, {json: JSON.stringify({
+          geo: args.gps,
+          img: img,
+          log_md5: log_sum,
+          log_secs: log,
+          mail: [],
+          mail2: [], tag: [args.pfolio_field, args.pfolio_service],
+          text: args.pfolio_text,
+          u_md5: args.u_md5})}], (A, B, C) => {
+
+            new Sql().multi({}, 
+              `select * from u`,
+              (A, B, C) => {
+
+              let md5;
+
+              for (let u in B) {
+
+                let Obj = JSON.parse(B[u].alt);
+
+                if (Obj.sum === args.u_md5) md5 = Obj;
+              }
+
+              let _md5 = JSON.stringify(md5);
+
+              let _field = md5.skills.toString().replace(new RegExp(`,${args.pfolio_field}_${args.pfolio_service}`, `g`), ``);
+
+              _field.replace(new RegExp(`${args.pfolio_field}_${args.pfolio_service},`, `g`), ``);
+
+              _field += `,${args.pfolio_field}_${args.pfolio_service}`;
+
+              md5.skills = _field.split(`,`);
+
+              new Sql().multi({}, 
+                `update u set alt = '${JSON.stringify(md5)}' where alt = '${_md5}'`,
+                (A, B, C) => {
+        
+                  this.app.to.writeHead(200, config.reqMime.json);
+                  this.app.to.end(JSON.stringify({exit: true}));
+                })
+              })
+          });
+      }
+    });
   }
 }
 

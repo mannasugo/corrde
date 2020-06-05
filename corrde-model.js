@@ -1929,7 +1929,7 @@ module.exports = {
 
   inputFile () {
     return [
-      `form`, `&@enctype>multipart/form-data`, [[`input`, `#@file`, `&@type>file`]]]
+      `form`, `&@enctype>multipart/form-data`, [[`input`, `#@file`, `&@type>file`, `&@accept>image/jpeg`]]]
   },
 
   setPro () {
@@ -2094,9 +2094,9 @@ module.exports = {
 
     let skillFields = [],
       to = config,
-      mugPool = [`Profile`, `Find Work`, `Contract Work`, `Notifications`, `Settings`],
-      mugPoolids = [`tomug`, `towork`, `tosell`, `tomail`, `toadjust`],
-      mugPooltos = [to.lvl_mug, to.lvl_work, to.lvl_sell, to.lvl_mail, to.lvl_settings];
+      mugPool = [`My Feed`],
+      mugPoolids = [`tofeed`],
+      mugPooltos = [`/feed/`];
 
     for (let field in config.fields) {
 
@@ -2114,7 +2114,7 @@ module.exports = {
                 `span`, `.@_tCc`, `~@beta`]]], [
               `div`, `.@_QZg _-Zz`, `#@mugvisibility`, [[
                 `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
-                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>/${pool.ava}`]]]]], 
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`]]]]], 
               this.inModal({id: `fields_modal`, in: this.aModal(skillFields)}), 
               this.inModal({id: `mug_modal`, in: this.aPoolModal(mugPool, mugPoolids, mugPooltos)})]]]]]]]]
   },
@@ -4089,7 +4089,7 @@ module.exports = {
           `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
             `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
               `img`, `&@style>height:132.3336%`, `.@_aMz _gVm`, 
-              `&@src>/gp/img-ssl/stories/8d43d99e9b21e853fd1b7648f2efbb62.jpg`]]], [`div`, `.@_gVm`]]]]]]], [
+              `&@src>/gp/img-ssl/stories/1591360052875.jpg`]]], [`div`, `.@_gVm`]]]]]]], [
             `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
               `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
                 `div`, `.@_eYG _gxM`, [[
@@ -4337,6 +4337,58 @@ module.exports = {
         `div`, `.@_gM_a _agM _guZ`, [[`a`, `@place-devs-ava-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>/portfolio/`, `~@Get Started`]]]]]]]]]
   },
 
+  stories_y_scroll (A) {
+
+    let Obj = A.polygs;
+
+    let stories_y_scroll = [];
+
+    Obj.forEach(md5 => {
+
+      let plane_x = ``;
+
+      let plane_y = `200`;
+
+      if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]) {
+
+        plane_y = (md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100);
+
+        if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]/2) {
+
+          plane_y = 100;
+          plane_x = `width:${((md5.img[0].img_2d[0]/2)/(md5.img[0].img_2d[1])*100)}%;`;
+        }
+      }
+
+      if (md5.img[0].img_2d[1] > md5.img[0].img_2d[0]) plane_y = md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100;
+
+      stories_y_scroll[Obj.indexOf(md5)] = [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>${plane_x}height:${plane_y}%`, `.@_aMz _gVm`, 
+              `&@src>/${md5.img[0].src}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+              `div`, `.@_yZS _gMX _eYG gcQ`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `&@href>/portfolio/${md5.log_md5}`, `.@_tXx _aA6 _tXv`, `~@${md5.text}`]]]]], [
+                  `div`, `.@_ZSg _gxM _eYG`, [[`span`, `.@_aA6 _tXv`, `~@${md5.seen} views`]]]]]]], [
+              `div`, `.@_yZS _gxM _geQ _gMX`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail2.length}`]]], [
+                  `div`, `.@_aXs _gxM`, [[`span`, `.@-_tX CommentsGray`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail.length}`]]]]], [
+                `div`, [[`span`, `.@_a2X`, `~@${this.log(md5.log_secs)}`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+            `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+              `div`, `.@_eYG`, [[
+                `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@${md5.full}`]]], [
+                `div`, `.@_gxM _geQ _-Zz`, [[`span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [
+              `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
+    })
+
+    return stories_y_scroll;
+  },
+
   feed (A, B) {
 
     return [`span`, `#@root`, [
@@ -4364,52 +4416,7 @@ module.exports = {
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@miY _gMX`, [[
                 `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, [[
-        `div`, `.@_X4- _rQ0 _gC0`, [[
-          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
-            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
-              `img`, `&@style>height:116.677777%`, `.@_aMz _gVm`, 
-              `&@src>/gp/img-ssl/stories/68747470733a2f2f637573746f6d65722d73746f726965732d666565642e6769746875622e636f6d2f637573746f6d65725f73746f726965732f7361702f736170332e6a7067.jpeg`]]], [`div`, `.@_gVm`]]]]]]], [
-            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
-                `div`, `.@_yZS _gMX _eYG gcQ`, [[
-                `div`, `.@_eYG _ZSg`, [[
-                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `&@href>javascript:;`, `.@_tXx _aA6 _tXv`, `~@Quadcopter Electronics Dealer`]]]]], [
-                  `div`, `.@_ZSg _gxM _eYG`, [[
-                    `span`, `.@_aA6 _tXv`, `~@200 views`]]]]]]], [
-              `div`, `.@_yZS _gxM _geQ _gMX`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[
-                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@300`]]], [
-                  `div`, `.@_aXs _gxM`, [[
-                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@4.2K`]]]]], [
-                `div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 10000)}`]]]]]]]]]]], [
-          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-            `div`, `.@_eYG`, [[
-              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Tim McGraw`]]], [
-              `div`, `.@_gxM _geQ`, [[
-                `span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-            `img`, `.@_aWz`, `&@src>${this.ava(`T`)}`, `&@alt>avatar`]]]]]]]]]]]]], [
-        `div`, `.@_X4- _rQ0 _gC0`, [[
-          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
-            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
-              `img`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/hurme-geometric-sans-complete_fp-950x475_2x.png`]]], [`div`, `.@_gVm`]]]]]]], [
-            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[
-                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@2290`]]], [
-                  `div`, `.@_aXs _gxM`, [[
-                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@500`]]]]], [`div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 133000)}`]]]]]]]]]]], [
-          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-            `div`, `.@_eYG`, [[
-              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Danielle Bradberry`]]], [
-              `div`, `.@_gxM _geQ`, [[
-                `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-            `img`, `.@_aWz`, `&@src>${this.ava(`D`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]]]]]]
   }, 
 
   pfolioTop (A) {
@@ -4423,9 +4430,52 @@ module.exports = {
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
                 `span`, `.@_tCc _pV4`, `~@portfolio`]]], [
-              `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${A.full}`], [
+              `div`, `#@hide-pfolio-ava`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${A.full}`], [
                 `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
-                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]], [
+              `div`, `#@hide-pfolio-img`, `.@_QZg _-Zz`, [[
+                `div`, `@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                  `label`, `.@_gM_a _agM _guZ gMX`, `&@for>file`, `#@add-pfolio-img`, [[
+                    `a`, `&@for>file`, `.@_TX_a _atX _utQ _gMX`, `#@add-pfolio-img`, `@href>#add-pfolio-img`, `~@Photo`]]]]], 
+                this.inputFile()]]]]]]]]]];
+  },
+
+  listServices () {
+
+    let services = [
+      [`Art & Decor`, [`Fine Art`, `Interior Design`]], 
+      [`Design & Technology`, [`Animation`]],
+      [`Fashion & Accessories`, [`Make-up & Hairstyling`]], 
+      [`Fitness & Health`, [`Gym Fitness`,`Yoga`]]];
+
+    let listServices = [];
+
+    services.forEach((field, e) => {
+
+      let service = []
+
+      field[1].forEach((role, e2) => {
+
+        service[e2] = [`div`, `.@xX4 _tXv _c3`, [[
+          `label`, `.@tXv _xQz`, `&@role>radio`, [[
+            `input`, `&@type>radio`, `#@service-ejs`, `&@value>${field[1][e2]}`, `&@name>service-ejs`], [
+              `span`, `.@_tCw _aA2 _tXx`, `~@${field[1][e2]}`]]]]];
+      });
+
+      listServices[e] = [
+        `div`, `#@field`, [[
+          `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+            `label`, `.@_tXv`, `&@role>radio`, [[
+              `input`, `&@for>${e}`, `&@type>radio`, `#@field-ejs`, `&@value>${field[0]}`, `&@name>field-ejs`], [
+              `span`, `.@_tCw aA2 _tXx`, `~@${field[0]}`]]]]], [
+          `div`, `.@_-Zz`, `&@field>${e}`, `#@service`, /*roles*/ [[
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, service]]]]]]]]]]]]]]]
+    });
+
+    return [`div`, `.@xC3`, listServices];
   },
 
   createStory (A) {
@@ -4433,15 +4483,33 @@ module.exports = {
     return [`span`, `#@root`, [
       this.feedControls(), [
       `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
-        `section`, `&@style>margin-top: 70px`, `.@_ss7`, [[
+        `section`, `&@style>margin: 70px 0`, `.@_ss7`, [[
           `div`, `.@_sZ2`, [[
-            `div`, `.@_xC3`, [[
+            `div`, `.@xC3`, [[
               `div`, `.@_yZS _gxM _geQ _eYG _uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Select Your Service`]]]]]]], [
-            `div`,`.@_gxM _geQ _gMX`, [[
-              `div`, `.@_miY _gMX`, [[
-                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
-                    this.u_md5_y_scroll(A)]]]]]]]]]]]]]]]]]]];
+                `div`,`.@_gxM _xC3`, [[`span`, `.@a2X _aA2`, `~@Select Your Service`]]]]]]], this.listServices()]], [
+          `div`, `.@_-Zz _aGX`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:60%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, 
+              `&@src>`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX _eYG _uZM`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Art & Decor`]]], [
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Interior Design`]]]]], [
+                  `div`, `.@_gMX`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `textarea`, `&@style>background: none`, `#@add-pfolio-text`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>Write something about your post`]]]]]]]]], [
+                        `div`, `.@_gcQ _aXZ sZ2`, [ [
+                          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@`]]], [
+                          `div`, `.@_QZg _gMz`, [[
+                          `div`, `.@_axS`, [[
+                            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-pfolio`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Send`]]]]]]]]]]]]]]]]]]]]];
   }
 }

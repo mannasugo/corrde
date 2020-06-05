@@ -11,6 +11,14 @@
     devAvaOut(e);
 
     iniDevAva(e);
+
+    field2Service(e);
+
+    saveService(e);
+
+    iniStory(e);
+
+    pushStory(e);
   }
 
   const AJXReq = (reqs, allMeta, inCall) => {
@@ -112,6 +120,8 @@
 
   let iniDevAva = e => {if (e.id === `devs-ava-ejs`) JSStore.to({file: `u_md5_ava`})}
 
+  let iniStory = e => {if (e.id === `add-pfolio-img`) JSStore.to({file: `u_md5_pfolio_img`})}
+
   let files = e => {
 
     let e_ = e.target;
@@ -120,6 +130,8 @@
       e.stopImmediatePropagation();
 
       if (JSStore.avail().file === `u_md5_ava`) devAva(e_.files);
+
+      else if (JSStore.avail().file === `u_md5_pfolio_img`) AddStory(e_.files);
     }
   }
 
@@ -217,6 +229,123 @@
           
     }
   }
+
+  const AddStory = files => {
+
+    if (!files || !files.length) return;
+
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+
+      if (!file.type.match(`image.*`) || file.size > 1048576) return;
+
+      let image;
+
+      if (!document.querySelector(`#pfolio_img`)) {
+        image = new Image();
+        image.setAttribute(`id`, `pfolio_img`);
+      } else {
+        image = document.querySelector(`#pfolio_img`);
+      }
+
+      allocFile(image, file);
+
+      image.onload = () => {
+
+        let img_x = image.naturalWidth, img_y = image.naturalHeight;
+        
+        let b64 = image.src.replace('data:image/jpeg;base64,',``);
+        let binary = atob(b64);
+        let array = [];
+
+        for (let i = 0; i < binary.length; i++) {
+          array.push(binary.charCodeAt(i));
+        }
+  
+        let blob = new Blob([new Uint8Array(array)], {type: file.type});
+
+        document.querySelector(`._aGX`).setAttribute(`class`, `_aGX`);
+
+        document.querySelector(`._g0z`).style.paddingBottom  = `${(img_y/img_x) * 100}%`;
+        document.querySelector(`._g0z > img`).src = image.src;
+
+        JSStore.to({pfolio_img_x: img_x, pfolio_img_y: img_y, pfolio_secs: new Date().valueOf()});
+
+        const fileTo = new AJXFile();
+
+        fileTo.call(`/devs_reqs/`, {
+          value: JSON.stringify(JSStore.avail()),
+          to: () => {
+
+            if (fileTo.req.responseText.length > 0) {
+              B = JSON.parse(fileTo.req.responseText);
+
+              if (B.u_md5_pfolio_img) {JSStore.to({u_md5_pfolio_img: B.u_md5_pfolio_img});}
+            }
+          }}, blob);
+      };
+          
+    }
+  }
+
+  let field2Service = e => {
+
+    if (e.id === `field-ejs`) {
+
+      document.querySelectorAll(`#service`).forEach(p => p.setAttribute(`class`, `_-Zz`));
+      document.querySelector(`[field = "${e.getAttribute(`for`)}"]`).setAttribute(`class`, `-Zz`);
+
+      JSStore.to({pfolio_field: e.value.replace(new RegExp(/&/g, `g`), `u/0026`)});
+      JSStore.to({pfolio_service: false})
+
+      document.querySelectorAll(`._g00 > p`)[0].innerHTML = e.value;
+    }
+  }
+
+  let saveService = e => {
+
+    if (e.id === `service-ejs`) {
+
+      JSStore.to({pfolio_service: e.value.replace(new RegExp(/&/g, `g`), `u/0026`)});
+      document.querySelector(`#hide-pfolio-ava`).setAttribute(`class`, `_QZg _gxM _aA2 _-Zz`);
+      document.querySelector(`#hide-pfolio-img`).setAttribute(`class`, `_QZg -Zz`);
+
+      document.querySelectorAll(`._g00 > p`)[1].innerHTML = e.value;
+      document.querySelectorAll(`._sZ2`)[0].style.display = `none`;
+    }
+  }
+
+  let pushStory = e => {
+
+    if (e.id === `add-pfolio`) {
+
+      let vjs = new Auxll().longSlim(document.querySelector(`#add-pfolio-text`).value.replace(new RegExp(/&/g, `g`), `u/0026`));
+
+      if (vjs) JSStore.to({pfolio_text: document.querySelector(`#add-pfolio-text`).value.replace(new RegExp(/&/g, `g`), `u/0026`)});
+
+      else if (!vjs) JSStore.to({pfolio_text: false});
+
+      document.querySelector(`#add-pfolio-text`).value = ``;
+
+      document.querySelector(`#add-pfolio`).setAttribute(`class`, `_-Zz`);
+
+      AJXReq([`/devs_reqs/`, `pushStory`], JSStore.avail(), (A, B) => {
+
+        if (B.exit === true) window.location = `/feed/`;
+      });
+    }
+  }
+
+  let aroundSlides = d3.select(`#around-rotate-ejs`)
+  d3.select(`#around-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    aroundSlides.style(`transform`, `translate(${d3.event.transform.x}px)`)
+  }))
+
+  let storiesSlides = d3.select(`#stories-rotate-ejs`)
+  d3.select(`#stories-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    storiesSlides.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
+    storiesSlides.style(`transition-duration`, `0ms`)
+  }))
 
   setGPSCookie();
   setMD5Cookie();

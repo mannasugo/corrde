@@ -4,6 +4,118 @@
 		"selected_items":
 		[
 			[
+				"stori",
+				"stories_y_scroll"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"u_",
+				"u_md5Key"
+			],
+			[
+				"log_s",
+				"log_secs"
+			],
+			[
+				"polyg",
+				"polygs_"
+			],
+			[
+				"pfoli",
+				"pfolio_img_x"
+			],
+			[
+				"add",
+				"add-pfolio"
+			],
+			[
+				"push",
+				"pushStory"
+			],
+			[
+				"logs",
+				"logs_u_md5"
+			],
+			[
+				"JS",
+				"JSStore"
+			],
+			[
+				"img",
+				"img_y"
+			],
+			[
+				"im",
+				"image"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"ini",
+				"iniStory"
+			],
+			[
+				"_u",
+				"_uZM"
+			],
+			[
+				"_axz",
+				"_aXZ"
+			],
+			[
+				"_gM",
+				"_gMX"
+			],
+			[
+				"add-",
+				"add-pfolio-img"
+			],
+			[
+				"inpu",
+				"inputFile"
+			],
+			[
+				"set",
+				"setAttribute"
+			],
+			[
+				"fie",
+				"field2Service"
+			],
+			[
+				"ser",
+				"service"
+			],
+			[
+				"service",
+				"services"
+			],
+			[
+				"se",
+				"services"
+			],
+			[
+				"_XC",
+				"_xC3"
+			],
+			[
+				"list",
+				"listServices"
+			],
+			[
+				"Xc",
+				"xC3"
+			],
+			[
+				"sect",
+				"section"
+			],
+			[
 				"_aA",
 				"_aA8"
 			],
@@ -30,10 +142,6 @@
 			[
 				"_uH",
 				"_uHg"
-			],
-			[
-				"u_",
-				"u_md5"
 			],
 			[
 				"md5",
@@ -96,19 +204,7 @@
 				"u_md5_logs"
 			],
 			[
-				"JS",
-				"JSON"
-			],
-			[
-				"set",
-				"setMD5Cookie"
-			],
-			[
 				"ste",
-				"setMD5Cookie"
-			],
-			[
-				"se",
 				"setMD5Cookie"
 			],
 			[
@@ -256,10 +352,6 @@
 				"mail_log"
 			],
 			[
-				"push",
-				"pushSupportMsg"
-			],
-			[
 				"suppo",
 				"supportMsgOut"
 			],
@@ -290,10 +382,6 @@
 			[
 				"su",
 				"support"
-			],
-			[
-				"_gM",
-				"_gMz"
 			],
 			[
 				"lin",
@@ -368,10 +456,6 @@
 				"appendDevs"
 			],
 			[
-				"add",
-				"add_devs_role"
-			],
-			[
 				"ad",
 				"add_devs_role"
 			],
@@ -430,90 +514,6 @@
 			[
 				"dev",
 				"dev_md5"
-			],
-			[
-				"logs",
-				"logDevs"
-			],
-			[
-				"pares",
-				"parse"
-			],
-			[
-				"_-z",
-				"_-Zz"
-			],
-			[
-				"pass_",
-				"pass_reset"
-			],
-			[
-				"pass",
-				"pass_sum"
-			],
-			[
-				"passR",
-				"PassResetAlertOut"
-			],
-			[
-				"ele",
-				"else"
-			],
-			[
-				"ini",
-				"iniDevAva"
-			],
-			[
-				"devA",
-				"devAvaOut"
-			],
-			[
-				"sett",
-				"settings"
-			],
-			[
-				"alert",
-				"alertObj"
-			],
-			[
-				"_y",
-				"_yZS"
-			],
-			[
-				"As",
-				"Asugo"
-			],
-			[
-				"Procee",
-				"ProceedColor"
-			],
-			[
-				"_a",
-				"_aA6"
-			],
-			[
-				"aut",
-				"auto"
-			],
-			[
-				"le",
-				"letter-spacing\tproperty"
-			],
-			[
-				"max",
-				"max-width\tproperty"
-			],
-			[
-				"_t",
-				"_tX"
-			],
-			[
-				"_gD",
-				"_gDE"
-			],
-			[
-				"_s",
-				"_STa"
 			]
 		]
 	},
@@ -541,7 +541,7 @@
 			"file": "corrde-util.js",
 			"settings":
 			{
-				"buffer_size": 102060,
+				"buffer_size": 106541,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -550,7 +550,7 @@
 			"file": "corrde-config.js",
 			"settings":
 			{
-				"buffer_size": 15529,
+				"buffer_size": 15664,
 				"encoding": "UTF-8",
 				"line_ending": "CR"
 			}
@@ -559,7 +559,7 @@
 			"file": "corrde-model.js",
 			"settings":
 			{
-				"buffer_size": 189987,
+				"buffer_size": 193389,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -568,7 +568,7 @@
 			"file": "gp/js/au.js",
 			"settings":
 			{
-				"buffer_size": 52880,
+				"buffer_size": 52824,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -586,7 +586,7 @@
 			"file": "gp/js/_js.js",
 			"settings":
 			{
-				"buffer_size": 4937,
+				"buffer_size": 9023,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -595,7 +595,7 @@
 			"file": "gp/css/css.css",
 			"settings":
 			{
-				"buffer_size": 49512,
+				"buffer_size": 49562,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -650,19 +650,37 @@
 	},
 	"file_history":
 	[
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/2_1.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/2_0.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/19_1.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/19_0.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/18_1.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/18_0.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/6_0.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/23_1.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/23_0.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/6_1.svg",
+		"/C/etc/corrde/gp/svg-ssl/ava/a-z/5_0.svg",
+		"/C/Users/Mann/Downloads/Edit Profile • Instagram.htm",
+		"/C/Users/Mann/Downloads/gin-wigmore-black-sheep.mp3",
+		"/C/etc/www/etc/js/Main.js",
+		"/C/etc/www/etc/js/public.js",
+		"/C/etc/www/Main.php",
+		"/C/etc/www/index.php",
+		"/C/etc/www/etc/js/sturtr_common.js",
+		"/C/Users/Mann/twineall/public/gp/js/twine-active.js",
+		"/C/Users/Mann/twineall/public/gp/js/twine-inactive.js",
+		"/C/Users/Mann/twineall/public/gp/js/twine-sdk.js",
 		"/C/Users/Mann/twineall/public/gp/css/user.css",
 		"/C/Users/Mann/twineall/public/gp/css/common.css",
 		"/C/Users/Mann/twineall/twine-model.js",
-		"/C/Users/Mann/twineall/public/gp/js/twine-active.js",
 		"/C/Users/Mann/twineall/twine-util.js",
 		"/C/nginx-1.15.9/logs/error.log",
 		"/C/Users/Mann/twineall/app.js",
 		"/C/etc/twineall/http2/ssl/server.crt",
 		"/C/Users/Mann/twineall/twine-control.js",
 		"/C/Users/Mann/twineall/twine-config.js",
-		"/C/Users/Mann/twineall/public/gp/js/twine-inactive.js",
 		"/C/etc/twineall/public/gp/js/twine-sdk.js",
-		"/C/Users/Mann/twineall/public/gp/js/twine-sdk.js",
 		"/C/etc/twinegyro/twinegyroJS.js",
 		"/C/Users/Mann/Desktop/ss/_scripts_/cropbox.js",
 		"/C/Users/Mann/Desktop/ss/_scripts_/mapbox.js-mb-pages/CHANGELOG.md",
@@ -759,25 +777,7 @@
 		"/D/__tv__/~git/geojson-vt-master/src/wrap.js",
 		"/D/__tv__/~git/geojson-vt-master/test/test-clip.js",
 		"/D/__tv__/~git/geojson-vt-master/test/test-full.js",
-		"/D/__tv__/~git/geojson-vt-master/test/test-get-tile.js",
-		"/D/__tv__/~git/geojson-vt-master/test/test-multi-world.js",
-		"/D/__tv__/~git/geojson-vt-master/test/test-simplify.js",
-		"/C/etc/corrde/gp/js/events.js",
-		"/D/__tv__/~git/topojson-client-master/bin/topo2geo",
-		"/D/__tv__/~git/topojson-client-master/src/index.js",
-		"/C/etc/corrde/gp/twineJSON/otc.topojson",
-		"/D/__tv__/~git/topojson-client-master/README.md",
-		"/D/__tv__/~git/geojson-slicer-master/README.md",
-		"/D/__tv__/~git/geojson-slicer-master/package.json",
-		"/D/__tv__/~git/geojson-slicer-master/LICENSE",
-		"/D/__tv__/~git/geojson-slicer-master/index.spec.js",
-		"/D/__tv__/~git/geojson-slicer-master/.gitignore",
-		"/D/__tv__/~git/geojson-slicer-master/.eslintrc",
-		"/D/__tv__/~git/geojson-slicer-master/.editorconfig",
-		"/D/__tv__/~git/geojson-vt-master/README.md",
-		"/C/etc/corrde/gp/twineJSON/kisumu_city.geojson",
-		"/C/etc/corrde/gp/js/d3.js",
-		"/C/etc/corrde/gp/twineJSON/kisumu_city.json"
+		"/D/__tv__/~git/geojson-vt-master/test/test-get-tile.js"
 	],
 	"find":
 	{
@@ -795,6 +795,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"R",
+			"Settings",
+			"My Contra",
+			"inputF",
+			"input",
+			"accept",
+			"width: 100%",
+			"padding: 0 15",
+			"max-width: 100",
+			"width: 100",
 			"visited",
 			"text-al",
 			"color: #118",
@@ -912,17 +922,7 @@
 			"model",
 			"appe",
 			"create",
-			".valu",
-			"gs",
-			"top",
-			"windo",
-			"vc",
-			"margin-to",
-			"border-bot",
-			"uV",
-			"dele",
-			"upd",
-			"uv"
+			".valu"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -940,7 +940,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 7,
 			"sheets":
 			[
 				{
@@ -998,7 +998,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1007,15 +1007,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 102060,
+						"buffer_size": 106541,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								85460,
-								85460
+								17079,
+								17079
 							]
 						],
 						"settings":
@@ -1025,10 +1025,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 54558.0,
+						"translation.y": 34487.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1037,15 +1037,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15529,
+						"buffer_size": 15664,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1355,
-								1355
+								5776,
+								5776
 							]
 						],
 						"settings":
@@ -1055,10 +1055,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 257.0,
+						"translation.y": 15.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1067,15 +1067,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 189987,
+						"buffer_size": 193389,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								185802,
-								185802
+								184372,
+								184372
 							]
 						],
 						"settings":
@@ -1085,10 +1085,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 69430.0,
+						"translation.y": 69017.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1097,15 +1097,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 52880,
+						"buffer_size": 52824,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18921,
-								18921
+								38032,
+								38032
 							]
 						],
 						"settings":
@@ -1115,10 +1115,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11209.0,
+						"translation.y": 24137.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1134,8 +1134,8 @@
 						"selection":
 						[
 							[
-								7913,
-								7849
+								15228,
+								14899
 							]
 						],
 						"settings":
@@ -1145,10 +1145,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5448.0,
+						"translation.y": 8928.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1157,15 +1157,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4937,
+						"buffer_size": 9023,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4669,
-								4669
+								8561,
+								8561
 							]
 						],
 						"settings":
@@ -1175,10 +1175,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3016.0,
+						"translation.y": 5094.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1187,15 +1187,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 49512,
+						"buffer_size": 49562,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								31368,
-								31373
+								36011,
+								36022
 							]
 						],
 						"settings":
@@ -1205,10 +1205,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 33169.0,
+						"translation.y": 38472.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
