@@ -611,6 +611,8 @@ class Auxll {
 
         let polygs = [];
 
+        let polygs_key = {};
+
         const utc_Z = new Date().valueOf();
 
         const utc_A = new Date(new Date() - (6 * 86400000)).valueOf();
@@ -628,6 +630,8 @@ class Auxll {
           let logObj = [];
 
           let polygs_ = [];
+
+          let polygs__key = {};
 
           let md5 = JSON.parse(B[0][u].alt);
 
@@ -692,17 +696,26 @@ class Auxll {
             miniKey[md5_.sum] = md5_;
           }
 
+          let logs_ = [];
+
+          for (let logs in B[1]) {
+
+            let log_ = JSON.parse(B[1][logs].json);
+
+            logs_.push(log_);
+          }
+
           for (let img in B[2]) {
 
             let pfolio = JSON.parse(B[2][img].json);
 
-            let seen = 0;
+            pfolio[`seen`] = [];
 
-            logObj.forEach(logs => {
+            logs_.forEach(logs => {
 
               if (logs.headers.referer.split(`/`).length > 2 && logs.headers.referer.split(`/`)[4] === pfolio.log_md5) {
 
-                seen++;
+                pfolio.seen.push(logs.u_md5)
               }
             });
 
@@ -712,11 +725,11 @@ class Auxll {
 
             pfolio[`full`] = miniKey[pfolio.u_md5].full;
 
-            pfolio[`seen`] = seen;
-
             if (pfolio.text === false) pfolio.text = `${pfolio.tag[0]}, ${pfolio.tag[1]}`;
 
             polygs_.push(pfolio);
+
+            polygs__key[pfolio.log_md5] = pfolio;
 
             polygs_.sort((a,b) => {return b.log_secs - a.log_secs});
           }
@@ -726,9 +739,11 @@ class Auxll {
           u_md5Key[md5.sum] = md5;
 
           polygs = polygs_;
+
+          polygs_key = polygs__key;
         }
 
-        call({md5: u_md5Obj, md5Key: u_md5Key, polygs: polygs});
+        call({md5: u_md5Obj, md5Key: u_md5Key, polygs: polygs, polygs_log_key: polygs_key});
       })
   }
 }
@@ -890,6 +905,14 @@ class UAPublic extends Auxll {
 
           this.contractDetailed(B[0]);
         }
+      });
+    }
+
+    else if (this.levelState[1] === `portfolio`) {
+
+      this.logs_u_md5(A => {
+
+        if (A.polygs_log_key[this.levelState[2]]) this.readStory(A.polygs_log_key[this.levelState[2]], A.md5Key);
       });
     }
   }
@@ -1170,71 +1193,6 @@ class UAPublic extends Auxll {
         });
       });
   }
-
-  /*mug () {
-
-    this.isPassValid();
-
-    this.modelStyler(config.lvl.css, CSSString => {
-
-      this.availSubs({
-      [`u`]: `tab`,
-      [`sum`]: `field`, [this.isPassValid()]: `value`});
-
-      let conca = this.literalFormat(config.sql.tfv);
-
-      this.availSubs({
-      [`j`]: `tab`,
-      [`status`]: `field`, [this.isPassValid()]: `value`});
-
-      conca += `;` + this.literalFormat(config.sql.tfv);
-
-      this.availSubs({
-      [`j`]: `tab`,
-      [`status`]: `field`, [`null`]: `value`,
-      [`uSum`]: `field_`, [this.isPassValid()]: `value_`});
-
-      conca += `;` + this.literalFormat(config.sql.falsef2);
-
-      let freqs = 0.0,
-        pays = 0.0,
-        payto = 0.0;
-
-      new Sql().multi({}, conca, (A,B,C) => {
-
-        for (let i = 0; i < B[1].length; i++) {
-          freqs += B[1][i].freq;
-          pays += B[1][i].pay;
-        }
-
-        if (B[1].length === 0) freqs = parseFloat(B[1].length) * 1.0
-
-        for (let i = 0; i < B[2].length; i++) {
-          payto += B[2][i].pay;
-        }
-
-        let modelMapping = {
-          title: `My Corrde Account.`,
-          css: CSSString,
-          alt: B[0][0].alt,
-          freq: (freqs * 1.0) + 0.0,
-          to: B[2].length, //orders
-          from: B[1].length,
-          to_ : payto.toString(),
-          from_: pays.toString(),
-          JSStore: JSON.stringify({
-            u: this.isPassValid()})};
-
-      modelMapping[`appendModel`] = [model.mug(modelMapping)];
-
-      this.app.to.writeHead(200, config.reqMime.htm);
-      this.app.to.end(model.call(modelMapping));
-
-      });
-
-      
-      });
-  }*/
 
   quora () {
 
@@ -2240,6 +2198,45 @@ class UAPublic extends Auxll {
         }
       })
       })
+  }
+
+  readStory (polyg, u_md5) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({
+          pfolio_log_md5: polyg.log_md5}),
+        title: `${polyg.text}`,
+        css: CSS,
+        jsState: [config.reqs._js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore); 
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          clientJSON[`mail2`] = false;
+
+          if (polyg.mail2.indexOf(B) !== -1) clientJSON[`mail2`] = true;
+        }
+
+        pool.jSStore = JSON.stringify(clientJSON); 
+
+        pool.appendModel = [
+          model.rootView({
+                  appendModel: [
+                    model.readStory(polyg, u_md5), model.tailFeedControls(), 
+                    model.jS(pool)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+      });
+    });
   }
 }
 
@@ -3617,6 +3614,36 @@ class UATCP extends UAPublic {
         new Sql().to([`u_md5_logs`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});
       }
 
+      tls.on(`mail2`, polyg => {
+
+        new Auxll().logs_u_md5(A => {
+
+          let mail = A.polygs_log_key[polyg.pfolio_log_md5];
+
+          let emitPolyg = {mail2Obj: mail.mail2, md5: polyg.pfolio_log_md5};
+
+          //if (mail.mail2.indexOf(tls.handshake.u_md5) !== -1) emitPolyg[`mail2`] = true;
+
+          //else if (mail.mail2.indexOf(tls.handshake.u_md5) === -1) emitPolyg[`mail2`] = false;
+
+          tcp.emit(`mail2`, emitPolyg);
+
+        })
+      })
+
+      tls.on(`polyg_mail`, polyg => {
+
+        new Auxll().logs_u_md5(A => {
+
+          let mail = A.polygs_log_key[polyg.pfolio_log_md5];
+
+          let emitPolyg = {mailObj: mail.mail, md5: polyg.pfolio_log_md5, model: model.storyMail(mail.mail, A.md5Key)};
+
+          tcp.emit(`polyg_mail`, emitPolyg);
+
+        })
+      })
+
       /**
       @dev
       **
@@ -3896,6 +3923,10 @@ class AJXReqs extends Auxll {
       else if (this.args.setMD5Cookie) this.setMD5Cookie(JSON.parse(this.args.setMD5Cookie));
 
        else if (this.args.pushStory) this.pushStory(JSON.parse(this.args.pushStory));
+
+       else if (this.args.pushStoryMail) this.pushStoryMail(JSON.parse(this.args.pushStoryMail));
+
+      else if (this.args.pushStoryMail2) this.pushStoryMail2(JSON.parse(this.args.pushStoryMail2));
     }
   }
 
@@ -4208,7 +4239,7 @@ class AJXReqs extends Auxll {
 
               let _field = md5.skills.toString().replace(new RegExp(`,${args.pfolio_field}_${args.pfolio_service}`, `g`), ``);
 
-              _field.replace(new RegExp(`${args.pfolio_field}_${args.pfolio_service},`, `g`), ``);
+             _field = _field.replace(new RegExp(`${args.pfolio_field}_${args.pfolio_service},`, `g`), ``);
 
               _field += `,${args.pfolio_field}_${args.pfolio_service}`;
 
@@ -4224,6 +4255,96 @@ class AJXReqs extends Auxll {
               })
           });
       }
+    });
+  }
+
+  pushStoryMail (args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        new Sql().multi({}, 
+          `select * from stories`,
+          (A, B, C) => {
+
+          let md5;
+
+          for (let polygs in B) {
+
+            let Obj = JSON.parse(B[polygs].json);
+
+            if (Obj.log_md5 === args.pfolio_log_md5) md5 = Obj;
+          }
+
+          let _md5 = JSON.stringify(md5);
+
+          let mail = {log_md5: log_sum, log_secs: log, mail: args.pfolio_mail, u_md5: args.u_md5};
+
+          md5.mail.push(mail);console.log(md5)
+
+              new Sql().multi({}, 
+                `update stories set json = '${JSON.stringify(md5)}' where json = '${_md5}'`,
+                (A, B, C) => {
+        
+                  this.app.to.writeHead(200, config.reqMime.json);
+                  this.app.to.end(JSON.stringify({exit: true}));
+                })
+              })
+      }
+
+    });
+  }
+
+  pushStoryMail2 (args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        new Sql().multi({}, 
+          `select * from stories`,
+          (A, B, C) => {
+
+          let md5;
+
+          for (let polygs in B) {
+
+            let Obj = JSON.parse(B[polygs].json);
+
+            if (Obj.log_md5 === args.pfolio_log_md5) md5 = Obj;
+          }
+
+          let _md5 = JSON.stringify(md5);
+
+          let mail2 = md5.mail2.toString();
+
+          if (mail2.match(`${args.u_md5},`)) mail2 = mail2.replace(new RegExp(`${args.u_md5},`, `g`), ``);
+
+          else if (mail2.match(`,${args.u_md5}`)) mail2 = mail2.replace(new RegExp(`,${args.u_md5}`, `g`), ``);
+
+          else mail2 = `${args.u_md5},` + mail2;
+
+          md5.mail2 = mail2.split(`,`);
+
+              new Sql().multi({}, 
+                `update stories set json = '${JSON.stringify(md5)}' where json = '${_md5}'`,
+                (A, B, C) => {
+        
+                  this.app.to.writeHead(200, config.reqMime.json);
+                  this.app.to.end(JSON.stringify({exit: true}));
+                })
+              })
+      }
+
     });
   }
 }

@@ -695,7 +695,7 @@
         AJXCall(`isPro`, JSStore.avail(), (A, B) => {
 
           if (B.is_pro === true) {
-            window.location = `/explore/`;
+            window.location = `/feed/`;
           }
         })
       }
@@ -1524,6 +1524,10 @@
   let availMugView = () => {
 
     //(JSStore.avail().ava !== false) ? JSStore.avail().ava = JSStore.avail().ava: JSStore.to({ava: `gp/p/vector/mug.svg`});
+
+    if (!JSStore.avail().u_md5) {
+      document.querySelector(`#mugvisibility`).setAttribute(`class`, `_QZg`);
+    }
 
     if (JSStore.avail().u_md5) {
 

@@ -595,75 +595,6 @@ module.exports = {
     return salesModel;
   },
 
-  metric (mapping) {
-    return {
-      tag: `span`, flags: {id: `corrde-root`}, tagChild: [{
-        tag: `section`, flags: {class: `_miY`}, tagChild: [{
-          tag: `main`, flags: {class: `_xC2`}, tagChild: [{
-            tag: `section`, flags: {style: `padding-top: 60px`}, tagChild: [{
-              tag: `div`, flags: {class: `_aGX`}, tagChild: [{
-                tag: `div`, tagChild: [{
-                  tag: `div`, flags: {style: `border-radius: 100px`, class: `_gxM _gMX _uxq`}, tagChild: [{
-                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
-                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
-                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `2`
-                      }, {
-                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Users`
-                      }]
-                    }]
-                  }, {
-                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
-                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
-                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `0`
-                      }, {
-                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Orders`
-                      }]
-                    }]
-                  }, {
-                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
-                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
-                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `0`
-                      }, {
-                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Complete Orders`
-                      }]
-                    }]
-                  }, {
-                    tag: `div`, flags: {class: `_geQ _gMX`}, tagChild: [{
-                      tag: `div`, flags: {class: `_Sq_a`}, tagChild: [{
-                        tag: `div`, flags: {class:`_gMX _btx`}, closure: `2`
-                      }, {
-                        tag: `div`, flags: {class:`_gMX _SYa`}, closure: `Today's Orders`
-                      }]
-                    }]
-                  }]
-                }]
-              }, {}]
-            }]
-          }]
-        }, {
-          tag: `nav`, flags: {class: `_uHC`}, tagChild: [{tag: `div`, flags: {class: `_xCt`}}, {
-            tag: `div`, flags: {class: ``}, tagChild: [{
-              tag: `div`, flags: {class: `_-tY`}, tagChild: [{
-                tag: `div`, flags: {class: `_aXz`}, tagChild: [{
-                  tag: `div`, flags: {class: `_-Xg`}, tagChild: [{
-                    tag: `a`, flags: {class: `_tXa`, href: `/metric`}, closure: `corrde metrics`
-                  }]
-                }, {
-                  tag: `div`, flags: {class: `_QZg`}, tagChild: [{
-                    tag: `div`, flags: {class: `_gM_a _agM`}, tagChild: [{
-                      tag: `a`, flags: {for: ``, class: `_TX_a _atX`, href: `#`}, closure: `Server Metrics`}]
-                  }]
-                }]
-              }]
-            }]
-          }]
-        }]
-      }, {
-        tag: `aside`, tagChild: []
-      }]
-    };
-  },
-
   uStats (mapping) {
 
     //mapping = mapping.s;
@@ -4030,52 +3961,12 @@ module.exports = {
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Portfolio stories`]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@miY _gMX`, [[
                 `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, [[
-        `div`, `.@_X4- _rQ0 _gC0`, [[
-          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
-            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
-              `img`, `&@style>height:116.677777%`, `.@_aMz _gVm`, 
-              `&@src>/gp/img-ssl/stories/68747470733a2f2f637573746f6d65722d73746f726965732d666565642e6769746875622e636f6d2f637573746f6d65725f73746f726965732f7361702f736170332e6a7067.jpeg`]]], [`div`, `.@_gVm`]]]]]]], [
-            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[
-                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@300`]]], [
-                  `div`, `.@_aXs _gxM`, [[
-                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@4.2K`]]]]], [
-                `div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 10000)}`]]]]]]]]]]], [
-          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-            `div`, `.@_eYG`, [[
-              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Tim McGraw`]]], [
-              `div`, `.@_gxM _geQ`, [[
-                `span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-            `img`, `.@_aWz`, `&@src>${this.ava(`T`)}`, `&@alt>avatar`]]]]]]]]]]]]], [
-        `div`, `.@_X4- _rQ0 _gC0`, [[
-          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
-            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
-              `img`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/hurme-geometric-sans-complete_fp-950x475_2x.png`]]], [`div`, `.@_gVm`]]]]]]], [
-            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[
-                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`, `~@Tim McGraw`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@2290`]]], [
-                  `div`, `.@_aXs _gxM`, [[
-                    `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
-                    `span`, `.@_a2X _axS _aA6`, `~@500`]]]]], [`div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 133000)}`]]]]]]]]]]], [
-          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-            `div`, `.@_eYG`, [[
-              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Danielle Bradberry`]]], [
-              `div`, `.@_gxM _geQ`, [[
-                `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-            `img`, `.@_aWz`, `&@src>${this.ava(`D`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7 _-Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
@@ -4120,7 +4011,7 @@ module.exports = {
               `div`, `.@_gxM _geQ`, [[
                 `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
             `img`, `.@_aWz`, `&@src>${this.ava(`D`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
+        `section`, `.@cX3 _ss7 _-Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
@@ -4161,7 +4052,7 @@ module.exports = {
                   `div`, `.@_aXs _gxM`, [[
                     `span`, `.@-_tX CommentsGray`, `~@4.2 Miles`], [
                     `span`, `.@_a2X _axS _aA6`, `~@500`]]]]], [`div`, [[`span`, `.@_a2X`, `~@${this.log(new Date().valueOf() - 1383000)}`]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
+        `section`, `.@cX3 _ss7 _-Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
@@ -4372,7 +4263,7 @@ module.exports = {
               `div`, `.@_yZS _gMX _eYG gcQ`, [[
                 `div`, `.@_eYG _ZSg`, [[
                   `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `&@href>/portfolio/${md5.log_md5}`, `.@_tXx _aA6 _tXv`, `~@${md5.text}`]]]]], [
-                  `div`, `.@_ZSg _gxM _eYG`, [[`span`, `.@_aA6 _tXv`, `~@${md5.seen} views`]]]]]]], [
+                  `div`, `.@_ZSg _gxM _eYG`, [[`span`, `.@_aA6 _tXv`, `~@${md5.seen.length} views`]]]]]]], [
               `div`, `.@_yZS _gxM _geQ _gMX`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
                 `div`, `.@_eYG _gxM`, [[
                   `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail2.length}`]]], [
@@ -4391,7 +4282,7 @@ module.exports = {
 
   feed (A, B) {
 
-    return [`span`, `#@root`, [
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
         `main`, `.@_xC2 _aA2 gf3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [
         this.md5Alerts(B), [
@@ -4480,7 +4371,7 @@ module.exports = {
 
   createStory (A) {
 
-    return [`span`, `#@root`, [
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
       `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
         `section`, `&@style>margin: 70px 0`, `.@_ss7`, [[
@@ -4511,5 +4402,99 @@ module.exports = {
                           `div`, `.@_QZg _gMz`, [[
                           `div`, `.@_axS`, [[
                             `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-pfolio`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Send`]]]]]]]]]]]]]]]]]]]]];
+  },
+
+  iconsStory (A) {
+
+    let rules = [`CommentsGray`, `HeartsGray`, `ArchiveGray`];
+
+    let placer = [`start-pfolio-mail`, `start-mail2`, `save-story`];
+
+    let tail = [];
+
+    rules.forEach((rule, e) => {
+
+      tail[e] = [
+        `div`, `.@_geQ _gMX`, [[
+          `a`, `#@${placer[e]}`, `.@-_tX ${rule}`, `&@href>javascript:;`]]];
+    });
+
+    return tail;
+  },
+
+  storyMail (A, B) {
+
+    let storyMail = [];
+
+    A.sort((a, b) => {return b.log_secs - a.log_secs})
+
+    A.forEach((Obj) => {
+
+      storyMail[A.indexOf(Obj)] = [
+        `div`, `.@ZSg _yZS _eYG _gcQ _uZM`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+          `img`, `.@_aWz`, `&@src>${B[Obj.u_md5].ava}`, `&@alt>avatar`]]], [
+          `div`, `.@_eYG`, [[
+            `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@tXx aA2 _tXv`, `~@${B[Obj.u_md5].full}`]]], [
+              `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X _tXv`, `~@${this.log(Obj.log_secs)}`]]]]], [
+                  `div`, `.@_gxM _geQ`, [[
+                    `span`, `.@_aA6 a2X`, `~@${Obj.mail}`]]]]]]];
+    });
+
+    return storyMail;
+  },
+
+  readStory (A, B) {
+
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
+      this.feedControls(), [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+        `section`, `&@style>margin: 0 0 70px`, `.@_ss7`, [[`div`, [[`div`, `.@_aGX`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+            `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+              `div`, `.@_eYG`, [[
+                `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@${A.full}`]]], [
+                `div`, `.@_gxM _geQ`, [[`span`, `.@_aA6 _a2X`, `~@${this.log(A.log_secs)}`]]]]], [
+              `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]]]]]]]], [
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:${A.img[0].img_2d[1]/A.img[0].img_2d[0]*100}%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, 
+              `&@src>/${A.img[0].src}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@${A.tag[0]}`]]], [
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@${A.tag[1]}`]]]]]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _gxM`, [[`div`, `.@aXs _gxM`, [[
+                    `span`, `.@_tXx`, `~@${A.seen.length}`], [
+                    `span`, `.@a2X _axS _aA6`, `~@Views`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `#@mail`, `.@_tXx`, `~@${A.mail.length}`], [
+                    `span`, `.@_axS _aA6`, `~@Comments`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `#@mail2`, `.@_tXx`, `~@${A.mail2.length}`], [
+                    `span`, `.@_axS _aA6`, `~@Likes`]]]]]]]]], [
+            `div`, `#@hide-pfolio-icons`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, this.iconsStory(A)]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS gMX _eYG _xC3`, [[`span`, `.@yZS`, `~@${A.text}`]]]]], [
+            `div`,`#@hide-pfolio-mail`, `.@-Zz _geQ _uZM`, [[
+                `div`, `.@yZS gMX _eYG _xC3`, [[
+                  `div`, `.@_gMX -Zz`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `textarea`, `&@style>background: none`, `#@pfolio-mail`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>Write a comment about this post`]]]]], [
+                        `div`, `.@_gcQ _aXZ -Zz`, [ [
+                          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@`]]], [
+                          `div`, `.@_QZg _gMz`, [[
+                          `div`, `.@_axS`, [[
+                            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-pfolio-mail`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Send`]]]]]]]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX uZM _sZ2`, [[
+                `div`, `#@polyg-mail`, `.@_sZ2 _aXZ _xC3`, this.storyMail(A.mail, B)]]]]]]]]]]]]]]];
   }
 }

@@ -622,10 +622,10 @@ body {
   background-image: url(/gp/css/icons/canvas.png);
 }
 
-.CommentsGray, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
+.CommentsGray, .HeartsColor, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
 
-.AddStoriesColor, .closelighticonUA, .CommentsGray, .DelColor, .dissentlighticonUA, .electiconUA,
-.FilterColor, .GramColor, .Graph000, .FroColor, 
+.AddStoriesColor, .ArchiveGray, .closelighticonUA, .CommentsGray, .DelColor, .dissentlighticonUA, .electiconUA,
+.FilterColor, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .verifylighticonUA, ._y4x {
@@ -633,6 +633,8 @@ body {
   height: 24px;
   width: 24px;
 }
+
+.ArchiveGray {background-image: url(/gp/p/vector/archive.svg);}
 
 .ChevFroGrayColor, .ChevToGrayColor {
   background-repeat: no-repeat;
@@ -670,6 +672,10 @@ body {
 
 .Graph000 {
   background-image: url(/gp/p/vector/infograph.svg);
+}
+
+.HeartsColor {
+  background-position: -104px -358px;
 }
 
 .HeartsGray {
@@ -2216,7 +2222,7 @@ table > thead > tr > th {
   height: 100%;
   flex-wrap: nowrap;
   transition-property: transform;
-  margin: 0 -12px;
+  /*margin: 0 -12px;*/
 }
 
 ._gs0 {
@@ -2290,7 +2296,6 @@ table > thead > tr > th {
 ._gp0 {
   background: #fff;
 }
-
 
 ._azX- {
   border-top: 1px solid #eee;
@@ -2422,7 +2427,7 @@ table > thead > tr > th {
 ._X4-, ._xX4, ._xX0 {
   width: 100%;
   min-height: 1px;
-  padding: 0 12px;
+  /*padding: 0 12px;*/
   flex: 0 0 25%;
   max-width: 25%;
   height: auto;
@@ -3300,4 +3305,6 @@ table > thead > tr > th {
   #team-rotate-ejs > ._X4- {min-width: 90%;}
 
   #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-, #stories-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4- {min-width: 90%}
+
+  ._AZs {margin:  0 -12px}
 }

@@ -19,7 +19,15 @@
     iniStory(e);
 
     pushStory(e);
+
+    startStoryMail(e);
+
+    pushStoryMail(e);
+
+    pushStoryMail2(e);
   }
+
+  const socket = io();
 
   const AJXReq = (reqs, allMeta, inCall) => {
 
@@ -47,6 +55,19 @@
         inCall(A, B);
       }
     });
+  }
+
+  let slim = txt => {
+
+    txt = txt.replace(new RegExp(`\f`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\n`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\t`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\r`, `g`), ` `);
+
+    return txt
   }
 
   let GPS = (dealGPS, dealBugs) => {
@@ -321,7 +342,7 @@
 
       let vjs = new Auxll().longSlim(document.querySelector(`#add-pfolio-text`).value.replace(new RegExp(/&/g, `g`), `u/0026`));
 
-      if (vjs) JSStore.to({pfolio_text: document.querySelector(`#add-pfolio-text`).value.replace(new RegExp(/&/g, `g`), `u/0026`)});
+      if (vjs) JSStore.to({pfolio_text: slim(document.querySelector(`#add-pfolio-text`).value).replace(new RegExp(/&/g, `g`), `u/0026`)});
 
       else if (!vjs) JSStore.to({pfolio_text: false});
 
@@ -333,6 +354,69 @@
 
         if (B.exit === true) window.location = `/feed/`;
       });
+    }
+  }
+
+  let pushStoryMail = e => {
+
+    if (e.id === `add-pfolio-mail`) {
+
+      let vjs = new Auxll().longSlim(document.querySelector(`#pfolio-mail`).value);
+
+      if (vjs) {
+
+        JSStore.to({pfolio_mail: slim(vjs).replace(new RegExp(/&/g, `g`), `u/0026`)});
+
+        document.querySelector(`#pfolio-mail`).value = ``;
+
+        document.querySelector(`#hide-pfolio-mail`).setAttribute(`class`, `_-Zz _geQ _uZM`);
+
+        AJXReq([`/devs_reqs/`, `pushStoryMail`], JSStore.avail(), (A, B) => {
+
+          if (B.exit === true) socket.emit(`polyg_mail`, JSStore.avail())
+        });
+      }
+
+      else if (!vjs) JSStore.to({pfolio_mail: false});
+    }
+  }
+
+  let startStoryMail = e => {
+
+    if (e.id === `start-pfolio-mail`) {
+
+      let modal_ejs = document.querySelector(`#hide-pfolio-mail`);
+
+      if (modal_ejs.className === `_-Zz _geQ _uZM`) modal_ejs.className = `-Zz _geQ _uZM`;
+
+      else if (modal_ejs.className === `-Zz _geQ _uZM`) modal_ejs.className = `_-Zz _geQ _uZM`;
+    }
+  }
+
+  let loadStory = e => {
+
+    if (!JSStore.avail().u_md5) {
+
+      if (document.querySelector(`#hide-pfolio-icons`)) document.querySelector(`#hide-pfolio-icons`).style.display = `none`;
+
+      if (document.querySelector(`#hide-pfolio-mail`)) document.querySelector(`#hide-pfolio-mail`).style.display = `none`;
+    }
+
+    if (JSStore.avail().mail2 && JSStore.avail().mail2 === true) {
+
+      if (document.querySelector(`#hide-pfolio-icons`)) document.querySelector(`#start-mail2`).setAttribute(`class`, `-_tX HeartsColor`)}
+  }
+
+  let pushStoryMail2 = e => {
+
+    if (!JSStore.avail().u_md5) return;
+
+    if (e.id === `start-mail2`) {
+
+      AJXReq([`/devs_reqs/`, `pushStoryMail2`], JSStore.avail(), (A, B) => {
+
+          if (B.exit === true) socket.emit(`mail2`, JSStore.avail());
+        });
     }
   }
 
@@ -349,8 +433,43 @@
 
   setGPSCookie();
   setMD5Cookie();
+  loadStory()
 
   document.addEventListener(`click`, e0);
   document.addEventListener(`change`, files);
+
+  socket.on(`mail2`, polyg => {
+
+    if (polyg.md5 === JSStore.avail().pfolio_log_md5 && JSStore.avail().u_md5) {
+
+      let mail2;
+
+      if (polyg.mail2Obj.indexOf(JSStore.avail().u_md5) !== -1) mail2 = true;
+
+      else if (polyg.mail2Obj.indexOf(JSStore.avail().u_md5) === -1) mail2 = false;
+
+      JSStore.to({mail2: mail2});
+
+      if (JSStore.avail().mail2 === true) document.querySelector(`#start-mail2`).setAttribute(`class`, `-_tX HeartsColor`);
+
+      else if (JSStore.avail().mail2 === false) document.querySelector(`#start-mail2`).setAttribute(`class`, `-_tX HeartsGray`);
+
+      document.querySelector(`#mail2`).innerHTML = polyg.mail2Obj.length;
+      
+    }
+  })
+
+  socket.on(`polyg_mail`, polyg => {
+
+    if (!document.querySelector(`#polyg-mail`)) return;
+
+    if (polyg.md5 === JSStore.avail().pfolio_log_md5 && JSStore.avail().u_md5) {
+
+      document.querySelector(`#mail`).innerHTML = polyg.mailObj.length;
+
+      document.querySelector(`#polyg-mail`).innerHTML = new Model().modelStringify(polyg.model);
+      
+    }
+  })
 
 })();
