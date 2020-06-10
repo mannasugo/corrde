@@ -431,6 +431,20 @@
     storiesSlides.style(`transition-duration`, `0ms`)
   }))
 
+  let skilledSlides = d3.select(`#skilled-rotate-ejs`)
+  d3.select(`#skilled-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    skilledSlides.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
+  }))
+
+  let fieldSlide = document.querySelectorAll(`#service-slide-ejs`)
+
+  fieldSlide.forEach( slide => {
+
+    slide = d3.select(slide)
+    slide.call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+     slide.select(`#service-rotate-ejs`).style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
+  }))})
+
   setGPSCookie();
   setMD5Cookie();
   loadStory()

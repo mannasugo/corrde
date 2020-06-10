@@ -640,8 +640,11 @@ class Auxll {
           else if (md5.ava !== false) md5[`ava`] = `/` + md5[`ava`];
 
           md5[`gps`] = false;
+          md5[`polygs`] = [];
+          md5[`polygs_mail2`] = 0;
           md5[`pre_mail_utc`] = new Date().valueOf();
           md5[`pre_utc`] = new Date().valueOf();
+          md5[`reqs_per_polyg`] = 0.0;
           md5[`reqs_per_secs`] = 0.0;
 
           for (let log in B[1]) {
@@ -705,6 +708,8 @@ class Auxll {
             logs_.push(log_);
           }
 
+          let polygs_mail2 = 0;
+
           for (let img in B[2]) {
 
             let pfolio = JSON.parse(B[2][img].json);
@@ -727,12 +732,33 @@ class Auxll {
 
             if (pfolio.text === false) pfolio.text = `${pfolio.tag[0]}, ${pfolio.tag[1]}`;
 
+            if (md5.sum === pfolio.u_md5) {
+
+              md5[`polygs_mail2`] += pfolio.mail2.length;
+              md5[`polygs`].push(pfolio);
+            }
+
+            polygs_mail2 += pfolio.mail2.length;
+
             polygs_.push(pfolio);
 
             polygs__key[pfolio.log_md5] = pfolio;
 
             polygs_.sort((a,b) => {return b.log_secs - a.log_secs});
           }
+
+          md5[`img`] = [{img_2d: [700, 350]}]; 
+
+          if (md5[`polygs`].length > 0) {
+
+            md5[`img`][0].img_2d = md5[`polygs`][0].img[0].img_2d
+
+            md5[`polygs_cover_img`] = md5[`polygs`][0].img[0].src;
+
+            if (polygs_mail2 > 0) md5[`reqs_per_polyg`] = ((4.999*md5[`polygs_mail2`])/polygs_mail2).toFixed(2);
+          }
+
+          else if (md5[`polygs`].length === 0) {md5[`polygs_cover_img`] = `gp/p/vector/polyg_mug.svg`;}
 
           u_md5Obj.push(md5);
 
@@ -3622,10 +3648,6 @@ class UATCP extends UAPublic {
 
           let emitPolyg = {mail2Obj: mail.mail2, md5: polyg.pfolio_log_md5};
 
-          //if (mail.mail2.indexOf(tls.handshake.u_md5) !== -1) emitPolyg[`mail2`] = true;
-
-          //else if (mail.mail2.indexOf(tls.handshake.u_md5) === -1) emitPolyg[`mail2`] = false;
-
           tcp.emit(`mail2`, emitPolyg);
 
         })
@@ -4285,7 +4307,7 @@ class AJXReqs extends Auxll {
 
           let mail = {log_md5: log_sum, log_secs: log, mail: args.pfolio_mail, u_md5: args.u_md5};
 
-          md5.mail.push(mail);console.log(md5)
+          md5.mail.push(mail);
 
               new Sql().multi({}, 
                 `update stories set json = '${JSON.stringify(md5)}' where json = '${_md5}'`,

@@ -3966,7 +3966,7 @@ module.exports = {
               `div`, `.@miY _gMX`, [[
                 `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
                   `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7 _-Zz`, [[
+        `section`, `.@cX3 _ss7 -Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
@@ -3975,42 +3975,7 @@ module.exports = {
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@miY _gMX`, [[
                 `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, [[
-        `div`, `.@_X4- _rQ0 _gC0`, [[
-          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
-            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
-              `img`, `&@style>height:132.3336%`, `.@_aMz _gVm`, 
-              `&@src>/gp/img-ssl/stories/1591360052875.jpg`]]], [`div`, `.@_gVm`]]]]]]], [
-            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[
-                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@4.1 Stars`]]]]], [
-                `div`, [[`span`, `.@_a2X _aA6`, `~@$ 9 / Hour`]]]]]]]]]]], [
-          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-            `div`, `.@_eYG`, [[
-              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Tim McGraw`]]], [
-              `div`, `.@_gxM _geQ`, [[
-                `span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-            `img`, `.@_aWz`, `&@src>${this.ava(`T`)}`, `&@alt>avatar`]]]]]]]]]]]]], [
-        `div`, `.@_X4- _rQ0 _gC0`, [[
-          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
-            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
-              `img`, `&@style>height:149.3846%`, `.@_aMz _gVm`, `&@src>/gp/img-ssl/stories/c65d5a34106cffb634b86adbe77abfe3bbb98038.jpeg`]]], [`div`, `.@_gVm`]]]]]]], [
-            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[
-                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@3.2 Stars`]]]]], [
-                `div`, [[`span`, `.@_a2X _aA6`, `~@$ 9 / Hour`]]]]]]]]]]], [
-          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-            `div`, `.@_eYG`, [[
-              `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@Danielle Bradberry`]]], [
-              `div`, `.@_gxM _geQ`, [[
-                `span`, `.@_aA6 a2X`, `~@6.2 Miles`]]]]], [`div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-            `img`, `.@_aWz`, `&@src>${this.ava(`D`)}`, `&@alt>avatar`]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]], [
         `section`, `.@cX3 _ss7 _-Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
@@ -4280,6 +4245,56 @@ module.exports = {
     return stories_y_scroll;
   },
 
+  popular_y_scroll (A) {
+
+    let Obj = A.md5;
+
+    Obj.sort((a,b) => {return b.reqs_per_polyg - a.reqs_per_polyg})
+
+    let popular_y_scroll = [];
+
+    Obj.forEach(md5 => {
+
+      let plane_x = ``;
+
+      let plane_y = `200`;
+
+      if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]) {
+
+        plane_y = (md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100);
+
+        if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]/2) {
+
+          plane_y = 100;
+          plane_x = `width:${((md5.img[0].img_2d[0]/2)/(md5.img[0].img_2d[1])*100)}%;`;
+        }
+      }
+
+      if (md5.img[0].img_2d[1] > md5.img[0].img_2d[0]) plane_y = md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100;
+
+      popular_y_scroll[Obj.indexOf(md5)] = [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>${plane_x}height:${plane_y}%`, `.@_aMz _gVm`, 
+              `&@src>/${md5.polygs_cover_img}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@${md5.reqs_per_polyg} Stars`]]]]], [
+                `div`, [[`span`, `.@_a2X _aA6`, `@$ 9 / Hour`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+            `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+              `div`, `.@_eYG`, [[
+                `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@${md5.full}`]]], [
+                `div`, `.@_gxM _geQ _-Zz`, [[`span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [
+              `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
+    })
+
+    return popular_y_scroll;
+  },
+
   feed (A, B) {
 
     return [`span`, `&@style>overflow:hidden`, `#@root`, [
@@ -4307,7 +4322,17 @@ module.exports = {
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@miY _gMX`, [[
                 `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]]]]]]
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Popular`]]], [
+                `div`, `.@_QZg _gxM _-Zz`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>/portfolio/`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]]]]]]
   }, 
 
   pfolioTop (A) {
@@ -4336,8 +4361,9 @@ module.exports = {
     let services = [
       [`Art & Decor`, [`Fine Art`, `Interior Design`]], 
       [`Design & Technology`, [`Animation`]],
-      [`Fashion & Accessories`, [`Make-up & Hairstyling`]], 
-      [`Fitness & Health`, [`Gym Fitness`,`Yoga`]]];
+      [`Fashion & Beauty Services`, [`Hair-styling`, `Make-up`, `Pedicure`]], 
+      [`Fitness & Health`, [`Gym Fitness`, `Masseuse`, `Yoga`]], 
+      [`Home & Housekeeping`, [`Cleaning`, `Furniture`, `Home Painting`, `Landscaping`, `Plumbing`, `Wash & Fold`]], [`Machinery & Hardware`, [`Electrical`, `Mechanical`]], [`Tourism`, [`Tour Guiding`]]];
 
     let listServices = [];
 
@@ -4362,8 +4388,8 @@ module.exports = {
           `div`, `.@_-Zz`, `&@field>${e}`, `#@service`, /*roles*/ [[
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@_miY _gMX`, [[
-                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, service]]]]]]]]]]]]]]]
+                `div`, `#@service-slide-ejs`, `.@_AZc`, `&@style>padding: 32px 14px`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@service-rotate-ejs`, `.@_AZs _gxM`, service]]]]]]]]]]]]]]]
     });
 
     return [`div`, `.@xC3`, listServices];
