@@ -4072,7 +4072,7 @@ module.exports = {
         `div`, `.@_xC3`, [[
           `div`, `.@_gxM _yZS cX0 _aYS`, [[
             `div`, `.@_gM_a _agM _guZ`, [[
-              `a`, ``, `.@_TX_a _atX qXS _utQ tXx`, `&@href>/tour/`, `~@COVID-19 Watch`]]]]], [
+              `a`, ``, `.@_TX_a _atX qXS _utQ tXx`, `&@href>/seek/`, `~@COVID-19 Watch`]]]]], [
           `div`, `.@_gxQ _gxM _X2Y`, [[
             `div`, `.@_g17 _c3x`, [[
               `div`, `&@style>height:280px`, [[
@@ -4109,7 +4109,7 @@ module.exports = {
 
     let iconRules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
 
-    let to = [`/feed/`, `/search/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
+    let to = [`/feed/`, `/seek/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
 
     let model = [];
 
@@ -4128,7 +4128,7 @@ module.exports = {
 
     let rules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
 
-    let to = [`/feed/`, `/search/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
+    let to = [`/feed/`, `/seek/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
 
     let tail = [];
 
@@ -4522,5 +4522,90 @@ module.exports = {
                             `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-pfolio-mail`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Send`]]]]]]]]]]]]], [
             `div`, `.@_yZS gxM _geQ gMX uZM _sZ2`, [[
                 `div`, `#@polyg-mail`, `.@_sZ2 _aXZ _xC3`, this.storyMail(A.mail, B)]]]]]]]]]]]]]]];
+  },
+
+  seek () {
+
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
+      this.feedControls(), [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+        `section`, `#@map`, [[`svg`, `.@_aXZ _gmg`]]]]]]]
+  },
+
+  seekModal () {
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px;line-height:1.6rem`, [[
+        `div`, `.@_gcQ _aXZ sZ2`, [ [
+          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Enable Location Settings`]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[`div`, `.@_cX3`, [[
+      `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+        `span`, `.@_tXx _uHg`, `~@Turn on your location`], [
+        `div`, `.@_gyQ`, [[
+          `span`, `.@_Qtx`, `&@style>padding:24px 0`, `~@Go to the location settings panel on your device and allow location positioning`]]], [
+          `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+        `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@locate`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Enable now`]]]]]]]]]]]]]
+  },
+
+  slide_md5 (A) {
+
+    let Obj = A.md5;
+
+    Obj.sort((a,b) => {return b.reqs_per_polyg - a.reqs_per_polyg})
+
+    let popular_y_scroll = [];
+
+    Obj.forEach(md5 => {
+
+      let plane_x = ``;
+
+      let plane_y = `200`;
+
+      if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]) {
+
+        plane_y = (md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100);
+
+        if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]/2) {
+
+          plane_y = 100;
+          plane_x = `width:${((md5.img[0].img_2d[0]/2)/(md5.img[0].img_2d[1])*100)}%;`;
+        }
+      }
+
+      if (md5.img[0].img_2d[1] > md5.img[0].img_2d[0]) plane_y = md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100;
+
+      popular_y_scroll[Obj.indexOf(md5)] = [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>${plane_x}height:${plane_y}%`, `.@_aMz _gVm`, 
+              `&@src>/${md5.polygs_cover_img}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3 _-Zz`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@${md5.reqs_per_polyg} Stars`]]]]], [
+                `div`, [[`span`, `.@_a2X _aA6`, `@$ 9 / Hour`]]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3 _f47`, [[
+            `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+              `div`, `.@_eYG`, [[
+                `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@${md5.full}`]]], [
+                `div`, `.@_gxM _geQ _-Zz`, [[`span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [
+              `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
+    })
+
+    return [
+      `div`, `&@style>max-width:100%`, `.@_gHm _aGX _-gs _t00 _aA2 _gVc _-Zz`, [[
+        `div`, `.@_xGy`, [[
+        `section`, `.@cX3 _ss7 -Zz`, [[
+          `div`, `.@sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Around You`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, popular_y_scroll]]]]]]]]]]]]]]]]]]];
   }
 }
