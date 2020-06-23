@@ -1220,11 +1220,11 @@
       .append(`text`)
       .attr(`x`, d => {
       
-          return angle(d.geometry.coordinates) [0] + 5;
+          return angle(d.geometry.coordinates) [0] //+ 5;
       })
       .attr(`y`, d => {
       
-        return angle(d.geometry.coordinates) [1] + 5;
+        return angle(d.geometry.coordinates) [1] //+ 5;
       })
       .text(d => {return d.properties.name;})
       .attr(`id`, `pins`)
@@ -1532,7 +1532,7 @@
     if (JSStore.avail().u_md5) {
 
       //document.querySelector(`#mug-ava > #mug-ava`).setAttribute(`src`, `/${JSStore.avail().ava}`);
-      document.querySelector(`#mugvisibility`).setAttribute(`class`, `_QZg`);
+      //document.querySelector(`#mugvisibility`).setAttribute(`class`, `_QZg`);
     }
   }
 
@@ -1919,7 +1919,9 @@
 
   let D3SVGView = (gps, matrix) => {
 
-    let geoJSON = (matrix.toString().replace(new RegExp(`,`, `g`), `_`)) + `.geoJSON`;
+    gps = [-119.103781, 33.440444]
+
+    let geoJSON = `us.geoJSON`//(matrix.toString().replace(new RegExp(`,`, `g`), `_`)) + `.geoJSON`;
 
     d3.json(`/gp/twineJSON/` + geoJSON)
       
@@ -1937,7 +1939,7 @@
         //console.log(d3.geoDistance([34.723, -.533]/*[34.765, -.107]*/,[34.459, -.528]) * 3964)
 
         let projection = d3.geoMercator()
-          .scale(250000)//.scale(viewPort * 3949903)////(scale)
+          .scale(1000)//.scale(viewPort * 3949903)////(scale)
           .translate([uaX / 2, uaY / 2])
           .center(gps),
 
@@ -1962,7 +1964,7 @@
           .attr(`stroke`, `#fff`)
           //.attr(`stroke-width`, 1.2)
 
-        //labelSVG(map, json, projection)
+        labelSVG(map, json, projection)
 
         svg
           .call(d3.zoom()
