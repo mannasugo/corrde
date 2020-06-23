@@ -1891,7 +1891,8 @@ svg {
 .d3JS {
   height: 100%;
   min-height: 0;
-  background: #d7d7dd;
+  /*background: #d7d7dd;*/
+  background: #dfefff;
 }
 
 .d3JS text {
@@ -2246,6 +2247,7 @@ table > thead > tr > th {
 
 #map {
   /*margin-top: -51px;*/
+  height: 100%;
 }
 
 ._xZ- {
@@ -2520,12 +2522,16 @@ table > thead > tr > th {
 
 #support-slide-ejs {background: #1616db; padding: 15px}
 
-._gf3 {
+._gf3, ._t00 {
   background: #f3f4f7;
   line-height: 1.5rem;
   letter-spacing: .75px;
   width: 100%;
 }
+
+._t00 {background: none;}
+
+._f47 {background: #ffffff47}
 
 ._c3 {padding: 0 15px};
 
@@ -2747,6 +2753,8 @@ table > thead > tr > th {
     display: none;
   }
 
+  ._gVc {bottom: 55px}
+
   ._sy2 {
     margin: 50px 0;
   }
@@ -2883,6 +2891,8 @@ table > thead > tr > th {
  ._egZ {
     border-radius: 0;
   }
+
+  ._gVc {bottom: 55px}
 }
 
 @media (max-width: 1231px) {
