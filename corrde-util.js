@@ -751,9 +751,9 @@ class Auxll {
 
           if (md5[`polygs`].length > 0) {
 
-            md5[`img`][0].img_2d = md5[`polygs`][0].img[0].img_2d
+            md5[`img`][0].img_2d = md5[`polygs`][md5[`polygs`].length - 1].img[0].img_2d
 
-            md5[`polygs_cover_img`] = md5[`polygs`][0].img[0].src;
+            md5[`polygs_cover_img`] = md5[`polygs`][md5[`polygs`].length - 1].img[0].src;
 
             if (polygs_mail2 > 0) md5[`reqs_per_polyg`] = ((4.999*md5[`polygs_mail2`])/polygs_mail2).toFixed(2);
           }
@@ -891,6 +891,8 @@ class UAPublic extends Auxll {
     else if (this.levelState === `tour`) this.tour();
 
     else if (this.levelState === `portfolio`) this.createStory();
+
+    else if (this.levelState === `seek`) this.seek();
   }
 
 
@@ -2264,6 +2266,44 @@ class UAPublic extends Auxll {
       });
     });
   }
+
+  seek (polyg, u_md5) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Find Jobs and Proffessionals`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.geo_u_reqs]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore); 
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+        }
+
+        pool.jSStore = JSON.stringify(clientJSON);
+
+        this.logs_u_md5(A => { 
+
+        pool.appendModel = [
+          model.rootView({
+                  appendModel: [
+                    model.seek(), model.slide_md5(A), model.tailFeedControls(), 
+                    model.jS(pool),
+                    model.loadDOMModalView([model.modalView([model.seekModal()])], `seek-modal-ejs`)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+      });
+      });
+    });
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -3618,6 +3658,16 @@ class UATCP extends UAPublic {
 
     let poolReqs = [];
 
+    let emit_md5 = [];
+
+    let js_md5 = [];
+
+    let logs_md5 = []
+
+    let key_md5 = {}
+
+    let area_umd5;
+
     tcp.on(`connection`, tls => {
 
       if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).dev_md5) {
@@ -3664,6 +3714,41 @@ class UATCP extends UAPublic {
           tcp.emit(`polyg_mail`, emitPolyg);
 
         })
+      })
+
+      tls.on(`area_md5`, md5 => {
+
+        area_umd5 = md5.u_md5;
+
+        key_md5[md5.u_md5] = md5;
+
+        if (emit_md5.indexOf(md5.u_md5) === -1) {
+
+          emit_md5.push(md5.u_md5);
+
+          js_md5.push(md5)
+
+        }
+
+        let PJ = md5.gps;
+
+        let SQ = [PJ[0] - .10, PJ[1] - .10, PJ[0] + .10, PJ[1] + .10];
+
+        let SQ_u_md5 = [];
+
+        js_md5.forEach(u_md5 => {
+
+          let POS = u_md5.gps
+
+          if (POS[0] >= SQ[0] && POS[0] <= SQ[2]) {
+
+            if (POS[1] >= SQ[1] && POS[1] <= SQ[3]) SQ_u_md5.push(u_md5);
+          }
+        })
+
+        //SQ_u_md5 = logs_md5;
+
+        tcp.emit(`area_md5`, [SQ_u_md5, emit_md5]);
       })
 
       /**
@@ -3895,6 +3980,30 @@ class UATCP extends UAPublic {
         /**
         @enddev
         **/
+
+        
+
+          let _area_md5 = []
+
+          let SQ_u_md5 = [];
+
+          new Auxll().logs_u_md5(A => {
+
+            emit_md5.forEach(_pos => {
+
+              if (area_umd5 && _pos !== area_umd5) {
+
+                _area_md5.push(_pos);
+                
+                if (key_md5[_pos]) SQ_u_md5.push(key_md5[_pos]);
+              }
+            });
+
+            //logs_md5 = SQ_u_md5;
+
+            tcp.emit(`area_md5`, [SQ_u_md5, _area_md5])
+        })
+        
 
         if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).dev_md5) {
 
