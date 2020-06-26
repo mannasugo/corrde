@@ -641,7 +641,10 @@ class Auxll {
 
           md5[`gps`] = false;
           md5[`polygs`] = [];
+          md5[`polygs_audience`] = [];
+          md5[`polygs_mail`] = 0;
           md5[`polygs_mail2`] = 0;
+          md5[`pos`] = [];
           md5[`pre_mail_utc`] = new Date().valueOf();
           md5[`pre_utc`] = new Date().valueOf();
           md5[`reqs_per_polyg`] = 0.0;
@@ -705,10 +708,16 @@ class Auxll {
 
             let log_ = JSON.parse(B[1][logs].json);
 
+            if (log_.u_md5 === md5.sum && typeof log_.gps === `string` && log_.gps[0] === `[`) md5[`pos`].push(log_.gps)
+
             logs_.push(log_);
           }
 
           let polygs_mail2 = 0;
+
+          let polygs_mail = 0;
+
+          let polygs_audience = []
 
           for (let img in B[2]) {
 
@@ -734,6 +743,13 @@ class Auxll {
 
             if (md5.sum === pfolio.u_md5) {
 
+              pfolio[`mail`].forEach(U => {
+
+                if (md5[`polygs_audience`].indexOf(U.u_md5) === -1) md5[`polygs_audience`].push(U.u_md5);
+
+              })
+
+              md5[`polygs_mail`] += pfolio.mail.length;
               md5[`polygs_mail2`] += pfolio.mail2.length;
               md5[`polygs`].push(pfolio);
             }
@@ -923,6 +939,14 @@ class UAPublic extends Auxll {
     else if (this.levelState[1] === `monitor`) {
 
       if (this.levelState[2] === `graphs`) this.graphsRep()
+    }
+
+    else if (this.levelState[1] === `mug`) {
+
+      this.logs_u_md5(A => {
+
+        if (A.md5Key[this.levelState[2]]) this.readMug(A.md5Key[this.levelState[2]], A.md5Key);
+      });
     }
 
     else if (this.levelState[1] === `p`) {
@@ -2301,6 +2325,46 @@ class UAPublic extends Auxll {
                   this.app.to.writeHead(200, config.reqMime.htm);
                   this.app.to.end(model.call(pool));
       });
+      });
+    });
+  }
+
+  readMug (u_md5, key) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `${u_md5.full}`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore);
+
+        if (u_md5.pos.length > 0) clientJSON[`last_PJ`] = JSON.parse(u_md5[`pos`][u_md5[`pos`].length - 1]);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        pool.jSStore = JSON.stringify(clientJSON); 
+
+        pool.appendModel = [
+          model.rootView({
+                  appendModel: [
+                    model.readMug(u_md5, mug, key), model.readMugTop(), model.tailFeedControls(), 
+                    model.jS(pool)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
       });
     });
   }

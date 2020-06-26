@@ -3506,7 +3506,7 @@ module.exports = {
         `div`, `.@_aXY _XsQ _aA2`, [[
           `div`, `#@reset-response-ejs`, `.@_-Zz _sZ2`, `&@style>padding: 14px; border: 1px solid #ffacac; border-radius: 16px` , [[
             `p`, `#@pass-match-false`, `.@_aA6`, `~@*passwords do not match.`], [
-            `p`, `#@pass-match-true`, `.@_aA6`, `~@*your changes have been saved successfully.`]]],[
+            `p`, `#@pass-match-true`, `.@_aA6`, `~@*your changes have been saved successfully.`]]], [
             `div`, `.@_sZ2`, [[
                         `form`, `.@_cQc`, [[
                           `div`, `.@_cQX`, [[
@@ -3526,7 +3526,7 @@ module.exports = {
       let ava = ``;
 
       model[e] = [
-        `div`, `.@_X4-`, [[
+        `div`, `.@_X4- _rQ0`, [[
           `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[`span`, `.@_cCq`, `&@style>width:60px;height:60px`, [[
             `img`, `.@_aWz`, `&@src>${dev.ava}`, `&@alt>avatar`]]], [
           `div`, `.@_eYG`, [[
@@ -3933,7 +3933,7 @@ module.exports = {
 
       u_md5_y_scroll[Obj.indexOf(md5)] = [
         `div`, `.@_xX0 _tXv`, [[
-          `span`, `.@_cCq`, `&@style>width:50px;height:50px`, [[
+          `a`, `.@_cCq`, `&@style>width:50px;height:50px`, `&@href>/mug/${md5.sum}/`, [[
             `img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]], [
           `span`, `&@style>margin:10px 0 0`, `.@_aA6 _a2X`, `~@${this.pre_utc(md5.pre_utc)}`]]];
     })
@@ -4237,7 +4237,7 @@ module.exports = {
           `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
             `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
               `div`, `.@_eYG`, [[
-                `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@${md5.full}`]]], [
+                `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${md5.full}`, `&@href>/mug/${md5.u_md5}/`]]], [
                 `div`, `.@_gxM _geQ _-Zz`, [[`span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [
               `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
     })
@@ -4280,14 +4280,14 @@ module.exports = {
               `&@src>/${md5.polygs_cover_img}`]]], [`div`, `.@_gVm`]]]]]]], [
             `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
               `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[
-                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _utQ _atX _gMX`, `&@href>javascript:;`, `~@${md5.reqs_per_polyg} Stars`]]]]], [
+                `div`, `.@eYG _gxM _geQ`, [[
+                  `p`, `.@_aA6`, `~@${md5.reqs_per_polyg}`],
+                  this.reqs_per_polyg(md5.reqs_per_polyg)]], [
                 `div`, [[`span`, `.@_a2X _aA6`, `@$ 9 / Hour`]]]]]]]]]]], [
           `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
             `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
               `div`, `.@_eYG`, [[
-                `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@${md5.full}`]]], [
+                `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${md5.full}`, `&@href>/mug/${md5.sum}/`]]], [
                 `div`, `.@_gxM _geQ _-Zz`, [[`span`, `.@_aA6 a2X`, `~@4.2 Miles`]]]]], [
               `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
     })
@@ -4460,7 +4460,7 @@ module.exports = {
         `div`, `.@ZSg _yZS _eYG _gcQ _uZM`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
           `img`, `.@_aWz`, `&@src>${B[Obj.u_md5].ava}`, `&@alt>avatar`]]], [
           `div`, `.@_eYG`, [[
-            `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`span`, `.@tXx aA2 _tXv`, `~@${B[Obj.u_md5].full}`]]], [
+            `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `.@tXx aA2 _tXv`, `~@${B[Obj.u_md5].full}`, `&@href>/mug/${Obj.u_md5}/`]]], [
               `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X _tXv`, `~@${this.log(Obj.log_secs)}`]]]]], [
                   `div`, `.@_gxM _geQ`, [[
                     `span`, `.@_aA6 a2X`, `~@${Obj.mail}`]]]]]]];
@@ -4478,7 +4478,7 @@ module.exports = {
           `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
             `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
               `div`, `.@_eYG`, [[
-                `div`, `.@_QxM`, [[`span`, `.@tXx aA2`, `~@${A.full}`]]], [
+                `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${A.full}`, `&@href>/mug/${A.u_md5}/`]]], [
                 `div`, `.@_gxM _geQ`, [[`span`, `.@_aA6 _a2X`, `~@${this.log(A.log_secs)}`]]]]], [
               `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]]]]]]]], [
           `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
@@ -4607,5 +4607,118 @@ module.exports = {
               `div`, `.@miY _gMX`, [[
                 `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
                   `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, popular_y_scroll]]]]]]]]]]]]]]]]]]];
+  }, 
+
+  readMugTop () {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@profile`]]], [
+              `div`, `.@_QZg _-Zz`, []]]]]]]]]];
+  },
+
+  readMug (A, B, C) {
+
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
+      this.feedControls(), [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+        `section`, `&@style>margin: 70px 0 70px`, `.@_ss7`, [[`div`, [[`div`, `.@_aGX`, [[
+          `section`, `.@_gvQ _pQ0`, `&@style>padding: 15px 15px 0;margin: 0 0 10px`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[
+                `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                  `span`, `.@_cCq`, `&@style>width:60px;height:60px`, [[
+                    `img`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]], [
+                  `div`, `.@_eYG`, [[
+                    `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${A.full}`]]], [
+                    `div`, `.@_gxM _geQ`, [ ]]]]]]]], [
+              `div`, `.@azX- _gMX gp0 _sZ2`, `&@style>margin-top: 20px`, [[
+                `div`, `.@-Zz _gxM _gMX`, [[
+                  `div`, `.@_gMX gcQ`, [[
+                    `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@mug-ejs`, `&@href>javascript:;`, `~@Show Portfolio`]]]]]]]]]]], [
+          `section`, `.@_gvQ _pQ0`, `&@style>margin: 0 0 10px`, [[
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@g00 _gxM _yZS _gxQ`, [[
+                      `p`, `.@_aA6`, `~@${A.reqs_per_polyg}`], this.reqs_per_polyg(A.reqs_per_polyg)]], [
+                    `div`, `.@_g00 _gxM yZS`, [[
+                      `span`, `.@_a2X`, `~@${A.polygs_mail} Reviews`]]]]]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@eYG _ZSg _gxM _geQ`, this.polygs_audience(A.polygs_audience, C)]]]]], [
+            `div`, `#@last_PJ`, `.@_yZS _geQ _uZM _-Zz`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ _gxM`, [[
+                    `div`, `.@_g00 _gxM yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Kenya`]]], [
+                    `div`, `.@_g00 _gxM _yZS _axS _-Zz`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Oyugis`]]]]]]]]]]]]]]]]]]]]]]]
+  },
+
+  reqs_per_polyg (reqs) {
+
+    reqs = reqs.toString()
+
+    if (reqs.indexOf(`.`) === -1) reqs += `.0`;
+
+    let star = [1,2,3,4,5];
+
+    let reqs_per_polyg = [];
+
+    let deflt = `#ffab2e`;
+
+    let dec = `#ffab2e`;
+
+    star.forEach((e, Vtx) => {
+
+      if (parseInt(reqs[0]) <= Vtx) {
+
+        deflt = `#d7d8d9`
+
+        dec = `#d7d8d9`
+      }
+
+      //if (Vtx > 1 && star[Vtx - 1] > )
+
+      reqs_per_polyg[Vtx] = [`svg`, `&@style>width:22px;height:22px;min-height:20px`, `&@viewBox> 0 0 15 15`, [[
+        `g`, `&@fill-rule>evenodd`, [[
+          `path`, `&@fill>${deflt}`, `&@d>M10.925 14.302c.173.13.408.13.58-.002.174-.13.244-.362.175-.572
+        l-1.323-4.296 3.435-2.456c.175-.13.25-.36.185-.572-.064-.212-.253-.357-.468-.36H9.275L7.96 1.754
+        c-.064-.21-.21-.354-.46-.354-.14 0-1.027 3.53-.988 6.32.04 2.788.98 3.85.98 3.85l3.433 2.732z`], [
+          `path`, `&@fill>${dec}`, `&@d>M7.5 1.4c-.25 0-.41.144-.474.354l-1.318 4.29H1.49
+          c-.214.003-.403.148-.467.36-.065.212.01.442.185.572l3.42 2.463-1.307 4.286
+          c-.066.21.004.44.176.572.172.13.407.132.58.003l3.42-2.734L7.5 1.4z`]]]]]
+    })
+  
+    return [`span`, `.@_axS`, reqs_per_polyg];
+  },
+
+  polygs_audience (A, B) {
+
+    //A.shuffle();
+
+    A.slice(0, 10);
+
+    let polygs_audience = [];
+
+    A.forEach(U => {
+
+      polygs_audience[A.indexOf(U)] = [
+        `div`, `.@_aS0`, [[
+          `span`, `.@_cCq`, `&@style>width:28px;height:28px`, [[`img`, `.@_aWz`, `&@src>${B[U].ava}`, `&@title>${B[U].full}`, `&@alt>avatar`]]]]]
+    })
+
+    return [[`div`, `.@_gxM`, polygs_audience], [`div`, `.@_QZg`, [[`span`, `.@_aA6`, `~@${A.length} Reviewers`]]]]
   }
 }

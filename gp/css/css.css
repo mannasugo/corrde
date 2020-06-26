@@ -602,7 +602,7 @@ body {
   width: 100%;
 }
 
-._uxq {
+._uxq, ._gvQ {
   background: #fff;
   box-shadow: 0 15px 50px 0 rgba(0,34,77,.08);
 }
@@ -2690,6 +2690,10 @@ table > thead > tr > th {
 
 ._t4f, ._t4f:visited {color: #4f4f4f;}
 
+._pQ0 {border-radius: 4px}
+
+._aS0 + ._aS0 {margin-left: 12px}
+
 @media only screen and (min-width: 1200px) {
 
   ._Xsa {
@@ -2880,9 +2884,11 @@ table > thead > tr > th {
     padding: 0 24px
   }
 
-  ._uxq {
+  ._uxq, ._gvQ {
     background: none;
   }
+
+  ._gvQ {box-shadow: none;}
 
   ._-gs {
     bottom : 0;

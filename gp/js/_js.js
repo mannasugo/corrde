@@ -420,6 +420,33 @@
     }
   }
 
+  let last_PJ =  () => {
+
+    d3.json(`/gp/twineJSON/custom.json`)
+
+      .then(json => {
+
+        json = topojson.feature(json, json.objects[`custom.geo`]);
+
+        let adm0_a3;
+
+        json.features.forEach(Obj => {
+
+          if (JSStore.avail().last_PJ && d3.geoContains(Obj, JSStore.avail().last_PJ)) adm0_a3 = Obj.properties.name_long;
+
+        });
+
+        if (JSStore.avail().last_PJ && adm0_a3 && document.querySelector(`#last_PJ`)) {
+
+          let ejs = document.querySelector(`#last_PJ`);
+
+          ejs.querySelectorAll(`p`)[0].innerHTML = adm0_a3;
+          ejs.setAttribute(`class`, `_yZS _geQ _uZM -Zz`)
+        }
+
+      }).catch(error => {throw error});
+  }
+
   let aroundSlides = d3.select(`#around-rotate-ejs`)
   d3.select(`#around-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     aroundSlides.style(`transform`, `translate(${d3.event.transform.x}px)`)
@@ -448,6 +475,7 @@
   setGPSCookie();
   setMD5Cookie();
   loadStory()
+  last_PJ();
 
   document.addEventListener(`click`, e0);
   document.addEventListener(`change`, files);

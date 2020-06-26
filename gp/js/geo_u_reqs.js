@@ -86,7 +86,9 @@
 
   d3.json(`/gp/twineJSON/custom.json`)
 
-    .then(json => {areaMD5()
+    .then(json => {
+
+      areaMD5()
       
       let projection = d3.geoMercator()
         .scale(120000)
@@ -250,6 +252,7 @@
           .attr(`r`, 5)
           .attr(`fill`, `#1185fe`)
           .attr(`stroke`, `#fff`)
+          .attr(`id`, d => {return d.u_md5})
 
         map.selectAll(`SQ.u_md5`).data(Obj)
           .enter()
@@ -547,9 +550,17 @@
     if (JSStore.avail().u_md5 && JSStore.avail().gps.length === 2) socket.emit(`area_md5`, JSStore.avail());
   }
 
+  let readMug = e => {
+
+    if (e.className.baseVal === `u_md5`) window.location = `/mug/${e.id}/`;
+  }
+
   let e0 = e => {
+
+    e = e.target;
     
     supportMsgModal(e);
+    readMug(e);
   }
 
   setGPSCookie();
