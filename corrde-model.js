@@ -4109,7 +4109,7 @@ module.exports = {
 
     let iconRules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
 
-    let to = [`/feed/`, `/seek/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
+    let to = [`/feed/`, `/seek/`, `/contract/`, `/mug/`, `/mail/`];
 
     let model = [];
 
