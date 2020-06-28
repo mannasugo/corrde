@@ -890,7 +890,7 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `p`) this.p();
 
-    if (this.levelState === `mug`) this.mug();
+    //if (this.levelState === `mug`) this.mug();
 
     if (this.levelState === `quora`) this.quora();
 
@@ -904,11 +904,13 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `feed`) this.feed();
 
-    else if (this.levelState === `tour`) this.tour();
+    else if (this.levelState === `mug`) this.selfMug();
 
     else if (this.levelState === `portfolio`) this.createStory();
 
     else if (this.levelState === `seek`) this.seek();
+
+    else if (this.levelState === `tour`) this.tour();
   }
 
 
@@ -2367,6 +2369,22 @@ class UAPublic extends Auxll {
                   this.app.to.end(model.call(pool));
       });
     });
+  }
+
+  selfMug () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.rootCall();
+        
+        else if (A === false) {
+
+          this.logs_u_md5(A => {
+
+            this.readMug(A.md5Key[B], A.md5Key)
+          })}})});
   }
 }
 
