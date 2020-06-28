@@ -4663,7 +4663,7 @@ module.exports = {
                       `p`, `.@_aA6`, `~@Kenya`]]], [
                     `div`, `.@_g00 _gxM _yZS _axS _-Zz`, [[
                       `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
-                      `p`, `.@_aA6`, `~@Oyugis`]]]]]]]]]]]]]]]]]]]]]]]
+                      `p`, `.@_aA6`, `~@Oyugis`]]]]]]]]]]]]], this.mug_polygs(A, B, C)]]]]]]]]]]
   },
 
   reqs_per_polyg (reqs) {
@@ -4688,8 +4688,6 @@ module.exports = {
 
         dec = `#d7d8d9`
       }
-
-      //if (Vtx > 1 && star[Vtx - 1] > )
 
       reqs_per_polyg[Vtx] = [`svg`, `&@style>width:22px;height:22px;min-height:20px`, `&@viewBox> 0 0 15 15`, [[
         `g`, `&@fill-rule>evenodd`, [[
@@ -4720,5 +4718,96 @@ module.exports = {
     })
 
     return [[`div`, `.@_gxM`, polygs_audience], [`div`, `.@_QZg`, [[`span`, `.@_aA6`, `~@${A.length} Reviewers`]]]]
+  },
+
+  mug_polygs (A, B, C) {
+
+    let mug_polygs = [];
+
+    if (A.polygs.length === 0 && A.sum === B) mug_polygs = this.iniStories();
+
+    else if (A.polygs.length > 0) {
+
+      A.polygs.sort((a, b) => {return b.log_secs - a.log_secs})
+
+      let polygs = [];
+
+      A.polygs.forEach(P => {
+
+        polygs[A.polygs.indexOf(P)] = [
+          `article`, `&@style>margin: 0 0 10px`, [[`div`, `.@_aGX`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+            `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+              `div`, `.@_eYG`, [[
+                `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${P.full}`, `&@href>/mug/${P.u_md5}/`]]], [
+                `div`, `.@_gxM _geQ`, [[`span`, `.@_aA6 _a2X`, `~@${this.log(P.log_secs)}`]]]]], [
+              `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${P.ava}`, `&@alt>avatar`]]]]]]]]]]], [
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:${P.img[0].img_2d[1]/P.img[0].img_2d[0]*100}%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, 
+              `&@src>/${P.img[0].src}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@${P.tag[0]}`]]], [
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@${P.tag[1]}`]]]]]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _gxM`, [[`div`, `.@aXs _gxM`, [[
+                    `span`, `.@_tXx`, `~@${P.seen.length}`], [
+                    `span`, `.@a2X _axS _aA6`, `~@Views`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `@mail`, `.@_tXx`, `~@${P.mail.length}`], [
+                    `span`, `.@_axS _aA6`, `~@Comments`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `@mail2`, `.@_tXx`, `~@${P.mail2.length}`], [
+                    `span`, `.@_axS _aA6`, `~@Likes`]]]]]]]]], this.iconVars(A, B, P), [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS gMX _eYG _xC3`, [[`span`, `.@yZS`, `~@${P.text}`]]]]], [
+            `div`, `.@_yZS _geQ`, [[
+                `div`, `@polyg-mail`, `.@_sZ2 _aXZ _xC3`, this.storyMail(P.mail, C)]]]]]]]]]
+      });
+
+      mug_polygs = [
+          `section`, `.@gvQ pQ0`, `&@style>margin: 0 0 10px`, polygs]
+    }
+
+    return mug_polygs;
+  },
+
+  iconVars (A, B, C) {
+
+    let iconVars = []
+
+    if (B !== false) {
+
+      let rules = [`CommentsGray`, `HeartsGray`, `ArchiveGray`];
+
+      let placer = [`tart-pfolio-mail`, `tart-mail2`, `save-story`];
+
+      let to = [`/portfolio/${C.log_md5}#start-pfolio-mail`, `/portfolio/${C.log_md5}#start-mail2`, `javascript:;`];
+
+      let tail = [];
+
+      if (C.mail2.indexOf(B) > -1) rules[1] = `HeartsColor`;
+
+      rules.forEach((rule, e) => {
+
+        tail[e] = [
+          `div`, `.@_geQ _gMX`, [[
+            `a`, `#@${placer[e]}`, `.@-_tX ${rule}`, `&@href>${to[e]}`]]];
+      });
+
+      iconVars = [
+        `div`, `.@_yZS _geQ _uZM`, [[
+          `div`, `.@_gMX _eYG _xC3`, tail]]]
+    }
+
+    return iconVars;
   }
 }
