@@ -3922,7 +3922,7 @@ module.exports = {
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
                 `span`, `.@_tCc _pV4`, `~@explore`]]], [
-              `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>javascript:;`]]]]]]]]]]];
+              `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>/seek/`]]]]]]]]]]];
   },
 
   u_md5_y_scroll (A) {
@@ -3952,7 +3952,7 @@ module.exports = {
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Corrde Users Around You `]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>/seek/`]]]]]]], [
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@_miY _gMX`, [[
                 `div`, `#@around-slide-ejs`, `.@_AZc`, [[

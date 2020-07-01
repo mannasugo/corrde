@@ -995,7 +995,7 @@ class UAPublic extends Auxll {
           title: `Corrde`,
           css: CSSString,
           jSStore: JSON.stringify({State: `offline`}),
-          jsState: [config.reqs._js, config.cd.auJS],
+          jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js, config.cd.auJS],
           appendModel: ``
         };
 
@@ -2182,7 +2182,7 @@ class UAPublic extends Auxll {
         jSStore: JSON.stringify({}),
         title: `Take A Tour`,
                 css: CSS,
-                jsState: config.reqs.devs_js}
+                jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.devs_js]}
 
               pool.appendModel = [
                 model.rootView({
