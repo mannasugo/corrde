@@ -113,7 +113,7 @@
 
   let alertDevAva = e => {
 
-    if (e.id === `place-devs-ava-ejs`) {
+    if (e.id === `place-devs-ava-ejs` || e.parentNode.id === `self`) {
 
       let modal_ejs = document.querySelector(`#ava-modal-ejs`);
 
@@ -232,7 +232,9 @@
 
         document.querySelector(`#devs-ava-ejs > img`).src = imageData;
 
-        document.querySelector(`#mug-ava > img`).src = imageData;
+        if (document.querySelector(`#mug-ava > img`)) document.querySelector(`#mug-ava > img`).src = imageData;
+
+        if (document.querySelector(`#self > img`)) document.querySelector(`#self > img`).src = imageData;
 
         const fileTo = new AJXFile();
 

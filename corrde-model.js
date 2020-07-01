@@ -4130,7 +4130,7 @@ module.exports = {
 
     let rules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
 
-    let to = [`/feed/`, `/seek/`, `/contract/`, `/devs/mug/`, `/devs/mail/`];
+    let to = [`/feed/`, `/seek/`, `/contract/`, `/mug/`, `/mail/`];
 
     let tail = [];
 
@@ -4354,7 +4354,7 @@ module.exports = {
               `div`, `#@hide-pfolio-img`, `.@_QZg _-Zz`, [[
                 `div`, `@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
                   `label`, `.@_gM_a _agM _guZ gMX`, `&@for>file`, `#@add-pfolio-img`, [[
-                    `a`, `&@for>file`, `.@_TX_a _atX _utQ _gMX`, `#@add-pfolio-img`, `@href>#add-pfolio-img`, `~@Photo`]]]]], 
+                    `a`, `&@for>file`, `.@_TX_a _atX _utQ _gMX`, `#@add-pfolio-img`, `@href>#add-pfolio-img`, `~@Add Photo`]]]]], 
                 this.inputFile()]]]]]]]]]];
   },
 
@@ -4627,6 +4627,10 @@ module.exports = {
 
   readMug (A, B, C) {
 
+    let mug = ``;
+
+    if (A.sum === B) mug = `#@self`;
+
     return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
       `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
@@ -4634,8 +4638,8 @@ module.exports = {
           `section`, `.@_gvQ _pQ0`, `&@style>padding: 15px 15px 0;margin: 0 0 10px`, [[
               `div`, `.@_yZS _gxM _geQ`, [[
                 `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                  `span`, `.@_cCq`, `&@style>width:60px;height:60px`, [[
-                    `img`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]], [
+                  `a`, mug, `.@_cCq`, `&@style>width:60px;height:60px`, `&@href>javascript:;`, [[
+                    `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]], [
                   `div`, `.@_eYG`, [[
                     `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${A.full}`]]], [
                     `div`, `.@_gxM _geQ`, [ ]]]]]]]], [

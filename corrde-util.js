@@ -2374,7 +2374,8 @@ class UAPublic extends Auxll {
           model.rootView({
                   appendModel: [
                     model.readMug(u_md5, mug, key), model.readMugTop(), model.tailFeedControls(), 
-                    model.jS(pool)]
+                    model.jS(pool), 
+                    model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
