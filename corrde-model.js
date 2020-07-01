@@ -3544,7 +3544,9 @@ module.exports = {
             `div`, [[`span`, `.@_aA2`, `~@Last Seen`]]], [
             `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X`, `~@${this.log(dev.pre_utc)}`]]]]], [
                 `div`, `.@_yZS _gxM _geQ _gMX`, [[
-                  `div`, [[`span`, `.@_aA6`, `~@${(dev.gps === `false` || dev.gps === false ? dev.gps = `location disabled`: dev.gps = dev.gps)}`]]]]]]];
+                    `div`, `.@_g00 _gxM yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `#@last_PJ`, `.@_aA6`, `~@${dev.pos[dev.pos.length - 1]}`]]]]]]];
     });
 
     return model;

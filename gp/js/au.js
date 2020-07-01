@@ -847,7 +847,7 @@
 
         AJXCall(`isClient`, JSStore.avail(), (A, B) => {
           if (B.is_mail === false) {
-            window.location = `/explore`;
+            window.location = `/feed/`;
           }
         })
       }

@@ -479,6 +479,7 @@ class Auxll {
 
           if (devs.ava === false) devs[`ava`] = this.alternativeMug(devs.alt)
           devs[`gps`] = false;
+          devs[`pos`] = [];
           devs[`pre_mail_utc`] = new Date().valueOf();
           devs[`pre_utc`] = false;
           devs[`reqs_per_secs`] = 0.0;
@@ -524,6 +525,17 @@ class Auxll {
 
               logCount++
             }
+          }
+
+          let logs_ = [];
+
+          for (let logs in B[1]) {
+
+            let log_ = JSON.parse(B[1][logs].json);
+
+            if (log_.headers.dev_md5 === devs.dev_md5 && typeof log_.headers.gps === `string` && log_.headers.gps[0] === `[`) devs[`pos`].push(log_.headers.gps)
+
+            logs_.push(log_);
           }
 
           devObj.push(devs);
@@ -1964,7 +1976,7 @@ class UAPublic extends Auxll {
         jSStore: JSON.stringify({}),
         title: `Corrde Administration & Management System`,
         css: CSS,
-        jsState: config.reqs.devs_js}
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.devs_js]}
 
       this.appAnalytics(A => {
 
@@ -2005,7 +2017,7 @@ class UAPublic extends Auxll {
                 jSStore: JSON.stringify({dev_md5: dev.dev_md5, pre_devs_mail: preMail}),
                 title: `Corrde Administration & Management System`,
                 css: CSS,
-                jsState: config.reqs.devs_js}
+                jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.devs_js]}
 
               pool.appendModel = [
                 model.rootView({
