@@ -615,7 +615,8 @@ class Auxll {
     new Sql().multi({},
       `select * from u
       ;select * from u_md5_logs
-      ;select * from stories`, (A, B, C) => {
+      ;select * from stories
+      ;select * from jobs`, (A, B, C) => {
 
         let u_md5Obj = [];
 
@@ -624,6 +625,10 @@ class Auxll {
         let polygs = [];
 
         let polygs_key = {};
+
+        let jobs = [];
+
+        let jobs_log = {};
 
         const utc_Z = new Date().valueOf();
 
@@ -644,6 +649,10 @@ class Auxll {
           let polygs_ = [];
 
           let polygs__key = {};
+
+          let jobs_ = [];
+
+          let jobs_log_ = {};
 
           let md5 = JSON.parse(B[0][u].alt);
 
@@ -775,6 +784,54 @@ class Auxll {
             polygs_.sort((a,b) => {return b.log_secs - a.log_secs});
           }
 
+          for (let img in B[3]) {
+
+            let J = JSON.parse(B[3][img].json);
+
+            J[`seen`] = [];
+
+            logs_.forEach(logs => {
+
+              if (logs.headers.referer.split(`/`).length > 2 && logs.headers.referer.split(`/`)[4] === J.log_md5) {
+
+                J.seen.push(logs.u_md5)
+              }
+            });
+
+            /**
+
+            if (miniKey[pfolio.u_md5].ava === false) {pfolio[`ava`] = this.alternativeMug(miniKey[pfolio.u_md5].full);}
+
+            else if (miniKey[pfolio.u_md5].ava !== false) pfolio[`ava`] = `/` + miniKey[pfolio.u_md5].ava;
+
+            pfolio[`full`] = miniKey[pfolio.u_md5].full;
+
+            if (pfolio.text === false) pfolio.text = `${pfolio.tag[0]}, ${pfolio.tag[1]}`;
+
+            if (md5.sum === pfolio.u_md5) {
+
+              pfolio[`mail`].forEach(U => {
+
+                if (md5[`polygs_audience`].indexOf(U.u_md5) === -1) md5[`polygs_audience`].push(U.u_md5);
+
+              })
+
+              md5[`polygs_mail`] += pfolio.mail.length;
+              md5[`polygs_mail2`] += pfolio.mail2.length;
+              md5[`polygs`].push(pfolio);
+            }
+
+            polygs_mail2 += pfolio.mail2.length;
+
+            **/
+
+            jobs_.push(J);
+
+            jobs_log_[J.log_md5] = J;
+
+            jobs_.sort((a,b) => {return b.log_secs - a.log_secs});
+          }
+
           md5[`img`] = [{img_2d: [700, 350]}]; 
 
           if (md5[`polygs`].length > 0) {
@@ -795,9 +852,19 @@ class Auxll {
           polygs = polygs_;
 
           polygs_key = polygs__key;
+
+          jobs = jobs_;
+
+          jobs_log = jobs_log_;
         }
 
-        call({md5: u_md5Obj, md5Key: u_md5Key, polygs: polygs, polygs_log_key: polygs_key});
+        call({
+          jobs: jobs,
+          jobs_log: jobs_log,
+          md5: u_md5Obj, 
+          md5Key: u_md5Key, 
+          polygs: polygs, 
+          polygs_log_key: polygs_key});
       })
   }
 }
@@ -829,6 +896,7 @@ class Sql extends Auxll {
         `${config.sql.devs}
         ;${config.sql.devs_mail}
         ;${config.sql.devs_traffic}
+        ;${config.sql.jobs}
         ;${config.sql.m}
         ;${config.sql.messages}
         ;${config.sql.stories}
@@ -914,6 +982,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `explore`) this.inView();
 
+    else if (this.levelState === `contract`) this.contract();
+
     else if (this.levelState === `feed`) this.feed();
 
     else if (this.levelState === `mug`) this.selfMug();
@@ -924,7 +994,6 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `tour`) this.tour();
   }
-
 
   subCalls () {
 
@@ -2213,7 +2282,7 @@ class UAPublic extends Auxll {
               jSStore: JSON.stringify({u_md5: B}),
               title: `The Blue Collar Hub.`,
               css: CSS,
-              jsState: [config.reqs._js]}
+              jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js]}
 
               pool.appendModel = [
                 model.rootView({
@@ -2398,6 +2467,40 @@ class UAPublic extends Auxll {
 
             this.readMug(A.md5Key[B], A.md5Key)
           })}})});
+  }
+
+  contract () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.rootCall();
+        
+        else if (A === false) {
+
+          this.logs_u_md5(A => {
+
+            const pool = {
+              jSStore: JSON.stringify({u_md5: B}),
+              title: `Create a Job Contract`,
+              css: CSS,
+              jsState: [config.reqs.contract_js]}
+
+              pool.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.createJob(A, A.md5Key[B]), model.tailFeedControls(), 
+                    model.jS(pool)]
+              })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
+        }
+      })
+      })
+
   }
 }
 
@@ -3613,6 +3716,8 @@ class AJXJPEG {
 
     if (this.q.file === `ini_ava`) this.iniAva();
 
+    else if (this.q.file === `cover_img`) this.addCover();
+
     else if (this.q.file === `dev_ava`) this.devAva();
 
     else if (this.q.file === `u_md5_ava`) this.md5Ava();
@@ -3724,6 +3829,25 @@ class AJXJPEG {
       fs.writeFile(u + this.q.pfolio_secs + `.jpg`, this.file, err => {
 
         let pool = {u_md5_pfolio_img: u + this.q.pfolio_secs + `.jpg`}
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify(pool));
+            
+      });
+    });
+  }
+
+  addCover () {
+
+    let localSt_ = new Date().valueOf();
+
+    const u = config.write_reqs.cover_img + this.q.u_md5 + `/`;
+
+    fs.mkdir(u, {recursive: true}, (err) => {
+
+      fs.writeFile(u + this.q.cover_secs + `.jpg`, this.file, err => {
+
+        let pool = {cover_img: u + this.q.cover_secs + `.jpg`}
 
         this.app.to.writeHead(200, config.reqMime.json);
         this.app.to.end(JSON.stringify(pool));
@@ -3844,6 +3968,15 @@ class UATCP extends UAPublic {
         //SQ_u_md5 = logs_md5;
 
         tcp.emit(`area_md5`, [SQ_u_md5, emit_md5]);
+      })
+
+      tls.on(`J_md5`, md5 => {
+
+        new Auxll().logs_u_md5(A => {
+
+          tcp.emit(`J_md5`, A.jobs);
+
+        })
       })
 
       /**
@@ -4153,6 +4286,8 @@ class AJXReqs extends Auxll {
        else if (this.args.pushStoryMail) this.pushStoryMail(JSON.parse(this.args.pushStoryMail));
 
       else if (this.args.pushStoryMail2) this.pushStoryMail2(JSON.parse(this.args.pushStoryMail2));
+
+      else if (this.args.pushJob) this.pushJob(JSON.parse(this.args.pushJob));
     }
   }
 
@@ -4571,6 +4706,42 @@ class AJXReqs extends Auxll {
               })
       }
 
+    });
+  }
+
+  pushJob (args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        let img = [{src: args.cover_img, img_2d: [args.cover_img_x, args.cover_img_y]}];
+
+        new Sql().to([`jobs`, {json: JSON.stringify({
+          days: args.job_span,
+          geo: args.gps,
+          img: img,
+          log_md5: log_sum,
+          log_secs: log,
+          apps_mail: [],
+          books_mail: [],
+          give_mail: [], 
+          tag: [args.pfolio_field, args.pfolio_service],
+          title: args.job_title,
+          text: args.job_text,
+          u_md5: args.u_md5,
+          USD: args.USD,
+          USD_MODE: args.payway})}], (A, B, C) => {
+        
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify({exit: true}));
+
+        });
+      }
     });
   }
 }

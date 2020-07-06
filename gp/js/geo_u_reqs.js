@@ -88,7 +88,9 @@
 
     .then(json => {
 
-      areaMD5()
+      areaMD5();
+
+      JMD5()
       
       let projection = d3.geoMercator()
         .scale(120000)
@@ -235,6 +237,8 @@
             .attr(`d`, path)
             .attr(`stroke`, `#1185fe`)
             .attr(`fill`, `#1185fe`)
+
+          JMD5()
       })
 
       .catch(error => {throw error})
@@ -293,9 +297,69 @@
           .attr(`id`, d => {return d.u_md5})
       }
 
+      let SQ_j_md5 = (Obj) => {
+
+        map.selectAll(`.j_md5`).remove();
+
+        map.selectAll(`SQ.j_md5`).data(Obj)
+          .enter()
+          .append(`circle`)
+          .attr(`class`, `j_md5`)
+          .attr(`cx`, d => {return parseInt(projection(d.geo) [0]);})
+          .attr(`cy`, d => {return parseInt(projection(d.geo) [1]);})
+          .attr(`r`, 5)
+          .attr(`fill`, `none`)
+          .attr(`stroke`, `#1185fe`)
+          .attr(`id`, d => {return d.log_md5})
+
+        map.selectAll(`SQ.j_md5`).data(Obj)
+          .enter()
+          .append(`rect`)
+          .attr(`x`, d => {return parseInt(projection(d.geo) [0]) - 75;})
+          .attr(`y`, d => {return parseInt(projection(d.geo) [1]) - 25;})
+          .attr(`class`, `j_md5`)
+          .attr(`width`, `150`)
+          .attr(`height`, `25`)
+          .attr(`fill`, `#fff`)
+          .attr(`rx`, 12)
+          .attr(`stroke`, `#1185fe`)
+          .attr(`id`, d => {return Obj.log_md5})
+
+        /*map.selectAll(`SQ.u_md5`).data(Obj)
+          .enter()
+          .append(`circle`)
+          .attr(`cx`, d => {return parseInt(projection(d.gps) [0]) - 25;})
+          .attr(`cy`, d => {return parseInt(projection(d.gps) [1]) - 25;})
+          .attr(`r`, 25)
+          .attr(`class`, `u_md5`)
+          .attr(`cursor`, `pointer`)
+          .attr(`fill`, `#1185fe`)
+          .attr(`stroke`, `none`)
+          .attr(`id`, d => {return d.u_md5})*/
+
+        map.selectAll(`SQ.j_md5`).data(Obj)
+          .enter()
+          .append(`text`)
+          .attr(`x`, d => {return parseInt(projection(d.geo) [0]);})
+          .attr(`y`, d => {return parseInt(projection(d.geo) [1]) - 8;})
+          .text(d => {return (d3.geoDistance(JSStore.avail().gps, d.geo) * 6888).toFixed(1) + ` Miles | ${d.USD} USD`;})
+          .attr(`class`, `j_md5`)
+          .style(`fill`, `#1185fe`)
+          .attr(`text-anchor`, `middle`)
+          .attr(`stroke-width`, `0.24`)
+          .attr(`font-size`, `12`)
+          .attr(`cursor`, `pointer`)
+          .attr(`id`, d => {return d.log_md5})
+      }
+
       socket.on(`area_md5`, u_md5 => {
 
         if (JSStore.avail().gps.length === 2) SQ_u_md5(u_md5[0])
+      })
+
+      socket.on(`J_md5`, J => {
+
+        if (JSStore.avail().gps.length === 2) SQ_j_md5(J)
       })
 
         let scaleSVG = d3.zoom()
@@ -314,6 +378,8 @@
           map.selectAll(`#pos`).remove();
 
           map.selectAll(`.u_md5`).remove();
+
+          map.selectAll(`.j_md5`).remove();
 
           let zoomScale = d3.zoomTransform(svg.node());
 
@@ -464,9 +530,16 @@
 
           areaMD5();
 
+          JMD5();
+
           socket.on(`area_md5`, u_md5 => {
 
             if (JSStore.avail().gps.length === 2) SQ_u_md5(u_md5[0])
+          })
+
+          socket.on(`J_md5`, J => {
+
+            if (JSStore.avail().gps.length === 2) SQ_j_md5(J)
           })
         }
     })
@@ -555,12 +628,23 @@
     if (e.className.baseVal === `u_md5`) window.location = `/mug/${e.id}/`;
   }
 
+  let JMD5 = () => {
+
+    if (JSStore.avail().gps.length === 2) socket.emit(`J_md5`, JSStore.avail());
+  }
+
+  let readJob = e => {
+
+    if (e.className.baseVal === `j_md5`) window.location = `/j/${e.id}/`;
+  }
+
   let e0 = e => {
 
     e = e.target;
     
     supportMsgModal(e);
     readMug(e);
+    readJob(e)
   }
 
   setGPSCookie();
@@ -572,10 +656,13 @@
     skilledSlides.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
   }))
 
-  //areaMD5()
-
   socket.on(`area_md5`, md5 => {
 
-    if (JSStore.avail().gps.length === 2) {console.log(md5);JSStore.to({area_md5: md5});}
+    if (JSStore.avail().gps.length === 2) {JSStore.to({area_md5: md5});}
+  })
+
+  socket.on(`J_md5`, J => {
+
+    if (JSStore.avail().gps.length === 2) {JSStore.to({J_md5: J});}
   })
 })();

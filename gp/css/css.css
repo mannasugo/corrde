@@ -3263,7 +3263,7 @@ table > thead > tr > th {
   #team-rotate-ejs > ._X4- {min-width: 34.333333%}
   #stories-rotate-ejs > ._X4- {min-width: 35.33333%}
 
-  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4- {min-width: 35.33333%}
+  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4-, #jobs-rotate > ._X4- {min-width: 35.33333%}
 }
 
 @media (max-width: 1150px) {
@@ -3290,7 +3290,7 @@ table > thead > tr > th {
 
   #team-rotate-ejs > ._X4- {min-width: 48.333333%}
 
-  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-,#stories-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4- {min-width: 48.33333%}
+  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-,#stories-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4-, #jobs-rotate > ._X4- {min-width: 48.33333%}
 }
 
 @media (max-width: 768px) {
@@ -3299,7 +3299,7 @@ table > thead > tr > th {
 
   #stories-rotate-ejs > ._X4- {min-width: 63.33333%;}
 
-  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-,#stories-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4- {min-width: 73.3333%}
+  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-,#stories-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4-, #jobs-rotate > ._X4- {min-width: 73.3333%}
 
   ._X2Y {
     -webkit-box-orient: vertical;
@@ -3320,7 +3320,7 @@ table > thead > tr > th {
 
   #team-rotate-ejs > ._X4- {min-width: 90%;}
 
-  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-, #stories-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4- {min-width: 90%}
+  #near-rotate-ejs > ._X4-, #jobs-rotate-ejs > ._X4-, #stories-rotate-ejs > ._X4-, #skilled-rotate-ejs > ._X4-, #jobs-rotate > ._X4- {min-width: 90%}
 
   ._AZs {margin:  0 -12px}
 }

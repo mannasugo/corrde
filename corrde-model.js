@@ -3978,6 +3978,17 @@ module.exports = {
               `div`, `.@miY _gMX`, [[
                 `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
                   `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Popular Jobs`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `.@_tX ProceedColor`, `&@href>/jobs/`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@jobs-slide`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate`, `.@_AZs _gxM`, 
+                    this.jobs_y_scroll(A)]]]]]]]]]]]]]]], [
         `section`, `.@cX3 _ss7 _-Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
@@ -4334,7 +4345,18 @@ module.exports = {
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@miY _gMX`, [[
                 `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]]]]]]
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Popular Jobs`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `.@_tX ProceedColor`, `&@href>/jobs/`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@jobs-slide`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate`, `.@_AZs _gxM`, 
+                    this.jobs_y_scroll(A)]]]]]]]]]]]]]]]]]]]
   }, 
 
   pfolioTop (A) {
@@ -4815,5 +4837,121 @@ module.exports = {
     }
 
     return iconVars;
+  },
+
+  createJob (A) {
+
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
+      this.feedControls(), [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+        `section`, `#@DOM`, `&@style>margin: 70px 0`, `.@_ss7 _-Zz`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@xC3`, [[
+              `div`, `.@_yZS _gxM _geQ _eYG _uZM`, [[
+                `div`,`.@_gxM _xC3`, [[`span`, `.@a2X _aA2`, `~@Choose field and Service`]]]]]]], this.listServices()]], [
+          `div`, `.@_-Zz _aGX`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:60%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, 
+              `&@src>`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+              `div`, `.@_yZS _gMX _eYG _uZM`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Art & Decor`]]], [
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Interior Design`]]]]]]]]]]], [
+              `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX eYG uZM`, [[
+                  `div`, `.@_UFA cS2 _gMX`, [[
+                    `input`, `#@title`, `.@_RRD Ccs _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Job Title`]]]]]]], [
+              `div`, `.@_yZS _xC3`, [[
+                `div`, `.@_yZS _gxM _uZM`, [[`div`, `.@gMX`, [this.labelRadioView([`Hourly`, `Fixed-Price`], `payrate`)]]]]]], [
+              `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX eYG uZM`, [[
+                  `div`, `.@_UFA cS2 _gMX`, [[
+                    `input`, `#@USD`, `.@_RRD Ccs _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Amount in USD`]]]]]]], [
+              `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX eYG uZM`, [[
+                  `div`, `.@_UFA cS2 _gMX`, [[
+                    `input`, `#@duration`, `.@_RRD Ccs _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Duration (in days)`]]]]]]], [
+            `div`, `.@-Zz _geQ uZM`, [[
+                `div`, `.@yZS gMX _eYG _xC3`, [[
+                  `div`, `.@_gMX -Zz`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `textarea`, `&@style>background: none`, `#@job-text`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>Give a job description`]]]]], [
+                        `div`, `.@_gcQ _aXZ -Zz`, [ [
+                          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@`]]], [
+                          `div`, `.@_QZg _gMz`, [[
+                          `div`, `.@_axS`, [[
+                            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-job`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Create Job`]]]]]]]]]]]]] ]]]]]], [
+        `section`, `#@position-alert`, `.@_-Zz`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+              `span`, `.@_tXx _uHg`, `~@Turn on location settings`], [
+              `div`, `.@_gyQ`, [[
+                `span`, `.@_Qtx`, `&@style>padding:24px 0`, `~@You cannot create a job listing with your location off. Enable your location settings to proceed.`]]], [
+              `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+                `div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX qXS _utQ`, `&@href>/feed/`, `~@Go Back to Feed`]]]]]]]]]]], [
+        `section`, `#@upload`, `.@_-Zz`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+              `span`, `.@_tXx _uHg`, `~@Job cover photo`], [
+              `div`, `.@_gyQ`, [[
+                `span`, `.@_Qtx`, `&@style>padding:24px 0`, `~@Upload relevant cover photo for your listing.`]]], [
+              `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+                `div`, `@_gM_a _agM _guZ`, [[
+                  `label`, `.@_gM_a _agM _guZ gMX`, `&@for>file`, `#@job-cover`, [[
+                    `a`, `&@for>file`, `.@_TX_a _atX _utQ _gMX`, `#@job-cover`, `~@Add Photo`]]], this.inputFile()]]]]]]]]]]]]]];
+  },
+
+  jobs_y_scroll (A) {
+
+    let Obj = A.jobs;
+
+    let jobs_y_scroll = [];
+
+    Obj.forEach(md5 => {
+
+      let plane_x = ``;
+
+      let plane_y = `200`;
+
+      if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]) {
+
+        plane_y = (md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100);
+
+        if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]/2) {
+
+          plane_y = 100;
+          plane_x = `width:${((md5.img[0].img_2d[0]/2)/(md5.img[0].img_2d[1])*100)}%;`;
+        }
+      }
+
+      if (md5.img[0].img_2d[1] > md5.img[0].img_2d[0]) plane_y = md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100;
+
+      jobs_y_scroll[Obj.indexOf(md5)] = [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>${plane_x}height:${plane_y}%`, `.@_aMz _gVm`, 
+              `&@src>/${md5.img[0].src}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX _eYG gcQ`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `&@href>/j/${md5.log_md5}/`, `.@_tXx _aA6 _tXv`, `~@${md5.title}`]]]]], [
+                  `div`, `.@_gxM _gMX`, [[`a`, `&@href>/j/${md5.log_md5}/`, `.@_aA6 _tXv`, `~@${md5.text}`]]]]]]], [
+              `div`, `.@_yZS _gxM _gMX _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[`div`, `#@J_PJ`, `.@aXs -Zz`, `~@${JSON.stringify(md5.geo)}`], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `.@-_tX CommentsGray`, `~@Applications`], [
+                    `span`, `.@_a2X _axS _aA6`, `~@${md5.apps_mail.length}`]]]]], [
+              `div`, [[`span`, `.@_a2X`, `~@${this.log(md5.log_secs)}`]]]]]]]]]]]]]
+    })
+
+    return jobs_y_scroll;
   }
 }

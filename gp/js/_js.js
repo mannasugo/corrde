@@ -88,13 +88,13 @@
 
   let setGPSCookie = () => {
 
-    JSStore.to({gps: false});
+    JSStore.to({gps: [34.753, -.533]/*[7.723, 50.533]*/});//JSStore.to({gps: false});
 
     GPS(a => {
 
       isCoords(a);
 
-      AJXReq([`/devs_reqs/`, `setGPSCookie`], JSStore.avail(), (A, B) => {});
+      AJXReq([`/devs_reqs/`, `setGPSCookie`], JSStore.avail(), (A, B) => {J_PJ()});
 
       }, (b) => {
 
@@ -102,7 +102,7 @@
         *@dev
         **/
 
-        AJXReq([`/devs_reqs/`, `setGPSCookie`], JSStore.avail(), (A, B) => {});
+        AJXReq([`/devs_reqs/`, `setGPSCookie`], JSStore.avail(), (A, B) => {J_PJ()});
     })    
   }
 
@@ -449,6 +449,18 @@
       }).catch(error => {throw error});
   }
 
+  let J_PJ = () => {
+
+    if (document.querySelector(`#J_PJ`) && JSStore.avail().gps.length === 2) {console.log(`#454`)
+
+      document.querySelectorAll(`#J_PJ`).forEach(J => {
+
+        J.innerHTML = (d3.geoDistance(JSStore.avail().gps, JSON.parse(J.innerHTML)) * 6888).toFixed(1) + ` Miles`;
+
+      })
+    }
+  }
+
   let aroundSlides = d3.select(`#around-rotate-ejs`)
   d3.select(`#around-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     aroundSlides.style(`transform`, `translate(${d3.event.transform.x}px)`)
@@ -463,6 +475,11 @@
   let skilledSlides = d3.select(`#skilled-rotate-ejs`)
   d3.select(`#skilled-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     skilledSlides.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
+  }))
+
+  let slideJobs = d3.select(`#jobs-rotate`)
+  d3.select(`#jobs-slide`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    slideJobs.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
   }))
 
   let fieldSlide = document.querySelectorAll(`#service-slide-ejs`)
