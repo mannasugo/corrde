@@ -265,7 +265,7 @@
 
       if (A && B && C && D && JSStore.avail().payway) {
 
-        if (JSStore.avail().job_title && JSStore.avail().job_text && JSStore.avail().USD && JSStore.avail().job_span) {console.log(`#268`)
+        if (JSStore.avail().job_title && JSStore.avail().job_text && JSStore.avail().USD && JSStore.avail().job_span) {
           
           AJXReq([`/devs_reqs/`, `pushJob`], JSStore.avail(), (A, B) => {
 

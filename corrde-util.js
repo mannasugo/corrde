@@ -1011,6 +1011,14 @@ class UAPublic extends Auxll {
       }
     }
 
+    else if (this.levelState[1] === `j`) {
+
+      this.logs_u_md5(A => {
+
+        if (A.jobs_log[this.levelState[2]]) this.readJob(A.jobs_log[this.levelState[2]], A);
+      });
+    }
+
     else if (this.levelState[1] === `mail`) {
 
       this.inisumAvail(this.levelState[2], (A, B) => {
@@ -2501,6 +2509,44 @@ class UAPublic extends Auxll {
       })
       })
 
+  }
+
+  readJob (J, Obj) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({j_md5: J.log_md5, j_u_md5: J.u_md5}),
+        title: `${J.title}`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.J_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        pool.jSStore = JSON.stringify(clientJSON); 
+
+        pool.appendModel = [
+          model.rootView({
+            appendModel: [
+              model.readJob(J, mug, Obj), model.readJobTop(), model.tailFeedControls(), 
+              model.jS(pool)]
+        })];
+              
+        this.app.to.writeHead(200, config.reqMime.htm);
+        this.app.to.end(model.call(pool));
+      });
+    });
   }
 }
 

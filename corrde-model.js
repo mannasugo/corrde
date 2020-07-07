@@ -4953,5 +4953,73 @@ module.exports = {
     })
 
     return jobs_y_scroll;
+  }, 
+
+  readJobTop () {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@Jobs`]]], [
+              `div`, `.@_QZg`, [[
+                `div`, `.@_y4x`, [[
+                  `a`, `&@role>geo`, `.@-_tX GeoGray`, `&@href>javascript:;`, `~@job-geo`]]]]]]]]]]]]];
+  },
+
+  readJob (A, B, C) {
+
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
+      this.feedControls(), [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+        `section`, `&@style>margin: 70px 0 70px`, `.@_ss7`, [[`div`, [[`div`, `.@_aGX`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:${A.img[0].img_2d[1]/A.img[0].img_2d[0]*100}%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, 
+              `&@src>/${A.img[0].src}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS gMX _eYG _xC3`, [[
+                  `span`, [[
+                    `a`, `.@_tX2 _aX2 _aA4`, `&@href>/j/${A.log_md5}/`, `~@${A.title}`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX uZM`, [[
+                `div`, `.@yZS gMX _eYG _xC3`, [[`span`, `.@yZS`, `~@${A.text}`]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS gMX _eYG _xC3`, [[
+                  `div`, `.@eYG _gxM _gMX`, [[
+                    `div`, `#@J_PJ`, `.@_eYG _ZSg`, `~@${JSON.stringify(A.geo)}`], [
+                    `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X`, `~@${this.log(A.log_secs)}`]]]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@${A.tag[0]}`]]], [
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@${A.tag[1]}`]]]]]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+              `div`, `.@yZS gMX _eYG _xC3`, [[
+                `div`, `.@_gMX _geQ`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@${A.USD} USD`], [`span`, `.@_aA6`, `~@${A.USD_MODE}`]]], [
+                  `div`, `.@_QZg`, [[
+                    `div`, [[
+                      `span`, `.@_tXx`, `~@${this.availtimeleft(parseInt((A.days * 86400000) + A.log_secs))}`], [
+                      `span`, `.@_aA6`, `~@Duration`]]]]]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+                `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_eYG _gxM`, [[`div`, `.@aXs _gxM`, [[
+                    `span`, `.@_tXx`, `~@${A.books_mail.length}`], [
+                    `span`, `.@a2X _axS _aA6`, `~@Bookings`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `#@mail`, `.@_tXx`, `~@${A.apps_mail.length}`], [
+                    `span`, `.@_axS _aA6`, `~@Applications`]]], [
+                  `div`, `.@_aXs _gxM`, [[
+                    `span`, `#@mail2`, `.@_tXx`, `~@${A.give_mail.length}`], [
+                    `span`, `.@_axS _aA6`, `~@Hires`]]]]]]]]]]]]]]]]]]]]]
   }
 }

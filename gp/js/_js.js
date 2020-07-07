@@ -451,7 +451,7 @@
 
   let J_PJ = () => {
 
-    if (document.querySelector(`#J_PJ`) && JSStore.avail().gps.length === 2) {console.log(`#454`)
+    if (document.querySelector(`#J_PJ`) && JSStore.avail().gps.length === 2) {
 
       document.querySelectorAll(`#J_PJ`).forEach(J => {
 
