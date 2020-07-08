@@ -94,13 +94,29 @@
     }
   }
 
+  let pushApplication = e => {
+
+    if (e.id === `to-apps` || e.id === `del-apps`) {
+
+      if (JSStore.avail().u_md5 && JSStore.avail().j_md5 && JSStore.avail().u_md5 !== JSStore.avail().j_u_md5) {
+
+        AJXReq([`/devs_reqs/`, `pushApps`], JSStore.avail(), (A, B) => {
+
+          if (B.exit === true) window.location = `/j/${JSStore.avail().j_md5}`;
+        });
+      }
+    }
+  }
+ 
   let e0 = e => {
 
     e = e.target;
+
+    pushApplication(e)
   }
 
   setGPSCookie();
 
   document.addEventListener(`click`, e0);
-  document.addEventListener(`change`, files);
+  //document.addEventListener(`change`, files);
 })();

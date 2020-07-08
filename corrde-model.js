@@ -4717,7 +4717,7 @@ module.exports = {
         dec = `#d7d8d9`
       }
 
-      reqs_per_polyg[Vtx] = [`svg`, `&@style>width:22px;height:22px;min-height:20px`, `&@viewBox> 0 0 15 15`, [[
+      reqs_per_polyg[Vtx] = [`svg`, `.@_QgY`, `&@viewBox> 0 0 15 15`, [[
         `g`, `&@fill-rule>evenodd`, [[
           `path`, `&@fill>${deflt}`, `&@d>M10.925 14.302c.173.13.408.13.58-.002.174-.13.244-.362.175-.572
         l-1.323-4.296 3.435-2.456c.175-.13.25-.36.185-.572-.064-.212-.253-.357-.468-.36H9.275L7.96 1.754
@@ -4973,6 +4973,40 @@ module.exports = {
 
   readJob (A, B, C) {
 
+    let u_md5_to = [];
+
+    let apps_mail = [];
+
+    if (A.apps_mail.length > 0) {
+
+      apps_mail = [
+        `section`, `.@_gvQ _pQ0`, `&@style>margin: 0 0 10px`, [[
+          `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+            `div`, `.@yZS _gMX _eYG _xC3`, [[
+              `div`, `.@eYG _ZSg _gxM _geQ`, [[
+                `span`, `.@_a2X`, `~@${A.apps_mail.length} Applicants`], [
+                `div`, `.@_QZg`, [[
+                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@applicants`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Show All`]]]]]]]]]]], [
+          `div`, this.listApplicants(A,B,C)]]]
+    }
+
+    if (B !== false) {
+
+      if (B !== A.u_md5) {
+
+        let placer = [`to-apps`, `Submit Application`];
+
+        if (A.apps_mail.indexOf(B) > -1) placer = [`del-apps`, `Withdraw Application`];
+
+        u_md5_to = [
+          `div`, `.@_yZS gxM _geQ gMX uZM`, [[
+            `div`, `.@yZS _gMX eYG _xC3`, [[
+              `div`, `.@_gxM _aMz`, [[
+                `div`, `.@_QZg`, [[
+                  `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@${placer[0]}`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@${placer[1]}`]]]]]]]]]]]
+      }
+    }
+
     return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
       `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
@@ -4986,7 +5020,8 @@ module.exports = {
                   `span`, [[
                     `a`, `.@_tX2 _aX2 _aA4`, `&@href>/j/${A.log_md5}/`, `~@${A.title}`]]]]]]], [
             `div`, `.@_yZS gxM _geQ gMX uZM`, [[
-                `div`, `.@yZS gMX _eYG _xC3`, [[`span`, `.@yZS`, `~@${A.text}`]]]]], [
+                `div`, `.@yZS gMX _eYG _xC3`, [[`span`, `.@yZS`, `~@${A.text}`]]]]],
+            u_md5_to, [
             `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
                 `div`, `.@yZS gMX _eYG _xC3`, [[
                   `div`, `.@eYG _gxM _gMX`, [[
@@ -5020,6 +5055,31 @@ module.exports = {
                     `span`, `.@_axS _aA6`, `~@Applications`]]], [
                   `div`, `.@_aXs _gxM`, [[
                     `span`, `#@mail2`, `.@_tXx`, `~@${A.give_mail.length}`], [
-                    `span`, `.@_axS _aA6`, `~@Hires`]]]]]]]]]]]]]]]]]]]]]
+                    `span`, `.@_axS _aA6`, `~@Hires`]]]]]]]]]]]]], [`div`, `.@_aGX`, [apps_mail]]]]]]]]]]
+  },
+
+  listApplicants (A, B, C) {
+
+    let listApplicants = [];
+
+    let J = C.md5Key;
+
+    A.apps_mail.forEach(u => {
+
+      listApplicants.push([
+        `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+          `div`, `.@yZS _gMX _eYG _xC3`, [[
+            `div`, `.@eYG _ZSg _gxM _geQ`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+              `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${J[u].ava}`, `&@alt>avatar`]]]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${J[u].full}`, `&@href>/mug/${J[u].sum}/`]]], [
+                `div`, `#@mini`, `.@_gxM _geQ`, [[
+                  `span`, `.@_aA6 a2X`, `~@${J[u].reqs_per_polyg}`], 
+                  this.reqs_per_polyg(J[u].reqs_per_polyg), [
+                  `span`, `.@_axS _aA6 _a2X`, `~@ ${J[u].polygs_mail} reviews`]]]]]]]]]]]]])
+    })
+
+    return listApplicants;
   }
 }

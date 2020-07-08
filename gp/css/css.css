@@ -2696,6 +2696,10 @@ table > thead > tr > th {
 
 ._aS0 + ._aS0 {margin-left: 12px}
 
+._QgY {width:22px;height:22px;min-height:20px}
+
+#mini  ._QgY {width:16px;height:16px;min-height:16px;margin-top: 2px;}
+
 @media only screen and (min-width: 1200px) {
 
   ._Xsa {

@@ -4334,6 +4334,8 @@ class AJXReqs extends Auxll {
       else if (this.args.pushStoryMail2) this.pushStoryMail2(JSON.parse(this.args.pushStoryMail2));
 
       else if (this.args.pushJob) this.pushJob(JSON.parse(this.args.pushJob));
+
+      else if (this.args.pushApps) this.pushApps(JSON.parse(this.args.pushApps));
     }
   }
 
@@ -4788,6 +4790,57 @@ class AJXReqs extends Auxll {
 
         });
       }
+    });
+  }
+
+  pushApps (args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        new Sql().multi({}, 
+          `select * from jobs`,
+          (A, B, C) => {
+
+          let md5;
+
+          let mail = [];
+
+          for (let J in B) {
+
+            let Obj = JSON.parse(B[J].json);
+
+            if (Obj.log_md5 === args.j_md5) md5 = Obj;
+          }
+
+          let _md5 = JSON.stringify(md5);
+
+          if (md5.apps_mail.indexOf(args.u_md5) > -1) delete md5.apps_mail[md5.apps_mail.indexOf(args.u_md5)];
+
+          else md5.apps_mail.push(args.u_md5);
+
+          md5.apps_mail.forEach(u => {
+
+            if (u !== null) mail.push(u);
+          });
+
+          md5.apps_mail = mail;
+
+              new Sql().multi({}, 
+                `update jobs set json = '${JSON.stringify(md5)}' where json = '${_md5}'`,
+                (A, B, C) => {
+        
+                  this.app.to.writeHead(200, config.reqMime.json);
+                  this.app.to.end(JSON.stringify({exit: true}));
+                })
+              })
+      }
+
     });
   }
 }
