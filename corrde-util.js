@@ -974,8 +974,6 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `quora`) this.quora();
 
-    if (this.levelState === `jobs`) this.vacant();
-
     if (this.levelState === `meta`) this.meta();
 
     if (this.levelState === `setup`) this.setup();
@@ -985,6 +983,8 @@ class UAPublic extends Auxll {
     else if (this.levelState === `contract`) this.contract();
 
     else if (this.levelState === `feed`) this.feed();
+
+    else if (this.levelState === `jobs`) this.Jobs();
 
     else if (this.levelState === `mug`) this.selfMug();
 
@@ -1024,6 +1024,14 @@ class UAPublic extends Auxll {
       this.inisumAvail(this.levelState[2], (A, B) => {
 
         this.mailPeers(A, B[0]);
+      });
+    }
+
+    else if (this.levelState[1] === `maps`) {
+
+      this.logs_u_md5(A => {
+
+        if (A.jobs_log[this.levelState[2]]) this.JobMap(A.jobs_log[this.levelState[2]], A);
       });
     }
 
@@ -2539,7 +2547,7 @@ class UAPublic extends Auxll {
         pool.appendModel = [
           model.rootView({
             appendModel: [
-              model.readJob(J, mug, Obj), model.readJobTop(), model.tailFeedControls(), 
+              model.readJob(J, mug, Obj), model.readJobTop(J), model.tailFeedControls(), 
               model.jS(pool)]
         })];
               
@@ -2547,6 +2555,81 @@ class UAPublic extends Auxll {
         this.app.to.end(model.call(pool));
       });
     });
+  }
+
+  Jobs () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Find Jobs`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.J_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        pool.jSStore = JSON.stringify(clientJSON);
+
+        this.logs_u_md5(A => { 
+
+          pool.appendModel = [
+            model.rootView({
+              appendModel: [
+              model.Jobs(A), model.tailFeedControls(), 
+              model.jS(pool)]
+          })];
+              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));
+      });});});
+  }
+
+  JobMap (J, Obj) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({j_obj: J}),
+        title: J.title,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.job_geo_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        pool.jSStore = JSON.stringify(clientJSON);
+
+          pool.appendModel = [
+            model.rootView({
+              appendModel: [
+              model.jobMap(), model.tailFeedControls(), 
+              model.jS(pool)]
+          })];
+              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));});});
   }
 }
 
