@@ -833,7 +833,7 @@
 
       let val = document.querySelector(`#mt2`).value;
 
-      if (val === `0`) {
+      if (val === `1`) {
 
         AJXCall(`isFull`, JSStore.avail(), (A, B) => {
           if (B.is_full_set === true) {
@@ -843,7 +843,7 @@
 
       }
 
-      else if (val = `1`) {
+      else if (val = `0`) {
 
         AJXCall(`isClient`, JSStore.avail(), (A, B) => {
           if (B.is_mail === false) {

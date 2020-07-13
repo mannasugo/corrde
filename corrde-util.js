@@ -1001,6 +1001,8 @@ class UAPublic extends Auxll {
 
       if (this.levelState[2] === `add`) this.addDevs();
 
+      else if (this.levelState[2] === `analytics`) this.analyticsRoot();
+
       else if (this.levelState[2] === `mail`) {
 
         this.getDevsMail(A => {
@@ -2630,6 +2632,85 @@ class UAPublic extends Auxll {
               
           this.app.to.writeHead(200, config.reqMime.htm);
           this.app.to.end(model.call(pool));});});
+  }
+
+  analyticsRoot () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`dev_md5`, (A, B) => {
+
+        if (A === true) {
+
+          const pool = {
+            jSStore: JSON.stringify({}),
+            title: `Corrde Administration & Management System`,
+            css: CSS,
+            jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.devs_js]}
+
+          this.appAnalytics(A => {
+
+            pool.appendModel = [
+              model.main({
+                appendModel: [model.toDevsView()]
+                    }), model.footer()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));})
+        }
+
+        else if (A === false) {
+
+          let dev_md5 = B;
+
+          this.availDev(dev_md5, A => {
+
+            let dev = A.dev[0];
+
+            let mail = A.alerts.sort((a, b) => {return b.mail_log - a.mail_log});
+
+            let mail_ = A.mail_;
+
+            let preMail = false;
+
+            this.logDevs(A => {
+
+              let devs = A.dev;
+
+              let ava = ``;
+
+              if (mail_.length > 0 && mail_[0].mail_log > A.devsKey[dev_md5].pre_mail_utc) preMail = true;
+
+              new Sql().multi({}, `select * from traffic`, (A,B,C) => {
+
+                const pool = {
+                  jSStore: JSON.stringify({dev_md5: dev.dev_md5, pre_devs_mail: preMail}),
+                  title: `Corrde Activity Analytics`,
+                  css: CSS,
+                  jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.devs_geo_js]}
+
+                pool.appendModel = [
+                  model.rootView({
+                    appendModel: [
+                      model.topDevsView({
+                        ava: (dev.ava), 
+                        mail: dev.mail}), 
+                      model.controlsView(), 
+                      model.analyticsRoot(dev, mail, devs, mail_),model.tailControls(), 
+                      model.jS(pool)]
+                  })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));});
+            })
+
+            
+          }); 
+        }
+      });
+    });
   }
 }
 

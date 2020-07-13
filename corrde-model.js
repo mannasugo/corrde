@@ -5151,5 +5151,36 @@ module.exports = {
       this.feedControls(), [
       `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
         `section`, `#@map`, [[`svg`, `.@_aXZ _gmg`]]]]]]]
+  },
+
+  analyticsRoot (Obj, MailObj, Obj2, Mail2Obj) {
+
+    let appendDev = () => {
+
+      let model = [];
+
+      if (Obj.access.indexOf(`universal`) !== -1) {
+
+        model =  [
+            `div`, `.@_gxM _yZS _cX0 _aYS`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `#@append-devs-ejs`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Add Team Member`]]]]]
+      }
+
+      return model;
+    }
+
+    return [`main`, `.@_aA2 _sy2`, [[
+      `div`, `.@_sZ2 _cX0 _-Zz`, [[`div`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@${Obj.group}`], [`div`, `.@_a2X`, `~@${Obj.role}`]]], [
+      `div`, `.@_pV0`], [
+      `div`, `.@_sZ2 pV0`, [
+        this.supportReqs(Mail2Obj), [
+        `div`, `.@_sZ2 _-Zz`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX _uZM`, [[
+            `div`, `.@_`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_tXx`, `~@Tasks`]]], [
+              `div`, `.@_QZg _gxM`, []]]], [
+                `div`, `&@style>padding:25px 0 0`, `.@_gxM _yZS`, [[
+                  `div`, `.@_gM_a _agM _guZ`, [[
+                    `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Assign a Task`]]]]]]]]]]];
   }
 }
