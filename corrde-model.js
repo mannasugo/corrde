@@ -4387,7 +4387,10 @@ module.exports = {
       [`Design & Technology`, [`Animation`]],
       [`Fashion & Beauty Services`, [`Hair-styling`, `Make-up`, `Pedicure`]], 
       [`Fitness & Health`, [`Gym Fitness`, `Masseuse`, `Yoga`]], 
-      [`Home & Housekeeping`, [`Cleaning`, `Furniture`, `Home Painting`, `Landscaping`, `Plumbing`, `Wash & Fold`]], [`Machinery & Hardware`, [`Electrical`, `Mechanical`]], [`Tourism`, [`Tour Guiding`]]];
+      [`Home & Housekeeping`, [`Cleaning`, `Furniture`, `Home Painting`, `Landscaping`, `Plumbing`, `Wash & Fold`]], 
+      [`Machinery & Hardware`, [`Electrical`, `Mechanical`]], 
+      [`Tourism`, [`Tour Guiding`]], 
+      [`Web, Mobile & Software Dev`, [`Desktop Software Development`, `Game Development`, `Mobile Development`, `Product Management`, `QA & Testing`, `Scripts & Utilities`, `Web Development`, `Web & Mobile Design`]]];
 
     let listServices = [];
 
