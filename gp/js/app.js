@@ -94,28 +94,71 @@
     }
   }
 
-  let pushApplication = e => {
+  let listMug = e => {
 
-    if (e.id === `to-apps` || e.id === `del-apps`) {
+    if (e.id === `mug-ava`) {
 
-      if (JSStore.avail().u_md5 && JSStore.avail().j_md5 && JSStore.avail().u_md5 !== JSStore.avail().j_u_md5) {
+      let to = document.querySelector(`#mugger`);
 
-        AJXReq([`/devs_reqs/`, `pushApps`], JSStore.avail(), (A, B) => {
+      if (to.className === `_aAY _-Zz`) {
+        to.className = `_aAY -Zz`;
+      }
 
-          if (B.exit === true) window.location = `/j/${JSStore.avail().j_md5}`;
-        });
+      else if (to.className === `_aAY -Zz`) {
+        to.className = `_aAY _-Zz`;
       }
     }
+  }
+
+  let unlistMug = e => {
+
+    if (e.id === `del`) {
+
+      let modals = document.querySelectorAll(`[for = 'modal']`);
+
+      for (let i = 0; i < modals.length; i++) {
+        
+        if (modals[i].className === `_aAY -Zz`) {
+
+          modals[i].setAttribute(`class`, `_aAY _-Zz`);
+        }
+      }
+    }
+
   }
  
   let e0 = e => {
 
     e = e.target;
 
-    pushApplication(e)
+    listMug(e);
+
+    unlistMug(e);
   }
 
   setGPSCookie();
 
   document.addEventListener(`click`, e0);
+
+  let supportSlides = d3.select(`#support-rotate-ejs`)
+  d3.select(`#support-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    supportSlides.style(`transform`, `translate(${d3.event.transform.x}px)`)
+  }))
+
+
+  let skilledSlides = d3.select(`#skilled-rotate-ejs`)
+  d3.select(`#skilled-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    skilledSlides.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
+  }))
+
+  let jobsSlides = d3.select(`#jobs-rotate-ejs`)
+      d3.select(`#jobs-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    jobsSlides.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
+  }))
+
+
+  let slideJobs = d3.select(`#jobs-rotate`)
+  d3.select(`#jobs-slide`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    slideJobs.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
+  }))
 })();

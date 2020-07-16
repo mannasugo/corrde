@@ -943,7 +943,7 @@ class UAPublic extends Auxll {
 
   handleUACalls () {
 
-    if (this.levelState === ``) this.rootCall();
+    if (this.levelState === ``) this.appRoot();
 
     /**
     Adhere to Alphabetic Order
@@ -970,8 +970,6 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `p`) this.p();
 
-    //if (this.levelState === `mug`) this.mug();
-
     if (this.levelState === `quora`) this.quora();
 
     if (this.levelState === `meta`) this.meta();
@@ -980,15 +978,21 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `explore`) this.inView();
 
+    else if (this.levelState === `app`) this.appRoot();
+
     else if (this.levelState === `contract`) this.contract();
 
     else if (this.levelState === `feed`) this.feed();
 
     else if (this.levelState === `jobs`) this.Jobs();
 
+    else if (this.levelState === `login`) this.login();
+
     else if (this.levelState === `mug`) this.selfMug();
 
     else if (this.levelState === `portfolio`) this.createStory();
+
+    else if (this.levelState === `signup`) this.signup();
 
     else if (this.levelState === `seek`) this.seek();
 
@@ -1082,7 +1086,7 @@ class UAPublic extends Auxll {
           title: `Corrde`,
           css: CSSString,
           jSStore: JSON.stringify({State: `offline`}),
-          jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js, config.cd.auJS],
+          jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js/*, config.cd.auJS*/],
           appendModel: ``
         };
 
@@ -2710,6 +2714,89 @@ class UAPublic extends Auxll {
           }); 
         }
       });
+    });
+  }
+
+  appRoot () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `The Freelancing Hub ™`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.app_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        this.logs_u_md5(A => {
+
+          pool.jSStore = JSON.stringify(clientJSON); 
+                
+          pool.appendModel = [
+            model.rootView({
+              appendModel: [model.appRoot(A), model.topAppRoot(A.md5Key, mug), model.jS(pool)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));})
+      });
+    })
+  }
+
+  login () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Welcome back to Corrde`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.login_js]}
+
+        pool.appendModel = [
+          model.main({
+            appendModel: [model.login()]
+                    }), model.footer()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+    });
+  }
+
+  signup () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+      
+      const pool = {
+        jSStore: JSON.stringify({}),
+        title: `Sign up for an Account`,
+        css: CSS,
+        jsState: config.reqs.signup_js}
+
+        pool.appendModel = [
+          model.main({
+            appendModel: [model.signup()]
+                    }), model.footer()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+    
     });
   }
 }
@@ -4479,6 +4566,8 @@ class AJXReqs extends Auxll {
 
       if (this.args.createDev) this.createDev(JSON.parse(this.args.createDev));
 
+      else if (this.args.AddCreds) this.AddCreds(JSON.parse(this.args.AddCreds));
+
       else if (this.args.accessDev) this.accessDev(JSON.parse(this.args.accessDev));
 
       else if (this.args.devPassReset) this.devPassReset(JSON.parse(this.args.devPassReset));
@@ -4500,6 +4589,8 @@ class AJXReqs extends Auxll {
       else if (this.args.pushJob) this.pushJob(JSON.parse(this.args.pushJob));
 
       else if (this.args.pushApps) this.pushApps(JSON.parse(this.args.pushApps));
+
+      else if (this.args.pushCreds) this.pushCreds(JSON.parse(this.args.pushCreds));
     }
   }
 
@@ -5006,6 +5097,93 @@ class AJXReqs extends Auxll {
       }
 
     });
+  }
+
+  pushCreds (args) {
+
+    let conca = `select * from u`;
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      let u_md5 = [];
+
+      for (let u in B) {
+
+        let Obj = JSON.parse(B[u].alt);
+
+        if (Obj.mail === args.mail) u_md5[0] = Obj;
+      }
+
+      if (u_md5.length === 1) {
+
+        let hexPass = crypto.createHash(`md5`).update(args.pass, `utf8`);
+
+        if (u_md5[0].pass === hexPass.digest(`hex`)) {
+
+          this.createCookie(`u_md5`, u_md5[0].sum);
+
+          this.createCookie(`u`, u_md5[0].sum);
+
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify({exit: true}));
+        }
+      }
+    });
+  }
+
+  AddCreds (args) {
+
+    let conca = `select * from u`;
+
+    new Sql().multi({}, conca, (A, B, C) => {
+
+      let is_mail, pool = {};
+
+      for (let u in B) {
+
+        if (B[u].mail === args.ini_mail) is_mail = true;
+      }
+
+      if (is_mail !== true) {
+
+        let localSt_ = new Date().valueOf();
+
+          let ini_sum = crypto.createHash(`md5`).update(`${localSt_}`, `utf8`).digest(`hex`);
+
+          let mailPass = crypto.createHash(`md5`).update(args.ini_pass, `utf8`),
+              is_ava = false;
+          
+          new Sql().to([`u`, {
+            alt: JSON.stringify({
+              appraisal: false,
+              ava: is_ava,
+              edu: [],
+              desc: false,
+              full: args.u_md5_alt,
+              log: localSt_,
+              mail: args.ini_mail,
+              pass: mailPass.digest(`hex`),
+              skills: [],
+              sum: ini_sum,
+              wpl: []}),
+            mail: args.ini_mail,
+            mug: `null`,
+            pass: 'mailPass.digest(`hex`)',
+            St_: localSt_,
+            sum: ini_sum}], (A, B, C) => {
+
+              this.createCookie(`u`, ini_sum);
+              this.createCookie(`u_md5`, ini_sum);
+
+              pool[`is_mail`] = false;
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify({exit: true}));
+            });
+      }
+
+      else pool[err].push(`true_mail`);
+    })
   }
 }
 

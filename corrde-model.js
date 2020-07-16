@@ -4948,6 +4948,14 @@ module.exports = {
                   `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `&@href>/j/${md5.log_md5}/`, `.@_tXx _aA6 _tXv`, `~@${md5.title}`]]]]], [
                   `div`, `.@_gxM _gMX`, [[`a`, `&@href>/j/${md5.log_md5}/`, `.@_aA6 _tXv`, `~@${md5.text}`]]]]]]], [
               `div`, `.@_yZS _gxM _gMX _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@eYG _gxM`, [[
+                  `div`, `.@_gxM CYc`, [[
+                    `div`, `.@axS`, [[
+                      `div`, `.@_gM_a _agM _guZ`, [[
+                        `a`, `.@_TX_a _atX _qXS _utQ`, `&@href>/j/${md5.log_md5}/`, `~@${md5.USD} USD | ${md5.USD_MODE}`]]]]]]]]], [
+              `div`, `.@_QZg`, [[
+                    `a`, `.@-_tX ProceedColor`, `~@job`, `&@href>/j/${md5.log_md5}/`]]]]]]], [
+              `div`, `.@_yZS _gxM _gMX _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
                 `div`, `.@_eYG _gxM`, [[`div`, `#@J_PJ`, `.@aXs -Zz`, `~@${JSON.stringify(md5.geo)}`], [
                   `div`, `.@_aXs _gxM`, [[
                     `span`, `.@-_tX CommentsGray`, `~@Applications`], [
@@ -4988,7 +4996,7 @@ module.exports = {
             `div`, `.@yZS _gMX _eYG _xC3`, [[
               `div`, `.@eYG _ZSg _gxM _geQ`, [[
                 `span`, `.@_a2X`, `~@${A.apps_mail.length} Applicants`], [
-                `div`, `.@_QZg`, [[
+                `div`, `.@_QZg _-Zz`, [[
                   `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@applicants`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Show All`]]]]]]]]]]], [
           `div`, this.listApplicants(A,B,C)]]]
     }
@@ -5080,10 +5088,33 @@ module.exports = {
                 `div`, `#@mini`, `.@_gxM _geQ`, [[
                   `span`, `.@_aA6 a2X`, `~@${J[u].reqs_per_polyg}`], 
                   this.reqs_per_polyg(J[u].reqs_per_polyg), [
-                  `span`, `.@_axS _aA6 _a2X`, `~@ ${J[u].polygs_mail} reviews`]]]]]]]]]]]]])
+                  `span`, `.@_axS _aA6 _a2X`, `~@ ${J[u].polygs_mail} reviews`]]]]]]], this.listApplicantsAction(A, B, J[u].sum)]]]]]])
     })
 
     return listApplicants;
+  },
+
+  listApplicantsAction (A, B, C) {
+
+    let mail_to = [];
+
+    if (B !== false) {
+
+      if (B === A.u_md5) {
+
+        let inlineJSON = `&@md5>{
+          &quot;j_md5&quot;: &quot;${A.log_md5}&quot;,
+          &quot;mail&quot;: &quot;${C}&quot;,
+          &quot;u_md5&quot;: ${A.u_md5}}`;
+
+        mail_to = [
+          `div`, `.@_QZg`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, inlineJSON, `#@to-book`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@interview`]]]]]
+      }
+    }
+
+    return mail_to;
+
   },
 
   Jobs (A) {
@@ -5185,5 +5216,148 @@ module.exports = {
                 `div`, `&@style>padding:25px 0 0`, `.@_gxM _yZS`, [[
                   `div`, `.@_gM_a _agM _guZ`, [[
                     `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Assign a Task`]]]]]]]]]]];
+  },
+
+  appRoot (A) {
+
+    return [
+      `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem`, [[
+        `section`, `.@_g29 _sZ2`, `&@style>line-height:1.5rem`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
+              `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
+                `h1`, `.@_tx1 _atX`, `~@The Freelancing Hub ™`]]], [
+              `div`, `.@_ge0 _c3x`, [[
+                `div`, `~@As a free service corrde coordinates both freelancing and hiring services while providing cartographic positioning.`], [
+                `div`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@QZg`, [[
+                    `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]], [
+          `div`, `&@style>letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
+            `div`, `.@_miY _gMX`, [[
+              `div`, `#@support-slide-ejs`, `.@_AZc`, [[
+                `div`, [[
+                  `div`, `.@_AZx ava`, [[`div`, `#@support-rotate-ejs`, `.@_AZs _gxM`, [[
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Design & Creative`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Fitness & Health`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Web, Mobile & Software Dev`]]]]]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Popular Jobs`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `.@_tX ProceedColor`, `&@href>/jobs/`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@jobs-slide`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate`, `.@_AZs _gxM`, 
+                    this.jobs_y_scroll(A)]]]]]]]]]]]]]]], [
+        `section`, `.@_sZ2 _g29`, [[
+          `div`, `.@_cX3 _aA0`, [[
+            `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+              `span`, `~@Need any assistance? We now have a fully operational support team to tackle your requests or improve on your suggestions.`]]], [
+            `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+              `div`, `.@_gM_0 _agM _guZ`, [[`a`, ``, `.@_TX_a _atX qXS _utQ _aA0`, `&@href>/support/`, `~@Request Support`]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Popular`]]], [
+                `div`, `.@_QZg _gxM`, [[
+                  `div`, `.@_gM_a _agM _guZ`, [[
+                    `a`, ``, `.@_TX_a _atX qXS _utQ`, `&@href>/tour/`, `~@Take A Tour`]]]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]]]]
+  },
+
+  topAppRoot (A, B) {
+
+    let to = [
+      `div`, `.@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+        `a`, `.@_TX_a _atX _utQ _gMX`, `#@devs-add-ejs`, `&@href>/login/`, `~@login`]]];
+
+    let txt = [`My Feed`, `Profile`]
+
+    let plc = [`feed`, `mug`]
+
+    let a = [`/feed/`, `/mug/`];
+
+    if (B !== false) {
+ 
+      to = [
+        `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
+          `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A[B].ava}`]]]  
+    }
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@alpha`]]], [
+              `div`, `.@_QZg`, [to]], 
+              this.inModal({id: `mugger`, in: this.aPoolModal(txt, plc, a)})]]]]]]]]
+  },
+
+  login () {
+
+     return [
+      `section`, [[
+            `div`, `.@_aXz _xQz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@login`]]], [
+              `div`, `.@_QZg`, [[
+                    `div`, `.@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `&@href>/signup/`, `~@Sign up for free`]]]]]]], [
+        `div`, `.@_cXz`, [[
+                  `div`, `.@_XsQ`, [[
+                    `div`, [[
+                      `div`, `.@_SaQ`, [[
+                        `h4`, `.@_uHg _-SZ6`, `~@Welcome back`], [
+                        `form`, `.@_cQc`, [[
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@mail`, `.@_-Yz _txx _aA6`, `&@placeholder>email`, `&@type>text`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@pass`, `.@_-Yz _txx _aA6`, config.placePass, config.valPass]]], [
+                            `div`, `.@_agM _gM_a _cQc`, [[
+                              `a`, `#@to-app`, `.@_TX_a _atX _c5Q`, `&@href>javascript:;`, `~@Sign in`]]]]]]]]]]], [`div`, `.@_-ZCc`]]]]];
+  },
+
+  signup () {
+
+     return [
+      `section`, [[
+            `div`, `.@_aXz _xQz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@signup`]]], [
+              `div`, `.@_QZg`, [[
+                    `div`, `.@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `&@href>/login/`, `~@login`]]]]]]], [
+        `div`, `.@_cXz`, [[
+                  `div`, `.@_XsQ`, [[
+                    `div`, [[
+                      `div`, `.@_SaQ`, [[
+                        `h4`, `.@_uHg _-SZ6`, `~@Create a Corrde Account`], [
+                        `form`, `.@_cQc`, [[
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@ini_mail`, `.@_-Yz _txx _aA6`, `&@placeholder>email`, `&@type>email`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@pre`, `.@_-Yz _txx _aA6`, `&@placeholder>First name`, `&@type>text`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@suff`, `.@_-Yz _txx _aA6`, `&@placeholder>Surname`, `&@type>text`]]], [
+                          `div`, `.@_cQX`, [[
+                            `input`, `#@pass`, `.@_-Yz _txx _aA6`, config.placePass, config.valPass]]], [
+                            `div`, `.@_agM _gM_a _cQc _guZ`, [[
+                              `a`, `#@add-u_md5`, `.@_TX_a _atX _c5Q _utQ`, `&@href>javascript:;`, `~@sign up`]]]]]]]]]]], [`div`, `.@_-ZCc`]]]]];
   }
 }
