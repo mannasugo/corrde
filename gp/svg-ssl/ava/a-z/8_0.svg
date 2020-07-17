@@ -1,0 +1,26 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    .icon-user__shape {
+      fill: #1185fe
+    }
+
+    icon-user__fill {
+      fill: none;
+      stroke-width: 2px; 
+      stroke: #1185fe
+    }
+
+    .icon-user__circle {
+      stroke: none;
+      fill: #00e;
+    }
+
+    .tx {fill: #fff; font-family: litera; font-size: 12px}
+  </style>
+  <g transform="translate(-4207 -165)">
+  <g class="icon-user__fill" transform="translate(4207 165)">
+    <circle class="icon-user__circle" cx="12" cy="12" r="12"></circle>
+    <text class="tx" x="12" y="16" text-anchor="middle">H</text>
+  </g>
+  </g>
+  </svg>

@@ -2294,7 +2294,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.rootCall();
+        if (A === true) this.appRoot();
         
         else if (A === false) {
 
@@ -2329,7 +2329,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.rootCall();
+        if (A === true) this.appRoot();
         
         else if (A === false) {
 
@@ -2481,7 +2481,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.rootCall();
+        if (A === true) this.appRoot();
         
         else if (A === false) {
 
@@ -2497,7 +2497,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.rootCall();
+        if (A === true) this.appRoot();
         
         else if (A === false) {
 
@@ -5173,7 +5173,7 @@ class AJXReqs extends Auxll {
             sum: ini_sum}], (A, B, C) => {
 
               this.createCookie(`u`, ini_sum);
-              this.createCookie(`u_md5`, ini_sum);
+              //this.createCookie(`u_md5`, ini_sum);
 
               pool[`is_mail`] = false;
 

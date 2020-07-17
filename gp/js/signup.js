@@ -68,7 +68,7 @@
 
       if (A && B && C && D) {
 
-        if (JSStore.avail().ini_mail && JSStore.avail().u_md5_alt && JSStore.avail().pass) {
+        if (JSStore.avail().ini_mail && JSStore.avail().u_md5_alt && JSStore.avail().ini_pass) {
           
           AJXReq([`/devs_reqs/`, `AddCreds`], JSStore.avail(), (A, B) => {
 
