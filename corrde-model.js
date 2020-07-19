@@ -4382,15 +4382,17 @@ module.exports = {
 
   listServices () {
 
-    let services = [
-      [`Art & Decor`, [`Fine Art`, `Interior Design`]], 
-      [`Design & Technology`, [`Animation`]],
-      [`Fashion & Beauty Services`, [`Hair-styling`, `Make-up`, `Pedicure`]], 
+    let services = [ 
+      [`Data Science & Analytics`, [`A/B Testing`, `Data Visualization`, `Data Extraction`, `Data Mining & Extraction`, `Machine Learning`, `Quantitative Analysis`]],
+      [`Design & Creative`, [`Animation`, `Art & Illustration`, `Audio Production`, `Branding & Strategy`, `Graphics & Design`, `Motion Graphics`, `Photography`, `Presentations`, `Video Production`, `Voice Talent`]],
+      [`Engineering & Architecture`, [`3D Modeling & CAD`, `Architecture`, `Chemical Engineering`, `Civil & Structural Engineering`, `Contract Manufacturing`, `Electrical Engineering`, `Interior Design`, `Mechanical Engineering`, `Product Design`]],
+      [`Fashion & Beauty`, [`Hair-styling`, `Make-up`, `Pedicure`]], 
       [`Fitness & Health`, [`Gym Fitness`, `Masseuse`, `Yoga`]], 
       [`Home & Housekeeping`, [`Cleaning`, `Furniture`, `Home Painting`, `Landscaping`, `Plumbing`, `Wash & Fold`]], 
-      [`Machinery & Hardware`, [`Electrical`, `Mechanical`]], 
+      [`Sales & Marketing`, [`Display Advertising`, `Email & Marketing Automation`, `Lead Generation`, `Marketing Strategy`, `Public Relations`, `SEM - Search Engine Marketing`, `SEO - Search Engine Optimisation`, `Social Media Marketing`, `Telemarketing & Telesales`]], 
       [`Tourism`, [`Tour Guiding`]], 
-      [`Web, Mobile & Software Dev`, [`Desktop Software Development`, `Game Development`, `Mobile Development`, `Product Management`, `QA & Testing`, `Scripts & Utilities`, `Web Development`, `Web & Mobile Design`]]];
+      [`Web Mobile & Software Dev`, [`Desktop Software Development`, `Game Development`, `Mobile Development`, `Product Management`, `QA & Testing`, `Scripts & Utilities`, `Web Development`, `Web & Mobile Design`]],
+      [`Writing`, [`Academic Writing Research`, `Article & Blog`, `Copyrighting`, `Creative Writing`, `Editing & Proofreading`, `Grant Writing`, `Resumes & Cover Letters`, `Technical writing`, `Web Content`]]];
 
     let listServices = [];
 
@@ -5228,7 +5230,7 @@ module.exports = {
               `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
                 `h1`, `.@_tx1 _atX`, `~@The Freelancing Hub ™`]]], [
               `div`, `.@_ge0 _c3x`, [[
-                `div`, `~@As a free service corrde coordinates both freelancing and hiring services while providing cartographic positioning.`], [
+                `div`, `~@We are a free web application service that coordinates both freelancing and hiring services while mapping those services and activities globally.`], [
                 `div`, `&@style>padding: 24px 0`, [[
                   `div`, `.@QZg`, [[
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
@@ -5239,11 +5241,23 @@ module.exports = {
                 `div`, [[
                   `div`, `.@_AZx ava`, [[`div`, `#@support-rotate-ejs`, `.@_AZs _gxM`, [[
                     `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Design & Creative`]]]]], [
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Data Science & Analytics`]]]]], [
                     `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Fitness & Health`]]]]], [
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Design & Creative`]]]]], [
                     `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Web, Mobile & Software Dev`]]]]]]]]]]]]]]]]]]], [
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Engineering & Architecture`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Fashion & Beauty`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Fitness & Health`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Sales & Marketing`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Tourism`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Web Mobile & Software Dev`]]]]], [
+                    `div`, `.@xX4 _tXv _c3`, [[
+                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Writing`]]]]]]]]]]]]]]]]]]], [
         `section`, `.@cX3 _ss7`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
@@ -5359,5 +5373,34 @@ module.exports = {
                             `input`, `#@pass`, `.@_-Yz _txx _aA6`, config.placePass, config.valPass]]], [
                             `div`, `.@_agM _gM_a _cQc _guZ`, [[
                               `a`, `#@add-u_md5`, `.@_TX_a _atX _c5Q _utQ`, `&@href>javascript:;`, `~@sign up`]]]]]]]]]]], [`div`, `.@_-ZCc`]]]]];
+  },
+
+  listSubs (a, A) {
+
+    let listSubs = [];
+
+    A[0].forEach((S, s) => {
+
+      listSubs.push([
+        `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+          `div`, `.@yZS _gMX _eYG _xC3`, [[
+            `div`, `.@eYG _ZSg _gxM _geQ`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${S}`]]], [
+                `div`, `#@mini`, `.@_gxM _geQ`, [[
+                  `span`, `.@_aA6 _a2X`, `~@${A[1][s]} Freelancers, `], [
+                  `span`, `.@_axS _aA6 _a2X`, `~@ ${A[2][s]} JOBS`]]]]]]]]]]]]])
+    })
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ sZ2`, [ [
+          `div`, `.@_eYG _geQ _aA2 _tXv`, [[`span`, `.@_tXx`, `~@${a}`]]], [
+          `div`, `.@_QZg _gMz`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@exit-subs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
+        `div`, `.@_aXY XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
+            `div`, `.@_sZ2`, listSubs]]]]]
   }
 }

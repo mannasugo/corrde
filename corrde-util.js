@@ -4276,6 +4276,68 @@ class UATCP extends UAPublic {
         })
       })
 
+      tls.on(`listServices`, a => {
+
+        let S = [ 
+          [`Data Science & Analytics`, [`A/B Testing`, `Data Visualization`, `Data Extraction`, `Data Mining & Extraction`, `Machine Learning`, `Quantitative Analysis`]],
+          [`Design & Creative`, [`Animation`, `Art & Illustration`, `Audio Production`, `Branding & Strategy`, `Graphics & Design`, `Motion Graphics`, `Photography`, `Presentations`, `Video Production`, `Voice Talent`]],
+          [`Engineering & Architecture`, [`3D Modeling & CAD`, `Architecture`, `Chemical Engineering`, `Civil & Structural Engineering`, `Contract Manufacturing`, `Electrical Engineering`, `Interior Design`, `Mechanical Engineering`, `Product Design`]],
+          [`Fashion & Beauty`, [`Hair-styling`, `Make-up`, `Pedicure`]], 
+          [`Fitness & Health`, [`Gym Fitness`, `Masseuse`, `Yoga`]], 
+          [`Home & Housekeeping`, [`Cleaning`, `Furniture`, `Home Painting`, `Landscaping`, `Plumbing`, `Wash & Fold`]], 
+          [`Sales & Marketing`, [`Display Advertising`, `Email & Marketing Automation`, `Lead Generation`, `Marketing Strategy`, `Public Relations`, `SEM - Search Engine Marketing`, `SEO - Search Engine Optimisation`, `Social Media Marketing`, `Telemarketing & Telesales`]], 
+          [`Tourism`, [`Tour Guiding`]], 
+          [`Web Mobile & Software Dev`, [`Desktop Software Development`, `Game Development`, `Mobile Development`, `Product Management`, `QA & Testing`, `Scripts & Utilities`, `Web Development`, `Web & Mobile Design`]],
+          [`Writing`, [`Academic Writing Research`, `Article & Blog`, `Copyrighting`, `Creative Writing`, `Editing & Proofreading`, `Grant Writing`, `Resumes & Cover Letters`, `Technical writing`, `Web Content`]]];
+      
+        new Auxll().logs_u_md5(A => {
+
+          let F = [];
+
+          let Obj = [];
+
+          S.forEach(J => {
+
+            if (J.indexOf(a.replace(new RegExp(/&amp;/g, `g`), `&`)) > -1) {
+
+              let U_ = [];
+
+              let J_ = [];
+
+              J[1].forEach(B => {
+
+                let S_ = [];
+
+                let M_ = [];
+
+                A.jobs.forEach(C => {
+
+                  if (C.tag[1] === B.replace(new RegExp(/&/g, `g`), `u/0026`)) {S_.push(C);}
+                })
+
+                J_.push(S_.length);
+
+                A.md5.forEach(C => {
+
+                  if (C.skills.indexOf(B.replace(new RegExp(/&/g, `g`), `u/0026`)) > -1) {M_.push(C);}
+                })
+
+                U_.push(M_.length);
+
+                F.push(B);
+              })
+
+              Obj[0] = F;
+              Obj[1] = U_;
+              Obj[2] = J_;
+
+            }
+          });
+
+          if (Obj.length > 0) tcp.emit(`listServices`, model.loadDOMModalView([model.modalView([model.listSubs(a, Obj)])], `list-subs`))
+        })
+      })
+
       /**
       @dev
       **

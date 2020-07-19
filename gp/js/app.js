@@ -2,6 +2,8 @@
 
 (function () {
 
+  const socket = io();
+
   const AJXReq = (reqs, allMeta, inCall) => {
 
     let req = new Req();
@@ -126,6 +128,26 @@
     }
 
   }
+
+  let listServices = e => {
+
+    if (e.id === `subs`) {
+
+      socket.emit(`listServices`, e.innerHTML);
+    }
+  }
+
+  let unlistServices = e => {
+
+    if (e.id === `exit-subs`) {
+
+      let modal_ejs = document.querySelector(`#list-subs`);
+
+      document.querySelectorAll(`#_subs_`).forEach(E => E.innerHTML = ``)
+
+      //if (modal_ejs.className === `-Zz`) modal_ejs.className = `_-Zz`
+    }
+  }
  
   let e0 = e => {
 
@@ -134,11 +156,33 @@
     listMug(e);
 
     unlistMug(e);
+
+    listServices(e);
+
+    unlistServices(e);
   }
 
   setGPSCookie();
 
   document.addEventListener(`click`, e0);
+
+  socket.on(`listServices`, J => {
+
+    //document.querySelectorAll(`#modalView`).parentNode.removeChild(`div`);
+              
+    let msg = document.createElement(`div`);
+
+    msg.setAttribute(`id`, `_subs_`);
+
+    msg.innerHTML = new Model().modelStringify([J]);
+
+    document.querySelector(`#corrde-root`).appendChild(msg);
+
+    let modal_ejs = document.querySelector(`#list-subs`);
+
+    if (modal_ejs.className === `_-Zz`) modal_ejs.className = `-Zz`
+
+  })
 
   let supportSlides = d3.select(`#support-rotate-ejs`)
   d3.select(`#support-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
