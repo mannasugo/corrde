@@ -61,8 +61,8 @@
 
   let setGPSCookie = () => {
 
-    JSStore.to({gps: [34.753, -.533]/*[7.723, 50.533]*/});
-    //JSStore.to({gps: [7.723, 50.533]});
+    //JSStore.to({gps: [34.753, -.533]/*[7.723, 50.533]*/});
+    JSStore.to({gps: [7.723, 50.533]});
 
     //JSStore.to({gps: false})
 
