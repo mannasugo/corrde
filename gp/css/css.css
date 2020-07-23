@@ -3233,6 +3233,11 @@ table > thead > tr > th {
 @dev
 **/
 
+@media (min-width: 1232px) {
+
+  #add-u_md5, #add-u_md5:visited {color: #fff;}
+}
+
 @media (min-width: 1200px) {
 
   ._x25 {width: 40%}

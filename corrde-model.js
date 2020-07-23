@@ -3929,6 +3929,8 @@ module.exports = {
 
     let Obj = A.md5;
 
+    Obj.sort((a, b) => {return b.log - a.log})
+
     let u_md5_y_scroll = [];
 
     Obj.forEach(md5 => {
@@ -5387,20 +5389,22 @@ module.exports = {
             `div`, `.@eYG _ZSg _gxM _geQ`, [[
               `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
                 `div`, `.@_eYG`, [[
-                  `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${S}`]]], [
+                  `div`, `.@_QxM`, [[`span`, `.@tXx aA2 _utQ`, `~@${S}`]]], [
                 `div`, `#@mini`, `.@_gxM _geQ`, [[
-                  `span`, `.@_aA6 _a2X`, `~@${A[1][s]} Freelancers, `], [
-                  `span`, `.@_axS _aA6 _a2X`, `~@ ${A[2][s]} JOBS`]]]]]]]]]]]]])
+                  `span`, `&@style>background-image:url(${config.reqs.check_svg});height:11px;width:11px;min-width: 0;margin-right:8px`, `.@_fg0`], [
+                  `span`, `.@_aA6 _a2X`, `~@${A[1][s]} Freelancers`], [
+                  `span`, `&@style>background-image:url(${config.reqs.check_svg});height:11px;width:11px;min-width: 0;margin-right:8px`, `.@_axS _fg0`], [
+                  `span`, `.@axS _aA6 _a2X`, `~@ ${A[2][s]} JOBS`]]]]]]]]]]]]])
     })
 
     return [
-      `div`, `&@style>letter-spacing:0.75px`, [[
-        `div`, `.@_gcQ _aXZ sZ2`, [ [
+      `div`, `&@style>letter-spacing:1.1px`, [[
+        `div`, `.@_gcQ _aXZ sZ2 _tY0 _aA2`, [ [
           `div`, `.@_eYG _geQ _aA2 _tXv`, [[`span`, `.@_tXx`, `~@${a}`]]], [
           `div`, `.@_QZg _gMz`, [[
           `div`, `.@_axS`, [[
             `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@exit-subs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
-        `div`, `.@_aXY XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
+        `div`, `.@_aXY XsQ _aA2`, `&@style>margin:0 0;max-height: calc(100vh - 170px);`, [[
             `div`, `.@_sZ2`, listSubs]]]]]
   }
 }
