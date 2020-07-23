@@ -5288,7 +5288,7 @@ module.exports = {
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@miY _gMX`, [[
                 `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]]]]
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]]]]
   },
 
   topAppRoot (A, B) {
@@ -5406,5 +5406,90 @@ module.exports = {
             `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@exit-subs`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
         `div`, `.@_aXY XsQ _aA2`, `&@style>margin:0 0;max-height: calc(100vh - 170px);`, [[
             `div`, `.@_sZ2`, listSubs]]]]]
+  },
+
+  selfMail (A) {
+
+    return [`span`, `&@style>overflow:hidden`, `#@root`, [
+      this.feedControls(), [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+        `section`, `&@style>margin: 70px 0`, `.@_ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Chat Messages`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
+                    this.text_y_scroll(A)]]]]]]]]]]]]], [
+          `div`, `.@_-Zz _aGX`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:60%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, 
+              `&@src>`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX _eYG _uZM`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Art & Decor`]]], [
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Interior Design`]]]]], [
+                  `div`, `.@_gMX`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `textarea`, `&@style>background: none`, `#@add-pfolio-text`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>Write something about your post`]]]]]]]]], [
+                        `div`, `.@_gcQ _aXZ sZ2`, [ [
+                          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@`]]], [
+                          `div`, `.@_QZg _gMz`, [[
+                          `div`, `.@_axS`, [[
+                            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-pfolio`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Send`]]]]]]]]]]]]]]]]]]]]];
+  }, 
+
+  topMail (A) {
+
+    return [`nav`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@mail`]]], [
+              `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${A.full}`], [
+                `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
+                  `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
+  },
+
+  text_y_scroll (A) {
+
+    let text_y_scroll = [];
+
+    text_y_scroll.push([
+      `div`, `.@_xX0 _tXv`, [[
+        `a`, `.@_cCq`, `&@style>width:50px;height:50px`, `&@href>#`, [[
+          `img`, `.@_aWz`, `&@src>/gp/p/vector/support_mug.svg`, `&@alt>avatar`]]], [
+        `span`, `&@style>margin:10px 0 0`, `.@_aA6 _a2X _-Zz`, `~@`]]])
+
+    /*let Obj = A.md5;
+
+    Obj.sort((a, b) => {return b.log - a.log})
+
+    let u_md5_y_scroll = [];
+
+    Obj.forEach(md5 => {
+
+      u_md5_y_scroll[Obj.indexOf(md5)] = [
+        `div`, `.@_xX0 _tXv`, [[
+          `a`, `.@_cCq`, `&@style>width:50px;height:50px`, `&@href>/mug/${md5.sum}/`, [[
+            `img`, `.@_aWz`, `&@src>${md5.ava}`, `&@alt>avatar`]]], [
+          `span`, `&@style>margin:10px 0 0`, `.@_aA6 _a2X`, `~@${this.pre_utc(md5.pre_utc)}`]]];
+    })*/
+
+    return text_y_scroll;
   }
 }
