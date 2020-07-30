@@ -45,11 +45,44 @@
     return txt
   }
 
-  let u_md5_2_dev_md5 = e => {
+  let listMug = e => {
 
-    if (e.id === `dev_md5`) {
+    if (e.id === `mug-ava`) {
 
-      socket.emit(`u_md5_2_dev_md5`, JSStore.avail().u_md5);
+      let to = document.querySelector(`#mugger`);
+
+      if (to.className === `_aAY _-Zz`) {
+        to.className = `_aAY -Zz`;
+      }
+
+      else if (to.className === `_aAY -Zz`) {
+        to.className = `_aAY _-Zz`;
+      }
+    }
+  }
+
+  let unlistMug = e => {
+
+    if (e.id === `del`) {
+
+      let modals = document.querySelectorAll(`[for = 'modal']`);
+
+      for (let i = 0; i < modals.length; i++) {
+        
+        if (modals[i].className === `_aAY -Zz`) {
+
+          modals[i].setAttribute(`class`, `_aAY _-Zz`);
+        }
+      }
+    }
+
+  }
+
+  let dev_md5_2_u_md5 = e => {
+
+    if (e.id === `text`) {
+
+      socket.emit(`dev_md5_2_u_md5`, e.parentNode.id);
     }
   }
 
@@ -57,23 +90,23 @@
 
     if (e.id === `exit-msg`) {
 
-      let modal_ejs = document.querySelector(`#dev_md5-txt`);
+      let modal_ejs = document.querySelector(`#u_md5-txt`);
 
       document.querySelectorAll(`#_txt_`).forEach(E => E.innerHTML = ``)
     }
   }
 
-  let msg_2_dev_md5 = e => {
+  let msg_2_u_md5 = e => {
 
     if (e.id === `msg`) {
 
       let msg = new Auxll().longSlim(document.querySelector(`#msg_value`).value);
 
-      if (msg) JSStore.to({msg_2_dev_md5: slim(document.querySelector(`#msg_value`).value).replace(new RegExp(/&/g, `g`), `u/0026`)});
+      if (msg) JSStore.to({msg_2_u_md5: slim(document.querySelector(`#msg_value`).value).replace(new RegExp(/&/g, `g`), `u/0026`)});
 
       document.querySelector(`#msg_value`).value = ``;
 
-      if (msg) socket.emit(`msg_2_dev_md5`, {msg: JSStore.avail().msg_2_dev_md5, msg_u_md5: e.getAttribute(`u_md5`)});
+      if (msg) socket.emit(`msg_2_u_md5`, {msg: JSStore.avail().msg_2_u_md5, msg_u_md5: e.getAttribute(`u_md5`)});
     }
   }
  
@@ -81,16 +114,20 @@
 
     e = e.target;
 
-    u_md5_2_dev_md5(e);
+    listMug(e);
+
+    unlistMug(e);
+
+    dev_md5_2_u_md5(e);
 
     unlistServices(e);
 
-    msg_2_dev_md5(e);
+    msg_2_u_md5(e);
   }
 
   document.addEventListener(`click`, e0);
 
-  socket.on(`u_md5_2_dev_md5`, J => {
+  socket.on(`dev_md5_2_u_md5`, J => {
               
     let msg = document.createElement(`div`);
 
@@ -100,9 +137,14 @@
 
     document.querySelector(`#corrde-root`).appendChild(msg);
 
-    let modal_ejs = document.querySelector(`#dev_md5-txt`);
+    let modal_ejs = document.querySelector(`#u_md5-txt`);
 
     if (modal_ejs.className === `_-Zz`) modal_ejs.className = `-Zz`
 
   })
+
+  let aroundSlides = d3.select(`#around-rotate-ejs`)
+  d3.select(`#around-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
+    aroundSlides.style(`transform`, `translate(${d3.event.transform.x}px)`)
+  }))
 })();
