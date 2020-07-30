@@ -4321,7 +4321,7 @@ module.exports = {
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Corrde Users Around You `]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>/seek/`]]]]]]], [
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@_miY _gMX`, [[
                 `div`, `#@around-slide-ejs`, `.@_AZc`, [[
@@ -5408,7 +5408,7 @@ module.exports = {
             `div`, `.@_sZ2`, listSubs]]]]]
   },
 
-  selfMail (A) {
+  selfMail (A, B) {
 
     return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
@@ -5423,7 +5423,7 @@ module.exports = {
               `div`, `.@_miY _gMX`, [[
                 `div`, `#@around-slide-ejs`, `.@_AZc`, [[
                   `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
-                    this.text_y_scroll(A)]]]]]]]]]]]]], [
+                    this.text_y_scroll(A, B)]]]]]]]]]]]]], [
           `div`, `.@_-Zz _aGX`, [[
           `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
             `div`, `&@style>padding-bottom:60%`, `.@_g0z`, [[
@@ -5465,15 +5465,15 @@ module.exports = {
                   `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]]]]]]]]]]]];
   },
 
-  text_y_scroll (A) {
+  text_y_scroll (A, B) {
 
     let text_y_scroll = [];
 
     text_y_scroll.push([
       `div`, `.@_xX0 _tXv`, [[
-        `a`, `.@_cCq`, `&@style>width:50px;height:50px`, `&@href>#`, [[
-          `img`, `.@_aWz`, `&@src>/gp/p/vector/support_mug.svg`, `&@alt>avatar`]]], [
-        `span`, `&@style>margin:10px 0 0`, `.@_aA6 _a2X _-Zz`, `~@`]]])
+        `a`, `.@_cCq`, `&@u_md5>${B}`, `&@style>width:50px;height:50px`, `&@href>javascript:;`, [[
+          `img`, `.@_aWz`, `#@dev_md5`, `&@src>/gp/p/vector/support_mug.svg`, `&@alt>avatar`]]], [
+        `span`, `&@style>margin:10px 0 0`, `.@_aA6 a2X Zz`, `~@Corrde Team`]]])
 
     /*let Obj = A.md5;
 
@@ -5491,5 +5491,178 @@ module.exports = {
     })*/
 
     return text_y_scroll;
+  },
+
+  devsMail (A, B) {
+
+    return [
+      `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;`, [[
+        `section`, `@style>margin: 70px 0`, `.@ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Support Chat`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@_miY _gMX`, [[
+                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
+                    this.devs_text_y_scroll(A, B)]]]]]]]]]]]]], [
+          `div`, `.@_-Zz _aGX`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:60%`, `.@_g0z`, [[
+              `img`, `.@_aMz _gVm`, 
+              `&@src>`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+                `div`, `.@_yZS _gMX _eYG _uZM`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_aXZ uZM`, [[
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Art & Decor`]]], [
+                    `div`, `.@_g00 _gxM _yZS`, [[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                      `p`, `.@_aA6`, `~@Interior Design`]]]]], [
+                  `div`, `.@_gMX`, [[
+                    `div`, `.@_yZS _gxM _geQ _gMX`, [[
+                      `textarea`, `&@style>background: none`, `#@add-pfolio-text`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>Write something about your post`]]]]]]]]], [
+                        `div`, `.@_gcQ _aXZ sZ2`, [ [
+                          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@`]]], [
+                          `div`, `.@_QZg _gMz`, [[
+                          `div`, `.@_axS`, [[
+                            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@add-pfolio`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Send`]]]]]]]]]]]]]]]]]]];
+  },
+
+  devs_text_y_scroll (A, U) {
+
+    let devs_text_y_scroll = [];
+
+    let Obj = A[4];
+
+    Obj.sort((a, b) => {return b[1] - a[1]})
+
+    Obj.forEach(md5 => {
+
+      devs_text_y_scroll[Obj.indexOf(md5)] = [
+        `div`, `#@${md5[0]}`, `.@_xX0 _tXv`, [[
+          `a`, `.@_cCq`, `&@style>width:50px;height:50px`, `#@${md5[0]}`, `&@href>javascript:;`, [[
+            `img`, `.@_aWz`, `&@src>${U[md5[0]].ava}`, `#@text`, `&@alt>avatar`]]], [
+          `span`, `&@style>margin:10px 0 0`, `.@_aA6 _a2X`, `~@${this.pre_utc(md5[1])}`]]];
+    })
+
+    return devs_text_y_scroll;
+  },
+
+  u_md5Msg (A, B, C) {
+
+    let u_md5Msg = [];
+
+    B.sort((a, b) => {return a.mail_log - b.mail_log})
+
+    B.forEach (Msg => {
+
+      if (Msg.src_md5 === A) {
+
+        u_md5Msg.push([
+          `div`, `.@_gcQ`, [[
+            `div`, `.@aCz _eYG MtX`, `&@style>overflow:unset;margin: 0`, [[
+              `span`, `.@pV9 tWx`, `~@${Msg.mail}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`]]]]]);
+
+      }
+
+      else {
+
+        u_md5Msg.push([
+          `div`, `.@_gcQ`, [[
+            `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
+              `span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@pV3 tEx`, `~@${Msg.mail}`]]]]]);
+      }
+    })
+
+    return [
+      `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;`, [[
+        `div`, `.@_gcQ _aXZ _sZ2 _uZM _aA0 _aA2`, [[
+          `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${C[A].ava}`, `&@alt>avatar`]]]]], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${C[A].full}`, `&@href>/mug/${C[A].sum}/`]]], [
+              `div`, `#@mini`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@${C[A].reqs_per_polyg}`], 
+                this.reqs_per_polyg(C[A].reqs_per_polyg), [
+                `span`, `.@_axS _aA6 _a2X`, `~@ ${C[A].polygs_mail} reviews`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[
+            `div`, `.@_axS`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@exit-msg`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
+          `div`, `.@_sZ2`, u_md5Msg]]], [
+          `div`, `#@add-dev-see-ejs`, `.@_azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM _gMX`, [[
+              `div`, `.@_gMX gcQ`, [[
+          `div`, `.@_gMX`, [[`div`, `.@_aGX`, [[
+            `div`, `.@_xGy`, [[
+              `div`, `.@_gxM _gMX`, [[
+                `div`, `&@style>padding-right: 10px;width: 100%`, `.@_eYG`, [[
+                  `textarea`, `#@msg_value`, `.@_Wtx`, `&@placeholder>Type Text Here`]]], [
+                `div`, `.@_QZg`, [[
+                  `span`, `.@_`, [[`a`, `#@msg`, `&@u_md5>${A}`, `.@-_tX ProceedColor`, `&@href>javascript:;`]]]]]]]]]]]]]]]]]]]]]
+
+
+  },
+
+  u_md5_2_dev_md5 (A, B, C) {
+
+    let u_md5_2_dev_md5 = [];
+
+    B.sort((a, b) => {return a.mail_log - b.mail_log})
+
+    B.forEach (Msg => {
+
+      if (Msg.src_md5 === A) {
+
+        u_md5_2_dev_md5.push([
+          `div`, `.@_gcQ`, [[
+            `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
+              `span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@pV3 tEx`, `~@${Msg.mail}`]]]]]);
+
+      }
+
+      else {
+
+        u_md5_2_dev_md5.push([
+          `div`, `.@_gcQ`, [[
+            `div`, `.@aCz _eYG MtX`, `&@style>overflow:unset;margin: 0`, [[
+              `span`, `.@pV9 tWx`, `~@${Msg.mail}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`]]]]]);
+      }
+    })
+
+    return [
+      `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;`, [[
+        `div`, `.@_gcQ _aXZ _sZ2 _uZM _aA0 _aA2`, [[
+          `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+              `img`, `.@_aWz`, `&@src>/gp/p/vector/support_mug.svg`, `&@alt>avatar`]]]]], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`a`, `.@_tXx _aA2`, `~@Corrde Support Team`, `&@href>javascript:;`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[
+            `div`, `.@_axS`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@exit-msg`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
+          `div`, `.@_sZ2`, u_md5_2_dev_md5]]], [
+          `div`, `#@add-dev-see-ejs`, `.@_azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM _gMX`, [[
+              `div`, `.@_gMX gcQ`, [[
+          `div`, `.@_gMX`, [[`div`, `.@_aGX`, [[
+            `div`, `.@_xGy`, [[
+              `div`, `.@_gxM _gMX`, [[
+                `div`, `&@style>padding-right: 10px;width: 100%`, `.@_eYG`, [[
+                  `textarea`, `#@msg_value`, `.@_Wtx`, `&@placeholder>Type Text Here`]]], [
+                `div`, `.@_QZg`, [[
+                  `span`, `.@_`, [[`a`, `#@msg`, `&@u_md5>${A}`, `.@-_tX ProceedColor`, `&@href>javascript:;`]]]]]]]]]]]]]]]]]]]]]
+
+
   }
 }

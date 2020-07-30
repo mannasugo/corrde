@@ -55,9 +55,10 @@
   let setGPSCookie = () => {
 
     //JSStore.to({gps: [34.753, -.533]/*[7.723, 50.533]*/});
-    JSStore.to({gps: [7.723, 50.533]});
+    //JSStore.to({gps: [7.723, 50.533]});
 
     //JSStore.to({gps: false})
+    JSStore.to({gps: [-77.035264,38.993869]})
 
     GPS(a => {
 
@@ -93,7 +94,7 @@
       JMD5()
       
       let projection = d3.geoMercator()
-        .scale(120000)
+        .scale(1200)
         .translate([uaX / 2, uaY / 2])
         .center(JSStore.avail().gps),
 
@@ -325,18 +326,6 @@
           .attr(`stroke`, `#1185fe`)
           .attr(`id`, d => {return Obj.log_md5})
 
-        /*map.selectAll(`SQ.u_md5`).data(Obj)
-          .enter()
-          .append(`circle`)
-          .attr(`cx`, d => {return parseInt(projection(d.gps) [0]) - 25;})
-          .attr(`cy`, d => {return parseInt(projection(d.gps) [1]) - 25;})
-          .attr(`r`, 25)
-          .attr(`class`, `u_md5`)
-          .attr(`cursor`, `pointer`)
-          .attr(`fill`, `#1185fe`)
-          .attr(`stroke`, `none`)
-          .attr(`id`, d => {return d.u_md5})*/
-
         map.selectAll(`SQ.j_md5`).data(Obj)
           .enter()
           .append(`text`)
@@ -383,7 +372,7 @@
 
           let zoomScale = d3.zoomTransform(svg.node());
 
-          projection.translate([zoomScale.x, zoomScale.y]).scale(zoomScale.k*120000);
+          projection.translate([zoomScale.x, zoomScale.y]).scale(zoomScale.k*1200);
 
           let rds = [];
 
@@ -440,15 +429,17 @@
                 .style(`fill`, `#000`)
                 .text(d => {return d.NAME})
 
-          //let adm0_a3;
+          /*let adm0_a3;
 
-          /*json.features.forEach((Obj, i) => {
+          let geos = []
+
+          json.features.forEach((Obj, i) => {
 
             if (d3.geoContains(Obj, projection.invert([uaX/2, uaY/2]))) {
 
               adm0_a3 = Obj.properties.adm0_a3;
 
-              console.log(Obj.properties, zoomScale.k)
+              //console.log(Obj.properties, zoomScale.k)
               if (zoomScale.k > 10) {
                 d3.selectAll(`path`)
                 .filter((p,q) => {if (neighbors[i].indexOf(q) > -1) return geos.push(p)})
@@ -487,13 +478,13 @@
 
           if (zoomScale.k > 20 && adm0_a3 && !document.querySelector(`#${adm0_a3}_adm1`)) {
 
-            d3.json(`/gp/twineJSON/${adm0_a3}_adm1.json`)
+            d3.json(`/gp/twineJSON/${adm0_a3}_rds.json`)
 
               .then(rds_json => {
 
                 //d3.selectAll(`.water`).remove()
 
-                rds_json = topojson.feature(rds_json, rds_json.objects[`${adm0_a3}_adm1.geo`]);
+                rds_json = topojson.feature(rds_json, rds_json.objects[`${adm0_a3}_rds.geo`]);
 
                 let PRI = [];//console.log(rds_json.features[0])
 

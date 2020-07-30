@@ -415,7 +415,7 @@ class Auxll {
 
           mail2Obj.push(msgObj);
 
-          if (msgObj.type === `quizes`/*msgObj.to_md5 === devsObj[0].dev_md5*/) {
+          if (msgObj.type === `quizes` && msgObj.to_md5 === devsObj[0].dev_md5) {
 
             if (msgObj.src_md5 === false) {
 
@@ -424,7 +424,6 @@ class Auxll {
               msgObj[`src_role`] = `customer`}
 
             else if (msgObj.src_md5 !== false) {
-
               msgObj[`src_alt`] = uKeys[msgObj.src_md5].full;
               msgObj[`src_ava`] = `/` + uKeys[msgObj.src_md5].ava;
               
@@ -565,6 +564,8 @@ class Auxll {
 
         let mail2Obj = [];
 
+        let mail_desc_txt = [];
+
         for (let dev in B[0]) {
 
           let devs = JSON.parse(B[0][dev].json);
@@ -588,14 +589,55 @@ class Auxll {
           mailObj.push(msgObj);
         }
 
+        let mail_desc = [];
+
         for (let msg in B[3]) {
 
           let msgObj = JSON.parse(B[3][msg].json);
 
           mail2Obj.push(msgObj);
+
+          if (devsObj[0].dev_md5 === msgObj.to_md5 && msgObj.src_md5 !== false) {
+
+            if (mail_desc.indexOf(msgObj.src_md5) > -1) {
+
+              mail_desc_txt.forEach((M, a) => {
+
+                if (M[0] === msgObj.src_md5 && M[1] < msgObj.mail_log) M[1] = msgObj.mail_log;
+              })
+            }
+
+            else {
+
+              mail_desc_txt.push([msgObj.src_md5, msgObj.mail_log])
+              mail_desc.push(msgObj.src_md5);
+            }
+          }
+
+          else if (devsObj[0].dev_md5 === msgObj.src_md5 && msgObj.to_md5 !== false) {
+
+            if (mail_desc.indexOf(msgObj.to_md5) > -1) {
+
+              mail_desc_txt.forEach((M, a) => {
+
+                if (M[0] === msgObj.to_md5 && M[1] < msgObj.mail_log) M[1] = msgObj.mail_log;
+              })
+            }
+
+            else {
+
+              mail_desc_txt.push([msgObj.to_md5, msgObj.mail_log])
+              mail_desc.push(msgObj.to_md5);
+            }
+          }
         }
 
-        async([mailObj, mailKeys, devsObj, mail2Obj.sort((a,b) => {return b.mail_log - a.mail_log})]);
+        async([
+          mailObj, 
+          mailKeys, 
+          devsObj, 
+          mail2Obj.sort((a,b) => {return b.mail_log - a.mail_log}),
+          mail_desc_txt]);
       })
   }
 
@@ -903,7 +945,8 @@ class Sql extends Auxll {
         ;${config.sql.support_mail}
         ;${config.sql.traffic}
         ;${config.sql.u}
-        ;${config.sql.u_md5_logs}`);
+        ;${config.sql.u_md5_logs}
+        ;${config.sql.u_md5_mail}`);
       this.multiSql.end();
     });
     this.iniSql.end();
@@ -956,7 +999,7 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `getjobs`) this.getJobs();
 
-    if (this.levelState === `mail`) this.mailSliced();
+    //if (this.levelState === `mail`) this.mailSliced();
 
     if (this.levelState === `monitor`) this.monitor();
 
@@ -988,6 +1031,8 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `login`) this.login();
 
+    else if (this.levelState === `mail`) this.selfMail();
+
     else if (this.levelState === `mug`) this.selfMug();
 
     else if (this.levelState === `portfolio`) this.createStory();
@@ -1012,6 +1057,8 @@ class UAPublic extends Auxll {
         this.getDevsMail(A => {
 
           if (A[1][this.levelState[3]]) this.readDevsMail(A[1][this.levelState[3]], A);
+
+          else this.devsMail(A);
 
         });
       }
@@ -2404,7 +2451,7 @@ class UAPublic extends Auxll {
         jSStore: JSON.stringify({}),
         title: `Find Jobs and Proffessionals`,
         css: CSS,
-        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.geo_u_reqs]}
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.geo_reqs]}
 
       this.getCookie(`u`, (A, B) => {
 
@@ -2797,6 +2844,128 @@ class UAPublic extends Auxll {
                   this.app.to.writeHead(200, config.reqMime.htm);
                   this.app.to.end(model.call(pool));
     
+    });
+  }
+
+  selfMail () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.appRoot();
+        
+        else if (A === false) {
+
+          this.getDevsMail(A => {
+
+            let dev = A[2][0];
+
+            this.logs_u_md5(A => {
+
+              const pool = {
+                jSStore: JSON.stringify({u_md5: B}),
+                title: `Mail & Notifications`,
+                css: CSS,
+                jsState: [config.reqs.mail_js]}
+
+                pool.appendModel = [
+                  model.rootView({
+                    appendModel: [
+                      model.selfMail(dev, B), model.topMail(A.md5Key[B]), model.tailFeedControls(), 
+                      model.jS(pool)]
+                  })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));
+            })
+          })
+        }
+      })
+      })
+
+  }
+
+  devsMail () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`dev_md5`, (A, B) => {
+
+        if (A === true) {
+
+          const pool = {
+            jSStore: JSON.stringify({}),
+            title: `Corrde Administration & Management System`,
+            css: CSS,
+            jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.mail_devs_js]}
+
+          this.appAnalytics(A => {
+
+            pool.appendModel = [
+              model.main({
+                appendModel: [model.toDevsView()]
+                    }), model.footer()];
+            
+                  pool.appendModel = [model.wrapper(pool), model.jS(pool)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));})
+        }
+
+        else if (A === false) {
+
+          let dev_md5 = B;
+
+          this.availDev(dev_md5, A => {
+
+            let dev = A.dev[0];
+
+            let mail = A.alerts.sort((a, b) => {return b.mail_log - a.mail_log});
+
+            let mail_ = A.mail_;
+
+            let preMail = false;
+
+            this.logDevs(A => {
+
+              let devs = A.dev;
+
+              let ava = ``;
+
+              if (mail_.length > 0 && mail_[0].mail_log > A.devsKey[dev_md5].pre_mail_utc) preMail = true;
+
+              this.logs_u_md5( A => {
+
+                let u_md5 = A;
+
+              this.getDevsMail(A => {
+
+                const pool = {
+                  jSStore: JSON.stringify({dev_md5: dev.dev_md5, pre_devs_mail: preMail}),
+                  title: `Corrde System Mail`,
+                  css: CSS,
+                  jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.mail_devs_js]}
+
+                pool.appendModel = [
+                  model.rootView({
+                    appendModel: [
+                      model.topDevsView({
+                        ava: (dev.ava), 
+                        mail: dev.mail}), 
+                      model.controlsView(), 
+                      model.devsMail(A, u_md5[`md5Key`]),model.tailControls(), 
+                      model.jS(pool)]
+                  })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(pool));});
+            })
+
+            })
+          }); 
+        }
+      });
     });
   }
 }
@@ -4338,6 +4507,104 @@ class UATCP extends UAPublic {
         })
       })
 
+      tls.on(`dev_md5_2_u_md5`, a => {
+      
+        new Auxll().logs_u_md5(A => {
+
+          let U = A;
+
+          new Auxll().getDevsMail(A => {
+
+            let M = [];
+
+            A[3].forEach(Msg => {
+
+              if (Msg.to_md5 === a || Msg.src_md5 === a) M.push(Msg);
+            })
+
+            if (U.md5Key[a]) tcp.emit(`dev_md5_2_u_md5`, model.loadDOMModalView([model.modalView([model.u_md5Msg(a, M, U.md5Key)])], `u_md5-txt`))
+          })
+        })
+      })
+
+      tls.on(`msg_2_u_md5`, Msg => {
+
+        new Auxll().getDevsMail( A => {
+
+          if (!A[2].length > 0) return;
+
+          let dev = A[2][0];
+
+          let log = new Date().valueOf();
+
+          let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+          new Sql().to([`support_mail`, {json: JSON.stringify({
+            group: `helps`, //support requests
+            log_md5: log_sum,
+            mail: Msg.msg,
+            mail_log: log,
+            mail_md5: log_sum,
+            mailto: false,
+            read: false,
+            risk: false,
+            src_md5: dev.dev_md5,
+            to_md5: Msg.msg_u_md5,
+            title: false,
+            type: `quizes`})}], (A, B, C) => {
+          });
+        })
+      })
+
+      tls.on(`u_md5_2_dev_md5`, a => {
+      
+        new Auxll().logs_u_md5(A => {
+
+          let U = A;
+
+          new Auxll().getDevsMail(A => {
+
+            let M = [];
+
+            A[3].forEach(Msg => {
+
+              if (Msg.to_md5 === a || Msg.src_md5 === a) M.push(Msg);
+            })
+
+            if (U.md5Key[a]) tcp.emit(`u_md5_2_dev_md5`, model.loadDOMModalView([model.modalView([model.u_md5_2_dev_md5(a, M, U.md5Key)])], `dev_md5-txt`))
+          })
+        })
+      })
+
+      tls.on(`msg_2_dev_md5`, Msg => {
+
+        new Auxll().getDevsMail( A => {
+
+          if (!A[2].length > 0) return;
+
+          let dev = A[2][0];
+
+          let log = new Date().valueOf();
+
+          let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+          new Sql().to([`support_mail`, {json: JSON.stringify({
+            group: `helps`, //support requests
+            log_md5: log_sum,
+            mail: Msg.msg,
+            mail_log: log,
+            mail_md5: log_sum,
+            mailto: false,
+            read: false,
+            risk: `moderate`,
+            src_md5: Msg.msg_u_md5,
+            to_md5: dev.dev_md5,
+            title: `Support Request`,
+            type: `quizes`})}], (A, B, C) => {
+          });
+        })
+      })
+
       /**
       @dev
       **
@@ -4896,7 +5163,7 @@ class AJXReqs extends Auxll {
 
       let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
 
-      if (args.md5) md5 = args.in
+      if (args.md5) md5 = args.u_md5
 
       new Sql().to([`support_mail`, {json: JSON.stringify({
         group: `helps`, //support requests
