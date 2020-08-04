@@ -5502,7 +5502,7 @@ module.exports = {
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Support Chat`]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@msg_u_md5`, `.@_tX ProceedColor`, `&@href>javascript:;`]]]]]]], [
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@_miY _gMX`, [[
                 `div`, `#@around-slide-ejs`, `.@_AZc`, [[
@@ -5583,7 +5583,7 @@ module.exports = {
 
     return [
       `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;`, [[
-        `div`, `.@_gcQ _aXZ _sZ2 _uZM _aA0 _aA2`, [[
+        `div`, `.@_gcQ _aXZ sZ2 _uZM _aA0 _aA2`, [[
           `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
             `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${C[A].ava}`, `&@alt>avatar`]]]]], [
             `div`, `.@_eYG`, [[
@@ -5595,7 +5595,7 @@ module.exports = {
           `div`, `.@_QZg _gMz`, [[
             `div`, `.@_axS`, [[
               `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@exit-msg`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
-        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 90px;max-height: calc(100vh - 170px);`, [[
           `div`, `.@_sZ2`, u_md5Msg]]], [
           `div`, `#@add-dev-see-ejs`, `.@_azX- _gMX _gp0 _gmg`, [[
             `div`, `.@_gxM _gMX`, [[
@@ -5625,7 +5625,7 @@ module.exports = {
           `div`, `.@_gcQ`, [[
             `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
               `span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`]]], [
-            `div`, `.@_QZg`, [[`span`, `.@pV3 tEx`, `~@${Msg.mail}`]]]]]);
+            `div`, `.@_QZg`, [[`span`, `.@pV3 tEx`, `~@${Msg.mail}`], [`a`, `#@msg-`, `&@href>javascript:;`]]]]]);
 
       }
 
@@ -5635,23 +5635,22 @@ module.exports = {
           `div`, `.@_gcQ`, [[
             `div`, `.@aCz _eYG MtX`, `&@style>overflow:unset;margin: 0`, [[
               `span`, `.@pV9 tWx`, `~@${Msg.mail}`]]], [
-            `div`, `.@_QZg`, [[`span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`]]]]]);
+            `div`, `.@_QZg`, [[`span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`], [`a`, `#@msg-`, `&@href>javascript:;`]]]]]);
       }
     })
 
     return [
       `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;`, [[
-        `div`, `.@_gcQ _aXZ _sZ2 _uZM _aA0 _aA2`, [[
+        `div`, `.@_gcQ _aXZ _uZM _aA0 _aA2`, [[
           `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-            `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
-              `img`, `.@_aWz`, `&@src>/gp/p/vector/support_mug.svg`, `&@alt>avatar`]]]]], [
+            `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [this.helpSVG()]]]], [
             `div`, `.@_eYG`, [[
               `div`, `.@_QxM`, [[`a`, `.@_tXx _aA2`, `~@Corrde Support Team`, `&@href>javascript:;`]]]]]]], [
           `div`, `.@_QZg _gMz`, [[
             `div`, `.@_axS`, [[
               `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@exit-msg`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
-        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
-          `div`, `.@_sZ2`, u_md5_2_dev_md5]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 90px;max-height: calc(100vh - 170px);`, [[
+          `div`, `#@u_md5_2_dev_md5`, `.@_sZ2`, u_md5_2_dev_md5], [`a`, `#@msg--`, `&@href>javascript:;`]]], [
           `div`, `#@add-dev-see-ejs`, `.@_azX- _gMX _gp0 _gmg`, [[
             `div`, `.@_gxM _gMX`, [[
               `div`, `.@_gMX gcQ`, [[
@@ -5664,5 +5663,79 @@ module.exports = {
                   `span`, `.@_`, [[`a`, `#@msg`, `&@u_md5>${A}`, `.@-_tX ProceedColor`, `&@href>javascript:;`]]]]]]]]]]]]]]]]]]]]]
 
 
+  },
+
+  helpSVG () {
+
+    return [`svg`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
+      `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+      `text`, `&@x>12`, `&@y>14.5`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:unset;letter-spacing:normal;font-size: 5.75px;`, `~@Support`]]]
+  },
+
+  u_md5_as_dev_md5 (A, B, C) {
+
+    let u_md5_2_dev_md5 = [];
+
+    B.sort((a, b) => {return a.mail_log - b.mail_log})
+
+    B.forEach (Msg => {
+
+      if (Msg.src_md5 === A) {
+
+        u_md5_2_dev_md5.push([
+          `div`, `.@_gcQ`, [[
+            `div`, `.@_aCz _eYG _MtX`, `&@style>overflow:unset`, [[
+              `span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@pV3 tEx`, `~@${Msg.mail}`], [`a`, `#@msg-`, `&@href>javascript:;`]]]]]);
+
+      }
+
+      else {
+
+        u_md5_2_dev_md5.push([
+          `div`, `.@_gcQ`, [[
+            `div`, `.@aCz _eYG MtX`, `&@style>overflow:unset;margin: 0`, [[
+              `span`, `.@pV9 tWx`, `~@${Msg.mail}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@_aCz _szU`, `~@${this.log(Msg.mail_log)}`], [`a`, `#@msg-`, `&@href>javascript:;`]]]]]);
+      }
+    })
+
+    return u_md5_2_dev_md5;
+  },
+
+  list_u_md5 (A) {
+
+    let P = A.md5.sort((a, b) => {return b.pre_utc - a.pre_utc});
+
+    let K = A.md5Key;
+
+    let list_u_md5 = [];
+
+    P.forEach(U => {
+
+      list_u_md5.push([
+        `div`, `.@_gcQ aXZ sZ2 _uZM _aA0 _aA2`, [[
+          `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, [[`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[`img`, `.@_aWz`, `&@src>${U.ava}`, `&@alt>avatar`]]]]], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[`a`, `.@_tXx _aA2`, `~@${U.full}`, `&@href>/mug/${U.sum}/`]]], [
+              `div`, `#@mini`, `.@_gxM _geQ`, [[
+                `span`, `.@_aA6 a2X`, `~@${U.reqs_per_polyg}`], 
+                this.reqs_per_polyg(U.reqs_per_polyg), [
+                `span`, `.@_axS _aA6 _a2X`, `~@ ${U.polygs_mail} reviews | ${this.pre_utc(U.pre_utc)}`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[
+            `div`, `.@_axS`, [[
+              `div`, `#@${U.sum}`, `.@_gM_a _agM _guZ`, [[`a`, `#@text`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Message`]]]]]]]]])
+    })
+
+    return [
+      `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;`, [[
+        `div`, `.@_gxM _gMX _gcQ _uZM`, [[
+          `div`, `&@style>padding-right: 10px;width: 100%`, `.@_eYG`, [[
+            `input`, `#@u_md5_value`, `.@_Wtx`, `&@placeholder>Search user`, `&@style>`]]], [
+          `div`, `.@_QZg`, [[
+            `span`, `.@_`, [[`a`, `#@unlist_u_md5`, `&@u_md5>${null}`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
+        `div`, `.@_aXY XsQ _aA2`, `&@style>margin:0 0;max-height: calc(100vh - 170px);`, [[
+            `div`, `.@_sZ2`, list_u_md5]]]]]
   }
 }

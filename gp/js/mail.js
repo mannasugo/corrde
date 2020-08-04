@@ -2,7 +2,7 @@
 
 (function () {
 
-  const socket = io();
+  const socket = io.connect();
 
   const AJXReq = (reqs, allMeta, inCall) => {
 
@@ -103,6 +103,20 @@
     let modal_ejs = document.querySelector(`#dev_md5-txt`);
 
     if (modal_ejs.className === `_-Zz`) modal_ejs.className = `-Zz`
+
+    document.querySelector(`#msg--`).focus()
+
+  })
+
+  socket.on(`u_md5_as_dev_md5`, J => {
+
+    if (!document.querySelector(`#u_md5_2_dev_md5`)) return;
+
+    if (J.u_md5 !== JSStore.avail().u_md5) return;console.log(new Model().modelStringify(J.html))
+
+    document.querySelector(`#u_md5_2_dev_md5`).innerHTML = new Model().modelStringify(J.html);
+
+    document.querySelector(`#msg--`).focus()
 
   })
 })();

@@ -658,7 +658,8 @@ class Auxll {
       `select * from u
       ;select * from u_md5_logs
       ;select * from stories
-      ;select * from jobs`, (A, B, C) => {
+      ;select * from jobs
+      ;select * from support_mail`, (A, B, C) => {
 
         let u_md5Obj = [];
 
@@ -698,6 +699,8 @@ class Auxll {
 
           let md5 = JSON.parse(B[0][u].alt);
 
+          let DEVS_MAIL = [];
+
           if (md5.ava === false) {md5[`ava`] = this.alternativeMug(md5.full); md5[`ava_alert`] = true;}
 
           else if (md5.ava !== false) md5[`ava`] = `/` + md5[`ava`];
@@ -708,6 +711,9 @@ class Auxll {
           md5[`polygs_mail`] = 0;
           md5[`polygs_mail2`] = 0;
           md5[`pos`] = [];
+          md5[`pre_devs_msg`] = [];
+          md5[`pre_mail_log_secs`] = new Date().valueOf();
+          md5[`pre_log_secs`] = new Date().valueOf();
           md5[`pre_mail_utc`] = new Date().valueOf();
           md5[`pre_utc`] = new Date().valueOf();
           md5[`reqs_per_polyg`] = 0.0;
@@ -745,9 +751,9 @@ class Auxll {
 
               if (logs.headers.referer.split(`/`).length > 2 && logs.headers.referer.split(`/`)[4] === `mail`) {
 
-                mailObj.push(logs);
+                //mailObj.push(logs);
 
-                md5[`pre_mail_utc`] = mailObj.sort((a, b) => {return b.utc - a.utc})[0].utc;
+                //md5[`pre_mail_utc`] = mailObj.sort((a, b) => {return b.utc - a.utc})[0].utc;
               }
 
               md5[`pre_utc`] = logObj[0].utc;
@@ -767,13 +773,38 @@ class Auxll {
 
           let logs_ = [];
 
+          let PRE_LOG_SECS = [];
+
           for (let logs in B[1]) {
 
             let log_ = JSON.parse(B[1][logs].json);
 
             if (log_.u_md5 === md5.sum && typeof log_.gps === `string` && log_.gps[0] === `[`) md5[`pos`].push(log_.gps)
 
+            //logs_.sort((a, b) => {return b.utc - a.utc})
+
+            if (log_.u_md5 === md5.sum) {
+
+              if (log_.headers.referer.split(`/`).length > 2 && log_.headers.referer.split(`/`)[3] === `mail`) {
+
+                PRE_LOG_SECS.push(log_);
+
+                md5[`pre_mail_log_secs`] = PRE_LOG_SECS.sort((a, b) => {return b.utc - a.utc})[0].utc;
+              }
+
+              //md5[`pre_log_secs`] = logs_[0].utc;
+            }
+
             logs_.push(log_);
+          }
+
+          for (let msg in B[4]) {
+
+            let Msg = JSON.parse(B[4][msg].json);
+
+            if (md5.sum === Msg.to_md5 || md5.sum === Msg.src_md5) DEVS_MAIL.push(Msg);
+
+            if (md5.sum === Msg.to_md5 && Msg.mail_log > md5[`pre_mail_log_secs`]) md5[`pre_devs_msg`].push(Msg);
           }
 
           let polygs_mail2 = 0;
@@ -2345,10 +2376,10 @@ class UAPublic extends Auxll {
         
         else if (A === false) {
 
-          this.logs_u_md5(A => {
+          this.logs_u_md5(A => {//console.log(model.log(A.md5Key[B].pre_mail_log_secs), A.md5Key[B].pre_devs_msg)
 
             const pool = {
-              jSStore: JSON.stringify({u_md5: B}),
+              jSStore: JSON.stringify({u_md5: B, pre_msg: A.md5Key[B].pre_devs_msg.length}),
               title: `The Blue Collar Hub.`,
               css: CSS,
               jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js]}
@@ -2864,7 +2895,7 @@ class UAPublic extends Auxll {
             this.logs_u_md5(A => {
 
               const pool = {
-                jSStore: JSON.stringify({u_md5: B}),
+                jSStore: JSON.stringify({u_md5: B, pre_msg: A.md5Key[B].pre_devs_msg.length}),
                 title: `Mail & Notifications`,
                 css: CSS,
                 jsState: [config.reqs.mail_js]}
@@ -4365,7 +4396,7 @@ class UATCP extends UAPublic {
         new Sql().to([`devs_traffic`, {json: JSON.stringify(tls.handshake)}], (A, B, C) => {});
       }
 
-      else if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).u) {
+      if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).u) {
 
         tls.handshake[`utc`] = new Date().valueOf();
 
@@ -4584,6 +4615,8 @@ class UATCP extends UAPublic {
 
           let dev = A[2][0];
 
+          let Msgs = A[3];
+
           let log = new Date().valueOf();
 
           let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
@@ -4601,7 +4634,34 @@ class UATCP extends UAPublic {
             to_md5: dev.dev_md5,
             title: `Support Request`,
             type: `quizes`})}], (A, B, C) => {
+      
+              new Auxll().logs_u_md5(A => {
+
+                let U = A;
+
+                new Auxll().getDevsMail( A => {
+
+                  let Msgs = A[3];
+
+                  let M = [];
+
+                  Msgs.forEach(Mail => {
+
+                    if (Mail.to_md5 === Msg.msg_u_md5 || Mail.src_md5 === Msg.msg_u_md5) M.push(Mail);
+                  })
+
+                  if (U.md5Key[Msg.msg_u_md5]) tcp.emit(`u_md5_as_dev_md5`, {html: model.u_md5_as_dev_md5(Msg.msg_u_md5, M, U.md5Key), u_md5: Msg.msg_u_md5})
+                })
+              });
           });
+        })
+      })
+
+      tls.on(`list_u_md5`, a => {
+      
+        new Auxll().logs_u_md5(A => {
+
+          tcp.emit(`list_u_md5`, model.loadDOMModalView([model.modalView([model.list_u_md5(A)])], `list_u_md5`))
         })
       })
 

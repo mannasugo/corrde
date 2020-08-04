@@ -109,6 +109,21 @@
       if (msg) socket.emit(`msg_2_u_md5`, {msg: JSStore.avail().msg_2_u_md5, msg_u_md5: e.getAttribute(`u_md5`)});
     }
   }
+
+  let list_u_md5 = e => {
+
+    if (e.id === `msg_u_md5`) socket.emit(`list_u_md5`, JSStore.avail().dev_md5);
+  }
+
+  let unlist_u_md5 = e => {
+
+    if (e.id === `unlist_u_md5`) {
+
+      let modal_ejs = document.querySelector(`#list_u_md5`);
+
+      document.querySelectorAll(`#_list_u_md5_`).forEach(E => E.innerHTML = ``)
+    }
+  }
  
   let e0 = e => {
 
@@ -123,11 +138,19 @@
     unlistServices(e);
 
     msg_2_u_md5(e);
+
+    list_u_md5(e);
+
+    unlist_u_md5(e);
   }
 
   document.addEventListener(`click`, e0);
 
   socket.on(`dev_md5_2_u_md5`, J => {
+
+    if (document.querySelector(`#_txt_`)) document.querySelectorAll(`#_txt_`).forEach(E => E.innerHTML = ``)
+
+    if (document.querySelector(`#_list_u_md5_`)) document.querySelectorAll(`#_list_u_md5_`).forEach(E => E.innerHTML = ``)
               
     let msg = document.createElement(`div`);
 
@@ -138,6 +161,22 @@
     document.querySelector(`#corrde-root`).appendChild(msg);
 
     let modal_ejs = document.querySelector(`#u_md5-txt`);
+
+    if (modal_ejs.className === `_-Zz`) modal_ejs.className = `-Zz`
+
+  })
+
+  socket.on(`list_u_md5`, J => {
+              
+    let msg = document.createElement(`div`);
+
+    msg.setAttribute(`id`, `_list_u_md5_`);
+
+    msg.innerHTML = new Model().modelStringify([J]);
+
+    document.querySelector(`#corrde-root`).appendChild(msg);
+
+    let modal_ejs = document.querySelector(`#list_u_md5`);
 
     if (modal_ejs.className === `_-Zz`) modal_ejs.className = `-Zz`
 

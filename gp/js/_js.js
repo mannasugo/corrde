@@ -461,6 +461,14 @@
     }
   }
 
+  let getMail = () => {
+
+    if (JSStore.avail().pre_msg && JSStore.avail().pre_msg > 0) {
+
+      document.querySelectorAll(`.MailColor`).forEach(p => {p.setAttribute(`class`, `-_tX MailColor _-gm`)})
+    }
+  }
+
   let aroundSlides = d3.select(`#around-rotate-ejs`)
   d3.select(`#around-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
     aroundSlides.style(`transform`, `translate(${d3.event.transform.x}px)`)
@@ -495,6 +503,8 @@
   setMD5Cookie();
   loadStory()
   last_PJ();
+
+  getMail();
 
   document.addEventListener(`click`, e0);
   document.addEventListener(`change`, files);
