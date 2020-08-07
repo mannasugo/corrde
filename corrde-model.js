@@ -43,7 +43,7 @@ class ModelString {
 
       this.appendString += `>`;
 
-      if (typeof t2 === `string` && t2.split(`@`)[0] === `~`) {this.appendString += t2.substring(2, t2.length+1);}
+      if (typeof t2 === `string` && t2.split(`@`)[0] === `~`) {this.appendString += this.avail_esc_Chars(t2.substring(2, t2.length+1));}
 
       if (typeof lv2 === `object`) {this.modelStringify(lv2);}
 
@@ -52,6 +52,13 @@ class ModelString {
       if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`; 
     }
     return this.appendString;
+  }
+
+  avail_esc_Chars (String) {
+
+    String = String.replace(new RegExp(`u/0026`, `g`), `&`);
+
+    return String;
   }
 }
 
