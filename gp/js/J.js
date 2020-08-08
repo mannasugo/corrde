@@ -115,7 +115,7 @@
     pushApplication(e)
   }
 
-  setGPSCookie();
-
   document.addEventListener(`click`, e0);
+
+  document.addEventListener(`DOMLOADED`, setGPSCookie());
 })();
