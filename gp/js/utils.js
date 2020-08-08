@@ -161,7 +161,7 @@ const WebStore = (function () {
         this.allValues[value] = allValues[value];
       }
 
-      sessionStorage.setItem(`u`, JSON.stringify(this.allValues));
+      sessionStorage.setItem(`u`, JSON.stringify(this.allValues).replace(new RegExp(/&/g, `g`), `u/0026`));
       return sessionStorage;
     },
 
