@@ -4253,8 +4253,8 @@ module.exports = {
                   `div`, `.@_ZSg _gxM _eYG`, [[`span`, `.@_aA6 _tXv`, `~@${md5.seen.length} views`]]]]]]], [
               `div`, `.@_yZS _gxM _geQ _gMX`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
                 `div`, `.@_eYG _gxM`, [[
-                  `div`, `.@aXs _gxM`, [[`span`, `.@-_tX HeartsGray`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail2.length}`]]], [
-                  `div`, `.@_aXs _gxM`, [[`span`, `.@-_tX CommentsGray`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail.length}`]]]]], [
+                  `div`, `.@aXs _gxM`, [[`a`, `.@-_tX HeartsGray`, `&@href>/portfolio/${md5.log_md5}`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail2.length}`]]], [
+                  `div`, `.@_aXs _gxM`, [[`a`, `.@-_tX CommentsGray`, `&@href>/portfolio/${md5.log_md5}`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail.length}`]]]]], [
                 `div`, [[`span`, `.@_a2X`, `~@${this.log(md5.log_secs)}`]]]]]]]]]]], [
           `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
             `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
@@ -4967,9 +4967,10 @@ module.exports = {
               `div`, `.@_QZg`, [[
                     `a`, `.@-_tX ProceedColor`, `~@job`, `&@href>/j/${md5.log_md5}/`]]]]]]], [
               `div`, `.@_yZS _gxM _gMX _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                `div`, `.@_eYG _gxM`, [[`div`, `#@J_PJ`, `.@aXs -Zz`, `~@${JSON.stringify(md5.geo)}`], [
+                `div`, `.@_eYG _gxM`, [[
+                  `div`, `.@aXs -Zz`, [[`a`, `#@J_PJ`, `.@_tXx _aA2`, `~@${JSON.stringify(md5.geo)}`, `&@href>/maps/${md5.log_md5}/`]]], [
                   `div`, `.@_aXs _gxM`, [[
-                    `span`, `.@-_tX CommentsGray`, `~@Applications`], [
+                    `a`, `.@-_tX CommentsGray`, `~@Applications`, `&@href>/j/${md5.log_md5}/`], [
                     `span`, `.@_a2X _axS _aA6`, `~@${md5.apps_mail.length}`]]]]], [
               `div`, [[`span`, `.@_a2X`, `~@${this.log(md5.log_secs)}`]]]]]]]]]]]]]
     })
