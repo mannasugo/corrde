@@ -4649,6 +4649,12 @@ module.exports = {
 
   readMugTop () {
 
+    let Settings = [`Add Portfolio Story`, `Change Profile Picture`, `Edit Profile & Portfolio`, `Sign Out`]
+
+    let Attr = [`portfolio-story`, `self`, `edit-mug`, `signout`];
+
+    let Href = [`/portfolio/`, `javascript:;`, `javascript:;`, `javascript:;`];
+
     return [`nav`, 
       `.@_uHC`, [[
         `div`, `.@_xCt`], [
@@ -4658,14 +4664,31 @@ module.exports = {
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
                 `span`, `.@_tCc _pV4`, `~@profile`]]], [
-              `div`, `.@_QZg _-Zz`, []]]]]]]]]];
+              `div`, `.@_QZg _-Zz`, []],
+              this.inModal({id: `Settings`, in: this.aPoolModal(Settings, Attr, Href)})]]]]]]]];
   },
 
   readMug (A, B, C) {
 
     let mug = ``;
 
-    if (A.sum === B) mug = `#@self`;
+    let Settings = [];
+
+    if (B !== false) {
+
+      let Attr = [`to-msg`, `Message`];
+
+      if (A.sum === B) {
+
+        mug = `#@self`;
+
+        Attr = [`to-settings`, `Settings`]
+      }
+
+      Settings = [
+      `div`, `.@_QZg`, [[
+        `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@${Attr[0]}`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@${Attr[1]}`]]]]];
+    }
 
     return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
@@ -4678,7 +4701,7 @@ module.exports = {
                     `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A.ava}`, `&@alt>avatar`]]], [
                   `div`, `.@_eYG`, [[
                     `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${A.full}`]]], [
-                    `div`, `.@_gxM _geQ`, [ ]]]]]]]], [
+                    `div`, `.@_gxM _geQ _gMX`, [[`div`, `.@_eYG`], Settings]]]]]]]], [
               `div`, `.@azX- _gMX gp0 _sZ2`, `&@style>margin-top: 20px`, [[
                 `div`, `.@-Zz _gxM _gMX`, [[
                   `div`, `.@_gMX gcQ`, [[

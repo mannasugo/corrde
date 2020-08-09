@@ -2520,7 +2520,7 @@ class UAPublic extends Auxll {
         jSStore: JSON.stringify({}),
         title: `${u_md5.full}`,
         css: CSS,
-        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js]}
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js, config.reqs.mug_js]}
 
       this.getCookie(`u`, (A, B) => {
 
