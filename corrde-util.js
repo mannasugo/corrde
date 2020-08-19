@@ -677,6 +677,8 @@ class Auxll {
 
         const utc_A = new Date(new Date() - (6 * 86400000)).valueOf();
 
+        if (!B) return;
+
         for (let u in B[0]) {
 
           let logCount = 0;
@@ -4663,6 +4665,139 @@ class UATCP extends UAPublic {
 
           tcp.emit(`list_u_md5`, model.loadDOMModalView([model.modalView([model.list_u_md5(A)])], `list_u_md5`))
         })
+      });
+
+      tls.on(`geo_tiles`, PJ => {
+
+        fs.stat(`gp/twineJSON/${PJ.adm0_a3}_rds.geo.json`, (err, Stats) => {
+
+          if (Stats && Stats.dev) {
+            
+            fs.readFile(`gp/twineJSON/${PJ.adm0_a3}_rds.geo.json`, {encoding: `utf8`}, (err, Utf8) => {
+              
+              let R = JSON.parse(Utf8);
+
+              let R_tile = [];
+
+              let PQ = PJ.PQ;
+
+              let SQ = [PQ[0] - .15, PQ[1] - .15, PQ[0] + .15, PQ[1] + .15]  
+
+              R.features.forEach(Feat => {
+ 
+                if (Feat.geometry.type === `LineString`) {
+
+                  Feat.geometry.coordinates.forEach(POS => {
+
+                    if (POS[0] >= SQ[0] && POS[0] <= SQ[2]) {
+
+                      if (POS[1] >= SQ[1] && POS[1] <= SQ[3]) R_tile.push(Feat);
+                    }
+                  })
+                }
+              });
+
+              fs.stat(`gp/twineJSON/${PJ.adm0_a3}_gaz.geo.json`, (err, Stats) => {
+
+                if (Stats && Stats.dev) {
+            
+                  fs.readFile(`gp/twineJSON/${PJ.adm0_a3}_gaz.geo.json`, {encoding: `utf8`}, (err, Utf8) => {
+              
+                    let G = JSON.parse(Utf8);
+
+                    let G_tile = [];
+
+                    let SQ_gaz = [PQ[0] - .025, PQ[1] - .075, PQ[0] + .025, PQ[1] + .075]  
+
+                    G.forEach(Feat => {
+ 
+                      if (Feat.LONG >= SQ_gaz[0] && Feat.LONG <= SQ_gaz[2]) {
+
+                        if (Feat.LAT >= SQ_gaz[1] && Feat.LAT <= SQ_gaz[3] && Feat.F_CLASS === `P`) G_tile.push(Feat);
+                      }
+                    });
+
+                    tcp.emit(`geo_tiles`, [R_tile, G_tile, {tile: SQ, tiles_utc: PJ.tiles_utc}]);
+                  });
+                }
+              })
+            });
+          }
+        })
+      })
+
+      tls.on(`create_geo_tiles`, PJ => {
+
+        let POS_max = [Math.ceil(PJ.PQ[0]), Math.ceil(PJ.PQ[1])];
+
+        let geo_tile = `${POS_max[0] - 1}_${POS_max[1] - 1}_${POS_max[0]}_${POS_max[1]}`;
+
+        fs.stat(`gp/twineJSON/${geo_tile}_rds.json`, (err, Stats) => {
+
+          if (err) 
+
+            fs.stat(`gp/twineJSON/${PJ.adm0_a3}_rds.geo.json`, (err, Stats) => {
+
+              if (Stats && Stats.dev) 
+
+                  fs.readFile(`gp/twineJSON/${PJ.adm0_a3}_rds.geo.json`, {encoding: `utf8`}, (err, Utf8) => {
+              
+                    let R = JSON.parse(Utf8);
+
+                    let R_tile = [];
+
+                    let PQ = PJ.PQ;
+
+                    let SQ = [POS_max[0] - 1, POS_max[1] - 1, POS_max[0], POS_max[1]]  
+
+                    R.features.forEach(Feat => {
+ 
+                      if (Feat.geometry.type === `LineString`) {
+
+                        Feat.geometry.coordinates.forEach(POS => {
+
+                          if (POS[0] >= SQ[0] && POS[0] <= SQ[2]) {
+
+                            if (POS[1] >= SQ[1] && POS[1] <= SQ[3]) R_tile.push(Feat);
+                          }
+                        })
+                      }
+                    });
+
+                    fs.writeFile(`gp/twineJSON/${geo_tile}_rds.json`, JSON.stringify(R_tile), err => {
+
+                      fs.stat(`gp/twineJSON/${geo_tile}_gaz.json`, (err, Stats) => {
+
+                        if (err)
+            
+                          fs.stat(`gp/twineJSON/${PJ.adm0_a3}_gaz.geo.json`, (err, Stats) => {
+
+                            if (Stats && Stats.dev)
+            
+                              fs.readFile(`gp/twineJSON/${PJ.adm0_a3}_gaz.geo.json`, {encoding: `utf8`}, (err, Utf8) => {
+
+                                let G = JSON.parse(Utf8);
+
+                                let G_tile = [];
+
+                                let SQ_gaz = [POS_max[0] - 1, POS_max[1] - 1, POS_max[0], POS_max[1]];  
+
+                                G.forEach(Feat => {
+ 
+                                  if (Feat.LONG >= SQ_gaz[0] && Feat.LONG <= SQ_gaz[2]) {
+
+                                    if (Feat.LAT >= SQ_gaz[1] && Feat.LAT <= SQ_gaz[3] && Feat.F_CLASS === `P`) G_tile.push(Feat);
+                                  }
+                                });
+
+                                fs.writeFile(`gp/twineJSON/${geo_tile}_gaz.json`, JSON.stringify(G_tile), err => {})
+                              });
+                          });
+                      })
+                    });
+                  })
+            }) 
+        })
       })
 
       /**
@@ -4901,7 +5036,7 @@ class UATCP extends UAPublic {
 
           let SQ_u_md5 = [];
 
-          new Auxll().logs_u_md5(A => {
+          /*new Auxll().logs_u_md5(A => {
 
             emit_md5.forEach(_pos => {
 
@@ -4916,7 +5051,7 @@ class UATCP extends UAPublic {
             //logs_md5 = SQ_u_md5;
 
             tcp.emit(`area_md5`, [SQ_u_md5, _area_md5])
-        })
+        })*/
         
 
         if (tls.handshake.headers.cookie && cookie.parse(tls.handshake.headers.cookie).dev_md5) {

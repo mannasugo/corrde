@@ -3551,8 +3551,9 @@ module.exports = {
             `div`, [[`span`, `.@_aA2`, `~@Last Seen`]]], [
             `div`, `.@_QZg _gxM`, [[`span`, `.@_a2X`, `~@${this.log(dev.pre_utc)}`]]]]], [
                 `div`, `.@_yZS _gxM _geQ _gMX`, [[
-                    `div`, `.@_g00 _gxM yZS`, [[
-                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
+                    `div`, `.@_g00 _gxM yZS`, [/*[
+                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`]*/[
+                      `a`, `.@-_tX GeoGray`, `&@href>javascript:;`] , [
                       `p`, `#@last_PJ`, `.@_aA6`, `~@${dev.pos[dev.pos.length - 1]}`]]]]]]];
     });
 
@@ -4567,7 +4568,9 @@ module.exports = {
     return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
       `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
-        `section`, `#@map`, [[`svg`, `.@_aXZ _gmg`]]]]]]]
+        `section`, `#@map`, [[`svg`, `.@_aXZ _gmg`]]]]], [
+      `section`, `&@style>position:absolute;top:0;right:0;z-index:2`, [[
+        `div`, [[`div`, `.@geQ _sQ0`, [[`a`, `.@-_tX FilterColor`, `&@href>javascript:;`, `&@style>width: 20px; height: 20px`]]]]]]]]]
   },
 
   seekModal () {
@@ -4655,8 +4658,7 @@ module.exports = {
 
     let Href = [`/portfolio/`, `javascript:;`, `javascript:;`, `javascript:;`];
 
-    return [`nav`, 
-      `.@_uHC`, [[
+    return [`nav`, `.@_uHC _t00`, [[
         `div`, `.@_xCt`], [
         `div`, [[
           `div`, `.@_-tY`, [[
@@ -4693,7 +4695,7 @@ module.exports = {
     return [`span`, `&@style>overflow:hidden`, `#@root`, [
       this.feedControls(), [
       `main`, `.@_xC2 _aA2 xC3`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
-        `section`, `&@style>margin: 70px 0 70px`, `.@_ss7`, [[`div`, [[`div`, `.@_aGX`, [[
+        `section`, `&@style>margin: 70px 0 0`, `.@_ss7`, [[`div`, [[`div`, `.@_aGX`, [[
           `section`, `.@_gvQ _pQ0`, `&@style>padding: 15px 15px 0;margin: 0 0 10px`, [[
               `div`, `.@_yZS _gxM _geQ`, [[
                 `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
@@ -4703,7 +4705,7 @@ module.exports = {
                     `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${A.full}`]]], [
                     `div`, `.@_gxM _geQ _gMX`, [[`div`, `.@_eYG`], Settings]]]]]]]], [
               `div`, `.@azX- _gMX gp0 _sZ2`, `&@style>margin-top: 20px`, [[
-                `div`, `.@-Zz _gxM _gMX`, [[
+                `div`, `.@_-Zz _gxM _gMX`, [[
                   `div`, `.@_gMX gcQ`, [[
                     `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
                       `a`, `.@_TX_a _atX _utQ _gMX`, `#@mug-ejs`, `&@href>javascript:;`, `~@Show Portfolio`]]]]]]]]]]], [
@@ -4723,12 +4725,12 @@ module.exports = {
                 `div`, `.@yZS _gMX _eYG _xC3`, [[
                 `div`, `.@_eYG _ZSg`, [[
                   `div`, `.@_aXZ _gxM`, [[
-                    `div`, `.@_g00 _gxM yZS`, [[
-                      `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
-                      `p`, `.@_aA6`, `~@Kenya`]]], [
+                    `div`, `.@g00 _gxM yZS _geQ`, [[
+                      `a`, `.@-_tX GeoGray`, `&@href>javascript:;`, `&@style>width:15px;height:15px;margin-right:8px`], [
+                      `p`, `.@_aA2 _tXx`, `~@Kenya`]]], [
                     `div`, `.@_g00 _gxM _yZS _axS _-Zz`, [[
                       `span`, `&@style>background-image:url(${config.reqs.check_svg})`, `.@_fg0`], [
-                      `p`, `.@_aA6`, `~@Oyugis`]]]]]]]]]]]]], this.mug_polygs(A, B, C)]]]]]]]]]]
+                      `p`, `.@_aA6`, `~@Oyugis`]]]]]]]]]]]]], /*this.mug_polygs(A, B, C)*/]]]]]],  this.polygs_slide(A, B, C)]]]]
   },
 
   reqs_per_polyg (reqs) {
@@ -5768,5 +5770,71 @@ module.exports = {
             `span`, `.@_`, [[`a`, `#@unlist_u_md5`, `&@u_md5>${null}`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
         `div`, `.@_aXY XsQ _aA2`, `&@style>margin:0 0;max-height: calc(100vh - 170px);`, [[
             `div`, `.@_sZ2`, list_u_md5]]]]]
+  },
+
+  polygs_slide (A, B, C) {
+
+    let mug_polygs = [];
+
+    if (A.polygs.length === 0 && A.sum === B) mug_polygs = this.iniStories();
+
+    else if (A.polygs.length > 0) {
+
+      A.polygs.sort((a, b) => {return b.log_secs - a.log_secs})
+
+      let polygs = [];
+
+      A.polygs.forEach(md5 => {
+
+        let plane_x = ``;
+
+        let plane_y = `200`;
+
+        if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]) {
+
+          plane_y = (md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100);
+
+          if (md5.img[0].img_2d[1] < md5.img[0].img_2d[0]/2) {
+
+            plane_y = 100;
+            plane_x = `width:${((md5.img[0].img_2d[0]/2)/(md5.img[0].img_2d[1])*100)}%;`;
+          }
+        }
+
+        if (md5.img[0].img_2d[1] > md5.img[0].img_2d[0]) plane_y = md5.img[0].img_2d[1]/(md5.img[0].img_2d[0]/2)*100;
+
+        polygs[A.polygs.indexOf(md5)] = [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>${plane_x}height:${plane_y}%`, `.@_aMz _gVm`, 
+              `&@src>/${md5.img[0].src}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
+              `div`, `.@_yZS _gMX _eYG gcQ`, [[
+                `div`, `.@_eYG _ZSg`, [[
+                  `div`, `.@_gxM _gMX`, [[`div`, `.@_eYG _ZSg`, [[`a`, `&@href>/portfolio/${md5.log_md5}`, `.@_tXx _aA6 _tXv`, `~@${md5.text}`]]]]], [
+                  `div`, `.@_ZSg _gxM _eYG`, [[`span`, `.@_aA6 _tXv`, `~@${md5.seen.length} views`]]]]]]], [
+              `div`, `.@_yZS _gxM _geQ _gMX`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG _gxM`, [[
+                  `div`, `.@aXs _gxM`, [[`a`, `.@-_tX HeartsGray`, `&@href>/portfolio/${md5.log_md5}`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail2.length}`]]], [
+                  `div`, `.@_aXs _gxM`, [[`a`, `.@-_tX CommentsGray`, `&@href>/portfolio/${md5.log_md5}`], [`span`, `.@_a2X _axS _aA6`, `~@${md5.mail.length}`]]]]], [
+                `div`, [[`span`, `.@_a2X`, `~@${this.log(md5.log_secs)}`]]]]]]]]]]]]];
+      })
+
+      mug_polygs = [
+          `section`, `.@gvQ pQ0`, `&@style>margin: 0 0 10px`, [[
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Portfolio stories`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, polygs]]]]]]]]]]]]]]]]];
+    }
+
+    return mug_polygs;
   }
 }

@@ -2,11 +2,11 @@
 
 (function () {
 
-  const socket = io();
+  const SOCK = io();
 
-  const uaX = parseInt(document.querySelector(`body`).clientWidth);
+  const UAX = parseInt(document.querySelector(`body`).clientWidth);
     
-  const uaY = parseInt(document.querySelector(`#map`).clientHeight + 55);
+  const UAY = parseInt(document.querySelector(`#map`).clientHeight + 55);
 
   const AJXReq = (reqs, allMeta, inCall) => {
 
@@ -54,7 +54,7 @@
 
   let setGPSCookie = () => {
 
-    JSStore.to({gps: [-123.233256,42.006186]})
+    JSStore.to({gps: false});
 
     GPS(a => {
 
@@ -64,20 +64,224 @@
 
       }, (b) => {
 
-        /**
-        *@dev
-        **/
-
         AJXReq([`/devs_reqs/`, `setGPSCookie`], JSStore.avail(), (A, B) => {loadSeek()});
     })    
   }
 
   let loadSeek = () => {
 
-    if (typeof JSStore.avail().gps === `object` && JSStore.avail().gps.length === 2) seekMD5 ();
+    let PQ;
 
-    else seekAlert();
+    if (JSStore.avail().gps === false) PQ = [-0.723, 54.533]//[7.723, 50.533]//[-77.035264,38.993869]// [34.753, -.533]//[-123.233256, 42.006186];
+
+    if (typeof JSStore.avail().gps === `object` && JSStore.avail().gps.length === 2) PQ = JSStore.avail().gps;
+
+    JSStore.to({tiles_session: new Date().valueOf()})
+
+    SVG_PQ(PQ);
   }
+
+  let SVG_PQ = PQ => {
+
+    d3.json(`/gp/twineJSON/custom.json`).then(json => {
+      
+      let projection = d3.geoMercator()
+        .scale(120000)
+        .translate([UAX / 2, UAY / 2])
+        .center(PQ),
+
+      path = d3.geoPath().projection(projection);
+
+      let svg = d3.select(`#map`)
+        .selectAll(`svg`).data([json])
+        .style(`width`, UAX + `px`)
+        .style(`height`, (UAY - 55) + `px`)
+        .attr(`class`, `d3JS _aXZ _gmg`)
+
+      let map = svg.append(`g`)
+        .attr(`class`, `boundary`);
+
+      let G0 = topojson.feature(json, json.objects[`custom.geo`])
+
+      let ADM0 = [];
+
+      let adm0_a3;
+
+      G0.features.forEach(Obj => {
+
+        if (d3.geoContains(Obj, projection.invert([UAX/2, UAY/2]))) adm0_a3 = Obj.properties.adm0_a3;
+          
+        ADM0.push(Obj);
+      });
+
+      SOCK.emit(`create_geo_tiles`, {adm0_a3: adm0_a3, PQ: PQ});
+
+      SOCK.emit(`geo_tiles`, {adm0_a3: adm0_a3, PQ: PQ, tiles_utc: JSStore.avail().tiles_session});
+
+      map.selectAll(`path`).data(ADM0)
+        .enter()
+        .append(`path`)
+        .attr(`d`, path)
+        .attr(`class`, `g0`);
+
+      svg.select(`g`)
+        .attr(`fill`, `#d7d7dd`)
+        .attr(`fill`, `#cccccc`)
+        .attr(`stroke`, `#fff`)
+        .style(`stroke-width`, 1.2)
+
+      SOCK.on(`geo_tiles`, Tiles => {
+
+        if (Tiles[2][`tiles_utc`] !== JSStore.avail().tiles_session) return;
+
+        map.selectAll(`path.rds`).data(Tiles[0])
+          .enter()
+          .append(`path`)
+          .attr(`d`, path)
+          .attr(`class`, `rds0`)
+          .attr(`id`, `${adm0_a3}_rds0`)
+          .attr(`stroke`, `#ffe754`)
+          .attr(`fill`, `none`)
+          .style(`stroke-width`, `1.95`);
+
+        map.selectAll(`text`).data(Tiles[1])
+          .enter()
+          .append(`text`)
+          .attr(`class`, `gaz0`)
+          .attr(`x`, d => {return projection([d.LONG, d.LAT])[0]})
+          .attr(`y`, d => {return projection([d.LONG, d.LAT])[1]})
+          .style(`stroke`, `#000`)
+          .style(`stroke-width`, `.5`)
+          .style(`font-size`, `10px`)
+          .style(`font-weight`, `normal`)
+          .style(`letter-spacing`, `.75px`)
+          .style(`fill`, `#000`)
+          .text(d => {return d.NAME})
+      })
+
+      let Tilelist = {};
+
+      let scaleSVG = d3.zoom()
+        .scaleExtent([.075, 48])
+        .on(`zoom`, zoomMap);
+
+      svg.call(scaleSVG);
+
+      function zoomMap (d) {
+
+        map.selectAll(`.gaz0`).remove();
+
+        map.selectAll(`.rds0`).remove();
+
+        let zoomScale = d3.zoomTransform(svg.node());
+
+        projection.translate([zoomScale.x, zoomScale.y]).scale(zoomScale.k*120000);
+
+        G0.features.forEach(Obj => {
+
+          if (d3.geoContains(Obj, projection.invert([UAX/2, UAY/2]))) adm0_a3 = Obj.properties.adm0_a3;
+
+        });
+
+        SOCK.emit(`create_geo_tiles`, {adm0_a3: adm0_a3, PQ: projection.invert([UAX/2, UAY/2])});
+
+        let PJ_src = projection.invert([UAX/2, UAY/2]);
+
+        let POS_max = [Math.ceil(PJ_src[0]), Math.ceil(PJ_src[1])];
+
+        let geo_tile = `${POS_max[0] - 1}_${POS_max[1] - 1}_${POS_max[0]}_${POS_max[1]}`;
+
+        let gaz_tile = `${POS_max[0] - 1}_${POS_max[1] - 1}_${POS_max[0]}_${POS_max[1]}_gaz`;//console.log(zoomScale.k)
+
+        if (Tilelist[geo_tile]) {
+
+          map.selectAll(`path.rds`).data(Tilelist[geo_tile])
+            .enter()
+            .append(`path`)
+            .attr(`d`, path)
+            .attr(`class`, `rds0`)
+            .attr(`id`, `${adm0_a3}_rds0`)
+            .attr(`stroke`, `#ffe754`)
+            .attr(`fill`, `none`)
+            .style(`stroke-width`, `1.95`);
+
+          if (Tilelist[gaz_tile]) {
+
+            let G_tiles = [];
+
+            if (zoomScale.k < 0.5) G_tiles = Tilelist[gaz_tile].slice(0, 4);
+
+            if (zoomScale.k > 0.999)  G_tiles = Tilelist[gaz_tile].slice(0, 10);
+
+            map.selectAll(`text`).data(G_tiles)
+              .enter()
+              .append(`text`)
+              .attr(`class`, `gaz0`)
+              .attr(`x`, d => {return projection([d.LONG, d.LAT])[0]})
+              .attr(`y`, d => {return projection([d.LONG, d.LAT])[1]})
+              .style(`stroke`, `#000`)
+              .style(`stroke-width`, `.5`)
+              .style(`font-size`, `10px`)
+              .style(`font-weight`, `normal`)
+              .style(`letter-spacing`, `.75px`)
+              .style(`fill`, `#000`)
+              .text(d => {return d.NAME})
+          }
+        }
+
+        else {
+
+          d3.json(`/gp/twineJSON/${geo_tile}_rds.json`).then(json => {
+
+            Tilelist[geo_tile] = json;
+
+            map.selectAll(`path.rds`).data(json)
+              .enter()
+            .append(`path`)
+            .attr(`d`, path)
+            .attr(`class`, `rds0`)
+            .attr(`id`, `${adm0_a3}_rds0`)
+            .attr(`stroke`, `#ffe754`)
+            .attr(`fill`, `none`)
+            .style(`stroke-width`, `1.95`);
+
+            d3.json(`/gp/twineJSON/${gaz_tile}.json`).then(json => {
+
+              Tilelist[gaz_tile] = json;
+
+              let Gz_tiles = [];
+
+              if (zoomScale.k < 0.5) Gz_tiles = json.slice(0, 4);
+
+              if (zoomScale.k > 0.999)  Gz_tiles = json.slice(0, 10);
+
+              map.selectAll(`text`).data(Gz_tiles)
+                  .enter()
+                  .append(`text`)
+                  .attr(`class`, `gaz0`)
+                  .attr(`x`, d => {return projection([d.LONG, d.LAT])[0]})
+                  .attr(`y`, d => {return projection([d.LONG, d.LAT])[1]})
+                  .style(`stroke`, `#000`)
+                  .style(`stroke-width`, `.5`)
+                  .style(`font-size`, `10px`)
+                  .style(`font-weight`, `normal`)
+                  .style(`letter-spacing`, `.75px`)
+                  .style(`fill`, `#000`)
+                  .text(d => {return d.NAME})   
+
+            }).catch(error => {throw error})  
+
+          }).catch(error => {throw error})
+
+        }
+
+        d3.selectAll(`path`).attr(`d`, path);
+      }
+
+    }).catch(error => {throw error})
+  }
+
+  /*
 
   let seekMD5 = () => {
 
@@ -509,7 +713,7 @@
             d3.selectAll(`.adm0`).remove();
             d3.selectAll(`.water`).remove();
             d3.selectAll(`.adm1`).style(`fill`, `#cccccc`);
-          }*/
+          }
 
           d3.selectAll(`path`).attr(`d`, path);
 
@@ -623,27 +827,18 @@
   let readJob = e => {
 
     if (e.className.baseVal === `j_md5`) window.location = `/j/${e.id}/`;
-  }
+  }*/
 
   let e0 = e => {
 
     e = e.target;
-    
-    supportMsgModal(e);
-    readMug(e);
-    readJob(e)
   }
 
   setGPSCookie();
 
   document.addEventListener(`click`, e0);
 
-  let skilledSlides = d3.select(`#skilled-rotate-ejs`)
-  d3.select(`#skilled-slide-ejs`).call(d3.zoom().scaleExtent([1, 1]).translateExtent([[0,0], [3250, 3250]]) .on(`zoom`, () => {
-    skilledSlides.style(`transform`, `translate3d(${d3.event.transform.x}px, 0, 0)`)
-  }))
-
-  socket.on(`area_md5`, md5 => {
+  /*socket.on(`area_md5`, md5 => {
 
     if (JSStore.avail().gps.length === 2) {JSStore.to({area_md5: md5});}
   })
@@ -651,5 +846,5 @@
   socket.on(`J_md5`, J => {
 
     if (JSStore.avail().gps.length === 2) {JSStore.to({J_md5: J});}
-  })
+  })*/
 })();

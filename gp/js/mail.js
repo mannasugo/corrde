@@ -112,7 +112,7 @@
 
     if (!document.querySelector(`#u_md5_2_dev_md5`)) return;
 
-    if (J.u_md5 !== JSStore.avail().u_md5) return;console.log(new Model().modelStringify(J.html))
+    if (J.u_md5 !== JSStore.avail().u_md5) return;
 
     document.querySelector(`#u_md5_2_dev_md5`).innerHTML = new Model().modelStringify(J.html);
 

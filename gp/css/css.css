@@ -2704,6 +2704,18 @@ table > thead > tr > th {
 
 #Settings  a {text-align: center;}
 
+._sQ0 {
+  margin: 10px 10px 10px 0;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, .1);
+  border-radius: 4px;
+  background: #fff;
+  transform: translate(0, 0);
+  height: 30px;
+  width: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (min-width: 1200px) {
 
   ._Xsa {
