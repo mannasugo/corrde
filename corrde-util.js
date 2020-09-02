@@ -5,7 +5,7 @@ const fs = require(`fs`),
   mysql = require(`mysql`),
   cookie = require(`cookie`),
   OAuthSign = require(`oauth-signature`),
-  UUID = require(`uuid`),
+  //UUID = require(`uuid`),
   
   config = require(`./corrde-config`),
   model = require(`./corrde-model`),
@@ -5252,7 +5252,7 @@ class UATCP extends UAPublic {
 
         let timeStamp = Math.floor(Date.now() / 1000);
 
-        let nonce = UUID.v1();
+        let nonce = timeStamp;
 
         let CartXMLOrder = `<?xmlversion="1.0"encoding="utf-8"?><PesapalDirectOrderInfoxmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Amount="100.00" Description="Order payment" Type="MERCHANT" Reference="12" Currency="UGX" FirstName="Foo" LastName="Bar" Email="mannasugo@gmail.com" xmlns="http://www.pesapal.com" />`
 
@@ -5320,7 +5320,7 @@ class UATCP extends UAPublic {
             pesapal_request_data: CartXML
           },
 
-          `xp7hGvRfmQAFOyYcNO9eBBna6Ps=`);console.log(signature)
+          `xp7hGvRfmQAFOyYcNO9eBBna6Ps=`);
 
         let Query = `oauth_callback=https://corrde.com&oauth_consumer_key=${encodeURIComponent(`Pj4NoJh0Onuadd6l/mI60SF7nPhyPXi8`)}&oauth_nonce=${timeStamp}&oauth_signature=${signature}&oauth_signature_method=HMAC-SHA1&oauth_timestamp=${timeStamp}&oauth_version=1.0&pesapal_request_data=${CartXML}`;
 
