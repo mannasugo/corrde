@@ -78,43 +78,10 @@
   let payChannel = e => {
 
     if (e.id === `payChannel` && JSStore.avail().payfor.length > 0) {
-    
-      let AJX = (navigator.msie && intval(navigator.version) < 10) ? window.XDomainRequest : window.XMLHttpRequest;
 
-      let Ajax = new XHR();
+      JSStore.to({logSocket_pay: new Date().valueOf()})
 
-      let req = `https://www.pesapal.com/API/PostPesapalDirectOrderV4`;
-
-      let ReqString = 
-        `oauth_consumer_key=Pj4NoJh0Onuadd6l/ml60SF7nPhyPXi8
-        `
-      
-      Ajax.open('POST', req, true);
-
-      Ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      
-      Ajax.onload = () => {
-      
-        /*if (call.status == 200) {
-          if (call.responseText.length > 0) {
-          Controller.callReturn = call.responseText; 
-        } else {
-          Controller.callReturn = null;
-        }
-        (act) ? act.onCall(): null;
-      }*/
-      };
-
-      Ajax.send(ReqString);
-
-
-          
-          /*AJXReq([
-            `https://www.pesapal.com/API/PostPesapalDirectOrderV4?oauth_consumer_key=Pj4NoJh0Onuadd6l/ml60SF7nPhyPXi8&`, 
-            `StockSet`], JSStore.avail(), (A, B) => {
-
-            if (B.exit === true) window.location = `/store/${JSStore.avail().store_log_md5}/`;
-          });*/
+      S.emit(`payArgString`, JSStore.avail());
     }
   }
  
@@ -124,7 +91,7 @@
 
     foldSettings(e);
 
-    payChannel();
+    payChannel(e);
 
   }
 
@@ -134,4 +101,22 @@
 
     payCart();
   //})
+
+  S.on(`payArgString`, Arg => {
+
+    if (JSStore.avail().logSocket_pay !== Arg.logSocket) return;
+    
+    let AJX = (navigator.msie && intval(navigator.version) < 10) ? window.XDomainRequest : window.XMLHttpRequest;
+
+    let Ajax = new AJX;
+      
+      Ajax.open('POST', Arg.post_to, true);
+
+      Ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      
+      Ajax.onload = () => {
+      };
+
+      Ajax.send(Arg.query);
+  })
 })();

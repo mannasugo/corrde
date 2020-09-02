@@ -49,7 +49,9 @@ class ModelString {
 
       let queer = [`img`, `input`, `meta`];
 
-      if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`; 
+      let XML = [`?xml`];
+
+      if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`;
     }
     return this.appendString;
   }
@@ -6345,5 +6347,24 @@ module.exports = {
                   `label`, `.@_tXv`, `&@role>radio`, [[
                     `input`, `&@for>`, `&@type>radio`, `#@payChannel`, `&@value>Pesapal`, `&@name>service`], [
               `span`, `.@_tCw _aA2 _tXx`, `&@style>margin-bottom: 2px`, `~@PesaPal`]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  },
+
+  CartXMLHead () {
+
+    return [[`?xml`, `&@version>1.0`, `&@encoding>utf-8`]];
+  },
+
+  CartXMLOrder () {
+
+    return [[
+              `PesapalDirectOrderInfo`, 
+              `&@Amount>5`, 
+              `&@Description>Demo Order`,
+              `&@Type>MERCHANT`,
+              `&@Reference>${Date.now()}`,
+              `&@FirstName>Mann`,
+              `&@LastName>Asugo`,
+              `&@Email>mannasugo@gmail.com`,
+              `&@xmlns>http://www.pesapal.com`]];
   }
 }

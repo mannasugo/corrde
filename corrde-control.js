@@ -43,7 +43,10 @@ class RouteControl {
 
           if (req.headers[`content-type`] === `image/jpeg`) Util.AJXJPEG(blob, req, res);
           
-          else Util.viaAJX(parse(endData), req, res);
+          else {
+
+            Util.viaAJX(parse(endData), req, res);
+          }
         }
 
         else if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {

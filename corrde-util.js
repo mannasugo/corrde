@@ -4,6 +4,8 @@ const fs = require(`fs`),
   crypto = require(`crypto`),
   mysql = require(`mysql`),
   cookie = require(`cookie`),
+  OAuthSign = require(`oauth-signature`),
+  UUID = require(`uuid`),
   
   config = require(`./corrde-config`),
   model = require(`./corrde-model`),
@@ -3284,6 +3286,7 @@ class UAPublic extends Auxll {
                   model.jS(Stack)]
               })];
               
+            this.app.to.setHeader("Access-Control-Allow-Origin", `*`);
             this.app.to.writeHead(200, config.reqMime.htm);
             this.app.to.end(model.call(Stack));
           //}
@@ -5233,6 +5236,95 @@ class UATCP extends UAPublic {
             tcp.emit(`rateStock`, Args);
           })
         })
+      });
+
+      tls.on(`payArgString`, Args => {
+
+        let path = `https://www.pesapal.com/API/PostPesapalDirectOrderV4`;
+
+        let t = Date();
+
+        let QueryParameters = {
+          offset: 0,
+          limit: 100,
+          filter:"status='active'"
+        };
+
+        let timeStamp = Math.floor(Date.now() / 1000);
+
+        let nonce = UUID.v1();
+
+        let CartXMLOrder = `<?xmlversion="1.0"encoding="utf-8"?><PesapalDirectOrderInfoxmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Amount="100.00" Description="Order payment" Type="MERCHANT" Reference="12" Currency="UGX" FirstName="Foo" LastName="Bar" Email="mannasugo@gmail.com" xmlns="http://www.pesapal.com" />`
+
+        let Parameters = {
+          //...QueryParameters,
+          oauth_callback: `https://corrde.com/receipt/${timeStamp}`,
+          oauth_consumer_key: `Pj4NoJh0Onuadd6l/mI60SF7nPhyPXi8`,
+          oauth_nonce: nonce,
+          oauth_signature_method : `HMAC-SHA1`,
+          oauth_timestamp: timeStamp,
+          oauth_version : `1.0`,
+          pesapal_request_data: CartXMLOrder
+        }
+
+        let CartXML = encodeURIComponent(CartXMLOrder);
+
+        let Ordered = {};
+
+        Object.keys(Parameters).sort().forEach(key => {
+
+          Ordered[key] = Parameters[key];
+        });
+
+        let encodedParameters = ``;
+
+        for (let k in Ordered) {
+
+          let encodedValue = escape(Ordered[k]);
+
+          let encodedKey = encodeURIComponent(k);
+
+          if (encodedParameters === ``) encodedParameters += encodeURIComponent(`&${encodedKey}=${encodedValue}`);
+
+          else encodedParameters += encodeURIComponent(`&${encodedKey}=${encodedValue}`)
+
+        }
+
+        let method = `POST`;
+
+        let encodedUrl = encodeURIComponent(path);
+
+        encodedParameters = encodeURIComponent(encodedParameters);
+
+        let baseString = `${method}&${encodedUrl}&${encodedParameters}`
+
+        let secretKey = `xp7hGvRfmQAFOyYcNO9eBBna6Ps=`;
+
+        let signingKey = `${secretKey}&`;
+
+        /*let signature = crypto.createHmac(`sha1`, signingKey)
+          .update(baseString).digest().toString(`base64`);
+
+        signature = encodeURIComponent(signature);console.log(signature)*/
+
+        let signature = OAuthSign.generate(
+          `POST`,
+          path,
+          {
+            oauth_callback: `https://corrde.com`,
+            oauth_consumer_key: `Pj4NoJh0Onuadd6l/mI60SF7nPhyPXi8`,
+            oauth_nonce: timeStamp,
+            oauth_signature_method : `HMAC-SHA1`,
+            oauth_timestamp: timeStamp,
+            //oauth_version : `1.0`,
+            pesapal_request_data: CartXML
+          },
+
+          `xp7hGvRfmQAFOyYcNO9eBBna6Ps=`);console.log(signature)
+
+        let Query = `oauth_callback=https://corrde.com&oauth_consumer_key=${encodeURIComponent(`Pj4NoJh0Onuadd6l/mI60SF7nPhyPXi8`)}&oauth_nonce=${timeStamp}&oauth_signature=${signature}&oauth_signature_method=HMAC-SHA1&oauth_timestamp=${timeStamp}&oauth_version=1.0&pesapal_request_data=${CartXML}`;
+
+        tcp.emit(`payArgString`, {logSocket: Args.logSocket_pay, post_to: path, query: Query})
       })
 
       /**
@@ -5681,6 +5773,7 @@ class AJXReqs extends Auxll {
 
     this.createCookie(`gps`, JSON.stringify(q.gps));
 
+    this.app.to.setHeader(`Content-type`, `application/json`)
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify({exit: true}));
   }
