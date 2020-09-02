@@ -1,0 +1,19 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+
+    path, circle, rect {
+      stroke-width: 1.5px; 
+      stroke: #4f4f4f
+    }
+
+    #c1 {stroke-width: 4px}
+
+    #c2 {stroke: none}
+  </style>
+  <!--rect x="0" y="0" width="24" height="24"></rect-->
+  <circle id="c1" fill="#fff" cx="12" cy="12" r="9"></circle>
+  <rect fill="#4f4f4f" x="10" y="0" width="4" height="23.5"></rect>
+  <rect fill="#4f4f4f" x="0" y="10" width="23.5" height="4"></rect>
+  <circle id="c2" stroke="none" fill="#fff" cx="12" cy="12" r="8"></circle>
+  <circle fill="#fff" cx="12" cy="12" r="3.5"></circle>
+  </svg>

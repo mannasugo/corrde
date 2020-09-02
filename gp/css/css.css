@@ -385,13 +385,15 @@ body {
   font-size: 11px;
 }
 
-._gxM, ._gcQ, ._x2y {
+#gM, ._gxM, ._gcQ, ._x2y {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
 }
+
+#gM {width: 100%}
 
 ._geQ {
   -webkit-box-flex: 1;
@@ -626,17 +628,21 @@ body {
 
 .CommentsGray, .HeartsColor, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
 
-.AddStoriesColor, .ArchiveGray, .closelighticonUA, .CommentsGray, .DelColor, .dissentlighticonUA, .electiconUA,
-.FilterColor, .GeoGray, .GramColor, .Graph000, .FroColor, .HeartsColor, 
+.AddStoriesColor, .ArchiveGray, .CartGray, .closelighticonUA, .CommentsGray, .cServiceGray, .DelColor, .dissentlighticonUA, .electiconUA,
+.FilterColor, .GeoGray, .GeoLightGray, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
-.StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .verifylighticonUA, ._y4x {
+.StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .vServiceGray, .verifylighticonUA, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
 }
 
 .ArchiveGray {background-image: url(/gp/p/vector/archive.svg);}
+
+.CartGray {
+  background-image: url(/gp/p/vector/cart.svg);
+}
 
 .ChevFroGrayColor, .ChevToGrayColor {
   background-repeat: no-repeat;
@@ -656,6 +662,10 @@ body {
   background-position: 0 -383px;
 }
 
+.cServiceGray {
+  background-image: url(/gp/p/vector/shipping.svg);
+}
+
 .DelColor {
   background-position: -350px -118px;
 }
@@ -669,6 +679,8 @@ body {
 }
 
 .GeoGray {background-image: url(/gp/p/vector/geo_pin_2.svg);}
+
+.GeoLightGray {background-image: url(/gp/p/vector/geo_pin_light.svg);}
 
 .GramColor {
   background-image: url(/gp/p/vector/instagram.svg);
@@ -740,6 +752,10 @@ body {
 
 .TwitterColor {
   background-image: url(/gp/p/vector/twitter.svg);
+}
+
+.vServiceGray {
+  background-image: url(/gp/p/vector/vending.svg);
 }
 
 ._tCx {
@@ -2716,6 +2732,12 @@ table > thead > tr > th {
   align-items: center;
 }
 
+._pV2::after {border-radius: 2px}
+
+._gQ {margin-bottom: 50px; text-align: center;overflow: hidden; font-size: 11px}
+
+._gQ {width: 50%; padding-right: 15px; padding-left: 15px}
+
 @media only screen and (min-width: 1200px) {
 
   ._Xsa {
@@ -3147,7 +3169,6 @@ table > thead > tr > th {
     width: 50%;
   }
 
-
 }
 
 @media (max-width: 685px) {
@@ -3264,6 +3285,10 @@ table > thead > tr > th {
   ._cX3 {max-width: 720px}
 
   ._ss7 {margin: 42px 0 0}
+
+  ._sC0 {margin: 0 0 0 52px;}
+
+  ._gQ {width: 33.3333333%}
 }
 
 @media (min-width: 992px) {
@@ -3283,6 +3308,8 @@ table > thead > tr > th {
     flex: 0 0 58.33333%;
     max-width: 58.33333%;
   }
+
+  ._gQ {width: 25%}
 }
 
 @media (max-width: 1500px) {

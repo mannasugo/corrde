@@ -1,0 +1,21 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    g {
+      fill: none;
+      stroke-width: 2px; 
+      stroke: #4f4f4f
+    }
+  </style>
+  <g>
+    <path fill="#fff" d="M75 75 75 35 25 35 25 75z"></path>
+
+    <path d="M25 35 50 50 75 35"></path>
+    <path d="M21 35 2.5 35"></path>
+    <path d="M21 55 10 55"></path>
+    <path d="M21 75 15 75"></path>
+
+    <path d="M85 15 95 15"></path>
+
+    <path d="M90 10 90 20"></path>
+  </g>
+  </svg>

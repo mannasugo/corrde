@@ -106,7 +106,14 @@ const Model = (function () {
         if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`; 
       }
 
-      return this.appendString;
+      return this.avail_esc_Chars(this.appendString);
+    },
+
+    avail_esc_Chars: (String) => {
+
+      String = String.replace(new RegExp(`u/0026`, `g`), `&`);
+
+      return String;
     },
 
     locusValidView: function (pool) {
@@ -132,6 +139,89 @@ const Model = (function () {
                       `div`, `.@_axS`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@validclose`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Return to Map`]]]]], [
                       `div`, `.@_QZg gMz`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `.@_TX_a _atX _qXS _utQ`, `&@href>javascript:;`, `~@Book`]]]]]]]]]]]]]]]]]]]]]
+    },
+
+    listCart: (Cart) => {
+
+      let ModelCart = [];
+
+      let ModelBuy = [];
+
+      if (Cart.length > 0) {
+
+        ModelBuy = [
+        `div`, `.@_yZS gxM _geQ gMX uZM`, [[
+          `div`, `.@yZS _gMX _eYG _xC3`, [[
+            `div`, `.@_eYG`, [[
+              `div`, `.@_gxM _gMX`, [[
+                `div`, `.@_gMX gcQ`, [[
+                  `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
+                    `a`, `.@_TX_a _atX _utQ _gMX`, `#@CartBuy`, `&@href>javascript:;`, `~@Checkout`]]]]]]]]]]]]]
+      }
+
+      Cart.forEach(Stock => {
+
+        ModelCart.push([
+          `div`, `.@_cX3`, `&@item>${Stock.store_md5}/${Stock.stock_md5}`, [[
+            `div`, `.@_gcQ _aA0 _aA2`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, [[
+                  `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                    `img`, `.@_aWz`, `&@src>/${Stock.stock_img}`, `&@style>height:auto`, `&@alt>thumbnail`]]]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`span`, `.@_tXx _aA2`, `~@${Stock.stock_alt}`]]], [
+                  `div`, `.@_gxM _geQ`, [[
+                `span`, `#@itemsCharge`, `.@_aA6`, `~@$ ${Stock.stock_USD} * ${Stock.items}`]]]]]]], [
+          `div`, `.@_QZg _gMz _-Zz`, [[
+            `div`, `.@_axS`, [[
+              `div`, `#@{U.sum}`, `.@_gM_a _agM _guZ`, [[`a`, `#@text`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Message`]]]]]]]]], [
+            `div`, `.@yZS gxM _geQ gMX _uZM`, [[
+              `div`, `.@yZS _gMX _eYG _xC3`, [[
+                `div`, `.@_gcQ _aXZ`, [[
+                  `div`, `.@_axS`, [[
+                    `div`, `.@_gM_a _agM _guZ`, [[
+                      `a`, `#@StockRemove`, `.@_TX_a _atX qXS _utQ`, `&@for>${Stock.store_md5}/${Stock.stock_md5}`, `&@href>javascript:;`, `~@Subtract`]]]]], [
+                  `div`, `.@_dMG _geQ _aA2 _tXx`, [[`span`, `#@items`, `.@_tXx`, `~@${Stock.items}`]]], [
+                  `div`, `.@_QZg _gMz`, [[
+                    `div`, `.@_gM_a _agM _guZ`, [[
+                      `a`, `#@StockAdd`, `.@_TX_a _atX qXS _utQ`, `&@for>${Stock.store_md5}/${Stock.stock_md5}`, `&@href>javascript:;`, `~@Add`]]]]]]]]]]]]])
+      })
+
+      return [
+        `div`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+              `div`,`.@_gxM cX3`, [[`span`, `.@_aA6 _aA2`, `~@My Cart`]]], [
+                `div`, `.@_QZg _gxM`, [[`span`, `.@_tXx _aA6`, `~@${Cart.length}`]]]]]]], [
+          `div`, ModelCart], ModelBuy]]
+    },
+
+    payCart: Cart => {
+
+      let ModelCart = [];
+
+      Cart.forEach(Stock => {
+
+        ModelCart.push([`div`, `&@style>margin:0 0 2rem;padding: 0 2rem`, [[
+          `span`, `&@style>border-top: 1px solid #e4e4e4;margin: 0 0 2rem`], [
+          `div`, `.@cX3`, `&@item>${Stock.store_md5}/${Stock.stock_md5}`, [[
+            `div`, `.@_gcQ _aA0 _aA2`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, [[
+                  `span`, `.@_cCq`, `&@style>width:40px;height:40px`, [[
+                    `img`, `.@_aWz`, `&@src>/${Stock.stock_img}`, `&@style>height:auto`, `&@alt>thumbnail`]]]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`span`, `.@_tXx _aA2`, `~@${Stock.stock_alt}`]]], [
+                  `div`, `.@_gxM _geQ`, [[
+                `span`, `#@itemsCharge`, `.@_aA6 _tXx`, `~@$${Stock.stock_USD * Stock.items}`]]]]]]], [
+          `div`, `.@_QZg _gMz _-Zz`, [[
+            `div`, `.@_axS`, [[
+              `div`, `#@{U.sum}`, `.@_gM_a _agM _guZ`, [[`a`, `#@text`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Message`]]]]]]]]]]]]])
+      })
+
+      return [
+        `div`, [[
+          `div`, `&@style>border: 1px solid #e4e4e4;border-radius:4px;width: 100%`, `.@_sZ2`, ModelCart]]]
     }
   }
   

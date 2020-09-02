@@ -58,7 +58,7 @@
     //JSStore.to({gps: [7.723, 50.533]});
 
     //JSStore.to({gps: false})
-    JSStore.to({gps: [-77.035264,38.993869]})
+    JSStore.to({gps: [-77.035264, 38.993869]})
 
     GPS(a => {
 

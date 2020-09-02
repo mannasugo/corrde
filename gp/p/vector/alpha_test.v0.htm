@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alpha Test v0</title>
+</head>
+<body>
+  <svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <style>
+
+  vg {display: none;}
+
+  @font-face {
+    font-family: 'Q1';
+    src: url('/gp/font/Questrial-Regular.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Q2';
+    src: url('/gp/font/Poppins-Regular.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Q3';
+    src: url('/gp/font/Gilroy-Light.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+  }
+
+    .tx {fill: #1185fe; font-family: Q2; font-size: 21px;letter-spacing: 0.5px; font-weight: 600}
+    .t0 {fill: #4f4f4f; font-family: Q2; font-size: 7px;letter-spacing: 0.0px; font-weight: 300}
+  </style>
+  <g fill="#fff">
+    <rect x="1" y="1" width="239" height="238" stroke="#fff"></rect>
+    <text class="tx" x="20" y="80" tex-anchor="middle">Countries with</text>
+    <text class="tx" x="20" y="100" tex-anchor="middle">users on our</text>
+    <text class="tx" x="20" y="120" tex-anchor="middle">platform</text>
+
+    <text class="t0" x="20" y="200" stroke="none">@corrdeapp</text>
+
+    <path stroke="#1185fe" d="m200 220 20 0 -2.5 -2.5"></path>
+  </g>
+</svg>
+<script type="text/javascript">
+  
+  let svg = document.querySelector(`svg`);
+
+  let plane = document.createElement(`canvas`);
+
+  plane.width = svg.getBoundingClientRect().width;
+  plane.height = svg.getBoundingClientRect().height;
+
+  document.body.appendChild(plane);
+
+  let svg_xml = (new XMLSerializer()).serializeToString(svg);
+
+  let plane2d = document.querySelector(`canvas`).getContext(`2d`);
+
+  let img = new Image();
+
+  img.onload = () => {
+
+    plane2d.drawImage(img, 0, 0)
+  };
+
+  img.src = `data:image/jpeg;base64,` + btoa(svg_xml)
+
+  document.body.appendChild(img)
+</script>
+
+</body>
+</html>

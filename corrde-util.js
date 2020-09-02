@@ -659,7 +659,8 @@ class Auxll {
       ;select * from u_md5_logs
       ;select * from stories
       ;select * from jobs
-      ;select * from support_mail`, (A, B, C) => {
+      ;select * from support_mail
+      ;select * from vServices`, (A, B, C) => {
 
         let u_md5Obj = [];
 
@@ -672,6 +673,10 @@ class Auxll {
         let jobs = [];
 
         let jobs_log = {};
+
+        let VServiceArray = [];
+
+        let VServiceMap = {};
 
         const utc_Z = new Date().valueOf();
 
@@ -703,6 +708,10 @@ class Auxll {
 
           let DEVS_MAIL = [];
 
+          let VServiceSelfArray = [];
+
+          let VServiceSelfMap = {};
+
           if (md5.ava === false) {md5[`ava`] = this.alternativeMug(md5.full); md5[`ava_alert`] = true;}
 
           else if (md5.ava !== false) md5[`ava`] = `/` + md5[`ava`];
@@ -720,6 +729,7 @@ class Auxll {
           md5[`pre_utc`] = new Date().valueOf();
           md5[`reqs_per_polyg`] = 0.0;
           md5[`reqs_per_secs`] = 0.0;
+          md5[`vServices`] = [];
 
           for (let log in B[1]) {
 
@@ -907,6 +917,21 @@ class Auxll {
             jobs_.sort((a,b) => {return b.log_secs - a.log_secs});
           }
 
+          for (let v in B[5]) {
+
+            let Retail = JSON.parse(B[5][v].json);
+
+            if (!Retail.vServiceAva) Retail[`vServiceAva`] = false;
+
+            if (!Retail.vServiceRating) Retail[`vServiceRating`] = `0.0`;
+
+            if (md5.sum === Retail.u_md5) md5[`vServices`].push(Retail);
+
+            VServiceSelfMap[Retail.log_md5] = Retail;
+
+            VServiceSelfArray.push(Retail);
+          }
+
           md5[`img`] = [{img_2d: [700, 350]}]; 
 
           if (md5[`polygs`].length > 0) {
@@ -931,6 +956,10 @@ class Auxll {
           jobs = jobs_;
 
           jobs_log = jobs_log_;
+
+          VServiceMap = VServiceSelfMap;
+
+          VServiceArray = VServiceArray;
         }
 
         call({
@@ -939,9 +968,70 @@ class Auxll {
           md5: u_md5Obj, 
           md5Key: u_md5Key, 
           polygs: polygs, 
-          polygs_log_key: polygs_key});
+          polygs_log_key: polygs_key,
+          vServiceMap: VServiceMap,
+          vServiceArray: VServiceArray});
       })
   }
+
+  Stores (call) {
+
+    new Sql().multi({},
+      `select * from vServices
+      ;select * from products`, (A, B, C) => {
+
+      let Stores = [];
+
+      let StoresMap = {};
+
+      let Stock = [];
+
+      let StockMap = {};
+
+      for (let store in B[0]) {
+
+        let Store = JSON.parse(B[0][store].json);
+
+        let StockSelf = [];
+
+        let StockSelfMap = {};
+
+        Store[`Stock`] = [];
+
+        if (!Store.vServiceAva) Store[`vServiceAva`] = false;
+
+        if (!Store.vServiceRating) Store[`vServiceRating`] = `0.0`;
+
+        for (let item in B[1]) {
+
+          let Asset = JSON.parse(B[1][item].json);
+
+          Asset[`rating`] = `0.0`;
+
+          if (Asset.store_md5 === Store.log_md5 && Asset.u_md5 === Store.u_md5) Store[`Stock`].push(Asset);
+
+          StockSelf.push(Asset);
+
+          StockSelfMap[Asset.asset_md5] = Asset;
+        }
+
+        Stores.push(Store);
+
+        StoresMap[Store.log_md5] = Store;
+
+        Stock = StockSelf;
+
+        StockMap = StockSelfMap;
+      }
+
+      call({
+        Stores: Stores, 
+        StoresMap: StoresMap,
+        Stock: Stock,
+        StockMap: StockMap})
+    })
+  }
+
 }
 
 class Sql extends Auxll {
@@ -974,12 +1064,14 @@ class Sql extends Auxll {
         ;${config.sql.jobs}
         ;${config.sql.m}
         ;${config.sql.messages}
+        ;${config.sql.products}
         ;${config.sql.stories}
         ;${config.sql.support_mail}
         ;${config.sql.traffic}
         ;${config.sql.u}
         ;${config.sql.u_md5_logs}
-        ;${config.sql.u_md5_mail}`);
+        ;${config.sql.u_md5_mail}
+        ;${config.sql.vServices}`);
       this.multiSql.end();
     });
     this.iniSql.end();
@@ -1068,6 +1160,8 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `mug`) this.selfMug();
 
+    else if (this.levelState === `pay`) this.StockPay();
+
     else if (this.levelState === `portfolio`) this.createStory();
 
     else if (this.levelState === `signup`) this.signup();
@@ -1118,6 +1212,14 @@ class UAPublic extends Auxll {
       this.logs_u_md5(A => {
 
         if (A.jobs_log[this.levelState[2]]) this.JobMap(A.jobs_log[this.levelState[2]], A);
+
+        else if (this.levelState[2] === `store`) {
+
+          if (this.levelState[3] === `set`) {
+
+            if (A.vServiceMap[this.levelState[4]]) this.StoreAddressSet(A.vServiceMap[this.levelState[4]]);
+          }
+        }
       });
     }
 
@@ -1150,6 +1252,25 @@ class UAPublic extends Auxll {
       this.logs_u_md5(A => {
 
         if (A.polygs_log_key[this.levelState[2]]) this.readStory(A.polygs_log_key[this.levelState[2]], A.md5Key);
+      });
+    }
+
+    else if (this.levelState[1] === `stock`) {
+
+      this.Stores(A => {
+
+        if (A.StockMap[this.levelState[3]]) {
+
+          if (A.StockMap[this.levelState[3]].store_md5 === this.levelState[2]) this.StoreStock(A.StockMap[this.levelState[3]]);
+        }
+      });
+    }
+
+    else if (this.levelState[1] === `store`) {
+
+      this.logs_u_md5(A => {
+
+        if (A.vServiceMap[this.levelState[2]]) this.retailStore(A.vServiceMap[this.levelState[2]]);
       });
     }
   }
@@ -2519,7 +2640,7 @@ class UAPublic extends Auxll {
     this.modelStyler(config.lvl.css, CSS => {
 
       const pool = {
-        jSStore: JSON.stringify({}),
+        jSStore: JSON.stringify({mug_u_md5: u_md5.sum}),
         title: `${u_md5.full}`,
         css: CSS,
         jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js, config.reqs.mug_js]}
@@ -2546,7 +2667,9 @@ class UAPublic extends Auxll {
                   appendModel: [
                     model.readMug(u_md5, mug, key), model.readMugTop(), model.tailFeedControls(), 
                     model.jS(pool), 
-                    model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`)]
+                    model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`), 
+                    model.loadDOMModalView([model.modalView([model.vService()])], `vService`), 
+                    model.loadDOMModalView([model.modalView([model.vServiceSet()])], `vServiceSet`)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
@@ -3000,6 +3123,171 @@ class UAPublic extends Auxll {
         }
       });
     });
+  }
+
+  retailStore (Retail) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({
+          store_log_md5: Retail.log_md5,
+          store_u_md5: Retail.u_md5}),
+          title: Retail.vServiceSet,
+          css: CSS,
+          jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.store_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        this.Stores(A => {
+
+          pool.jSStore = JSON.stringify(clientJSON); 
+                
+          pool.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.retailStore(A.StoresMap[Retail.log_md5], mug), 
+                model.retailStoreHead(Retail, mug), 
+                model.tailFeedControls(), 
+                model.loadDOMModalView([model.modalView([model.StoreAssetSet()])], `StoreAsset`), 
+                model.jS(pool)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));})
+      });
+    })
+  }
+
+  StoreAddressSet (Store) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.appRoot();
+        
+        else if (A === false) {
+
+          if (B !== Store.u_md5) this.appRoot();
+
+          else {
+
+            const Stack = {
+              jSStore: JSON.stringify({store_log_md5: Store.log_md5}),
+              title: `Set Store Address & Location`,
+              css: CSS,
+              jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.set_store_map_js]};
+
+            Stack.appendModel = [
+              model.rootView({
+                appendModel: [
+                  model.StoreAddressSetHead(), 
+                  model.StoreAddressSet(),
+                  model.tailFeedControls(), 
+                  model.jS(Stack),
+                  model.loadDOMModalView([model.modalView([model.seekModal()])], `seek-modal-ejs`)]
+              })];
+              
+            this.app.to.writeHead(200, config.reqMime.htm);
+            this.app.to.end(model.call(Stack));
+          }
+        }})});
+  }
+
+  StoreStock (Stock) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const pool = {
+        jSStore: JSON.stringify({
+          stock_alt: Stock.asset_alt,
+          stock_img: Stock.asset[0].path,
+          stock_md5: Stock.asset_md5,
+          stock_USD: Stock.asset_USD,
+          store_md5: Stock.store_md5,
+          store_u_md5: Stock.u_md5}),
+          title: Stock.asset_alt,
+          css: CSS,
+          jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.stock_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        //this.Stores(A => {
+
+          pool.jSStore = JSON.stringify(clientJSON); 
+                
+          pool.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.StoreStock(Stock, mug), 
+                model.StoreStockHead(Stock, mug), 
+                model.tailFeedControls(), 
+                model.loadDOMModalView([model.modalView([model.StoreAssetSet()])], `StoreAsset`), 
+                model.jS(pool)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(pool));//})
+      });
+    })
+  }
+
+  StockPay () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.appRoot();
+        
+        else if (A === false) {
+
+          //if (B !== Store.u_md5) this.appRoot();
+
+          //else {
+
+            const Stack = {
+              jSStore: JSON.stringify({u_md5: B}),
+              title: `Pay For Goods`,
+              css: CSS,
+              jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.pay_js]};
+
+            Stack.appendModel = [
+              model.rootView({
+                appendModel: [
+                  model.StockPayHead(), 
+                  model.StockPay(),
+                  model.tailFeedControls(), 
+                  model.jS(Stack)]
+              })];
+              
+            this.app.to.writeHead(200, config.reqMime.htm);
+            this.app.to.end(model.call(Stack));
+          //}
+        }})});
   }
 }
 
@@ -4213,7 +4501,9 @@ class AJXJPEG {
 
   AJXCalls () {
 
-    if (this.q.file === `ini_ava`) this.iniAva();
+    if (this.q.file === `asset_md5`) this.thumbnailSet();
+
+    else if (this.q.file === `ini_ava`) this.iniAva();
 
     else if (this.q.file === `cover_img`) this.addCover();
 
@@ -4347,6 +4637,27 @@ class AJXJPEG {
       fs.writeFile(u + this.q.cover_secs + `.jpg`, this.file, err => {
 
         let pool = {cover_img: u + this.q.cover_secs + `.jpg`}
+
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify(pool));
+            
+      });
+    });
+  }
+
+  thumbnailSet () {
+
+    let localSt_ = new Date().valueOf();
+
+    const u = config.write_reqs.asset_img + this.q.u_md5 + `/`;
+
+    fs.mkdir(u, {recursive: true}, (err) => {
+
+      fs.writeFile(u + this.q.asset_secs + `.jpg`, this.file, err => {
+
+        let pool = {
+          asset_img: u + this.q.asset_secs + `.jpg`,
+          ModelStockSet: model.loadDOMModalView([model.modalView([model.StockSet()])], `StockSetModal`)}
 
         this.app.to.writeHead(200, config.reqMime.json);
         this.app.to.end(JSON.stringify(pool));
@@ -4800,6 +5111,130 @@ class UATCP extends UAPublic {
         })
       })
 
+      tls.on(`create_vService`, Vals => {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        new Sql().to([`vServices`, {json: JSON.stringify({
+          log_md5: log_sum,
+          log_secs: log,
+          u_md5: Vals.u_md5,
+          vServiceAddress: false,
+          vServiceBio: false,
+          vServiceClass: false, 
+          vServiceSet: Vals.vServiceSet,})}], (A, B, C) => {
+
+          Vals[`log_md5`] = log_sum;
+
+          tcp.emit(`create_vService`, Vals);
+        })
+      })
+
+      tls.on(`list_vServices`, Vals => {
+      
+        new Auxll().logs_u_md5(A => {
+
+          tcp.emit(`list_vServices`, {
+            log_secs: Vals.log_secs,
+            model: model.loadDOMModalView([model.modalView([model.listvServices(A.md5Key[Vals.u_md5].vServices)])], `listvServicesModal`)})
+        })
+      });
+
+      tls.on(`set_store_class`, Args => {
+
+        new Sql().multi({}, 
+          `select * from vServices`, (A, B, C) => {
+
+          let Store;
+
+          for (let store in B) {
+
+            let S = JSON.parse(B[store].json);
+
+            if (S.log_md5 === Args.log_md5) Store = S;
+          }
+
+          let StoreSelf = JSON.stringify(Store);
+
+          Store.vServiceClass = Args.vServiceClass;
+
+          new Sql().multi({}, 
+            `update vServices set json = '${JSON.stringify(Store)}' where json = '${StoreSelf}'`, (A, B, C) => {
+
+              tcp.emit(`set_store_class`, Args)
+            });
+        })
+      })
+
+      tls.on(`set_store_address`, Args => {
+
+        new Sql().multi({}, 
+          `select * from vServices`, (A, B, C) => {
+
+          let Store;
+
+          for (let store in B) {
+
+            let S = JSON.parse(B[store].json);
+
+            if (S.log_md5 === Args.log_md5) Store = S;
+          }
+
+          let StoreSelf = JSON.stringify(Store);
+
+          Store.vServiceAddress = Args.vServiceAddress;
+
+          new Sql().multi({}, 
+            `update vServices set json = '${JSON.stringify(Store)}' where json = '${StoreSelf}'`, (A, B, C) => {
+
+              tcp.emit(`set_store_address`, Args)
+            });
+        })
+      })
+
+      tls.on(`rateStock`, Args => {
+
+        if (!Args.u_md5) return;
+
+        new Sql().multi({}, 
+          `select * from products`, (A, B, C) => {
+
+          let Stock;
+
+          let Ratings = [];
+
+          for (let stock in B) {
+
+            let S = JSON.parse(B[stock].json);
+
+            if (S.store_md5 === Args.store_log_md5 && S.asset_md5 === Args.stock_md5) Stock = S;
+          }
+
+          let StockSelf = JSON.stringify(Stock);
+
+          if (Stock.ratings.indexOf(Args.u_md5) > -1) {
+
+            Stock.ratings.forEach(u_md5 => {
+
+              if (u_md5 !== Args.u_md5) Ratings.push(u_md5);
+            })
+
+            Stock.ratings = Ratings;
+
+          }
+
+          else Stock.ratings.push(Args.u_md5);
+
+          new Sql().multi({}, 
+            `update products set json = '${JSON.stringify(Stock)}' where json = '${StockSelf}'`, (A, B, C) => {
+
+            tcp.emit(`rateStock`, Args);
+          })
+        })
+      })
+
       /**
       @dev
       **
@@ -5115,6 +5550,8 @@ class AJXReqs extends Auxll {
       else if (this.args.pushApps) this.pushApps(JSON.parse(this.args.pushApps));
 
       else if (this.args.pushCreds) this.pushCreds(JSON.parse(this.args.pushCreds));
+
+      else if (this.args.StockSet) this.StockSet(JSON.parse(this.args.StockSet));
     }
   }
 
@@ -5708,6 +6145,36 @@ class AJXReqs extends Auxll {
 
       else pool[err].push(`true_mail`);
     })
+  }
+
+  StockSet (args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        let Asset = [{path: args.asset_img, span: [args.x_span, args.y_span]}];
+
+        new Sql().to([`products`, {json: JSON.stringify({
+          asset: Asset,
+          asset_alt: args.asset_alt,
+          asset_md5: log_sum,
+          asset_USD: args.asset_USD,
+          log_secs: log,
+          mail: [],
+          ratings: [],
+          store_md5: args.store_log_md5,
+          text: args.asset_more,
+          u_md5: args.u_md5})}], (A, B, C) => {
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify({exit: true}));});
+      }
+    });
   }
 }
 

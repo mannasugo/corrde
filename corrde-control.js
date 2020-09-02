@@ -68,6 +68,10 @@ class RouteControl {
       Util.SublevelCalls(levels, req, res);
     }
 
+    else if (level === 5 && lastChar !== `/` || level === 6 && lastChar === `/`) {
+      Util.SublevelCalls(levels, req, res);
+    }
+
   }
 }
 
