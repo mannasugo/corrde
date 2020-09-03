@@ -2952,17 +2952,22 @@ class UAPublic extends Auxll {
           mug = B;
         }
 
+        this.Stores(A => {
+
+          let Stores = A;
+
         this.logs_u_md5(A => {
 
           pool.jSStore = JSON.stringify(clientJSON); 
                 
           pool.appendModel = [
             model.rootView({
-              appendModel: [model.appRoot(A), model.topAppRoot(A.md5Key, mug), model.jS(pool)]
+              appendModel: [model.appRoot(A, Stores), model.topAppRoot(A.md5Key, mug), model.jS(pool)]
             })];
                               
           this.app.to.writeHead(200, config.reqMime.htm);
           this.app.to.end(model.call(pool));})
+        })
       });
     })
   }

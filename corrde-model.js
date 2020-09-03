@@ -5255,53 +5255,6 @@ module.exports = {
                     `a`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@+ Assign a Task`]]]]]]]]]]];
   },
 
-  appRoot (A) {
-
-    return [
-      `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem`, [[
-        `section`, `.@_g29 _sZ2`, `&@style>line-height:1.5rem`, [[
-          `div`, `.@_cX3`, [[
-            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
-              `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
-                `h1`, `.@_tx1 _atX`, `~@The Vendors Hub ™`]]], [
-              `div`, `.@_ge0 _c3x`, [[
-                `div`, `~@Buy or Sell with our free subscription marketplace for freelance vendors and retail stores. We facilitate ecommerce for buyers and vendors' needs by streamlining the functionality overhead.`], [
-                `div`, `&@style>padding: 24px 0`, [[
-                  `div`, `.@QZg`, [[
-                    `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]]]], [
-        `section`, `.@_aGX`, [[
-          `div`, `.@_cX3`, [[
-            `div`, `.@_sZ2`, [[
-              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
-                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX vServiceGray`, `&@style>width: 100px; height:100px`]]]]], [
-              `div`, `&@style>padding: 0 24px`, [[
-                `div`, `.@_gxQ`, [[
-                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Vendor Service`], [
-                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@Our vendor services helps store owners set up shop for selling products on order. It also provides a diverse marketplace for clients and customers to find products preferable to their budget and functional convenience.`]]]]]]]]], [
-            `div`, `.@_sZ2`, [[
-              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
-                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX cServiceGray`, `&@style>width: 100px; height:100px`]]]]], [
-              `div`, `&@style>padding: 0 24px`, [[
-                `div`, `.@_gxQ`, [[
-                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Shipping & Delivery`], [
-                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@You can facilitate shipping products to your customers after checkout with our courier hailing service. Users can also earn by participating in delivery and shipping as our operational model allows third party deliveries.`]]]]]]], [
-            `div`, `.@_sZ2`, [[
-              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
-                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX GeoLightGray`, `&@style>width: 70px; height:70px`]]]]], [
-              `div`, `&@style>padding: 0 24px`, [[
-                `div`, `.@_gxQ`, [[
-                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Geolocation`], [
-                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@By using our comprehensive mapping service you can find vendors and stores near you.`], [
-                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@Set reliable business and address location with our mapping service to enhance your shipping and delivery services.`]]]]]]]]], [
-        `section`, `.@_sZ2 _g29`, [[
-          `div`, `.@_cX3 _aA0`, [[
-            `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
-              `span`, `~@Need any assistance? We now have a fully operational support team to tackle your requests or improve on your suggestions.`]]], [
-            `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
-              `div`, `.@_gM_0 _agM _guZ`, [[`a`, ``, `.@_TX_a _atX qXS _utQ _aA0`, `&@href>/support/`, `~@Request Support`]]]]]]]]]]]
-  },
-
   topAppRoot (A, B) {
 
     let to = [
@@ -6043,7 +5996,7 @@ module.exports = {
   listStoreServices () {
 
     let Services = [
-      `Body & Beauty Products`
+      `Body & Beauty Products`,
       `Clothing & Accessories`, 
       `Drinks & Beverages`, 
       `Gadgets & Electronics`, 
@@ -6317,8 +6270,8 @@ module.exports = {
               `div`, `.@_-zZx`, `@team`, [[
                 `div`, `.@_gxM _gcQ _geQ _-zZx`, [[
                   `label`, `.@_tXv`, `&@role>radio`, [[
-                    `input`, `&@for>`, `&@type>radio`, `#@payChannel`, `&@value>Pesapal`, `&@name>service`], [
-              `span`, `.@_tCw _aA2 _tXx`, `&@style>margin-bottom: 2px`, `~@PesaPal`]]]]]]]]]]]]]]]]]]]]]]]]]]]
+                    `input`, `&@for>`, `&@type>radio`, `#@payChannel`, `&@value>flutterwave`, `&@name>service`], [
+              `span`, `.@_tCw _aA2 _tXx`, `&@style>margin-bottom: 2px`, `~@flutterwave`]]]]]]]]]]]]]]]]]]]]]]]]]]]
   },
 
   CartXMLHead () {
@@ -6423,5 +6376,83 @@ module.exports = {
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Popular Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, []]]]]], [
             `div`, [[`div`, `.@_gZy`, this.Stock(RateStock)]]]]]]]]]]]
+  },
+
+  appRoot (A, Stores) {
+
+    let RateStock = [];
+
+    if (Stores.Stock.length > 0) RateStock = Stores.Stock.sort((a,b) => {return b.rating - a.rating});
+
+    return [
+      `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem`, [[
+        `section`, `.@_g29 _sZ2`, `&@style>line-height:1.5rem`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
+              `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
+                `h1`, `.@_tx1 _atX`, `~@The Vendors Hub ™`]]], [
+              `div`, `.@_ge0 _c3x`, [[
+                `div`, `~@Buy or Sell with our free subscription marketplace for freelance vendors and retail stores. We facilitate ecommerce for buyers and vendors' needs by streamlining the functionality overhead.`], [
+                `div`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@QZg`, [[
+                    `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Popular Vendors`]]], [
+                `div`, `.@_QZg _gxM _-Zz`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>/portfolio/`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.topStores(Stores)]]]]]]]]]]]]]]], [
+        `section`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Popular Products`]]], [
+                `div`, `.@_QZg _gxM cX5`, []]]]]], [
+            `div`, [[`div`, `.@_gZy`, this.Stock(RateStock)]]]]]]], [
+        `section`, `.@_aGX _-Zz`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
+                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX vServiceGray`, `&@style>width: 100px; height:100px`]]]]], [
+              `div`, `&@style>padding: 0 24px`, [[
+                `div`, `.@_gxQ`, [[
+                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Vendor Service`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@Our vendor services helps store owners set up shop for selling products on order. It also provides a diverse marketplace for clients and customers to find products preferable to their budget and functional convenience.`]]]]]]]]], [
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
+                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX cServiceGray`, `&@style>width: 100px; height:100px`]]]]], [
+              `div`, `&@style>padding: 0 24px`, [[
+                `div`, `.@_gxQ`, [[
+                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Shipping & Delivery`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@You can facilitate shipping products to your customers after checkout with our courier hailing service. Users can also earn by participating in delivery and shipping as our operational model allows third party deliveries.`]]]]]]], [
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
+                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX GeoLightGray`, `&@style>width: 70px; height:70px`]]]]], [
+              `div`, `&@style>padding: 0 24px`, [[
+                `div`, `.@_gxQ`, [[
+                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Geolocation`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@By using our comprehensive mapping service you can find vendors and stores near you.`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@Set reliable business and address location with our mapping service to enhance your shipping and delivery services.`]]]]]]]]], [
+        `section`, `.@_sZ2 _g29`, [[
+          `div`, `.@_cX3 _aA0`, [[
+            `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
+              `span`, `~@Need any assistance? We now have a fully operational support team to tackle your requests or improve on your suggestions.`]]], [
+            `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+              `div`, `.@_gM_0 _agM _guZ`, [[`a`, ``, `.@_TX_a _atX qXS _utQ _aA0`, `&@href>/support/`, `~@Request Support`]]]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Popular Portfolios`]]], [
+                `div`, `.@_QZg _gxM cX5`, [[`a`, `@_tX SellColor`, `&@href>javascript:;`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@jobs-slide`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]]]]
   }
 }
