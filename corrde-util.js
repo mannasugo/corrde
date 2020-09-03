@@ -2501,18 +2501,22 @@ class UAPublic extends Auxll {
         
         else if (A === false) {
 
-          this.logs_u_md5(A => {//console.log(model.log(A.md5Key[B].pre_mail_log_secs), A.md5Key[B].pre_devs_msg)
+          this.Stores(A => {
 
-            const pool = {
-              jSStore: JSON.stringify({u_md5: B, pre_msg: A.md5Key[B].pre_devs_msg.length}),
-              title: `The Blue Collar Hub.`,
-              css: CSS,
-              jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js]}
+            let Stores = A;
+
+            this.logs_u_md5(A => {
+
+              const pool = {
+                jSStore: JSON.stringify({u_md5: B, pre_msg: A.md5Key[B].pre_devs_msg.length}),
+                title: `The Vendor Hub.`,
+                css: CSS,
+                jsState: [`/gp/js/topojson.v1.min.js`, config.reqs._js]}
 
               pool.appendModel = [
                 model.rootView({
                   appendModel: [
-                    model.feed(A, A.md5Key[B]), 
+                    model.feed(A, A.md5Key[B], Stores), 
                     model.feedTop(A.md5Key[B]), model.tailFeedControls(), 
                     model.jS(pool), 
                     model.loadDOMModalView([model.modalView([model.avaSaveModal()])], `ava-modal-ejs`)]
@@ -2521,6 +2525,9 @@ class UAPublic extends Auxll {
                   this.app.to.writeHead(200, config.reqMime.htm);
                   this.app.to.end(model.call(pool));
             })
+
+
+          })
         }
       })
       })
@@ -2928,7 +2935,7 @@ class UAPublic extends Auxll {
 
       const pool = {
         jSStore: JSON.stringify({}),
-        title: `The Freelancing Hub ™`,
+        title: `The Vendor Hub ™`,
         css: CSS,
         jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.app_js]}
 
@@ -3134,6 +3141,7 @@ class UAPublic extends Auxll {
       const pool = {
         jSStore: JSON.stringify({
           store_log_md5: Retail.log_md5,
+          store_md5: Retail.log_md5,
           store_u_md5: Retail.u_md5}),
           title: Retail.vServiceSet,
           css: CSS,
@@ -3187,7 +3195,9 @@ class UAPublic extends Auxll {
           else {
 
             const Stack = {
-              jSStore: JSON.stringify({store_log_md5: Store.log_md5}),
+              jSStore: JSON.stringify({
+                store_log_md5: Store.log_md5,
+                store_md5: Retail.log_md5,}),
               title: `Set Store Address & Location`,
               css: CSS,
               jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.set_store_map_js]};
@@ -5212,7 +5222,7 @@ class UATCP extends UAPublic {
 
             let S = JSON.parse(B[stock].json);
 
-            if (S.store_md5 === Args.store_log_md5 && S.asset_md5 === Args.stock_md5) Stock = S;
+            if (S.store_md5 === Args.store_md5 && S.asset_md5 === Args.stock_md5) Stock = S;
           }
 
           let StockSelf = JSON.stringify(Stock);

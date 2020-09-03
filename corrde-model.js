@@ -4134,7 +4134,7 @@ module.exports = {
 
     let iconRules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
 
-    let to = [`/feed/`, `/seek/`, `/contract/`, `/mug/`, `/mail/`];
+    let to = [`/feed/`, `/seek/`, `/portfolio/`, `/mug/`, `/mail/`];
 
     let model = [];
 
@@ -4153,7 +4153,7 @@ module.exports = {
 
     let rules = [`RootGray`, `SearchColor`, `SellColor`, `MugColor`, `MailColor`];
 
-    let to = [`/feed/`, `/seek/`, `/contract/`, `/mug/`, `/mail/`];
+    let to = [`/feed/`, `/seek/`, `/portfolio/`, `/mug/`, `/mail/`];
 
     let tail = [];
 
@@ -4211,9 +4211,9 @@ module.exports = {
 
     return [`div`, `.@_cX3`, [[
       `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
-        `span`, `.@_tXx _uHg`, `~@Market Your Best Work`], [
+        `span`, `.@_tXx _uHg`, `~@Advertise Your Products & Store Portfolio`], [
         `div`, `.@_gyQ`, [[
-          `span`, `.@_Qtx`, `&@style>padding:24px 0`, `~@Post video and photo snippets of your best work to advertise your skills.`]]], [
+          `span`, `.@_Qtx`, `&@style>padding:24px 0`, `~@Post promotional photos of your best and top rated products for your portfolio identity.`]]], [
           `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
         `div`, `.@_gM_a _agM _guZ`, [[`a`, `@place-devs-ava-ejs`, `.@_TX_a _atX qXS _utQ`, `&@href>/portfolio/`, `~@Get Started`]]]]]]]]]
   },
@@ -4318,57 +4318,6 @@ module.exports = {
     })
 
     return popular_y_scroll;
-  },
-
-  feed (A, B) {
-
-    return [`main`, `&@style>overflow:hidden`, `#@gM`, [
-      this.feedControls(), [
-        `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [
-        this.md5Alerts(B), [
-        `section`, `&@style>margin-top: 70px`, `.@cX3 _ss7`, [[
-          `div`, `.@_sZ2`, [[
-            `div`, `.@_cX3`, [[
-              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Corrde Users Around You `]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@dev-active-next-ejs`, `.@_tX ProceedColor`, `&@href>/seek/`]]]]]]], [
-            `div`,`.@_gxM _geQ _gMX`, [[
-              `div`, `.@_miY _gMX`, [[
-                `div`, `#@around-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@around-rotate-ejs`, `.@_AZs _gxM`, 
-                    this.u_md5_y_scroll(A)]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
-          `div`, `.@_sZ2`, [[
-            `div`, `.@_cX3`, [[
-              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Portfolio stories`]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>/portfolio/`]]]]]]],
-                this.iniStories(), [
-            `div`,`.@_gxM _geQ _gMX`, [[
-              `div`, `.@miY _gMX`, [[
-                `div`, `#@stories-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@stories-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
-          `div`, `.@_sZ2`, [[
-            `div`, `.@_cX3`, [[
-              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Popular`]]], [
-                `div`, `.@_QZg _gxM _-Zz`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>/portfolio/`]]]]]]], [
-            `div`,`.@_gxM _geQ _gMX`, [[
-              `div`, `.@miY _gMX`, [[
-                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
-          `div`, `.@_sZ2`, [[
-            `div`, `.@_cX3`, [[
-              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Popular Jobs`]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `.@_tX ProceedColor`, `&@href>/jobs/`]]]]]]], [
-            `div`,`.@_gxM _geQ _gMX`, [[
-              `div`, `.@_miY _gMX`, [[
-                `div`, `#@jobs-slide`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate`, `.@_AZs _gxM`, 
-                    this.jobs_y_scroll(A)]]]]]]]]]]]]]]]]]]]
   }, 
 
   pfolioTop (A) {
@@ -4394,7 +4343,7 @@ module.exports = {
 
   listServices () {
 
-    let services = [ 
+    let services_ = [ 
       [`Data Science & Analytics`, [`A/B Testing`, `Data Visualization`, `Data Extraction`, `Data Mining & Extraction`, `Machine Learning`, `Quantitative Analysis`]],
       [`Design & Creative`, [`Animation`, `Art & Illustration`, `Audio Production`, `Branding & Strategy`, `Graphics & Design`, `Motion Graphics`, `Photography`, `Presentations`, `Video Production`, `Voice Talent`]],
       [`Engineering & Architecture`, [`3D Modeling & CAD`, `Architecture`, `Chemical Engineering`, `Civil & Structural Engineering`, `Contract Manufacturing`, `Electrical Engineering`, `Interior Design`, `Mechanical Engineering`, `Product Design`]],
@@ -4405,6 +4354,45 @@ module.exports = {
       [`Tourism`, [`Tour Guiding`]], 
       [`Web Mobile & Software Dev`, [`Desktop Software Development`, `Game Development`, `Mobile Development`, `Product Management`, `QA & Testing`, `Scripts & Utilities`, `Web Development`, `Web & Mobile Design`]],
       [`Writing`, [`Academic Writing Research`, `Article & Blog`, `Copyrighting`, `Creative Writing`, `Editing & Proofreading`, `Grant Writing`, `Resumes & Cover Letters`, `Technical writing`, `Web Content`]]];
+
+    let services = [
+      [
+        `Body & Beauty Products`, [
+          `Perfumes & Deodarant`,
+          `Hair Product`]],
+      [
+        `Clothing & Accessories`, [
+          `Bags`,
+          `Belts`,
+          `Dresses`,
+          `Head Wear`,
+          `Jackets`,
+          `Optics & Eyewear`,
+          `Pants`,
+          `Shirts & Tops`, 
+          `Shoes`,
+          `Wallets`]],
+      [
+        `Food & Kitchen`, [
+          `Drinks & Beverages`,
+          `Pastries`]],
+      [
+        `Furniture`, [
+          `Beds`,
+          `Chairs`,
+          `Couches`,
+          `Kitchen Furniture`,
+          `Lounge Chairs`,
+          `Office Chairs`,
+          `Tables & Nightstands`]],
+      [
+        `Gadgets & Electronics`, [
+          `Ear Wear`,
+          `Computers & Laptops`, 
+          `Phones`,
+          `UAVs`, 
+          `Watches`,
+          `Wearables`]]]
 
     let listServices = [];
 
@@ -4654,11 +4642,11 @@ module.exports = {
 
   readMugTop () {
 
-    let Settings = [`Add Portfolio Story`, `Create Vendor Service`, `Change Profile Picture`, `Edit Profile & Portfolio`, `Sign Out`]
+    let Settings = [`Add Portfolio Story`, `Create Vendor Service`, `Change Profile Picture`]//, `Edit Profile & Portfolio`, `Sign Out`]
 
-    let Attr = [`portfolio-story`, `vendor`, `self`, `edit-mug`, `signout`];
+    let Attr = [`portfolio-story`, `vendor`, `self`]//, `edit-mug`, `signout`];
 
-    let Href = [`/portfolio/`, `javascript:;`, `javascript:;`, `javascript:;`, `javascript:;`];
+    let Href = [`/portfolio/`, `javascript:;`, `javascript:;`]//, `javascript:;`, `javascript:;`];
 
     return [`nav`, `.@_uHC _t00`, [[
         `div`, `.@_xCt`], [
@@ -5275,65 +5263,43 @@ module.exports = {
           `div`, `.@_cX3`, [[
             `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
               `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
-                `h1`, `.@_tx1 _atX`, `~@The Freelancing Hub ™`]]], [
+                `h1`, `.@_tx1 _atX`, `~@The Vendors Hub ™`]]], [
               `div`, `.@_ge0 _c3x`, [[
-                `div`, `~@We are a free web application service that coordinates both freelancing and hiring services while mapping those services and activities globally.`], [
+                `div`, `~@Buy or Sell with our free subscription marketplace for freelance vendors and retail stores. We facilitate ecommerce for buyers and vendors' needs by streamlining the functionality overhead.`], [
                 `div`, `&@style>padding: 24px 0`, [[
                   `div`, `.@QZg`, [[
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]], [
-          `div`, `&@style>letter-spacing:0.75px`, `.@cx4 _gxM _geQ _gMX`, [[
-            `div`, `.@_miY _gMX`, [[
-              `div`, `#@support-slide-ejs`, `.@_AZc`, [[
-                `div`, [[
-                  `div`, `.@_AZx ava`, [[`div`, `#@support-rotate-ejs`, `.@_AZs _gxM`, [[
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Data Science & Analytics`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Design & Creative`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Engineering & Architecture`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Fashion & Beauty`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Fitness & Health`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Sales & Marketing`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Tourism`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Web Mobile & Software Dev`]]]]], [
-                    `div`, `.@xX4 _tXv _c3`, [[
-                      `label`, `.@tXv _xQz`, [[`a`, `#@subs`, `.@_tCw _aA0 _tXx`, `&@href>javascript:;`, `~@Writing`]]]]]]]]]]]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
-          `div`, `.@_sZ2`, [[
-            `div`, `.@_cX3`, [[
-              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA6`, `~@Popular Jobs`]]], [
-                `div`, `.@_QZg _gxM cX5`, [[`a`, `.@_tX ProceedColor`, `&@href>/jobs/`]]]]]]], [
-            `div`,`.@_gxM _geQ _gMX`, [[
-              `div`, `.@_miY _gMX`, [[
-                `div`, `#@jobs-slide`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate`, `.@_AZs _gxM`, 
-                    this.jobs_y_scroll(A)]]]]]]]]]]]]]]], [
+                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]]]], [
+        `section`, `.@_aGX`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
+                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX vServiceGray`, `&@style>width: 100px; height:100px`]]]]], [
+              `div`, `&@style>padding: 0 24px`, [[
+                `div`, `.@_gxQ`, [[
+                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Vendor Service`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@Our vendor services helps store owners set up shop for selling products on order. It also provides a diverse marketplace for clients and customers to find products preferable to their budget and functional convenience.`]]]]]]]]], [
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
+                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX cServiceGray`, `&@style>width: 100px; height:100px`]]]]], [
+              `div`, `&@style>padding: 0 24px`, [[
+                `div`, `.@_gxQ`, [[
+                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Shipping & Delivery`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@You can facilitate shipping products to your customers after checkout with our courier hailing service. Users can also earn by participating in delivery and shipping as our operational model allows third party deliveries.`]]]]]]], [
+            `div`, `.@_sZ2`, [[
+              `div`, `.@_gxM _gMX`, `&@style>margin: 25px 0`, [[
+                `div`, `.@_geQ _gMX`, [[`span`, `.@-_tX GeoLightGray`, `&@style>width: 70px; height:70px`]]]]], [
+              `div`, `&@style>padding: 0 24px`, [[
+                `div`, `.@_gxQ`, [[
+                  `span`, `.@_utQ`, `&@style>font-size:17px`, `~@Geolocation`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@By using our comprehensive mapping service you can find vendors and stores near you.`], [
+                  `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@Set reliable business and address location with our mapping service to enhance your shipping and delivery services.`]]]]]]]]], [
         `section`, `.@_sZ2 _g29`, [[
           `div`, `.@_cX3 _aA0`, [[
             `div`, `&@style>padding:24px 0`, `.@_gxQ`, [[
               `span`, `~@Need any assistance? We now have a fully operational support team to tackle your requests or improve on your suggestions.`]]], [
             `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
-              `div`, `.@_gM_0 _agM _guZ`, [[`a`, ``, `.@_TX_a _atX qXS _utQ _aA0`, `&@href>/support/`, `~@Request Support`]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
-          `div`, `.@_sZ2`, [[
-            `div`, `.@_cX3`, [[
-              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Popular`]]], [
-                `div`, `.@_QZg _gxM`, [[
-                  `div`, `.@_gM_a _agM _guZ`, [[
-                    `a`, ``, `.@_TX_a _atX qXS _utQ`, `&@href>/tour/`, `~@Take A Tour`]]]]]]]]], [
-            `div`,`.@_gxM _geQ _gMX`, [[
-              `div`, `.@miY _gMX`, [[
-                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.stories_y_scroll(A)]]]]]]]]]]]]]]]]]
+              `div`, `.@_gM_0 _agM _guZ`, [[`a`, ``, `.@_TX_a _atX qXS _utQ _aA0`, `&@href>/support/`, `~@Request Support`]]]]]]]]]]]
   },
 
   topAppRoot (A, B) {
@@ -6041,7 +6007,7 @@ module.exports = {
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, [ModelAddStock]]]]]], [
-            `div`, [[`div`, `.@_gZy`, this.Stock(Retail.Stock, Retail)]]]]]]]]]
+            `div`, [[`div`, `.@_gZy`, this.Stock(Retail.Stock)]]]]]]]]]
     
     if (Retail.u_md5 === u_md5 && Retail.Stock.length === 0) {
 
@@ -6076,7 +6042,13 @@ module.exports = {
 
   listStoreServices () {
 
-    let Services = [`Clothing & Apparel`, `Drinks & Beverages`, `Food & Kitchen`];
+    let Services = [
+      `Body & Beauty Products`
+      `Clothing & Accessories`, 
+      `Drinks & Beverages`, 
+      `Gadgets & Electronics`, 
+      `Food & Kitchen`, 
+      `Furniture`];
 
     let ModelServices = [];
 
@@ -6196,7 +6168,7 @@ module.exports = {
                       `textarea`, `&@style>background: none`, `#@itemDesc`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>item description`]]]]]]]]]]]]]
   },
 
-  Stock (Stock, Store) {
+  Stock (Stock) {
 
     let ModelStock = [];
 
@@ -6205,7 +6177,7 @@ module.exports = {
       ModelStock.push([
         `div`, `.@_gQ`, [[
           `div`, `&@style>margin-bottom:10px`, [[
-            `a`, `&@href>/stock/${Store.log_md5}/${Asset.asset_md5}/`, [[
+            `a`, `&@href>/stock/${Asset.store_md5}/${Asset.asset_md5}/`, [[
               `img`, `&@src>/${Asset.asset[0].path}`, `&@alt>${Asset.text}`, `&@style>max-width: 100%;height: auto; vertical-align:middle`]]]]], [
           `a`, `&@href>javascript:;`, [[`span`, `.@_aA2 _tXx`, `~@${Asset.asset_alt}`]]], [
           `div`, `&@style>margin-top:3px`, [[
@@ -6366,5 +6338,90 @@ module.exports = {
               `&@LastName>Asugo`,
               `&@Email>mannasugo@gmail.com`,
               `&@xmlns>http://www.pesapal.com`]];
+  },
+
+  topStores (Stores) {
+
+    let Retail = Stores.Stores;
+
+    Retail.sort((a,b) => {return b.vServiceRating - a.vServiceRating})
+
+    let ModelStores = [];
+
+    Retail.forEach(Store => {
+
+      let Asset = {
+        path: `gp/p/vector/polyg_mug.svg`,
+        span: [700, 350]
+      }
+
+      if (Store.Stock.length > 0) Asset = Store.Stock[Store.Stock.length - 1].asset[0];
+
+      let plane_x = ``;
+
+      let plane_y = `200`;
+
+      if (Asset.span[1] < Asset.span[0]) {
+
+        plane_y = (Asset.span[1]/(Asset.span[0]/2)*100);
+
+        if (Asset.span[1] < Asset.span[0]/2) {
+
+          plane_y = 100;
+          plane_x = `width:${((Asset.span[0]/2)/(Asset.span[1])*100)}%;`;
+        }
+      }
+
+      if (Asset.span[1] > Asset.span[0]) plane_y = Asset.span[1]/(Asset.span[0]/2)*100;
+
+      ModelStores[Retail.indexOf(Store)] = [
+        `div`, `.@_X4- _rQ0 _gC0`, [[
+          `div`, `.@_uxq`, [[`div`, `.@_`, [[`div`, `.@_`, [[`div`, `.@_gef`, [[
+            `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+              `img`, `&@style>${plane_x}height:${plane_y}%`, `.@_aMz _gVm`, 
+              `&@src>/${Asset.path}`]]], [`div`, `.@_gVm`]]]]]]], [
+            `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+              `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@eYG _gxM _geQ`, [[
+                  `p`, `.@_aA6`, `~@${Store.vServiceRating}`],
+                  this.reqs_per_polyg(Store.vServiceRating)]]]]]]]]]], [
+          `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+            `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+              `div`, `.@_eYG`, [[
+                `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${Store.vServiceSet}`, `&@href>/store/${Store.log_md5}/`]]]]], [
+              `div`, [this.listvServicesAvatr(Store)]]]]]]]]]];
+    })
+
+    return ModelStores;
+  },
+
+  feed (A, B, Stores) {
+
+    let RateStock = [];
+
+    if (Stores.Stock.length > 0) RateStock = Stores.Stock.sort((a,b) => {return b.rating - a.rating});
+
+    return [`main`, `&@style>overflow:hidden`, `#@gM`, [
+      this.feedControls(), [
+        `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [
+        this.md5Alerts(B), [
+        `section`, `&@style>margin-top: 70px`, `.@cX3 _ss7`, []], [
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Popular Vendors`]]], [
+                `div`, `.@_QZg _gxM _-Zz`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>/portfolio/`]]]]]]], [
+            `div`,`.@_gxM _geQ _gMX`, [[
+              `div`, `.@miY _gMX`, [[
+                `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.topStores(Stores)]]]]]]]]]]]]]]], [
+        `section`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Popular Products`]]], [
+                `div`, `.@_QZg _gxM cX5`, []]]]]], [
+            `div`, [[`div`, `.@_gZy`, this.Stock(RateStock)]]]]]]]]]]]
   }
 }
