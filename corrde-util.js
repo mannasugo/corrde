@@ -5,6 +5,7 @@ const fs = require(`fs`),
   mysql = require(`mysql`),
   cookie = require(`cookie`),
   OAuthSign = require(`oauth-signature`),
+  UrlCall = require(`request`),
   //UUID = require(`uuid`),
   
   config = require(`./corrde-config`),
@@ -980,11 +981,21 @@ class Auxll {
 
     new Sql().multi({},
       `select * from vServices
-      ;select * from products`, (A, B, C) => {
+      ;select * from products
+      ;select * from payments
+      ;select * from transfers`, (A, B, C) => {
 
       let Stores = [];
 
       let StoresMap = {};
+
+      let Sales = [];
+
+      let SalesMap = {};
+
+      let Sent = [];
+
+      let SentMap = {};
 
       let Stock = [];
 
@@ -994,9 +1005,27 @@ class Auxll {
 
         let Store = JSON.parse(B[0][store].json);
 
+        let SalesSelf = [];
+
+        let SalesSelfMap = {};
+
+        let SentSelf = [];
+
+        let SentSelfMap = {};
+
         let StockSelf = [];
 
         let StockSelfMap = {};
+
+        let floatSales = 0;
+
+        let floatSent = 0;
+
+        Store[`Balance`] = `0.0`;
+
+        Store[`Sales`] = [];
+
+        Store[`Sent`] = [];
 
         Store[`Stock`] = [];
 
@@ -1017,9 +1046,51 @@ class Auxll {
           StockSelfMap[Asset.asset_md5] = Asset;
         }
 
+        for (let sale in B[2]) {
+
+          let Sale = JSON.parse(B[2][sale].json);
+
+          if (Sale.sale_to = `store_md5` && Sale.store_md5 === Store.log_md5) {
+
+            floatSales += Sale.sale;
+
+            Store[`Sales`].push(Sale);
+          }
+
+          SalesSelf.push(Sale);
+
+          SalesSelfMap[Sale.sale_md5] = Sale;
+        }
+
+        for (let remit in B[3]) {
+
+          let Remit = JSON.parse(B[3][remit].json);
+
+          if (Remit.remit_to = `store_md5` && Remit.store_md5 === Store.log_md5) {
+
+            floatSent += Remit.sale;
+
+            Store[`Sent`].push(Remit);
+          }
+
+          SentSelf.push(Remit);
+
+          SentSelfMap[Remit.remit_md5] = Remit;
+        }
+
+        Store[`Balance`] = floatSales - floatSent;
+
         Stores.push(Store);
 
         StoresMap[Store.log_md5] = Store;
+
+        Sales = SalesSelf;
+
+        SalesMap = SalesSelfMap;
+
+        Sent = SentSelf;
+
+        SentMap = SentSelfMap;
 
         Stock = StockSelf;
 
@@ -1030,7 +1101,11 @@ class Auxll {
         Stores: Stores, 
         StoresMap: StoresMap,
         Stock: Stock,
-        StockMap: StockMap})
+        StockMap: StockMap,
+        Sales: Sales,
+        SalesMap: SalesMap,
+        Sent: Sent,
+        Sent: SentMap})
     })
   }
 
@@ -1066,10 +1141,12 @@ class Sql extends Auxll {
         ;${config.sql.jobs}
         ;${config.sql.m}
         ;${config.sql.messages}
+        ;${config.sql.payments}
         ;${config.sql.products}
         ;${config.sql.stories}
         ;${config.sql.support_mail}
         ;${config.sql.traffic}
+        ;${config.sql.transfers}
         ;${config.sql.u}
         ;${config.sql.u_md5_logs}
         ;${config.sql.u_md5_mail}
@@ -1263,17 +1340,26 @@ class UAPublic extends Auxll {
 
         if (A.StockMap[this.levelState[3]]) {
 
-          if (A.StockMap[this.levelState[3]].store_md5 === this.levelState[2]) this.StoreStock(A.StockMap[this.levelState[3]]);
+          if (A.StockMap[this.levelState[3]].store_md5 === this.levelState[2]) {
+
+            this.StoreStock(A.StockMap[this.levelState[3]], A);
+          }
         }
       });
     }
 
     else if (this.levelState[1] === `store`) {
 
-      this.logs_u_md5(A => {
+      this.Stores(A => {
 
-        if (A.vServiceMap[this.levelState[2]]) this.retailStore(A.vServiceMap[this.levelState[2]]);
-      });
+        if (this.levelState[2] === `billings`) {
+
+          if (A.StoresMap[this.levelState[3]]) this.StoreBillings(A.StoresMap[this.levelState[3]]);
+        }
+
+        else if (A.StoresMap[this.levelState[2]]) this.retailStore(A.StoresMap[this.levelState[2]]);
+
+      })
     }
   }
 
@@ -3202,7 +3288,7 @@ class UAPublic extends Auxll {
             const Stack = {
               jSStore: JSON.stringify({
                 store_log_md5: Store.log_md5,
-                store_md5: Retail.log_md5,}),
+                store_md5: Store.log_md5,}),
               title: `Set Store Address & Location`,
               css: CSS,
               jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.set_store_map_js]};
@@ -3223,7 +3309,7 @@ class UAPublic extends Auxll {
         }})});
   }
 
-  StoreStock (Stock) {
+  StoreStock (Stock, Stores) {
 
     this.modelStyler(config.lvl.css, CSS => {
 
@@ -3259,7 +3345,7 @@ class UAPublic extends Auxll {
           pool.appendModel = [
             model.rootView({
               appendModel: [
-                model.StoreStock(Stock, mug), 
+                model.StoreStock(Stock, mug, Stores), 
                 model.StoreStockHead(Stock, mug), 
                 model.tailFeedControls(), 
                 model.loadDOMModalView([model.modalView([model.StoreAssetSet()])], `StoreAsset`), 
@@ -3299,12 +3385,49 @@ class UAPublic extends Auxll {
                   model.StockPay(),
                   model.tailFeedControls(), 
                   model.jS(Stack)]
-              })];
+              })];//`Authorization`, `Bearer FLWSECK-9da614832e3764fcdfa1eb9914f09d88-X`
               
             this.app.to.setHeader("Access-Control-Allow-Origin", `*`);
             this.app.to.writeHead(200, config.reqMime.htm);
             this.app.to.end(model.call(Stack));
           //}
+        }})});
+  }
+
+  StoreBillings (Store) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        if (A === true) this.appRoot();
+        
+        else if (A === false) {
+
+          if (B !== Store.u_md5) this.appRoot();
+
+          else {
+
+            const Stack = {
+              jSStore: JSON.stringify({
+                store_log_md5: Store.log_md5,
+                store_md5: Store.log_md5,}),
+                title: `Store Billings & Payments`,
+                css: CSS,
+                jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.store_billings_js]};
+
+            Stack.appendModel = [
+              model.rootView({
+                appendModel: [
+                  model.StoreBillingsHead(), 
+                  model.StoreBillings(Store),
+                  model.tailFeedControls(), 
+                  model.jS(Stack)]
+              })];
+              
+            this.app.to.writeHead(200, config.reqMime.htm);
+            this.app.to.end(model.call(Stack));
+          }
         }})});
   }
 }
@@ -5255,7 +5378,7 @@ class UATCP extends UAPublic {
 
       tls.on(`payArgString`, Args => {
 
-        let path = `https://www.pesapal.com/API/PostPesapalDirectOrderV4`;
+        /*let path = `https://www.pesapal.com/API/PostPesapalDirectOrderV4`;
 
         let t = Date();
 
@@ -5320,7 +5443,7 @@ class UATCP extends UAPublic {
         /*let signature = crypto.createHmac(`sha1`, signingKey)
           .update(baseString).digest().toString(`base64`);
 
-        signature = encodeURIComponent(signature);console.log(signature)*/
+        signature = encodeURIComponent(signature);console.log(signature)
 
         let signature = OAuthSign.generate(
           `POST`,
@@ -5339,7 +5462,46 @@ class UATCP extends UAPublic {
 
         let Query = `oauth_callback=https://corrde.com&oauth_consumer_key=${encodeURIComponent(`Pj4NoJh0Onuadd6l/mI60SF7nPhyPXi8`)}&oauth_nonce=${timeStamp}&oauth_signature=${signature}&oauth_signature_method=HMAC-SHA1&oauth_timestamp=${timeStamp}&oauth_version=1.0&pesapal_request_data=${CartXML}`;
 
-        tcp.emit(`payArgString`, {logSocket: Args.logSocket_pay, post_to: path, query: Query})
+*/
+        let timeStamp = Date.now();
+
+        /*let Parameters = {
+            'method': 'GET',
+            'url': 'https://api.flutterwave.com/v3/transactions/123456/verify',
+            'headers': {
+              'Content-Type': 'application/json',
+    
+              'Authorization': 'Bearer FLWSECK-9da614832e3764fcdfa1eb9914f09d88-X'
+  }};*/
+        
+        let Parameters = {
+          method: `POST`,
+          url: 'https://api.flutterwave.com/v3/payments',
+          headers: {
+            'Authorization': 'Bearer FLWSECK-9da614832e3764fcdfa1eb9914f09d88-X'
+          },
+          form: {
+            tx_ref: timeStamp,
+            amount: 100,
+            currency: `KES`,
+            redirect_url: `https://corrde.com/receipt/${timeStamp}`,
+            payment_options: `mpesa`,
+            meta: {
+              consumer_id: Args.u_md5,
+            },
+            customer: {
+              email: `mannasugo@gmail.com`,
+              name: `Mann Asugo`
+            }
+          }
+        };
+
+        UrlCall(Parameters, (error, response) => { 
+            if (error) throw new Error(error);
+            console.log(response.body);
+        });
+        
+        //tcp.emit(`payArgString`, {logSocket: Args.logSocket_pay, post_to: path, query: Query})
       })
 
       /**

@@ -5267,7 +5267,7 @@ module.exports = {
 
     let a = [`/feed/`, `/mug/`];
 
-    if (B !== false) {
+    if (B !== false) {console.log(`#1234`)
  
       to = [
         `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
@@ -5919,6 +5919,8 @@ module.exports = {
           `a`, `.@_TX_a _atX _utQ`, `&@href>/maps/store/set/${Store.log_md5}/`, `~@Set Address`]]]
     }
 
+    let Settings = [[`Billing & Payments`, `Buy Merchandise`], [`toBilling`, `toStore`], [`/store/billings/${Store.log_md5}`, `/store/`]]
+
     return [`nav`, `.@_t00`, 
       `.@_uHC`, [[
         `div`, `.@_xCt`], [
@@ -5929,7 +5931,8 @@ module.exports = {
                 `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
                 `span`, `.@_tCc _pV4`, `~@vendor`]]], [
               `div`, `.@_QZg _gxM _aA2`, [ModelStoreAddress]],
-              this.listStoreServices()]]]]]]]];
+              this.listStoreServices(),
+              this.inModal({id: `StoreSettings`, in: this.aPoolModal(Settings[0], Settings[1], Settings[2])})]]]]]]]];
   },
 
   retailStore (Retail, u_md5) {
@@ -5946,6 +5949,11 @@ module.exports = {
 
       ModelRetailClassSet = [`div`, `.@_gM_a _agM _guZ`, [[`a`, `#@listRetailServices`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Choose Service`]]]
 
+    } 
+
+    else if (Retail.vServiceClass !== false && Retail.u_md5 === u_md5) {
+
+      ModelRetailClassSet = [`div`, `.@_gM_a _agM _guZ`, [[`a`, `#@StoreSettingsSet`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Settings`]]];
     }
 
     if (Retail.vServiceClass !== false) ModelRetailClass = [`span`, `.@_aA6`, `~@${Retail.vServiceClass}`];
@@ -6171,7 +6179,9 @@ module.exports = {
                 `div`, `#@listCart`, `.@_aXY`, []]]]]]]]]]]];
   },
 
-  StoreStock (Stock, u_md5) {
+  StoreStock (Stock, u_md5, Stores) {
+
+    let Store = Stores.StoresMap[Stock.store_md5];
 
     let ModelHearts = [`a`, `#@rateStock`, `.@-_tX HeartsGray`, `&@href>javascript:;`];
 
@@ -6197,6 +6207,11 @@ module.exports = {
           `section`, `&@style>margin: 70px 0 70px`, `.@_ss7`, [[
             `div`, [[
               `div`, `.@_aGX`, [[
+                `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+                  `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                    `div`, [this.listvServicesAvatr(Store)]], [
+                    `div`, `.@_eYG`, [[
+                      `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${Store.vServiceSet}`, `&@href>/store/${Store.log_md5}/`]]]]]]]]]]], [
                 `div`, `.@_uxq`, [[
                   `div`, `.@_`, [[
                     `div`, `.@_`, [[
@@ -6454,5 +6469,54 @@ module.exports = {
               `div`, `.@miY _gMX`, [[
                 `div`, `#@jobs-slide`, `.@_AZc`, [[
                   `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@jobs-rotate`, `.@_AZs _gxM`, this.popular_y_scroll(A)]]]]]]]]]]]]]]]]]
+  }, 
+
+  StoreBillingsHead () {
+
+    return [`nav`, `.@_t00`, 
+      `.@_uHC`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
+                `span`, `.@_tCc _pV4`, `~@billing`]]], [
+              `div`, `.@_QZg _gxM _aA2`, [`ModelStoreAddress`]]]]]]]]]];
+  },
+
+  StoreBillings (Store) {
+
+    return [`main`, `&@style>overflow:hidden`, `#@gM`, [
+      this.feedControls(), [
+        `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:f3f4f7`, [[
+          `section`, `&@style>margin: 70px 0 70px`, `.@_ss7`, [[
+            `div`, [[
+              `div`, `.@_aGX`, [[
+                `div`, `.@_cX3`, [[
+                  `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                    `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@_aA2`, `~@Balance`]]], [
+                  `div`, `.@_QZg _gxM`, [[`span`, `.@_aA6 _tXx`, `~@$ ${Store.Balance}`]]]]]]], [
+                `div`, [[
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_cX3`, [[
+                      `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                        `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Choose Withdrawal Method`]]]]]]]]], [
+                  `div`, `&@style>border: 1px solid #e4e4e4;border-radius:4px;width: 100%`, `.@_sZ2`, [[
+                    `div`, `&@style>margin:0 0 2rem;padding: 0 2rem`, [[
+          `div`, `.@_yZS gxM _geQ gMX _xC3`, `&@style>margin: 10px 0 0`, [[
+            `div`, `.@_yZS _gMX eYG uZM`, [[
+              `div`, `.@_UFA cS2 _gMX`, [[
+                `input`, `#@sale`, `.@_RRD Ccs _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin-bottom:2.7rem`, `&@placeholder>amount to withdraw in dollars`]]]]]]], [
+                      `span`, `&@style>border-top: 1px solid #e4e4e4;margin: 0 0 2rem`], [
+                      `div`, `.@cX3`, [[
+                        `div`, `.@gcQ _aA0 _aA2`, [[
+                          `div`, `.@_-zZx`, `@team`, [[
+                            `div`, `.@_gxM _gcQ _geQ _-zZx`, [[
+                              `label`, `.@_tXv`, `&@role>radio`, [[
+                                `input`, `&@for>`, `&@type>radio`, `#@payChannel`, `&@value>MPESA`, `&@name>service`], [
+                                `span`, `.@_tCw _aA2 _tXx`, `&@style>margin-bottom: 2px`, `~@MPESA`]]]]]]]]]]]]]]]]]]]]]]]]]]]
   }
+
+
 }

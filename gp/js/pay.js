@@ -79,9 +79,42 @@
 
     if (e.id === `payChannel` && JSStore.avail().payfor.length > 0) {
 
-      JSStore.to({logSocket_pay: new Date().valueOf()})
+      //JSStore.to({logSocket_pay: new Date().valueOf()})
 
       S.emit(`payArgString`, JSStore.avail());
+    
+      /*let AJX = (navigator.msie && intval(navigator.version) < 10) ? window.XDomainRequest : window.XMLHttpRequest;
+
+      let Ajax = new AJX;
+      
+      Ajax.open('POST', `https://api.flutterwave.com/v3/payments`, true);
+
+      //Ajax.setRequestHeader(`Authorization`, `Bearer FLWSECK-9da614832e3764fcdfa1eb9914f09d88-X`);
+
+      //Ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      
+      Ajax.onload = () => {
+      
+      };
+
+      let RequestObject = {
+        tx_ref: Date.now(),
+        amount: 100,
+        currency: `USD`,
+        redirect_url: `https://corrde.com/pay`,
+        payment_options: `account, card, credit, mpesa, banktransfer`,
+        meta: {
+          consumer_id: JSStore.avail().u_md5,
+        },
+        customer: {
+          email: `mannasugo@gmail.com`,
+          name: `Mann Asugo`
+        }
+      }
+
+      Ajax.send(JSON.stringify({RequestObject}));*/
+
+
     }
   }
  

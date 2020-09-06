@@ -286,6 +286,19 @@
       }
     }
   }
+
+  let StoreSettingsSet = e => {
+
+    if (e.id === `StoreSettingsSet`) {
+
+      let to = document.querySelector(`#StoreSettings`);
+
+      if (to.className === `_aAY _-Zz`) to.className = `_aAY -Zz`;
+
+      else if (to.className === `_aAY -Zz`) to.className = `_aAY _-Zz`;
+
+    }
+  }
  
   let e0 = e => {
 
@@ -304,6 +317,8 @@
     StockSetFold(e);
 
     StockSet(e);
+
+    StoreSettingsSet(e);
   }
 
   document.addEventListener(`click`, e0);
