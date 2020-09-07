@@ -4705,10 +4705,10 @@ module.exports = {
                     `div`, `.@_QxM`, [[`span`, `.@_tXx aA2`, `~@${A.full}`]]], [
                     `div`, `.@_gxM _geQ _gMX`, [[`div`, `.@_eYG`], Settings]]]]]]]], [
               `div`, `.@azX- _gMX gp0 _sZ2`, `&@style>margin-top: 20px`, [[
-                `div`, `.@_-Zz _gxM _gMX`, [[
+                `div`, `.@-Zz _gxM _gMX`, [[
                   `div`, `.@_gMX gcQ`, [[
                     `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@mug-ejs`, `&@href>javascript:;`, `~@Show Portfolio`]]]]]]]]]]], [
+                      `a`, `.@_TX_a _atX _utQ _gMX`, `#@vendor`, `&@href>javascript:;`, `~@Create Vendor Service`]]]]]]]]]]], [
           `section`, `.@_gvQ _pQ0`, `&@style>margin: 0 0 10px`, [[
             `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
                 `div`, `.@yZS _gMX _eYG _xC3`, [[
@@ -5842,7 +5842,7 @@ module.exports = {
 
       ModelvServices[A.indexOf(Retail)] = [
         `div`, `.@_aS0`, [[
-          `span`, `.@_cCq`, `&@style>width:28px;height:28px`, [ModelAva]]]]
+          `a`, `.@_cCq`, `&@style>width:28px;height:28px`, `&@href>/store/${Retail.log_md5}/`, [ModelAva]]]]
     })
 
     return [[`div`, `.@_gxM`, ModelvServices], [`div`, `.@_QZg`, [[`a`, `#@listvServices`, `.@_aA6 _tXx`, `&@href>javascript:;`, `~@${A.length} Vendor Services`]]]]
@@ -5862,7 +5862,7 @@ module.exports = {
 
     else if (Retail.vServiceAva !== false) ModelAva = [`img`, `.@_aWz`, `&@src>${Retail.ava}`, `&@title>${Retail.vServiceSet}`, `&@alt>avatar`];
 
-    return [`span`, `.@_cCq`, `&@style>width:40px;height:40px`, [ModelAva]]
+    return [`a`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>/store/${Retail.log_md5}/`, [ModelAva]]
 
   },
 
@@ -6142,8 +6142,12 @@ module.exports = {
           `div`, `&@style>margin-bottom:10px`, [[
             `a`, `&@href>/stock/${Asset.store_md5}/${Asset.asset_md5}/`, [[
               `img`, `&@src>/${Asset.asset[0].path}`, `&@alt>${Asset.text}`, `&@style>max-width: 100%;height: auto; vertical-align:middle`]]]]], [
-          `a`, `&@href>javascript:;`, [[`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
-          `div`, `&@style>margin-top:3px; font-size: 14px`, [[
+          `a`, `&@href>javascript:;`, [[
+            `div`, `#@mini`, `.@_gxM _geQ`, `&@style>justify-content:center`, [[
+              `span`, `.@_aA6 _tXx axS`, `~@${Asset.rating}`], 
+                          this.reqs_per_polyg(Asset.rating), [
+                          `span`, `.@_axS _aA6 _a2X`, `~@ ${Asset.mail.length} reviews`]]], [`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
+          `div`, `&@style>margin-top:3px; font-size: 13px`, [[
             `div`, `.@_gxM`, `&@style>justify-content:center`, [[
               `span`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
               `span`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${Asset.asset_USD}`]]]]]]])
@@ -6500,7 +6504,7 @@ module.exports = {
               `div`, `.@_aGX`, [[
                 `div`, `.@_cX3`, [[
                   `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                    `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@_aA2`, `~@Balance`]]], [
+                    `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@_aA2`, `~@Store Balance`]]], [
                   `div`, `.@_QZg _gxM`, [[`span`, `.@_aA6 _tXx`, `~@$ ${Store.Balance}`]]]]]]], [
                 `div`, [[
                   `div`, `.@_sZ2`, [[
