@@ -6098,7 +6098,7 @@ module.exports = {
         `div`, `.@_aXY _XsQ _aA2`, [[
             `div`, `.@_sZ2`, [[
               `div`, `.@_4sC _dMG _sZ2`, [[
-                `label`, `&@style>width:183px;height:244px;border-radius: 2px`, `.@_cCq _pV2 _gS6`, `#@thumbnailSet`, `&@for>file`, `config.to_ava`, [[
+                `label`, `&@style>width:183px;height:244px;border-radius: 2px`, `.@_cCq _pV2 _gS6`, `#@thumbnailSet`, `&@for>file`, [[
                   `img`, `#@thumbnailSet`, `.@_aWz`]]], [
                 `p`, `.@_axX`, `~@Click on gray space to upload or change photo`], 
                 this.inputFile()]]]]]]]]
@@ -6131,6 +6131,8 @@ module.exports = {
 
   Stock (Stock) {
 
+    Stock.sort((a, b) => {return b.log_secs - a.log_secs})
+
     let ModelStock = [];
 
     Stock.forEach(Asset => {
@@ -6140,8 +6142,8 @@ module.exports = {
           `div`, `&@style>margin-bottom:10px`, [[
             `a`, `&@href>/stock/${Asset.store_md5}/${Asset.asset_md5}/`, [[
               `img`, `&@src>/${Asset.asset[0].path}`, `&@alt>${Asset.text}`, `&@style>max-width: 100%;height: auto; vertical-align:middle`]]]]], [
-          `a`, `&@href>javascript:;`, [[`span`, `.@_aA2 _tXx`, `~@${Asset.asset_alt}`]]], [
-          `div`, `&@style>margin-top:3px`, [[
+          `a`, `&@href>javascript:;`, [[`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
+          `div`, `&@style>margin-top:3px; font-size: 14px`, [[
             `div`, `.@_gxM`, `&@style>justify-content:center`, [[
               `span`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
               `span`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${Asset.asset_USD}`]]]]]]])
@@ -6211,7 +6213,10 @@ module.exports = {
                   `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
                     `div`, [this.listvServicesAvatr(Store)]], [
                     `div`, `.@_eYG`, [[
-                      `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${Store.vServiceSet}`, `&@href>/store/${Store.log_md5}/`]]]]]]]]]]], [
+                      `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${Store.vServiceSet}`, `&@href>/store/${Store.log_md5}/`]]], [
+                        `div`, `#@mini`, `.@_gxM _geQ`, [[
+                          `span`, `.@_aA6 _tXx axS`, `~@${Store.vServiceRating}`], 
+                          this.reqs_per_polyg(Store.vServiceRating)]]]]]]]]]], [
                 `div`, `.@_uxq`, [[
                   `div`, `.@_`, [[
                     `div`, `.@_`, [[
@@ -6356,7 +6361,7 @@ module.exports = {
           `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
             `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
               `div`, `.@_eYG`, [[
-                `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${Store.vServiceSet}`, `&@href>/store/${Store.log_md5}/`]]]]], [
+                `div`, `.@_QxM`, [[`a`, `.@_tXx aA2`, `~@${Store.vServiceSet}`, `&@href>/store/${Store.log_md5}/`]]]]], [
               `div`, [this.listvServicesAvatr(Store)]]]]]]]]]];
     })
 
@@ -6406,7 +6411,7 @@ module.exports = {
             `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
               `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
                 `h1`, `.@_tx1 _atX`, `~@The Vendors Hub ™`]]], [
-              `div`, `.@_ge0 _c3x`, [[
+              `div`, `.@_ge0 _c3x _Qtx`, [[
                 `div`, `~@Buy or Sell with our free subscription marketplace for freelance vendors and retail stores. We facilitate ecommerce for buyers and vendors' needs by streamlining the functionality overhead.`], [
                 `div`, `&@style>padding: 24px 0`, [[
                   `div`, `.@QZg`, [[

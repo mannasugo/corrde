@@ -1021,7 +1021,13 @@ class Auxll {
 
         let floatSent = 0;
 
+        let intRatings = 0;
+
+        let floatStoresRatings = 0;
+
         Store[`Balance`] = `0.0`;
+
+        Store[`RateSum`] = 0;
 
         Store[`Sales`] = [];
 
@@ -1031,7 +1037,7 @@ class Auxll {
 
         if (!Store.vServiceAva) Store[`vServiceAva`] = false;
 
-        if (!Store.vServiceRating) Store[`vServiceRating`] = `0.0`;
+        Store[`vServiceRating`] = `0.0`;
 
         for (let item in B[1]) {
 
@@ -1041,9 +1047,23 @@ class Auxll {
 
           if (Asset.store_md5 === Store.log_md5 && Asset.u_md5 === Store.u_md5) Store[`Stock`].push(Asset);
 
+          intRatings += Asset.ratings.length;
+
           StockSelf.push(Asset);
 
           StockSelfMap[Asset.asset_md5] = Asset;
+        }
+
+        for (let item in StockSelf) {
+
+          let Self = StockSelf[item];
+
+          if (intRatings > 0) {
+
+            Self.rating = ((4.999*Self.ratings.length)/intRatings).toFixed(2);
+
+            if (Self.store_md5 === Store.log_md5 && Self.u_md5 === Store.u_md5) Store[`RateSum`] += parseFloat(Self.rating)
+          }
         }
 
         for (let sale in B[2]) {
@@ -1079,6 +1099,8 @@ class Auxll {
         }
 
         Store[`Balance`] = floatSales - floatSent;
+
+        if (intRatings > 0) Store[`vServiceRating`] = (Store.RateSum/Store.Stock.length).toFixed(2);
 
         Stores.push(Store);
 
