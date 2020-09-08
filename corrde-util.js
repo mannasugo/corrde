@@ -2580,24 +2580,27 @@ class UAPublic extends Auxll {
 
     this.modelStyler(config.lvl.css, CSS => {
 
-      this.logs_u_md5(A => {
+      this.Stores(Stores => {
 
-        const pool = {
-        jSStore: JSON.stringify({}),
-        title: `Take A Tour`,
-                css: CSS,
-                jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.devs_js]}
+        this.logs_u_md5(A => {
+
+          const pool = {
+            jSStore: JSON.stringify({}),
+            title: `Take A Tour`,
+            css: CSS,
+            jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.app_js]}
 
               pool.appendModel = [
                 model.rootView({
-                  appendModel: [
-                    model.topTour(), model.tour(A), 
-                    model.jS(pool)]
+                  appendModel: [model.appRoot(A, Stores), model.topAppRoot(A.md5Key, false), model.jS(pool)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
                   this.app.to.end(model.call(pool));
             })
+      })
+
+
       })
   }
 
@@ -2607,7 +2610,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
@@ -2649,7 +2652,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
@@ -2803,7 +2806,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
@@ -2819,7 +2822,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
@@ -3133,7 +3136,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
@@ -3301,11 +3304,11 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
-          if (B !== Store.u_md5) this.appRoot();
+          if (B !== Store.u_md5) this.tour();
 
           else {
 
@@ -3388,7 +3391,7 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
@@ -3424,11 +3427,11 @@ class UAPublic extends Auxll {
 
       this.getCookie(`u`, (A, B) => {
 
-        if (A === true) this.appRoot();
+        if (A === true) this.tour();
         
         else if (A === false) {
 
-          if (B !== Store.u_md5) this.appRoot();
+          if (B !== Store.u_md5) this.tour();
 
           else {
 
