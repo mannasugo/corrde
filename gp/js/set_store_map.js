@@ -70,6 +70,8 @@
 
   let SVGScale = false;
 
+  let Custom = [];
+
   let loadSeek = () => {
 
     let PQ;
@@ -103,7 +105,9 @@
       let map = svg.append(`g`)
         .attr(`class`, `boundary`);
 
-      let G0 = topojson.feature(json, json.objects[`custom.geo`])
+      let G0 = topojson.feature(json, json.objects[`custom.geo`]);
+
+      Custom = G0;
 
       let ADM0 = [];
 
@@ -329,9 +333,19 @@
 
       if (e.clientX > 60 && e.clientY > 100) {
 
-        JSStore.to({StoreAddressSet: SVGScale.invert([e.clientX, e.clientY + 55])})
+        let Feat = {};
 
-        document.querySelector(`#coord`).innerHTML = SVGScale.invert([e.clientX, e.clientY + 55]).toString();
+        Custom.features.forEach(Feature => {
+
+          if (d3.geoContains(Feature, SVGScale.invert([e.clientX, e.clientY + 55]))) {
+
+            Feat = {adm0_a3: Feature.properties.adm0_a3, long_a3: Feature.properties.name_long, points: [SVGScale.invert([e.clientX, e.clientY + 55])]};
+          }
+      });
+
+        JSStore.to({StockSite: Feat})
+
+        document.querySelector(`#coord`).innerHTML = Feat.long_a3 + `:` + Feat.points[0];
 
         document.querySelector(`#storeAddressPlace`).className = `_aAY -Zz`;
 
@@ -355,7 +369,7 @@
       S.emit(`set_store_address`, {
         log_md5: JSStore.avail().store_log_md5,
         StoreAddressSet_log_secs: JSStore.avail().StoreAddressSet_log_secs, 
-        vServiceAddress: JSStore.avail().StoreAddressSet});
+        vServiceAddress: JSStore.avail().StockSite});
 
       let to = document.querySelector(`#storeAddressPlace`);
 

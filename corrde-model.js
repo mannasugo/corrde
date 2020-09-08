@@ -5909,17 +5909,20 @@ module.exports = {
 
     if (Store.vServiceAddress !== false) {
 
-      ModelStoreAddress = [`span`, [[`a`, `@listvServicesFold`, `.@-_tX GeoGray`, `&@href>/maps/store/${Store.log_md5}/`]]]
+      ModelStoreAddress = [`span`, [[`a`, `#@StockSites`, `.@-_tX GeoGray`, /*`&@href>/maps/store/${Store.log_md5}/`*/ `&@href>javascript:;`,]]]
     } 
 
     else if (Store.vServiceAddress === false && Store.u_md5 === u_md5) {
 
       ModelStoreAddress = [
         `div`, `.@_gM_a _agM _guZ`, [[
-          `a`, `.@_TX_a _atX _utQ`, `&@href>/maps/store/set/${Store.log_md5}/`, `~@Set Address`]]]
+          `a`, `.@_TX_a _atX _utQ`, `&@href>/maps/store/set/${Store.log_md5}/`, `~@Add Stock Site`]]]
     }
 
-    let Settings = [[`Billing & Payments`, `Buy Merchandise`], [`toBilling`, `toStore`], [`/store/billings/${Store.log_md5}`, `/store/`]]
+    let Settings = [
+      [`Billing & Payments`, `Buy Merchandise`, `Stock Sites`], 
+      [`toBilling`, `toStore`, `toStockSite`], 
+      [`/store/billings/${Store.log_md5}`, `/store/`, `/maps/store/set/${Store.log_md5}/`]]
 
     return [`nav`, `.@_t00`, 
       `.@_uHC`, [[
@@ -5931,6 +5934,7 @@ module.exports = {
                 `a`, `.@_tXa`, `&@href>/feed/`, `@corrde`], [
                 `span`, `.@_tCc _pV4`, `~@vendor`]]], [
               `div`, `.@_QZg _gxM _aA2`, [ModelStoreAddress]],
+              this.StockSites(Store, u_md5),
               this.listStoreServices(),
               this.inModal({id: `StoreSettings`, in: this.aPoolModal(Settings[0], Settings[1], Settings[2])})]]]]]]]];
   },
@@ -6193,6 +6197,8 @@ module.exports = {
 
     let ModelCartSet = [];
 
+    let ModelStockSites = [];
+
     if (Stock.ratings.indexOf(u_md5) > -1) ModelHearts = [`a`, `#@rateStock`, `.@-_tX HeartsColor`, `&@href>javascript:;`];
 
     if (Stock.u_md5 !== u_md5) {
@@ -6205,6 +6211,14 @@ module.exports = {
                 `div`, `.@_gMX gcQ`, [[
                   `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
                     `a`, `.@_TX_a _atX _utQ _gMX`, `#@CartSet`, `&@href>javascript:;`, `~@Add to Cart`]]]]]]]]]]]]]
+    }
+
+    if (Store.vServiceAddress.length > 0) {
+
+      ModelStockSites = [
+        `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
+          `div`, `.@yZS _gMX _eYG _xC3`, [[
+            `div`, `.@eYG _ZSg _gxM _geQ`, this.StockSitesSliced(Store.vServiceAddress)]]]]]
     }
 
     return [`main`, `&@style>overflow:hidden`, `#@gM`, [
@@ -6240,7 +6254,8 @@ module.exports = {
                         `div`, `#@mini`, `.@_gxM _geQ`, [[
                           `span`, `.@_aA6 _tXx axS`, `~@${Stock.rating}`], 
                           this.reqs_per_polyg(Stock.rating), [
-                          `span`, `.@_axS _aA6 _a2X`, `~@ ${Stock.mail.length} reviews`]]]]]]]]], 
+                          `span`, `.@_axS _aA6 _a2X`, `~@ ${Stock.mail.length} reviews`]]]]]]]]],
+                  ModelStockSites, 
                   ModelCartSet, [
                   `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
                     `div`, `.@yZS gMX _eYG _xC3`, [[`span`, `.@_eYG _Qtx`, `~@${Stock.text}`]]]]], [
@@ -6525,6 +6540,82 @@ module.exports = {
                               `label`, `.@_tXv`, `&@role>radio`, [[
                                 `input`, `&@for>`, `&@type>radio`, `#@payChannel`, `&@value>MPESA`, `&@name>service`], [
                                 `span`, `.@_tCw _aA2 _tXx`, `&@style>margin-bottom: 2px`, `~@MPESA`]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  },
+
+  StockSiteAva (Site) {
+
+    let ModelAva = [
+      `svg`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+        `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 9px;`, `~@${Site.adm0_a3}`]]];
+
+    return [`a`, `@site`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>javascript:;`, [ModelAva]]
+  },
+
+  StockSites (Store, u_md5) {
+
+    let StockSite = Store.vServiceAddress;
+
+    let ModelStockSites = [];
+
+    StockSite.forEach(Site => {
+
+      let ModelSites = []
+
+      Site.points.forEach(Point => {
+
+        ModelSites.push([
+        `div`, `.@_-zZx`, [[
+          `a`, `&@href>javascript:;`, [[
+            `div`, `.@_gcQ _aA0 _aA2`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM _-Zz`, [[`span`, `.@_tXx _aA2`, `~@{Site.long_a3}`]]], [
+                  `div`,`.@_gxM _geQ`, [[
+                    `span`, `.@_aA6 _tXx`, `~@${Point.toString()}`]]]]]]]]]]]]])
+      })
+
+      ModelStockSites.push([
+        `div`, `.@_-zZx`, `#@long_a3`, [[
+          `a`, `@site`, `&@href>javascript:;`, [[
+            `div`, `.@_gcQ _aA0 _aA2`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                `div`, [this.StockSiteAva(Site)]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`a`, `#@site`, `.@_tXx _aA2`, `~@${Site.long_a3}`, `&@href>javascript:;`]]], [
+                  `div`, `#@mini`, `.@_gxM _geQ`, [[
+                    `span`, `.@_aA6 _tXx`, `~@${Site.points.length} Site(s)`]]]]]]]]]]], [
+          `div`, `.@_-Zz`, `&@site>${StockSite[Site]}`, `#@sites`, ModelSites]]]);
+    });
+
+    return [
+      `div`, `#@SiteServices`, `&@for>modal`, `.@_aAY _-Zz`, [[
+        `div`, `.@_gcQ _gxM _geQ`, [[
+          `div`, `.@_eYG`, `~@Stock Sites`], [
+          `div`, `.@_QZg`, [[
+            `div`, [[`a`, `#@del`, `&@href>javascript:;`, `.@-_tX DelColor`]]]]]]], 
+        [`div`, `.@_aXY`, [[`div`], [`div`, ModelStockSites]]]]]
+  },
+
+  StockSitesSliced (Sites) {
+
+    Sites.slice(0, 5);
+
+    let ModelStockSites = [];
+
+    Sites.forEach(Site => {
+
+    let ModelAva = [
+      `svg`, `&@title>${Site.long_a3}`, `&@style>min-height:28px;width:28px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+          `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 10px;`, `~@${Site.adm0_a3}`]]];
+
+      ModelStockSites[Sites.indexOf(Site)] = [
+        `div`, `.@_aS0`, [[
+          `a`, `.@_cCq`, `&@style>width:28px;height:28px`, `&@href>javascript:;`, [ModelAva]]]]
+    })
+
+    return [[`div`, `.@_gxM`, ModelStockSites], [`div`, `.@_QZg`, [[`a`, `@listvServices`, `.@_aA6 _tXx`, `&@href>javascript:;`, `~@${Sites.length} Stock Zones`]]]]
   }
 
 

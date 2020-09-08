@@ -299,6 +299,32 @@
 
     }
   }
+
+  let StockSites = e => {
+
+    if (e.id === `StockSites`) {
+
+      let to = document.querySelector(`#SiteServices`);
+
+      if (to.className === `_aAY _-Zz`) to.className = `_aAY -Zz`;
+
+      else if (to.className === `_aAY -Zz`) to.className = `_aAY _-Zz`;
+
+    }
+  }
+
+  let foldStockSites = e => {
+
+    if (e.id === `site`) {console.log(e)
+
+      document.querySelectorAll(`#sites`).forEach(Site => {
+
+        Site.className = `_-Zz`
+      });
+
+      e.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector(`#sites`).className = `-Zz`;
+    }
+  } 
  
   let e0 = e => {
 
@@ -319,6 +345,10 @@
     StockSet(e);
 
     StoreSettingsSet(e);
+
+    StockSites(e);
+
+    foldStockSites(e);
   }
 
   document.addEventListener(`click`, e0);

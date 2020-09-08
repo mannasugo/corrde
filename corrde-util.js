@@ -1100,6 +1100,8 @@ class Auxll {
 
         Store[`Balance`] = floatSales - floatSent;
 
+        if (typeof Store.vServiceAddress !== `object` || typeof Store.vServiceAddress[0] !== `object`) Store.vServiceAddress = [];
+
         if (intRatings > 0) Store[`vServiceRating`] = (Store.RateSum/Store.Stock.length).toFixed(2);
 
         Stores.push(Store);
@@ -5333,6 +5335,8 @@ class UATCP extends UAPublic {
 
       tls.on(`set_store_address`, Args => {
 
+        if (!Args.vServiceAddress.adm0_a3) return;
+
         new Sql().multi({}, 
           `select * from vServices`, (A, B, C) => {
 
@@ -5347,7 +5351,20 @@ class UATCP extends UAPublic {
 
           let StoreSelf = JSON.stringify(Store);
 
-          Store.vServiceAddress = Args.vServiceAddress;
+          if (typeof Store.vServiceAddress !== `object` || typeof Store.vServiceAddress[0] !== `object`) Store.vServiceAddress = [];
+
+          let featState;
+
+          for (let feat in Store.vServiceAddress) {
+
+            let Feat = Store.vServiceAddress[feat];
+
+            if (Feat.adm0_a3 === Args.vServiceAddress.adm0_a3) featState = feat;
+          }
+
+          if (featState) Store.vServiceAddress[featState].points.push(Args.vServiceAddress.points[0]);
+
+          else Store.vServiceAddress.push(Args.vServiceAddress);
 
           new Sql().multi({}, 
             `update vServices set json = '${JSON.stringify(Store)}' where json = '${StoreSelf}'`, (A, B, C) => {
