@@ -5395,6 +5395,8 @@ class UATCP extends UAPublic {
             if (S.store_md5 === Args.store_md5 && S.asset_md5 === Args.stock_md5) Stock = S;
           }
 
+          //Stock = Stock
+
           let StockSelf = JSON.stringify(Stock);
 
           if (Stock.ratings.indexOf(Args.u_md5) > -1) {
@@ -5411,7 +5413,8 @@ class UATCP extends UAPublic {
           else Stock.ratings.push(Args.u_md5);
 
           new Sql().multi({}, 
-            `update products set json = '${JSON.stringify(Stock)}' where json = '${StockSelf}'`, (A, B, C) => {
+            `update products set json = '${JSON.stringify(Stock).replace(new RegExp(`\'`, `g`), `u/0027`)}' where json = \'${StockSelf}\'`, (A, B, C) => {
+              console.log(A)
 
             tcp.emit(`rateStock`, Args);
           })

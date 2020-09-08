@@ -42,6 +42,10 @@
 
     txt = txt.replace(new RegExp(`\r`, `g`), ` `);
 
+    txt = txt.replace(new RegExp(`'`, `g`), `u/0027`);
+
+    txt = txt.replace(new RegExp(`"`, `g`), `u/0022`);
+
     return txt
   }
 

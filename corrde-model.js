@@ -60,6 +60,10 @@ class ModelString {
 
     String = String.replace(new RegExp(`u/0026`, `g`), `&`);
 
+    String = String.replace(new RegExp(`u/0027`, `g`), `'`);
+
+    String = String.replace(new RegExp(`u/0022`, `g`), `"`);
+
     return String;
   }
 }
