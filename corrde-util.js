@@ -2723,35 +2723,51 @@ class UAPublic extends Auxll {
 
     this.modelStyler(config.lvl.css, CSS => {
 
-      const pool = {
+      const Stack = {
         jSStore: JSON.stringify({}),
-        title: `Find Jobs and Proffessionals`,
+        title: `Find Vendors, Shippers and Track Deliveries`,
         css: CSS,
         jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.geo_reqs]}
 
       this.getCookie(`u`, (A, B) => {
 
-        let clientJSON = JSON.parse(pool.jSStore); 
+        let clientJSON = JSON.parse(Stack.jSStore); 
 
-        if (A === false) {
+        if (A === false) clientJSON[`u_md5`] = B;
 
-          clientJSON[`u_md5`] = B;
-        }
+        this.Stores(Stores => {
 
-        pool.jSStore = JSON.stringify(clientJSON);
+          let StoresStack = [];
 
-        this.logs_u_md5(A => { 
+          Stores.Stores.forEach(Store => {
 
-        pool.appendModel = [
-          model.rootView({
-                  appendModel: [
-                    model.seek(), model.slide_md5(A), model.tailFeedControls(), 
-                    model.jS(pool),
-                    model.loadDOMModalView([model.modalView([model.seekModal()])], `seek-modal-ejs`)]
+            Store.vServiceAddress.forEach(Points => {
+
+              Points.points.forEach(Point => {
+
+                StoresStack.push({
+                  point: Point,
+                  service: Store.vServiceClass,
+                  store: Store.vServiceSet,
+                  store_md5: Store.log_md5
+                })
+              })
+            })
+          });
+
+          clientJSON[`Stores`] = StoresStack;
+
+          Stack.jSStore = JSON.stringify(clientJSON);
+
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.seek(), model.tailFeedControls(), 
+                model.jS(Stack)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
-                  this.app.to.end(model.call(pool));
+                  this.app.to.end(model.call(Stack));
       });
       });
     });

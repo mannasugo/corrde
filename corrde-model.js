@@ -4392,11 +4392,15 @@ module.exports = {
       [
         `Gadgets & Electronics`, [
           `Ear Wear`,
-          `Computers & Laptops`, 
+          `Computing`,
+          `Gaming`, 
           `Phones`,
           `UAVs`, 
           `Watches`,
-          `Wearables`]]]
+          `Wearables`]], 
+      [
+        `Sports`, [
+          `Cycling`]]]
 
     let listServices = [];
 
@@ -6017,7 +6021,8 @@ module.exports = {
       `Drinks & Beverages`, 
       `Gadgets & Electronics`, 
       `Food & Kitchen`, 
-      `Furniture`];
+      `Furniture`,
+      `Sports & Gaming`];
 
     let ModelServices = [];
 
@@ -6139,7 +6144,7 @@ module.exports = {
 
   Stock (Stock) {
 
-    Stock.sort((a, b) => {return b.log_secs - a.log_secs})
+    Stock.sort((a, b) => {return b.rating - a.rating})
 
     let ModelStock = [];
 

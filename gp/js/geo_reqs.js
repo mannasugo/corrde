@@ -81,12 +81,14 @@
     SVG_PQ(PQ);
   }
 
+  let Stores = JSStore.avail().Stores;
+
   let SVG_PQ = PQ => {
 
     d3.json(`/gp/twineJSON/custom.json`).then(json => {
       
       let projection = d3.geoMercator()
-        .scale(120000)
+        .scale(1200)
         .translate([UAX / 2, UAY / 2])
         .center(PQ),
 
@@ -123,6 +125,18 @@
         .append(`path`)
         .attr(`d`, path)
         .attr(`class`, `g0`);
+
+      map.selectAll(`path.Stores`).data(Stores)
+        .enter()
+        .append(`image`)
+        .attr(`class`, `Stores`)
+        .attr(`id`, Store => {return Store.store_md5})
+        .attr(`xlink:href`, `/gp/p/vector/cart.svg`)
+        .attr(`x`, Store => {return projection(Store.point)[0]})
+        .attr(`y`, Store => {return projection(Store.point)[1]})
+        .attr(`width`, `24px`)
+        .attr(`height`, `24px`)
+        .style(`cursor`, `pointer`)
 
       svg.select(`g`)
         .attr(`fill`, `#d7d7dd`)
@@ -173,9 +187,11 @@
 
         map.selectAll(`.rds0`).remove();
 
+        map.selectAll(`.Stores`).remove();
+
         let zoomScale = d3.zoomTransform(svg.node());
 
-        projection.translate([zoomScale.x, zoomScale.y]).scale(zoomScale.k*120000);
+        projection.translate([zoomScale.x, zoomScale.y]).scale(zoomScale.k*1200);
 
         G0.features.forEach(Obj => {
 
@@ -209,7 +225,7 @@
 
             let G_tiles = [];
 
-            if (zoomScale.k < 0.5) G_tiles = Tilelist[gaz_tile].slice(0, 4);
+            //if (zoomScale.k < 0.5) G_tiles = Tilelist[gaz_tile].slice(0, 4);
 
             if (zoomScale.k > 0.999)  G_tiles = Tilelist[gaz_tile].slice(0, 10);
 
@@ -251,7 +267,7 @@
 
               let Gz_tiles = [];
 
-              if (zoomScale.k < 0.5) Gz_tiles = json.slice(0, 4);
+              //if (zoomScale.k < 0.5) Gz_tiles = json.slice(0, 4);
 
               if (zoomScale.k > 0.999)  Gz_tiles = json.slice(0, 10);
 
@@ -275,10 +291,27 @@
 
         }
 
+      map.selectAll(`path.Stores`).data(Stores)
+        .enter()
+        .append(`image`)
+        .attr(`class`, `Stores`)
+        .attr(`id`, Store => {return Store.store_md5})
+        .attr(`xlink:href`, `/gp/p/vector/cart.svg`)
+        .attr(`x`, Store => {return projection(Store.point)[0]})
+        .attr(`y`, Store => {return projection(Store.point)[1]})
+        .attr(`width`, `24px`)
+        .attr(`height`, `24px`)
+        .style(`cursor`, `pointer`)
+
         d3.selectAll(`path`).attr(`d`, path);
       }
 
     }).catch(error => {throw error})
+  }
+
+  let toStore = e => {
+
+    if (e.className.baseVal === `Stores`) window.location = `/store/${e.id}/`;
   }
 
   /*
@@ -832,6 +865,8 @@
   let e0 = e => {
 
     e = e.target;
+
+    toStore(e);
   }
 
   setGPSCookie();
