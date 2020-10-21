@@ -3935,7 +3935,7 @@ module.exports = {
             `div`, `.@_aXz`, [[
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `.@_tXa`, `&@href>/`, `~@corrde`], [
-                `span`, `.@_tCc _pV4`, `~@explore`]]], [
+                `span`, `@_tCc _pV4`, `@explore`]]], [
               `div`, `.@_QZg _gMz`, [[`a`, `.@_tX SearchColor`, `&@href>/seek/`]]]]]]]]]]];
   },
 
@@ -5275,7 +5275,7 @@ module.exports = {
 
     let a = [`/feed/`, `/mug/`];
 
-    if (B !== false) {console.log(`#1234`)
+    if (B !== false) {//console.log(`#1234`)
  
       to = [
         `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
@@ -5283,16 +5283,27 @@ module.exports = {
     }
 
     return [`nav`, 
-      `.@_uHC`, [[
-        `div`, `.@_xCt`], [
+      `.@_uHC _tY0`, [[
+        `div`, `.@_xCt _g2s`], [
         `div`, [[
-          `div`, `.@_-tY`, [[
+          `div`, `.@_-tY _y2s`, [[
+            `div`, `&@style>height:45px;background: #1185fe;width: 100%;padding: 0 20px`, [[
+              `div`, `.@_geQ _gMX _aA0`, [[
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_gxQ gMX`, [[`span`, `.@_tAa _tXx`, `~@Free International Shipping`]]]]], [
+                `div`, `.@_QZg`, [[
+                  `div`, [[
+                    `a`, `#@SetCurrency`, `.@_cCq`, `&@style>width:32px;height:32px`, `&@href>javascript:;`, [[
+                      `svg`, `#@SetCurrency`, `&@style>min-height:32px;width:32px`, `&@viewBox>0 0 24 24`, [[
+                        `circle`, `#@SetCurrency`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `#@SetCurrency`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 9px;`, `~@usd`]]]]]]]]]]]]], [
             `div`, `.@_aXz`, [[
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
-                `span`, `.@_tCc _pV4`, `~@alpha`]]], [
-              `div`, `.@_QZg`, [to]], 
-              this.inModal({id: `mugger`, in: this.aPoolModal(txt, plc, a)})]]]]]]]]
+                `span`, `@_tCc _pV4`, `@alpha`]]], [
+              `div`, `.@_QZg`, [to]],
+              this.Monies(), 
+              this.inModal({id: `mugger`, in: this.aPoolModal(txt, plc, a)})]]]]]]]];
   },
 
   login () {
@@ -6162,8 +6173,8 @@ module.exports = {
                           `span`, `.@_axS _aA6 _a2X`, `~@ ${Asset.mail.length} reviews`]]], [`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
           `div`, `&@style>margin-top:3px; font-size: 13px`, [[
             `div`, `.@_gxM`, `&@style>justify-content:center`, [[
-              `span`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
-              `span`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${Asset.asset_USD}`]]]]]]])
+              `span`, `#@denom`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
+              `span`, `#@denomValue`, `&@usd>${Asset.asset_USD}`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${Asset.asset_USD}`]]]]]]])
     })
 
     return ModelStock;    
@@ -6625,7 +6636,44 @@ module.exports = {
     })
 
     return [[`div`, `.@_gxM`, ModelStockSites], [`div`, `.@_QZg`, [[`a`, `@listvServices`, `.@_aA6 _tXx`, `&@href>javascript:;`, `~@${Sites.length} Stock Zones`]]]]
+  },
+
+  Monies () {
+
+    let Monies = [
+      [`American Dollars`, `usd`],
+      [`Australian Dollars`, `aud`],
+      [`Canadian Dollars`, `cad`],
+      [`Euro`, `eur`],
+      [`Japanese Yen`, `yen`],
+      [`Kenyan Shillings`, `kes`]
+    ]
+
+    let ModelMonies = [];
+
+    Monies.forEach(Money => {
+
+      ModelMonies.push([
+        `li`, `.@_-zZx`, `#@long_a3`, [[
+          `span`, `.@_-xQy`, `@saleMode`, `@for>${Money[1]}`, `@href>javascript:;`, [[
+            `div`, `.@_gcQ _aA0 _aA2 _ZCg`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ _ZCg`, [[
+                  `div`, [[
+                    `span`, `.@_cCq`, `&@style>width:32px;height:32px`, [[
+                      `svg`, `&@style>min-height:32px;width:32px`, `&@viewBox>0 0 24 24`, [[
+                        `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 9px;`, `~@${Money[1]}`]]]]]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`a`, `#@saleMode`, `&@for>${Money[1]}`, `&@href>javascript:;`, `.@_tXx _aA2`, `~@${Money[0]}`]]]]]]]]]]]]]);
+    });
+
+    return [
+      `div`, `#@Monies`, `&@for>modal`, `.@_aAY _-Zz`, [[
+        `div`, `.@_gcQ _gxM _geQ`, [[
+          `div`, `.@_eYG`, `~@Select Country Currency`], [
+          `div`, `.@_QZg`, [[
+            `div`, [[`a`, `#@del`, `&@href>javascript:;`, `.@-_tX DelColor`]]]]]]], 
+        [`div`, `.@_aXY`, `&@style>max-height: calc(76vh - 70px);`, [[`ul`, `.@_aYy _tXx`, ModelMonies]]]]]
   }
-
-
+    
 }

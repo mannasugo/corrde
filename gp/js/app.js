@@ -148,6 +148,60 @@
       //if (modal_ejs.className === `-Zz`) modal_ejs.className = `_-Zz`
     }
   }
+
+  let SetCurrency = e => {
+
+    if (e.id === `SetCurrency`) {
+
+      let to = document.querySelector(`#Monies`);
+
+      if (to.className === `_aAY _-Zz`) to.className = `_aAY -Zz`;
+
+      else if (to.className === `_aAY -Zz`) to.className = `_aAY _-Zz`;
+
+    }
+  }
+
+  let setSaleMode = () => {
+
+    if (JSStore.avail().sale_mode) {
+
+      document.querySelector(`#SetCurrency > text`).innerHTML = JSStore.avail().sale_mode;
+
+      let SaleModeMap = {
+        aud: [1, `$`],
+        cad: [1, `$`],
+        eur: [1, `£`],
+        kes: [109, `KES`],
+        usd: [1, `$`],
+        yen: [1, `¥`]
+      }
+
+      document.querySelectorAll(`#denom`).forEach(Sale => {
+
+        Sale.innerHTML = SaleModeMap[JSStore.avail().sale_mode][1];
+
+      });
+
+      document.querySelectorAll(`#denomValue`).forEach(Sale => {
+
+        Sale.innerHTML = SaleModeMap[JSStore.avail().sale_mode][0] * Sale.getAttribute(`usd`);
+
+      });
+    }
+  }
+
+  let pickSaleMode = e => {
+
+    if (e.id === `saleMode`) {
+
+      JSStore.to({sale_mode: e.getAttribute(`for`)});
+
+      document.querySelector(`#SetCurrency > text`).innerHTML = JSStore.avail().sale_mode;
+
+      setSaleMode();
+    }
+  }
  
   let e0 = e => {
 
@@ -160,9 +214,15 @@
     listServices(e);
 
     unlistServices(e);
+
+    SetCurrency(e);
+
+    pickSaleMode(e);
   }
 
   setGPSCookie();
+
+  setSaleMode();
 
   document.addEventListener(`click`, e0);
 
