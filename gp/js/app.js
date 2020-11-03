@@ -171,7 +171,7 @@
       let SaleModeMap = {
         aud: [1, `$`],
         cad: [1, `$`],
-        eur: [1, `£`],
+        eur: [1, `€`],
         kes: [109, `KES`],
         usd: [1, `$`],
         yen: [1, `¥`]
@@ -185,7 +185,9 @@
 
       document.querySelectorAll(`#denomValue`).forEach(Sale => {
 
-        Sale.innerHTML = SaleModeMap[JSStore.avail().sale_mode][0] * Sale.getAttribute(`usd`);
+        Sale.innerHTML = (SaleModeMap[JSStore.avail().sale_mode][0] * Sale.getAttribute(`usd`)).toFixed(2);
+
+        if (JSStore.avail().sale_mode !== `kes`) Sale.innerHTML += ` ${(JSStore.avail().sale_mode).toUpperCase()}`
 
       });
     }
@@ -200,6 +202,35 @@
       document.querySelector(`#SetCurrency > text`).innerHTML = JSStore.avail().sale_mode;
 
       setSaleMode();
+    }
+  }
+
+  let setCouponModal = () => {
+
+    if (JSStore.avail().u_md5) return;
+
+    if (JSStore.avail().sale_cut) return;
+
+    let modal_ejs = document.querySelector(`#Coupon`);
+
+      if (modal_ejs.className === `_-Zz`) {
+        modal_ejs.className = `-Zz`;
+      }
+  }
+
+  let foldCoupon = e => {
+
+    if (e.id === `foldCoupon`) {
+
+      let modal_ejs = document.querySelector(`#Coupon`);
+
+      if (modal_ejs.className === `_-Zz`) {
+        modal_ejs.className = `-Zz`;
+      }
+
+      else if (modal_ejs.className === `-Zz`) {
+        modal_ejs.className = `_-Zz`;
+      }
     }
   }
  
@@ -218,11 +249,15 @@
     SetCurrency(e);
 
     pickSaleMode(e);
+
+    foldCoupon(e)
   }
 
   setGPSCookie();
 
   setSaleMode();
+
+  setCouponModal()
 
   document.addEventListener(`click`, e0);
 

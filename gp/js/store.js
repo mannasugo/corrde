@@ -319,7 +319,7 @@
 
   let foldStockSites = e => {
 
-    if (e.id === `site`) {console.log(e)
+    if (e.id === `site`) {
 
       document.querySelectorAll(`#sites`).forEach(Site => {
 

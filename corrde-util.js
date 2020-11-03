@@ -2592,7 +2592,8 @@ class UAPublic extends Auxll {
 
               pool.appendModel = [
                 model.rootView({
-                  appendModel: [model.appRoot(A, Stores), model.topAppRoot(A.md5Key, false), model.jS(pool)]
+                  appendModel: [model.appRoot(A, Stores), model.topAppRoot(A.md5Key, false), 
+                    model.loadDOMModalView([model.modalView([model.Coupon()])], `Coupon`), model.jS(pool)]
               })];
               
                   this.app.to.writeHead(200, config.reqMime.htm);
@@ -3091,7 +3092,8 @@ class UAPublic extends Auxll {
                 
           pool.appendModel = [
             model.rootView({
-              appendModel: [model.appRoot(A, Stores), model.topAppRoot(A.md5Key, mug), model.jS(pool)]
+              appendModel: [model.appRoot(A, Stores), model.topAppRoot(A.md5Key, mug), 
+                    model.loadDOMModalView([model.modalView([model.Coupon()])], `Coupon`), model.jS(pool)]
             })];
                               
           this.app.to.writeHead(200, config.reqMime.htm);
