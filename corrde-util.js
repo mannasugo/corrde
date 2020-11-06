@@ -1276,7 +1276,7 @@ class UAPublic extends Auxll {
 
   subCalls () {
 
-    if (this.levelState[1] === `categories`) {
+    if (this.levelState[1] === `category`) {
 
       let StockSet = [`bags`, `dresses`, `ear wear`, `heels`, `hoodies`, `lingerie`, `pants`, `phones`, `shoes`, `shorts`, `sneakers`, `tops`, `watches`];
 
@@ -3516,8 +3516,7 @@ class UAPublic extends Auxll {
                 
         Pool.appendModel = [
           model.rootView({
-            appendModel: [model.ModelStockSet(StockSet, Stores.Stock), model.ModelStockSetTop() 
-              /**model.loadDOMModalView([model.modalView([model.Coupon()])], `Coupon`)**/, model.jS(Pool)]
+            appendModel: [model.ModelStockSet(StockSet, Stores.Stock), model.ModelStockSetTop(), model.ModelStoreControls(), model.jS(Pool)]
           })];
                               
           this.app.to.writeHead(200, config.reqMime.htm);

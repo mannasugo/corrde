@@ -233,6 +233,19 @@
       }
     }
   }
+
+  let ModelStockSets = e => {
+
+    if (e.id === `toModelCategory`) {
+
+      let to = document.querySelector(`#ModelStockSets`);
+
+      if (to.className === `_aAY _-Zz`) to.className = `_aAY -Zz`;
+
+      else if (to.className === `_aAY -Zz`) to.className = `_aAY _-Zz`;
+
+    }
+  }
  
   let e0 = e => {
 
@@ -250,7 +263,9 @@
 
     pickSaleMode(e);
 
-    //foldCoupon(e)
+    //foldCoupon(e);
+
+    ModelStockSets(e);
   }
 
   //setGPSCookie();

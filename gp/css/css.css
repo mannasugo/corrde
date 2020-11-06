@@ -629,9 +629,9 @@ body {
 .CommentsGray, .HeartsColor, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
 
 .AddStoriesColor, .ArchiveGray, .CartGray, .closelighticonUA, .CommentsGray, .cServiceGray, .DelColor, .dissentlighticonUA, .electiconUA,
-.FilterColor, .GeoGray, .GeoLightGray, .GramColor, .Graph000, .FroColor, .HeartsColor, 
+.FilterColor, .Filter2Gray, .GeoGray, .GeoLightGray, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
-.poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .StarColor, .StarMiniColor, 
+.poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .SortGray, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .vServiceGray, .verifylighticonUA, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
@@ -672,6 +672,10 @@ body {
 
 .FilterColor {
   background-image: url(/gp/p/vector/filter.svg);
+}
+
+.Filter2Gray {
+  background-image: url(/gp/p/vector/filter2.svg);
 }
 
 .FroColor {
@@ -732,6 +736,10 @@ body {
 
 .AddStoriesColor, .SellColor {
   background-position: -134px -120px;
+}
+
+.SortGray {
+  background-image: url(/gp/p/vector/sort.svg);
 }
 
 .StarColor {
@@ -2531,6 +2539,8 @@ table > thead > tr > th {
 }
 
 ._aA0, ._aA0:visited {color: #fff;}
+
+._aA2, ._aA2:visited {color: #000;}
 
 ._tXx, ._tXx:visited {font-weight: 600;}
 

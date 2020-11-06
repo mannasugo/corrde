@@ -6742,9 +6742,9 @@ module.exports = {
       ModelStock.push([
         `div`, `.@_gQ`, `&@style>align-items:center`, [[
           `div`, `&@style>margin-bottom:10px`, [[
-            `a`, `mug`, `.@_cCq`, `&@style>width:80px;height:80px`, `&@href>/categories/${Set.toLowerCase()}/`, [[
+            `a`, `mug`, `.@_cCq`, `&@style>width:80px;height:80px`, `&@href>/category/${Set.toLowerCase()}/`, [[
               `img`, `.@_aWz`, `&@src>/gp/p/store/assets/${Set}_stock_asset.jpg`, `&@alt>avatar`]]]]], [
-          `a`, `&@href>/categories/${Set.toLowerCase()}/`, [[
+          `a`, `&@href>/category/${Set.toLowerCase()}/`, [[
             `div`, `#@mini`, `.@_gxM _geQ`, `&@style>justify-content:center`, []], [`span`, `.@_aA2 tXx`, `~@${Set}`]]], [
           `div`, `&@style>margin-top:3px; font-size: 13px`, [[
             `div`, `.@_gxM`, `&@style>justify-content:center`, []]]]]])
@@ -6883,8 +6883,8 @@ module.exports = {
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
                 `span`, `@_tCc _pV4`, `@alpha`]]], [
-              `div`, `.@_QZg`, []],
-              this.Monies()]]]]]]]];
+              `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `#@toModelCategory`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Category`]]]]],
+              this.Monies(), this.ModelStockSets()]]]]]]]];
   },
 
   ModelStockSet (StockSet, Stock) {
@@ -6909,10 +6909,59 @@ module.exports = {
             `div`, [[`div`, `.@_gZy`, this.Stock(Sets)]]]]]]]]];
 
     return [`main`, `&@style>overflow:hidden`, `#@gM`, [
-      /**this.feedControls(),*/ [
+      /*this.feedControls(), */[
         `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
           `section`, `&@style>margin: 100px 0`, [[
             `div`, `.@_sZ2 _cX3 cX0`, []], ModelStock]]]]]]
+  },
+
+  ModelStoreControls () {
+
+    let Rules = [`Filter2Gray`, `SortGray`, `SearchColor`, `CartGray`];
+
+    //let to = [`/feed/`, `/seek/`, `/portfolio/`, `/mug/`, `/mail/`];
+
+    let ModelTail = [];
+
+    Rules.forEach((rule, e) => {
+
+      ModelTail[e] = [
+        `div`, `.@_geQ _gMX`, [[
+          `a`, `.@-_tX ${rule}`, `&@href>javascript:;`]]];
+    });
+
+    return [
+      `div`, `&@style>max-width:100%;bottom:0`, `.@_gHm _aGX _-gs`, [[
+        `div`, `.@_xGy`, [[`div`, `&@style>background:#fff;border-radius:0`, `.@_gxM _gMX _uxq _egZ`, ModelTail]]]]];
+  },
+
+  ModelStockSets () {
+
+    let StockSets = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+
+    let ModelStockSets = [];
+
+    StockSets.forEach(StockSet => {
+
+      ModelStockSets.push([
+        `li`, `.@_-zZx`, `#@long_a3`, [[
+          `span`, `.@_-xQy`, `@saleMode`, `@for>${StockSet}`, `@href>javascript:;`, [[
+            `div`, `.@_gcQ _aA0 _aA2 _ZCg`, [[
+              `div`, `.@_ZSg _ZCg _eYG _gcQ _ZCg`, [[
+                  `div`, [[
+                    `a`, `mug`, `.@_cCq`, `&@style>width:30px;height:30px`, `&@href>/category/${StockSet.toLowerCase()}/`, [[
+                      `img`, `.@_aWz`, `&@src>/gp/p/store/assets/${StockSet}_stock_asset.jpg`, `&@alt>avatar`]]]]], [
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_QxM`, [[`a`, `@saleMode`, `&@for>${StockSet}`, `&@href>/category/${StockSet.toLowerCase()}/`, `.@_tXx _aA2`, `~@${StockSet}`]]]]]]]]]]]]]);
+    });
+
+    return [
+      `div`, `#@ModelStockSets`, `&@for>modal`, `.@_aAY _-Zz`, [[
+        `div`, `.@_gcQ _gxM _geQ`, [[
+          `div`, `.@_eYG`, `~@Product category`], [
+          `div`, `.@_QZg`, [[
+            `div`, [[`a`, `#@del`, `&@href>javascript:;`, `.@-_tX DelColor`]]]]]]], 
+        [`div`, `.@_aXY`, `&@style>max-height: calc(76vh - 70px);`, [[`ul`, `.@_aYy _tXx`, ModelStockSets]]]]]
   }
     
 }
