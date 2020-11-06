@@ -1276,7 +1276,19 @@ class UAPublic extends Auxll {
 
   subCalls () {
 
-    if (this.levelState[1] === `devs`) {
+    if (this.levelState[1] === `categories`) {
+
+      let StockSet = [`bags`, `dresses`, `ear wear`, `heels`, `hoodies`, `lingerie`, `pants`, `phones`, `shoes`, `shorts`, `sneakers`, `tops`, `watches`];
+
+      this.Stores(A => {
+
+        if (StockSet.indexOf(this.levelState[2]) > -1) this.StockSet(this.levelState[2], A);
+
+      });
+      
+    }
+
+    else if (this.levelState[1] === `devs`) {
 
       if (this.levelState[2] === `add`) this.addDevs();
 
@@ -3306,7 +3318,8 @@ class UAPublic extends Auxll {
                 model.retailStore(A.StoresMap[Retail.log_md5], mug), 
                 model.retailStoreHead(Retail, mug), 
                 model.tailFeedControls(), 
-                model.loadDOMModalView([model.modalView([model.StoreAssetSet()])], `StoreAsset`), 
+                model.loadDOMModalView([model.modalView([model.setStockSet()])], `ModelSets`), 
+                model.loadDOMModalView([model.modalView([model.StoreAssetSet()])], `ModelStockFile`), 
                 model.jS(pool)]
             })];
                               
@@ -3474,6 +3487,43 @@ class UAPublic extends Auxll {
             this.app.to.end(model.call(Stack));
           }
         }})});
+  }
+
+  StockSet (StockSet, Stores) { 
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Pool = {
+        jSStore: JSON.stringify({}),
+        title: `${StockSet.toUpperCase()}`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.stockset_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        Pool.jSStore = JSON.stringify(clientJSON); 
+                
+        Pool.appendModel = [
+          model.rootView({
+            appendModel: [model.ModelStockSet(StockSet, Stores.Stock), model.ModelStockSetTop() 
+              /**model.loadDOMModalView([model.modalView([model.Coupon()])], `Coupon`)**/, model.jS(Pool)]
+          })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Pool));
+        })
+      });
   }
 }
 
@@ -6496,6 +6546,9 @@ class AJXReqs extends Auxll {
           asset: Asset,
           asset_alt: args.asset_alt,
           asset_md5: log_sum,
+          asset_set: args.set_asset_set,
+          asset_set_type: args.set_asset_set_type,
+          asset_sex: args.asset_sex,
           asset_USD: args.asset_USD,
           log_secs: log,
           mail: [],

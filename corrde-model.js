@@ -5981,7 +5981,7 @@ module.exports = {
 
     if (Retail.vServiceClass !== false) ModelRetailClass = [`span`, `.@_aA6`, `~@${Retail.vServiceClass}`];
 
-    if (Retail.u_md5 === u_md5) ModelAddStock = [`a`, `#@StoreAssetAdd`, `.@_tX SellColor`, `&@href>javascript:;`];
+    if (Retail.u_md5 === u_md5) ModelAddStock = [`a`, `#@toModelSets`, `.@_tX SellColor`, `&@href>javascript:;`];
 
     ModelStock = [
       `section`, `.@gvQ pQ0`, `&@style>margin: 0 0 10px`, [[
@@ -6002,7 +6002,7 @@ module.exports = {
           `div`, `.@_gyQ`, [[
             `span`, `.@_Qtx`, `&@style>padding:24px 0`, `~@Post product pictures, price tags and more details for your customers.`]]], [
           `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
-            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@StoreAssetAdd`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Get Started`]]]]]]]]]
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@toModelSets`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Get Started`]]]]]]]]]
     }
 
     return [`main`, `&@style>overflow:hidden`, `#@gM`, [
@@ -6116,7 +6116,7 @@ module.exports = {
       `div`, `&@style>letter-spacing:0.75px`, [[
         `div`, `.@_gcQ _aXZ`, [[
           `div`, `.@_axS`, [[
-            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@StoreAssetAdd`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Exit`]]]]], [
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@foldModelStockFile`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Exit`]]]]], [
           `div`, `.@_dMG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Product Thumbnail`]]], [
           `div`, `.@_QZg _gMz`, [[`div`, `.@_gM_a _agM _-Zz`, [[`a`, `#@StoreAssetSet`, `.@_TX_a _atX`, `&@href>javascript:;`, `~@Save`]]]]]]], [
         `div`, `.@_aXY _XsQ _aA2`, [[
@@ -6146,6 +6146,30 @@ module.exports = {
                 `div`, `.@_yZS _gMX eYG uZM`, [[
                   `div`, `.@_UFA cS2 _gMX`, [[
                     `input`, `#@itemPrice`, `.@_RRD Ccs _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Price in USD`]]]]]]], [
+              `div`, `.@_sZ2`, [[
+                `div`, `.@_yZS _gxM geQ gMX`, [[
+                  `span`, `.@_aA2 _tXx`, `~@Customer Designation/Gender`]]], [
+                `div`, `.@_gZy`, [[
+                  `div`, `.@_qXq`, [[
+                    `label`, `.@_tXv`, `&@role>radio`, [[
+                      `input`, `&@type>radio`, `#@AssetSex`, `&@value>Men`, `&@name>alert-level-ejs`], [
+                      `span`, `.@_tCw aA2 tXx`, `~@Men`]]]]], [
+                  `div`, `.@_qXq`, [[
+                    `label`, `.@_tXv`, `&@role>radio`, [[
+                      `input`, `&@type>radio`, `#@AssetSex`, `&@value>Women`, `&@name>alert-level-ejs`], [
+                      `span`, `.@_tCw aA2 tXx`, `~@Women`]]]]], [
+                            `div`, `.@_qXq`, [[
+                              `label`, `.@_tXv`, `&@role>radio`, [[
+                                `input`, `&@type>radio`, `#@AssetSex`, `&@value>Unisex`, `&@name>alert-level-ejs`], [
+                                `span`, `.@_tCw aA2 tXx`, `~@Unisex`]]]]], [
+                            `div`, `.@_qXq`, [[
+                              `label`, `.@_tXv`, `&@role>radio`, [[
+                                `input`, `&@type>radio`, `#@AssetSex`, `&@value>Kids`, `&@name>alert-level-ejs`], [
+                                `span`, `.@_tCw aA2 tXx`, `~@Kids`]]]]], [
+                            `div`, `.@_qXq`, [[
+                              `label`, `.@_tXv`, `&@role>radio`, [[
+                                `input`, `&@type>radio`, `#@AssetSex`, `&@value>Other`, `&@name>alert-level-ejs`], [
+                                `span`, `.@_tCw aA2 tXx`, `~@Other`]]]]]]]]], [
               `div`, `.@_yZS gxM _geQ gMX _xC3`, [[
                 `div`, `.@_yZS _gMX eYG uZM`, [[
                   `div`, `.@_gMX -Zz`, [[
@@ -6457,6 +6481,13 @@ module.exports = {
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
                       `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]]]], [
         `section`, `.@cX3 _ss7`, [[
+          `div`, `.@sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Top Categories`]]], [
+                `div`, `.@_QZg _gxM -Zz`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>javascript:;`]]]]]]], [
+            `div`, [[`div`, `.@_gZy`, this.topStock()]]]]]]], [
+        `section`, `.@cX3 _ss7`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
@@ -6698,6 +6729,190 @@ module.exports = {
                   `div`, `.@_gMX gcQ`, [[
                     `div`, `.@_gM_a _agM _guZ _gMX`, `&@style>max-width: 450px`, [[
                       `a`, `.@_TX_a _atX _utQ _gMX`, `#@vendor`, `&@href>/signup`, `~@Register for Coupon`]]]]]]]]]]]]]]]
+  },
+
+  topStock () {
+
+    let StockSet = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+
+    let ModelStock = [];
+
+    StockSet.forEach(Set => {
+
+      ModelStock.push([
+        `div`, `.@_gQ`, `&@style>align-items:center`, [[
+          `div`, `&@style>margin-bottom:10px`, [[
+            `a`, `mug`, `.@_cCq`, `&@style>width:80px;height:80px`, `&@href>/categories/${Set.toLowerCase()}/`, [[
+              `img`, `.@_aWz`, `&@src>/gp/p/store/assets/${Set}_stock_asset.jpg`, `&@alt>avatar`]]]]], [
+          `a`, `&@href>/categories/${Set.toLowerCase()}/`, [[
+            `div`, `#@mini`, `.@_gxM _geQ`, `&@style>justify-content:center`, []], [`span`, `.@_aA2 tXx`, `~@${Set}`]]], [
+          `div`, `&@style>margin-top:3px; font-size: 13px`, [[
+            `div`, `.@_gxM`, `&@style>justify-content:center`, []]]]]])
+    })
+
+    return ModelStock;
+
+  },
+
+  setStockSet () {
+    
+    let StockSet = [
+      [
+        `Body & Beauty Products`, [
+          `Perfumes & Deodarant`,
+          `Hair Product`]],
+      [
+        `Clothing & Accessories`, [
+          `Bags`,
+          `Belts`,
+          `Dresses`,
+          `Head Wear`,
+          `Heels`,
+          `Jackets`,
+          `Optics & Eyewear`,
+          `Pants`,
+          `Tops`, 
+          `Shoes`,
+          `Sneakers`,
+          `Wallets`]],
+      [
+        `Food & Kitchen`, [
+          `Drinks & Beverages`,
+          `Pastries`]],
+      [
+        `Furniture`, [
+          `Beds`,
+          `Chairs`,
+          `Couches`,
+          `Kitchen Furniture`,
+          `Lounge Chairs`,
+          `Office Chairs`,
+          `Tables & Nightstands`]],
+      [
+        `Gadgets & Electronics`, [
+          `Ear Wear`,
+          `Computing`,
+          `Gaming`, 
+          `Phones`,
+          `UAVs`, 
+          `Watches`,
+          `Wearables`]], 
+      [
+        `Sports`, [
+          `Cycling`]]]
+
+    let ModelStockSet = [];
+
+    StockSet.forEach((Set, e) => {
+
+      let ModelSets = []
+
+      Set[1].forEach((Stock, e2) => {
+
+        ModelSets[e2] = [
+          `div`, [[
+            `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+              `label`, `.@_tXv`, `&@role>radio`, [[
+                `input`, `&@type>radio`, `#@setSub`, `&@value>${Set[1][e2]}`, `&@name>setSub`], [
+                `span`, `.@_tCw _aA2 tXx`, `~@${Set[1][e2]}`]]]]]]];
+      });
+
+      ModelStockSet[e] = [
+        `div`, `#@team`, [[
+          `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+            `label`, `.@_tXv`, `&@role>radio`, [[
+              `input`, `&@for>${e}`, `&@type>radio`, `#@foldSets`, `&@value>${Set[0]}`, `&@name>foldSets`], [
+              `span`, `.@_tCw aA2 _tXx`, `~@${Set[0]}`]]]]], [
+          `div`, `.@_-Zz`, `&@set>${e}`, `#@sets`, ModelSets]]]
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ sZ2`, [ [
+          `div`, `.@_eYG _geQ _aA2`, [[`span`, `.@_tXx`, `~@Set Product Type`]]], [
+          `div`, `.@_QZg _gMz`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@toModelSets`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@return`]]]]]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>margin:0 0 60px;max-height: calc(100vh - 170px);`, [[
+          `div`, `#@add-devs-response-ejs`, `.@_-Zz _sZ2`, `&@style>padding: 14px; border: 1px solid #ffacac; border-radius: 16px` , [[
+            `p`, `#@add-devs-false`, `.@_aA6`, `~@*invalid or empty input.`], [
+            `p`, `#@pass-match-true`, `.@_aA6`, `~@*your changes have been saved successfully.`]]],[
+            `div`, `.@_sZ2`, ModelStockSet]]], [
+          `div`, `#@add-dev-see-ejs`, `.@_azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM CYc gcQ geQ _gMX`, [[
+              `div`, `.@_gMX gcQ`, [[
+                `div`, `.@_gM_a _agM _gMX`, `&@style>max-width: 500px`, [[
+                  `a`, `#@toModelStockFile`, `.@_TX_a _atX _gMX`, `&@href>javascript:;`, `~@Continue`]]]]]]]]]]]
+  },
+
+  ModelStockSetTop (A, B) {
+
+    /*let to = [
+      `div`, `.@_gM_a _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+        `a`, `.@_TX_a _atX _utQ _gMX`, `#@devs-add-ejs`, `&@href>/login/`, `~@login`]]];
+
+    let txt = [`My Feed`, `Profile`]
+
+    let plc = [`feed`, `mug`]
+
+    let a = [`/feed/`, `/mug/`];
+
+    if (B !== false) {//console.log(`#1234`)
+ 
+      to = [
+        `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
+          `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A[B].ava}`]]]  
+    }*/
+
+    return [`nav`, 
+      `.@_uHC _tY0`, [[
+        `div`, `.@_xCt _g2s`], [
+        `div`, [[
+          `div`, `.@_-tY _y2s`, [[
+            `div`, `&@style>height:45px;background: #1185fe;width: 100%;padding: 0 20px`, [[
+              `div`, `.@_geQ _gMX _aA0`, [[
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_gxQ gMX`, [[`span`, `.@_tAa _tXx`, `~@Free International Shipping`]]]]], [
+                `div`, `.@_QZg`, [[
+                  `div`, [[
+                    `a`, `#@SetCurrency`, `.@_cCq`, `&@style>width:32px;height:32px`, `&@href>javascript:;`, [[
+                      `svg`, `#@SetCurrency`, `&@style>min-height:32px;width:32px`, `&@viewBox>0 0 24 24`, [[
+                        `circle`, `#@SetCurrency`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `#@SetCurrency`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 9px;`, `~@usd`]]]]]]]]]]]]], [
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `@_tCc _pV4`, `@alpha`]]], [
+              `div`, `.@_QZg`, []],
+              this.Monies()]]]]]]]];
+  },
+
+  ModelStockSet (StockSet, Stock) {
+
+    let Sets = [];
+
+    Stock.forEach(Asset => {
+
+      if (Asset.asset_set_type && Asset.asset_set_type.toLowerCase() === StockSet) Sets.push(Asset)
+    })
+
+    let ModelStock = [];
+
+    ModelStock = [
+      `section`, `.@gvQ pQ0`, `&@style>margin: 0 0 10px`, [[
+        `section`, `.@cX3 _ss7`, [[
+          `div`, `.@_sZ2`, [[
+            `div`, `.@_cX3`, [[
+              `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2 _tXx`, `~@${StockSet.toUpperCase()}`]]], [
+                `div`, `.@_QZg _gxM cX5`, []]]]]], [
+            `div`, [[`div`, `.@_gZy`, this.Stock(Sets)]]]]]]]]];
+
+    return [`main`, `&@style>overflow:hidden`, `#@gM`, [
+      /**this.feedControls(),*/ [
+        `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+          `section`, `&@style>margin: 100px 0`, [[
+            `div`, `.@_sZ2 _cX3 cX0`, []], ModelStock]]]]]]
   }
     
 }

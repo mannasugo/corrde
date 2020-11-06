@@ -96,7 +96,7 @@
     }
   }
 
-  let StoreAsset = e => {
+  let StoreAsset_ = e => {
 
     if (e.id === `StoreAssetAdd`) {
 
@@ -209,6 +209,8 @@
 
         JSStore.to({x_span: dim_x, y_span: dim_y, asset_secs: new Date().valueOf()});
 
+        JSStore.to({asset_sex: false})
+
         const fileTo = new AJXFile();
 
         fileTo.call(`/devs_reqs/`, {
@@ -222,7 +224,9 @@
 
                 JSStore.to({asset_img: B.asset_img})
 
-                let to = document.querySelector(`#StoreAsset`);
+                JSStore.to({asset_sex: false})
+
+                let to = document.querySelector(`#ModelStockFile`);
 
                 if (to.className === `_-Zz`) to.className = `-Zz`;
 
@@ -328,7 +332,78 @@
 
       e.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector(`#sites`).className = `-Zz`;
     }
+  }
+
+  let ModelSets = e => {
+
+    if (e.id === `toModelSets`) {
+
+      let to = document.querySelector(`#ModelSets`);
+
+      if (to.className === `_-Zz`) to.className = `-Zz`;
+
+      else if (to.className === `-Zz`) to.className = `_-Zz`;
+
+    }
+  }
+
+  let foldSets = e => {
+
+    if (e.id === `foldSets`) {
+
+      document.querySelectorAll(`#sets`).forEach(p => p.setAttribute(`class`, `_-Zz`));
+      document.querySelector(`[set = "${e.getAttribute(`for`)}"]`).setAttribute(`class`, `-Zz`);
+
+      JSStore.to({set_asset_set: e.value.replace(new RegExp(/&/g, `g`), `u/0026`)});
+      JSStore.to({set_asset_set_type: false})
+    }
+  }
+
+  let saveSets = e => {
+
+    if (e.id === `setSub`) JSStore.to({set_asset_set_type: e.value});
   } 
+
+  let ModelStockFile = e => {
+
+    if (e.id === `toModelStockFile`) {
+
+      let to = document.querySelector(`#ModelSets`);
+
+      if (to.className === `_-Zz`) to.className = `-Zz`;
+
+      else if (to.className === `-Zz`) to.className = `_-Zz`;
+
+      if (JSStore.avail().set_asset_set_type && JSStore.avail().set_asset_set && JSStore.avail().set_asset_set_type !== false) {
+
+        let ModelStockFile = document.querySelector(`#ModelStockFile`);
+
+        if (ModelStockFile.className === `_-Zz`) ModelStockFile.className = `-Zz`;
+
+        else if (ModelStockFile.className === `-Zz`) ModelStockFile.className = `_-Zz`;
+
+
+      }
+    }
+  }
+
+  let foldModelStockFile = e => {
+
+    if (e.id === `foldModelStockFile`) {
+
+      let to = document.querySelector(`#ModelStockFile`);
+
+      if (to.className === `_-Zz`) to.className = `-Zz`;
+
+      else if (to.className === `-Zz`) to.className = `_-Zz`;
+
+    }
+  }
+
+  let setStockSex = e => {
+
+    if (e.id === `AssetSex`) JSStore.to({asset_sex: e.value});
+  }
  
   let e0 = e => {
 
@@ -339,8 +414,6 @@
     listRetailServices(e);
 
     storeServiceSet(e);
-
-    StoreAsset(e);
 
     thumbnailStart(e);
 
@@ -353,6 +426,18 @@
     StockSites(e);
 
     foldStockSites(e);
+
+    ModelSets(e);
+
+    foldSets(e);
+
+    saveSets(e);
+
+    ModelStockFile(e);
+
+    foldModelStockFile(e);
+
+    setStockSex(e);
   }
 
   document.addEventListener(`click`, e0);
