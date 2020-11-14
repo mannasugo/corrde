@@ -1278,7 +1278,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState[1] === `category`) {
 
-      let StockSet = [`bags`, `dresses`, `ear wear`, `heels`, `hoodies`, `lingerie`, `pants`, `phones`, `shoes`, `shorts`, `sneakers`, `tops`, `watches`];
+      let StockSet = [
+        `bags`, `dresses`, `ear wear`, `heels`, `hoodies`, `lingerie`, `monitors`, `pants`, `phones`, `shoes`, `shorts`, `sneakers`, `tops`, `watches`];
 
       this.Stores(A => {
 

@@ -246,6 +246,121 @@
 
     }
   }
+
+  let ModelStoreCart = e => {
+
+    if (e.id === `toModelCart`) {
+
+      let ModelSource = document.querySelector(`#listCart`);
+
+      let JsStack = new Model();
+
+      let toCart = document.querySelector(`#toCart`);
+
+      if (!JSStore.avail().cart) JSStore.to({cart: []})
+
+      ModelSource.innerHTML = new Model().modelStringify([JsStack.listCart(JSStore.avail().cart)]);
+        
+      if (toCart.className === `_aAY _-Zz`) toCart.setAttribute(`class`, `_aAY -Zz`);
+
+    }
+  }
+
+  let StockAdd = e => {
+
+    if (e.id === `StockAdd`) {
+
+      let For = e.getAttribute(`for`).split(`/`);
+
+      let Cart = JSStore.avail().cart;
+
+      let item;
+
+      Cart.forEach(Stock => {
+
+        if (Stock.store_md5 === For[0] && Stock.stock_md5 === For[1]) item = Cart.indexOf(Stock);
+      });
+
+      if (typeof item !== `number`) return;
+
+      Cart[item].items += 1;
+
+      JSStore.to({cart: Cart});
+
+      let ModelSource = document.querySelector(`[item = '${e.getAttribute(`for`)}']`);
+
+      ModelSource.querySelector(`#items`).innerHTML = Cart[item].items;
+
+      ModelSource.querySelector(`#itemsCharge`).innerHTML = `$ ${Cart[item].stock_USD} * ${Cart[item].items}`
+
+
+    }
+  }
+
+  let StockRemove = e => {
+
+    if (e.id === `StockRemove`) {
+
+      let For = e.getAttribute(`for`).split(`/`);
+
+      let Cart = JSStore.avail().cart;
+
+      let item;
+
+      Cart.forEach(Stock => {
+
+        if (Stock.store_md5 === For[0] && Stock.stock_md5 === For[1]) item = Cart.indexOf(Stock);
+      });
+
+      if (typeof item !== `number`) return;
+
+      let CartSelf = [];
+
+      let ModelSource = document.querySelector(`[item = '${e.getAttribute(`for`)}']`);
+
+      Cart[item].items -= 1;
+
+      if (Cart[item].items < 1) {
+
+        Cart.forEach(Stock => {
+
+          if (Stock.store_md5 !== For[0] && Stock.stock_md5 !== For[1]) item = CartSelf.push(Stock);
+        });
+
+        Cart = CartSelf;
+
+        ModelSource.innerHTML = ``;
+
+        ModelSource.style.display = `none`;
+      }
+
+      else {
+
+        ModelSource.querySelector(`#items`).innerHTML = Cart[item].items;
+
+        ModelSource.querySelector(`#itemsCharge`).innerHTML = `$ ${Cart[item].stock_USD} * ${Cart[item].items}`
+      }
+
+      JSStore.to({cart: Cart});
+    }
+  }
+
+  let CartBuy = e => {
+
+    if (e.id === `CartBuy`) {
+
+      if (!JSStore.avail().u_md5) window.location = `/login/`;
+
+      else if (JSStore.avail().u_md5 && JSStore.avail().cart.length > 0) {
+
+        JSStore.to({payfor: JSStore.avail().cart});
+
+        JSStore.to({cart: []});
+
+        window.location = `/pay/`;
+      }
+    }
+  }
  
   let e0 = e => {
 
@@ -266,6 +381,14 @@
     //foldCoupon(e);
 
     ModelStockSets(e);
+
+    ModelStoreCart(e)
+
+    StockRemove(e);
+
+    StockAdd(e);
+
+    CartBuy(e)
   }
 
   //setGPSCookie();

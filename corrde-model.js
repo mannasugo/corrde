@@ -5983,6 +5983,15 @@ module.exports = {
 
     if (Retail.u_md5 === u_md5) ModelAddStock = [`a`, `#@toModelSets`, `.@_tX SellColor`, `&@href>javascript:;`];
 
+    let RetailStock = [];
+
+    if (Retail.Stock.length > 0) {
+
+      RetailStock = Retail.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
+
+      RetailStock.slice(0, 15);
+    }
+
     ModelStock = [
       `section`, `.@gvQ pQ0`, `&@style>margin: 0 0 10px`, [[
         `section`, `.@cX3 _ss7`, [[
@@ -5991,7 +6000,7 @@ module.exports = {
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, [ModelAddStock]]]]]], [
-            `div`, [[`div`, `.@_gZy`, this.Stock(Retail.Stock)]]]]]]]]]
+            `div`, [[`div`, `.@_gZy`, this.Stock(RetailStock)]]]]]]]]]
     
     if (Retail.u_md5 === u_md5 && Retail.Stock.length === 0) {
 
@@ -6179,7 +6188,7 @@ module.exports = {
 
   Stock (Stock) {
 
-    Stock.sort((a, b) => {return b.rating - a.rating})
+    //Stock.sort((a, b) => {return b.rating - a.rating})
 
     let ModelStock = [];
 
@@ -6435,7 +6444,14 @@ module.exports = {
 
     let RateStock = [];
 
-    if (Stores.Stock.length > 0) RateStock = Stores.Stock.sort((a,b) => {return b.rating - a.rating});
+    if (Stores.Stock.length > 0) {
+
+      RateStock = Stores.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
+
+      RateStock.slice(0, 15);
+    }
+
+    //Stores.Stock.sort((a,b) => {return b.rating - a.rating});
 
     return [`main`, `&@style>overflow:hidden`, `#@gM`, [
       this.feedControls(), [
@@ -6465,7 +6481,12 @@ module.exports = {
 
     let RateStock = [];
 
-    if (Stores.Stock.length > 0) RateStock = Stores.Stock.sort((a,b) => {return b.rating - a.rating});
+    if (Stores.Stock.length > 0) {
+
+      RateStock = Stores.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
+
+      RateStock.slice(0, 15);
+    }
 
     return [
       `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem`, [[
@@ -6733,7 +6754,7 @@ module.exports = {
 
   topStock () {
 
-    let StockSet = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+    let StockSet = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
 
     let ModelStock = [];
 
@@ -6774,7 +6795,10 @@ module.exports = {
           `Tops`, 
           `Shoes`,
           `Sneakers`,
-          `Wallets`]],
+          `Wallets`]], 
+      [
+        `Computer Parts & Components`, [
+          `Monitors`]],
       [
         `Food & Kitchen`, [
           `Drinks & Beverages`,
@@ -6883,7 +6907,13 @@ module.exports = {
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
                 `span`, `@_tCc _pV4`, `@alpha`]]], [
-              `div`, `.@_QZg`, [[`div`, `.@_gM_a _agM _guZ`, [[`a`, `#@toModelCategory`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Category`]]]]],
+              `div`, `.@_QZg`, [[
+                `div`, `.@_gM_a _agM _guZ`, [[`a`, `#@toModelCategory`, `.@_TX_a _atX qXS _utQ`, `&@href>javascript:;`, `~@Category`]]]]], [
+              `div`, `#@toCart`, `&@for>modal`, `.@_aAY _-Zz`, [[
+                `div`, `.@_gcQ _gxM _geQ`, [[`div`, `#@cartAlt`, `.@_eYG`, `~@My Shopping Cart`], [
+                `div`, `.@_QZg`, [[
+                  `div`, [[`a`, `#@del`, `&@href>javascript:;`, `.@-_tX DelColor`]]]]]]], [
+                `div`, `#@listCart`, `.@_aXY`, []]]],
               this.Monies(), this.ModelStockSets()]]]]]]]];
   },
 
@@ -6919,7 +6949,7 @@ module.exports = {
 
     let Rules = [`Filter2Gray`, `SortGray`, `SearchColor`, `CartGray`];
 
-    //let to = [`/feed/`, `/seek/`, `/portfolio/`, `/mug/`, `/mail/`];
+    let Places = [``, ``, ``, `toModelCart`];
 
     let ModelTail = [];
 
@@ -6927,7 +6957,7 @@ module.exports = {
 
       ModelTail[e] = [
         `div`, `.@_geQ _gMX`, [[
-          `a`, `.@-_tX ${rule}`, `&@href>javascript:;`]]];
+          `a`, `#@${Places[e]}`, `.@-_tX ${rule}`, `&@href>javascript:;`]]];
     });
 
     return [
@@ -6937,7 +6967,7 @@ module.exports = {
 
   ModelStockSets () {
 
-    let StockSets = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+    let StockSets = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
 
     let ModelStockSets = [];
 
