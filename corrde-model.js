@@ -5989,7 +5989,7 @@ module.exports = {
 
       RetailStock = Retail.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
 
-      RetailStock.slice(0, 15);
+      RetailStock = RetailStock.slice(0, 15);
     }
 
     ModelStock = [
@@ -6448,7 +6448,7 @@ module.exports = {
 
       RateStock = Stores.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
 
-      RateStock.slice(0, 15);
+      RateStock = RateStock.slice(0, 15);
     }
 
     //Stores.Stock.sort((a,b) => {return b.rating - a.rating});
@@ -6485,7 +6485,7 @@ module.exports = {
 
       RateStock = Stores.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
 
-      RateStock.slice(0, 15);
+      RateStock = RateStock.slice(0, 15);
     }
 
     return [
