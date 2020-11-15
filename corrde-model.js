@@ -1782,6 +1782,10 @@ module.exports = {
 
     let footAll = [], i = 0;
 
+    let SaleModes = [[`Paypal`, `Paypal`], [`Stripe`, `Stripe`], [`Bitcoin`, `Bitcoin`], [`ApplePay`, `ApplePay`], [`Venmo`, `Venmo`]];
+
+    let ModelSaleGateWay = [];
+
     for (let foot in config.foots) {
 
       footAll[i] = [
@@ -1789,12 +1793,24 @@ module.exports = {
 
       i++
     }
+
+    SaleModes.forEach(Mode => {
+
+      ModelSaleGateWay.push([
+        `div`, `.@_geQ`, [[ `div`, `.@_uHB`, [[`a`, `.@-_tX ${Mode[1]}`, `&@href>javascript:;`, `~@${Mode[0]}`]]]]])
+      
+    })
+
     return [
       `footer`, `.@_CuH`, [[  
         `div`, `.@_gxM _aYS`, footAll], [
         `div`, `.@_gMX _aYS`, [[
-          `a`, `.@-_tX _4Qx GramColor`, config.out_to, config.to_insta, `~@instagram`], [
-          `a`, `.@-_tX _4Qx TwitterColor`,config.out_to, config.to_twitter, `~@twitter`]]], [
+          `a`, `.@-_tX _4Qx GramColor`, config.out_to, `&@href>https://instagram.com/corrdeapp`, `~@instagram`], [
+          `a`, `.@-_tX _4Qx TwitterColor`,config.out_to, `&@href>https://twitter.com/corrdeapp`, `~@twitter`], [
+          `a`, `.@-_tX _4Qx VKBlack`,config.out_to, `&@href>https://vk.com/corrdeapp`, `~@vk`], [
+          `a`, `.@-_tX _4Qx Dribbble`,config.out_to, `&@href>https://dribbble.com/corrde`, `~@dribbble`], [
+          `a`, `.@-_tX _4Qx GitHub`,config.out_to, `&@href>https://github.com/mannasugo/corrde`, `~@GitHub`]]], [  
+        `div`, `.@_gxM _aYS`, ModelSaleGateWay], [
         `div`, `.@_geQ _aYS`, [[`span`, `.@_uHB`, config.ip]]]]]
   },
 
