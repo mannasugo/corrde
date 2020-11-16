@@ -1782,7 +1782,16 @@ module.exports = {
 
     let footAll = [], i = 0;
 
-    let SaleModes = [[`Paypal`, `Paypal`], [`Stripe`, `Stripe`], [`Bitcoin`, `Bitcoin`], [`ApplePay`, `ApplePay`], [`Venmo`, `Venmo`]];
+    let SaleModes = [
+      [`Visa`, `Visa`],
+      [`MasterCard`, `MasterCard`],
+      [`Amex`, `Amex`],
+      [`Paypal`, `Paypal`],
+      [`GooglePay`, `GooglePay`], 
+      [`Stripe`, `Stripe`], 
+      [`ApplePay`, `ApplePay`], 
+      [`Venmo`, `Venmo`], 
+      [`Bitcoin`, `Bitcoin`]];
 
     let ModelSaleGateWay = [];
 
@@ -1809,9 +1818,9 @@ module.exports = {
           `a`, `.@-_tX _4Qx TwitterColor`,config.out_to, `&@href>https://twitter.com/corrdeapp`, `~@twitter`], [
           `a`, `.@-_tX _4Qx VKBlack`,config.out_to, `&@href>https://vk.com/corrdeapp`, `~@vk`], [
           `a`, `.@-_tX _4Qx Dribbble`,config.out_to, `&@href>https://dribbble.com/corrde`, `~@dribbble`], [
-          `a`, `.@-_tX _4Qx GitHub`,config.out_to, `&@href>https://github.com/mannasugo/corrde`, `~@GitHub`]]], [  
-        `div`, `.@_gxM _aYS`, ModelSaleGateWay], [
-        `div`, `.@_geQ _aYS`, [[`span`, `.@_uHB`, config.ip]]]]]
+          `a`, `.@-_tX _4Qx GitHub`,config.out_to, `&@href>https://github.com/mannasugo/corrde`, `~@GitHub`]]], [
+        `div`, `.@_geQ _aYS`, [[`span`, `.@_uHB`, config.ip]]], [  
+        `div`, `.@_gxM _aYS`, ModelSaleGateWay]]]
   },
 
   jS (pool) {
@@ -6714,7 +6723,8 @@ module.exports = {
       [`Canadian Dollars`, `cad`],
       [`Euro`, `eur`],
       [`Japanese Yen`, `yen`],
-      [`Kenyan Shillings`, `kes`]
+      [`Kenyan Shillings`, `kes`],
+      [`Sterling Pound`, `gbp`]
     ]
 
     let ModelMonies = [];
@@ -6770,7 +6780,8 @@ module.exports = {
 
   topStock () {
 
-    let StockSet = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+    let StockSet = [
+      `Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Lips`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
 
     let ModelStock = [];
 
@@ -6814,7 +6825,10 @@ module.exports = {
           `Wallets`]], 
       [
         `Computer Parts & Components`, [
-          `Monitors`]],
+          `Monitors`]], 
+      [
+        `Cosmetics`, [
+          `Brows`, `Eyes`, `Face`, `Lips`, `Skin`, ]],
       [
         `Food & Kitchen`, [
           `Drinks & Beverages`,
@@ -6983,7 +6997,8 @@ module.exports = {
 
   ModelStockSets () {
 
-    let StockSets = [`Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+    let StockSets = [
+      `Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Lips`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
 
     let ModelStockSets = [];
 

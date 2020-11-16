@@ -169,12 +169,13 @@
       document.querySelector(`#SetCurrency > text`).innerHTML = JSStore.avail().sale_mode;
 
       let SaleModeMap = {
-        aud: [1, `$`],
-        cad: [1, `$`],
-        eur: [1, `€`],
+        aud: [1.37, `$`],
+        cad: [1.31, `$`],
+        eur: [0.84, `€`],
+        gbp: [0.76, `£`],
         kes: [109, `KES`],
         usd: [1, `$`],
-        yen: [1, `¥`]
+        yen: [104.50, `¥`]
       }
 
       document.querySelectorAll(`#denom`).forEach(Sale => {

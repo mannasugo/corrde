@@ -638,11 +638,18 @@ body {
   width: 24px;
 }
 
+.Amex {
+  background-image: url(/gp/p/vector/amex.svg);
+  background-repeat: no-repeat;
+  width: 36px;
+  height: 36px;
+}
+
 .ApplePay {
   background-image: url(/gp/p/vector/apple-pay.svg);
   background-repeat: no-repeat;
-  width: 40px;
-  height: 24px;
+  width: 60px;
+  height: 36px;
 }
 
 .ArchiveGray {background-image: url(/gp/p/vector/archive.svg);}
@@ -650,8 +657,8 @@ body {
 .Bitcoin {
   background-image: url(/gp/p/vector/bitcoin.svg);
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 
 .CartGray {
@@ -706,6 +713,13 @@ body {
 
 .GitHub {background-image: url(/gp/p/vector/github.svg);}
 
+.GooglePay {
+  background-image: url(/gp/p/vector/google-pay.svg);
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 36px;
+}
+
 .GramColor {
   background-image: url(/gp/p/vector/instagram.svg);
 }
@@ -726,6 +740,13 @@ body {
   background-position: -135px -180px;
 }
 
+.MasterCard {
+  background-image: url(/gp/p/vector/mastercard.svg);
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 36px;
+}
+
 .MugColor {
   background-position: -102px -120px;
 }
@@ -739,10 +760,10 @@ body {
 }
 
 .Paypal {
-  background-image: url(/gp/p/vector/paypal.svg);
+  background-image: url(/gp/p/vector/paypal-stroke.svg);
   background-repeat: no-repeat;
-  width: 100px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 
 .PrevGrayColor {
@@ -788,8 +809,8 @@ body {
 .Stripe {
   background-image: url(/gp/p/vector/stripe.svg);
   background-repeat: no-repeat;
-  width: 40px;
-  height: 24px;
+  width: 60px;
+  height: 36px;
 }
 
 .TwitterColor {
@@ -799,8 +820,15 @@ body {
 .Venmo {
   background-image: url(/gp/p/vector/venmo.svg);
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
+}
+
+.Visa {
+  background-image: url(/gp/p/vector/visa.svg);
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 36px;
 }
 
 .VKBlack {
