@@ -6233,7 +6233,7 @@ module.exports = {
             `div`, `.@_gxM`, `&@style>justify-content:center`, [[
               `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
                 `span`, `#@denom`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through`, `~@$`], [
-                `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD * .7).toFixed(2)}`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through; margin-left: 3px`, `~@${Asset.asset_USD}`]]], [
+                `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD)}`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through; margin-left: 3px`, `~@${Asset.asset_USD}`]]], [
               `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
                 `span`, `#@denom`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
                 `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD * .7).toFixed(2)}`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${(Asset.asset_USD * .7).toFixed(2)}`]]]]]]]]])
