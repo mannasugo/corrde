@@ -6537,9 +6537,9 @@ module.exports = {
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3 _eYG`, [[`span`, `.@a2X _aA2`, `~@Top Categories`]]], [
-                `div`, `.@_QZg _gxM -Zz`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg _gxM _-Zz`, [[`a`, `#@add-stories-ejs`, `.@_tX AddStoriesColor`, `&@href>javascript:;`]]]]]]], [
             `div`, [[`div`, `.@_gZy`, this.topStock()]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
+        `section`, `.@cX3 _ss7 _-Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
