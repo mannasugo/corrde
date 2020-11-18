@@ -6229,7 +6229,7 @@ module.exports = {
               `span`, `.@_aA6 _tXx axS`, `~@${Asset.rating}`], 
                           this.reqs_per_polyg(Asset.rating), [
                           `span`, `.@_axS _aA6 _a2X`, `~@ ${Asset.mail.length} reviews`]]], [`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
-          `div`, `&@style>margin-top:3px; font-size: 13px`, [[
+          `div`, `&@style>margin-top:3px; font-size: 11px`, [[
             `div`, `.@_gxM`, `&@style>justify-content:center`, [[
               `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
                 `span`, `#@denom`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through`, `~@$`], [
