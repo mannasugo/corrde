@@ -6231,8 +6231,12 @@ module.exports = {
                           `span`, `.@_axS _aA6 _a2X`, `~@ ${Asset.mail.length} reviews`]]], [`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
           `div`, `&@style>margin-top:3px; font-size: 13px`, [[
             `div`, `.@_gxM`, `&@style>justify-content:center`, [[
-              `span`, `#@denom`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
-              `span`, `#@denomValue`, `&@usd>${Asset.asset_USD}`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${Asset.asset_USD}`]]]]]]])
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `span`, `#@denom`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through`, `~@$`], [
+                `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD * .7).toFixed(2)}`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through; margin-left: 3px`, `~@${Asset.asset_USD}`]]], [
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `span`, `#@denom`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
+                `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD * .7).toFixed(2)}`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${(Asset.asset_USD * .7).toFixed(2)}`]]]]]]]]])
     })
 
     return ModelStock;    
@@ -6323,7 +6327,9 @@ module.exports = {
                     `div`, `.@yZS _gMX _eYG _xC3`, [[
                       `div`, `.@_gcQ _aXZ`, [[
                         `div`, `.@axS`, [[`a`, `.@-_tX ArchiveGray`, `&@href>javascript:;`]]], [
-                        `div`, `.@_dMG _geQ _aA2 _tXx`, [[`span`, `.@_tXx`, `~@$ ${Stock.asset_USD}`]]], [
+                        `div`, `.@_dMG _geQ _aA2 _tXx _gxM`, [[
+                          `span`, `#@SaleValue`, `&@usd>${(Stock.asset_USD)}`, `&@style>padding: 0 15px; color: #919191;text-decoration-line: line-through`, `.@_tXx`, `~@$${Stock.asset_USD} USD`], [
+                          `span`, `#@SaleValue`, `&@usd>${(Stock.asset_USD * .7).toFixed(2)}`, `&@style>padding: 0 15px; color: #222222`, `.@_tXx`, `~@$${(Stock.asset_USD * .7).toFixed(2)} USD`]]], [
                         `div`, `.@_QZg _gMz`, [ModelHearts]]]]]]]], [
                   `div`, `.@_yZS gxM _geQ gMX uZM`, [[
                     `div`, `.@yZS _gMX _eYG _xC3`, [[

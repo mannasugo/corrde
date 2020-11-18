@@ -125,7 +125,7 @@
           stock_alt: JSStore.avail().stock_alt,
           stock_img: JSStore.avail().stock_img,
           stock_md5: JSStore.avail().stock_md5,
-          stock_USD: JSStore.avail().stock_USD,
+          stock_USD: (JSStore.avail().stock_USD * .7).toFixed(2),
           store_md5: JSStore.avail().store_md5
         })
 
@@ -281,6 +281,32 @@
       }
     }
   }
+
+  let setSaleMode = () => {
+
+    if (JSStore.avail().sale_mode) {
+
+      let SaleModeMap = {
+        aud: [1.37, `$`],
+        cad: [1.31, `$`],
+        eur: [0.84, `€`],
+        gbp: [0.76, `£`],
+        kes: [109, `KES`],
+        usd: [1, `$`],
+        yen: [104.50, `¥`]
+      }
+
+      document.querySelectorAll(`#SaleValue`).forEach(Sale => {
+
+        Sale.innerHTML = SaleModeMap[JSStore.avail().sale_mode][1];
+
+        Sale.innerHTML += (SaleModeMap[JSStore.avail().sale_mode][0] * Sale.getAttribute(`usd`)).toFixed(2);
+
+        if (JSStore.avail().sale_mode !== `kes`) Sale.innerHTML += ` ${(JSStore.avail().sale_mode).toUpperCase()}`
+
+      });
+    }
+  }
  
   let e0 = e => {
 
@@ -310,6 +336,8 @@
 
     selfCart();
   //})
+
+  setSaleMode()
 
   S.on(`rateStock`, Args => {
 
