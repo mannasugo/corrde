@@ -6586,7 +6586,7 @@ module.exports = {
               `span`, `~@Need any assistance? We now have a fully operational support team to tackle your requests or improve on your suggestions.`]]], [
             `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
               `div`, `.@_gM_0 _agM _guZ`, [[`a`, ``, `.@_TX_a _atX qXS _utQ _aA0`, `&@href>/support/`, `~@Request Support`]]]]]]]]], [
-        `section`, `.@cX3 _ss7`, [[
+        `section`, `.@cX3 _ss7 _-Zz`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
