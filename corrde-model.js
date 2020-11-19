@@ -6823,6 +6823,7 @@ module.exports = {
           `Head Wear`,
           `Heels`,
           `Jackets`,
+          `Lingerie`,
           `Optics & Eyewear`,
           `Pants`,
           `Tops`, 
@@ -6970,7 +6971,7 @@ module.exports = {
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2 _tXx`, `~@${StockSet.toUpperCase()}`]]], [
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2 tXx`, `~@${StockSet}`]]], [
                 `div`, `.@_QZg _gxM cX5`, []]]]]], [
             `div`, [[`div`, `.@_gZy`, this.Stock(Sets)]]]]]]]]];
 
