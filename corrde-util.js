@@ -983,7 +983,16 @@ class Auxll {
       `select * from vServices
       ;select * from products
       ;select * from payments
-      ;select * from transfers`, (A, B, C) => {
+      ;select * from transfers
+      ;select * from sales`, (A, B, C) => {
+
+      let Dailies = [[], []];
+
+      let Deals = [];
+
+      let DealsMap = {};
+
+      let Monthlies = [[], []]
 
       let Stores = [];
 
@@ -1000,6 +1009,8 @@ class Auxll {
       let Stock = [];
 
       let StockMap = {};
+
+      let Weeklies = [[], []];
 
       for (let store in B[0]) {
 
@@ -1070,7 +1081,7 @@ class Auxll {
 
           let Sale = JSON.parse(B[2][sale].json);
 
-          if (Sale.sale_to = `store_md5` && Sale.store_md5 === Store.log_md5) {
+          if (Sale.sale_to === `store_md5` && Sale.store_md5 === Store.log_md5) {
 
             floatSales += Sale.sale;
 
@@ -1086,7 +1097,7 @@ class Auxll {
 
           let Remit = JSON.parse(B[3][remit].json);
 
-          if (Remit.remit_to = `store_md5` && Remit.store_md5 === Store.log_md5) {
+          if (Remit.remit_to === `store_md5` && Remit.store_md5 === Store.log_md5) {
 
             floatSent += Remit.sale;
 
@@ -1121,7 +1132,41 @@ class Auxll {
         StockMap = StockSelfMap;
       }
 
+      for (let deal in B[4]) {
+
+        let Deal = JSON.parse(B[4][deal].json);
+
+        if (Deal.sale_state === true && Deal.sale_off_log_secs > new Date().valueOf()) {
+
+          if (Deal.sale_class === `monthly`) {
+
+            Monthlies[0].push(Deal.log_md5);
+            Monthlies[1].push(Deal.asset_md5);
+          }
+
+          if (Deal.sale_class === `weekly`) {
+
+            Weeklies[0].push(Deal.log_md5);
+            Weeklies[1].push(Deal.asset_md5);
+          }
+
+          if (Deal.sale_class === `daily`) {
+
+            Dailies[0].push(Deal.log_md5);
+            Dailies[1].push(Deal.asset_md5);
+          }
+
+          Deals.push(Deal);
+
+          DealsMap[Deal.log_md5] = Deal;
+        }
+      }
+
       call({
+        Dailies: Dailies,
+        Deals: Deals,
+        DealsMap: DealsMap,
+        Monthlies: Monthlies,
         Stores: Stores, 
         StoresMap: StoresMap,
         Stock: Stock,
@@ -1129,7 +1174,8 @@ class Auxll {
         Sales: Sales,
         SalesMap: SalesMap,
         Sent: Sent,
-        Sent: SentMap})
+        Sent: SentMap,
+        Weeklies: Weeklies})
     })
   }
 
@@ -1167,6 +1213,7 @@ class Sql extends Auxll {
         ;${config.sql.messages}
         ;${config.sql.payments}
         ;${config.sql.products}
+        ;${config.sql.sales}
         ;${config.sql.stories}
         ;${config.sql.support_mail}
         ;${config.sql.traffic}
@@ -1308,6 +1355,10 @@ class UAPublic extends Auxll {
 
         });
       }
+
+      else if (this.levelState[2] === `toolkit`) {
+
+        this.Stores(A => {this.toolSuite(A)})}
     }
 
     else if (this.levelState[1] === `j`) {
@@ -3528,6 +3579,86 @@ class UAPublic extends Auxll {
         })
       });
   }
+
+  toolSuite (Stores) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`dev_md5`, (A, B) => {
+
+        if (A === true) {
+
+          const Stack = {
+            jSStore: JSON.stringify({}),
+            title: `Corrde Administration & Management System`,
+            css: CSS,
+            jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.devs_js]}
+
+          this.appAnalytics(A => {
+
+            Stack.appendModel = [
+              model.main({
+                appendModel: [model.toDevsView()]
+                    }), model.footer()];
+            
+                  Stack.appendModel = [model.wrapper(Stack), model.jS(Stack)];
+            
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(Stack));})
+        }
+
+        else if (A === false) {
+
+          let dev_md5 = B;
+
+          this.availDev(dev_md5, A => {
+
+            let dev = A.dev[0];
+
+            let mail = A.alerts.sort((a, b) => {return b.mail_log - a.mail_log});
+
+            let mail_ = A.mail_;
+
+            let preMail = false;
+
+            this.logDevs(A => {
+
+              let devs = A.dev;
+
+              let ava = ``;
+
+              if (mail_.length > 0 && mail_[0].mail_log > A.devsKey[dev_md5].pre_mail_utc) preMail = true;
+
+              new Sql().multi({}, `select * from traffic`, (A,B,C) => {
+
+                const Stack = {
+                  jSStore: JSON.stringify({dev_md5: dev.dev_md5, pre_devs_mail: preMail}),
+                  title: `Tool Suite`,
+                  css: CSS,
+                  jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.toolkit_devs]}
+
+                Stack.appendModel = [
+                  model.rootView({
+                    appendModel: [
+                      model.topDevsView({
+                        ava: (dev.ava), 
+                        mail: dev.mail}), 
+                      model.controlsView(), 
+                      model.toolSuite(Stores), model.tailControls(), 
+                      model.loadDOMModalView([model.modalView([model.ModelSalesModal()])], `ModelSales`),  
+                      model.jS(Stack)]
+                  })];
+              
+                  this.app.to.writeHead(200, config.reqMime.htm);
+                  this.app.to.end(model.call(Stack));});
+            })
+
+            
+          }); 
+        }
+      });
+    });
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -5618,6 +5749,28 @@ class UATCP extends UAPublic {
         });
         
         //tcp.emit(`payArgString`, {logSocket: Args.logSocket_pay, post_to: path, query: Query})
+      })
+
+      let Data = new Auxll();
+
+      tls.on(`sales`, J => {
+
+        Data.Stores(A => {
+
+          tcp.emit(`sales`, {
+            log_secs: J,
+            ModelSales: model.ModalSales(A)});
+        })
+      })
+
+      tls.on(`sale`, J => {
+
+        Data.Stores(A => {
+
+          tcp.emit(`sale`, {
+            log_secs: J.log_secs,
+            ModelSale: model.ModalSale(A, J.log_md5)});
+        })
       })
 
       /**

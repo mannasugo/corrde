@@ -3377,9 +3377,9 @@ module.exports = {
 
   controlsView () {
 
-    let iconRules = [`RootGray`, `MugColor`, `MailColor`, `StatsPlaneColor`];
+    let iconRules = [`RootGray`, `MugColor`, `SellColor`, `MailColor`, `StatsPlaneColor`];
 
-    let to = [`/devs/`, `/devs/mug/`, `/devs/mail/`, `/devs/analytics/`];
+    let to = [`/devs/`, `/devs/mug/`, `/devs/toolkit/`, `/devs/mail/`, `/devs/analytics/`];
 
     let model = [];
 
@@ -3396,9 +3396,9 @@ module.exports = {
 
   tailControls () {
 
-    let rules = [`RootGray`, `MugColor`, `MailColor`, `StatsPlaneColor`];
+    let rules = [`RootGray`, `MugColor`, `SellColor`, `MailColor`, `StatsPlaneColor`];
 
-    let to = [`/devs/`, `/devs/mug/`, `/devs/mail/`, `/devs/analytics/`];
+    let to = [`/devs/`, `/devs/mug/`, `/devs/toolkit/`, `/devs/mail/`, `/devs/analytics/`];
 
     let tail = [];
 
@@ -6303,20 +6303,30 @@ module.exports = {
             `div`, `.@eYG _ZSg _gxM _geQ`, this.StockSitesSliced(Store.vServiceAddress)]]]]]
     }
 
+    let ModelStockPath = []
+
+    if (Stock.asset_set_type) {
+
+      ModelStockPath = [
+        `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+          `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+            `div`, [/*this.listvServicesAvatr(Store)*/]], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_QxM`, [[
+                `a`, `&@style>text-decoration:underline`, `.@_tXx aA2`, `~@${Stock.asset_set} > ${Stock.asset_set_type}`, `&@href>/category/${(Stock.asset_set_type).toLowerCase()}/`]]]/*, [
+                        `div`, `#@mini`, `.@_gxM _geQ`, [[
+                          `span`, `.@_aA6 _tXx axS`, `~@${Store.vServiceRating}`], 
+                          this.reqs_per_polyg(Store.vServiceRating)]]*/]]]]]]]]
+
+
+    }
+
     return [`main`, `&@style>overflow:hidden`, `#@gM`, [
       this.feedControls(), [
         `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
           `section`, `&@style>margin: 70px 0 70px`, `.@_ss7`, [[
             `div`, [[
-              `div`, `.@_aGX`, [[
-                `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
-                  `div`, `.@_yZS _gxM _geQ`, [[`div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
-                    `div`, [this.listvServicesAvatr(Store)]], [
-                    `div`, `.@_eYG`, [[
-                      `div`, `.@_QxM`, [[`a`, `.@tXx aA2`, `~@${Store.vServiceSet}`, `&@href>/store/${Store.log_md5}/`]]], [
-                        `div`, `#@mini`, `.@_gxM _geQ`, [[
-                          `span`, `.@_aA6 _tXx axS`, `~@${Store.vServiceRating}`], 
-                          this.reqs_per_polyg(Store.vServiceRating)]]]]]]]]]], [
+              `div`, `.@_aGX`, [ModelStockPath, [
                 `div`, `.@_uxq`, [[
                   `div`, `.@_`, [[
                     `div`, `.@_`, [[
@@ -6503,7 +6513,7 @@ module.exports = {
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Popular Products`]]], [
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@New Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, []]]]]], [
             `div`, [[`div`, `.@_gZy`, this.Stock(RateStock)]]]]]]]]]]]
   },
@@ -6553,7 +6563,7 @@ module.exports = {
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
-                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Popular Products`]]], [
+                `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@New Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, []]]]]], [
             `div`, [[`div`, `.@_gZy`, this.Stock(RateStock)]]]]]]], [
         `section`, `.@_aGX _-Zz`, [[
@@ -7030,6 +7040,136 @@ module.exports = {
           `div`, `.@_QZg`, [[
             `div`, [[`a`, `#@del`, `&@href>javascript:;`, `.@-_tX DelColor`]]]]]]], 
         [`div`, `.@_aXY`, `&@style>max-height: calc(76vh - 70px);`, [[`ul`, `.@_aYy _tXx`, ModelStockSets]]]]]
+  },
+
+  toolSuite (Stores) {
+
+    return [`main`, `.@_aA2 _sy2 _tY0`, [[
+      `div`, `.@_pV0`], [
+      `div`, `.@_sZ2 pV0`, [[
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_yZS _gxM _geQ _gMX _uZM _cX0`, [[
+            `div`, `&@style>letter-spacing:0.75px`, `.@_gxM`, [[`span`, `.@_tXx`, `~@Sale settings`]]], [
+              `div`, `.@_QZg _gxM _cX5`, [[`a`, `#@toModalSales`, `.@-_tX ProceedColor`, `&@href>javascript:;`]]]]], [
+            `div`, [[`div`, `.@_gZy`, this.ModelSales(Stores, 5)]]]]]]]]];
+
+  },
+
+  ModelSales (Stores, stock_offset) {
+
+    let Stock = [];
+
+    let dailySale = 0;
+
+    let monthlySale = 0;
+
+    let weeklySale = 0; 
+
+    if (Stores.Stock.length > 0) {
+
+      Stock = Stores.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
+
+      Stock = Stock.slice(0, stock_offset);
+    }
+
+    let ModelStock = [];
+
+    Stock.forEach(Asset => {
+
+      if (Stores.Monthlies[1].indexOf(Asset.asset_md5) > -1) {
+
+        monthlySale = Stores.DealMap[Stores.Monthlies[0][Stores.Monthlies[1].indexOf(Asset.asset_md5)]]
+      }
+
+      ModelStock.push([
+        `div`, `.@_gQ`, [[
+          `div`, `&@style>margin-bottom:10px`, [[
+            `a`, `&@href>/stock/${Asset.store_md5}/${Asset.asset_md5}/`, [[
+              `img`, `&@src>/${Asset.asset[0].path}`, `&@alt>${Asset.text}`, `&@style>max-width: 100%;height: auto; vertical-align:middle`]]]]], [
+          `a`, `.@_tXv`, `&@href>javascript:;`, [[
+            `span`, `&@style>margin-top:3px; font-size: 11px`, `.@_aA2 tXx _tXv`, `~@${Asset.asset_alt}`]]], [
+          `div`, `&@style>margin-top:3px; font-size: 11px`, [[
+            `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `span`, `#@denom`, `&@style>color: #222222 !important; font-weight: 700`, `~@$${(Asset.asset_USD)} USD`]]]]]]], [
+          `div`, `&@style>margin-top:3px; font-size: 11px`, [[
+            `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `a`, `#@SetCurrency`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>javascript:;`, [[
+                  `svg`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 40 40`, [[
+                    `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
+                      `text`, `@SetCurrency`, `&@x>20`, `&@y>22`, `&@text-anchor>middle`, `&@style>fill: #e11d1d;font-size: 9px;`, `~@-${dailySale}%`], [
+                      `circle`, `&@style>stroke: #e11d1d;stroke-dashoffset: ${600-parseFloat(dailySale)/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]]]], [
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `a`, `#@SetCurrency`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>javascript:;`, [[
+                  `svg`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 40 40`, [[
+                    `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
+                      `text`, `@SetCurrency`, `&@x>20`, `&@y>22`, `&@text-anchor>middle`, `&@style>fill: #1dcae1;font-size: 9px;`, `~@-${weeklySale}%`], [
+                      `circle`, `&@style>stroke-dashoffset: ${600-parseFloat(weeklySale)/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]]]] , [
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `a`, `#@SetCurrency`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>javascript:;`, [[
+                  `svg`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 40 40`, [[
+                    `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
+                      `text`, `@SetCurrency`, `&@x>20`, `&@y>22`, `&@text-anchor>middle`, `&@style>fill: #48e11d;font-size: 9px;`, `~@-${monthlySale}%`], [
+                      `circle`, `&@style>stroke: #48e11d;stroke-dashoffset: ${600-parseFloat(monthlySale)/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]]]]]]]], [
+          `div`, `&@style>margin-top:16px; font-size: 11px`, [[
+            `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `a`, `#@ModelSale`, `&@for>${Asset.asset_md5}`, `.@-_tX Sale`, `&@href>javascript:;`, `~@Sale`]]]]]]]]])
+    })
+
+    return ModelStock;
+  },
+
+  ModelSalesModal () {
+
+    return [
+      `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;`, [[
+        `div`, `.@_gxM _gMX _gcQ _uZM`, [[
+          `div`, `&@style>padding-right: 10px;width: 100%;max-width:541px`, `.@_eYG`, [[
+            `input`, `#@u_md5_value`, `.@_Wtx`, `&@placeholder>Search user`, `&@style>`]]], [
+            `span`, `.@_`, [[`a`, `.@-_tX SearchColor`, `&@href>javascript:;`]]], [
+          `div`, `.@_QZg`, [[
+            `span`, `.@_`, [[`a`, `#@foldSales`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
+        `div`, `.@_aXY XsQ _aA2`, `&@style>margin:0 0;max-height: calc(100vh - 90px);`, [[
+          `div`, `#@listSales`, `.@_sZ2`, []], [
+          `div`, `#@Sale`, `.@_sZ2`, []]]]]];
+  },
+
+  ModalSales (Sales) {
+
+    return [`div`, `.@_gZy`, this.ModelSales(Sales, 20)]
+  },
+
+  ModalSale (Stores, Sale) {
+
+    let Stock = Stores.StockMap[Sale];
+
+    let ModelStockPath = []
+
+    if (Stock.asset_set_type) {
+
+      ModelStockPath = [
+        `div`, `.@_gxM _ga0`, `&@style>`, [[
+          `a`, `.@_a0`, `&@href>/`, `~@Home`], [
+            `span`, `.@_p0`, `~@/`], [
+            `a`, `.@_a0`, `&@href>/category/${(Stock.asset_set_type).toLowerCase()}/`, `~@${Stock.asset_set_type}`], [
+            `span`, `.@_p0`, `~@/`], [
+            `span`, `~@${Stock.asset_alt}`]]];
+    }
+
+    return [
+      `section`, `.@_tY0`, `#@ModelSale`, `@&style>width: 100%`, [[
+        `div`, `.@_g0`, [
+          ModelStockPath, [
+          `div`, `.@_g2 _gZy`, [[
+            `div`, `.@_ga2`, [[
+              `div`, `#@ModelSaleJPG`, [[
+                `div`, `.@_g0`, [[
+                  `div`, `.@_ga`, [[
+                    `div`, `.@_ga0`, [[`img`, `&@src>/${Stock.asset[0].path}`]]]]]]]]]]], [
+            `div`, `#@ModelSaleSet`, `.@_gb`, [[
+              `div`, `.@gb0`, `#@ModelSaleAlt`, [[
+                `span`, `.@_p0 _aA2`, `~@${Stock.asset_alt}`], [`div`, `.@_g0`, `#@ModelSaleUSD`, [[`span`, `.@_p0`, `~@$${Stock.asset_USD} USD`]]]]]]]]]]]]]
   }
-    
 }
