@@ -9,6 +9,7 @@
     "mysql": "^2.16.0",
     "oauth-signature": "^1.5.0",
     "osmtogeojson": "^3.0.0-beta.4",
+    "request": "^2.88.2",
     "socket.io": "^2.2.0",
     "topojson-server": "^3.0.1"
   },

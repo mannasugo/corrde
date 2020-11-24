@@ -6797,7 +6797,7 @@ module.exports = {
   topStock () {
 
     let StockSet = [
-      `Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Lips`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+      `Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Lips`, `Monitors`, `Pants`/*, `Phones`*/, `Shoes`, `Shorts`, `Sneakers`, `Tops`, `Watches`];
 
     let ModelStock = [];
 
@@ -7015,7 +7015,7 @@ module.exports = {
   ModelStockSets () {
 
     let StockSets = [
-      `Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Lips`, `Monitors`, `Pants`/*, `Phones`, `Shoes`*/, `Shorts`, `Sneakers`, `Tops`, `Watches`];
+      `Bags`, `Dresses`, `Ear Wear`, `Hoodies`, `Lingerie`, `Lips`, `Monitors`, `Pants`/*, `Phones`*/, `Shoes`, `Shorts`, `Sneakers`, `Tops`, `Watches`];
 
     let ModelStockSets = [];
 
