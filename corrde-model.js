@@ -7253,7 +7253,7 @@ module.exports = {
 
       DealSpan = [`D`, `H`, `M`, `S`];
 
-      epoch = Stores.DealsMap[DealSet[0][0]].sale_off_log_secs;
+      if (DealSet[0].length > 0) epoch = Stores.DealsMap[DealSet[0][0]].sale_off_log_secs;
     }
 
     if (Stores.Deals.length > 0) {
