@@ -679,6 +679,13 @@ body {
   background-position: -332px -7px;
 }
 
+.Clock {
+  background-image: url(/gp/p/vector/clock.svg);
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+
 .CommentsGray {
   background-position: 0 -383px;
 }
@@ -747,6 +754,13 @@ body {
   height: 36px;
 }
 
+.Minus {
+  background-image: url(/gp/p/vector/minus.svg);
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+
 .MugColor {
   background-position: -102px -120px;
 }
@@ -764,6 +778,13 @@ body {
   background-repeat: no-repeat;
   width: 36px;
   height: 36px;
+}
+
+.Plus {
+  background-image: url(/gp/p/vector/plus.svg);
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
 }
 
 .PrevGrayColor {
@@ -2863,6 +2884,22 @@ table > thead > tr > th {
 #ModelSaleAlt > ._g0 {opacity: 1;margin-bottom: 20px}
 
 #ModelSaleAlt > ._g0 > ._p0 {font-size: 11px;}
+
+#daily-pane {margin: 0;padding: 10px 0}
+
+#daily-pane > div {margin: 0 auto}
+
+#daily-pane > svg {min-height: 40px;width: 40px}
+
+#daily-pane > svg > circle {fill: none}
+
+#daily-c0-stroke {stroke-width:1;stroke:#86868638;}
+
+#daily-pane > svg > text {fill: #e11d1d;font-size: 9px;text-anchor: middle;}
+
+#daily-pane > svg > #daily-c2-dash {stroke: #e11d1d;stroke-dashoffset: 600px;}
+
+#daily-c2-dash {stroke-width: 1.5;stroke-dasharray: 600px;}
 
 @media only screen and (min-width: 1200px) {
 

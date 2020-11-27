@@ -54,6 +54,8 @@
       S.emit(`sales`, JSStore.avail().log_secs);
 
       document.querySelector(`#listSales`).innerHTML = ``;
+
+      document.querySelector(`#Sale`).innerHTML = ``;
   
       let modal_ejs = document.querySelector(`#ModelSales`);
   
@@ -84,6 +86,8 @@
 
       let modal_ejs = document.querySelector(`#ModelSales`);
 
+      document.querySelector(`#Sale`).innerHTML = ``;
+
       if (modal_ejs.className === `_-Zz`) {
         modal_ejs.className = `-Zz`;
       }
@@ -111,6 +115,35 @@
       if (modal_ejs.className === `_-Zz`) modal_ejs.className = `-Zz`;
     }
   }
+
+  let editSale = e => {
+
+    let saleClass, log_md5, deal = 0;
+
+    if (e.id === `edit-daily`) {
+
+      deal = new Auxll().longSlim(document.querySelector(`#daily-deal`).value);
+
+      log_md5 = e.getAttribute(`for`);
+
+      saleClass = `daily`;
+      
+      //if (typeof parseFloat(deal) === `number`) JSStore.to({daily_deal: parseFloat(deal)});
+      
+      document.querySelector(`#daily-deal`).value = ``;
+
+    }
+
+    if (saleClass && deal > 0 && deal < 100) {
+
+      JSStore.to({log_secs: new Date().valueOf()});
+
+      S.emit(`edit_sale`, {deal: deal, log_secs: JSStore.avail().log_secs, log_md5: log_md5, saleClass: saleClass});
+
+      document.querySelector(`#Sale`).innerHTML = ``;
+
+    }
+  }
  
   let e0 = e => {
 
@@ -123,6 +156,8 @@
     foldSalesModal(e);
 
     SaleModal(e);
+
+    editSale(e)
   }
 
   document.addEventListener(`click`, e0);
@@ -136,8 +171,6 @@
       let M = new Model();
 
       ModelSource.innerHTML = M.modelStringify([J.ModelSales]);
-
-
     }
   })
 
@@ -150,8 +183,18 @@
       let M = new Model();
 
       ModelSource.innerHTML = M.modelStringify([J.ModelSale]);
+    }
+  })
 
+  S.on(`edit_sale`, J => {
 
+    if (JSStore.avail().log_secs === J.log_secs) {
+
+      let ModelSource = document.querySelector(`#Sale`)
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([J.ModelSale]);
     }
   })
 })();

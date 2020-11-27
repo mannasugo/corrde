@@ -1448,7 +1448,7 @@ class UAPublic extends Auxll {
           if (A.StoresMap[this.levelState[3]]) this.StoreBillings(A.StoresMap[this.levelState[3]]);
         }
 
-        else if (A.StoresMap[this.levelState[2]]) this.retailStore(A.StoresMap[this.levelState[2]]);
+        else if (A.StoresMap[this.levelState[2]]) this.retailStore(A, A.StoresMap[this.levelState[2]]);
 
       })
     }
@@ -3337,7 +3337,7 @@ class UAPublic extends Auxll {
     });
   }
 
-  retailStore (Retail) {
+  retailStore (Stores, Retail) {
 
     this.modelStyler(config.lvl.css, CSS => {
 
@@ -3370,7 +3370,7 @@ class UAPublic extends Auxll {
           pool.appendModel = [
             model.rootView({
               appendModel: [
-                model.retailStore(A.StoresMap[Retail.log_md5], mug), 
+                model.retailStore(A, A.StoresMap[Retail.log_md5], mug), 
                 model.retailStoreHead(Retail, mug), 
                 model.tailFeedControls(), 
                 model.loadDOMModalView([model.modalView([model.setStockSet()])], `ModelSets`), 
@@ -3571,7 +3571,7 @@ class UAPublic extends Auxll {
                 
         Pool.appendModel = [
           model.rootView({
-            appendModel: [model.ModelStockSet(StockSet, Stores.Stock), model.ModelStockSetTop(), model.ModelStoreControls(), model.jS(Pool)]
+            appendModel: [model.ModelStockSet(Stores, StockSet, Stores.Stock), model.ModelStockSetTop(), model.ModelStoreControls(), model.jS(Pool)]
           })];
                               
           this.app.to.writeHead(200, config.reqMime.htm);
@@ -5770,6 +5770,68 @@ class UATCP extends UAPublic {
           tcp.emit(`sale`, {
             log_secs: J.log_secs,
             ModelSale: model.ModalSale(A, J.log_md5)});
+        })
+      })
+
+      tls.on(`edit_sale`, J => {
+
+        Data.Stores(A => {
+
+          let Stores = A;
+
+          let Deals, saleClass, saleOff, saleState;
+
+          let log = new Date().valueOf();
+
+          let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+          if (J.saleClass === `daily`) {
+
+            Deals = A.Dailies;
+
+            saleClass = J.saleClass
+
+            saleOff = (2 * 86400000) + log;
+          }
+
+          if (Deals[1].length > 0) {
+
+            if (Deals[1].indexOf(J.log_md5) > -1) {
+
+              let Deal = A.DealsMap[Deals[0][Deals[1].indexOf(J.log_md5)]];
+
+              let DealString = JSON.stringify(Deal);
+
+              Deal.sale_state = false;
+
+              saleOff = Deal.sale_off_log_secs;
+
+              new Sql().multi({}, 
+                `update sales set json = '${JSON.stringify(Deal)}' where json = '${DealString}'`, (A, B, C) => {});
+            }
+
+            else if (Deals[1].indexOf(J.log_md5) === -1) {
+
+              saleOff = A.Deals[0].sale_off_log_secs;
+            }
+          }
+
+          new Sql().to([`sales`, {json: JSON.stringify({
+            asset_md5: J.log_md5,
+            deal: J.deal,
+            log_md5: log_sum,
+            log_secs: log,
+            sale_class: saleClass,
+            sale_off_log_secs: saleOff,
+            sale_state: true})}], (A, B, C) => {
+
+              Data.Stores(A => {
+
+                tcp.emit(`edit_sale`, {
+                  log_secs: J.log_secs,
+                  ModelSale: model.ModalSale(A, J.log_md5)});});
+
+            })
         })
       })
 

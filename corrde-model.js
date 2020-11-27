@@ -5983,7 +5983,7 @@ module.exports = {
               this.inModal({id: `StoreSettings`, in: this.aPoolModal(Settings[0], Settings[1], Settings[2])})]]]]]]]];
   },
 
-  retailStore (Retail, u_md5) {
+  retailStore (Stores, Retail, u_md5) {
 
     let ModelRetailClass = []
 
@@ -6025,7 +6025,7 @@ module.exports = {
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, [ModelAddStock]]]]]], [
-            `div`, [[`div`, `.@_gZy`, this.Stock(RetailStock)]]]]]]]]]
+            `div`, [[`div`, `.@_gZy`, this.Stock(Stores, RetailStock)]]]]]]]]]
     
     if (Retail.u_md5 === u_md5 && Retail.Stock.length === 0) {
 
@@ -6211,7 +6211,7 @@ module.exports = {
                       `textarea`, `&@style>background: none`, `#@itemDesc`, `.@-_tyq _aA2`, `&@autocomplete>off`, `&@placeholder>item description`]]]]]]]]]]]]]
   },
 
-  Stock (Stock) {
+  Stock (Stores, Stock) {
 
     //Stock.sort((a, b) => {return b.rating - a.rating})
 
@@ -6219,24 +6219,37 @@ module.exports = {
 
     Stock.forEach(Asset => {
 
+      let ModelDealCut = [
+        `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+          `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+            `span`, `#@denom`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
+            `span`, `#@denomValue`, `&@usd>${Asset.asset_USD}`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${Asset.asset_USD}`]]]]]
+
+      if (Stores.Dailies[1].indexOf(Asset.asset_md5) > -1) {
+
+        let Deal = Stores.DealsMap[Stores.Dailies[0][Stores.Dailies[1].indexOf(Asset.asset_md5)]];
+
+        ModelDealCut = [
+        `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+          `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+            `span`, `#@denom`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through`, `~@$`], [
+            `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD)}`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through; margin-left: 3px`, `~@${Asset.asset_USD}`]]], [
+          `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+            `span`, `#@denom`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
+            `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD * (100 - Deal.deal)/100).toFixed(2)}`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${(Asset.asset_USD * (100 - Deal.deal)/100).toFixed(2)}`]]]]]
+      }
+
       ModelStock.push([
         `div`, `.@_gQ`, [[
           `div`, `&@style>margin-bottom:10px`, [[
             `a`, `&@href>/stock/${Asset.store_md5}/${Asset.asset_md5}/`, [[
               `img`, `&@src>/${Asset.asset[0].path}`, `&@alt>${Asset.text}`, `&@style>max-width: 100%;height: auto; vertical-align:middle`]]]]], [
-          `a`, `&@href>javascript:;`, [[
+          `a`, `&@href>/stock/${Asset.store_md5}/${Asset.asset_md5}/`, [[
             `div`, `#@mini`, `.@_gxM _geQ`, `&@style>justify-content:center`, [[
               `span`, `.@_aA6 _tXx axS`, `~@${Asset.rating}`], 
-                          this.reqs_per_polyg(Asset.rating), [
-                          `span`, `.@_axS _aA6 _a2X`, `~@ ${Asset.mail.length} reviews`]]], [`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
-          `div`, `&@style>margin-top:3px; font-size: 11px`, [[
-            `div`, `.@_gxM`, `&@style>justify-content:center`, [[
-              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
-                `span`, `#@denom`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through`, `~@$`], [
-                `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD)}`, `&@style>color: #919191 !important; font-weight: 700; text-decoration-line: line-through; margin-left: 3px`, `~@${Asset.asset_USD}`]]], [
-              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
-                `span`, `#@denom`, `.@a00`, `&@style>color: #222222 !important; font-weight: 700`, `~@$`], [
-                `span`, `#@denomValue`, `&@usd>${(Asset.asset_USD * .7).toFixed(2)}`, `&@style>color: #222222 !important; font-weight: 700; margin-left: 3px`, `~@${(Asset.asset_USD * .7).toFixed(2)}`]]]]]]]]])
+              this.reqs_per_polyg(Asset.rating), [
+              `span`, `.@_axS _aA6 _a2X`, `~@ ${Asset.mail.length} reviews`]]], [`span`, `.@_aA2 tXx`, `~@${Asset.asset_alt}`]]], [
+          `div`, `&@style>margin-top:3px; font-size: 11px`, [ModelDealCut]]]])
     })
 
     return ModelStock;    
@@ -6280,6 +6293,20 @@ module.exports = {
     let ModelCartSet = [];
 
     let ModelStockSites = [];
+
+    let ModelDealCut = [
+        `div`, `.@_dMG _geQ _aA2 _tXx _gxM`, [[
+          `span`, `#@SaleValue`, `&@usd>${(Stock.asset_USD)}`, `&@style>padding: 0 15px; color: #222222;`, `.@_tXx`, `~@$${Stock.asset_USD} USD`]]];
+
+    if (Stores.Dailies[1].indexOf(Stock.asset_md5) > -1) {
+
+      let Deal = Stores.DealsMap[Stores.Dailies[0][Stores.Dailies[1].indexOf(Stock.asset_md5)]];
+
+      ModelDealCut = [
+        `div`, `.@_dMG _geQ _aA2 _tXx _gxM`, [[
+          `span`, `#@SaleValue`, `&@usd>${(Stock.asset_USD)}`, `&@style>padding: 0 15px; color: #919191;text-decoration-line: line-through`, `.@_tXx`, `~@$${Stock.asset_USD} USD`], [
+          `span`, `#@SaleValue`, `&@usd>${(Stock.asset_USD * (100-Deal.deal)/100).toFixed(2)}`, `&@style>padding: 0 15px; color: #222222`, `.@_tXx`, `~@$${(Stock.asset_USD * (100-Deal.deal)/100).toFixed(2)} USD`]]]
+    }
 
     if (Stock.ratings.indexOf(u_md5) > -1) ModelHearts = [`a`, `#@rateStock`, `.@-_tX HeartsColor`, `&@href>javascript:;`];
 
@@ -6336,10 +6363,7 @@ module.exports = {
                   `div`, `.@_yZS gxM _geQ gMX _uZM`, [[
                     `div`, `.@yZS _gMX _eYG _xC3`, [[
                       `div`, `.@_gcQ _aXZ`, [[
-                        `div`, `.@axS`, [[`a`, `.@-_tX ArchiveGray`, `&@href>javascript:;`]]], [
-                        `div`, `.@_dMG _geQ _aA2 _tXx _gxM`, [[
-                          `span`, `#@SaleValue`, `&@usd>${(Stock.asset_USD)}`, `&@style>padding: 0 15px; color: #919191;text-decoration-line: line-through`, `.@_tXx`, `~@$${Stock.asset_USD} USD`], [
-                          `span`, `#@SaleValue`, `&@usd>${(Stock.asset_USD * .7).toFixed(2)}`, `&@style>padding: 0 15px; color: #222222`, `.@_tXx`, `~@$${(Stock.asset_USD * .7).toFixed(2)} USD`]]], [
+                        `div`, `.@axS`, [[`a`, `.@-_tX ArchiveGray`, `&@href>javascript:;`]]], ModelDealCut, [
                         `div`, `.@_QZg _gMz`, [ModelHearts]]]]]]]], [
                   `div`, `.@_yZS gxM _geQ gMX uZM`, [[
                     `div`, `.@yZS _gMX _eYG _xC3`, [[
@@ -6508,14 +6532,15 @@ module.exports = {
             `div`,`.@_gxM _geQ _gMX`, [[
               `div`, `.@miY _gMX`, [[
                 `div`, `#@skilled-slide-ejs`, `.@_AZc`, [[
-                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.topStores(Stores)]]]]]]]]]]]]]]], [
+                  `div`, [[`div`, `.@_AZx ava`, [[`div`, `#@skilled-rotate-ejs`, `.@_AZs _gxM`, this.topStores(Stores)]]]]]]]]]]]]]]],
+        this.ModelDeals(Stores, 5, `daily`), [
         `section`, [[
           `div`, `.@_sZ2`, [[
             `div`, `.@_cX3`, [[
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@New Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, []]]]]], [
-            `div`, [[`div`, `.@_gZy`, this.Stock(RateStock)]]]]]]]]]]]
+            `div`, [[`div`, `.@_gZy`, this.Stock(Stores, RateStock)]]]]]]]]]]]
   },
 
   appRoot (A, Stores) {
@@ -6541,7 +6566,8 @@ module.exports = {
                 `div`, `&@style>padding: 24px 0`, [[
                   `div`, `.@QZg`, [[
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]]]], [
+                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/signup/`, `~@sign up for free`]]]]]]]]]]]]]]],
+        this.ModelDeals(Stores, 5, `daily`), [
         `section`, `.@cX3 _ss7`, [[
           `div`, `.@sZ2`, [[
             `div`, `.@_cX3`, [[
@@ -6565,7 +6591,7 @@ module.exports = {
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2`, `~@New Products`]]], [
                 `div`, `.@_QZg _gxM cX5`, []]]]]], [
-            `div`, [[`div`, `.@_gZy`, this.Stock(RateStock)]]]]]]], [
+            `div`, [[`div`, `.@_gZy`, this.Stock(Stores, RateStock)]]]]]]], [
         `section`, `.@_aGX _-Zz`, [[
           `div`, `.@_cX3`, [[
             `div`, `.@_sZ2`, [[
@@ -6964,7 +6990,7 @@ module.exports = {
               this.Monies(), this.ModelStockSets()]]]]]]]];
   },
 
-  ModelStockSet (StockSet, Stock) {
+  ModelStockSet (Stores, StockSet, Stock) {
 
     let Sets = [];
 
@@ -6983,7 +7009,7 @@ module.exports = {
               `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
                 `div`,`.@_gxM cX3`, [[`span`, `.@a2X _aA2 tXx`, `~@${StockSet}`]]], [
                 `div`, `.@_QZg _gxM cX5`, []]]]]], [
-            `div`, [[`div`, `.@_gZy`, this.Stock(Sets)]]]]]]]]];
+            `div`, [[`div`, `.@_gZy`, this.Stock(Stores, Sets)]]]]]]]]];
 
     return [`main`, `&@style>overflow:hidden`, `#@gM`, [
       /*this.feedControls(), */[
@@ -7059,12 +7085,6 @@ module.exports = {
 
     let Stock = [];
 
-    let dailySale = 0;
-
-    let monthlySale = 0;
-
-    let weeklySale = 0; 
-
     if (Stores.Stock.length > 0) {
 
       Stock = Stores.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
@@ -7076,9 +7096,20 @@ module.exports = {
 
     Stock.forEach(Asset => {
 
+    let dailySale = 0;
+
+    let monthlySale = 0;
+
+    let weeklySale = 0; 
+
       if (Stores.Monthlies[1].indexOf(Asset.asset_md5) > -1) {
 
-        monthlySale = Stores.DealMap[Stores.Monthlies[0][Stores.Monthlies[1].indexOf(Asset.asset_md5)]]
+        monthlySale = Stores.DealsMap[Stores.Monthlies[0][Stores.Monthlies[1].indexOf(Asset.asset_md5)]].deal
+      }
+
+      else if (Stores.Dailies[1].indexOf(Asset.asset_md5) > -1) {
+
+        dailySale = Stores.DealsMap[Stores.Dailies[0][Stores.Dailies[1].indexOf(Asset.asset_md5)]].deal
       }
 
       ModelStock.push([
@@ -7158,6 +7189,15 @@ module.exports = {
             `span`, `~@${Stock.asset_alt}`]]];
     }
 
+    let Deals = [[0, Stock.asset_USD], 0, 0];
+
+    if (Stores.Dailies[1].indexOf(Stock.asset_md5) > -1) {
+
+      Deals[0][0] = Stores.DealsMap[Stores.Dailies[0][Stores.Dailies[1].indexOf(Stock.asset_md5)]].deal;
+
+      Deals[0][1] = ((100 - Deals[0][0])/100*Stock.asset_USD).toFixed(2);
+    }
+
     return [
       `section`, `.@_tY0`, `#@ModelSale`, `@&style>width: 100%`, [[
         `div`, `.@_g0`, [
@@ -7170,6 +7210,115 @@ module.exports = {
                     `div`, `.@_ga0`, [[`img`, `&@src>/${Stock.asset[0].path}`]]]]]]]]]]], [
             `div`, `#@ModelSaleSet`, `.@_gb`, [[
               `div`, `.@gb0`, `#@ModelSaleAlt`, [[
-                `span`, `.@_p0 _aA2`, `~@${Stock.asset_alt}`], [`div`, `.@_g0`, `#@ModelSaleUSD`, [[`span`, `.@_p0`, `~@$${Stock.asset_USD} USD`]]]]]]]]]]]]]
+                `span`, `.@_p0 _aA2`, `~@${Stock.asset_alt}`], [
+                `div`, `.@_g0`, `#@ModelSaleUSD`, [[`span`, `.@_p0`, `~@$${Stock.asset_USD} USD`]]]]], [
+              `div`, `#@daily-pane`, `.@_gxM geQ`, [[
+                `svg`, `&@viewBox>0 0 40 40`, [[
+                  `circle`, `#@daily-c0-stroke`, `&@cy>20`, `&@cx>20`, `&@r>19`], [
+                  `text`, `&@x>20`, `&@y>22`, `~@-${Deals[0][0]}%`], [
+                  `circle`, `#@daily-c2-dash`, `&@cy>20`, `&@cx>20`, `&@r>19`, `&@style>stroke-dashoffset: ${600-parseFloat(Deals[0][0])/100*120}px`]]], [
+                `div`, `.@_eYG`, []], [
+                `div`, `.@_QZg _gxM`, [[
+                  `span`, `&@style>padding: 0 10px;color:#e11d1d`, `~@$${Deals[0][1]} USD`]]]]], [
+              `div`, `#@set-daily-pane`, `.@_gxM`, [[
+                `div`, `.@_QZg`, [[
+                  `div`, `&@style>padding-right: 20px`, [[
+                    `input`, `&@id>daily-deal`, `&@type>text`, `&@style>padding:5px;max-width:40px;height:100%;outline:none;text-align:right;border:1px solid #d7d7d7;border-radius:4px`]]], [
+                    `a`, `&@id>edit-daily`, `&@for>${Stock.asset_md5}`, `.@-_tX Sale`, `&@href>javascript:;`]]]]]]]]]]]]]
+  },
+
+  ModelDeals (Stores, stock_offset, saleClass) {
+
+    let Deals = [];
+
+    let DealSet = [];
+
+    let title;
+
+    let ModelSource = [];
+
+    let dealSpan = [];
+
+    let ModelDealSpan = [];
+
+    let epoch = 0;
+
+    let ModelStock = [];
+
+    if (saleClass === `daily`) {
+
+      DealSet = Stores.Dailies;
+
+      title = `Flash Deals`;
+
+      DealSpan = [`D`, `H`, `M`, `S`];
+
+      epoch = Stores.DealsMap[DealSet[0][0]].sale_off_log_secs;
+    }
+
+    if (Stores.Deals.length > 0) {
+
+      let AllDeals = Stores.Deals.sort((a,b) => {return b.log_secs - a.log_secs});
+
+      AllDeals.forEach(Deal => {
+
+        if (DealSet[0].indexOf(Deal.log_md5) > -1) Deals.push(Deal);
+      })
+
+      Deals = Deals.slice(0, stock_offset);
+    }
+
+    Deals.forEach(Deal => {
+
+      let Stock = Stores.StockMap[Deal.asset_md5];
+
+      ModelStock.push([
+        `div`, `.@_gQ`, [[
+          `div`, `&@style>margin-bottom:10px`, [[
+            `a`, `&@href>/stock/${Stock.store_md5}/${Stock.asset_md5}/`, [[
+              `img`, `&@src>/${Stock.asset[0].path}`, `&@alt>${Stock.text}`, `&@style>max-width: 100%;height: auto; vertical-align:middle`]]]]], [
+          `a`, `.@_tXv`, `&@href>/stock/${Stock.store_md5}/${Stock.asset_md5}/`, [[
+            `span`, `&@style>margin-top:3px; font-size: 11px;white-space:nowrap`, `.@_aA2 tXx _tXv`, `~@${Stock.asset_alt}`]]], [
+          `div`, `&@style>margin-top:3px; font-size: 11px`, [[
+            `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `span`, `#@saleValue`, `&@usd>${(Stock.asset_USD)}`, `&@style>padding: 0 15px; color: #919191;text-decoration-line: line-through;white-space:nowrap`, `.@_tXx`, `~@$${Stock.asset_USD} USD`]]], [
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `span`, `#@saleValue`, `&@usd>${(Stock.asset_USD * (100 - Deal.deal)/100).toFixed(2)}`, `&@style>padding:0 15px;white-space:nowrap;color: #222222 !important; font-weight: 700`, `~@$${(Stock.asset_USD * (100 - Deal.deal)/100).toFixed(2)} USD`]]]]]]], [
+          `div`, `&@style>margin-top:3px; font-size: 11px`, [[
+            `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `a`, `#@SetCurrency`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>javascript:;`, [[
+                  `svg`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 40 40`, [[
+                    `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
+                      `text`, `@SetCurrency`, `&@x>20`, `&@y>22`, `&@text-anchor>middle`, `&@style>fill: #e11d1d;font-size: 9px;`, `~@-${Deal.deal}%`], [
+                      `circle`, `&@style>stroke: #e11d1d;stroke-dashoffset: ${600-parseFloat(Deal.deal)/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]]]]]]]]]])
+    });
+
+    DealSpan.forEach(S => {
+
+      ModelDealSpan.push([`div`, `.@_gxM`, `&@epoch>${epoch}`, [[
+        `span`, `.@_aA6`, `&@style>padding-left:8px`, `~@${S}: `], [
+        `span`, `.@aA6`, `&@style>padding-left:8px`, `&@id>${S}-span`, `~@00`]]])
+    })
+
+    ModelSource = [
+      `section`, [[
+        `div`, `.@_sZ2`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_yZS _gxM _geQ _gMX uZM`, [[
+              `div`,`.@_gxM cX3`, [[
+                `svg`, `&@style>stroke:#e11d1d; stroke-width:1.5px;fill:none;min-height:0;height:24px;width:120px`, `&@viewBox>`, [[
+                  `g`, [[
+                    `path`, `&@d>M1 1 119 1 119 23 1 23z`], [
+                      `text`, `&@x>60`, `&@y>15`, `&@text-anchor>middle`, `&@style>fill: #e11d1d;font-size: 10px;letter-spacing:3.5px;stroke:none`, `~@${title.toUpperCase()}`]]]]]]], [
+              `div`, `.@_QZg _gxM _tXx`, `&@style>font-size:11px`, [[
+                `div`, [[
+                  `span`, `.@-_tX Clock`]]], [`div`, `#@${saleClass}-span`, `.@_gxM`, `&@epoch>${epoch}`, ModelDealSpan]]]]]]], [
+          `div`, [[`div`, `.@_gZy`, ModelStock]]]]]]];
+
+    if (DealSet[0].length === 0) ModelSource = []
+
+    return ModelSource;
   }
 }
