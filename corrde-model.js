@@ -7169,7 +7169,7 @@ module.exports = {
 
   ModalSales (Sales) {
 
-    return [`div`, `.@_gZy`, this.ModelSales(Sales, 30)]
+    return [`div`, `.@_gZy`, this.ModelSales(Sales, 50)]
   },
 
   ModalSale (Stores, Sale) {
