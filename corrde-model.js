@@ -6014,7 +6014,7 @@ module.exports = {
 
       RetailStock = Retail.Stock.sort((a,b) => {return b.log_secs - a.log_secs});
 
-      RetailStock = RetailStock.slice(0, 15);
+      RetailStock = RetailStock.slice(0, 50);
     }
 
     ModelStock = [
@@ -7169,7 +7169,7 @@ module.exports = {
 
   ModalSales (Sales) {
 
-    return [`div`, `.@_gZy`, this.ModelSales(Sales, 20)]
+    return [`div`, `.@_gZy`, this.ModelSales(Sales, 30)]
   },
 
   ModalSale (Stores, Sale) {
@@ -7245,6 +7245,8 @@ module.exports = {
 
     let ModelStock = [];
 
+    let levelSale = [`javascript:;`, ``]
+
     if (saleClass === `daily`) {
 
       DealSet = Stores.Dailies;
@@ -7252,6 +7254,8 @@ module.exports = {
       title = `Flash Deals`;
 
       DealSpan = [`D`, `H`, `M`, `S`];
+
+      levelSale = [`/flashsale/`, `More Flash Deals`];
 
       if (DealSet[0].length > 0) epoch = Stores.DealsMap[DealSet[0][0]].sale_off_log_secs;
     }
@@ -7298,7 +7302,7 @@ module.exports = {
     DealSpan.forEach(S => {
 
       ModelDealSpan.push([`div`, `.@_gxM`, `&@epoch>${epoch}`, [[
-        `span`, `.@_aA6`, `&@style>padding-left:8px`, `~@${S}: `], [
+        `span`, `.@_aA6`, `&@style>padding-left:8px`, `~@${S} :`], [
         `span`, `.@aA6`, `&@style>padding-left:8px`, `&@id>${S}-span`, `~@00`]]])
     })
 
@@ -7315,7 +7319,11 @@ module.exports = {
               `div`, `.@_QZg _gxM _tXx`, `&@style>font-size:11px`, [[
                 `div`, [[
                   `span`, `.@-_tX Clock`]]], [`div`, `#@${saleClass}-span`, `.@_gxM`, `&@epoch>${epoch}`, ModelDealSpan]]]]]]], [
-          `div`, [[`div`, `.@_gZy`, ModelStock]]]]]]];
+          `div`, [[
+            `div`, `.@_gZy`, ModelStock], [
+            `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `.@_TX_a _atX _utQ`, `&@href>${levelSale[0]}`, `~@${levelSale[1]}`]]]]]]]]]]];
 
     if (DealSet[0].length === 0) ModelSource = []
 
