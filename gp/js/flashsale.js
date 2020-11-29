@@ -45,6 +45,23 @@
     return txt
   }
 
+  let unlistMug = e => {
+
+    if (e.id === `del`) {
+
+      let modals = document.querySelectorAll(`[for = 'modal']`);
+
+      for (let i = 0; i < modals.length; i++) {
+        
+        if (modals[i].className === `_aAY -Zz`) {
+
+          modals[i].setAttribute(`class`, `_aAY _-Zz`);
+        }
+      }
+    }
+
+  }
+
   let SetCurrency = e => {
 
     if (e.id === `SetCurrency`) {
@@ -156,6 +173,8 @@
   let e0 = e => {
 
     e = e.target;
+    
+    unlistMug(e)
 
     SetCurrency(e);
 
