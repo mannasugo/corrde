@@ -7020,7 +7020,7 @@ module.exports = {
 
   ModelStoreControls () {
 
-    let Rules = [`Filter2Gray`, `SortGray`, `SearchColor`, `CartGray`];
+    let Rules = [`Filter2Gray`, `SortGray`, `SearchColor`, `Bag`];
 
     let Places = [``, ``, ``, `toModelCart`];
 
@@ -7245,7 +7245,9 @@ module.exports = {
 
     let ModelStock = [];
 
-    let levelSale = [`javascript:;`, ``]
+    let levelSale = [`javascript:;`, ``];
+
+    let ModelSalesPlus = [];
 
     if (saleClass === `daily`) {
 
@@ -7255,7 +7257,7 @@ module.exports = {
 
       DealSpan = [`D`, `H`, `M`, `S`];
 
-      levelSale = [`/flashsale/`, `More Flash Deals`];
+      levelSale = [`/sales/quick/`, `More Flash Deals`];
 
       if (DealSet[0].length > 0) epoch = Stores.DealsMap[DealSet[0][0]].sale_off_log_secs;
     }
@@ -7271,6 +7273,14 @@ module.exports = {
 
       Deals = Deals.slice(0, stock_offset);
     }
+
+    if (stock_offset < 50) {
+
+      ModelSalesPlus = [
+            `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `.@_TX_a _atX _utQ`, `&@href>${levelSale[0]}`, `~@${levelSale[1]}`]]]]]
+    } 
 
     Deals.forEach(Deal => {
 
@@ -7320,13 +7330,52 @@ module.exports = {
                 `div`, [[
                   `span`, `.@-_tX Clock`]]], [`div`, `#@${saleClass}-span`, `.@_gxM`, `&@epoch>${epoch}`, ModelDealSpan]]]]]]], [
           `div`, [[
-            `div`, `.@_gZy`, ModelStock], [
-            `div`, `.@_gxQ`, `&@style>padding: 0 0 24px`, [[
-              `div`, `.@_gM_a _agM _guZ`, [[
-                `a`, `.@_TX_a _atX _utQ`, `&@href>${levelSale[0]}`, `~@${levelSale[1]}`]]]]]]]]]]];
+            `div`, `.@_gZy`, ModelStock], ModelSalesPlus]]]]]];
 
     if (DealSet[0].length === 0) ModelSource = []
 
     return ModelSource;
+  },
+
+  ModelFlashSale (Stores) {
+
+    return [`main`, `&@style>overflow:hidden`, `#@gM`, [
+      /*this.feedControls(), */[
+        `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
+          `section`, `&@style>margin: 100px 0`, [[
+            `div`, `.@_sZ2 _cX3 cX0`, []], [`div`, `&@style>padding:60px 0`, [this.ModelDeals(Stores, 50, `daily`)]]]]]]]]
+
+
+  },
+
+  ModelSalesAlpha () {
+
+    return [`nav`, 
+      `.@_uHC _tY0`, [[
+        `div`, `.@_xCt _g2s`], [
+        `div`, [[
+          `div`, `.@_-tY _y2s`, [[
+            `div`, `&@style>height:45px;background: #1185fe;width: 100%;padding: 0 20px`, [[
+              `div`, `.@_geQ _gMX _aA0`, [[
+                `div`, `.@_eYG`, [[
+                  `div`, `.@_gxQ gMX`, [[`span`, `.@_tAa _tXx`, `~@Free International Shipping`]]]]], [
+                `div`, `.@_QZg _geQ`, [[
+                  `div`, `.@_gxM`, [[
+                    `a`, `#@SetCurrency`, `.@_cCq`, `&@style>width:32px;height:32px`, `&@href>javascript:;`, [[
+                      `svg`, `#@SetCurrency`, `&@style>min-height:32px;width:32px`, `&@viewBox>0 0 24 24`, [[
+                        `circle`, `#@SetCurrency`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `#@SetCurrency`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 9px;`, `~@usd`]]]]]]]]]]]]], [
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM`, [[
+                `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
+                `span`, `@_tCc _pV4`, `@alpha`]]], [
+              `div`, `.@_QZg`, [[
+                `a`, `#@saleBag`, `.@-_tX Bag`, `&@style>width:24px;height:24px`, `&@href>javascript:;`]]], [
+              `div`, `#@toCart`, `&@for>modal`, `.@_aAY _-Zz`, [[
+                `div`, `.@_gcQ _gxM _geQ`, [[`div`, `#@cartAlt`, `.@_eYG`, `~@My Shopping Cart`], [
+                `div`, `.@_QZg`, [[
+                  `div`, [[`a`, `#@del`, `&@href>javascript:;`, `.@-_tX DelColor`]]]]]]], [
+                `div`, `#@listCart`, `.@_aXY`, []]]],
+              this.Monies()/*, this.ModelStockSets()*/]]]]]]]];
   }
 }

@@ -1425,6 +1425,14 @@ class UAPublic extends Auxll {
       });
     }
 
+    else if (this.levelState[1] === `sales`) {
+
+      this.Stores(A => {
+
+        if (this.levelState[2] === `quick`) this.flashSale(A);
+      })
+    }
+
     else if (this.levelState[1] === `stock`) {
 
       this.Stores(A => {
@@ -3658,6 +3666,42 @@ class UAPublic extends Auxll {
         }
       });
     });
+  }
+
+  flashSale (Stores) { 
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Pool = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Store | Flash Sales`,
+        css: CSS,
+        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.flashsale_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Pool.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        Pool.jSStore = JSON.stringify(clientJSON); 
+                
+        Pool.appendModel = [
+          model.rootView({
+            appendModel: [model.ModelFlashSale(Stores), model.ModelSalesAlpha(), model.ModelStoreControls(), model.jS(Pool)]
+          })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Pool));
+        })
+      });
   }
 }
 

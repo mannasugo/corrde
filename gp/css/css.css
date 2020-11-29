@@ -654,6 +654,13 @@ body {
 
 .ArchiveGray {background-image: url(/gp/p/vector/archive.svg);}
 
+.Bag {
+  background-image: url(/gp/p/vector/bag.svg);
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+
 .Bitcoin {
   background-image: url(/gp/p/vector/bitcoin.svg);
   background-repeat: no-repeat;
