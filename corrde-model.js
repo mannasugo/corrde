@@ -6856,6 +6856,7 @@ module.exports = {
         `Clothing & Accessories`, [
           `Bags`,
           `Belts`,
+          `bodysuit`,
           `Dresses`,
           `Head Wear`,
           `Heels`,
@@ -6866,6 +6867,7 @@ module.exports = {
           `Tops`, 
           `Shoes`,
           `Sneakers`,
+          `swimwear`,
           `Wallets`]], 
       [
         `Computer Parts & Components`, [
@@ -7348,7 +7350,7 @@ module.exports = {
       /*this.feedControls(), */[
         `main`, `.@_xC2 _aA2`, `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;background:#f3f4f7`, [[
           `section`, `&@style>margin: 100px 0`, [[
-            `div`, `.@_sZ2 _cX3 cX0`, []], [`div`, `&@style>padding:60px 0`, [this.ModelDeals(Stores, 50, `daily`)]]]]]]]]
+            `div`, `.@_sZ2 _cX3 cX0`, []], [`div`, `&@style>padding:60px 0`, [this.ModelDeals(Stores, 100, `daily`)]]]]]]]]
 
 
   },
