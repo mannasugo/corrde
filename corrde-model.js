@@ -5303,7 +5303,7 @@ module.exports = {
     if (B !== false) {//console.log(`#1234`)
  
       to = [
-        `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
+        `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, `&@style>height:24px;width:24px`, [[
           `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A[B].ava}`]]]  
     }
 
@@ -5326,7 +5326,8 @@ module.exports = {
               `div`, `.@_-Xg _gxM`, [[
                 `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
                 `span`, `@_tCc _pV4`, `@alpha`]]], [
-              `div`, `.@_QZg`, [to]],
+              `div`, `.@_QZg`, [to, [
+                `a`, `#@saleBag`, `.@-_tX Bag`, `&@style>margin: 0 24px;width:24px;height:24px`, `&@href>javascript:;`]]],
               this.Monies(), 
               this.inModal({id: `mugger`, in: this.aPoolModal(txt, plc, a)})]]]]]]]];
   },
@@ -7306,7 +7307,11 @@ module.exports = {
                   `svg`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 40 40`, [[
                     `circle`, `.@_cC4`, `&@r>19`, `&@cy>20`, `&@cx>20`], [
                       `text`, `@SetCurrency`, `&@x>20`, `&@y>22`, `&@text-anchor>middle`, `&@style>fill: #e11d1d;font-size: 9px;`, `~@-${Deal.deal}%`], [
-                      `circle`, `&@style>stroke: #e11d1d;stroke-dashoffset: ${600-parseFloat(Deal.deal)/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]]]]]]]]]])
+                      `circle`, `&@style>stroke: #e11d1d;stroke-dashoffset: ${600-parseFloat(Deal.deal)/100*120}px`, `.@_cC4-`, `&@r>19`, `&@cy>20`, `&@cx>20`]]]]]]]]]]], [
+          `div`, `&@style>margin-top:16px; font-size: 11px`, [[
+            `div`, `.@_gxM`, `&@style>justify-content:center`, [[
+              `div`, `.@_geQ _gxM`, `&@style>justify-content:center`, [[
+                `a`, `#@ModelCart`, `&@for>${Stock.asset_md5}`, `.@-_tX Cart`, `&@href>javascript:;`, `~@Sale`]]]]]]]]])
     });
 
     DealSpan.forEach(S => {

@@ -655,7 +655,7 @@ body {
 .ArchiveGray {background-image: url(/gp/p/vector/archive.svg);}
 
 .Bag {
-  background-image: url(/gp/p/vector/bag.svg);
+  background-image: url(/gp/p/vector/bag2.svg);
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
@@ -666,6 +666,13 @@ body {
   background-repeat: no-repeat;
   width: 36px;
   height: 36px;
+}
+
+.Cart {
+  background-image: url(/gp/p/vector/cart2.svg);
+  background-repeat: no-repeat;
+  width: 144px;
+  height: 32px;
 }
 
 .CartGray {

@@ -140,7 +140,7 @@
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
 
-      if (!file.type.match(`image.*`) || file.size > 1048576) return;
+      if (!file.type.match(`image.*`) || file.size > 2048576) return;
 
       let image;
 
