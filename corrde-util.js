@@ -1327,7 +1327,8 @@ class UAPublic extends Auxll {
 
       let StockSet = [
         `bags`,
-        `bodysuit`, 
+        `bodysuit`,
+        `bottoms`, 
         `dresses`, 
         `ear wear`, 
         `heels`, `hoodies`, `lingerie`, `lips`, `monitors`, `pants`, `phones`, `shoes`, `shorts`, `sneakers`, `swimwear`, `tops`, `watches`];
