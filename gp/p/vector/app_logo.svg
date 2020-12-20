@@ -1,0 +1,22 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    g {
+      fill: none;
+      stroke-width: 1.5px; 
+      stroke: #000
+    }
+  </style>
+  <g>
+    <rect stroke-width="2.2" rx="7" ry="7" x="1.5" y="1.5" width="29" height="29"></rect>
+    <!--path stroke-width="1.5" d="M14 12 8 12 8 15 14 15"></path>
+    <path stroke-width="1.5" d="M10 15 10 20 14 20"></path>
+    <path stroke-width="1.5" d="M14 21 14 11.45 13 10.3"></path>
+    <path stroke-width="1.5" d="M14 11.45 15 10.3"></path>
+    <path stroke-width="1.5" d="M15.5 12 15.5 20 24 20 24 12z"></path>
+    <path stroke-width="1.5" d="M18,14 A1,1 1 1,0 21,14"></path-->
+    <!--path d="M10 10 10 22 22 22 22 10z"></path-->
+    <path stroke-width="2" d="M10,10 A3,5 1 1,0 22,10"></path>
+    <!--circle fill="#fff" r="1.8" cx="22" cy="12"></circle>
+    <circle fill="#fff" r="1.8" cx="10" cy="12"></circle-->
+  </g>
+  </svg>

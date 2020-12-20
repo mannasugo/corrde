@@ -2,12 +2,12 @@
   <style>
     g {
       fill: none;
-      stroke-width: 1.5px; 
-      stroke: #000
+      stroke-width: 1.2px; 
+      stroke: #4f4f4f
     }
   </style>
   <g>
-    <path fill="#fff" stroke="#4f4f4f" d="M2 2 22 2 22 22 2 22z"></path>
+    <!--path fill="#fff" stroke="#4f4f4f" d="M2 2 22 2 22 22 2 22z"></path-->
     <path fill="#fff" d="M9 12 15 12"></path>
   </g>
   </svg>

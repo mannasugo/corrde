@@ -3,7 +3,7 @@
 
     path, circle {
       stroke-width: 1.5px; 
-      stroke: #4f4f4f
+      stroke: #000
     }
   </style>
   <!--rect x="0" y="0" width="24" height="24"></rect-->

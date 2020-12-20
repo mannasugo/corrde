@@ -226,6 +226,43 @@ const Model = (function () {
       return [
         `div`, [[
           `div`, `&@style>border: 1px solid #e4e4e4;border-radius:4px;width: 100%`, `.@_sZ2`, ModelCart]]]
+    },
+
+    MyCart: MyCart => {
+
+      let ModelMyCart = [];
+
+      MyCart.forEach(Stock => {
+
+          let ModelJSON = `&@data>{
+            &quot;alpha&quot;: &quot;${Stock.alpha}&quot;,
+            &quot;dollars&quot;: &quot;${Stock.dollars}&quot;,
+            &quot;file&quot;: &quot;${Stock.file}&quot;,
+            &quot;items&quot;: &quot;${Stock.items}&quot;,
+            &quot;MD5&quot;: &quot;${Stock.MD5}&quot;,
+            &quot;swap&quot;: &quot;${Stock.swap}&quot;,
+            &quot;swapAlpha&quot;: &quot;${Stock.swapAlpha}&quot;}`,
+
+        dollars = (Stock.dollars*Stock.swap*Stock.items).toFixed(2);
+
+        ModelMyCart.push([
+          `div`, `.@_gxM _geQ _yZS _uZM`, [[
+            `div`, `.@_`, `&@style>max-width:60px`, [[
+              `img`, `&@alt>${Stock.alpha}`, `&@style>max-width:100%`, `&@src>/${Stock.file}`]]], [
+            `div`, `.@_eYG _geQ`, [[
+              `div`, [[
+                `span`, `&@style>text-transform:uppercase;font-weight:700`, `~@${Stock.alpha}`]]], [
+              `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
+                `div`, `&@style>margin: 8px 0`, [[
+                  `div`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
+                    `div`, [[`a`, `#@sliceCart`, `.@-_tX Minus`, ModelJSON, `&@href>javascript:;`]]], [
+                    `div`, `.@_tXx`, `#@items_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `&@style>padding:0 8px`, `~@${Stock.items}`], [
+                    `div`, [[`a`, `#@alterCart`, `.@-_tX Plus`, ModelJSON, `&@forPlus>${Stock.MD5}-${MyCart.indexOf(Stock)}`, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg`, [[`span`, `.@_tXx`, `#@dollars_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `~@${Stock.swapAlpha}${dollars.toLocaleString()}`]]]]]]]]])
+      });
+
+      return [
+        `div`, `.@_g0`, [[`div`, ModelMyCart]]];
     }
   }
   
