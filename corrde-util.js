@@ -1386,6 +1386,11 @@ class UAPublic extends Auxll {
         this.Stores(A => {this.toolSuite(A)})}
     }
 
+    else if (this.levelState[1] === `grocery`) {
+
+      if (this.levelState[2]) this.RetailStock([`grocery`, this.levelState[2]]);
+    }
+
     else if (this.levelState[1] === `j`) {
 
       this.logs_u_md5(A => {
@@ -3785,6 +3790,45 @@ class UAPublic extends Auxll {
       });
     })
   }
+
+  RetailStock (Routes) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({route: Routes}),
+        title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
+        css: CSS,
+        jsState: [config.reqs.retail_item_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -6002,7 +6046,7 @@ class UATCP extends UAPublic {
               });
           })
         });
-      })
+      });
 
       tls.on(`locale`, J => {
 
@@ -6012,7 +6056,7 @@ class UATCP extends UAPublic {
             log_secs: J.log_secs,
             ModelZonal: model.ModelZone(J.locale, A)});
           })
-      })
+      });
 
       tls.on(`zonal`, J => {
 
@@ -6029,6 +6073,31 @@ class UATCP extends UAPublic {
                 model.ModelRootAlpha(A.md5Key, J.mug),
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                 model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),  
+                model.footer()]
+              });
+          })
+        });
+      });
+
+      tls.on(`retailStock`, J => {
+
+        Data.Sell(A => {
+
+          let Sell = A;
+
+          if (!Sell.Sell[1][J.route[1]] || (Sell.Sell[1][J.route[1]].shop).toLowerCase() !== J.route[0]) return;
+
+          Data.logs_u_md5(A => {
+
+            tcp.emit(`retailStock`, {
+              alpha: Sell.Sell[1][J.route[1]].alpha + ` - ` + J.route[0] + ` | Corrde Stores`,
+              log_secs: J.log_secs,
+              ModelRetailStock: [
+                model.ModelRetailStock(Sell, J.route[1]),
+                model.ModelRootAlpha(A.md5Key, J.mug),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+                model.loadDOMModalView([model.modalView([model.ModalRetailRates(Sell.Sell[1][J.route[1]].market)])], `ModalRetailRates`),
                 model.footer()]
               });
           })

@@ -1,4 +1,6 @@
-const config = require(`./corrde-config`)
+const config = require(`./corrde-config`);
+
+const RetailMaps = config.RetailZones;
 
 class ModelString {
   
@@ -7665,13 +7667,17 @@ module.exports = {
 
     let Shelve = (Shelf, Sell) => {
 
+      let Rows = Sell.Sell[0].sort((a, b) => {return b.log - a.log});
+
+      Rows = Rows.slice(0, 3)
+
       let ModelShelve = [];
 
       let alpha = Shelf;
 
       if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
 
-      Sell.Sell[0].forEach(Row => {
+      Rows.forEach(Row => {
 
         if (Row.set === Shelf && Row.market === zone) {
 
@@ -7689,14 +7695,14 @@ module.exports = {
             `div`, `.@_gA0`, [[
               `div`, `.@_gY`, [[
                 `a`, `.@_Qg`, [[
-                  `div`, `.@_Qg0`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>/grocery/${Row.MD5}`], [
+                  `div`, `.@_Qg0`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>/grocery/${Row.MD5}/`], [
                 `div`, [[
                   `div`, `.@_pY`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.units})`]]]]], [
                     `a`, `.@_a2`, [[
-                      `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>/grocery/${Row.MD5}`]]], [
+                      `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>/grocery/${Row.MD5}/`]]], [
                   `div`, `.@_2pY`, [[
                     `div`, `&@style>width:max-content`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
@@ -8116,5 +8122,173 @@ module.exports = {
                       `a`, `#@toCheckOut`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:11px`, `~@proceed to checkout`]]]]]]]]]]]]]]];
 
 
+  },
+
+  ModelRetailStock (Sell, MD5) {
+
+    let RowSet = Sell.Sell[1][MD5];
+
+    let Swap = [RetailMaps[RowSet.market.toLowerCase()].swapAlpha, RetailMaps[RowSet.market.toLowerCase()].swap];
+
+    let ModelJSON = `&@data>{
+      &quot;alpha&quot;: &quot;${RowSet.alpha}&quot;,
+      &quot;dollars&quot;: &quot;${RowSet.dollars}&quot;,
+      &quot;file&quot;: &quot;${RowSet.files[0]}&quot;,
+      &quot;MD5&quot;: &quot;${RowSet.MD5}&quot;,
+      &quot;swap&quot;: &quot;${Swap[1]}&quot;,
+      &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`;
+
+    let Shelve = (Shelf, Sell) => {
+
+      let Rows = Sell.Sell[0].sort((a, b) => {return b.log - a.log});
+
+      Rows = Rows.slice(0, 6)
+
+      let ModelShelve = [];
+
+      let alpha = Shelf;
+
+      if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
+
+      Rows.forEach(Row => {
+
+        if (Row.set === Shelf && Row.market === RowSet.market) {
+
+          let ModelJSON = `&@data>{
+            &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
+            &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
+            &quot;file&quot;: &quot;${Row.files[0]}&quot;,
+            &quot;MD5&quot;: &quot;${Row.MD5}&quot;,
+            &quot;swap&quot;: &quot;${Swap[1]}&quot;,
+            &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`,
+
+            dollars = (Row.dollars*Swap[1]).toFixed(2);
+
+          ModelShelve.push([
+            `div`, `.@_gA0`, [[
+              `div`, `.@_gY`, [[
+                `a`, `.@_Qg`, [[
+                  `div`, `.@_Qg0`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>/grocery/${Row.MD5}/`], [
+                `div`, [[
+                  `div`, `.@_pY`, [[
+                    `div`, `.@_Xx _gxM`, [[
+                      `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
+                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.units})`]]]]], [
+                    `a`, `.@_a2`, [[
+                      `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>/grocery/${Row.MD5}/`]]], [
+                  `div`, `.@_2pY`, [[
+                    `div`, `&@style>width:max-content`, [[
+                      `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                        `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:11px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
+
+        }
+      });
+
+      return [
+      `section`, `#@ModelShelf`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Similar Products`]]]]], [
+          `div`, `.@_gX0`, ModelShelve]]]]]
+    }
+
+    let ModelAvaFiles = [];
+
+    RowSet.files.forEach(File => {
+
+      ModelAvaFiles.push([
+        `a`, `.@_cCq _4Qx`, `&@style>width:36px;height:36px;`, `&@href>javascript:;`, [[`img`, `&@style>width:100%;height:100%;`, `&@src>/${File}`]]])
+    })
+
+    return [
+    `main`, `.@_xC2`, [[
+      `div`, `.@_tY0`, [[
+        `section`, `#@ModelRetailStock`, [[
+          `div`, [[
+            `div`, `&@style>max-width:2560px;margin: 0 auto 3.5rem`, [[
+              `div`], [
+              `div`, `.@_gZy`, [[
+                `div`, `.@_g0X`, [[
+                  `div`, `.@_yZ`, [[
+                    `div`, `&@style>height:100%;overflow:hidden`, [[
+                      `div`, `.@_gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);left:0`], [
+                      `div`, `.@_gA`, [[`img`, `&@alt>${RowSet.alpha}`, `&@src>/${RowSet.files[0]}`]]], [
+                      `div`, `.@_gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);right:0`]]]]]]], [
+                `div`, `.@_g2X`, [[
+                  `div`, [[`div`, `.@_gMX uZM _yZS`, ModelAvaFiles]]], [
+                  `div`, [[`span`, `.@_yZS`, `&@style>margin-bottom:12px;font-size:17px;text-transform: capitalize`, `~@${RowSet.alpha}`]]], [
+                  `div`, `.@_gxM _yZS`, [[
+                    `div`, [[
+                      `div`, [[`span`, `.@_tXx`, `&@style>color:#1185fe;font-size:17px;text-transform:uppercase`, `~@${Swap[0]}${(RowSet.dollars*Swap[1]).toFixed(2)}`]]], [
+                      `div`, [[`span`, `.@tXx`, `&@style>color:#999;text-transform:uppercase`, `~@in stock`]]]]], [
+                      `div`, `.@_QZg`, `&@style>width:mx-content`, [[
+                        `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                          `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:11px;text-transform:uppercase`, `~@add to cart`]]]]]]], [
+                  `div`, `.@_yZS`, `&@style>font-size:12.5px`, [[
+                    `div`, [[`span`, `.@_tXx`, `&@style>text-transform:uppercase`, `~@market & shipping within`]]], [
+                    `div`, `.@_gxM`, [[
+                      `div`, [[`span`, `.@_tXx`, `&@style>color:#999;text-transform:uppercase`, `~@${RowSet.market}`]]], [
+                      `div`, `.@_QZg`, `&@style>width:max-content`, [[
+                        `div`, `.@_gM_a _agM _guZ`, `&@style>backgound:#1185fe`, [[
+                          `a`, `#@retailMaps`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:11px;text-transform:uppercase`, `~@view shipping guide`]]]]]]]]]]]]], 
+              Shelve(RowSet.set, Sell)]]]]]]]]]]
+  },
+
+  ModalRetailRates (zone) {
+
+    let Swap = [RetailMaps[zone].swapAlpha, RetailMaps[zone].swap];
+
+    let ModalSet = [];
+
+    RetailMaps[zone].zones.forEach(Zone => {
+
+      let ModelRateSet = []
+
+      Zone.rates.forEach(Sale => {
+
+        let ModelVolumeSet = [];
+
+        Sale.grams.forEach(Volume => {
+
+          ModelVolumeSet.push([
+            `div`, `.@_gxM _yZS`, `&@style>text-transform:uppercase`, [[
+              `span`, `&@style>color: #999`, `~@${Volume.gramSetAlpha[0]} grams - ${Volume.gramSetAlpha[1]} grams`], [
+              `div`, `.@_QZg _gxM`, [[
+                `div`, [[
+                  `span`, `&@style>color:red;padding:0 14px`, `~@${Swap[0]} ${(Volume.sale[0] * Swap[1]).toFixed(2)}`]]], [
+                `div`, [[`span`, `&@style>`, `~@${Swap[0]} ${(Volume.sale[1] * Swap[1]).toFixed(2)}`]]]]]]])
+        })
+
+        ModelRateSet.push([
+          `div`, [[
+            `div`, `.@_yZS _uZM`, [[
+              `span`, `&@style>text-transform:uppercase`, `~@from ${Swap[0]} ${(Sale.saleSetAlpha[0]*Swap[1]).toFixed(2)} - ${Swap[0]} ${(Sale.saleSetAlpha[1]*Swap[1]).toFixed(2)}`]]], [
+            `div`, ModelVolumeSet]]])
+      })
+
+      ModalSet.push([
+      `div`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, `&@style>padding:8px 0`, [[
+          `div`, `.@_gxM _geQ`, [[
+            `div`, [[
+              `svg`, `&@style>font-size:11px;width: 48px;height:48px;min-height:48px;height: 48px`, [[
+                `circle`, `&@style>fill:#2929f2;stroke:none`, `&@r>22px`, `&@cx>24px`, `&@cy>24px`], [
+                  `text`, `&@x>24`, `&@y>28`, `&@style>text-anchor: middle;fill:#fff`, `~@${Zone.drop[1][0]}${Zone.drop[1][1]}`]]]]], [
+              `div`, `.@_eYG`, [[
+                `div`, `.@tXx _aA2`, [[
+                  `a`, `@getZoneOptions`, `.@_aA2 _tXx`, `&@href>javascript:;`, `&@style>text-transform: capitalize`, `~@${Zone.locale}`]]], [
+                `div`, [[`span`, `&@style>text-transform:uppercase;color:#999;font-size:11px`, `~@${Zone.drop[0][0]} ${Zone.drop[0][1]} - ${Zone.drop[1][0]} ${Zone.drop[1][1]}`]]]]]]]]], [
+        `div`, ModelRateSet]]]);
+    })
+
+    return [
+    `div`, `&@style>letter-spacing:0.75px`, [[
+      `div`, `.@_gcQ _aXZ _uZM`, [[
+        `div`, `.@_gxM _geQ`, [[`div`, `.@_eYG`], [`div`, `.@_QZg _gMz`, [[`a`, `#@DelRetailRates`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
+      `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+        `div`, `.@_sZ2`, `&@style>font-size:11px`, [[
+          `div`, `.@_yZS`, [[
+            `span`, `&@style>color:red`, `~@*Prices coded in red are discounted rates for perishable packages (i.e. fast foods) which do not need to come from our warehouses' stock.`]]], [
+          `div`, ModalSet]]]]]]]
   }
 }
