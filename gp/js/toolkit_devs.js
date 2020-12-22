@@ -292,7 +292,7 @@
           
       AJX([`/devs_reqs/`, `AddStock`], JSStore.avail(), (A, B) => {
 
-        if (B.exit === true) window.location = `/store/${JSStore.avail().store_log_md5}/`;
+        if (B.exit === true) window.location = `/${B.route[0]}/${B.route[1]}/`;
       });
     }
   }

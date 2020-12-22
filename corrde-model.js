@@ -7813,6 +7813,7 @@ module.exports = {
     return [
     `main`, `.@_xC2`, [[
       `div`, `.@_tY0`, [
+        Shelve(`beverages`, Retail), 
         Shelve(`alcohol`, Retail), 
         ModelPayAd, [
         `section`, [[
