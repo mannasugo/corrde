@@ -7843,17 +7843,17 @@ module.exports = {
       `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`];
 
     let Catalog = [
-      `seasonal & new flavors`, `domestic beer`, `import beer`, `craft beer`, `hard seltzer & flavored beverages`, 
-      `red wine`, `white wine`, `rose & blush wine`, `champagne & sparkling wine`, `liquor`];
+      `bulk beverages`, `seasonal & new flavors`, `domestic beer`, `fruit juice`, `import beer`, `craft beer`, `hard seltzer & flavored beverages`, 
+      `red wine`, `white wine`, `rose & blush wine`, `sports & energy drinks`, `champagne & sparkling wine`, `liquor`, `soft drinks`];
 
     let Shelves = [
-      `all domestic beer`, `big domestic breweries`, `heavy`, `light`, `value`];
+      `all domestic beer`, `big domestic breweries`, `energy drinks`, `heavy`, `light`, `sports & vitamin drinks`, `value`];
 
     let Sizes = [`6 pack`, `9 pack`, `12 pack`, `15 pack`, `18 pack`, `24 pack`, `30 pack`];
 
-    let Classes = [`ale`, `flavored malt beverage`, `lager`, `malt liquor`];
+    let Classes = [`ale`, `energy drinks`, `energy enhancers`, `flavored malt beverage`, `flavored sparkling`, `lager`, `malt liquor`];
 
-    let Brands = [`budweiser`];
+    let Brands = [`budweiser`, `coca-cola`, `monster energy`, `red bull`];
 
     let Zones = [`germany`, `kenya`, `norway`, `south africa`, `sweden`, `united states of america`];
 
