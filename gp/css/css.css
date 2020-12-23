@@ -3789,7 +3789,7 @@ table > thead > tr > th {
     -ms-flex-direction: row;
     flex-direction: row;    
     width: 100%;
-    border-bottom: 1px solid #e6e7e8;
+    /*border-bottom: 1px solid #e6e7e8;*/
   }
 
   #ModelShelf ._Qg {margin: 0 12px;}

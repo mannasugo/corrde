@@ -7669,15 +7669,22 @@ module.exports = {
 
       let Rows = Sell.Sell[0].sort((a, b) => {return b.log - a.log});
 
-      Rows = Rows.slice(0, 3)
-
       let ModelShelve = [];
+
+      let Stock = [];
 
       let alpha = Shelf;
 
       if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
 
       Rows.forEach(Row => {
+
+        if (Row.set === Shelf && Row.market === zone) Stock.push(Row)
+      });
+
+      Stock = Stock.slice(0, 3);
+
+      Stock.forEach(Row => {
 
         if (Row.set === Shelf && Row.market === zone) {
 
