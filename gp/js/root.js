@@ -300,12 +300,14 @@
 
       Modal = document.querySelector(`#ModelZones`);
 
-      if (JSStore.avail().locale === `kenya`) {
+      window.location = `/`;
+
+      /*if (JSStore.avail().locale === `kenya`) {
 
         JSStore.to({log_secs: new Date().valueOf()});
 
         S.emit(`zonal`, {locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
-      }
+      }*/
     }
 
     else if (e.id === `foldMyCart`) Modal = document.querySelector(`#ModalMyCart`);

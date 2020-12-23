@@ -7088,7 +7088,7 @@ class AJXReqs extends Auxll {
           units: Rows.Units})}], (A, B, C) => {
 
             this.app.to.writeHead(200, config.reqMime.json);
-            this.app.to.end(JSON.stringify({exit: true, route: [Rows.shop, Rows.MD5]}));
+            this.app.to.end(JSON.stringify({exit: true, route: [Rows.Shop, Rows.log_sum]}));
           });
       }
     });
