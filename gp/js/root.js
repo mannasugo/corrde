@@ -238,7 +238,9 @@
 
     let to;
 
-    if (e.id === `SetZone`) {
+    if (e.id === `getSets`) to = document.querySelector(`#ModalSets`);
+
+    else if (e.id === `SetZone`) {
 
       to = document.querySelector(`#ModelZones`);
 
@@ -312,6 +314,8 @@
 
     else if (e.id === `foldMyCart`) Modal = document.querySelector(`#ModalMyCart`);
 
+    else if (e.id === `foldModalSets`) Modal = document.querySelector(`#ModalSets`);
+
     else if (e.id === `DelZonal`) Modal = document.querySelector(`aside > div`);
 
     if (!Modal) return;
@@ -323,9 +327,11 @@
 
     if (!JSStore.avail().locale || JSStore.avail().locale === `global`) {
 
-      JSStore.to({log_secs: new Date().valueOf()});
+      document.querySelector(`#ModelZones`).className = `-Zz`;
 
-      S.emit(`root`, {locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
+      /*JSStore.to({log_secs: new Date().valueOf()});
+
+      S.emit(`root`, {locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});*/
     }
 
     else if (JSStore.avail().locale && JSStore.avail().locale !== `global`) {

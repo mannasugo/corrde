@@ -3777,11 +3777,8 @@ class UAPublic extends Auxll {
             model.rootView({
               appendModel: [
                 model.ModelWait(),
-                /*model.ModelRoot(A, Stores),
-                model.ModelRootAlpha(A.md5Key, mug),
-                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),*/ 
-                model.jS(Stack), 
-                /*model.footer()*/]
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack),]
             })];
                               
           this.app.to.writeHead(200, config.reqMime.htm);
@@ -6072,7 +6069,8 @@ class UATCP extends UAPublic {
                 model.ModelZone(J.locale, Sell),
                 model.ModelRootAlpha(A.md5Key, J.mug),
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
-                model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),  
+                model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+                model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),  
                 model.footer()]
               });
           })
@@ -6097,6 +6095,7 @@ class UATCP extends UAPublic {
                 model.ModelRootAlpha(A.md5Key, J.mug),
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                 model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+                model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
                 model.loadDOMModalView([model.modalView([model.ModalRetailRates(Sell.Sell[1][J.route[1]].market)])], `ModalRetailRates`),
                 model.footer()]
               });

@@ -1,6 +1,6 @@
-const config = require(`./corrde-config`);
-
-const RetailMaps = config.RetailZones;
+const config = require(`./corrde-config`),
+  RetailMaps = config.RetailZones,
+  RetailSets = config.RetailSets;
 
 class ModelString {
   
@@ -7403,11 +7403,11 @@ module.exports = {
 
     let ModelMug = [`a`, `#@offmugger`, `.@-_tX Mug`, `&@style>margin:0 15px`, `&@href>javascript:;`];
 
-    let ModalA = [`Shop By Category`, `Profile`, `Mail & Notifications`, `Sign Out`]
+    let ModalA = [`Shop by Category`, `Profile`, `Mail & Notifications`, `Sign Out`]
 
-    let ModalB = [``, `mug`, `mail`, ``]
+    let ModalB = [`getSets`, `mug`, `mail`, ``]
 
-    let ModalC = [`javascript:;`, `/mug/`, `/mail/`, `javascript:;`];
+    let ModalC = [`javascript:;`, `javascript:;`, `javascript:;`, `javascript:;`];
 
     if (State !== false) {
  
@@ -7838,7 +7838,7 @@ module.exports = {
 
   ModelStockSuite () {
 
-    let StockAva = [1, 2, 3, 4, 5];
+    let StockAva = [1, 2, 3, 4, 5]; 
 
     let Stores = [`Grocery`,  `Store`];
 
@@ -8298,5 +8298,27 @@ module.exports = {
           `div`, `.@_yZS`, [[
             `span`, `&@style>color:red`, `~@*Prices coded in red are discounted rates for perishable packages (i.e. fast foods) which do not need to come from our warehouses' stock.`]]], [
           `div`, ModalSet]]]]]]]
+  },
+
+  ModalSets () {
+
+    let ModelSets = [];
+
+    RetailSets.forEach((Catalog) => {
+
+      ModelSets.push([`li`, `.@_-zZx`, [[`a`, `.@_-xQy`, `&@href>javascript:;`, [[`span`, `.@_tAx _aA2`, `~@${Catalog}`]]]]]);
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@Catalog & Shelves`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@foldModalSets`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `ul`, `.@_aYy`, ModelSets]]]]]
+
   }
 }

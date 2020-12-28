@@ -73,7 +73,7 @@
 
         AJXReq([`/devs_reqs/`, `pushCreds`], JSStore.avail(), (A, B) => {
 
-          if (B.exit === true) window.location = `/feed/`
+          if (B.exit === true) window.location = `/`
         })
       } 
     }

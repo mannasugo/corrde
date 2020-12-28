@@ -3789,6 +3789,7 @@ table > thead > tr > th {
     -ms-flex-direction: row;
     flex-direction: row;    
     width: 100%;
+    overflow: hidden;
     /*border-bottom: 1px solid #e6e7e8;*/
   }
 
