@@ -11,7 +11,9 @@ const fs = require(`fs`),
   config = require(`./corrde-config`),
   model = require(`./corrde-model`),
 
-  gyro = require(`./corrde-geoJSON`)
+  gyro = require(`./corrde-geoJSON`),
+
+  RetailSets = config.RetailSets;
 
 class Auxll {
 
@@ -1479,16 +1481,30 @@ class UAPublic extends Auxll {
 
     else if (this.levelState[1] === `store`) {
 
-      this.Stores(A => {
+      if (this.levelState[2].length > 3) {
 
-        if (this.levelState[2] === `billings`) {
+        let Shelf = this.levelState[2].replace(new RegExp(/_/, `g`), ` `);
 
-          if (A.StoresMap[this.levelState[3]]) this.StoreBillings(A.StoresMap[this.levelState[3]]);
+        if (RetailSets.indexOf(Shelf) > -1) this.RetailSets(Shelf);
+
+        else {
+
+          this.Stores(A => {
+
+            if (this.levelState[2] === `billings`) {
+
+              if (A.StoresMap[this.levelState[3]]) this.StoreBillings(A.StoresMap[this.levelState[3]]);
+            }
+
+            else if (A.StoresMap[this.levelState[2]]) this.retailStore(A, A.StoresMap[this.levelState[2]]);
+
+          })
+
+
         }
 
-        else if (A.StoresMap[this.levelState[2]]) this.retailStore(A, A.StoresMap[this.levelState[2]]);
 
-      })
+      }
     }
   }
 
@@ -3819,6 +3835,47 @@ class UAPublic extends Auxll {
             model.rootView({
               appendModel: [
                 model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
+
+  RetailSets (Shelf) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({retailSet: Shelf}),
+        title: `Corrde Store | ${Shelf}`,
+        css: CSS,
+        jsState: [config.reqs.retail_catalog_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                 model.jS(Stack)]
             })];
                               
@@ -6097,6 +6154,37 @@ class UATCP extends UAPublic {
                 model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
                 model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
                 model.loadDOMModalView([model.modalView([model.ModalRetailRates(Sell.Sell[1][J.route[1]].market)])], `ModalRetailRates`),
+                model.footer()]
+              });
+          })
+        });
+      });
+
+      tls.on(`retailSet`, J => {
+
+        Data.Sell(A => {
+
+          let Sell = A,
+
+            Shelf = [];
+
+          Sell.Sell[0].forEach(Stock => {
+
+            if (Stock.set === J.retailSet && Stock.market === J.locale) Shelf.push(Stock);
+          })
+
+          if (!Shelf.length > 0) return;
+
+          Data.logs_u_md5(A => {
+
+            tcp.emit(`retailSet`, {
+              log_secs: J.log_secs,
+              ModelRetailSet: [
+                model.ModelRetailSet(J.retailSet, J.locale, Shelf),
+                model.ModelRootAlpha(A.md5Key, J.mug),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+                model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
                 model.footer()]
               });
           })

@@ -7434,7 +7434,7 @@ module.exports = {
                 id: `offmug`, 
                 in: this.aPoolModal([
                   `Signin`, `Create Free Account`, `Shop By Category`], [
-                  ``, ``, ``], [
+                  ``, ``, `getSets`], [
                   `/login/`, `/signup/`, `javascript:;`])})]]]]]]]];
 
   },
@@ -7675,6 +7675,8 @@ module.exports = {
 
       let alpha = Shelf;
 
+      let toShelf = Shelf.replace(new RegExp(/\s/, `g`), /_/);
+
       if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
 
       Rows.forEach(Row => {
@@ -7723,7 +7725,7 @@ module.exports = {
         `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
           `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${alpha}`]]], [
-            `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>javascript:;`, `~@view all`]]]]], [
+            `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>/store/${toShelf}/`, `~@view all`]]]]], [
           `div`, `.@_gX0`, ModelShelve]]]]]
     }
 
@@ -8196,7 +8198,7 @@ module.exports = {
       `section`, `#@ModelShelf`, [[
         `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
           `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
-            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Similar Products`]]]]], [
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Related Products`]]]]], [
           `div`, `.@_gX0`, ModelShelve]]]]]
     }
 
@@ -8306,7 +8308,11 @@ module.exports = {
 
     RetailSets.forEach((Catalog) => {
 
-      ModelSets.push([`li`, `.@_-zZx`, [[`a`, `.@_-xQy`, `&@href>javascript:;`, [[`span`, `.@_tAx _aA2`, `~@${Catalog}`]]]]]);
+      let Shelf = Catalog;
+
+      Shelf = Shelf.replace(new RegExp(/\s/, `g`), `_`);
+
+      ModelSets.push([`li`, `.@_-zZx`, [[`a`, `.@_-xQy`, `&@href>/store/${Shelf}/`, [[`span`, `.@_tAx _aA2`, `~@${Catalog}`]]]]]);
     });
 
     return [
@@ -8320,5 +8326,57 @@ module.exports = {
         `div`, `.@_aXY XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
           `ul`, `.@_aYy`, ModelSets]]]]]
 
+  },
+
+  ModelRetailSet (alpha, locale, RetailSet) {
+
+    let Swap = [RetailMaps[locale].swapAlpha, RetailMaps[locale].swap];
+
+    let Rows = RetailSet.sort((a, b) => {return b.log - a.log});
+
+    let ModelShelve = [];
+
+    RetailSet.slice(0, 30);
+
+    RetailSet.forEach(Row => {
+
+      let ModelJSON = `&@data>{
+        &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
+        &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
+        &quot;file&quot;: &quot;${Row.files[0]}&quot;,
+        &quot;MD5&quot;: &quot;${Row.MD5}&quot;,
+        &quot;swap&quot;: &quot;${Swap[1]}&quot;,
+        &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`,
+
+        dollars = (Row.dollars*Swap[1]).toFixed(2);
+
+      ModelShelve.push([
+      `div`, `.@_gA0`, [[
+        `div`, `.@_gY`, [[
+          `a`, `.@_Qg`, [[
+            `div`, `.@_Qg0`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>/grocery/${Row.MD5}/`], [
+          `div`, [[
+            `div`, `.@_pY`, [[
+              `div`, `.@_Xx _gxM`, [[
+                `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
+                `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.units})`]]]]], [
+              `a`, `.@_a2`, [[
+                `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>/grocery/${Row.MD5}/`]]], [
+            `div`, `.@_2pY`, [[
+              `div`, `&@style>width:max-content`, [[
+                `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                  `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
+
+    });
+
+    return [
+    `main`, `.@_xC2`, [[
+      `div`, `.@_tY0`, [[
+        `section`, `#@ModelShelf`, [[
+          `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+            `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+              `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${alpha}`]]], [
+              `div`, `.@_QZg`, []]]], [
+            `div`, `.@_gX0`, ModelShelve]]]]]]]]];
   }
 }
