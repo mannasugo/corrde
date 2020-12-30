@@ -7673,9 +7673,11 @@ module.exports = {
 
       let Stock = [];
 
-      let alpha = Shelf;
+      let alpha = Shelf,
 
-      let toShelf = Shelf.replace(new RegExp(/\s/, `g`), /_/);
+        uScore = alpha;
+
+      let toShelf = uScore.replace(new RegExp(/\s/, `g`), `_`);
 
       if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
 
