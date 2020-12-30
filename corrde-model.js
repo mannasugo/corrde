@@ -7683,6 +7683,8 @@ module.exports = {
 
       Rows.forEach(Row => {
 
+        Shelf = Shelf.replace(new RegExp(/&/, `g`), `u/0026`);
+
         if (Row.set === Shelf && Row.market === zone) Stock.push(Row)
       });
 
