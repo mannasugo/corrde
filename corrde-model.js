@@ -7675,7 +7675,7 @@ module.exports = {
 
       let alpha = Shelf,
 
-        uScore = alpha;
+        uScore = `` + Shelf;
 
       let toShelf = uScore.replace(new RegExp(/\s/, `g`), `_`);
 
