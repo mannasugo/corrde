@@ -7822,7 +7822,9 @@ module.exports = {
     return [
     `main`, `.@_xC2`, [[
       `div`, `.@_tY0`, [
-        Shelve(`beverages`, Retail), 
+        Shelve(`fruits & vegetables`, Retail), 
+        Shelve(`beverages`, Retail),
+        Shelve(`pantry`, Retail),  
         Shelve(`alcohol`, Retail), 
         ModelPayAd, [
         `section`, [[
@@ -7853,8 +7855,9 @@ module.exports = {
       `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`];
 
     let Catalog = [
-      `bulk beverages`, `seasonal & new flavors`, `domestic beer`, `fruit juice`, `import beer`, `craft beer`, `hard seltzer & flavored beverages`, 
-      `red wine`, `white wine`, `rose & blush wine`, `sports & energy drinks`, `champagne & sparkling wine`, `liquor`, `soft drinks`];
+      `bulk beverages`, `seasonal & new flavors`, `domestic beer`, `fresh flowers`, `fresh fruit`, `fresh herbs`, 
+      `fresh prepared produce`, `fresh vegetables`, `fruit juice`, `import beer`, `craft beer`, `hard seltzer & flavored beverages`, 
+      `nuts dried fruit & healthy snacks`, `red wine`, `white wine`, `rose & blush wine`, `sports & energy drinks`, `champagne & sparkling wine`, `liquor`, `soft drinks`];
 
     let Shelves = [
       `all domestic beer`, `big domestic breweries`, `energy drinks`, `heavy`, `light`, `sports & vitamin drinks`, `value`];
