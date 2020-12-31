@@ -7719,7 +7719,7 @@ module.exports = {
                   `div`, `.@_2pY`, [[
                     `div`, `&@style>width:max-content`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
-                        `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:11px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
+                        `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
 
         }
       });
@@ -8123,8 +8123,9 @@ module.exports = {
   ModalMyCart () {
 
     return [
-    `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;font-size:11px`, [[
+    `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;font-size:12px`, [[
       `div`, `.@_gxM _gMX _gcQ _uZM`, [[
+        `div`, `~@My Shopping Cart`], [
         `div`, `.@_QZg`, [[
           `span`, `.@_`, [[`a`, `#@foldMyCart`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
       `div`, `.@_aXY`, `&@style>margin:0 0 55px;max-height: calc(100vh - 180px);`, [[
@@ -8196,7 +8197,7 @@ module.exports = {
                   `div`, `.@_2pY`, [[
                     `div`, `&@style>width:max-content`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
-                        `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:11px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
+                        `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
 
         }
       });
@@ -8222,7 +8223,7 @@ module.exports = {
       `div`, `.@_tY0`, [[
         `section`, `#@ModelRetailStock`, [[
           `div`, [[
-            `div`, `&@style>max-width:2560px;margin: 0 auto 3.5rem`, [[
+            `div`, `&@style>max-width:2560px;margin: 0 auto`, [[
               `div`], [
               `div`, `.@_gZy`, [[
                 `div`, `.@_g0X`, [[
@@ -8240,7 +8241,7 @@ module.exports = {
                       `div`, [[`span`, `.@tXx`, `&@style>color:#999;text-transform:uppercase`, `~@in stock`]]]]], [
                       `div`, `.@_QZg`, `&@style>width:mx-content`, [[
                         `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
-                          `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:11px;text-transform:uppercase`, `~@add to cart`]]]]]]], [
+                          `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;text-transform:uppercase`, `~@add to cart`]]]]]]], [
                   `div`, `.@_yZS`, `&@style>font-size:12.5px`, [[
                     `div`, [[`span`, `.@_tXx`, `&@style>text-transform:uppercase`, `~@market & shipping within`]]], [
                     `div`, `.@_gxM`, [[

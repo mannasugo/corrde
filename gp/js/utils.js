@@ -251,14 +251,14 @@ const Model = (function () {
               `img`, `&@alt>${Stock.alpha}`, `&@style>max-width:100%`, `&@src>/${Stock.file}`]]], [
             `div`, `.@_eYG _geQ`, [[
               `div`, [[
-                `span`, `&@style>text-transform:uppercase;font-weight:700`, `~@${Stock.alpha}`]]], [
+                `span`, `&@style>text-transform:capitalize;font-weight:700`, `~@${Stock.alpha}`]]], [
               `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
                 `div`, `&@style>margin: 8px 0`, [[
                   `div`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
                     `div`, [[`a`, `#@sliceCart`, `.@-_tX Minus`, ModelJSON, `&@href>javascript:;`]]], [
                     `div`, `.@_tXx`, `#@items_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `&@style>padding:0 8px`, `~@${Stock.items}`], [
                     `div`, [[`a`, `#@alterCart`, `.@-_tX Plus`, ModelJSON, `&@forPlus>${Stock.MD5}-${MyCart.indexOf(Stock)}`, `&@href>javascript:;`]]]]]]], [
-                `div`, `.@_QZg`, [[`span`, `.@_tXx`, `#@dollars_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `~@${Stock.swapAlpha}${dollars.toLocaleString()}`]]]]]]]]])
+                `div`, `.@_QZg`, [[`span`, `.@tXx`, `#@dollars_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `~@${Stock.swapAlpha}${dollars.toLocaleString()}`]]]]]]]]])
       });
 
       return [
