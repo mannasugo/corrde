@@ -7657,7 +7657,7 @@ module.exports = {
       }
     };
 
-    let Swap = [ZoneSet[zone].swapAlpha, ZoneSet[zone].swap];
+    let Swap = [RetailMaps[zone].swapAlpha, RetailMaps[zone].swap];
 
     let ModelZones = [];
 
@@ -7760,7 +7760,7 @@ module.exports = {
                   `span`, `.@_Qtx`, `&@style>padding:10px 0`, `~@Convenient & Quick Mobile Payments with M-PESA within Kenya at normal service rates.`]]]]]]]]]]]]]]];
     }
 
-    ZoneSet[zone].zones.forEach(Zone => {
+    RetailMaps[zone].zones.forEach(Zone => {
 
       let ModelRateSet = []
 
@@ -8065,6 +8065,13 @@ module.exports = {
             `div`, `.@_gZy`, ModelOrients]]], [
           `div`, `.@sZ2`, [[
             `div`, `.@_gxM _yZS _uZM`, [[
+              `div`, `.@_eYG`, `~@Mass Unit`]]], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_yZS _gMX`, [[
+                `div`, `.@_UFA _gMX`, [[
+                  `input`, `#@Mass`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Mass in grams`]]]]]]]]], [
+          `div`, `.@sZ2`, [[
+            `div`, `.@_gxM _yZS _uZM`, [[
               `div`, `.@_eYG`, `~@Units`]]], [
             `div`, `.@_eYG`, [[
               `div`, `.@_yZS _gMX`, [[
@@ -8099,7 +8106,6 @@ module.exports = {
                   `div`, `.@_axS`, [[
                     `div`, `.@_gM_a _agM _guZ`, [[
                       `a`, `#@AddStock`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:11px`, `~@Save Stock`]]]]]]]]]]]]]]];  
-
 
   },
 
@@ -8137,7 +8143,7 @@ module.exports = {
                 `div`, `.@_QZg _gMz`, [[
                   `div`, `.@_axS`, [[
                     `div`, `.@_gM_a _agM _guZ`, [[
-                      `a`, `#@toCheckOut`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:11px`, `~@proceed to checkout`]]]]]]]]]]]]]]];
+                      `a`, `#@toCheckOut`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:12px`, `~@proceed to checkout`]]]]]]]]]]]]]]];
 
 
   },
@@ -8386,5 +8392,35 @@ module.exports = {
               `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${alpha}`]]], [
               `div`, `.@_QZg`, []]]], [
             `div`, `.@_gX0`, ModelShelve]]]]]]]]];
+  },
+
+  ModalRegions (locale) {
+
+    if (!RetailMaps[locale]) return [];
+
+    let ModelRegions = [];
+
+    RetailMaps[locale].zones.forEach(Region => {
+
+      ModelRegions.push([
+        `div`, [[
+          `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+            `label`, `.@_tXv`, `&@role>radio`, [[
+              `input`, `&@type>radio`, `#@getRegion`, `&@value>${Region.locale}`, `&@name>setSub`], [
+                `span`, `.@_tCw _aA2 tXx`, `~@${Region.locale}`]]]]]]]);
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@Choose Town For Shipping & Delivery`]]], [
+              `div`, [[`span`, `@locale`, `.@_aA6`, `&@style>text-transform:uppercase; font-size:11px`, `~@${locale}`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@foldModalRegions`, `.@_-Zz -_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `div`, `.@_sZ2`, ModelRegions]]]]]
+
   }
 }

@@ -2,7 +2,11 @@
 
 (function () {
 
-  const S = io();
+  const S = io(),
+
+    MJS = new Model(),
+
+    Route = history;
 
   const AJXReq = (reqs, allMeta, inCall) => {
 
@@ -176,6 +180,23 @@
 
       Modal = document.querySelector(`#ModelZones`);
 
+    }
+
+    else if (e.id === `toCheckOut`) {
+
+      Modal = document.querySelector(`#ModalMyCart`);
+
+      if (JSStore.avail().myCart.length > 0) {
+
+        Route.pushState({}, `billings`, `/checkout/billings/`);
+
+        let ModelSource = document.querySelector(`main`);
+
+        let ModalRegions = document.querySelector(`#ModalRegions`);
+
+        ModelSource.innerHTML = MJS.modelStringify([MJS.ModelWait()]) + `<div id='ModelRegions' class='-Zz'>${ModalRegions.innerHTML}<div>`;
+
+      }
     }
 
     else if (e.id === `getZone`) {

@@ -263,6 +263,11 @@ const Model = (function () {
 
       return [
         `div`, `.@_g0`, [[`div`, ModelMyCart]]];
+    },
+
+    ModelWait: () => {
+
+      return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`]]]
     }
   }
   

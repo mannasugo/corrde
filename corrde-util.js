@@ -1323,6 +1323,8 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `app`) this.appRoot();
 
+    else if (this.levelState === `checkout`) this.ComputePay();
+
     else if (this.levelState === `contract`) this.contract();
 
     else if (this.levelState === `feed`) this.feed();
@@ -1363,7 +1365,12 @@ class UAPublic extends Auxll {
         if (StockSet.indexOf(this.levelState[2]) > -1) this.StockSet(this.levelState[2], A);
 
       });
-      
+    }
+
+    else if (this.levelState[1] === `checkout`) {
+
+      this.ComputePay();
+    
     }
 
     else if (this.levelState[1] === `devs`) {
@@ -3883,6 +3890,46 @@ class UAPublic extends Auxll {
           this.app.to.end(model.call(Stack));})
     })
   }
+
+  ComputePay () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Store | Cart Processing & Checkout`,
+        css: CSS,
+        jsState: [config.reqs.retail_process_pay_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -6095,7 +6142,8 @@ class UATCP extends UAPublic {
               ModelRoot: [
                 model.ModelRoot(A, Stores),
                 model.ModelRootAlpha(A.md5Key, J.mug),
-                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`), 
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.loadDOMModalView([model.modalView([model.ModalRegions(J.locale)])], `ModalRegions`), 
                 model.footer()]
               });
           })
@@ -6127,7 +6175,8 @@ class UATCP extends UAPublic {
                 model.ModelRootAlpha(A.md5Key, J.mug),
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                 model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
-                model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),  
+                model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
+                model.loadDOMModalView([model.modalView([model.ModalRegions(J.locale)])], `ModalRegions`),  
                 model.footer()]
               });
           })
@@ -6154,6 +6203,7 @@ class UATCP extends UAPublic {
                 model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
                 model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
                 model.loadDOMModalView([model.modalView([model.ModalRetailRates(Sell.Sell[1][J.route[1]].market)])], `ModalRetailRates`),
+                model.loadDOMModalView([model.modalView([model.ModalRegions(Sell.Sell[1][J.route[1]].market)])], `ModalRegions`),
                 model.footer()]
               });
           })
@@ -6185,11 +6235,28 @@ class UATCP extends UAPublic {
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                 model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
                 model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
+                model.loadDOMModalView([model.modalView([model.ModalRegions(J.locale)])], `ModalRegions`),
                 model.footer()]
               });
           })
         });
-      })
+      });
+
+      tls.on(`billings`, J => {
+
+        Data.logs_u_md5(A => {
+
+          tcp.emit(`billings`, {
+            log_secs: J.log_secs,
+            ModelRetailBill: [
+              //model.ModelRetailSet(J.retailSet, J.locale, Shelf),
+              model.ModelRootAlpha(A.md5Key, J.mug),
+              model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+              //model.loadDOMModalView([model.modalView([model.ModalRegions()])], `ModalRegions`),
+              model.footer()]
+            });
+        })
+      });
 
       /**
       @dev
@@ -7163,6 +7230,7 @@ class AJXReqs extends Auxll {
           fullString: Rows.StockFullString,
           log: log,
           market: Rows.MarketZone,
+          mass: Rows.Mass,
           MD5: log_sum,
           orient: Rows.Orient,
           sale: Rows.Sale,

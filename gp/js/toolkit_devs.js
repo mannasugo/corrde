@@ -77,6 +77,7 @@
         Files: [],
         Factory: false,
         MarketZone: false,
+        Mass: false,
         Orient: false,
         Sale: 0,
         Set: false,
@@ -273,9 +274,13 @@
 
         Dollars = document.querySelector(`#Dollars`),
 
-        StockString = document.querySelector(`#StockString`);
+        StockString = document.querySelector(`#StockString`),
+
+        Mass = document.querySelector(`#Mass`);
 
       if (CleanString.longSlim(Unit.value)) Stock.Units = Slim(Unit.value);
+
+      if (CleanString.longSlim(Mass.value)) Stock.Mass = Slim(Mass.value);
 
       if (CleanString.longSlim(StockAlpha.value)) Stock.StockAlpha = Slim(StockAlpha.value); 
 
