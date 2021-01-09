@@ -76,10 +76,6 @@
 
       }, (b) => {
 
-        /**
-        *@dev
-        **/
-
         AJXReq([`/devs_reqs/`, `setGPSCookie`], JSStore.avail(), (A, B) => {J_PJ()});
     })    
   }

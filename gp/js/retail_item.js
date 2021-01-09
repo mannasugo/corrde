@@ -162,6 +162,38 @@
       ModelSource.innerHTML = M.modelStringify([M.MyCart(JSStore.avail().myCart)]);
     }
 
+    else if (e.id === `ShipBy`) {
+
+      let g = (gArray, gBugs) => navigator.geolocation.getCurrentPosition(a => {gArray(a)}, b => {gBugs(b)});
+
+      let gArray = (Geo) => {
+
+        let G = Geo.coords;
+
+        if (typeof G.latitude === `number` && typeof G.longitude === `number`) JSStore.to({gArray: [G.longitude, G.latitude]});
+      }
+
+      let M = new Model();
+
+      let ModelSource = document.querySelector(`main`);
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelProxy(`Arg`)]);
+
+      JSStore.to({gArray: [], log_secs: new Date().valueOf()})
+
+      g(a => {
+
+        gArray(a);
+
+        S.emit(`flutterwave`, JSStore.avail());
+
+      }, (b) => {
+
+        S.emit(`flutterwave`, JSStore.avail());
+      });
+
+    }
+
     else if (e.id === `retailMaps`) to = document.querySelector(`#ModalRetailRates`);
 
     if (!to) return;
@@ -215,6 +247,30 @@
       }
     }
 
+    else if (e.id === `getRegion`) {
+
+      JSStore.to({Billto: [e.value.toLowerCase(), false], myRegion: JSStore.avail().regionMeta});
+
+      Modal = document.querySelector(`#ModalRegions`);
+
+      let ModelSource = document.querySelector(`main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify(M.ModelBill(JSStore.avail().myCart, JSStore.avail().myRegion, JSStore.avail().Billto))
+    }
+
+    else if (e.id === `paygate`) {
+
+      let ModelSource = document.querySelector(`main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()])
+
+      window.location = `/`;
+    }
+
     else if (e.id === `foldMyCart`) Modal = document.querySelector(`#ModalMyCart`);
 
     else if (e.id === `DelZonal`) Modal = document.querySelector(`aside > div`);
@@ -252,6 +308,7 @@
           dollars: Data.dollars,
           file: Data.file,
           items: 0,
+          mass: Data.mass,
           MD5: Data.MD5,
           swap: Data.swap,
           swapAlpha: Data.swapAlpha
@@ -273,6 +330,14 @@
       document.querySelector(`#dollars_${Data.MD5}_${eCount}`).innerHTML = `${Data.swapAlpha}${dollars.toLocaleString()}`;
 
       document.querySelector(`#items_${Data.MD5}_${eCount}`).innerHTML = Cart[item].items;
+
+      if(!document.querySelector(`#mass_${Data.MD5}_${eCount}`)) return;
+
+      document.querySelector(`#mass_${Data.MD5}_${eCount}`).innerHTML = Cart[item].mass*Cart[item].items + ` grams`;
+
+      let M = new Model();
+
+      document.querySelector(`#ModelSum`).innerHTML = M.modelStringify([M.ModelSum(JSStore.avail().myCart, JSStore.avail().myRegion, JSStore.avail().Billto)])
 
     }
 
@@ -305,11 +370,27 @@
 
       let M = new Model();
 
-      let to = document.querySelector(`#ModalMyCart`);
+      if (document.querySelector(`#ModalMyCart`)) {
 
-      let ModelSource = to.querySelector(`._sZ2`);
+        let to = document.querySelector(`#ModalMyCart`);
 
-      ModelSource.innerHTML = M.modelStringify([M.MyCart(JSStore.avail().myCart)]);
+        let ModelSource = to.querySelector(`._sZ2`);
+
+        ModelSource.innerHTML = M.modelStringify([M.MyCart(JSStore.avail().myCart)]);
+      }
+
+      if (document.querySelector(`#ModelBilling`)) {
+
+        let to = document.querySelector(`#ModelBilling`);
+
+        let ModelSource = to.querySelector(`._gX0`);
+
+        ModelSource.innerHTML = M.modelStringify([M.billing(JSStore.avail().myCart)]);
+
+        let MA = new Model();
+
+        document.querySelector(`#ModelSum`).innerHTML = MA.modelStringify([MA.ModelSum(JSStore.avail().myCart, JSStore.avail().myRegion, JSStore.avail().Billto)])
+      }
     }
   }
 
@@ -366,6 +447,8 @@
 
     if (JSStore.avail().log_secs === J.log_secs) {
 
+      JSStore.to({regionMeta: J.regions})
+
       document.title = J.alpha;
 
       let ModelSource = document.querySelector(`main`);
@@ -373,6 +456,22 @@
       let M = new Model();
 
       ModelSource.innerHTML = M.modelStringify(J.ModelRetailStock);
+    }
+  });
+
+  S.on(`flutterwave`, J => {
+
+    if (JSStore.avail().log_secs === J.log_secs) {
+
+      if (J.Pay) {
+
+        let M = new Model();
+
+        let ModelSource = document.querySelector(`main`);
+
+        ModelSource.innerHTML = M.modelStringify([M.ModelPay({paygate: J.Pay[2]})]);
+
+      }
     }
   })
 })();

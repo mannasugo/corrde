@@ -2945,7 +2945,7 @@ table > thead > tr > th {
 
 #ModelStockSuite ._oPQ, #ModalMyCart ._oPQ {max-width: 940px}
 
-#ModelShelf ._gX0 {
+#ModelShelf ._gX0, #ModelBilling .gX0 {
   width: 100%; 
   -webkit-box-align: stretch; 
   -ms-flex-align: stretch;

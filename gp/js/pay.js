@@ -77,7 +77,7 @@
 
   let payChannel = e => {
 
-    if (e.id === `payChannel` && JSStore.avail().payfor.length > 0) {
+    if (e.id === `payChannel` /*&& JSStore.avail().payfor.length > 0*/) {
 
       //JSStore.to({logSocket_pay: new Date().valueOf()})
 
@@ -132,7 +132,7 @@
 
   //document.addEventListener(`DOMLOADED`, () => {
 
-    payCart();
+    //payCart();
   //})
 
   S.on(`payArgString`, Arg => {

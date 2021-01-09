@@ -7403,11 +7403,11 @@ module.exports = {
 
     let ModelMug = [`a`, `#@offmugger`, `.@-_tX Mug`, `&@style>margin:0 15px`, `&@href>javascript:;`];
 
-    let ModalA = [`Shop by Category`, `Profile`, `Mail & Notifications`, `Sign Out`]
+    let ModalA = [`pay orders & invoices`, `Shop by Category`, `Profile`, `Mail & Notifications`, `Sign Out`]
 
-    let ModalB = [`getSets`, `mug`, `mail`, ``]
+    let ModalB = [``, `getSets`, `mug`, `mail`, ``]
 
-    let ModalC = [`javascript:;`, `javascript:;`, `javascript:;`, `javascript:;`];
+    let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `javascript:;`, `javascript:;`];
 
     if (State !== false) {
  
@@ -7685,19 +7685,20 @@ module.exports = {
 
         Shelf = Shelf.replace(new RegExp(/&/, `g`), `u/0026`);
 
-        if (Row.set === Shelf && Row.market === zone) Stock.push(Row)
+        if (Row.mass && Row.set === Shelf && Row.market === zone) Stock.push(Row)
       });
 
       Stock = Stock.slice(0, 3);
 
       Stock.forEach(Row => {
 
-        if (Row.set === Shelf && Row.market === zone) {
+        if (Row.mass && Row.set === Shelf && Row.market === zone) {
 
           let ModelJSON = `&@data>{
             &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
             &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
             &quot;file&quot;: &quot;${Row.files[0]}&quot;,
+            &quot;mass&quot;: &quot;${Row.mass}&quot;,
             &quot;MD5&quot;: &quot;${Row.MD5}&quot;,
             &quot;swap&quot;: &quot;${Swap[1]}&quot;,
             &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`,
@@ -8158,6 +8159,7 @@ module.exports = {
       &quot;alpha&quot;: &quot;${RowSet.alpha}&quot;,
       &quot;dollars&quot;: &quot;${RowSet.dollars}&quot;,
       &quot;file&quot;: &quot;${RowSet.files[0]}&quot;,
+      &quot;mass&quot;: &quot;${RowSet.mass}&quot;,
       &quot;MD5&quot;: &quot;${RowSet.MD5}&quot;,
       &quot;swap&quot;: &quot;${Swap[1]}&quot;,
       &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`;
@@ -8176,12 +8178,13 @@ module.exports = {
 
       Rows.forEach(Row => {
 
-        if (Row.set === Shelf && Row.market === RowSet.market) {
+        if (Row.mass && Row.set === Shelf && Row.market === RowSet.market) {
 
           let ModelJSON = `&@data>{
             &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
             &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
             &quot;file&quot;: &quot;${Row.files[0]}&quot;,
+            &quot;MD5&quot;: &quot;${RowSet.MD5}&quot;,
             &quot;MD5&quot;: &quot;${Row.MD5}&quot;,
             &quot;swap&quot;: &quot;${Swap[1]}&quot;,
             &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`,
@@ -8358,6 +8361,7 @@ module.exports = {
         &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
         &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
         &quot;file&quot;: &quot;${Row.files[0]}&quot;,
+        &quot;mass&quot;: &quot;${Row.mass}&quot;,
         &quot;MD5&quot;: &quot;${Row.MD5}&quot;,
         &quot;swap&quot;: &quot;${Swap[1]}&quot;,
         &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`,

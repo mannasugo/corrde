@@ -268,7 +268,194 @@ const Model = (function () {
     ModelWait: () => {
 
       return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`]]]
-    }
+    },
+
+    ModelBill: function (MyCart, myRegion, region) {
+
+      return [[
+      `main`, `.@_xC2`, [[
+        `div`, `.@_tY0`, [[
+          `section`, `#@ModelBilling`, [[
+            `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;margin-top:16px`, [[
+              `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px;font-weight:600`, [[`div`, [[`p`, `~@cart items`]]]]], [
+              `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [
+              this.billing(MyCart)]]]]]], 
+          this.ModelSum(MyCart, myRegion, region), this.ModelShipping()]]]], [
+      `nav`, `.@_uHC _tY0`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM _geQ`, [[
+                `a`, `.@-_tX AppMedium`, `&@href>/`, `~@corrde`], [`span`, `&@style>padding:0 7px`, `~@| BILLING & DELIVERY`]]]]]]]]]]]]
+    },
+
+    billing: function (MyCart) {
+
+      let ModelMyCart = [];
+
+      MyCart.forEach(Stock => {
+
+          let ModelJSON = `&@data>{
+            &quot;alpha&quot;: &quot;${Stock.alpha}&quot;,
+            &quot;dollars&quot;: &quot;${Stock.dollars}&quot;,
+            &quot;file&quot;: &quot;${Stock.file}&quot;,
+            &quot;items&quot;: &quot;${Stock.items}&quot;,
+            &quot;mass&quot;: &quot;${Stock.mass}&quot;,
+            &quot;MD5&quot;: &quot;${Stock.MD5}&quot;,
+            &quot;swap&quot;: &quot;${Stock.swap}&quot;,
+            &quot;swapAlpha&quot;: &quot;${Stock.swapAlpha}&quot;}`,
+
+        dollars = (Stock.dollars*Stock.swap*Stock.items).toFixed(2);
+
+        ModelMyCart.push([
+          `div`, `.@_gxM _geQ _yZS uZM`, [[
+            `div`, `.@_`, `&@style>max-width:60px`, [[
+              `img`, `&@alt>${Stock.alpha}`, `&@style>max-width:100%`, `&@src>/${Stock.file}`]]], [
+            `div`, `.@_eYG _geQ`, [[
+              `div`, [[
+                `span`, `&@style>text-transform:capitalize;font-weight:300`, `~@${Stock.alpha}`]]], [
+                `div`, `.@_gxM _geQ`, [[
+                  `div`, [[
+                    `span`, `#@mass_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@${Stock.mass*Stock.items} grams`]]], [`div`, `.@_QZg`]]], [
+              `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
+                `div`, `&@style>margin: 8px 0`, [[
+                  `div`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
+                    `div`, [[`a`, `#@sliceCart`, `.@-_tX Minus`, ModelJSON, `&@href>javascript:;`]]], [
+                    `div`, `.@_tXx`, `#@items_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `&@style>padding:0 8px`, `~@${Stock.items}`], [
+                    `div`, [[`a`, `#@alterCart`, `.@-_tX Plus`, ModelJSON, `&@forPlus>${Stock.MD5}-${MyCart.indexOf(Stock)}`, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg`, [[`span`, `.@_tXx`, `#@dollars_${Stock.MD5}_${MyCart.indexOf(Stock)}`, `~@${Stock.swapAlpha}${dollars.toLocaleString()}`]]]]]]]]])
+      });
+
+      return [`div`, ModelMyCart]
+    },
+
+    ModelSum: function (MyCart, MyRegion, Billto) {
+
+      if (MyCart.length === 0) return [];
+
+      let sum = 0,
+
+        mass = 0;
+
+      MyCart.forEach(Stock => {
+
+        sum += Stock.dollars*Stock.items
+
+        mass += Stock.mass*Stock.items
+
+      });
+
+      let Meta = MyCart[0];
+
+      let Sum = (sum*Meta.swap).toFixed(2);
+
+      let RegionSet, Range, Grams, Sell;
+
+      MyRegion.zones.forEach(Region => {
+
+        if (Region.locale === Billto[0]) RegionSet = Region;
+      });
+
+      RegionSet.rates.forEach(Rate => {
+
+        if (Rate.saleSetAlpha[1] > sum && sum > Rate.saleSetAlpha[0]) {
+
+          Range = Rate.saleSetAlpha;
+
+          Rate.grams.forEach(Mass => {
+
+            if (Mass.gramSetAlpha[0] < mass && mass < Mass.gramSetAlpha[1]) {
+
+              Grams = Mass.gramSetAlpha;
+
+              Sell = Mass.sale;
+            }
+          })
+        }
+      })
+
+      let Gross = parseFloat(Sum) + parseFloat(Sell[1])*Meta.swap
+
+      return [
+      `section`, `#@ModelSum`, [[
+        `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px;font-weight:600`, [[`div`, [[`p`, `~@Order Summary`]]]]], [
+          `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+            `div`, `.@_uZM`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `div`, [[`span`, `.@_a2X`, `&@style>font-size:12px;letter-spacing:.9px`, `~@items (${MyCart.length})`]]], [
+                `div`, `.@_QZg`, [[
+                  `span`, `&@style>font-size:10px;text-transform:uppercase`, `~@${Meta.swapAlpha}`, [[
+                    `span`, `#@StockSum`, `&@style>font-size:17px`, `~@${Sum}`]]]]]]], [
+              `div`, `.@yZS`, [[
+                `span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@weight class (${Grams[0]} grams - ${Grams[1]} grams)`]]], [
+              `div`, `.@yZS`, [[`span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@price range (${Meta.swap*Range[0]} - ${Meta.swap*Range[1]})`]]], [
+              `div`, `.@yZS`, [[`span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@mean weight (${mass} grams)`]]], [
+              `div`, `.@_gxM yZS`, [[
+                `div`, [[
+                  `span`, `.@_a2X`, `&@style>font-size:12px;letter-spacing:.9px;text-transform:uppercase`, `~@delivery cost`, [[
+                    `span`, `&@style>font-size:10px`, `~@ (m.w/p.r)`]]]]], [
+                `div`, `.@_QZg`, [[
+                  `span`, `&@style>font-size:10px;text-transform:uppercase`, `~@${Meta.swapAlpha}`, [[
+                    `span`, `#@StockSum`, `&@style>font-size:17px`, `~@${(Sell[1]*Meta.swap).toFixed(2)}`]]]]]]]]], [
+              `div`, `.@_gxM _yZS`, [[
+                `div`, [[
+                  `span`, `.@_a2X`, `&@style>font-size:12px;letter-spacing:.9px;text-transform:uppercase`, `~@order total`]]], [
+                `div`, `.@_QZg`, [[
+                  `span`, `&@style>font-size:10px;text-transform:uppercase`, `~@${Meta.swapAlpha}`, [[
+                    `span`, `#@StockSum`, `&@style>font-size:17px`, `~@${Gross.toFixed(2)}`]]]]]]]]]]]]];
+    },
+
+    ModelShipping: function () {
+
+      return [
+      `section`, `#@ModelSum`, [[
+        `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px;font-weight:600`, [[`div`, [[`p`, `~@Shipping & Delivery`]]]]], [
+          `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+            `div`, `.@_yZS`, [[`span`, `~@Choose Shipping Method`]]], [
+            `div`, `.@_sZ2`, [[
+              `div`, [[
+                `div`, `.@_yZS _gxM _uZM`, [[
+                  `label`, `.@_tXv`, `&@role>radio`, [[
+                    `input`, `&@type>radio`, `#@ShipBy`, `&@value>standard`, `&@name>shipby`], [
+                      `span`, `.@_tCw _a2X _tY0`, `&@style>text-transform:uppercase;font-size:12px`, `~@standard delivery`]]]]], [
+                `div`, `.@_yZS`, [[`span`, `&@style>font-size: 0.9rem;border: 1px solid #1185fe;border-radius: .5em;padding: .75rem 1rem .75rem 2.75rem;margin: 1.5rem 0;`, `~@This option is our standard method of delivery and is 
+                  entirely dependent to day to day logistical factors like traffic, accessibility and time; this option does 
+                  not fully guarantee night-time deliveries and therefore warrants you checkout earlier in the day. Choosing 
+                  this option prompts saving a one time off GPS location, please make sure to accept location tracking when 
+                  in an ideal delivery address, a static location is vital for your delivery.`]]]]], [
+              `div`, [[
+                `div`, `.@_yZS _gxM _uZM`, [[
+                  `label`, `.@_tXv`, `&@role>radio`, [[
+                    `input`, `&@type>radio`, `#@ShipBy`, `&@value>expedite`, `&@name>shipby`], [
+                      `span`, `.@_tCw _a2X _tY0`, `&@style>text-transform:uppercase;font-size:12px`, `~@pickup & expedited delivery`]]]]], [
+                `div`, `.@_yZS`, [[`span`, `&@style>font-size: 0.9rem;border: 1px solid #1185fe;border-radius: .5em;padding: .75rem 1rem .75rem 2.75rem;margin: 1.5rem 0;`, `~@Expedited delivery at you discretion, use our freighter hailing 
+                  services & drone delivery services. This is an extension delivery service into our shipping & delivery mobile 
+                  application which gives you the option of hailing a delivery drone or freight vehicle on a live app to 
+                  deliver your package. It also avails pickup stations, for self-pickup.`]]]]]]]]]]]]]
+    },
+
+    ModelProxy: function (Arg) {
+
+      return [`div`, `.@_geQ _tY0`, `&@style>justify-content:center`, [[
+        `span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`], [
+        `div`, [[
+          `span`, `&@style>font-size: 0.9rem;border: 1px solid #1185fe;border-radius: .5em;padding: .75rem 1rem .75rem 2.75rem;margin: 1.5rem 0;`, `~@redirecting to payment...`]]]]]
+    },
+
+    ModelPay: function (Arg) {
+
+      return [
+      `div`, `.@_geQ _tY0`, `&@style>justify-content:center`, [[
+        `span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`], [
+        `div`, `&@style>padding: .75rem .75rem 2.75rem;margin: 1.5rem 0;`, [[
+          `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+            `a`, `#@paygate`, `.@_TX_a _atX`, `&@target>_blank`, `&@href>${Arg.paygate}`, `&@style>font-size: 0.9rem;font-weight:300`, `~@proceed to payment`]]]]]]]
+    },
+
+
   }
   
   return Model;

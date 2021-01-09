@@ -81,124 +81,6 @@
 
   }
 
-  let listServices = e => {
-
-    if (e.id === `subs`) {
-
-      S.emit(`listServices`, e.innerHTML);
-    }
-  }
-
-  let unlistServices = e => {
-
-    if (e.id === `exit-subs`) {
-
-      let modal_ejs = document.querySelector(`#list-subs`);
-
-      document.querySelectorAll(`#_subs_`).forEach(E => E.innerHTML = ``)
-
-      //if (modal_ejs.className === `-Zz`) modal_ejs.className = `_-Zz`
-    }
-  }
-
-  let SetCurrency = e => {
-
-    if (e.id === `SetCurrency`) {
-
-      let to = document.querySelector(`#Monies`);
-
-      if (to.className === `_aAY _-Zz`) to.className = `_aAY -Zz`;
-
-      else if (to.className === `_aAY -Zz`) to.className = `_aAY _-Zz`;
-
-    }
-  }
-
-  let setSaleMode = () => {
-
-    if (JSStore.avail().sale_mode) {
-
-      document.querySelector(`#SetCurrency > text`).innerHTML = JSStore.avail().sale_mode;
-
-      let SaleModeMap = {
-        aud: [1.37, `$`],
-        cad: [1.31, `$`],
-        eur: [0.84, `€`],
-        gbp: [0.76, `£`],
-        kes: [109, `Ks.`],
-        usd: [1, `$`],
-        yen: [104.50, `¥`]
-      }
-
-      document.querySelectorAll(`#denom`).forEach(Sale => {
-
-        Sale.innerHTML = SaleModeMap[JSStore.avail().sale_mode][1];
-
-      });
-
-      document.querySelectorAll(`#denomValue`).forEach(Sale => {
-
-        Sale.innerHTML = (SaleModeMap[JSStore.avail().sale_mode][0] * Sale.getAttribute(`usd`)).toFixed(2);
-
-        if (JSStore.avail().sale_mode !== `kes`) Sale.innerHTML += ` ${(JSStore.avail().sale_mode).toUpperCase()}`
-
-      });
-
-      if (!document.querySelectorAll(`#saleValue`)) return;
-
-      document.querySelectorAll(`#saleValue`).forEach(Sale => {
-
-        Sale.innerHTML = SaleModeMap[JSStore.avail().sale_mode][1];
-
-        Sale.innerHTML += (SaleModeMap[JSStore.avail().sale_mode][0] * Sale.getAttribute(`usd`)).toFixed(2);
-
-        if (JSStore.avail().sale_mode !== `kes`) Sale.innerHTML += ` ${(JSStore.avail().sale_mode).toUpperCase()}`
-
-      });
-    }
-  }
-
-  let pickSaleMode = e => {
-
-    if (e.id === `saleMode`) {
-
-      JSStore.to({sale_mode: e.getAttribute(`for`)});
-
-      document.querySelector(`#SetCurrency > text`).innerHTML = JSStore.avail().sale_mode;
-
-      setSaleMode();
-    }
-  }
-
-  let setCouponModal = () => {
-
-    if (JSStore.avail().u_md5) return;
-
-    if (JSStore.avail().sale_cut) return;
-
-    let modal_ejs = document.querySelector(`#Coupon`);
-
-      if (modal_ejs.className === `_-Zz`) {
-        modal_ejs.className = `-Zz`;
-      }
-  }
-
-  let foldCoupon = e => {
-
-    if (e.id === `foldCoupon`) {
-
-      let modal_ejs = document.querySelector(`#Coupon`);
-
-      if (modal_ejs.className === `_-Zz`) {
-        modal_ejs.className = `-Zz`;
-      }
-
-      else if (modal_ejs.className === `-Zz`) {
-        modal_ejs.className = `_-Zz`;
-      }
-    }
-  }
-
   let dailySale = () => {
 
     if (!document.querySelector(`#daily-span`)) return;
@@ -356,13 +238,6 @@
       Modal = document.querySelector(`#ModelZones`);
 
       window.location = `/`;
-
-      /*if (JSStore.avail().locale === `kenya`) {
-
-        JSStore.to({log_secs: new Date().valueOf()});
-
-        S.emit(`zonal`, {locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
-      }*/
     }
 
     else if (e.id === `getRegion`) {
@@ -398,27 +273,6 @@
     if (!Modal) return;
 
     if (Modal.className === `-Zz`) Modal.className = `_-Zz`;
-  }
-
-  let Zonal = () => {
-
-    if (!JSStore.avail().locale || JSStore.avail().locale === `global`) {
-
-      document.querySelector(`#ModelZones`).className = `-Zz`;
-
-      /*JSStore.to({log_secs: new Date().valueOf()});
-
-      S.emit(`root`, {locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});*/
-    }
-
-    else if (JSStore.avail().locale && JSStore.avail().locale !== `global`) {
-
-      if (JSStore.avail().locale !== `kenya`) return;
-
-      JSStore.to({log_secs: new Date().valueOf()});
-
-      S.emit(`zonal`, {locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug}); 
-    }
   }
 
   let AlterCart = e => {
@@ -531,14 +385,12 @@
     }
   }
 
-  let ModelShelf = e => {
+  let domServe = () => {
 
-    let w = document.body.clientWidth;
+    JSStore.to({log_secs: new Date().valueOf()});
 
-    if (w > 464) {
+    S.emit(`pullPays`, {log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
 
-      //if 
-    }
   }
  
   let e0 = e => {
@@ -566,35 +418,14 @@
     AlterCart(e)
   }
 
-  let eSize = e => {
-
-    ModelShelf()
-  }
-
-  Zonal();
+  domServe();
 
   document.addEventListener(`click`, e0);
-
-  window.addEventListener(`resize`, eSize)
 
   setInterval(() => {
 
     dailySale();
   }, 1000)
-
-  S.on(`root`, J => {
-
-    if (JSStore.avail().log_secs === J.log_secs) {
-
-      let ModelSource = document.querySelector(`main`);
-
-      let M = new Model();
-
-      ModelSource.innerHTML = M.modelStringify(J.ModelRoot);
-
-      document.querySelector(`#ModelZones`).className = `-Zz`;
-    }
-  })
 
   S.on(`locale`, J => {
 
@@ -608,23 +439,7 @@
 
       ModelSource.innerHTML = M.modelStringify([J.ModelZonal]);
     }
-  })
-
-  S.on(`zonal`, J => {
-
-    if (JSStore.avail().log_secs === J.log_secs) {
-
-      JSStore.to({regionMeta: J.regions})
-
-      let ModelSource = document.querySelector(`main`);
-
-      let M = new Model();
-
-      ModelSource.innerHTML = M.modelStringify(J.ModelZonal);
-
-      document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
-    }
-  })
+  });
 
   S.on(`flutterwave`, J => {
 

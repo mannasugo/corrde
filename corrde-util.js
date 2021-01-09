@@ -13,7 +13,9 @@ const fs = require(`fs`),
 
   gyro = require(`./corrde-geoJSON`),
 
-  RetailSets = config.RetailSets;
+  RetailSets = config.RetailSets,
+
+  RetailMaps = config.RetailZones;
 
 class Auxll {
 
@@ -1185,7 +1187,11 @@ class Auxll {
 
     new Sql().multi({},
       `select * from inventory
-      ;select * from payments`, (A, B, C) => {
+      ;select * from payrequest`, (A, B, C) => {
+
+        let Pay = [];
+
+        let PaySet = {};
 
         let Sell = [];
 
@@ -1200,7 +1206,18 @@ class Auxll {
           SellSet[Row.MD5] = Row;
         }
 
-        Aft({Sell: [Sell, SellSet]})
+        for (let pay in B[1]) {
+
+          let Row = JSON.parse(B[1][pay].json);
+
+          Pay.push(Row);
+
+          PaySet[Row.MD5] = Row;
+        }
+
+        Aft({
+          Sell: [Sell, SellSet],
+          Pay: [Pay, PaySet]})
       })
   }
 }
@@ -1237,6 +1254,7 @@ class Sql extends Auxll {
         ;${config.sql.m}
         ;${config.sql.messages}
         ;${config.sql.payments}
+        ;${config.sql.payrequest}
         ;${config.sql.products}
         ;${config.sql.sales}
         ;${config.sql.stories}
@@ -1326,6 +1344,8 @@ class UAPublic extends Auxll {
     else if (this.levelState === `checkout`) this.ComputePay();
 
     else if (this.levelState === `contract`) this.contract();
+
+    else if (this.levelState === `invoices`) this.PullPays();
 
     else if (this.levelState === `feed`) this.feed();
 
@@ -1456,6 +1476,12 @@ class UAPublic extends Auxll {
       });
     }
 
+    else if (this.levelState[1] === `payrequest`) {
+
+      if (this.levelState[2]) this.PullPay(this.levelState[2]);
+
+    }
+
     else if (this.levelState[1] === `portfolio`) {
 
       this.logs_u_md5(A => {
@@ -1506,11 +1532,7 @@ class UAPublic extends Auxll {
             else if (A.StoresMap[this.levelState[2]]) this.retailStore(A, A.StoresMap[this.levelState[2]]);
 
           })
-
-
         }
-
-
       }
     }
   }
@@ -3930,6 +3952,86 @@ class UAPublic extends Auxll {
           this.app.to.end(model.call(Stack));})
     })
   }
+
+  PullPay (pay) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({pullPay: pay}),
+        title: `Corrde Store | My Orders`,
+        css: CSS,
+        jsState: [config.reqs.retail_pull_pay_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
+
+  PullPays () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Store | Pay Orders & Invoices`,
+        css: CSS,
+        jsState: [config.reqs.retail_pull_pays_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -6156,6 +6258,7 @@ class UATCP extends UAPublic {
 
           tcp.emit(`locale`, {
             log_secs: J.log_secs,
+            regions: RetailMaps[J.locale],
             ModelZonal: model.ModelZone(J.locale, A)});
           })
       });
@@ -6170,6 +6273,7 @@ class UATCP extends UAPublic {
 
             tcp.emit(`zonal`, {
               log_secs: J.log_secs,
+              regions: RetailMaps[J.locale],
               ModelZonal: [
                 model.ModelZone(J.locale, Sell),
                 model.ModelRootAlpha(A.md5Key, J.mug),
@@ -6196,6 +6300,7 @@ class UATCP extends UAPublic {
             tcp.emit(`retailStock`, {
               alpha: Sell.Sell[1][J.route[1]].alpha + ` - ` + J.route[0] + ` | Corrde Stores`,
               log_secs: J.log_secs,
+              regions: RetailMaps[Sell.Sell[1][J.route[1]].market],
               ModelRetailStock: [
                 model.ModelRetailStock(Sell, J.route[1]),
                 model.ModelRootAlpha(A.md5Key, J.mug),
@@ -6220,7 +6325,7 @@ class UATCP extends UAPublic {
 
           Sell.Sell[0].forEach(Stock => {
 
-            if (Stock.set === J.retailSet && Stock.market === J.locale) Shelf.push(Stock);
+            if (Stock.mass && Stock.set === J.retailSet && Stock.market === J.locale) Shelf.push(Stock);
           })
 
           if (!Shelf.length > 0) return;
@@ -6229,6 +6334,7 @@ class UATCP extends UAPublic {
 
             tcp.emit(`retailSet`, {
               log_secs: J.log_secs,
+              regions: RetailMaps[J.locale],
               ModelRetailSet: [
                 model.ModelRetailSet(J.retailSet, J.locale, Shelf),
                 model.ModelRootAlpha(A.md5Key, J.mug),
@@ -6256,6 +6362,140 @@ class UATCP extends UAPublic {
               model.footer()]
             });
         })
+      });
+
+      tls.on(`flutterwave`, Args => {
+
+        if (Args.myCart.length === 0) return [];
+
+        let sum = 0, mass = 0;
+
+        Args.myCart.forEach(Stock => {
+
+          sum += Stock.dollars*Stock.items
+
+          mass += Stock.mass*Stock.items
+
+        });
+
+        let Meta = Args.myCart[0];
+
+        let Sum = (sum*Meta.swap).toFixed(2);
+
+        let RegionSet, Range, Grams, Sell;
+
+        Args.myRegion.zones.forEach(Region => {
+
+          if (Region.locale === Args.Billto[0]) RegionSet = Region;
+        });
+
+        RegionSet.rates.forEach(Rate => {
+
+          if (Rate.saleSetAlpha[1] > sum && sum > Rate.saleSetAlpha[0]) {
+
+            Range = Rate.saleSetAlpha;
+
+            Rate.grams.forEach(Mass => {
+
+              if (Mass.gramSetAlpha[0] < mass && mass < Mass.gramSetAlpha[1]) {
+
+                Grams = Mass.gramSetAlpha;
+
+                Sell = Mass.sale;
+              }
+            })
+          }
+        })
+
+        let Gross = parseFloat(Sum) + parseFloat(Sell[1])*Meta.swap
+
+        let timeStamp = Date.now();
+
+        let payer = Args.log_secs;
+
+        if (Args.u_md5) payer = Args.u_md5;
+
+        let logSum = crypto.createHash(`md5`).update(`${timeStamp}`, `utf8`).digest(`hex`);
+
+        let Pay = {
+          method: `POST`,
+          url: 'https://api.flutterwave.com/v3/payments',
+          headers: {'Authorization': 'Bearer FLWSECK-9da614832e3764fcdfa1eb9914f09d88-X'},
+          form: {
+            tx_ref: logSum,
+            amount: Gross,
+            currency: `KES`,
+            redirect_url: `https://corrde.com/payrequest/${logSum}/`,
+            payment_options: `mpesa`,
+            meta: {
+              consumer_id: payer,
+            },
+            customer: {
+              email: `financedev@corrde.com`,
+              name: `express pay`
+            }
+          }
+        };
+
+        UrlCall(Pay, (error, Pull) => {
+
+          if (error) throw new Error(error);
+            
+          else {
+
+            let S = JSON.parse(Pull.body)
+
+            Args.Pay = [timeStamp, logSum, S.data.link];
+
+            new Sql().to([`payrequest`, {json: JSON.stringify({
+              bag: Args.myCart,
+              complete: false,
+              dollars: sum,
+              gArray: [Args.locale, Args.Billto[0], Args.gArray], 
+              mass: mass,
+              MD5: logSum,
+              paid: false,
+              pay: Gross,
+              payer: payer,
+              secs: timeStamp})}], (A, B, C) => {
+
+                tcp.emit(`flutterwave`, Args)
+            })
+          }
+        });
+      });
+
+      tls.on(`pullPays`, J => {
+
+        /*Data.Sell(A => {
+
+          let Sell = A,
+
+            Pays = [];
+
+          Sell.Sell[0].forEach(Stock => {
+
+            if (Stock.mass && Stock.set === J.retailSet && Stock.market === J.locale) Shelf.push(Stock);
+          })
+
+          if (!Shelf.length > 0) return;
+
+          Data.logs_u_md5(A => {
+
+            tcp.emit(`retailSet`, {
+              log_secs: J.log_secs,
+              regions: RetailMaps[J.locale],
+              ModelRetailSet: [
+                model.ModelRetailSet(J.retailSet, J.locale, Shelf),
+                model.ModelRootAlpha(A.md5Key, J.mug),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+                model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
+                model.loadDOMModalView([model.modalView([model.ModalRegions(J.locale)])], `ModalRegions`),
+                model.footer()]
+              });
+          })
+        });*/
       });
 
       /**
