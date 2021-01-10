@@ -7796,7 +7796,7 @@ module.exports = {
               `div`, `.@_gcQ _aXZ _uZM`, [[
                 `div`, `.@_gxM _geQ`, [[
                   `div`, [[
-                    `svg`, `&@style>font-size:11px;width: 48px;height:48px;min-height:48px;height: 48px`, [[
+                    `svg`, `&@style>font-size:0.81rem;width: 48px;height:48px;min-height:48px;height: 48px`, [[
                       `circle`, `&@style>fill:#2929f2;stroke:none`, `&@r>22px`, `&@cx>24px`, `&@cy>24px`], [
                       `text`, `&@x>24`, `&@y>28`, `&@style>text-anchor: middle;fill:#fff`, `~@${Zone.drop[1][0]}${Zone.drop[1][1]}`]]]]], [
                   `div`, `.@_eYG`, [[
@@ -7805,7 +7805,7 @@ module.exports = {
                     `div`, [[`span`, `&@style>text-transform:uppercase;color:#999;font-size:11px`, `~@${Zone.drop[0][0]} ${Zone.drop[0][1]} - ${Zone.drop[1][0]} ${Zone.drop[1][1]}`]]]]], [
                   `div`, `.@_QZg _gMz`, [[`a`, `#@DelZonal`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
-                `div`, `.@_sZ2`, `&@style>font-size:11px`, [[
+                `div`, `.@_sZ2`, `&@style>font-size:.81rem`, [[
                   `div`, `.@_yZS`, [[
                     `span`, `&@style>color:red`, `~@*Prices coded in red are discounted rates for perishable packages (i.e. fast foods) which do not need to come from our warehouses' stock.`]]], [
                   `div`, ModelRateSet]]]]]]]]]]]]]]];
@@ -8313,7 +8313,7 @@ module.exports = {
       `div`, `.@_gcQ _aXZ _uZM`, [[
         `div`, `.@_gxM _geQ`, [[`div`, `.@_eYG`], [`div`, `.@_QZg _gMz`, [[`a`, `#@DelRetailRates`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
       `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
-        `div`, `.@_sZ2`, `&@style>font-size:11px`, [[
+        `div`, `.@_sZ2`, `&@style>font-size:.81rem`, [[
           `div`, `.@_yZS`, [[
             `span`, `&@style>color:red`, `~@*Prices coded in red are discounted rates for perishable packages (i.e. fast foods) which do not need to come from our warehouses' stock.`]]], [
           `div`, ModalSet]]]]]]]

@@ -369,7 +369,7 @@ const Model = (function () {
 
               Grams = Mass.gramSetAlpha;
 
-              Sell = Mass.sale;
+              Sell = Mass.sale;console.log(Sell)
             }
           })
         }
