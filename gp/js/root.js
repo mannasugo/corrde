@@ -312,6 +312,14 @@
 
     }
 
+    if (e.id === `CreateStore`) {
+
+      if (!JSStore.avail().mug || JSStore.avail().mug === false) window.location = `/signup/`;
+
+      else to = document.querySelector(`#ModalCreateStore`);
+
+    }
+
     if (!to) return;
 
     if (to.className === `_-Zz`) to.className = `-Zz`;
@@ -394,6 +402,8 @@
     else if (e.id === `foldModalSets`) Modal = document.querySelector(`#ModalSets`);
 
     else if (e.id === `DelZonal`) Modal = document.querySelector(`aside > div`);
+
+    else if (e.id === `foldModalCreateStore`) Modal = document.querySelector(`#ModalCreateStore`);
 
     if (!Modal) return;
 

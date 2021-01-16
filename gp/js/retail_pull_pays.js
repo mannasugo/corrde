@@ -387,9 +387,14 @@
 
   let domServe = () => {
 
-    JSStore.to({log_secs: new Date().valueOf()});
+    if (!JSStore.avail().mug || JSStore.avail().mug === false) window.location = `/`;
 
-    S.emit(`pullPays`, {log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
+    else if (JSStore.avail().mug !== false) {
+
+      JSStore.to({log_secs: new Date().valueOf()});
+
+      S.emit(`pullPays`, {log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
+    }
 
   }
  
@@ -400,16 +405,6 @@
     listMug(e);
 
     unlistMug(e);
-
-    listServices(e);
-
-    unlistServices(e);
-
-    SetCurrency(e);
-
-    pickSaleMode(e);
-
-    foldCoupon(e);
 
     Modals(e);
 
@@ -454,6 +449,19 @@
         ModelSource.innerHTML = M.modelStringify([M.ModelPay({paygate: J.Pay[2]})]);
 
       }
+    }
+  });;
+
+  S.on(`pullPays`, J => {
+
+    if (JSStore.avail().log_secs === J.log_secs) {
+
+      let M = new Model();
+
+      let ModelSource = document.querySelector(`main`);
+
+      ModelSource.innerHTML = M.modelStringify(J.ModelPullPays);
+
     }
   })
 })();

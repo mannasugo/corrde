@@ -7403,9 +7403,9 @@ module.exports = {
 
     let ModelMug = [`a`, `#@offmugger`, `.@-_tX Mug`, `&@style>margin:0 15px`, `&@href>javascript:;`];
 
-    let ModalA = [`pay orders & invoices`, `Shop by Category`, `Profile`, `Mail & Notifications`, `Sign Out`]
+    let ModalA = [`pay orders & invoices`, `Shop by Category`, `Vendors & MarketPlace`, `Mail & Notifications`, `Sign Out`]
 
-    let ModalB = [``, `getSets`, `mug`, `mail`, ``]
+    let ModalB = [``, `getSets`, `marketplace`, `mail`, ``]
 
     let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `javascript:;`, `javascript:;`];
 
@@ -7433,9 +7433,9 @@ module.exports = {
               this.inModal({
                 id: `offmug`, 
                 in: this.aPoolModal([
-                  `Signin`, `Create Free Account`, `Shop By Category`], [
-                  ``, ``, `getSets`], [
-                  `/login/`, `/signup/`, `javascript:;`])})]]]]]]]];
+                  `Signin`, `Create Free Account`, `Shop By Category`, `Vendors & MarketPlace`], [
+                  ``, ``, `getSets`, `marketplace`], [
+                  `/login/`, `/signup/`, `javascript:;`, `javascript:;`])})]]]]]]]];
 
   },
 
@@ -7827,7 +7827,18 @@ module.exports = {
     return [
     `main`, `.@_xC2`, [[
       `div`, `.@_tY0`, [
-        Shelve(`fruits & vegetables`, Retail), 
+        Shelve(`fruits & vegetables`, Retail), [
+        `section`, `.@_g29`, `&@style>line-height:1.5rem;background:#14312d`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
+              `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
+                `h1`, `.@_tx1 _atX`, `~@Corrde Vendors`]]], [
+              `div`, `.@_ge0 _c3x _Qtx`, [[`span`, `&@style>padding-bottom: 24px;font-weight:600`, `~@Become a Partner`], [
+                `div`, `~@Grow your business and reach new patners by patnering with us.`], [
+                `div`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@QZg`, [[
+                    `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `#@CreateStore`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]]]]],
         Shelve(`beverages`, Retail),
         Shelve(`pantry`, Retail),  
         Shelve(`alcohol`, Retail), 
@@ -8425,6 +8436,100 @@ module.exports = {
           `div`, `.@_QZg _gMz`, [[`a`, `#@foldModalRegions`, `.@_-Zz -_tX DelColor`, `&@href>javascript:;`]]]]], [
         `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
           `div`, `.@_sZ2`, ModelRegions]]]]]
+
+  },
+
+  ModelPullPays: (Pays) => {
+
+    let ModelPay = [];
+
+    let FullPays = Pays;
+
+    SlicePays = Pays.sort((a, b) => {return b.secs - a.secs});
+
+    let fillFloat = float => {
+
+      if (float < 10) return `0` + float;
+
+      else return float;
+    }
+
+    SlicePays.forEach(Pay => {
+
+      let Secs = new Date(parseInt(Pay.secs));
+
+      ModelPay.push([
+        `div`, `.@_g0`, [[
+          `div`, `.@_p0 _yZS _gxM`, [[
+            `span`, `&@style>color:#adbcc6`, `~@order `], [
+            `span`, `&@style>color:#1185fe;padding-left:8px`, `~@ #${FullPays.length - (FullPays.indexOf(Pay) + 1)}`], [
+            `div`, `.@_QZg`, [[
+              `span`, `&@style>color:#adbcc6`, `~@${
+                Secs.getUTCFullYear() + ` ` + 
+                fillFloat(Secs.getUTCMonth() + 1) + ` ` + 
+                fillFloat(Secs.getUTCDate()) + ` ` + 
+                fillFloat(Secs.getUTCHours()) + 
+                fillFloat(Secs.getUTCMinutes())}`]]]]], [
+          `div`, `.@_gxM`, `&@style>padding:10px 24px;text-transform:capitalize`, [[
+            `span`, `&@style>color:#adbcc6;padding-left:24px`, `~@order no: `, [[`span`, `&@style>color:#1185fe`, `~@${Pay.secs}`]]]]]]])
+    })
+
+    return [
+    `main`, `.@_xC2`, `&@style>background:#f7f7f7;height:100%`, [[
+      `div`, `.@_tY0`, [[
+        `section`, [[
+          `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+            `div`, `.@_geQ _cX3`, `&@style>margin-bottom:16px`, [[
+              `div`, [[
+                `p`, `.@_tXx`, `&@style>font-size:1.2rem;text-align:center`, `~@Welcome Back!`], [
+                `p`, `.@`, `&@style>font-size:0.8rem;color:#999;text-align:center;padding:10px 0 0`, `~@Lets see what happened while you were away.`]]], [
+              `div`, `.@_QZg`, []]]]]]]], [
+        `section`, `#@ModelPay`, ModelPay]]]]];
+  },
+
+  ModalCreateStore () {
+
+    return [
+    `div`, `&@style>letter-spacing:0.75px`, [[
+      `div`, `.@_gcQ _aXZ _uZM`, [[
+        `div`, `.@_gxM _geQ`, [[
+          `div`, `.@_gxM _geQ`, [[
+            `span`, `.@-_tX AppMedium`], [
+            `span`, `&@style>padding-left:8px`, `~@| CORRDE MERCHANT`]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@foldModalCreateStore`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
+      `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+        `div`, `.@_cX3`, [[
+          `div`, ``, [[
+            `span`, `&@style>font-size:1.8rem;font-weight:600;margin: 24px auto`, `~@Corrde Vendors`], [
+            `span`, `&@style>font-size:.8rem;font-weight:600;margin: 12px auto 24px`, `~@Market your store or restuarant online`]]], [
+          `div`, `&@style>max-width:450px;margin: 0 auto;width:100%`, [[
+            `div`, `.@sZ2`, [[
+              `div`, `.@_yZS _gMX`, [[
+                `div`, `.@_UFA _gMX`, [[
+                  `input`, `#@Store`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>Store/Restuarant Name`]]]]]]], [
+            `div`, `.@sZ2`, [[
+              `div`, `.@_yZS _gMX`, [[
+                `div`, `.@_UFA _gMX _gxM _geQ`, [[
+                  `span`, `&@style>border-right:1px solid #e5e5e5;font-weight:600;color:#1dcae1;padding-right:8px`, `~@+254`], [
+                  `input`, `#@Call`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding-left:8px`, `&@placeholder>Mobile Phone`]]]]]]], [
+            `div`, `.@sZ2`, [[
+              `div`, `.@_yZS _gMX`, [[
+                `div`, `.@_UFA _gMX _gxM _geQ`, [[
+                  `span`, `&@style>border-right:1px solid #e5e5e5;font-weight:600;color:#1dcae1;padding-right:8px`, `~@https://corrde.com/`], [
+                  `input`, `#@Alt`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding-left:8px`, `&@placeholder>username for weblink`]]]]]]], [
+                `div`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@QZg`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
+                      `a`, `#@SignupStore`, `.@_TX_a _atX _utQ _gMX`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]/*[
+            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
+              `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
+                `h1`, `.@_tx1 _atX`, `~@Corrde Vendors`]]], [
+              `div`, `.@_ge0 _c3x _Qtx`, [[`span`, `&@style>padding-bottom: 24px;font-weight:600`, `~@Become a Partner`], [
+                `div`, `~@Grow your business and reach new patners by patnering with us.`], [
+                `div`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@QZg`, [[
+                    `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
+                      `a`, `#@CreateStore`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]*/]]]]]]
 
   }
 }

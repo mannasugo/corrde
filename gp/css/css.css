@@ -331,6 +331,7 @@ body {
   -webkit-text-fill-color: #ccc;
   font-weight: 300;
   opacity: 1;
+  letter-spacing: .75px;
 }
 
 ._FFe {
@@ -3075,6 +3076,23 @@ table > thead > tr > th {
   padding: 1rem 1.25rem;
 }
 
+#ModelPay ._g0 {
+  max-width: 960px;
+  margin: 12px auto;
+  width: 100%;
+  background: #fff;
+  /* padding: 0 24px; */
+  border: 1px solid #e6e7e8;
+  border-radius: 6px;
+}
+
+#ModelPay ._p0 {
+  padding: 10px 24px;
+  text-transform: capitalize;
+  font-weight: 600;
+  border-bottom: 1px solid #e6e7e8;
+}
+
 @media only screen and (min-width: 1200px) {
 
   ._Xsa {
@@ -3740,6 +3758,8 @@ table > thead > tr > th {
 }
 
 @media (max-width: 920px) {
+
+  #ModelPay ._g0 {border:none;}
 
   #team-rotate-ejs > ._X4- {min-width: 48.333333%}
 
