@@ -7407,7 +7407,7 @@ module.exports = {
 
     let ModalB = [``, `getSets`, `marketplace`, `mail`, ``]
 
-    let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `javascript:;`, `javascript:;`];
+    let ModalC = [`/invoices/`, `javascript:;`, `/vendors/`, `javascript:;`, `javascript:;`];
 
     if (State !== false) {
  
@@ -7433,9 +7433,9 @@ module.exports = {
               this.inModal({
                 id: `offmug`, 
                 in: this.aPoolModal([
-                  `Signin`, `Create Free Account`, `Shop By Category`, `Vendors & MarketPlace`], [
+                  `Sign in`, `Create Free Account`, `Shop By Category`, `Vendors & MarketPlace`], [
                   ``, ``, `getSets`, `marketplace`], [
-                  `/login/`, `/signup/`, `javascript:;`, `javascript:;`])})]]]]]]]];
+                  `/login/`, `/signup/`, `javascript:;`, `/vendors/`])})]]]]]]]];
 
   },
 
@@ -8520,16 +8520,51 @@ module.exports = {
                 `div`, `&@style>padding: 24px 0`, [[
                   `div`, `.@QZg`, [[
                     `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px`, [[
-                      `a`, `#@SignupStore`, `.@_TX_a _atX _utQ _gMX`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]/*[
-            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
-              `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
-                `h1`, `.@_tx1 _atX`, `~@Corrde Vendors`]]], [
-              `div`, `.@_ge0 _c3x _Qtx`, [[`span`, `&@style>padding-bottom: 24px;font-weight:600`, `~@Become a Partner`], [
-                `div`, `~@Grow your business and reach new patners by patnering with us.`], [
-                `div`, `&@style>padding: 24px 0`, [[
-                  `div`, `.@QZg`, [[
-                    `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `#@CreateStore`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]*/]]]]]]
+                      `a`, `#@SignupStore`, `.@_TX_a _atX _utQ _gMX`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]]]]]
 
+  },
+
+  ModelPullStalls (Stalls, MyStalls) {
+
+    let ModelStallsAva = []
+
+    let ModelMyStalls = [
+      `section`, `#@ModelShelf`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@My Stores`]]], [
+            `div`, `.@_QZg`, []]]], [
+          `div`, `.@_gX0`, ModelStallsAva]]]]];
+
+    MyStalls.forEach(Stall => {
+
+      ModelStallsAva.push([
+        `div`, `.@_gA0`, [[
+          `div`, `.@_gY`, [[
+            `div`, `.@_uxq`, `&@style>width:100%`, [[
+              `div`, `.@_`, [[
+                `div`, `.@_`, [[
+                  `div`, `.@_gef`, [[
+                    `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+                      `img`, `&@style>height:100%`, `.@_aMz _gVm`, `&@src>/gp/p/vector/polyg_mug.svg`]]], [
+                    `div`, `.@_gVm`]]]]]]], [
+              `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+                `div`, `.@_yZS _gxM _geQ`, [[
+                  `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                    `div`, `.@_eYG`, [[
+                      `div`, `.@_QxM`, [[`a`, `.@_tXx aA2`, `~@${Stall.alpha}`, `&@href>/dashboard/${Stall.MD5}/`]]], [
+                      `div`, [[`a`, `.@_aA2`, `&@href>/${Stall.alt}`, `~@@${Stall.alt}`]]]]], [
+                    `div`, [[
+                      `a`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>/dashboard/${Stall.MD5}/`, [[
+                        `svg`, `&@title>${Stall.alpha}`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
+                          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${Stall.alpha[0]}`]]]]]]]]]]]]]]]]]]])
+    });
+
+    if (MyStalls.length === 0) ModelMyStalls = [];
+
+    return [
+    `main`, `.@_xC2`, [[
+      `div`, `.@_tY0`, [ModelMyStalls]]]];
   }
 }

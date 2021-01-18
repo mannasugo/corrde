@@ -1187,7 +1187,8 @@ class Auxll {
 
     new Sql().multi({},
       `select * from inventory
-      ;select * from payrequest`, (A, B, C) => {
+      ;select * from payrequest
+      ;select * from fronts`, (A, B, C) => {
 
         let Pay = [];
 
@@ -1196,6 +1197,10 @@ class Auxll {
         let Sell = [];
 
         let SellSet = {};
+
+        let Stalls = [];
+
+        let StallSet = {};
 
         for (let row in B[0]) {
 
@@ -1215,9 +1220,19 @@ class Auxll {
           PaySet[Row.MD5] = Row;
         }
 
+        for (let stall in B[2]) {
+
+          let Row = JSON.parse(B[2][stall].json);
+
+          Stalls.push(Row);
+
+          StallSet[Row.MD5] = Row;
+        }
+
         Aft({
           Sell: [Sell, SellSet],
-          Pay: [Pay, PaySet]})
+          Pay: [Pay, PaySet],
+          Stalls: [Stalls, StallSet]})
       })
   }
 }
@@ -1249,6 +1264,7 @@ class Sql extends Auxll {
         `${config.sql.devs}
         ;${config.sql.devs_mail}
         ;${config.sql.devs_traffic}
+        ;${config.sql.fronts}
         ;${config.sql.inventory}
         ;${config.sql.jobs}
         ;${config.sql.m}
@@ -1345,6 +1361,19 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `contract`) this.contract();
 
+    else if (this.levelState === `favicon.ico`) {
+
+      let File = fs.createReadStream(`gp/p/vector/app_logo.svg`);
+
+      this.app.to.writeHead(200, {
+        [`Content-Type`]: `image/svg+xml`
+      })
+
+      File.on(`data`, this.app.to.write.bind(this.app.to));
+
+      File.on(`close`, () => this.app.to.end())
+    }
+
     else if (this.levelState === `invoices`) this.PullPays();
 
     else if (this.levelState === `feed`) this.feed();
@@ -1366,6 +1395,8 @@ class UAPublic extends Auxll {
     else if (this.levelState === `seek`) this.seek();
 
     else if (this.levelState === `tour`) this.tour();
+
+    else if (this.levelState === `vendors`) this.PullStores();
   }
 
   subCalls () {
@@ -1392,6 +1423,8 @@ class UAPublic extends Auxll {
       this.ComputePay();
     
     }
+
+    else if (this.levelState[1] === `dashboard`) this.ControlStore(this.levelState[2])
 
     else if (this.levelState[1] === `devs`) {
 
@@ -4032,6 +4065,86 @@ class UAPublic extends Auxll {
           this.app.to.end(model.call(Stack));})
     })
   }
+
+  ControlStore (Arg) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Store`,
+        css: CSS,
+        jsState: [config.reqs.control_store_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
+
+  PullStores () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({}),
+        title: `Corrde Vendors & Marketplace`,
+        css: CSS,
+        jsState: [config.reqs.pull_stores_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
 }
 
 class ViaAJX extends Auxll {
@@ -6497,6 +6610,37 @@ class UATCP extends UAPublic {
         });
       });
 
+      tls.on(`pullStalls`, J => {
+
+        Data.Sell(A => {
+
+          let Sell = A, MyStalls = [], Stalls = [];
+
+          Sell.Stalls[0].forEach(Stall => {
+
+            if (Stall.caller === J.mug) MyStalls.push(Stall);
+
+            Stalls.push(Stall)
+          });
+
+          if (!Stalls.length > 0 && !MyStalls.length > 0) return;
+
+          Data.logs_u_md5(A => {
+
+            tcp.emit(`pullStalls`, {
+              log_secs: J.log_secs,
+              ModelPullStalls: [
+                model.ModelPullStalls(Stalls, MyStalls),
+                model.ModelRootAlpha(A.md5Key, J.mug),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+                model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
+                model.loadDOMModalView([model.modalView([model.ModalRegions(J.locale)])], `ModalRegions`)]
+              });
+          })
+        });
+      });
+
       /**
       @dev
       **
@@ -6818,6 +6962,8 @@ class AJXReqs extends Auxll {
       /** **/
 
       else if (this.args.AddStock) this.AddStock(JSON.parse(this.args.AddStock));
+
+      else if (this.args.CreateStore) this.CreateStore(JSON.parse(this.args.CreateStore));
     }
   }
 
@@ -7483,6 +7629,35 @@ class AJXReqs extends Auxll {
 
             this.app.to.writeHead(200, config.reqMime.json);
             this.app.to.end(JSON.stringify({exit: true, route: [Rows.Shop.toLowerCase(), log_sum]}));
+          });
+      }
+    });
+  }
+
+  CreateStore (Args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let Store = Args.createStore;
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        new Sql().to([`fronts`, {json: JSON.stringify({
+          alpha: Store[0],
+          alt: Store[2],
+          caller: Args.mug,
+          cell: Store[1],
+          files: [[], []],
+          locales: [],
+          secs: log,
+          MD5: log_sum})}], (A, B, C) => {
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true, route: [Store[2], log_sum]}));
           });
       }
     });
