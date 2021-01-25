@@ -1,0 +1,29 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200">
+  <style>
+
+   svg {fill: none}
+    g {
+      stroke: #00ff73a3
+    }
+  </style>
+  <g>
+    <rect y="0" x="0" fill="#14312d" width="1600" height="1200" stroke="none"></rect>
+    <rect stroke-width="16" rx="36" ry="36" x="310" y="220" width="150" height="150"></rect>
+    <path stroke-width="16" d="M350,270 A4,6 1 1,0 420,270"></path>
+    <text stroke="#fff" stroke-width="6" fill="#fff" x="500" y="335" font-family="litera" font-size="132px">corrde store</text>
+    <text x="1270" y="245" stroke="#fff" stroke-width=".5" fill="#fff" font-family="litera" font-size="18px">TM</text>
+    <text x="500" y="545" fill="#fff" font-family="litera" font-size="56px" font-weight="600">Order something different everyday</text>
+    <text x="500" y="755" fill="#fff" font-family="litera" font-size="36px" font-weight="600">corrde.com</text>
+    <path stroke="#00ff73a3" stroke-width="5" d="M500 765 705 765"></path>
+    <!--rect stroke="none" fill="#fff" x="500" y="565.5" width="268" height="75"></rect>
+    <text x="500" y="625" stroke="#fff" fill="#14312d" font-family="litera" font-size="54px" font-weight="600">DIFFERENT</text>
+    <text x="500" y="705" fill="#fff" font-family="litera" font-size="54px" font-weight="600">EVERYDAY</text-->
+    <!--path fill="none" stroke="#fff" d="M800 0 800 1200"></path>
+    <path fill="none" stroke="#fff" d="M300 0 300 1200"></path>
+    <path fill="none" stroke="#fff" d="M1300 0 1300 1200"></path>
+    <path fill="none" stroke="#fff" d="M0 600 1600 600"></path>
+    <path fill="none" stroke="#fff" d="M500 0 500 1200"></path>
+    <path fill="none" stroke="#fff" d="M0 300 1600 300"></path>
+    <path fill="none" stroke="#fff" d="M0 900 1600 900"></path-->
+</g>
+  </svg>

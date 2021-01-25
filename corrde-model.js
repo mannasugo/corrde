@@ -1,6 +1,8 @@
 const config = require(`./corrde-config`),
   RetailMaps = config.RetailZones,
-  RetailSets = config.RetailSets;
+  RetailSets = config.RetailSets,
+  SellSet    = config.SellSet,
+  SVG        = config.SVG;
 
 class ModelString {
   
@@ -8546,7 +8548,7 @@ module.exports = {
                 `div`, `.@_`, [[
                   `div`, `.@_gef`, [[
                     `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
-                      `img`, `&@style>height:100%`, `.@_aMz _gVm`, `&@src>/gp/p/vector/polyg_mug.svg`]]], [
+                      `img`, `&@style>height:100%`, `.@_aMz _gVm`, `&@src>/gp/p/vector/crate.svg`]]], [
                     `div`, `.@_gVm`]]]]]]], [
               `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
                 `div`, `.@_yZS _gxM _geQ`, [[
@@ -8566,5 +8568,230 @@ module.exports = {
     return [
     `main`, `.@_xC2`, [[
       `div`, `.@_tY0`, [ModelMyStalls]]]];
-  }
+  },
+
+  ModelPullStallControls (Stall, Pledge) {
+
+    let Shelve = [];
+
+    Pledge.forEach(Row => {
+
+      if (Shelve.indexOf(Row.shelf) === -1) Shelve.push(Row.shelf)
+    });
+
+    let ModelShelve = () => {
+
+      let ModelShelves = [];
+
+      Shelve.forEach(Shelf => {
+
+        ModelShelves.push(this.ModelStallShelf([
+          Shelf.replace(new RegExp(`u/0026`, `g`), `&`), Pledge, 3]))
+      });
+
+      return ModelShelves;
+    }
+
+    let ModelStallAlerts = [
+      `section`, `#@ModelStallAlerts`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Alerts`]]], [
+            `div`, `.@_QZg`, []]]], [
+          `div`, `.@_gZy`, `&@style>max-width:960px;margin:0 auto; padding: 16px`, [[
+            `div`, `.@_gX0`, `&@style>text-transform:uppercase`, [[
+              `div`, [[
+                `span`, `.@_aAe _a2X _tXx`, `~@corrde vendor system`], [
+                `span`, `.@_a2X`, `~@operation settings`]]]]], [
+            `div`, `.@_gX2`, [[
+              `div`, [[
+                `a`, `.@_aA2`, `&@style>line-height:1.6em;padding:0 0 20px`, `&@href>javascript:;`, `~@To make your store/restuarant available on our vendor & marketplace catalgue, you should set your stock zones & regions.`]]]]], [
+            `div`, `.@_gX3`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`,`#@setStallCountry`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@set store region & zone`]]]]]]]]]]];
+
+    if (Stall.locales.length > 0) ModelStallAlerts = []
+
+    return [
+      `article`, `#@ModelStallControls`, [[
+        `div`, `.@_tY0`, [[
+          `main`, `.@_gZy`, [[
+            `nav`, `.@_gy0`, [[
+              `div`, `.@_gy`, [[
+                `div`, `.@_gq`, [[
+                  `div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX AppMedium`, `&@href>/`]]], [
+                  `div`, `.@_gMX _geQ _s0`, [[`a`, `.@-_tX RootGray`, `&@href>`]]], [
+                  `div`, `.@_gMX _geQ _s0`, [[`a`, `#@Sell`, `.@-_tX SellColor`, `&@href>javascript:;`]]], [
+                  `div`, `.@_gMX _geQ _s0`, [[`a`, `.@-_tX Bag`]]]]]]]]], [
+            `section`, `.@_gy2`, `&@style>width:100%`, [[
+              `main`, `.@_xC2`, [
+                ModelStallAlerts, [`div`, ModelShelve()]]], [
+              `nav`, `.@_uHC`, `&@style>background:none`, [[
+                `div`, `.@_xCt`], [
+                `div`, [[
+                  `div`, `.@_-tY`, [[
+                    `div`, `.@_aXz`, [[
+                      `div`, `.@_-Xg _gxM`, []], [
+                      `div`, `.@_QZg _gxM _aA2`, [[
+                        `span`, `.@_axS _gV0 _tXx`, `~@${Stall.alpha}`], [
+                      `a`, `.@_cCq _axS _gS3`, `&@style>width:40px;height:40px`, `&@href>/dashboard/${Stall.MD5}/`, [[
+                        `svg`, `&@title>${Stall.alpha}`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
+                          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${Stall.alpha[0]}`]]]]]]]]]]]]]]]]]]]]]]]
+
+  },
+
+  ModalStallCountry () {
+    
+    let Zones = [ 
+      `Australia`, 
+      `Canada`, 
+      `Germany`, 
+      `Japan`, 
+      `Kenya`, 
+      `Norway`, `South Africa`, `Sweden`, `United Kingdom`, `United States Of America`];
+
+    let Towns = [
+      [], [], [], [], [
+        `bungoma`, `eldoret`, `homa bay`, `kakamega`, `kisii`, `kisumu`, `machakos`, `maseno`, `mombasa`, `nairobi`, `oyugis`], [], [], [], [], []]
+
+    let ModelZones = [];
+
+    Zones.forEach((Zone, e) => {
+
+      let JS = JSON.stringify(Towns[e]);
+
+      JS.replace(new RegExp(`"`, `g`), `&quot;`);
+
+      let ModelJSON = `&@data>${JS}`;
+
+      ModelZones.push([
+        `div`, [[
+          `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+            `label`, `.@_tXv`, `&@role>radio`, [[
+              `input`, `&@type>radio`, `#@getZone`, `&@value>${Zone}`, `&@name>setSub`, ModelJSON], [
+                `span`, `.@_tCw _aA2 tXx`, `~@${Zone}`]]]]]]]);
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@Choose Your Country of Operation`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@DelModalStallCountry`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `div`, `.@_sZ2`, ModelZones]]]]]
+
+  },
+
+  ModalSellSet () {
+
+    let ModelSell = [];
+
+    SellSet.forEach(Sell => {
+
+      ModelSell.push([
+        `div`, [[
+          `div`, `.@_yZS _gxM geQ gMX _uZM`, [[
+            `label`, `.@_tXv`, `&@role>radio`, [[
+              `input`, `&@type>radio`, `#@getSet`, `&@value>${Sell[0]}`, `&@name>setSub`], [
+                `span`, `.@_tCw _aA2 tXx`, `~@${Sell[0]}`]]]]]]]);
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@Choose Product Category`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@foldModalSellSet`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `div`, `.@_sZ2`, ModelSell]]]]]
+
+  },
+
+  ModelStallShelf (Shelf) {
+
+    let Swap = [RetailMaps[`kenya`].swapAlpha, RetailMaps[`kenya`].swap];
+
+    let Rows = Shelf[1].sort((a, b) => {return b.log - a.log});
+
+    let ModelShelve = [];
+
+    let Stock = [];
+
+    Rows.forEach(Row => {
+
+      Shelf[0] = Shelf[0].replace(new RegExp(/&/, `g`), `u/0026`);
+
+      if (Row.shelf === Shelf[0]) Stock.push(Row)
+    });
+
+    Stock = Stock.slice(0, Shelf[2]);
+
+    let File = Files => {
+
+      let file = Files[0];
+
+      if (Files.length > 0) Files[0];
+
+      else {
+
+        file = SVG[Shelf[0].replace(new RegExp(`u/0026`, `g`), `&`)][
+          Math.round(Math.random()*(SVG[Shelf[0].replace(new RegExp(`u/0026`, `g`), `&`)].length - 1))];
+
+      }
+
+      return file;
+    }
+
+    Stock.forEach(Row => {
+
+      if (Row.shelf === Shelf[0]) {
+
+        if (Row.dollars === false) Row.dollars = 0;
+
+        if (Row.alpha === false) Row.alpha = Row.item;
+
+          let JS = JSON.stringify(Row);
+
+          JS.replace(new RegExp(`"`, `g`), `&quot;`);
+
+          let ModelJSON = `&@data>${JS}`,
+
+            dollars = (Row.dollars*Swap[1]).toFixed(2);
+
+        ModelShelve.push([
+            `div`, `.@_gA0`, [[
+              `div`, `.@_gY`, [[
+                `a`, `.@_Qg`, [[
+                  `div`, `.@_Qg0`, [[
+                    `img`, `&@alt>${Row.alpha}`, `&@src>/${File(Row.files)}`, `&@style>width:70%;height:70%`]]]], `&@href>javascript:;`], [
+                `div`, [[
+                  `div`, `.@_pY`, [[
+                    `div`, `.@_Xx _gxM`, [[
+                      `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
+                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.shelf})`]]]]], [
+                    `a`, `.@_a2`, [[
+                      `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                  `div`, `.@_2pY`, [[
+                    `div`, `&@style>width:max-content`, [[
+                      `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                        `a`, `#@getAlter`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@edit item`]]]]]]]]]]]]]);
+      }
+    });
+
+    return [
+      `section`, `#@ModelShelf`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${Shelf[0]}`]]], [
+            `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>javascript:;`, `~@edit shelf`]]]]], [
+          `div`, `.@_gX0`, ModelShelve]]]]]
+  },
+
+  //@editShelf should not be modalled, complicates editing modals, try page per shelf
 }

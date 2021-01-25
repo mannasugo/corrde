@@ -455,7 +455,171 @@ const Model = (function () {
             `a`, `#@paygate`, `.@_TX_a _atX`, `&@target>_blank`, `&@href>${Arg.paygate}`, `&@style>font-size: 0.9rem;font-weight:300`, `~@proceed to payment`]]]]]]]
     },
 
+    ModelStallCities: function (Args) {
 
+      let ModelZones = [];
+
+      Args.forEach((Zone, e) => {
+
+        ModelZones.push([
+        `div`, [[
+          `div`, `.@_yZS _gxM _uZM`, [[
+            `label`, `.@_tXv _geQ`, `&@role>checkbox`, `&@style>display:flex`, [[
+              `input`, `&@type>checkbox`, `#@getCity`, `&@value>${Zone}`, `&@name>setSub`], [
+                `span`, `.@_tCw _aA2 tXx`, `~@${Zone}`]]]]]]]);
+      });
+
+      return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@Choose Your Towns of Operation`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@DelModalStallCities`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);margin: 0 0 55px`, [[
+          `div`, `.@_sZ2`, ModelZones]]], [
+          `div`, `.@_azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM _gMX`, [[
+              `div`, `.@_gMX`, [[
+                `div`, `.@_eYG`], [
+                `div`, `.@_QZg _gMz`, [[
+                  `div`, `.@_axS`, [[
+                    `div`, `.@_gM_a _agM _guZ`, [[
+                      `a`, `#@setStallCity`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:12px`, `~@set country & regions`]]]]]]]]]]]]]]]
+
+    },
+
+    ModelRadio: function (Args) {
+
+      let ModelArgs = [];
+
+      Args[1].forEach((Arg, e) => {
+
+        ModelArgs.push([
+        `div`, [[
+          `div`, `.@_yZS _gxM _uZM`, [[
+            `label`, `.@_tXv _geQ`, `&@role>radio`, `&@style>display:flex`, [[
+              `input`, `&@type>radio`, `#@${Args[2]}`, `&@value>${Arg[0]}`, `&@name>setSub`, `&@style>margin:0 8px 0 0`], [
+                `span`, `.@_tCw _aA2 tXx`, `~@${Arg[0]}`]]]]]]]);
+      });
+
+      return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@${Args[0]}`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@DelModalStallCities`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `div`, `.@_sZ2`, ModelArgs]]]]]
+
+    },
+
+    ModelStallAlter: function (Args) {
+
+      let ModelAlter = [];
+
+      Args[1].forEach(Arg => {
+
+        if (Arg[0] === `alpha`) {
+
+          ModelAlter.push([
+            `div`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `span`, `.@_tXx`, `~@${Args[1].indexOf(Arg) + 1}.`], [`div`, `.@_eYG _tXx`, `~@Add a custom name for your item`]]], [
+              `div`, `.@_eYG`, [[
+                `div`, `.@_gMX`, [[
+                  `div`, `.@_UFA _gMX`, [[
+                    `input`, `#@getAlpha`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>custom/signature tag`, `&@style>padding:8px 0;margin:0`]]]]]]]]])
+        }
+
+        if (Arg[0] === `usd`) {
+
+          ModelAlter.push([
+            `div`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `span`, `.@_tXx`, `~@${Args[1].indexOf(Arg) + 1}.`], [`div`, `.@_eYG _tXx`, `~@What does your item cost?`]]], [
+              `div`, `.@_eYG`, [[
+                `div`, `.@_gMX`, [[
+                  `div`, `.@_UFA _gMX`, [[
+                    `input`, `#@getDollars`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@placeholder>amount in american dollars`, `&@style>padding:8px 0;margin:0`]]]]]]]]])
+        }
+
+        if (Arg[0] === `units`) {
+
+          let ModelStack = [];
+
+          Arg[1].forEach((Stack) => {
+
+            let flip = ``;
+
+            if (Stack === Args[2].unit) flip = `&@checked>true`
+
+            ModelStack.push([
+              `div`, [[
+                `div`, `.@_yZS _gxM`, [[
+                  `label`, `.@_tXv _geQ`, `&@role>radio`, `&@style>display:flex`, [[
+                    `input`, `&@type>radio`, `#@getStack`, `&@value>${Stack}`, `&@name>getStack`, flip, `&@sum>${Args[2].sum}`, `&@style>margin:0 8px 0 0`], [
+                      `span`, `.@_tCw _aA2 tXx`, `~@${Stack}`]]]]]]]);
+          });
+
+          ModelAlter.push([
+            `div`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `span`, `.@_tXx`, `~@${Args[1].indexOf(Arg) + 1}.`], [`div`, `.@_eYG _tXx`, `~@Select item unit for your price`]]], [
+              `div`, `.@_eYG`, ModelStack]]])
+        }
+
+        if (Arg[0] === `feature`) {
+
+          let ModelStack = [];
+
+          Arg[1].forEach((Stack) => {
+
+            let flip = ``;
+
+            if (Stack === `in stock` && Args[2].feature === true) flip = `&@checked>true`;
+
+            if (Stack === `out of stock` && Args[2].feature === false) flip = `&@checked>true`
+
+            ModelStack.push([
+              `div`, `.@_geQ`, [[
+                `div`, `.@_yZS _gxM`, `&@style>width:100%`, [[
+                  `label`, `.@_tXv _geQ`, `&@role>radio`, `&@style>display:flex`, [[
+                    `input`, `&@type>radio`, `#@getAvail`, `&@value>${Stack}`, `&@name>getAvail`, flip, `&@sum>${Args[2].sum}`, `&@style>margin:0 8px 0 0`], [
+                      `span`, `.@_tCw _aA2 tXx`, `~@${Stack}`]]]]]]]);
+          });
+
+          ModelAlter.push([
+            `div`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `span`, `.@_tXx`, `~@${Args[1].indexOf(Arg) + 1}.`], [`div`, `.@_eYG _tXx`, `~@Select item availability`]]], [
+              `div`, `.@_eYG _gxM`, ModelStack]]])
+        }
+      })
+
+      return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@${Args[0]}`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@DelModalStallCities`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);margin: 0 0 55px`, [[
+          `div`, `.@_sZ2`, ModelAlter]]], [
+          `div`, `.@_azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM _gMX`, [[
+              `div`, `.@_gMX`, [[
+                `div`, `.@_eYG`], [
+                `div`, `.@_QZg _gMz`, [[
+                  `div`, `.@_axS`, [[
+                    `div`, `.@_gM_a _agM _guZ`, [[
+                      `a`, `#@setAlter`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@sum>${Args[2].sum}`, `&@style>font-size:12px`, `~@save & exit`]]]]]]]]]]]]]]]
+
+    }
   }
   
   return Model;

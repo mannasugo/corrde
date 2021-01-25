@@ -1,0 +1,17 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200">
+  <style>
+
+   svg {fill: none}
+    g {
+      stroke: #00ff73a3
+    }
+  </style>
+  <g>
+    <rect y="0" x="0" fill="#14312d" width="1600" height="1200" stroke="none"></rect>
+    <rect stroke-width="28" rx="72" ry="72" x="654" y="300" width="300" height="300"></rect>
+    <path stroke-width="28" d="M740,410 A4,6 1 1,0 862,410"></path>
+    <text stroke="#fff" strokewidth="3" fill="#fff" x="220" y="860" font-family="litera" font-size="188px" font-weight="600">corrde store</text>
+    <text x="1340" y="733" stroke="#fff" stroke-width=".7" fill="#fff" font-family="litera" font-size="15px" font-weight="600">TM</text>
+    <!--path fill="none" stroke="#none" d="M800 0 800 1200"></path-->
+</g>
+  </svg>

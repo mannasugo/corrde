@@ -15,7 +15,9 @@ const fs = require(`fs`),
 
   RetailSets = config.RetailSets,
 
-  RetailMaps = config.RetailZones;
+  RetailMaps = config.RetailZones,
+
+  SellSet = config.SellSet;
 
 class Auxll {
 
@@ -1188,11 +1190,16 @@ class Auxll {
     new Sql().multi({},
       `select * from inventory
       ;select * from payrequest
-      ;select * from fronts`, (A, B, C) => {
+      ;select * from fronts
+      ;select * from listings`, (A, B, C) => {
 
         let Pay = [];
 
         let PaySet = {};
+
+        let Pledge = [];
+
+        let PledgeSet = {};
 
         let Sell = [];
 
@@ -1229,10 +1236,20 @@ class Auxll {
           StallSet[Row.MD5] = Row;
         }
 
+        for (let row in B[3]) {
+
+          let Row = JSON.parse(B[3][row].json);
+
+          Pledge.push(Row);
+
+          PledgeSet[Row.sum] = Row;
+        }
+
         Aft({
           Sell: [Sell, SellSet],
           Pay: [Pay, PaySet],
-          Stalls: [Stalls, StallSet]})
+          Stalls: [Stalls, StallSet],
+          Pledge: [Pledge, PledgeSet]})
       })
   }
 }
@@ -1267,6 +1284,7 @@ class Sql extends Auxll {
         ;${config.sql.fronts}
         ;${config.sql.inventory}
         ;${config.sql.jobs}
+        ;${config.sql.listings}
         ;${config.sql.m}
         ;${config.sql.messages}
         ;${config.sql.payments}
@@ -4071,7 +4089,7 @@ class UAPublic extends Auxll {
     this.modelStyler(config.lvl.css, CSS => {
 
       const Stack = {
-        jSStore: JSON.stringify({}),
+        jSStore: JSON.stringify({levels: [Arg]}),
         title: `Corrde Store`,
         css: CSS,
         jsState: [config.reqs.control_store_js]}
@@ -6280,7 +6298,7 @@ class UATCP extends UAPublic {
             log_secs: J.log_secs,
             ModelSale: model.ModalSale(A, J.log_md5)});
         })
-      })
+      });
 
       tls.on(`edit_sale`, J => {
 
@@ -6342,7 +6360,7 @@ class UATCP extends UAPublic {
 
             })
         })
-      })
+      });
 
       tls.on(`root`, J => {
 
@@ -6639,6 +6657,91 @@ class UATCP extends UAPublic {
               });
           })
         });
+      });
+
+      tls.on(`pullStallControls`, J => {
+
+        Data.Sell(A => {
+
+          let Sell = A, Stall = [], Catalogue = [{}, {}], Pledge = [];
+
+          Sell.Stalls[0].forEach(Row => {
+
+            if (Row.caller === J.mug && Row.MD5 === J.stall) Stall.push(Row);
+          });
+
+          Sell.Pledge[0].forEach(Row => {
+
+            if (Row.caller === J.mug && Row.stall === J.stall) Pledge.push(Row);
+          });
+
+          if (!Stall.length > 0) return;
+
+          SellSet.forEach(Stack => {
+
+            Catalogue[0][Stack[0]] = Stack[1];
+
+            Stack[1].forEach(Stock => {
+
+              Catalogue[1][`${Stack[1][0][0]}`] = Stack[1][0][1];
+            })
+          });
+
+          Data.logs_u_md5(A => {
+
+            tcp.emit(`pullStallControls`, {
+              catalogue: Catalogue,
+              log_secs: J.log_secs,
+              ModelPullStallControls: [
+                model.ModelPullStallControls(Stall[0], Pledge),
+                model.loadDOMModalView([model.modalView([model.ModalStallCountry()])], `ModalStallCountry`),
+                model.loadDOMModalView([model.modalView([model.ModalStallCountry()])], `ModalStallCities`),
+                model.loadDOMModalView([model.modalView([model.ModalSellSet()])], `ModalSellSet`)]
+              });
+          })
+        });
+      });
+
+      tls.on(`pushStallCities`, J => {
+
+        Data.Sell(A => {
+
+          let Sell = A, Stall = [], Pledge = [];
+
+          Sell.Stalls[0].forEach(Row => {
+
+            if (Row.caller === J.mug && Row.MD5 === J.stall) Stall.push(Row);
+          });
+
+          Sell.Pledge[0].forEach(Row => {
+
+            if (Row.caller === J.mug && Row.stall === J.stall) Pledge.push(Row);
+          });
+
+          if (Stall.length === 0) return;
+
+          let StallString = JSON.stringify(Stall[0]);
+
+          Stall[0].locales.push({
+            locale: J.StallZones[0], cities: J.StallZones[1]});
+
+          new Sql().multi({}, 
+            `update fronts set json = '${JSON.stringify(Stall[0])}' where json = '${StallString}'`, (A, B, C) => {
+
+          Data.logs_u_md5(A => {
+
+            tcp.emit(`pullStallControls`, {
+              log_secs: J.log_secs,
+              ModelPullStallControls: [
+                model.ModelPullStallControls(Stall[0], Pledge),
+                model.loadDOMModalView([model.modalView([model.ModalStallCountry()])], `ModalStallCountry`),
+                model.loadDOMModalView([model.modalView([model.ModalStallCountry()])], `ModalStallCities`),
+                model.loadDOMModalView([model.modalView([model.ModalSellSet()])], `ModalSellSet`)]
+              });
+          })
+            });
+            
+        })
       });
 
       /**
@@ -6964,6 +7067,10 @@ class AJXReqs extends Auxll {
       else if (this.args.AddStock) this.AddStock(JSON.parse(this.args.AddStock));
 
       else if (this.args.CreateStore) this.CreateStore(JSON.parse(this.args.CreateStore));
+
+      else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
+
+      else if (this.args.SetAlterArgs) this.SetAlterArgs(JSON.parse(this.args.SetAlterArgs));
     }
   }
 
@@ -7662,6 +7769,65 @@ class AJXReqs extends Auxll {
       }
     });
   }
+
+  pushSellArgs (Args) {
+
+    this.getCookie(`u`, (A, B) => {
+
+      if (A === false) {
+
+        let log = new Date().valueOf();
+
+        let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+        new Sql().to([`listings`, {json: JSON.stringify({
+          age: false,
+          allString: false,
+          alpha: false,
+          caller: Args.mug,
+          dollars: false,
+          feature: false,
+          files: [],
+          item: Args.pushSellStockArg,
+          log: log,
+          sex: null,
+          sum: log_sum,
+          sale: false,
+          shelf: Args.pushSellSetArg,
+          stall: Args.levels[0],
+          unit: false})}], (A, B, C) => {
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true}));
+          });
+      }
+    });
+  }
+
+  SetAlterArgs (J) {
+
+    this.Sell(A => {
+
+      let Sell = A, Stall = [], Pledge = [];
+
+      Sell.Pledge[0].forEach(Row => {
+
+        if (Row.caller === J.mug && Row.stall === J.levels[0] && Row.sum === J.itemAlterKey) Pledge.push(Row);
+      });
+
+      if (Pledge.length === 0) return;
+
+      let PledgeString = JSON.stringify(Pledge[0]);
+
+      new Sql().multi({}, 
+        `update listings set json = '${JSON.stringify(J.itemAlter[J.itemAlterKey])}' where json = '${PledgeString}'`, (A, B, C) => {
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true}));
+          });
+            
+        })
+      }
 }
 
 module.exports = {

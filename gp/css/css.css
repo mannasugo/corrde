@@ -3093,6 +3093,10 @@ table > thead > tr > th {
   border-bottom: 1px solid #e6e7e8;
 }
 
+#ModelStallControls ._gy0 {width: 100%}
+
+#ModelStallAlerts ._gX0, #ModelStallAlerts ._gX2, #ModelStallAlerts ._gX3 {flex: 0 0 100%;max-width: 100%;}
+
 @media only screen and (min-width: 1200px) {
 
   ._Xsa {
@@ -3662,6 +3666,50 @@ table > thead > tr > th {
   #ModalMyCart ._g0 {margin-bottom: 80px}
 }
 
+@media (min-width: 640px) {
+
+  #ModelStallControls ._gy0 {
+    max-width: 7%;
+    flex: 0 0 7%;
+  }
+
+  #ModelStallControls ._gy0 ._gy {
+    width: 52px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-shadow: 1px 0 3px rgba(26,26,26, .1);
+  }
+
+  #ModelStallControls ._gq {
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  #ModelStallControls ._s0 {margin-top: 30px}
+
+  #ModelStallControls ._gy2 {
+    max-width: 100%;
+    flex: 0 0 93%;
+  }
+
+}
+
 @media (min-width: 768px) {
 
   ._cX3 {max-width: 720px}
@@ -3679,6 +3727,10 @@ table > thead > tr > th {
   #ModelShelf ._Qg, #ModelShelf ._Qg0 {min-height: 150px;max-width: 150px;}
 
   #ModelShelf ._Qg0 {width: 150px}
+
+  #ModelStallAlerts ._gX0, #ModelStallAlerts ._gX3 {flex: 0 0 25%;}
+
+  #ModelStallAlerts ._gX2 {flex: 0 0 50%;}
 }
 
 @media (min-width: 992px) {
@@ -3785,6 +3837,41 @@ table > thead > tr > th {
   ._x16 {padding-left: 52px}
 
   ._xX0 {max-width: 22.5%}
+}
+
+@media (max-width: 640px) {
+
+  #ModelStallControls ._gy0  {
+    max-width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 19;
+  }
+
+  #ModelStallControls ._gy0 ._gy {
+    -webkit-flex-basis: 55px;
+    -ms-flex-preferred-size: 55px;
+    flex-basis: 55px;
+    height: 100%;
+  }
+
+  #ModelStallControls ._gq {
+    background: #fff;
+    box-shadow: 0 15px 50px 0 rgba(0,34,77,.08);
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    flex-direction: row;
+  }
+
+
 }
 
 @media (max-width: 560px) {
