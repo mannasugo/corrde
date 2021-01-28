@@ -8555,7 +8555,7 @@ module.exports = {
                   `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
                     `div`, `.@_eYG`, [[
                       `div`, `.@_QxM`, [[`a`, `.@_tXx aA2`, `~@${Stall.alpha}`, `&@href>/dashboard/${Stall.MD5}/`]]], [
-                      `div`, [[`a`, `.@_aA2`, `&@href>/${Stall.alt}`, `~@@${Stall.alt}`]]]]], [
+                      `div`, [[`a`, `.@_aA2`, `&@href>/v/${Stall.MD5}/`, `~@@${Stall.alt}`]]]]], [
                     `div`, [[
                       `a`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>/dashboard/${Stall.MD5}/`, [[
                         `svg`, `&@title>${Stall.alpha}`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
@@ -8565,9 +8565,29 @@ module.exports = {
 
     if (MyStalls.length === 0) ModelMyStalls = [];
 
+    let Shelve = [];
+
+    Stalls[2].forEach(Row => {
+
+      if (Shelve.indexOf(Row.shelf) === -1) Shelve.push(Row.shelf)
+    });
+
+    let ModelShelve = () => {
+
+      let ModelShelves = [];
+
+      Shelve.forEach(Shelf => {
+
+        ModelShelves.push(this.ModelShelveStall([
+          Shelf.replace(new RegExp(`u/0026`, `g`), `&`), Stalls[2], 3, Stalls[3]]))
+      });
+
+      return ModelShelves;
+    }
+
     return [
     `main`, `.@_xC2`, [[
-      `div`, `.@_tY0`, [ModelMyStalls]]]];
+      `div`, `.@_tY0`, [ModelMyStalls, [`div`, ModelShelve()]]]]];
   },
 
   ModelPullStallControls (Stall, Pledge) {
@@ -8793,5 +8813,88 @@ module.exports = {
           `div`, `.@_gX0`, ModelShelve]]]]]
   },
 
-  //@editShelf should not be modalled, complicates editing modals, try page per shelf
+  //@editShelf should not be modalled, complicates editing modals, try page per shelf,
+
+  ModelPullStall (Stall) {
+
+    return [
+    `main`, `.@_xC2`, [[
+      `div`, `.@_tY0`, [[
+        `section`, `#@ModelShelf`, [[
+          `div`, `.@_g0`, `&@style>/*border-bottom: 1px solid #e6e7e8;*/margin-top:16px`, [[
+            `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+              `div`, `.@_QZg`, []]]], [
+            `div`, `.@_gX0`, [[
+              `div`, `.@_gA0`, `&@style>width:100%`, [[
+                `div`, `.@_gY`, [[
+                  `div`, `.@_uxq`, `&@style>width:100%`, [[
+                    `div`, `.@_`, [[
+                      `div`, `.@_`, [[
+                        `div`, `.@_gef`, [[
+                          `div`, `&@style>padding-bottom:100px`, `.@_g0z`, [[
+                            `img`, `&@style>height:100%`, `.@_aMz _gVm`, `&@src>/gp/p/vector/crate.svg`]]], [
+                          `div`, `.@_gVm`]]]]]]], [
+                    `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+                      `div`, `.@_yZS _gxM _geQ`, [[
+                        `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                          `div`, `.@_eYG`, [[
+                            `div`, `.@_QxM`, [[`a`, `.@_tXx aA2`, `~@${Stall.alpha}`, `&@href>/v/${Stall.MD5}/`]]], [
+                            `div`, [[`a`, `.@_aA2`, `&@href>/v/${Stall.MD5}/`, `~@@${Stall.alt}`]]]]], [
+                          `div`, [[
+                            `a`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>/v/${Stall.MD5}/`, [[
+                              `svg`, `&@title>${Stall.alpha}`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
+                                `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                                `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${Stall.alpha[0]}`]]]]]]]]]]]]]]]]]]]]]]]]]]]]];
+  },
+
+  ModelShelveStall (Shelf) {
+
+    let Rows = Shelf[1].sort((a, b) => {return b.log - a.log});
+
+    let ModelShelve = [];
+
+    let Retail = [];
+
+    Rows.forEach(Row => {
+
+      Shelf[0] = Shelf[0].replace(new RegExp(/&/, `g`), `u/0026`);
+
+      if (Row.shelf === Shelf[0] && Retail.indexOf(Shelf[3][Row.stall]) === -1) Retail.push(Shelf[3][Row.stall])
+    });
+
+    Retail = Retail.slice(0, Shelf[2]);
+
+    Retail.forEach(Row => {
+
+      ModelShelve.push([
+        `div`, `.@_gA0`, [[
+          `div`, `.@_gY`, [[
+            `div`, `.@_uxq`, `&@style>width:100%`, [[
+              `div`, `.@_`, [[
+                `div`, `.@_`, [[
+                  `div`, `.@_gef`, [[
+                    `div`, `&@style>padding-bottom:50%`, `.@_g0z`, [[
+                      `img`, `&@style>height:100%`, `.@_aMz _gVm`, `&@src>/gp/p/vector/crate.svg`]]], [
+                    `div`, `.@_gVm`]]]]]]], [
+              `div`, `.@_yZS _gxM _geQ _gMX _xC3`, [[
+                `div`, `.@_yZS _gxM _geQ`, [[
+                  `div`, `.@_ZSg _ZCg _eYG _gcQ`, [[
+                    `div`, `.@_eYG`, [[
+                      `div`, `.@_QxM`, [[`a`, `.@_tXx aA2`, `~@${Row.alpha}`, `&@href>/v/${Row.MD5}/`]]], [
+                      `div`, [[`a`, `.@_aA2`, `&@href>/v/${Row.MD5}/`, `~@@${Row.alt}`]]]]], [
+                    `div`, [[
+                      `a`, `.@_cCq`, `&@style>width:40px;height:40px`, `&@href>/v/${Row.MD5}/`, [[
+                        `svg`, `&@title>${Row.alpha}`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
+                          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${Row.alpha[0]}`]]]]]]]]]]]]]]]]]]]);
+    });
+
+    return [
+      `section`, `#@ModelShelf`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${Shelf[0]}`]]], [
+            `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>javascript:;`, `~@view more`]]]]], [
+          `div`, `.@_gX0`, ModelShelve]]]]]
+  }
 }
