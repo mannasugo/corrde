@@ -68,7 +68,7 @@
 
     if (e.id === `getAlter`) {
 
-      let J = JSON.parse(e.getAttribute(`data`));
+      let J = JSON.parse(e.getAttribute(`data`));console.log(J)
 
       if (!JSStore.avail().catalogue[1][J.item]) return;
 

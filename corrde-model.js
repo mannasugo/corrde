@@ -7840,7 +7840,9 @@ module.exports = {
                 `div`, `&@style>padding: 24px 0`, [[
                   `div`, `.@QZg`, [[
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
-                      `a`, `#@CreateStore`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]]]]],
+                      `a`, `#@CreateStore`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]]]]],  
+        Shelve(`bread & bakery`, Retail),  
+        Shelve(`deli`, Retail),
         Shelve(`beverages`, Retail),
         Shelve(`pantry`, Retail),  
         Shelve(`alcohol`, Retail), 

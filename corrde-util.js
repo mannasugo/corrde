@@ -6738,7 +6738,7 @@ class UATCP extends UAPublic {
 
             Stack[1].forEach(Stock => {
 
-              Catalogue[1][`${Stack[1][0][0]}`] = Stack[1][0][1];
+              Catalogue[1][Stock[0]] = Stock[1];
             })
           });
 
