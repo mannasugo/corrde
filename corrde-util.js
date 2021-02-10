@@ -3862,6 +3862,8 @@ class UAPublic extends Auxll {
 
           if (A === false) locale = B;
 
+          if (!RetailMaps[locale]) locale = `kenya`;
+
           this.Sell(A => {
 
             let Sell = A;
@@ -3873,7 +3875,11 @@ class UAPublic extends Auxll {
                 css: CSS,
                 jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.root_js],
                 jSStore: JSON.stringify({
-                  Model: [
+                  mug: mug,
+                  regionMeta: RetailMaps[locale]
+                })
+              };
+                  let Model = [
                     model.ModelZone(locale, Sell),
                     model.ModelRootAlpha(A.md5Key, mug),
                     model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
@@ -3881,16 +3887,12 @@ class UAPublic extends Auxll {
                     model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
                     model.loadDOMModalView([model.modalView([model.ModalRegions(locale)])], `ModalRegions`),
                     model.loadDOMModalView([model.modalView([model.ModalCreateStore()])], `ModalCreateStore`),   
-                    model.footer()],
-                  mug: mug,
-                  regionMeta: RetailMaps[locale]
-                })
-              };
+                    model.footer()];
                 
               Stack.appendModel = [
                 model.rootView({
                   appendModel: [
-                    model.ModelWait(),
+                    model.ModelWait(Model),
                     model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                     model.jS(Stack)]
                 })];
@@ -7972,7 +7974,7 @@ class AJXReqs extends Auxll {
 
   localeCookie (Arg) {
 
-    this.createCookie(`locale`, JSON.stringify(Arg));
+    this.createCookie(`locale`, Arg);
 
     this.app.to.setHeader(`Content-type`, `application/json`)
     this.app.to.writeHead(200, config.reqMime.json);

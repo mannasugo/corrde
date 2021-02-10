@@ -7681,8 +7681,6 @@ module.exports = {
 
       let toShelf = uScore.replace(new RegExp(/\s/, `g`), `_`);
 
-      //if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
-
       Rows.forEach(Row => {
 
         Shelf = Shelf.replace(new RegExp(/&/, `g`), `u/0026`);
@@ -8126,10 +8124,17 @@ module.exports = {
 
   },
 
-  ModelWait () {
+  ModelWait (JSArgs) {
+
+    let ModelJS = []
+
+    if (JSArgs) {
+
+      ModelJS = [`script`, `&@type>text/javascript`, `~@let JSModel = ${JSON.stringify(JSArgs)}`]
+    }
 
     return [
-    `main`, `.@_xC2 _aA2`, [[`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`]]]]];
+    `main`, `.@_xC2 _aA2`, [[`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`]]], ModelJS]];
 
   },
 

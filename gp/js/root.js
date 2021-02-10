@@ -367,7 +367,7 @@
 
       Modal = document.querySelector(`#ModelZones`);
           
-      AJXReq([`/devs_reqs/`, `localeCookie`], JSStore.avail().locale, (A, B) => {
+      AJXReq([`/devs_reqs/`, `localeCookie`], e.value.toLowerCase(), (A, B) => {
 
         if (B.exit === true) window.location = `/`;
       });
@@ -453,7 +453,7 @@
 
       let M = new Model();
 
-      ModelSource.innerHTML = M.modelStringify(JSStore.avail().Model);
+      ModelSource.innerHTML = M.modelStringify(JSModel);
 
       document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
     }
