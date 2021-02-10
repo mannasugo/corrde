@@ -21,9 +21,9 @@ class RouteControl {
     let lastChar = url.charAt(url.length - 1);
     let levelState = basename(url);
 
-    if (req.method === `GET` && req.url === `/`) {
+    /*if (req.method === `GET` && req.url === `/`) {
       Util.UAPublic(``, req, res);
-    }
+    }*/
 
     if (req.method === `POST`) {
 
@@ -58,7 +58,12 @@ class RouteControl {
       });
     }
 
-    if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {
+    if (level === 2 && lastChar === `/`) {
+
+      if (req.method === `GET`) Util.UAPublic(levelState, req, res);
+    }
+
+    else if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {
 
       if (req.method === `GET`) Util.UAPublic(levelState, req, res);
     }

@@ -1338,7 +1338,7 @@ class UAPublic extends Auxll {
 
   handleUACalls () {
 
-    if (this.levelState === ``) this.Root();
+    if (this.levelState === `.`) this.Root();
 
     /**
     Adhere to Alphabetic Order
@@ -3873,7 +3873,7 @@ class UAPublic extends Auxll {
               const Stack = {
                 title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
                 css: CSS,
-                jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.root_js],
+                jsState: [config.reqs.root_js],
                 jSStore: JSON.stringify({
                   mug: mug,
                   regionMeta: RetailMaps[locale]
