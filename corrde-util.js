@@ -1588,6 +1588,14 @@ class UAPublic extends Auxll {
     }
 
     else if (this.levelState[1] === `v`) this.PullStall(this.levelState[2]);
+
+    else if (this.levelState[1] === `v2`) {
+
+      if (this.levelState[2] === `devs`) {
+
+        this.devsControls()
+      }
+    }
   }
 
   rootCall () {
@@ -3842,46 +3850,57 @@ class UAPublic extends Auxll {
 
     this.modelStyler(config.lvl.css, CSS => {
 
-      const Stack = {
-        jSStore: JSON.stringify({}),
-        title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
-        css: CSS,
-        jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.root_js]}
-
       this.getCookie(`u`, (A, B) => {
-
-        let clientJSON = JSON.parse(Stack.jSStore);
 
         let mug = false;
 
-        if (A === false) {
+        if (A === false) mug = B;
 
-          clientJSON[`u_md5`] = B;
+        this.getCookie(`locale`, (A, B) => {
 
-          mug = B;
-        }
+          let locale = `kenya`;
 
-        clientJSON[`mug`] = mug;
+          if (A === false) locale = B;
 
-        this.Stores(A => {
+          this.Sell(A => {
 
-          let Stores = A;
+            let Sell = A;
 
-        this.logs_u_md5(A => {
+            this.logs_u_md5(A => {
 
-          Stack.jSStore = JSON.stringify(clientJSON); 
+              const Stack = {
+                title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
+                css: CSS,
+                jsState: [`/gp/js/topojson.v1.min.js`, config.reqs.root_js],
+                jSStore: JSON.stringify({
+                  Model: [
+                    model.ModelZone(locale, Sell),
+                    model.ModelRootAlpha(A.md5Key, mug),
+                    model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                    model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+                    model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
+                    model.loadDOMModalView([model.modalView([model.ModalRegions(locale)])], `ModalRegions`),
+                    model.loadDOMModalView([model.modalView([model.ModalCreateStore()])], `ModalCreateStore`),   
+                    model.footer()],
+                  mug: mug,
+                  regionMeta: RetailMaps[locale]
+                })
+              };
                 
-          Stack.appendModel = [
-            model.rootView({
-              appendModel: [
-                model.ModelWait(),
-                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
-                model.jS(Stack),]
-            })];
+              Stack.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.ModelWait(),
+                    model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                    model.jS(Stack)]
+                })];
                               
-          this.app.to.writeHead(200, config.reqMime.htm);
-          this.app.to.end(model.call(Stack));})
-        })
+              this.app.to.writeHead(200, config.reqMime.htm);
+              this.app.to.end(model.call(Stack));
+            })
+          });
+
+        });
       });
     })
   }
@@ -4198,6 +4217,40 @@ class UAPublic extends Auxll {
               appendModel: [
                 model.ModelWait(),
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
+    })
+  }
+
+  devsControls (Arg) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({pullStall: Arg}),
+        title: `Corrde | Administration & Development Dashboard`,
+        css: CSS,
+        jsState: [config.reqs.devs_root_js]}
+
+      this.getCookie(`dev_md5`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) mug = B;
+
+        clientJSON[`developer`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
                 model.jS(Stack)]
             })];
                               
@@ -7152,6 +7205,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.AddStock) this.AddStock(JSON.parse(this.args.AddStock));
 
+      else if (this.args.localeCookie) this.localeCookie(JSON.parse(this.args.localeCookie));
+
       else if (this.args.CreateStore) this.CreateStore(JSON.parse(this.args.CreateStore));
 
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
@@ -7914,6 +7969,15 @@ class AJXReqs extends Auxll {
             
         })
       }
+
+  localeCookie (Arg) {
+
+    this.createCookie(`locale`, JSON.stringify(Arg));
+
+    this.app.to.setHeader(`Content-type`, `application/json`)
+    this.app.to.writeHead(200, config.reqMime.json);
+    this.app.to.end(JSON.stringify({exit: true}));
+  }
 }
 
 module.exports = {

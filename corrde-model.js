@@ -3772,14 +3772,14 @@ module.exports = {
   topDevsView (pool) {
 
     return [`nav`, 
-      `.@_uHC`, [[
+      `.@_uHC _tY0`, [[
         `div`, `.@_xCt`], [
         `div`, [[
           `div`, `.@_-tY`, [[
             `div`, `.@_aXz`, [[
-              `div`, `.@_-Xg _gxM`, [[
-                `a`, `#@devs`, `.@_tXa`, `&@href>/`, `~@corrde`], [
-                `span`, `.@_tCc _pV4`, `~@devs`]]], [
+              `div`, `.@_-Xg _gxM _geQ`, [[
+                `a`, `#@devs`, `.@-_tX AppMedium`, `&@href>/v2/devs/`, `~@corrde`], [
+                `span`, `@_aA6`, `&@style>padding: 0 7px`, `~@ | DASHBOARD`]]], [
               `div`, `.@_QZg _gxM _aA2`, [[`span`, `&@style>letter-spacing:0.75px`, `.@_axS _gV0 _tXx`, `~@${pool.mail}`], [
                 `a`, `.@_axS _cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, [[
                   `img`, `#@mug-ava`, `.@_aWz`, `&@src>${pool.ava}`, `&@alt>avatar`]]]]]]]]]]]]]
@@ -7681,7 +7681,7 @@ module.exports = {
 
       let toShelf = uScore.replace(new RegExp(/\s/, `g`), `_`);
 
-      if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
+      //if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
 
       Rows.forEach(Row => {
 
@@ -7845,7 +7845,8 @@ module.exports = {
         Shelve(`deli`, Retail),
         Shelve(`beverages`, Retail),
         Shelve(`pantry`, Retail),  
-        Shelve(`alcohol`, Retail), 
+        Shelve(`alcohol`, Retail),  
+        Shelve(`beauty & personal care`, Retail), 
         ModelPayAd, [
         `section`, [[
           `div`, `.@_sZ2`, [[
@@ -8189,7 +8190,7 @@ module.exports = {
 
       let alpha = Shelf;
 
-      if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
+      //if (Shelf === `alcohol`) alpha = `cheers to the holidays`;
 
       Rows.forEach(Row => {
 
@@ -8534,7 +8535,7 @@ module.exports = {
 
     let ModelMyStalls = [
       `section`, `#@ModelShelf`, [[
-        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+        `div`, `.@_g0`, `@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
           `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@My Stores`]]], [
             `div`, `.@_QZg`, []]]], [
@@ -8893,7 +8894,7 @@ module.exports = {
 
     return [
       `section`, `#@ModelShelf`, [[
-        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+        `div`, `.@_g0`, `@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
           `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${Shelf[0]}`]]], [
             `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>javascript:;`, `~@view more`]]]]], [
