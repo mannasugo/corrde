@@ -1191,7 +1191,8 @@ class Auxll {
       `select * from inventory
       ;select * from payrequest
       ;select * from fronts
-      ;select * from listings`, (A, B, C) => {
+      ;select * from listings
+      ;select * from u`, (A, B, C) => {
 
         let Pay = [];
 
@@ -1208,6 +1209,10 @@ class Auxll {
         let Stalls = [];
 
         let StallSet = {};
+
+        let Ppl = [];
+
+        let PplSet = {};
 
         for (let row in B[0]) {
 
@@ -1245,9 +1250,19 @@ class Auxll {
           PledgeSet[Row.sum] = Row;
         }
 
+        for (let u in B[4]) {
+
+          let Row = JSON.parse(B[4][u].alt);
+
+          Ppl.push(Row);
+
+          PplSet[Row.sum] = Row;
+        }
+
         Aft({
           Sell: [Sell, SellSet],
           Pay: [Pay, PaySet],
+          Ppl: [Ppl, PplSet],
           Stalls: [Stalls, StallSet],
           Pledge: [Pledge, PledgeSet]})
       })
@@ -3864,32 +3879,11 @@ class UAPublic extends Auxll {
 
           if (!RetailMaps[locale]) locale = `kenya`;
 
-              const Stack = {
-                title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
-                css: CSS,
-                jsState: [config.reqs.root_js],
-                jSStore: JSON.stringify({
-                  mug: mug,
-                  regionMeta: RetailMaps[locale]
-                })
-              };
-                
-              Stack.appendModel = [
-                model.rootView({
-                  appendModel: [
-                    model.ModelWait(),
-                    model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
-                    model.jS(Stack)]
-                })];
-                              
-              this.app.to.writeHead(200, config.reqMime.htm);
-              this.app.to.end(model.call(Stack));
-
-          /*this.Sell(A => {
+          this.Sell(A => {
 
             let Sell = A;
 
-            this.logs_u_md5(A => {
+            let PplSet = Sell.Ppl[1];
 
               const Stack = {
                 title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
@@ -3902,7 +3896,7 @@ class UAPublic extends Auxll {
               };
                   let Model = [
                     model.ModelZone(locale, Sell),
-                    model.ModelRootAlpha(A.md5Key, mug),
+                    model.ModelRootAlpha(PplSet, mug),
                     model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                     model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
                     model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
@@ -3920,8 +3914,7 @@ class UAPublic extends Auxll {
                               
               this.app.to.writeHead(200, config.reqMime.htm);
               this.app.to.end(model.call(Stack));
-            })
-          });*/
+          });
 
         });
       });
