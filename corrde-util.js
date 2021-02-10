@@ -3864,7 +3864,28 @@ class UAPublic extends Auxll {
 
           if (!RetailMaps[locale]) locale = `kenya`;
 
-          this.Sell(A => {
+              const Stack = {
+                title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
+                css: CSS,
+                jsState: [config.reqs.root_js],
+                jSStore: JSON.stringify({
+                  mug: mug,
+                  regionMeta: RetailMaps[locale]
+                })
+              };
+                
+              Stack.appendModel = [
+                model.rootView({
+                  appendModel: [
+                    model.ModelWait(),
+                    model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                    model.jS(Stack)]
+                })];
+                              
+              this.app.to.writeHead(200, config.reqMime.htm);
+              this.app.to.end(model.call(Stack));
+
+          /*this.Sell(A => {
 
             let Sell = A;
 
@@ -3900,7 +3921,7 @@ class UAPublic extends Auxll {
               this.app.to.writeHead(200, config.reqMime.htm);
               this.app.to.end(model.call(Stack));
             })
-          });
+          });*/
 
         });
       });
