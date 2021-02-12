@@ -21,10 +21,6 @@ class RouteControl {
     let lastChar = url.charAt(url.length - 1);
     let levelState = basename(url);
 
-    /*if (req.method === `GET` && req.url === `/`) {
-      Util.UAPublic(``, req, res);
-    }*/
-
     if (req.method === `POST`) {
 
       let blob = new Buffer.alloc(+req.headers[`content-length`]);

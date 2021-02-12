@@ -81,45 +81,6 @@
 
   }
 
-  let dailySale = () => {
-
-    if (!document.querySelector(`#daily-span`)) return;
-
-    let ModelDailySpan = document.querySelector(`#daily-span`);
-
-    let epoch = ModelDailySpan.getAttribute(`epoch`);
-
-    let now = new Date().valueOf();
-
-    let milliSecs = epoch - now
-
-    DailySpan = [0, 0, 0, 0]
-
-    DailySpan[0] = parseInt(milliSecs/86400000);
-
-    DailySpan[1] = parseInt((milliSecs%86400000)/3600000);
-
-    DailySpan[2] = parseInt(((milliSecs%86400000)%3600000)/60000);
-
-    DailySpan[3] = parseInt((((milliSecs%86400000)%3600000)%60000)/1000);
-
-    if (DailySpan[0] < 10) DailySpan[0] = `0` + DailySpan[0]
-
-    if (DailySpan[1] < 10) DailySpan[1] = `0` + DailySpan[1]
-
-    if (DailySpan[2] < 10) DailySpan[2] = `0` + DailySpan[2]
-
-    if (DailySpan[3] < 10) DailySpan[3] = `0` + DailySpan[3]
-
-    ModelDailySpan.querySelector(`#D-span`).innerHTML = DailySpan[0]
-
-    ModelDailySpan.querySelector(`#H-span`).innerHTML = DailySpan[1]
-
-    ModelDailySpan.querySelector(`#M-span`).innerHTML = DailySpan[2]
-
-    ModelDailySpan.querySelector(`#S-span`).innerHTML = DailySpan[3]
-  }
-
   let Modals = e => {
 
     let to;
@@ -391,9 +352,11 @@
 
     else if (JSStore.avail().mug !== false) {
 
-      JSStore.to({log_secs: new Date().valueOf()});
+      let ModelSource = document.querySelector(`main`);
 
-      S.emit(`pullPays`, {log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify(JSModel);
     }
 
   }
@@ -416,25 +379,6 @@
   domServe();
 
   document.addEventListener(`click`, e0);
-
-  setInterval(() => {
-
-    dailySale();
-  }, 1000)
-
-  S.on(`locale`, J => {
-
-    if (JSStore.avail().log_secs === J.log_secs) {
-
-      JSStore.to({regionMeta: J.regions})
-
-      let ModelSource = document.querySelector(`main`);
-
-      let M = new Model();
-
-      ModelSource.innerHTML = M.modelStringify([J.ModelZonal]);
-    }
-  });
 
   S.on(`flutterwave`, J => {
 

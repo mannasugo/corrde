@@ -7412,10 +7412,16 @@ module.exports = {
     let ModalC = [`/invoices/`, `javascript:;`, `/vendors/`, `javascript:;`, `javascript:;`];
 
     if (State !== false) {
+
+      let ModelMugFile = [
+      `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `#@mug-ava`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+          `text`, `#@mug-ava`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${A[State].full[0]}`]]]
+
+      if (A[State].ava !== false) ModelMugFile = [`img`, `#@mug-ava`, `.@_aWz`, `&@src>/${A[State].ava}`];
  
       ModelMug = [
-        `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, `&@style>height:24px;width:24px;margin: 0 15px`, [[
-          `img`, `#@mug-ava`, `.@_aWz`, `&@src>${A[State].ava}`]]];
+        `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, `&@style>height:24px;width:24px;margin: 0 15px`, [ModelMugFile]];
     }
 
     return [`nav`, 
@@ -8904,5 +8910,65 @@ module.exports = {
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${Shelf[0]}`]]], [
             `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>javascript:;`, `~@view more`]]]]], [
           `div`, `.@_gX0`, ModelShelve]]]]]
+  },
+
+  ModelMugPays (Sell, mug) {
+
+    let Pays = [];
+
+    Sell.Pay[0].forEach(Pay => {
+
+      if (Pay.payer === mug) Pays.push(Pay);
+    })
+
+    let ModelPay = [];
+
+    let FullPays = Pays;
+
+    let SlicePays = Pays.sort((a, b) => {return b.secs - a.secs});
+
+    SlicePays.forEach(Pay => {
+
+      let ModelFiles = [];
+
+      let items = 0;
+
+      Pay.bag.forEach(File => {
+
+        items += File.items
+
+        ModelFiles.push([
+        `span`, `.@_cCq _gS3`, `&@href>javascript:;`, `&@style>height:24px;width:24px;margin: 0 15px`, [[`img`, `.@_aWz`, `&@src>/${File.file}`]]])
+      });
+
+      ModelPay.push([
+          `div`, `.@_gZy gCQ _geQ`, `&@style>max-width:960px;margin:0 auto; padding: 16px`, [[
+            `div`, `.@_gX0`, `&@style>overflow:hidden`, [[
+              `div`, [[`div`, `.@_gxM`, [[`span`, `&@style>font-size:10px;padding:0 12px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@${Pay.MD5}`]]], [
+                `span`, `&@style>font-size:10px`, `.@_a2X`, `~@${this.log(Pay.secs)}`]]]]], [
+            `div`, `.@_gX2`, [[
+              `div`, [[
+                `div`, `.@_gxM _yZS`, [[
+                  `span`, `&@style>font-size:10px;padding:0 24px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@#${Pay.secs}`], [
+                  `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${items} items`]]]]], [
+                `div`, `.@_gxM _yZS`, [[
+                  `div`, ModelFiles], [
+                  `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${Pay.mass}grams`]]]]], [
+                `div`, `.@_gxM _yZS`, [[
+                  `span`, `.@_-Zz`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
+                  `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.pay).toFixed(2)}`]]]]]]]]], [
+            `div`, `.@_gX3 _geQ _QZg`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`,`#@getPay`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@view order`]]]]]]])
+    });
+
+    return [
+    `main`, `.@_xC2`, `&@style>height:100%`, [[
+      `div`, `.@_tY0`, [[
+      `section`, `#@ModelStallAlerts`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Pay Orders`]]], [
+            `div`, `.@_QZg`, []]]], [`div`, ModelPay]]]]]]]]];
   }
 }

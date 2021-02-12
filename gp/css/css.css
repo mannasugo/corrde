@@ -3728,9 +3728,11 @@ table > thead > tr > th {
 
   #ModelShelf ._Qg0 {width: 150px}
 
-  #ModelStallAlerts ._gX0, #ModelStallAlerts ._gX3 {flex: 0 0 25%;}
+  #ModelStallAlerts ._gX0 {flex: 0 0 30%;}
 
   #ModelStallAlerts ._gX2 {flex: 0 0 50%;}
+
+  #ModelStallAlerts ._gX3 {flex: 0 0 20%;}
 }
 
 @media (min-width: 992px) {
