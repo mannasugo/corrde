@@ -155,6 +155,22 @@
 
     }
 
+    else if (e.id === `getPay`) {
+
+      let PaySet = JSON.parse(document.querySelector(`#pays`).innerHTML);
+
+      let Pay = PaySet[e.getAttribute(`sum`)];
+
+      to = document.querySelector(`#ModalMyPay`);
+
+      let ModelSource = to.querySelector(`._sZ2`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelMyPay(Pay)]);
+
+    }
+
     if (!to) return;
 
     if (to.className === `_-Zz`) to.className = `-Zz`;
@@ -230,6 +246,8 @@
     else if (e.id === `foldModalSets`) Modal = document.querySelector(`#ModalSets`);
 
     else if (e.id === `DelZonal`) Modal = document.querySelector(`aside > div`);
+
+    else if (e.id === `foldMyPay`) Modal = document.querySelector(`#ModalMyPay`);
 
     if (!Modal) return;
 

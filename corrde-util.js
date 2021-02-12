@@ -4110,7 +4110,8 @@ class UAPublic extends Auxll {
             model.ModelMugPays(Sell, mug),
             model.ModelRootAlpha(PplSet, mug),
             model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
-            model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`)];
+            model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+            model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`)];
                 
           Stack.appendModel = [
             model.rootView({

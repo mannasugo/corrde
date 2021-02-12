@@ -619,6 +619,33 @@ const Model = (function () {
                     `div`, `.@_gM_a _agM _guZ`, [[
                       `a`, `#@setAlter`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@sum>${Args[2].sum}`, `&@style>font-size:12px`, `~@save & exit`]]]]]]]]]]]]]]]
 
+    },
+
+    ModelMyPay: function (Args) {
+
+      let ModelPay = [];
+
+      Args.bag.forEach(Pay => {
+
+        ModelPay.push([
+          `div`, `&@style>padding: 16px`, [[
+            `div`, [[
+              `div`, `.@gxM`, [[
+                `div`, `~@${Pay.alpha}`], [
+                `div`, `.@_gxM _yZS`, [[
+                  `span`, `&@style>font-size:10px;padding:0 24px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@#${Pay.MD5}`], [
+                  `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${Pay.items} items`]]]]], [
+                `div`, `.@_gxM _yZS`, [[
+                  `div`, `.@_gxM`, [[
+                    `span`, `.@_cCq _gS3`, `&@style>height:24px;width:24px;margin: 0 15px`, [[`img`, `.@_aWz`, `&@src>/${Pay.file}`]]]]], [
+                  `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${Pay.mass}grams`]]]]], [
+                `div`, `.@_gxM _yZS`, [[
+                  `span`, `.@_-Zz`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
+                  `div`, `.@_QZg`, [[
+                    `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.dollars*Pay.swap).toFixed(2)}`]]]]]]]]]]]);
+      })
+
+      return [`div`, ModelPay]
     }
   }
   

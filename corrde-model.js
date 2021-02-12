@@ -8916,9 +8916,16 @@ module.exports = {
 
     let Pays = [];
 
+    let PaySet = {}
+
     Sell.Pay[0].forEach(Pay => {
 
-      if (Pay.payer === mug) Pays.push(Pay);
+      if (Pay.payer === mug) {
+
+        Pays.push(Pay);
+
+        PaySet[Pay.MD5] = Pay;
+      }
     })
 
     let ModelPay = [];
@@ -8942,7 +8949,7 @@ module.exports = {
       });
 
       ModelPay.push([
-          `div`, `.@_gZy gCQ _geQ`, `&@style>max-width:960px;margin:0 auto; padding: 16px`, [[
+          `div`, `.@_gZy _geQ`, `&@style>max-width:960px;margin:0 auto; padding: 16px`, [[
             `div`, `.@_gX0`, `&@style>overflow:hidden`, [[
               `div`, [[`div`, `.@_gxM`, [[`span`, `&@style>font-size:10px;padding:0 12px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@${Pay.MD5}`]]], [
                 `span`, `&@style>font-size:10px`, `.@_a2X`, `~@${this.log(Pay.secs)}`]]]]], [
@@ -8952,23 +8959,46 @@ module.exports = {
                   `span`, `&@style>font-size:10px;padding:0 24px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@#${Pay.secs}`], [
                   `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${items} items`]]]]], [
                 `div`, `.@_gxM _yZS`, [[
-                  `div`, ModelFiles], [
+                  `div`, `.@_gxM`, ModelFiles], [
                   `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${Pay.mass}grams`]]]]], [
                 `div`, `.@_gxM _yZS`, [[
                   `span`, `.@_-Zz`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
                   `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.pay).toFixed(2)}`]]]]]]]]], [
             `div`, `.@_gX3 _geQ _QZg`, [[
               `div`, `.@_gM_a _agM _guZ`, [[
-                `a`,`#@getPay`, `.@_TX_a _atX qXS _utQ a2X`, `&@href>javascript:;`, `~@view order`]]]]]]])
+                `a`, `#@getPay`, `.@_TX_a _atX qXS _utQ a2X`, `&@sum>${Pay.MD5}`, `&@href>javascript:;`, `~@view order`]]]]]]])
     });
 
     return [
     `main`, `.@_xC2`, `&@style>height:100%`, [[
       `div`, `.@_tY0`, [[
-      `section`, `#@ModelStallAlerts`, [[
-        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
-          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
-            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Pay Orders`]]], [
-            `div`, `.@_QZg`, []]]], [`div`, ModelPay]]]]]]]]];
+        `section`, `#@ModelStallAlerts`, [[
+          `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+            `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+              `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Pay Orders`]]], [
+              `div`, `.@_QZg`, []]]], [`div`, ModelPay]]]]]]], [
+      `script`, `#@pays`, `&@type>text/javascript`, `~@${JSON.stringify(PaySet)}`]]];
+  },
+
+  ModalMyPay () {
+
+    return [
+    `div`,  `&@style>letter-spacing: .75px;line-height:1.5rem; max-width: 100%;font-size:12px`, [[
+      `div`, `.@_gxM _gMX _gcQ _uZM`, [[
+        `div`, `~@My Order`], [
+        `div`, `.@_QZg`, [[
+          `span`, `.@_`, [[`a`, `#@foldMyPay`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
+      `div`, `.@_aXY`, `&@style>margin:0 0 55px;max-height: calc(100vh - 180px);`, [[
+        `div`, `.@_sZ2`, []]]], [
+          `div`, `.@_-Zz _azX- _gMX _gp0 _gmg`, [[
+            `div`, `.@_gxM _gMX`, [[
+              `div`, `.@_gMX`, [[
+                `div`, `.@_eYG`], [
+                `div`, `.@_QZg _gMz`, [[
+                  `div`, `.@_axS`, [[
+                    `div`, `.@_gM_a _agM _guZ`, [[
+                      `a`, `#@toCheckOut`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:12px`, `~@proceed to checkout`]]]]]]]]]]]]]]];
+
+
   }
 }
