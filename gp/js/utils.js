@@ -642,7 +642,7 @@ const Model = (function () {
                 `div`, `.@_gxM _yZS`, [[
                   `span`, `.@_-Zz`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
                   `div`, `.@_QZg`, [[
-                    `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.dollars*Pay.swap).toFixed(2)}`]]]]]]]]]]]);
+                    `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.items*Pay.dollars*Pay.swap).toFixed(2)}`]]]]]]]]]]]);
       })
 
       return [`div`, ModelPay]

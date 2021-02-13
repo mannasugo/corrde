@@ -1608,7 +1608,7 @@ class UAPublic extends Auxll {
 
       if (this.levelState[2] === `devs`) {
 
-        this.devsControls()
+        this.Controller()
       }
     }
   }
@@ -4248,37 +4248,40 @@ class UAPublic extends Auxll {
     })
   }
 
-  devsControls (Arg) {
+  Controller (Arg) {
 
     this.modelStyler(config.lvl.css, CSS => {
 
-      const Stack = {
-        jSStore: JSON.stringify({pullStall: Arg}),
-        title: `Corrde | Administration & Development Dashboard`,
-        css: CSS,
-        jsState: [config.reqs.devs_root_js]}
-
       this.getCookie(`dev_md5`, (A, B) => {
-
-        let clientJSON = JSON.parse(Stack.jSStore);
 
         let mug = false;
 
         if (A === false) mug = B;
 
-        clientJSON[`developer`] = mug;
+        this.Sell(Args => {
 
-          Stack.jSStore = JSON.stringify(clientJSON); 
+        const Stack = {
+          jSStore: JSON.stringify({developer: mug, pullStall: Arg}),
+          title: `Corrde | Administration & Development Dashboard`,
+          css: CSS,
+          jsState: [config.reqs.devs_root_js]};
+
+        let Model = [
+          model.Controller(model.ModelRootController(Args)),
+          model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`)]; 
                 
-          Stack.appendModel = [
-            model.rootView({
+        Stack.appendModel = [
+          model.rootView({
               appendModel: [
-                model.ModelWait(),
+                model.ModelWait(Model),
                 model.jS(Stack)]
             })];
                               
-          this.app.to.writeHead(200, config.reqMime.htm);
-          this.app.to.end(model.call(Stack));})
+        this.app.to.writeHead(200, config.reqMime.htm);
+        this.app.to.end(model.call(Stack));
+
+        })
+      })
     })
   }
 }

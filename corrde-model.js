@@ -8998,7 +8998,165 @@ module.exports = {
                   `div`, `.@_axS`, [[
                     `div`, `.@_gM_a _agM _guZ`, [[
                       `a`, `#@toCheckOut`, `.@_TX_a _atX _utQ`, `&@href>javascript:;`, `&@style>font-size:12px`, `~@proceed to checkout`]]]]]]]]]]]]]]];
+  },
 
+  Controller (Model) {
 
+    return [
+      `article`, `#@ModelStallControls`, [[
+        `div`, `.@_tY0`, [[
+          `main`, `.@_gZy`, [[
+            `nav`, `.@_gy0`, [[
+              `div`, `.@_gy`, [[
+                `div`, `.@_gq`, [[
+                  `div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX RootGray`, `&@href>/`]]], [
+                  `div`, `.@_-Zz _gMX _geQ _s0`, [[`a`, `.@-_tX RootGray`, `&@href>`]]], [
+                  `div`, `.@_gMX _geQ _s0`, [[`a`, `#@Sell`, `.@-_tX SellColor`, `&@href>javascript:;`]]], [
+                  `div`, `.@_gMX _geQ _s0`, [[`a`, `.@-_tX Bag`]]]]]]]]], [
+            `section`, `.@_gy2`, `&@style>width:100%`, [
+              Model, [
+              `nav`, `.@_uHC`, `&@style>background:none`, [[
+                `div`, `.@_xCt`], [
+                `div`, [[
+                  `div`, `.@_-tY`, [[
+                    `div`, `.@_aXz`, [[
+                      `div`, `.@_-Xg _gxM _geQ`, [[
+                        `a`, `#@devs`, `.@-_tX AppMedium`, `&@href>/v2/devs/`, `~@corrde`], [
+                        `span`, `@_aA6`, `&@style>padding: 0 7px`, `~@ | DASHBOARD`]]]/*, [
+                      `div`, `.@_QZg _gxM _aA2`, [[
+                        `span`, `.@_axS _gV0 _tXx`, `~@{Stall.alpha}`], [
+                      `a`, `.@_cCq _axS _gS3`, `&@style>width:40px;height:40px`, `&@href>/dashboard/{Stall.MD5}/`, [[
+                        `svg`, `&@title>{Stall.alpha}`, `&@style>min-height:40px;width:40px`, `&@viewBox>0 0 24 24`, [[
+                          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                          `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${Stall.alpha[0]}`]]]]]]]*/]]]]]]]]]]]]]]]]
+
+  },
+
+  ModelRootController (Args) {
+
+    return [`main`, `.@_xC2`, [this.ModelSlicePpl([Args, 10]), this.ModelSlicePay([Args, 10])]];
+  },
+
+  ModelSlicePpl (Args) {
+
+    let ModelSlicePpl = [];
+
+    let SlicePpl = Args[0].Ppl[0].sort((A, B) => {return B.log - A.log});
+
+    SlicePpl = SlicePpl.slice(0, Args[1]);
+
+    SlicePpl.forEach(Ps => {
+
+      let ModelMug = [
+      `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `#@mug-ava`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+          `text`, `#@mug-ava`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${Ps.full[0]}`]]]
+
+      if (Ps.ava !== false) ModelMug = [`img`, `#@mug-ava`, `.@_aWz`, `&@src>/${Ps.ava}`];
+
+      ModelSlicePpl.push([
+        `div`, `.@yZS`, [[
+          `div`, `.@_gxM _yZS`, [[
+            `span`, `&@style>font-size:10px;padding:0 24px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@${Ps.sum}`], [
+            `div`, `.@_QZg`, [[
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${this.log(Ps.log)}`]]]]], [
+          `div`, `.@_gxM _yZS`, [[
+            `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, `&@style>height:24px;width:24px;`, [ModelMug]], [
+            `div`, `.@_eYG`, [[
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${Ps.full}`]]]]], [
+          `div`, `.@_gxM _yZS`, [[
+            `div`, `.@_QZg`, [[
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${Ps.mail}`]]]]]]])
+    })
+
+    return [
+      `section`, `#@ModelStallAlerts`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Recent Signups`]]], [
+            `div`, `.@_QZg`, []]]], [`div`, `&@style>max-width:960px;margin:0 auto;width:100%; padding: 16px`, ModelSlicePpl]]]]]
+  },
+
+  ModelSlicePay (Args) {
+
+    let ModelSlicePay = [];
+
+    let PaySet = {};
+
+    let SlicePay = Args[0].Pay[0].sort((A, B) => {return B.secs - A.secs});
+
+    SlicePay = SlicePay.slice(0, Args[1]);
+
+    SlicePay.forEach(Pay => {PaySet[Pay.MD5] = Pay})
+
+    SlicePay.forEach(Pay => {
+
+      let alpha = `anonymous`;
+
+      if (Args[0].Ppl[1][Pay.payer]) alpha = Args[0].Ppl[1][Pay.payer].full;
+
+      let ModelMug = [
+      `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `#@mug-ava`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#4444441c`], [
+          `text`, `#@mug-ava`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill:#444;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@a`]]];
+
+      if (Args[0].Ppl[1][Pay.payer] && Args[0].Ppl[1][Pay.payer].ava === false) {
+
+        ModelMug = [
+        `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+          `circle`, `#@mug-ava`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+            `text`, `#@mug-ava`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${Args[0].Ppl[1][Pay.payer].full[0]}`]]];
+        }
+
+      else if (Args[0].Ppl[1][Pay.payer] && Args[0].Ppl[1][Pay.payer].ava !== false) ModelMug = [`img`, `#@mug-ava`, `.@_aWz`, `&@src>/${Args[0].Ppl[1][Pay.payer].ava}`];
+
+      let ModelFiles = [];
+
+      let items = 0;
+
+      Pay.bag.forEach(File => {
+
+        items += File.items
+
+        ModelFiles.push([
+        `span`, `.@_cCq _gS3`, `&@href>javascript:;`, `&@style>height:24px;width:24px;margin: 0 15px`, [[`img`, `.@_aWz`, `&@src>/${File.file}`]]])
+      });
+
+      ModelSlicePay.push([
+        `div`, `.@_gZy _geQ`, `&@style>max-width:960px;margin:0 auto; padding: 16px`, [[
+          `div`, `.@_gX0`, `&@style>overflow:hidden`, [[
+            `div`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, `&@style>height:24px;width:24px;`, [ModelMug]], [
+                `div`, `.@_eYG`, [[
+                  `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${alpha}`]]]]]]]]], [
+          `div`, `.@_gX2`, [[
+            `div`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `span`, `&@style>font-size:10px;padding:0 24px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@${Pay.MD5}`], [
+                `div`, `.@_QZg`, [[
+                  `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${this.log(Pay.secs)}`]]]]], [
+                `div`, `.@_gxM _yZS`, [[
+                  `div`, `.@_gxM`, ModelFiles], [
+                  `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${Pay.mass}grams`]]]]], [
+                `div`, `.@_gxM _yZS`, [[
+                  `span`, `.@_-Zz`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
+                  `div`, `.@_QZg`, [[
+                    `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.pay).toFixed(2)}`]]]]], [
+                `div`, `.@_gxM _yZS`, [[
+                  `div`, `.@QZg`, [[
+                    `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${Pay.gArray[0]}, ${Pay.gArray[1]}`]]]]]]]]], [
+            `div`, `.@_gX3 _geQ _QZg`, [[
+              `div`, `.@_gM_a _agM _guZ`, [[
+                `a`, `#@getPay`, `.@_TX_a _atX qXS _utQ a2X`, `&@sum>${Pay.MD5}`, `&@href>javascript:;`, `~@view order`]]]]]]])
+    })
+
+    return [
+      `section`, `#@ModelStallAlerts`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Recent Orders`]]], [
+            `div`, `.@_QZg`, []]]], [`div`, ModelSlicePay]]], [
+        `script`, `#@pays`, `&@type>text/javascript`, `~@${JSON.stringify(PaySet)}`]]]
   }
 }
