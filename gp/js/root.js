@@ -512,11 +512,11 @@
 
       document.querySelector(`#toastPay`).innerHTML = `${Data.swapAlpha} ${(Data.dollars*Data.swap).toFixed(2)}`;
 
-      setInterval(() => {
+      setTimeout(() => {
 
         if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
         
-      }, 10000);
+      }, 5000);
 
       if (!e.hasAttribute(`forPlus`)) return;
 
