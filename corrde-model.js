@@ -9140,7 +9140,7 @@ module.exports = {
                   `div`, `.@_gxM`, ModelFiles], [
                   `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${Pay.mass}grams`]]]]], [
                 `div`, `.@_gxM _yZS`, [[
-                  `span`, `.@_-Zz`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
+                  `span`, `#@payStatus`, `.@_-Zz`, `&@sum>${Pay.MD5}`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
                   `div`, `.@_QZg`, [[
                     `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.pay).toFixed(2)}`]]]]], [
                 `div`, `.@_gxM _yZS`, [[

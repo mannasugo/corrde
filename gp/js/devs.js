@@ -6,7 +6,7 @@
 
   const Route = history;
 
-  const Ajs = (reqs, allMeta, inCall) => {
+  const AJSON = (reqs, allMeta, inCall) => {
 
     let req = new Req();
 
@@ -101,6 +101,19 @@
     let M = new Model();
 
     ModelSource.innerHTML = M.modelStringify(JSModel);
+          
+    AJSON([`/devs_reqs/`, `getPays`], {}, (A, B) => {
+
+      if (B.exit === true) {
+
+        document.querySelectorAll(`#payStatus`).forEach(Model => {console.log(Model)
+
+          if (B.pays[Model.getAttribute(`sum`)]) Model.innerHTML = B.pays[Model.getAttribute(`sum`)].status;
+
+          Model.className = `-Zz`;
+        })
+      }
+    });
   }
  
   let e0 = e => {

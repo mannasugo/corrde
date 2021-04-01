@@ -7231,9 +7231,11 @@ class AJXReqs extends Auxll {
 
       else if (this.args.AddStock) this.AddStock(JSON.parse(this.args.AddStock));
 
-      else if (this.args.localeCookie) this.localeCookie(JSON.parse(this.args.localeCookie));
-
       else if (this.args.CreateStore) this.CreateStore(JSON.parse(this.args.CreateStore));
+
+      else if (this.args.getPays) this.getPays(JSON.parse(this.args.getPays));
+
+      else if (this.args.localeCookie) this.localeCookie(JSON.parse(this.args.localeCookie));
 
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
 
@@ -8003,6 +8005,38 @@ class AJXReqs extends Auxll {
     this.app.to.setHeader(`Content-type`, `application/json`)
     this.app.to.writeHead(200, config.reqMime.json);
     this.app.to.end(JSON.stringify({exit: true}));
+  }
+
+  getPays (Arg) {
+
+    let PullArgs = {
+      method: `GET`,
+      url: 'https://api.flutterwave.com/v3/transactions?from=2020-01-01',
+      headers: {
+        'Authorization': 'Bearer FLWSECK-9da614832e3764fcdfa1eb9914f09d88-X',
+        [`Content-Type`]: `application/json`}
+    };
+
+    UrlCall(PullArgs, (error, Pull) => {
+
+      if (error) throw new Error(error);
+            
+      else {
+
+        let Pays = {};
+
+        let S = JSON.parse(Pull.body);
+
+        S.data.forEach(Pay => {
+
+          Pays[Pay.tx_ref] = Pay;
+        });
+
+        this.app.to.setHeader(`Content-type`, `application/json`)
+        this.app.to.writeHead(200, config.reqMime.json);
+        this.app.to.end(JSON.stringify({exit: true, pays: Pays}));
+      }
+    });
   }
 }
 
