@@ -106,7 +106,7 @@
 
       if (B.exit === true) {
 
-        document.querySelectorAll(`#payStatus`).forEach(Model => {console.log(Model)
+        document.querySelectorAll(`#payStatus`).forEach(Model => {
 
           if (B.pays[Model.getAttribute(`sum`)]) Model.innerHTML = B.pays[Model.getAttribute(`sum`)].status;
 

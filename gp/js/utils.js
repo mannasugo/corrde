@@ -646,6 +646,15 @@ const Model = (function () {
       })
 
       return [`div`, ModelPay]
+    },
+
+    ModelToast: function () {
+
+      return [
+      `div`, `&@style>position: fixed;bottom: 10px;width: 100%;align-content: center;justify-content: center;align-items: center;z-index: 31;`, [[
+        `div`, `.@_tY0 _gxM`, `&@style>background:#000;color:#fff;font-size:11px;padding:8px;max-width:424px;border-radius:100px;width:100%`, [[
+          `div`, `.@_eYG`, [[`span`, `#@toastAlpha`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:100%;padding:0 16px 0 0`, `~@+ Organic Bananas`]]], [
+          `div`, `.@_QZg`, [[`span`, `#@toastPay`, `&@style>white-space:nowrap;border-left:1px solid #999;padding:0 16px`, `~@k£. 51.23`]]]]]]]
     }
   }
   

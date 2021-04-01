@@ -496,6 +496,28 @@
 
       JSStore.to({myCart: Cart});
 
+      if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
+              
+      let ModelSource = document.createElement(`div`);
+
+      ModelSource.setAttribute(`id`, `ModelToast`);
+
+      let Ma = new Model();
+
+      ModelSource.innerHTML = new Model().modelStringify([Ma.ModelToast()]);
+
+      document.querySelector(`#corrde-root`).appendChild(ModelSource);
+
+      document.querySelector(`#toastAlpha`).innerHTML = `+ ${Data.alpha}`;
+
+      document.querySelector(`#toastPay`).innerHTML = `${Data.swapAlpha} ${(Data.dollars*Data.swap).toFixed(2)}`;
+
+      setInterval(() => {
+
+        if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
+        
+      }, 10000);
+
       if (!e.hasAttribute(`forPlus`)) return;
 
       let eCount = e.getAttribute(`forPlus`).split(`-`)[1],
@@ -613,12 +635,12 @@
 
   document.addEventListener(`click`, e0);
 
-  window.addEventListener(`resize`, eSize)
+  window.addEventListener(`resize`, eSize);
 
   setInterval(() => {
 
     dailySale();
-  }, 1000)
+  }, 1000);
 
   S.on(`root`, J => {
 
