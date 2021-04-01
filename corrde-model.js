@@ -7580,7 +7580,7 @@ module.exports = {
     let ZoneSet = {
       kenya: {
         swap: 109,
-        swapAlpha: `ksh.`, 
+        swapAlpha: `k£.`, 
         zones: [{
           locale: `homa bay`,
           drop: [[20, `mins`], [10, `hrs`]],
