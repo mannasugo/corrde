@@ -236,17 +236,11 @@
       JSStore.to({locale: e.value.toLowerCase()});
 
       document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
+          
+      AJXReq([`/devs_reqs/`, `localeCookie`], e.value.toLowerCase(), (A, B) => {
 
-      Modal = document.querySelector(`#ModelZones`);
-
-      window.location = `/`;
-
-      if (JSStore.avail().locale === `kenya`) {
-
-        JSStore.to({log_secs: new Date().valueOf()});
-
-        S.emit(`zonal`, {locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug});
-      }
+        if (B.exit === true) window.location = `/store/${JSStore.avail().route.replace(new RegExp(`u/0026`, `g`), `&`)}`;
+      });
     }
 
     else if (e.id === `getRegion`) {
@@ -420,17 +414,22 @@
 
   let domServe = () => {
 
-    JSStore.to({log_secs: new Date().valueOf()});
-
     if (!JSStore.avail().locale) {
 
       document.querySelector(`#ModelZones`).className = `-Zz`;
     }
 
-    else {
+    else if (JSStore.avail().locale && JSStore.avail().locale !== `global`) {
 
-      if (JSStore.avail().retailSet) S.emit(`retailSet`, {
-        locale: JSStore.avail().locale, log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug, retailSet: JSStore.avail().retailSet});
+      if (JSStore.avail().locale !== `kenya`) return;
+
+      let ModelSource = document.querySelector(`main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify(JSModel);
+
+      document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
     }
   }
  

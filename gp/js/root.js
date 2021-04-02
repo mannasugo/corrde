@@ -364,8 +364,6 @@
       JSStore.to({locale: e.value.toLowerCase()});
 
       document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
-
-      Modal = document.querySelector(`#ModelZones`);
           
       AJXReq([`/devs_reqs/`, `localeCookie`], e.value.toLowerCase(), (A, B) => {
 

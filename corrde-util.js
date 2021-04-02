@@ -1584,7 +1584,7 @@ class UAPublic extends Auxll {
 
         let Shelf = this.levelState[2].replace(new RegExp(/_/, `g`), ` `);
 
-        if (RetailSets.indexOf(Shelf) > -1) this.RetailSets(Shelf);
+        if (RetailSets.indexOf(Shelf) > -1) this.RetailSets(Shelf, [this.levelState[2]]);
 
         else {
 
@@ -3961,46 +3961,6 @@ class UAPublic extends Auxll {
     })
   }
 
-  RetailSets (Shelf) {
-
-    this.modelStyler(config.lvl.css, CSS => {
-
-      const Stack = {
-        jSStore: JSON.stringify({retailSet: Shelf}),
-        title: `Corrde Store | ${Shelf}`,
-        css: CSS,
-        jsState: [config.reqs.retail_catalog_js]}
-
-      this.getCookie(`u`, (A, B) => {
-
-        let clientJSON = JSON.parse(Stack.jSStore);
-
-        let mug = false;
-
-        if (A === false) {
-
-          clientJSON[`u_md5`] = B;
-
-          mug = B;
-        }
-
-        clientJSON[`mug`] = mug;
-
-          Stack.jSStore = JSON.stringify(clientJSON); 
-                
-          Stack.appendModel = [
-            model.rootView({
-              appendModel: [
-                model.ModelWait(),
-                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
-                model.jS(Stack)]
-            })];
-                              
-          this.app.to.writeHead(200, config.reqMime.htm);
-          this.app.to.end(model.call(Stack));})
-    })
-  }
-
   ComputePay () {
 
     this.modelStyler(config.lvl.css, CSS => {
@@ -4282,6 +4242,77 @@ class UAPublic extends Auxll {
 
         })
       })
+    })
+  }
+
+  RetailSets (Shelf, Route) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        let mug = false;
+
+        if (A === false) mug = B;
+
+        this.getCookie(`locale`, (A, B) => {
+
+          let locale = `kenya`;
+
+          if (A === false) locale = B;
+
+          if (!RetailMaps[locale]) locale = `kenya`;
+
+          this.Sell(A => {
+
+            let Sell = A;
+
+            let PplSet = Sell.Ppl[1],
+
+              Shelve = [],
+
+              ShelfAlpha = Shelf.replace(new RegExp(`&`, `g`), `u/0026`);
+
+            Sell.Sell[0].forEach(Stock => {
+
+              if (Stock.mass && Stock.set === ShelfAlpha && Stock.market === locale) Shelve.push(Stock);
+            });
+
+            const Stack = {
+              title: `Corrde Store | ${Shelf}`,
+              jsState: [config.reqs.retail_catalog_js],
+              css: CSS,
+              jSStore: JSON.stringify({
+                mug: mug,
+                regionMeta: RetailMaps[locale],
+                retailSet: Shelf,
+                route: Route[0]
+              })
+            };
+
+            let Model = [
+              model.ModelRetailSet(Shelf, locale, Shelve),
+              model.ModelRootAlpha(PplSet, mug),
+              model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+              model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+              model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
+              model.loadDOMModalView([model.modalView([model.ModalRegions(locale)])], `ModalRegions`),
+              model.footer()];
+                
+            Stack.appendModel = [
+              model.rootView({
+                appendModel: [
+                  model.ModelWait(Model),
+                  model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                  model.jS(Stack)]
+              })];
+                              
+            this.app.to.writeHead(200, config.reqMime.htm);
+            this.app.to.end(model.call(Stack));
+          });
+
+        });
+      });
     })
   }
 }
