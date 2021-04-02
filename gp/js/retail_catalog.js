@@ -323,6 +323,28 @@
 
       JSStore.to({myCart: Cart});
 
+      if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
+              
+      let ModelSource = document.createElement(`div`);
+
+      ModelSource.setAttribute(`id`, `ModelToast`);
+
+      let Ma = new Model();
+
+      ModelSource.innerHTML = new Model().modelStringify([Ma.ModelToast()]);
+
+      document.querySelector(`#corrde-root`).appendChild(ModelSource);
+
+      document.querySelector(`#toastAlpha`).innerHTML = `+ ${Data.alpha}`;
+
+      document.querySelector(`#toastPay`).innerHTML = `${Data.swapAlpha} ${(Data.dollars*Data.swap).toFixed(2)}`;
+
+      setTimeout(() => {
+
+        if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
+        
+      }, 5000);
+
       if (!e.hasAttribute(`forPlus`)) return;
 
       let eCount = e.getAttribute(`forPlus`).split(`-`)[1],
