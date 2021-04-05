@@ -268,7 +268,7 @@
 
       ModelSource.innerHTML = M.modelStringify([M.ModelWait()])
 
-      window.location = `/`;
+      window.location = e.getAttribute(`route`);
     }
 
     else if (e.id === `foldMyCart`) Modal = document.querySelector(`#ModalMyCart`);

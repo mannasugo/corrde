@@ -452,7 +452,7 @@ const Model = (function () {
         `span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`], [
         `div`, `&@style>padding: .75rem .75rem 2.75rem;margin: 1.5rem 0;`, [[
           `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
-            `a`, `#@paygate`, `.@_TX_a _atX`, `&@target>_blank`, `&@href>${Arg.paygate}`, `&@style>font-size: 0.9rem;font-weight:300`, `~@proceed to payment`]]]]]]]
+            `a`, `#@paygate`, `.@_TX_a _atX`, /*`&@target>_blank`, `&@href>/`,*/ `&@href>${Arg.paygate}`, `&@style>font-size: 0.9rem;font-weight:300`, `~@proceed to payment`]]]]]]]
     },
 
     ModelStallCities: function (Args) {

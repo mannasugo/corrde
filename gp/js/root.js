@@ -392,7 +392,7 @@
 
       ModelSource.innerHTML = M.modelStringify([M.ModelWait()])
 
-      window.location = `/`;
+      window.location = e.getAttribute(`route`);
     }
 
     else if (e.id === `SignupStore` && JSStore.avail().mug && JSStore.avail().mug !== false) {
