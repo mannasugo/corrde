@@ -7701,7 +7701,7 @@ module.exports = {
         if (Row.mass && Row.set === Shelf && Row.market === zone) {
 
           let ModelJSON = `&@data>{
-            &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
+            &quot;alpha&quot;: &quot;${Row.alpha.replace(new RegExp(`/`, `g`), `u/002F`)}&quot;,
             &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
             &quot;file&quot;: &quot;${Row.files[0]}&quot;,
             &quot;mass&quot;: &quot;${Row.mass}&quot;,
@@ -7711,7 +7711,36 @@ module.exports = {
 
             dollars = (Row.dollars*Swap[1]).toFixed(2);
 
-          ModelShelve.push([
+          if (Row.set === `clothing`) {
+
+            ModelShelve.push([
+            `div`, `#@ModelShelf-2`, [[
+              `div`, `.@_gQ-2`, [[
+                `div`, `.@_gY-0`, [[
+                  `div`, `&@style>height:200px`, [[
+                    `a`, `.@_Qg-2`, [[
+                     `div`, `.@Qg0`, [[
+                      `div`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]]]], `&@href>/grocery/${Row.MD5}/`]]], [
+                  `div`, `&@style>height:40px`], [
+                  `div`, `&@style>height:64px`, [[
+                    `div`, `.@_Aa`, [[
+                      `a`, `.@_aA`, `&@href>/grocery/${Row.MD5}/`, [[
+                        `span`, `.@_Ax`, [[`strong`, `.@_tXx`, `~@${Row.factory}`]]], [
+                        `span`, `&@style>line-height:1.5`, `~@${Row.alpha}`]]]]]]], [
+                  `div`, `&@style>height:88px`, [[
+                    `div`, [[
+                      `span`, [[`span`, `.@_tXx _p0`, `&@style>padding-top:16px;display:block`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
+                      `div`, `&@style>display:block;font-size:11px`, [[`span`, `~@Free delivery on `], [`span`, `~@ orders over ${Swap[0]} 250`]]]]]]], [
+                  `div`, `&@style>height:30px`, [[
+                    `div`, `.@_2pY`, [[
+                      `div`, `&@style>width:max-content`, [[
+                        `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                          `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]]]);
+          }
+
+          else {
+
+            ModelShelve.push([
             `div`, `.@_gA0`, [[
               `div`, `.@_gY`, [[
                 `a`, `.@_Qg`, [[
@@ -7727,7 +7756,7 @@ module.exports = {
                     `div`, `&@style>width:max-content`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
                         `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
-
+          }
         }
       });
 
@@ -7832,7 +7861,18 @@ module.exports = {
 
     return [
     `main`, `.@_xC2`, [[
-      `div`, `.@_tY0`, [
+      `div`, `.@_tY0`, [[
+        `section`, `.@_-Zz`, `&@style>background-image:url(gp/p/store/assets/clothing_hero_0.jpg);background-repeat:no-repeat;min-height:300px;background-size: 100%`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>color:#fff;min-height:300px`, [[
+              `div`, `.@gxQ _gQ0 _S8Y _c3x`, [[
+                `span`, `&@style>padding-bottom: 24px;font-weight:600;text-transform:uppercase`, `~@Clothing sale, April Special`], [
+                `div`, `~@Get affordable deals on great quality second-hand apparel, garments & clothing, with thrift rates as low as k£. 50.`], [
+                `div`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@QZg`, [[
+                    `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 200px`, [[
+                      `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/store/clothing`, `~@shop now`]]]]]]]]], [
+              `div`, `.@_ge0 _c3x _Qtx`, [[]]]]]]]]],
         Shelve(`fruits & vegetables`, Retail), [
         `section`, `.@_g29`, `&@style>line-height:1.5rem;background:#14312d`, [[
           `div`, `.@_cX3`, [[
@@ -7850,7 +7890,8 @@ module.exports = {
         Shelve(`beverages`, Retail),
         Shelve(`pantry`, Retail),  
         Shelve(`alcohol`, Retail),  
-        Shelve(`beauty & personal care`, Retail), 
+        Shelve(`beauty & personal care`, Retail),   
+        Shelve(`clothing`, Retail),
         ModelPayAd, [
         `section`, [[
           `div`, `.@_sZ2`, [[
@@ -7891,7 +7932,7 @@ module.exports = {
 
     let Classes = [`ale`, `energy drinks`, `energy enhancers`, `flavored malt beverage`, `flavored sparkling`, `lager`, `malt liquor`];
 
-    let Brands = [`budweiser`, `coca-cola`, `monster energy`, `red bull`];
+    let Brands = [`budweiser`, `coca-cola`, `fila`, `monster energy`, `puma`, `red bull`];
 
     let Zones = [`germany`, `kenya`, `norway`, `south africa`, `sweden`, `united states of america`];
 
@@ -8208,7 +8249,7 @@ module.exports = {
         if (Row.mass && Row.set === Shelf && Row.market === RowSet.market) {
 
           let ModelJSON = `&@data>{
-            &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
+            &quot;alpha&quot;: &quot;${Row.alpha.replace(new RegExp(`/`, `g`), `u/002F`)}&quot;,
             &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
             &quot;file&quot;: &quot;${Row.files[0]}&quot;,
             &quot;MD5&quot;: &quot;${RowSet.MD5}&quot;,
@@ -8218,7 +8259,36 @@ module.exports = {
 
             dollars = (Row.dollars*Swap[1]).toFixed(2);
 
-          ModelShelve.push([
+          if (Row.set === `clothing`) {
+
+            ModelShelve.push([
+            `div`, `#@ModelShelf-2`, [[
+              `div`, `.@_gQ-2`, [[
+                `div`, `.@_gY-0`, [[
+                  `div`, `&@style>height:200px`, [[
+                    `a`, `.@_Qg-2`, [[
+                     `div`, `.@Qg0`, [[
+                      `div`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]]]], `&@href>/grocery/${Row.MD5}/`]]], [
+                  `div`, `&@style>height:40px`], [
+                  `div`, `&@style>height:64px`, [[
+                    `div`, `.@_Aa`, [[
+                      `a`, `.@_aA`, `&@href>/grocery/${Row.MD5}/`, [[
+                        `span`, `.@_Ax`, [[`strong`, `.@_tXx`, `~@${Row.factory}`]]], [
+                        `span`, `&@style>line-height:1.5`, `~@${Row.alpha}`]]]]]]], [
+                  `div`, `&@style>height:88px`, [[
+                    `div`, [[
+                      `span`, [[`span`, `.@_tXx _p0`, `&@style>padding-top:16px;display:block`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
+                      `div`, `&@style>display:block;font-size:11px`, [[`span`, `~@Free delivery on `], [`span`, `~@ orders over ${Swap[0]} 250`]]]]]]], [
+                  `div`, `&@style>height:30px`, [[
+                    `div`, `.@_2pY`, [[
+                      `div`, `&@style>width:max-content`, [[
+                        `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                          `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]]]);
+          }
+
+          else {
+
+            ModelShelve.push([
             `div`, `.@_gA0`, [[
               `div`, `.@_gY`, [[
                 `a`, `.@_Qg`, [[
@@ -8234,7 +8304,7 @@ module.exports = {
                     `div`, `&@style>width:max-content`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
                         `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
-
+          }
         }
       });
 
@@ -8385,7 +8455,7 @@ module.exports = {
     RetailSet.forEach(Row => {
 
       let ModelJSON = `&@data>{
-        &quot;alpha&quot;: &quot;${Row.alpha}&quot;,
+        &quot;alpha&quot;: &quot;${Row.alpha.replace(new RegExp(`/`, `g`), `u/002F`)}&quot;,
         &quot;dollars&quot;: &quot;${Row.dollars}&quot;,
         &quot;file&quot;: &quot;${Row.files[0]}&quot;,
         &quot;mass&quot;: &quot;${Row.mass}&quot;,
@@ -8395,23 +8465,52 @@ module.exports = {
 
         dollars = (Row.dollars*Swap[1]).toFixed(2);
 
-      ModelShelve.push([
-      `div`, `.@_gA0`, [[
-        `div`, `.@_gY`, [[
-          `a`, `.@_Qg`, [[
-            `div`, `.@_Qg0`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>/grocery/${Row.MD5}/`], [
-          `div`, [[
-            `div`, `.@_pY`, [[
-              `div`, `.@_Xx _gxM`, [[
-                `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
-                `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.units})`]]]]], [
-              `a`, `.@_a2`, [[
-                `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>/grocery/${Row.MD5}/`]]], [
-            `div`, `.@_2pY`, [[
-              `div`, `&@style>width:max-content`, [[
-                `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
-                  `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
+          if (Row.set === `clothing`) {
 
+            ModelShelve.push([
+            `div`, `#@ModelShelf-2`, [[
+              `div`, `.@_gQ-2`, [[
+                `div`, `.@_gY-0`, [[
+                  `div`, `&@style>height:200px`, [[
+                    `a`, `.@_Qg-2`, [[
+                     `div`, `.@Qg0`, [[
+                      `div`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]]]], `&@href>/grocery/${Row.MD5}/`]]], [
+                  `div`, `&@style>height:40px`], [
+                  `div`, `&@style>height:64px`, [[
+                    `div`, `.@_Aa`, [[
+                      `a`, `.@_aA`, `&@href>/grocery/${Row.MD5}/`, [[
+                        `span`, `.@_Ax`, [[`strong`, `.@_tXx`, `~@${Row.factory}`]]], [
+                        `span`, `&@style>line-height:1.5`, `~@${Row.alpha}`]]]]]]], [
+                  `div`, `&@style>height:88px`, [[
+                    `div`, [[
+                      `span`, [[`span`, `.@_tXx _p0`, `&@style>padding-top:16px;display:block`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
+                      `div`, `&@style>display:block;font-size:11px`, [[`span`, `~@Free delivery on `], [`span`, `~@ orders over ${Swap[0]} 250`]]]]]]], [
+                  `div`, `&@style>height:30px`, [[
+                    `div`, `.@_2pY`, [[
+                      `div`, `&@style>width:max-content`, [[
+                        `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                          `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]]]);
+          }
+
+          else {
+
+            ModelShelve.push([
+            `div`, `.@_gA0`, [[
+              `div`, `.@_gY`, [[
+                `a`, `.@_Qg`, [[
+                  `div`, `.@_Qg0`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>/grocery/${Row.MD5}/`], [
+                `div`, [[
+                  `div`, `.@_pY`, [[
+                    `div`, `.@_Xx _gxM`, [[
+                      `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
+                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.units})`]]]]], [
+                    `a`, `.@_a2`, [[
+                      `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>/grocery/${Row.MD5}/`]]], [
+                  `div`, `.@_2pY`, [[
+                    `div`, `&@style>width:max-content`, [[
+                      `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe`, [[
+                        `a`, `#@alterCart`, ModelJSON, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@Add to cart`]]]]]]]]]]]]]);
+          }
     });
 
     return [
@@ -9011,7 +9110,7 @@ module.exports = {
                 `div`, `.@_gq`, [[
                   `div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX RootGray`, `&@href>/`]]], [
                   `div`, `.@_-Zz _gMX _geQ _s0`, [[`a`, `.@-_tX RootGray`, `&@href>`]]], [
-                  `div`, `.@_gMX _geQ _s0`, [[`a`, `#@Sell`, `.@-_tX SellColor`, `&@href>javascript:;`]]], [
+                  `div`, `.@_gMX _geQ _s0`, [[`a`, `#@Tools`, `.@-_tX SellColor`, `&@href>javascript:;`]]], [
                   `div`, `.@_gMX _geQ _s0`, [[`a`, `.@-_tX Bag`]]]]]]]]], [
             `section`, `.@_gy2`, `&@style>width:100%`, [
               Model, [
@@ -9034,7 +9133,7 @@ module.exports = {
 
   ModelRootController (Args) {
 
-    return [`main`, `.@_xC2`, [this.ModelSlicePpl([Args, 10]), this.ModelSlicePay([Args, 10])]];
+    return [`main`, `.@_xC2`, [this.ModelSlicePpl([Args, 10]), this.ModelSliceStock([Args, 5]), this.ModelSlicePay([Args, 10])]];
   },
 
   ModelSlicePpl (Args) {
@@ -9158,5 +9257,101 @@ module.exports = {
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Recent Orders`]]], [
             `div`, `.@_QZg`, []]]], [`div`, ModelSlicePay]]], [
         `script`, `#@pays`, `&@type>text/javascript`, `~@${JSON.stringify(PaySet)}`]]]
+  },
+
+  ModalControllers () {
+
+    let ModelTools = [];
+
+    let Tools = [[`shelf inventory`, ``]];
+
+    Tools.forEach((Tool) => {
+
+      ModelTools.push([`li`, `.@_-zZx`, [[`a`, `#@getTool`, `.@_-xQy`, `&@href>javascript:;`, [[`span`, `.@_tAx _aA2 _tXx`, `~@${Tool[0]}`]]]]]);
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@foldModalTools`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `ul`, `.@_aYy`, ModelTools]]]]]
+
+  },
+
+  ModalControlsCatalog () {
+
+    let ModelSets = [];
+
+    RetailSets.forEach((Catalog) => {
+
+      let Shelf = Catalog;
+
+      ModelSets.push([
+        `li`, `.@_-zZx`, [[
+          `a`, `#@pollStock`, `.@_-xQy`, `&@shelf>${Catalog}`, `&@href>javascript:;`, [[`span`, `.@_tAx _aA2 _tXx`, `~@${Catalog}`]]]]]);
+    });
+
+    return [
+      `div`, `&@style>letter-spacing:0.75px`, [[
+        `div`, `.@_gcQ _aXZ _uZM`, [[
+          `div`, `.@_geQ _gxM _eYG`, [[
+            `div`, `.@_aA2`, [[
+              `div`, [[
+                `span`, `&@style>`, `~@Catalog & Shelves`]]]]]]], [
+          `div`, `.@_QZg _gMz`, [[`a`, `#@foldModalCatalog`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
+        `div`, `.@_aXY XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);`, [[
+          `ul`, `.@_aYy`, ModelSets]]]]]
+
+  },
+
+  ModelSliceStock (Args) {
+
+    let ModelSliceStock = [];
+
+    let SellSet = {};
+
+    let SliceStock = Args[0].Sell[0].sort((A, B) => {return B.log - A.log});
+
+    SliceStock = SliceStock.slice(0, Args[1]);
+
+    SliceStock.forEach(Sell => {SellSet[Sell.MD5] = Sell});
+
+    SliceStock.forEach(Sell => {
+
+      let alpha = Sell.set.toString().slice(0, 2);
+
+      let ModelMug = [
+      `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `#@mug-ava`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#4444441c`], [
+          `text`, `#@mug-ava`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill:#444;text-transform:capitalize;letter-spacing:normal;font-size: 12px;`, `~@${alpha}`]]];
+
+      if (Sell.files.length > 0) ModelMug = [`img`, `#@mug-ava`, `.@_aWz`, `&@style>height:auto`, `&@src>/${Sell.files[0]}`];
+
+      ModelSliceStock.push([
+        `span`, `.@_-zZx`, [[
+          `a`, `.@_-xQy`, `&@href>javascript:;`, [[
+            `div`, `.@_gxM _geQ`, `&@style>max-width:960px;margin:0 auto; padding:0 16px`, [[
+          `div`, `.@gX0`, `&@style>overflow:hidden`, [[
+            `div`, [[
+              `div`, `.@_gxM _yZS`, [[
+                `span`, `.@_cCq _gS3`, `#@mug-ava`, `@href>javascript:;`, `&@style>height:24px;width:24px;`, [ModelMug]], [
+                `div`, `.@_eYG`, [[
+                  `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${Sell.set}`]]]]]]]]], [
+          `div`, `.@_QZg`, [[
+            `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X _tXx`, `~@€${(Sell.dollars*.84).toFixed(2)}`]]]]]]]]]);
+    })
+
+    return [
+      `section`, `#@ModelStallAlerts`, [[
+        `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
+          `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
+            `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Recent Inventory`]]], [
+            `div`, `.@_QZg`, []]]], [`div`, ModelSliceStock]]], [
+        `script`, `#@pays`, `&@type>text/javascript`, `~@${JSON.stringify(SellSet)}`]]]
   }
 }

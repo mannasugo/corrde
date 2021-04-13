@@ -46,6 +46,8 @@
 
     txt = txt.replace(new RegExp(`"`, `g`), `u/0022`);
 
+    txt = txt.replace(new RegExp(`/`, `g`), `u/002F`)
+
     return txt
   }
 

@@ -3921,46 +3921,6 @@ class UAPublic extends Auxll {
     })
   }
 
-  RetailStock (Routes) {
-
-    this.modelStyler(config.lvl.css, CSS => {
-
-      const Stack = {
-        jSStore: JSON.stringify({route: Routes}),
-        title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
-        css: CSS,
-        jsState: [config.reqs.retail_item_js]}
-
-      this.getCookie(`u`, (A, B) => {
-
-        let clientJSON = JSON.parse(Stack.jSStore);
-
-        let mug = false;
-
-        if (A === false) {
-
-          clientJSON[`u_md5`] = B;
-
-          mug = B;
-        }
-
-        clientJSON[`mug`] = mug;
-
-          Stack.jSStore = JSON.stringify(clientJSON); 
-                
-          Stack.appendModel = [
-            model.rootView({
-              appendModel: [
-                model.ModelWait(),
-                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
-                model.jS(Stack)]
-            })];
-                              
-          this.app.to.writeHead(200, config.reqMime.htm);
-          this.app.to.end(model.call(Stack));})
-    })
-  }
-
   ComputePay () {
 
     this.modelStyler(config.lvl.css, CSS => {
@@ -4228,6 +4188,8 @@ class UAPublic extends Auxll {
 
         let Model = [
           model.Controller(model.ModelRootController(Args)),
+          model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+          model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
           model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`)]; 
                 
         Stack.appendModel = [
@@ -4313,6 +4275,46 @@ class UAPublic extends Auxll {
 
         });
       });
+    })
+  }
+
+  RetailStock (Routes) {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        jSStore: JSON.stringify({route: Routes}),
+        title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
+        css: CSS,
+        jsState: [config.reqs.retail_item_js]}
+
+      this.getCookie(`u`, (A, B) => {
+
+        let clientJSON = JSON.parse(Stack.jSStore);
+
+        let mug = false;
+
+        if (A === false) {
+
+          clientJSON[`u_md5`] = B;
+
+          mug = B;
+        }
+
+        clientJSON[`mug`] = mug;
+
+          Stack.jSStore = JSON.stringify(clientJSON); 
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(),
+                model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));})
     })
   }
 }
@@ -7268,6 +7270,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.localeCookie) this.localeCookie(JSON.parse(this.args.localeCookie));
 
+      else if (this.args.pollStock) this.pollStock(JSON.parse(this.args.pollStock));
+
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
 
       else if (this.args.SetAlterArgs) this.SetAlterArgs(JSON.parse(this.args.SetAlterArgs));
@@ -8068,6 +8072,48 @@ class AJXReqs extends Auxll {
         this.app.to.end(JSON.stringify({exit: true, pays: Pays}));
       }
     });
+  }
+
+  pollStock (Arg) {
+
+    let log = new Date().valueOf();
+
+    let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
+    new Sql().to([`inventory`, {json: JSON.stringify({
+      alpha: false,
+      catalog: false,
+      dollars: false,
+      factory: false,
+      feature: false,
+      files: [],
+      fullString: false,
+      log: log,
+      market: [],
+      mass: false,
+      MD5: log_sum,
+      orient: false,
+      sale: false,
+      set: Arg.shelf,
+      shelf: Arg.shelf,
+      shop: `grocery`,
+      size: false,
+      sort: false,
+      state: false,
+      units: false})}], (A, B, C) => {
+
+        this.Sell(Sell => {
+
+          let Model = [
+            model.Controller(model.ModelRootController(Sell)),
+            model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+            model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+            model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`)]; 
+
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+        })
+      });
   }
 }
 

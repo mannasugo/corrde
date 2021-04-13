@@ -73,6 +73,8 @@
 
     }
 
+    else if (e.id === `Tools`) to = document.querySelector(`#ModalControllers`);
+
     if (!to) return;
 
     if (to.className === `_-Zz`) to.className = `-Zz`;
@@ -86,6 +88,36 @@
     let Modal;
 
     if (e.id === `foldMyPay`) Modal = document.querySelector(`#ModalMyPay`);
+
+    else if (e.id === `foldModalTools`) Modal = document.querySelector(`#ModalControllers`);
+
+    else if (e.id === `getTool`) {
+
+      document.querySelector(`#ModalControlsCatalog`).className = `-Zz`
+
+      Modal = document.querySelector(`#ModalControllers`);
+    }
+
+    else if (e.id === `pollStock`) {
+
+      let ModelSource = document.querySelector(`#corrde-root > main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+      AJSON([`/devs_reqs/`, `pollStock`], {shelve: slim(e.getAttribute(`shelf`))}, (A, B) => {
+
+        if (B.exit === true) {
+
+          let M2 = new Model();
+
+          ModelSource.innerHTML = M2.modelStringify(B.ModelController);
+        }
+      });
+    }
+
+    else if (e.id === `foldModalCatalog`) Modal = document.querySelector(`#ModalControlsCatalog`);
 
     if (!Modal) return;
 
@@ -102,7 +134,7 @@
 
     ModelSource.innerHTML = M.modelStringify(JSModel);
           
-    AJSON([`/devs_reqs/`, `getPays`], {}, (A, B) => {
+    /**AJSON([`/devs_reqs/`, `getPays`], {}, (A, B) => {
 
       if (B.exit === true) {
 
@@ -113,7 +145,7 @@
           Model.className = `-Zz`;
         })
       }
-    });
+    });**/
   }
  
   let e0 = e => {
