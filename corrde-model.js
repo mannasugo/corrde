@@ -9323,7 +9323,11 @@ module.exports = {
 
     SliceStock.forEach(Sell => {
 
-      let alpha = Sell.set.toString().slice(0, 2);
+      let alpha = `anonymous`;
+
+      if (Sell.set) alpha = Sell.set;
+
+      alpha = alpha.toString().slice(0, 2);
 
       let ModelMug = [
       `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
