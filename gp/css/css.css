@@ -629,9 +629,10 @@ body {
 
 .CommentsGray, .HeartsColor, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
 
-.AddStoriesColor, .ArchiveGray, .CartGray, .closelighticonUA, .CommentsGray, .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
+.AddStoriesColor, .ArchiveGray, .CartGray, .closelighticonUA, .Collapse, .CommentsGray, 
+.cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
 .FilterColor, .Filter2Gray, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
-.HeartsGray, .MailColor, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
+.HeartsGray, .MailColor, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .SortGray, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .VKBlack, .vServiceGray, .verifylighticonUA, ._y4x {
   background-repeat: no-repeat;
@@ -706,6 +707,10 @@ body {
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
+}
+
+.Collapse {
+  background-image: url(/gp/p/vector/collapse.svg);
 }
 
 .CommentsGray {
@@ -788,6 +793,10 @@ body {
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
+}
+
+.MoveTop {
+  background-image: url(/gp/p/vector/top-move.svg);
 }
 
 .Mpesa {

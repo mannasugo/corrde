@@ -1,0 +1,13 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    g {
+      fill: none;
+      stroke-width: 1px; 
+      stroke: #000
+    }
+  </style>
+  <g>
+    <path d="M2 2 22 22"></path>
+    <path d="M22 2 2 22"></path>
+  </g>
+  </svg>

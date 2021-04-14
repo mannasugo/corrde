@@ -3,6 +3,7 @@ const config = require(`./corrde-config`),
   RetailSets = config.RetailSets,
   SellSet    = config.SellSet,
   SVG        = config.SVG;
+  TagSets    = config.TagSets
 
 class ModelString {
   
@@ -9338,7 +9339,7 @@ module.exports = {
 
       ModelSliceStock.push([
         `span`, `.@_-zZx`, [[
-          `a`, `.@_-xQy`, `&@href>javascript:;`, [[
+          `a`, `#@getStock`, `.@_-xQy`, `&@sum>${Sell.MD5}`, `&@href>javascript:;`, [[
             `div`, `.@_gxM _geQ`, `&@style>max-width:960px;margin:0 auto; padding:0 16px`, [[
           `div`, `.@gX0`, `&@style>overflow:hidden`, [[
             `div`, [[
@@ -9356,6 +9357,66 @@ module.exports = {
           `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Recent Inventory`]]], [
             `div`, `.@_QZg`, []]]], [`div`, ModelSliceStock]]], [
-        `script`, `#@pays`, `&@type>text/javascript`, `~@${JSON.stringify(SellSet)}`]]]
+        `script`, `#@sell`, `&@type>text/javascript`, `~@${JSON.stringify(SellSet)}`]]]
+  },
+
+  ModelShelfEditor(Sell, setBool) {
+
+    let ModelShelfEditor = [];
+
+    if (setBool === false) {
+
+      let ModelCatalog = [];
+
+      TagSets[Sell.set].forEach(Tag => {
+
+        ModelCatalog.push([
+          `a`, `#@pollTag`, `&@sum>${Sell.MD5}`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `&@href>javascript:;`, `~@${Tag}`])
+      })
+
+      ModelShelfEditor = [
+        `div`, [[
+          `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+            `div`, [[`span`, `.@_tXx`, `~@${Sell.set}`]]], [
+            `div`, `.@_QZg`, [[`a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
+          `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelCatalog]]]
+    }
+
+    else if (setBool === true) {
+
+      let ModelCatalog = [];
+
+      TagSets[Sell.set].forEach(Tag => {
+
+        let rule = ``;
+
+        if (Sell.tags && Sell.tags[0][0] === Tag) rule = `font-weight:600;text-decoration:line-through;`;
+
+        ModelCatalog.push([
+          `a`, `#@pollTag`, `&@sum>${Sell.MD5}`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;${rule}`, `&@href>javascript:;`, `~@${Tag}`])
+      })
+
+      ModelShelfEditor = [
+        `div`, [[
+          `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_tXx`, `~@${Sell.set}`], [
+              `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `~@${Sell.tags[0][0]}`]]], [
+            `div`, `.@_QZg`, [[`a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
+          `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelCatalog]]]
+    }
+
+    return [
+      `div`, `@_-Zz`, `#@ModelShelfEditor`, [[
+        `div`, `.@_UQe`, `#@modalView`, [[
+         `div`, `.@_HUa`], [`div`, `.@_UfX`, [[
+          `div`, `.@_oPQ`, [[
+            `div`, `&@style>letter-spacing:0.75px`, [[
+              `div`, `.@_gcQ _aXZ _uZM`, [[
+                `div`, `.@_gxM _geQ`, [[
+                  `div`, `.@_eYG`, []], [
+                  `div`, `.@_QZg _gMz`, [[`a`, `#@DelEditor`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
+              `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
+                `div`, `.@sZ2`, `&@style>font-size:12px`, [ModelShelfEditor]]]]]]]]]]]]]];
   }
 }

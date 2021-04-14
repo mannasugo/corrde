@@ -19,6 +19,8 @@ const fs = require(`fs`),
 
   SellSet = config.SellSet;
 
+  TagSets = config.TagSets;
+
 class Auxll {
 
   constructor () {
@@ -7268,9 +7270,13 @@ class AJXReqs extends Auxll {
 
       else if (this.args.getPays) this.getPays(JSON.parse(this.args.getPays));
 
+      else if (this.args.getStock) this.getStock(JSON.parse(this.args.getStock));
+
       else if (this.args.localeCookie) this.localeCookie(JSON.parse(this.args.localeCookie));
 
       else if (this.args.pollStock) this.pollStock(JSON.parse(this.args.pollStock));
+
+      else if (this.args.pollTag) this.pollTag(JSON.parse(this.args.pollTag));
 
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
 
@@ -8114,6 +8120,78 @@ class AJXReqs extends Auxll {
           this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
         })
       });
+  }
+
+  getStock(Arg) {
+
+    this.Sell(Sell => {
+
+      if (!Sell.Sell[1][Arg.sum] || RetailSets.indexOf(Sell.Sell[1][Arg.sum].set) === -1 || !TagSets[Sell.Sell[1][Arg.sum].set]) return;
+
+      let bool = true;
+
+      if (!Sell.Sell[1][Arg.sum].tags || !Sell.Sell[1][Arg.sum].tags[0][0]) bool = false; 
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({exit: true, ModelShelfEditor: model.ModelShelfEditor(Sell.Sell[1][Arg.sum], bool)}));
+    })
+  }
+
+  pollTag(Arg) {
+
+    this.Sell(Sell => {
+
+      if (!Sell.Sell[1][Arg.sum]) return;
+
+      let log = new Date().valueOf();
+
+      let Stock = Sell.Sell[1][Arg.sum];
+
+      let SqlArg = {
+        alpha: false,
+        catalog: false,
+        dollars: Stock.dollars,
+        factory: false,
+        feature: false,
+        files: Stock.files,
+        fullString: false,
+        last_secs: log,
+        log: Stock.log,
+        market: [],
+        mass: Stock.mass,
+        MD5: Stock.log_sum,
+        orient: false,
+        sale: false,
+        set: Stock.set,
+        shelf: false,
+        shop: Stock.shop,
+        size: false,
+        sort: false,
+        state: false,
+        tags: [[Arg.pollTag], []],
+        units: false};
+
+      new Sql().to([`inventory`, {json: JSON.stringify(SqlArg)}], (A, B, C) => {
+
+          new Sql().multi({}, 
+            `delete from inventory where json = '${JSON.stringify(Stock)}'`, (A, B, C) => {
+
+            let bool = true;
+
+            if (!Sell.Sell[1][Arg.sum].tags || !Sell.Sell[1][Arg.sum].tags[0][0]) bool = false; 
+
+            let Model = [
+              model.Controller(model.ModelRootController(Sell)),
+              model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+              model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+              model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`),
+              [`div`, [model.ModelShelfEditor(SqlArg, bool)]]];
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+          });
+      });
+    })
   }
 }
 

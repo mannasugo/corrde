@@ -73,6 +73,23 @@
 
     }
 
+    else if (e.id === `getStock`) {
+
+      let ModelSource = document.createElement(`div`);
+
+      let M = new Model();
+
+      AJSON([`/devs_reqs/`, `getStock`], {sum: e.getAttribute(`sum`)}, (A, B) => {
+
+        if (B.exit === true) {
+
+          ModelSource.innerHTML = M.modelStringify([B.ModelShelfEditor]);
+
+          document.querySelector(`#corrde-root > main`).appendChild(ModelSource);
+        }
+      });
+    }
+
     else if (e.id === `Tools`) to = document.querySelector(`#ModalControllers`);
 
     if (!to) return;
@@ -115,6 +132,34 @@
           ModelSource.innerHTML = M2.modelStringify(B.ModelController);
         }
       });
+    }
+
+    else if (e.id === `DelEditor`) {
+
+      document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModelShelfEditor`).parentNode)
+    }
+
+    else if (e.id === `pollTag`) {
+
+      let pollTag = e.innerHTML;
+
+      let ModelSource = document.querySelector(`#corrde-root > main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+      AJSON([`/devs_reqs/`, `pollTag`], {pollTag: slim(pollTag), sum: e.getAttribute(`sum`)}, (A, B) => {
+
+        if (B.exit === true) {console.log(B)
+
+          let M2 = new Model();
+
+          ModelSource.innerHTML = M2.modelStringify(B.ModelController);
+        }
+      });
+
+
     }
 
     else if (e.id === `foldModalCatalog`) Modal = document.querySelector(`#ModalControlsCatalog`);
