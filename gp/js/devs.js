@@ -92,6 +92,8 @@
 
     else if (e.id === `Tools`) to = document.querySelector(`#ModalControllers`);
 
+    else if (e.id === `pollFile`) JSStore.to({poll_file_temp: e.getAttribute(`sum`)});
+
     if (!to) return;
 
     if (to.className === `_-Zz`) to.className = `-Zz`;
@@ -151,15 +153,32 @@
 
       AJSON([`/devs_reqs/`, `pollTag`], {pollTag: slim(pollTag), sum: e.getAttribute(`sum`)}, (A, B) => {
 
-        if (B.exit === true) {console.log(B)
+        if (B.exit === true) {
 
           let M2 = new Model();
 
           ModelSource.innerHTML = M2.modelStringify(B.ModelController);
         }
       });
+    }
 
+    else if (e.id === `pollSex`) {
 
+      let ModelSource = document.querySelector(`#corrde-root > main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+      AJSON([`/devs_reqs/`, `pollSex`], {pollSex: slim(e.innerHTML), sum: e.getAttribute(`sum`)}, (A, B) => {
+
+        if (B.exit === true) {
+
+          let M2 = new Model();
+
+          ModelSource.innerHTML = M2.modelStringify(B.ModelController);
+        }
+      });
     }
 
     else if (e.id === `foldModalCatalog`) Modal = document.querySelector(`#ModalControlsCatalog`);
@@ -192,6 +211,100 @@
       }
     });**/
   }
+
+  let Files = e => {
+
+    let File = e.target;
+
+    if (File.id === `file`) {
+
+      e.stopImmediatePropagation();
+
+      JSStore.to({file: `SellFile`})
+
+      PollFile(File.files);
+    }
+  }
+
+  let allocFile = (img, file) => {
+
+    let alloc = new FileReader();
+
+    alloc.onload = (e) => img.src = e.target.result;
+
+    alloc.readAsDataURL(file);
+  }
+
+  const PollFile = Files => {
+
+    if (!Files || !Files.length) return;
+
+    for (let i = 0; i < Files.length; i++) {
+
+      let File = Files[i];
+
+      if (!File.type.match(`image.*`) || File.size > 3048576) return;
+
+      let Plane;
+
+      if (!document.querySelector(`#plane`)) {
+
+        Plane = new Image();
+
+        Plane.setAttribute(`id`, `plane`);
+      }
+
+      else Plane = document.querySelector(`#plane`);
+
+      allocFile(Plane, File);
+
+      Plane.onload = () => {
+
+        let fileSort;
+
+        if (Plane.src.charAt(11) === `j`) fileSort = `data:image/jpeg;base64,`;
+
+        else if (Plane.src.charAt(11) === `p`) fileSort = `data:image/png;base64,`;
+
+        if (!fileSort) return;
+        
+        let b64 = Plane.src.replace(fileSort,``), Duals = atob(b64), Alloc = [];
+
+        for (let i = 0; i < Duals.length; i++) {
+
+          Alloc.push(Duals.charCodeAt(i));
+        }
+  
+        let AllocFile = new Blob([new Uint8Array(Alloc)], {type: `image/jpeg`});
+
+        let AJX = new AJXFile();
+
+        let ModelSource = document.querySelector(`#corrde-root > main`);
+
+        let M = new Model();
+
+        ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+        AJX.call(`/devs_reqs/`, {
+          value: JSON.stringify({file: `SellFile`, poll_file_temp: JSStore.avail().poll_file_temp}),
+          to: () => {
+
+            if (AJX.req.responseText.length > 0) {
+
+              B = JSON.parse(AJX.req.responseText);
+
+              if (B.exit === true) {
+
+                let M2 = new Model();
+
+                ModelSource.innerHTML = M2.modelStringify(B.ModelController);
+              }
+            }
+          }}, AllocFile);
+      };
+          
+    }
+  }
  
   let e0 = e => {
 
@@ -205,4 +318,6 @@
   domServe();
 
   document.addEventListener(`click`, e0);
+
+  document.addEventListener(`change`, Files);
 })();

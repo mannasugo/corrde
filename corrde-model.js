@@ -2,8 +2,9 @@ const config = require(`./corrde-config`),
   RetailMaps = config.RetailZones,
   RetailSets = config.RetailSets,
   SellSet    = config.SellSet,
-  SVG        = config.SVG;
-  TagSets    = config.TagSets
+  SVG        = config.SVG,
+  TagSets    = config.TagSets,
+  AlterCues  = config.AlterCues;
 
 class ModelString {
   
@@ -9364,6 +9365,10 @@ module.exports = {
 
     let ModelShelfEditor = [];
 
+    let ModelFileAlter = [];
+
+    let ModelAlterSex = [];
+
     if (setBool === false) {
 
       let ModelCatalog = [];
@@ -9386,6 +9391,8 @@ module.exports = {
 
       let ModelCatalog = [];
 
+      let ModelSellFiles = [];
+
       TagSets[Sell.set].forEach(Tag => {
 
         let rule = ``;
@@ -9394,7 +9401,42 @@ module.exports = {
 
         ModelCatalog.push([
           `a`, `#@pollTag`, `&@sum>${Sell.MD5}`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;${rule}`, `&@href>javascript:;`, `~@${Tag}`])
-      })
+      });
+
+      let Cues = AlterCues[Sell.tags[0][0]];
+
+      if (Cues && Cues.indexOf(`sex`) > -1) {
+
+        let ModelCueCheck = [];
+
+        let ModelCueAlterns = [];
+
+        let CueAlterns = [`boys`, `girls`, `her`, `him`, `men`, `unisex`, `women`];
+
+        if (Sell.sex && Sell.sex !== false) {
+
+          ModelCueCheck = [
+          `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `~@${Sell.sex}`]
+        }
+
+        CueAlterns.forEach(Cue => {
+
+          let rule = ``;
+
+          if (Sell.sex && Sell.sex === Cue) rule = `font-weight:600;text-decoration:line-through;`;
+
+          ModelCueAlterns.push([
+            `a`, `#@pollSex`, `&@sum>${Sell.MD5}`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;${rule}`, `&@href>javascript:;`, `~@${Cue}`])
+        });
+
+        ModelAlterSex = [
+          `div`, [[
+            `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+              `div`, `.@_gxM`, [[
+                `span`, `.@_tXx`, `~@Sex`], ModelCueCheck]], [
+              `div`, `.@_QZg`, [[`a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
+            `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelCueAlterns]]];
+      }
 
       ModelShelfEditor = [
         `div`, [[
@@ -9403,7 +9445,33 @@ module.exports = {
               `span`, `.@_tXx`, `~@${Sell.set}`], [
               `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `~@${Sell.tags[0][0]}`]]], [
             `div`, `.@_QZg`, [[`a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
-          `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelCatalog]]]
+          `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelCatalog]]];
+
+      Sell.files.forEach(File => {
+
+        ModelSellFiles.push([
+          `div`, `.@_gxM _geQ _yZS _gZ`, `&@style>width:100%;overflow:hidden`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_cCq _gS3`, `#@mug-ava`, `@href>javascript:;`, `&@style>height:24px;width:24px;`, [[
+                `img`, `#@mug-ava`, `.@_aWz`, `&@style>height:auto`, `&@src>/${File}`]]], [
+              `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;white-space:nowrap`, `~@${File}`]]], [
+            `div`, `.@_QZg`, [[`a`, `.@-_tX Close`, `&@href>javascript:;`]]]]]);
+
+      })
+
+      ModelFileAlter = [
+        `div`, [[
+          `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_tXx`, `~@Images`], [
+              `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `~@${Sell.files.length}`]]], [
+            `div`, `.@_QZg`, [[
+              `div`, [[
+                `label`, `#@pollFile`, `.@-_tX SellColor`, `&@sum>${Sell.MD5}`, `&@for>file`, `&@style>margin: 0 14px`], [
+                `form`, `&@enctype>multipart/form-data`, [[
+                  `input`, `#@file`, `&@type>file`, `&@accepts>image/*`]]]]], [
+              `a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
+          `div`, `.@gZy`, `&@style>padding:24px 14px`, ModelSellFiles]]];
     }
 
     return [
@@ -9417,6 +9485,6 @@ module.exports = {
                   `div`, `.@_eYG`, []], [
                   `div`, `.@_QZg _gMz`, [[`a`, `#@DelEditor`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
-                `div`, `.@sZ2`, `&@style>font-size:12px`, [ModelShelfEditor]]]]]]]]]]]]]];
+                `div`, `.@sZ2`, `&@style>font-size:12px`, [ModelShelfEditor, ModelFileAlter, ModelAlterSex]]]]]]]]]]]]]];
   }
 }

@@ -17,7 +17,7 @@ const fs = require(`fs`),
 
   RetailMaps = config.RetailZones,
 
-  SellSet = config.SellSet;
+  SellSet = config.SellSet,
 
   TagSets = config.TagSets;
 
@@ -5519,9 +5519,10 @@ class ViaAJX extends Auxll {
   }
 }
 
-class AJXJPEG {
+class AJXJPEG extends Auxll {
 
   constructor (file, req, res) {
+    super();
     this.file = file;
     this.app = {
       fro: req,
@@ -5538,6 +5539,8 @@ class AJXJPEG {
     else if (this.q.file === `cover_img`) this.addCover();
 
     else if (this.q.file === `dev_ava`) this.devAva();
+
+    else if (this.q.file === `SellFile`) this.SellFile();
 
     else if (this.q.file === `StockFiles`) this.StockFiles();
 
@@ -5715,6 +5718,79 @@ class AJXJPEG {
         this.app.to.writeHead(200, config.reqMime.json);
         this.app.to.end(JSON.stringify(Pool));
             
+      });
+    });
+  }
+
+  SellFile () {
+
+    this.Sell(Sell => {console.log(this.q.poll_file_temp)
+
+      if (!Sell.Sell[1][this.q.poll_file_temp]) return;
+
+      let log = new Date().valueOf();
+
+      const u = config.write_reqs.asset_img + `g/`;
+
+      fs.mkdir(u, {recursive: true}, (err) => {
+
+        fs.writeFile(u + log + `.jpg`, this.file, err => {
+
+          let Stock = Sell.Sell[1][this.q.poll_file_temp];
+
+          let Files = JSON.stringify(Stock.files);
+
+          Files = JSON.parse(Files);
+
+          Files.push(`${u}${log}.jpg`);
+
+          let SqlArg = {
+            alpha: false,
+            catalog: false,
+            dollars: Stock.dollars,
+            factory: false,
+            feature: false,
+            files: Files,
+            fullString: false,
+            last_secs: log,
+            log: Stock.log,
+            market: [],
+            mass: Stock.mass,
+            MD5: Stock.MD5,
+            orient: false,
+            sale: false,
+            set: Stock.set,
+            sex: Stock.sex,
+            shelf: false,
+            shop: Stock.shop,
+            size: false,
+            sort: false,
+            state: false,
+            tags: Stock.tags,
+            units: false};
+
+          new Sql().to([`inventory`, {json: JSON.stringify(SqlArg)}], (A, B, C) => {
+
+            new Sql().multi({}, 
+              `delete from inventory where json = '${JSON.stringify(Stock)}'`, (A, B, C) => {
+
+              let bool = true;
+
+              if (!Sell.Sell[1][Stock.MD5].tags || !Sell.Sell[1][Stock.MD5].tags[0][0]) bool = false; 
+
+              let Model = [
+                model.Controller(model.ModelRootController(Sell)),
+                model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+                model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+                model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`),
+                [`div`, [model.ModelShelfEditor(SqlArg, bool)]]];
+
+              this.app.to.writeHead(200, config.reqMime.json);
+              this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+            });
+          });
+            
+        });
       });
     });
   }
@@ -7274,6 +7350,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.localeCookie) this.localeCookie(JSON.parse(this.args.localeCookie));
 
+      else if (this.args.pollSex) this.pollSex(JSON.parse(this.args.pollSex));
+
       else if (this.args.pollStock) this.pollStock(JSON.parse(this.args.pollStock));
 
       else if (this.args.pollTag) this.pollTag(JSON.parse(this.args.pollTag));
@@ -8145,6 +8223,8 @@ class AJXReqs extends Auxll {
 
       let log = new Date().valueOf();
 
+      //let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
+
       let Stock = Sell.Sell[1][Arg.sum];
 
       let SqlArg = {
@@ -8159,7 +8239,7 @@ class AJXReqs extends Auxll {
         log: Stock.log,
         market: [],
         mass: Stock.mass,
-        MD5: Stock.log_sum,
+        MD5: Stock.MD5,
         orient: false,
         sale: false,
         set: Stock.set,
@@ -8169,6 +8249,64 @@ class AJXReqs extends Auxll {
         sort: false,
         state: false,
         tags: [[Arg.pollTag], []],
+        units: false};
+
+      new Sql().to([`inventory`, {json: JSON.stringify(SqlArg)}], (A, B, C) => {
+
+          new Sql().multi({}, 
+            `delete from inventory where json = '${JSON.stringify(Stock)}'`, (A, B, C) => {
+
+            let bool = true;
+
+            if (!Sell.Sell[1][Arg.sum].tags || !Sell.Sell[1][Arg.sum].tags[0][0]) bool = false; 
+
+            let Model = [
+              model.Controller(model.ModelRootController(Sell)),
+              model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+              model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+              model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`),
+              [`div`, [model.ModelShelfEditor(SqlArg, bool)]]];
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+          });
+      });
+    })
+  }
+
+  pollSex(Arg) {
+
+    this.Sell(Sell => {
+
+      if (!Sell.Sell[1][Arg.sum]) return;
+
+      let log = new Date().valueOf();
+
+      let Stock = Sell.Sell[1][Arg.sum];
+
+      let SqlArg = {
+        alpha: false,
+        catalog: false,
+        dollars: Stock.dollars,
+        factory: false,
+        feature: false,
+        files: Stock.files,
+        fullString: false,
+        last_secs: log,
+        log: Stock.log,
+        market: [],
+        mass: Stock.mass,
+        MD5: Stock.MD5,
+        orient: false,
+        sale: false,
+        set: Stock.set,
+        sex: Arg.pollSex,
+        shelf: false,
+        shop: Stock.shop,
+        size: false,
+        sort: false,
+        state: false,
+        tags: Stock.tags,
         units: false};
 
       new Sql().to([`inventory`, {json: JSON.stringify(SqlArg)}], (A, B, C) => {

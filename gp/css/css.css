@@ -629,7 +629,7 @@ body {
 
 .CommentsGray, .HeartsColor, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
 
-.AddStoriesColor, .ArchiveGray, .CartGray, .closelighticonUA, .Collapse, .CommentsGray, 
+.AddStoriesColor, .ArchiveGray, .CartGray, .Close, .closelighticonUA, .Collapse, .CommentsGray, 
 .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
 .FilterColor, .Filter2Gray, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
@@ -707,6 +707,10 @@ body {
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
+}
+
+.Close {
+  background-image: url(/gp/p/vector/exit.svg);
 }
 
 .Collapse {
@@ -3162,6 +3166,8 @@ table > thead > tr > th {
   max-width: 250px;
   padding-bottom: 8px;
 }
+
+._gZ + ._gZ {border-top: 1px solid #f4f4f4}
 
 @media only screen and (min-width: 1200px) {
 
