@@ -4,7 +4,8 @@ const config = require(`./corrde-config`),
   SellSet    = config.SellSet,
   SVG        = config.SVG,
   TagSets    = config.TagSets,
-  AlterCues  = config.AlterCues;
+  AlterCues  = config.AlterCues,
+  MakeCues   = config.MakeCues;
 
 class ModelString {
   
@@ -9367,6 +9368,8 @@ module.exports = {
 
     let ModelFileAlter = [];
 
+    let ModelAlterMake = [];
+
     let ModelAlterSex = [];
 
     if (setBool === false) {
@@ -9392,6 +9395,8 @@ module.exports = {
       let ModelCatalog = [];
 
       let ModelSellFiles = [];
+
+      let ModelMakeAlterns = [];
 
       TagSets[Sell.set].forEach(Tag => {
 
@@ -9472,6 +9477,34 @@ module.exports = {
                   `input`, `#@file`, `&@type>file`, `&@accepts>image/*`]]]]], [
               `a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
           `div`, `.@gZy`, `&@style>padding:24px 14px`, ModelSellFiles]]];
+
+      if (MakeCues[Sell.tags[0][0]]) {
+
+        let ModelMakeCheck = [];
+
+        if (Sell.factory && MakeCues[Sell.tags[0][0]].indexOf(Sell.factory) > -1) {
+
+          ModelMakeCheck = [
+          `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `~@${Sell.factory}`]
+        }
+
+        MakeCues[Sell.tags[0][0]].forEach(Cue => {
+
+          let rule = ``;
+
+          if (Sell.factory && Sell.factory === Cue) rule = `font-weight:600;text-decoration:line-through;`;
+
+          ModelMakeAlterns.push([
+            `a`, `#@pollMake`, `&@sum>${Sell.MD5}`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;${rule}`, `&@href>javascript:;`, `~@${Cue}`])
+        });
+
+        ModelAlterMake = [
+          `div`, [[
+            `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+              `div`, `.@_gxM`, [[
+                `span`, `.@_tXx`, `~@Brand`], ModelMakeCheck]], [
+              `div`, `.@_QZg`, [[`a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
+            `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelMakeAlterns]]];}
     }
 
     return [
@@ -9485,6 +9518,6 @@ module.exports = {
                   `div`, `.@_eYG`, []], [
                   `div`, `.@_QZg _gMz`, [[`a`, `#@DelEditor`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
-                `div`, `.@sZ2`, `&@style>font-size:12px`, [ModelShelfEditor, ModelFileAlter, ModelAlterSex]]]]]]]]]]]]]];
+                `div`, `.@sZ2`, `&@style>font-size:12px`, [ModelShelfEditor, ModelFileAlter, ModelAlterMake, ModelAlterSex]]]]]]]]]]]]]];
   }
 }
