@@ -9378,6 +9378,8 @@ module.exports = {
 
     let ModelAlterPay = [];
 
+    let ModelAlterKilo = [];
+
     if (setBool === false) {
 
       let ModelCatalog = [];
@@ -9574,6 +9576,23 @@ module.exports = {
                 `input`, `#@retailRate`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding: 10px 0 10px 10px;border-bottom:1px solid #e5e5e5`, `&@placeholder>${pay}`]]], [
               `div`, `.@_QZg`, `&@style>flex:0`, [[`a`, `#@pollRetailRate`, `&@sum>${Sell.MD5}`, `&@style>color:#1185fe`, `&@href>javascript:;`, `~@save`]]]]]]]]];
 
+      let kilo = `weight in grams`;
+
+      if (Sell.mass) kilo = Sell.mass + `G`;
+
+      ModelAlterKilo = [
+        `div`, [[
+          `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_tXx`, `~@Standard Weight`]]], [
+            `div`, `.@_QZg`, []]]], [ 
+          `div`, `.@gZy`, `&@style>padding:24px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `div`, `.@_UFA _gMX _gxM geQ`, `&@style>width:auto`, [[
+                `input`, `#@retailKilo`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding: 10px 0 10px 10px;border-bottom:1px solid #e5e5e5`, `&@placeholder>${kilo}`]]], [
+              `div`, `.@_QZg`, `&@style>flex:0`, [[`a`, `#@pollRetailKilo`, `&@sum>${Sell.MD5}`, `&@style>color:#1185fe`, `&@href>javascript:;`, `~@save`]]]]]]]]];
+    
+
     }
 
     return [
@@ -9588,6 +9607,6 @@ module.exports = {
                   `div`, `.@_QZg _gMz`, [[`a`, `#@DelEditor`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
                 `div`, `.@sZ2`, `&@style>font-size:12px`, [
-                  ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay]]]]]]]]]]]]]];
+                  ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay, ModelAlterKilo]]]]]]]]]]]]]];
   }
 }

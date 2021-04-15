@@ -7354,6 +7354,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.pollMake) this.pollMake(JSON.parse(this.args.pollMake));
 
+      else if (this.args.pollRetailKilo) this.pollRetailKilo(JSON.parse(this.args.pollRetailKilo));
+
       else if (this.args.pollRetailRate) this.pollRetailRate(JSON.parse(this.args.pollRetailRate));
 
       else if (this.args.pollSex) this.pollSex(JSON.parse(this.args.pollSex));
@@ -8511,6 +8513,44 @@ class AJXReqs extends Auxll {
       AltRow.last_secs = log;
 
       AltRow.dollars = Arg.pollRetailRate;
+
+        new Sql().multi({},  
+        `update inventory set json = '${JSON.stringify(AltRow)}' where json = '${JSON.stringify(Stock)}'`, (A, B, C) => {
+
+            let bool = true;
+
+            if (!Sell.Sell[1][Arg.sum].tags || !Sell.Sell[1][Arg.sum].tags[0][0]) bool = false; 
+
+            let Model = [
+              model.Controller(model.ModelRootController(Sell)),
+              model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+              model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+              model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`),
+              [`div`, [model.ModelShelfEditor(AltRow, bool)]]];
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+          });
+    })
+  }
+
+  pollRetailKilo(Arg) {
+
+    this.Sell(Sell => {
+
+      if (!Sell.Sell[1][Arg.sum]) return;
+
+      let log = new Date().valueOf();
+
+      let Stock = Sell.Sell[1][Arg.sum];
+
+      let AltRow = JSON.stringify(Stock);
+
+      AltRow = JSON.parse(AltRow);
+
+      AltRow.last_secs = log;
+
+      AltRow.mass = Arg.pollRetailKilo;
 
         new Sql().multi({},  
         `update inventory set json = '${JSON.stringify(AltRow)}' where json = '${JSON.stringify(Stock)}'`, (A, B, C) => {

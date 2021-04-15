@@ -263,6 +263,27 @@
       });
     }
 
+    else if (e.id === `pollRetailKilo`) {
+
+      let ModelSource = document.querySelector(`#corrde-root > main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+      let retailKilo = e.parentNode.parentNode.querySelector(`#retailKilo`).value;
+
+      AJSON([`/devs_reqs/`, `pollRetailKilo`], {pollRetailKilo: slim(retailKilo), sum: e.getAttribute(`sum`)}, (A, B) => {
+
+        if (B.exit === true) {
+
+          let M2 = new Model();
+
+          ModelSource.innerHTML = M2.modelStringify(B.ModelController);
+        }
+      });
+    }
+
     else if (e.id === `foldModalCatalog`) Modal = document.querySelector(`#ModalControlsCatalog`);
 
     if (!Modal) return;
