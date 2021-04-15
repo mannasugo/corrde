@@ -117,6 +117,8 @@ const Model = (function () {
 
       String = String.replace(new RegExp(`u/0022`, `g`), `"`);
 
+      String = String.replace(new RegExp(`u/002F`, `g`), `/`);
+
       return String;
     },
 

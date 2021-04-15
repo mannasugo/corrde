@@ -9366,6 +9366,8 @@ module.exports = {
 
     let ModelShelfEditor = [];
 
+    let ModelAlterAltString = []; 
+
     let ModelFileAlter = [];
 
     let ModelAlterMake = [];
@@ -9373,6 +9375,8 @@ module.exports = {
     let ModelAlterSex = [];
 
     let ModelAlterZone = [];
+
+    let ModelAlterPay = [];
 
     if (setBool === false) {
 
@@ -9458,6 +9462,22 @@ module.exports = {
             `div`, `.@_QZg`, [[`a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
           `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelCatalog]]];
 
+      let alpha = `short shelf description`;
+
+      if (Sell.alpha) alpha = Sell.alpha;
+
+      ModelAlterAltString = [
+        `div`, [[
+          `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_tXx`, `~@Shelf Title`]]], [
+            `div`, `.@_QZg`, []]]], [ 
+          `div`, `.@gZy`, `&@style>padding:24px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `div`, `.@_UFA _gMX _gxM geQ`, `&@style>width:auto`, [[
+                `input`, `#@altString`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding: 10px 0 10px 10px;border-bottom:1px solid #e5e5e5`, `&@placeholder>${alpha}`]]], [
+              `div`, `.@_QZg`, `&@style>flex:0`, [[`a`, `#@pollAltString`, `&@sum>${Sell.MD5}`, `&@style>color:#1185fe`, `&@href>javascript:;`, `~@save`]]]]]]]]];
+
       Sell.files.forEach(File => {
 
         ModelSellFiles.push([
@@ -9467,8 +9487,7 @@ module.exports = {
                 `img`, `#@mug-ava`, `.@_aWz`, `&@style>height:auto`, `&@src>/${File}`]]], [
               `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;white-space:nowrap`, `~@${File}`]]], [
             `div`, `.@_QZg`, [[`a`, `.@-_tX Close`, `&@href>javascript:;`]]]]]);
-
-      })
+      });
 
       ModelFileAlter = [
         `div`, [[
@@ -9538,6 +9557,23 @@ module.exports = {
               `span`, `.@_tXx`, `~@Market Zone`], ModelZoneCheck]], [
             `div`, `.@_QZg`, [[`a`, `.@-_tX MoveTop`, `&@href>javascript:;`]]]]], [
           `div`, `.@_gZy`, `&@style>padding:24px 14px`, ModelZoneAlterns]]];
+
+      let pay = `amount in american dollars`;
+
+      if (Sell.dollars) pay = Sell.dollars + `USD`;
+
+      ModelAlterPay = [
+        `div`, [[
+          `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_tXx`, `~@Standard Price`]]], [
+            `div`, `.@_QZg`, []]]], [ 
+          `div`, `.@gZy`, `&@style>padding:24px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `div`, `.@_UFA _gMX _gxM geQ`, `&@style>width:auto`, [[
+                `input`, `#@retailRate`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding: 10px 0 10px 10px;border-bottom:1px solid #e5e5e5`, `&@placeholder>${pay}`]]], [
+              `div`, `.@_QZg`, `&@style>flex:0`, [[`a`, `#@pollRetailRate`, `&@sum>${Sell.MD5}`, `&@style>color:#1185fe`, `&@href>javascript:;`, `~@save`]]]]]]]]];
+
     }
 
     return [
@@ -9545,13 +9581,13 @@ module.exports = {
         `div`, `.@_UQe`, `#@modalView`, [[
          `div`, `.@_HUa`], [`div`, `.@_UfX`, [[
           `div`, `.@_oPQ`, [[
-            `div`, `&@style>letter-spacing:0.75px`, [[
+            `div`, `&@style>letter-spacing:1.2px`, [[
               `div`, `.@_gcQ _aXZ _uZM`, [[
                 `div`, `.@_gxM _geQ`, [[
                   `div`, `.@_eYG`, []], [
                   `div`, `.@_QZg _gMz`, [[`a`, `#@DelEditor`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
                 `div`, `.@sZ2`, `&@style>font-size:12px`, [
-                  ModelShelfEditor, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone]]]]]]]]]]]]]];
+                  ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay]]]]]]]]]]]]]];
   }
 }
