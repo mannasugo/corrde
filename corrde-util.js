@@ -5754,7 +5754,7 @@ class AJXJPEG extends Auxll {
             fullString: false,
             last_secs: log,
             log: Stock.log,
-            market: [],
+            market: Stock.market,
             mass: Stock.mass,
             MD5: Stock.MD5,
             orient: false,
@@ -6789,7 +6789,7 @@ class UATCP extends UAPublic {
             tx_ref: logSum,
             amount: Gross,
             currency: `KES`,
-            redirect_url: `https://corrde.com/payrequest/${logSum}/`,
+            redirect_url: `https://corrde.com/`,
             payment_options: `mpesa`,
             meta: {
               consumer_id: payer,
@@ -7357,6 +7357,8 @@ class AJXReqs extends Auxll {
       else if (this.args.pollStock) this.pollStock(JSON.parse(this.args.pollStock));
 
       else if (this.args.pollTag) this.pollTag(JSON.parse(this.args.pollTag));
+
+      else if (this.args.pollZone) this.pollZone(JSON.parse(this.args.pollZone));
 
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
 
@@ -8239,7 +8241,7 @@ class AJXReqs extends Auxll {
         fullString: false,
         last_secs: log,
         log: Stock.log,
-        market: [],
+        market: Stock.market,
         mass: Stock.mass,
         MD5: Stock.MD5,
         orient: false,
@@ -8296,7 +8298,7 @@ class AJXReqs extends Auxll {
         fullString: false,
         last_secs: log,
         log: Stock.log,
-        market: [],
+        market: Stock.market,
         mass: Stock.mass,
         MD5: Stock.MD5,
         orient: false,
@@ -8354,7 +8356,65 @@ class AJXReqs extends Auxll {
         fullString: false,
         last_secs: log,
         log: Stock.log,
-        market: [],
+        market: Stock.market,
+        mass: Stock.mass,
+        MD5: Stock.MD5,
+        orient: false,
+        sale: false,
+        set: Stock.set,
+        sex: Stock.sex,
+        shelf: false,
+        shop: Stock.shop,
+        size: false,
+        sort: false,
+        state: false,
+        tags: Stock.tags,
+        units: false};
+
+      new Sql().to([`inventory`, {json: JSON.stringify(SqlArg)}], (A, B, C) => {
+
+          new Sql().multi({}, 
+            `delete from inventory where json = '${JSON.stringify(Stock)}'`, (A, B, C) => {
+
+            let bool = true;
+
+            if (!Sell.Sell[1][Arg.sum].tags || !Sell.Sell[1][Arg.sum].tags[0][0]) bool = false; 
+
+            let Model = [
+              model.Controller(model.ModelRootController(Sell)),
+              model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+              model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+              model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`),
+              [`div`, [model.ModelShelfEditor(SqlArg, bool)]]];
+
+            this.app.to.writeHead(200, config.reqMime.json);
+            this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+          });
+      });
+    })
+  }
+
+  pollZone(Arg) {
+
+    this.Sell(Sell => {
+
+      if (!Sell.Sell[1][Arg.sum]) return;
+
+      let log = new Date().valueOf();
+
+      let Stock = Sell.Sell[1][Arg.sum];
+
+      let SqlArg = {
+        alpha: false,
+        catalog: false,
+        dollars: Stock.dollars,
+        factory: Stock.factory,
+        feature: false,
+        files: Stock.files,
+        fullString: false,
+        last_secs: log,
+        log: Stock.log,
+        market: Arg.pollZone,
         mass: Stock.mass,
         MD5: Stock.MD5,
         orient: false,

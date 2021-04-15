@@ -200,6 +200,25 @@
       });
     }
 
+    else if (e.id === `pollZone`) {
+
+      let ModelSource = document.querySelector(`#corrde-root > main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+      AJSON([`/devs_reqs/`, `pollZone`], {pollZone: slim(e.innerHTML), sum: e.getAttribute(`sum`)}, (A, B) => {
+
+        if (B.exit === true) {
+
+          let M2 = new Model();
+
+          ModelSource.innerHTML = M2.modelStringify(B.ModelController);
+        }
+      });
+    }
+
     else if (e.id === `foldModalCatalog`) Modal = document.querySelector(`#ModalControlsCatalog`);
 
     if (!Modal) return;
