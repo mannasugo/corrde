@@ -4280,44 +4280,70 @@ class UAPublic extends Auxll {
     })
   }
 
-  RetailStock (Routes) {
+  RetailStock (Route) {
 
     this.modelStyler(config.lvl.css, CSS => {
 
-      const Stack = {
-        jSStore: JSON.stringify({route: Routes}),
-        title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
-        css: CSS,
-        jsState: [config.reqs.retail_item_js]}
-
       this.getCookie(`u`, (A, B) => {
-
-        let clientJSON = JSON.parse(Stack.jSStore);
 
         let mug = false;
 
-        if (A === false) {
+        if (A === false) mug = B;
 
-          clientJSON[`u_md5`] = B;
+        this.Sell(A => {
 
-          mug = B;
-        }
+          let Sell = A;
 
-        clientJSON[`mug`] = mug;
+          let PplSet = Sell.Ppl[1];
 
-          Stack.jSStore = JSON.stringify(clientJSON); 
+          const Stack = {
+            title: `Corrde Store | Enjoy Affordable Prices & Regular Sales`,
+            jsState: [config.reqs.retail_item_js],
+            css: CSS,
+            jSStore: JSON.stringify({
+              mug: mug,
+              route: Route
+            })
+          };
+
+          let Model = [];
+
+          if (!Sell.Sell[1][Route[1]] || (Sell.Sell[1][Route[1]].shop).toLowerCase() !== Route[0]) Model = [];
+
+          else {
+
+            Stack.title = Sell.Sell[1][Route[1]].alpha + ` - ` + Route[0] + ` | Corrde Store`;
+
+            let UAStore = JSON.parse(Stack.jSStore);
+
+            UAStore[`regionMeta`] = RetailMaps[Sell.Sell[1][Route[1]].market];
+
+            Stack[`jSStore`] = JSON.stringify(UAStore);
+
+            Model = [
+              model.ModelRetailStock(Sell, Route[1]),
+              model.ModelRootAlpha(PplSet, mug),
+              model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+              model.loadDOMModalView([model.modalView([model.ModalMyCart()])], `ModalMyCart`),
+              model.loadDOMModalView([model.modalView([model.ModalSets()])], `ModalSets`),
+              model.loadDOMModalView([model.modalView([model.ModalRetailRates(Sell.Sell[1][Route[1]].market)])], `ModalRetailRates`),
+              model.loadDOMModalView([model.modalView([model.ModalRegions(Sell.Sell[1][Route[1]].market)])], `ModalRegions`),
+              model.footer()];
+          }
                 
           Stack.appendModel = [
             model.rootView({
               appendModel: [
-                model.ModelWait(),
+                model.ModelWait(Model),
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
                 model.jS(Stack)]
             })];
                               
           this.app.to.writeHead(200, config.reqMime.htm);
-          this.app.to.end(model.call(Stack));})
-    })
+          this.app.to.end(model.call(Stack));
+        });
+      });
+    });
   }
 }
 

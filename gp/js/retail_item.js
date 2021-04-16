@@ -396,9 +396,11 @@
 
   let domServe = () => {
 
-    JSStore.to({log_secs: new Date().valueOf()});
+    let ModelSource = document.querySelector(`main`);
 
-    if (JSStore.avail().route) S.emit(`retailStock`, {log_secs: JSStore.avail().log_secs, mug: JSStore.avail().mug, route: JSStore.avail().route});
+    let M = new Model();
+
+    ModelSource.innerHTML = M.modelStringify(JSModel);
 
   }
 
