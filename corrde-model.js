@@ -7721,13 +7721,13 @@ module.exports = {
               `div`, `.@_gQ-2`, [[
                 `div`, `.@_gY-0`, [[
                   `div`, `&@style>height:200px`, [[
-                    `a`, `.@_Qg-2`, [[
+                    `a`, `@ModalCue`, `.@_Qg-2`, [[
                      `div`, `.@Qg0`, [[
-                      `div`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]]]], `&@href>/grocery/${Row.MD5}/`]]], [
+                      `div`, [[`img`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]]]], `&@href>javascript:;`]]], [
                   `div`, `&@style>height:40px`], [
                   `div`, `&@style>height:64px`, [[
                     `div`, `.@_Aa`, [[
-                      `a`, `.@_aA`, `&@href>/grocery/${Row.MD5}/`, [[
+                      `a`, `#@pullRetailStock`, `.@_aA`, `&@href>javascript:;`, `&@sum>${Row.MD5}`, [[
                         `span`, `.@_Ax`, [[`strong`, `.@_tXx`, `~@${Row.factory}`]]], [
                         `span`, `&@style>line-height:1.5`, `~@${Row.alpha}`]]]]]]], [
                   `div`, `&@style>height:88px`, [[
@@ -9608,5 +9608,22 @@ module.exports = {
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
                 `div`, `.@sZ2`, `&@style>font-size:12px`, [
                   ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay, ModelAlterKilo]]]]]]]]]]]]]];
+  },
+
+  ModalRetailStock (Sell) {
+
+    return [
+      `div`, `@_-Zz`, `#@ModalRetailStock`, [[
+        `div`, `.@_UQe _tY0`, `#@modalView`, [[
+         `div`, `.@_HUa`], [`div`, `.@_UfX`, [[
+          `div`, `.@_oPQ`, [[
+            `div`, `&@style>letter-spacing:1.2px`, [[
+              `div`, `.@_gcQ _aXZ _uZM`, [[
+                `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[`a`, `#@DelRetailStock`, `.@-_tX Close`, `&@href>javascript:;`], [
+                  `div`, `.@_eYG`, [[`span`, `&@style>overflow: hidden;text-overflow:ellipsis;white-space:nowrap;width:100%`, `~@${Sell.alpha}`]]]]]]], [
+              `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
+                `div`, `.@sZ2`, `&@style>font-size:12px`, []]]]]]]]]]]]]];
+
+
   }
 }

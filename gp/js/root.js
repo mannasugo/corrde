@@ -316,6 +316,23 @@
 
     }
 
+    else if (e.id === `pullRetailStock`) {
+
+      let ModelSource = document.createElement(`div`);
+
+      let M = new Model();
+
+      AJXReq([`/devs_reqs/`, `pullRetailStock`], {sum: e.getAttribute(`sum`)}, (A, B) => {
+
+        if (B.exit === true) {
+
+          ModelSource.innerHTML = M.modelStringify([B.ModalRetailStock]);
+
+          document.querySelector(`#corrde-root > main`).appendChild(ModelSource);
+        }
+      });
+    }
+
     if (e.id === `CreateStore`) {
 
       if (!JSStore.avail().mug || JSStore.avail().mug === false) window.location = `/signup/`;
@@ -420,6 +437,11 @@
           if (B.exit === true) window.location = `/dashboard/${B.route[1]}/`;
         });
       }
+    }
+
+    else if (e.id === `DelRetailStock`) {
+
+      document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModalRetailStock`).parentNode)
     }
 
 

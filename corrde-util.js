@@ -7392,6 +7392,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.pollZone) this.pollZone(JSON.parse(this.args.pollZone));
 
+      else if (this.args.pullRetailStock) this.pullRetailStock(JSON.parse(this.args.pullRetailStock));
+
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
 
       else if (this.args.SetAlterArgs) this.SetAlterArgs(JSON.parse(this.args.SetAlterArgs));
@@ -8595,6 +8597,17 @@ class AJXReqs extends Auxll {
             this.app.to.writeHead(200, config.reqMime.json);
             this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
           });
+    })
+  }
+
+  pullRetailStock(Arg) {
+
+    this.Sell(Sell => {
+
+      if (!Sell.Sell[1][Arg.sum]) return;
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({exit: true, ModalRetailStock: model.ModalRetailStock(Sell.Sell[1][Arg.sum])}));
     })
   }
 }
