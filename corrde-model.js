@@ -7727,9 +7727,9 @@ module.exports = {
                   `div`, `&@style>height:40px`], [
                   `div`, `&@style>height:64px`, [[
                     `div`, `.@_Aa`, [[
-                      `a`, `#@pullRetailStock`, `.@_aA`, `&@href>javascript:;`, `&@sum>${Row.MD5}`, [[
-                        `span`, `.@_Ax`, [[`strong`, `.@_tXx`, `~@${Row.factory}`]]], [
-                        `span`, `&@style>line-height:1.5`, `~@${Row.alpha}`]]]]]]], [
+                      `a`, `.@_aA`, `&@href>javascript:;`, [[
+                        `span`, `#@pullRetailStock`, `.@_Ax`, `&@sum>${Row.MD5}`, [[`strong`, `.@_tXx`, `~@${Row.factory}`]]], [
+                        `span`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `&@style>line-height:1.5`, `~@${Row.alpha}`]]]]]]], [
                   `div`, `&@style>height:88px`, [[
                     `div`, [[
                       `span`, [[`span`, `.@_tXx _p0`, `&@style>padding-top:16px;display:block`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
@@ -9622,7 +9622,14 @@ module.exports = {
                 `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[`a`, `#@DelRetailStock`, `.@-_tX Close`, `&@href>javascript:;`], [
                   `div`, `.@_eYG`, [[`span`, `&@style>overflow: hidden;text-overflow:ellipsis;white-space:nowrap;width:100%`, `~@${Sell.alpha}`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
-                `div`, `.@sZ2`, `&@style>font-size:12px`, []]]]]]]]]]]]]];
+                `div`, `.@sZ2`, `&@style>font-size:12px`, [[
+                  `div`, [[
+                    `div`, `.@g0X`, [[
+                      `div`, `.@_yZ`, [[
+                        `div`, `&@style>height:100%;overflow:hidden`, [[
+                          `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);left:0`], [
+                          `div`, `.@gA`, [[`img`, `&@alt>${Sell.alpha}`, `&@src>/${Sell.files[0]}`]]], [
+                          `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);right:0`]]]]]]]]]]]]]]]]]]]]]]];
 
 
   }
