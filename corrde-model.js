@@ -9380,6 +9380,8 @@ module.exports = {
 
     let ModelAlterKilo = [];
 
+    let ModelAlterPile = [];
+
     if (setBool === false) {
 
       let ModelCatalog = [];
@@ -9591,8 +9593,27 @@ module.exports = {
               `div`, `.@_UFA _gMX _gxM geQ`, `&@style>width:auto`, [[
                 `input`, `#@retailKilo`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding: 10px 0 10px 10px;border-bottom:1px solid #e5e5e5`, `&@placeholder>${kilo}`]]], [
               `div`, `.@_QZg`, `&@style>flex:0`, [[`a`, `#@pollRetailKilo`, `&@sum>${Sell.MD5}`, `&@style>color:#1185fe`, `&@href>javascript:;`, `~@save`]]]]]]]]];
-    
 
+      let pile = 0;
+
+      if (Sell.pile) pile = Sell.pile;
+
+      ModelAlterPile = [
+        `div`, [[
+          `div`, `.@_gxM _yZS _geQ`, `&@style>box-shadow: 1px 0 3px rgba(26,26,26, .1);padding:10px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_tXx`, `~@In Stock`]]], [
+            `div`, `.@_QZg`, [[
+              `span`, `&@style>margin: 0 0 0 14px;font-size:12px;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `~@${pile}`]]]]], [ 
+          `div`, `.@gZy`, `&@style>padding:24px 14px`, [[
+            `div`, `.@_gxM`, [[
+              `div`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
+                `div`, `.@_geQ`, `&@style>width:25%`, [[
+                  `a`, `#@${(pile > 0) ? `pollRetailPile`: `null`}`, `.@-_tX Minus`, `&@sum>${Sell.MD5}`, `&@total>${pile}`, `&@role>minus`, `&@href>javascript:;`, `~@subtract`]]], [
+                `div`, `&@style>width:50%;border:1px solid #e7e7e7;border-top:0;border-bottom: 0`, [[
+              `div`, `.@_UFA _gMX _gxM geQ`, `&@style>width:100%`, [[
+                `input`, `#@retailPile`, `.@_RRD _aA2`, `&@autocomplete>off`, `&@style>margin:0;padding:0;border:0;text-align:center`, `&@placeholder>no. of items to -/+`]]]]], [
+                `div`, `.@_geQ`, `&@style>width:25%`, [[`a`, `#@pollRetailPile`, `.@-_tX Plus`, `&@sum>${Sell.MD5}`, `&@role>plus`, `&@href>javascript:;`, `~@add`]]]]]]]]]]];
     }
 
     return [
@@ -9607,7 +9628,7 @@ module.exports = {
                   `div`, `.@_QZg _gMz`, [[`a`, `#@DelEditor`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
                 `div`, `.@sZ2`, `&@style>font-size:12px`, [
-                  ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay, ModelAlterKilo]]]]]]]]]]]]]];
+                  ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay, ModelAlterKilo, ModelAlterPile]]]]]]]]]]]]]];
   },
 
   ModalRetailStock (Sell) {
@@ -9618,7 +9639,7 @@ module.exports = {
          `div`, `.@_HUa`], [`div`, `.@_UfX`, [[
           `div`, `.@_oPQ`, [[
             `div`, `&@style>letter-spacing:1.2px`, [[
-              `div`, `.@_gcQ _aXZ _uZM`, [[
+              `div`, `.@_gcQ _aXZ uZM`, [[
                 `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[`a`, `#@DelRetailStock`, `.@-_tX Close`, `&@href>javascript:;`], [
                   `div`, `.@_eYG`, [[`span`, `&@style>overflow: hidden;text-overflow:ellipsis;white-space:nowrap;width:100%`, `~@${Sell.alpha}`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[

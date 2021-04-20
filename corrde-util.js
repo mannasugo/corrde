@@ -5784,6 +5784,7 @@ class AJXJPEG extends Auxll {
             mass: Stock.mass,
             MD5: Stock.MD5,
             orient: false,
+            pile: Stock.pile,
             sale: false,
             set: Stock.set,
             sex: Stock.sex,
@@ -7382,6 +7383,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.pollRetailKilo) this.pollRetailKilo(JSON.parse(this.args.pollRetailKilo));
 
+      else if (this.args.pollRetailPile) this.pollRetailPile(JSON.parse(this.args.pollRetailPile));
+
       else if (this.args.pollRetailRate) this.pollRetailRate(JSON.parse(this.args.pollRetailRate));
 
       else if (this.args.pollSex) this.pollSex(JSON.parse(this.args.pollSex));
@@ -8215,6 +8218,7 @@ class AJXReqs extends Auxll {
       mass: false,
       MD5: log_sum,
       orient: false,
+      pile: false,
       sale: false,
       set: Arg.shelve,
       shelf: Arg.shelve,
@@ -8261,8 +8265,6 @@ class AJXReqs extends Auxll {
 
       let log = new Date().valueOf();
 
-      //let log_sum = crypto.createHash(`md5`).update(`${log}`, `utf8`).digest(`hex`);
-
       let Stock = Sell.Sell[1][Arg.sum];
 
       let SqlArg = {
@@ -8278,6 +8280,7 @@ class AJXReqs extends Auxll {
         market: Stock.market,
         mass: Stock.mass,
         MD5: Stock.MD5,
+        pile: Stock.pile,
         orient: false,
         sale: false,
         set: Stock.set,
@@ -8336,6 +8339,7 @@ class AJXReqs extends Auxll {
         mass: Stock.mass,
         MD5: Stock.MD5,
         orient: false,
+        pile: Stock.pile,
         sale: false,
         set: Stock.set,
         sex: Arg.pollSex,
@@ -8394,6 +8398,7 @@ class AJXReqs extends Auxll {
         mass: Stock.mass,
         MD5: Stock.MD5,
         orient: false,
+        pile: Stock.pile,
         sale: false,
         set: Stock.set,
         sex: Stock.sex,
@@ -8452,6 +8457,7 @@ class AJXReqs extends Auxll {
         mass: Stock.mass,
         MD5: Stock.MD5,
         orient: false,
+        pile: Stock.pile,
         sale: false,
         set: Stock.set,
         sex: Stock.sex,
@@ -8608,6 +8614,54 @@ class AJXReqs extends Auxll {
 
       this.app.to.writeHead(200, config.reqMime.json);
       this.app.to.end(JSON.stringify({exit: true, ModalRetailStock: model.ModalRetailStock(Sell.Sell[1][Arg.sum])}));
+    })
+  }
+
+  pollRetailPile(Arg) {
+
+    this.Sell(Sell => {
+
+      if (!Sell.Sell[1][Arg.sum]) return;
+
+      let log = new Date().valueOf();
+
+      let Stock = Sell.Sell[1][Arg.sum];
+
+      let pile = 0;
+
+      if (Stock.pile && parseInt(Stock.pile) > -0) pile = parseInt(Stock.pile);
+
+      if (Arg.role === `minus` && (pile - parseInt(Arg.pollRetailPile)) < 0) return;
+
+      let AltRow = JSON.stringify(Stock);
+
+      AltRow = JSON.parse(AltRow);
+
+      AltRow.last_secs = log;
+
+      if (Arg.role === `minus`) pile -= Arg.pollRetailPile;
+
+      else if (Arg.role === `plus`) pile += Arg.pollRetailPile;
+
+      AltRow[`pile`] = pile;
+
+      new Sql().multi({},  
+        `update inventory set json = '${JSON.stringify(AltRow)}' where json = '${JSON.stringify(Stock)}'`, (A, B, C) => {
+
+          let bool = true;
+
+          if (!Sell.Sell[1][Arg.sum].tags || !Sell.Sell[1][Arg.sum].tags[0][0]) bool = false; 
+
+          let Model = [
+            model.Controller(model.ModelRootController(Sell)),
+            model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+            model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+            model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`),
+            [`div`, [model.ModelShelfEditor(AltRow, bool)]]];
+
+          this.app.to.writeHead(200, config.reqMime.json);
+          this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+        });
     })
   }
 }
