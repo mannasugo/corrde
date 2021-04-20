@@ -2880,7 +2880,7 @@ module.exports = {
     return [
       `main`, `.@_xC2`, [[
         `section`, `#@app-ejs`, `.@_C3y`, [[
-          `div`, `.@_XsQ _xsQ- _aA2`, [[
+          `div`, `.@_XsQ _xsQ- _aA2 _tY0`, [[
             `section`, [[
               `div`, [[
                 `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 50px 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
@@ -3237,7 +3237,7 @@ module.exports = {
       
       SVGCount[day] = [
         `g`, [[
-          `text`, loop, `&@x>${82 - (day * 77.5/(A.length - 1))}%`, `&@y>232.5`, `~@${this.UTCDayMin(A[day].secsUTC)}`], [
+          `text`, `&@style>font-weight:300`, loop, `&@x>${82 - (day * 77.5/(A.length - 1))}%`, `&@y>232.5`, `~@${this.UTCDayMin(A[day].secsUTC)}`], [
           `text`, `@style>text-anchor:middle;`, `&@x>${82.5 - (day * 77.5/(A.length - 1))}%`, `&@y>${215 - (parseInt(A[day].poolDay.length) * 207/yPlots[(yPlots.length - 1)])}`, `~@${top}`], [
           `rect`,
           `.@_pg6`,
@@ -3285,7 +3285,7 @@ module.exports = {
     return [
       `main`, `.@_xC2`, [[
         `section`, `.@_C3y`, `#@app-ejs`,[[
-          `div`, `.@_XsQ _xsQ- _aA2`, [[
+          `div`, `.@_XsQ _xsQ- _aA2 _tY0`, [[
             `section`, [[
               `div`, [[
                 `div`, `#@monitor-menu`, `.@_-Zz`, `&@style>margin: 50px 0 30px`, [this.aPoolModal(alinks, placers, to)]]]], [
@@ -3297,7 +3297,7 @@ module.exports = {
                       `div`, `.@_`, [[`span`, `.@_tXx`, `~@Requests`]]], [
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@style>text-transform:capitalize;font-size:11px`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
                     `div`, [this.BarPlotView(A.raw)]]]]]]]], [
               `div`, `#@duas-graph`, `.@_sZ2`, [[
                 `div`, [[
@@ -3306,7 +3306,7 @@ module.exports = {
                       `div`, `.@_`, [[`span`, `.@_tXx`, `~@Daily user activity`]]], [
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@active/sec`]]]]]]], [
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@style>text-transform:capitalize;font-size:11px`, `&@href>javascript:;`, `~@active/sec`]]]]]]], [
                     `div`, [this.linePlotHour()]]]]]]]], [
               `div`, `#@regs-graph`, `.@_sZ2`, [[
                 `div`, [[
@@ -3315,7 +3315,7 @@ module.exports = {
                       `div`, `.@_`, [[`span`, `.@_tXx`, `~@Registered users`]]], [
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@style>text-transform:capitalize;font-size:11px`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
                     `div`, [this.BarPlotView(A.regs)]]]]]]]], [
               `div`, `#@regs-graph`, `.@_sZ2`, [[
                 `div`, [[
@@ -3324,7 +3324,7 @@ module.exports = {
                       `div`, `.@_`, [[`span`, `.@_tXx`, `~@Jobs activity`]]], [
                       `div`, `.@_QZg _gxM`, [[
                         `div`, `.@_gM_a _agM _guZ`, [[
-                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
+                          `a`, `.@_TX_a _atX _qXS _utQ _a2X`, `&@style>text-transform:capitalize;font-size:11px`, `&@href>javascript:;`, `~@${this.secs2UTC(new Date().valueOf() - parseInt((6 * 86400000)))} - ${this.secs2UTC(new Date().valueOf())}`]]]]]]], [
                     `div`, [this.BarPlotView(A.acts)]]]]]]]]]]]]]]]];
   },
 
