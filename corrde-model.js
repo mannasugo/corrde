@@ -9631,9 +9631,28 @@ module.exports = {
                   ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay, ModelAlterKilo, ModelAlterPile]]]]]]]]]]]]]];
   },
 
-  ModalRetailStock (Sell) {
+  ModalRetailStock (Sell, Pull) {
 
     let ModelFileSwipe = [];
+
+    let ModelPollCart = [];
+
+    let Swap = [RetailMaps[Sell.market].swapAlpha, RetailMaps[Sell.market].swap];
+
+    let items;
+
+    (Pull.items && Pull.items > 0) ? items = Pull.items : items = 1;
+
+    let ModelJSON = `&@data>{
+        &quot;alpha&quot;: &quot;${Sell.alpha.replace(new RegExp(`/`, `g`), `u/002F`)}&quot;,
+        &quot;dollars&quot;: &quot;${Sell.dollars}&quot;,
+        &quot;file&quot;: &quot;${Sell.files[0]}&quot;,
+        &quot;mass&quot;: &quot;${Sell.mass}&quot;,
+        &quot;MD5&quot;: &quot;${Sell.MD5}&quot;,
+        &quot;swap&quot;: &quot;${Swap[1]}&quot;,
+        &quot;swapAlpha&quot;: &quot;${Swap[0]}&quot;}`;
+
+    let dollars = (Sell.dollars*items*Swap[1]).toFixed(2);
 
     if (Sell.files.length > 1) {
 
@@ -9648,6 +9667,33 @@ module.exports = {
       ModelFileSwipe = [`div`, `.@_yZS _gMX`, ModelFileSelect];
     }
 
+    if (Sell.pile && Sell.pile > 0) {
+
+      ModelPollCart = [[
+        `div`, `.@_geQ`, [[
+          `div`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px;width:100%`, [[
+            `div`, `.@_geQ`, `&@style>width:25%`, [[
+              `a`, `#@pollCartPile`, ModelJSON, `.@-_tX Minus`, `&@sum>${Sell.MD5}`, `&@role>minus`, `&@href>javascript:;`, `~@subtract`]]], [
+            `div`, `&@style>width:50%;border:1px solid #e7e7e7;border-top:0;border-bottom: 0`, [[
+              `span`, `&@style>text-align:center`, `~@${items}`]]], [
+            `div`, `.@_geQ`, `&@style>width:25%`, [[
+              `a`, `#@pollCartPile`, ModelJSON, `.@-_tX Plus`, `&@sum>${Sell.MD5}`, `&@role>plus`, `&@href>javascript:;`, `~@add`]]]]]]], [
+        `div`, `.@_dMG _geQ`, [[`span`, `~@${Swap[0] + ` ` + dollars}`]]], [
+        `div`, `.@_QZg _geQ`, [[
+          `div`, `.@_axS`, [[
+            `div`, `.@_gM_a _agM _guZ`, [[
+              `a`, `#@alterCart`, `.@_TX_a _atX _utQ`, ModelJSON, `&@role>max`, `&@href>javascript:;`, `&@sum>{Args[2].sum}`, `&@style>font-size:12px`, `~@add to cart`]]]]]]]]
+    }
+
+    else {
+
+      ModelPollCart = [[
+        `div`, `.@_geQ`, []], [
+          `div`, `.@_dMG _geQ`, [[`span`, `~@${Swap[0] + ` ` + dollars}`]]], [
+          `div`, `.@_QZg _geQ`, [[
+            `span`, `&@style>font-size:12px;font-weight:600;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;`, `~@out of stock`]]]]
+    }
+
     return [
       `div`, `@_-Zz`, `#@ModalRetailStock`, [[
         `div`, `.@_UQe _tY0`, `#@modalView`, [[
@@ -9657,7 +9703,7 @@ module.exports = {
               `div`, `.@_gcQ _aXZ uZM`, [[
                 `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[`a`, `#@DelRetailStock`, `.@-_tX Close`, `&@href>javascript:;`], [
                   `div`, `.@_eYG`, [[`span`, `&@style>overflow: hidden;text-overflow:ellipsis;white-space:nowrap;width:100%`, `~@${Sell.alpha}`]]]]]]], [
-              `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
+              `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0;margin: 0 0 55px`, [[
                 `div`, `.@sZ2`, `&@style>font-size:12px`, [[
                   `div`, [[
                     `div`, `.@g0X`, [[
@@ -9666,7 +9712,10 @@ module.exports = {
                           `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);left:0`], [
                           `div`, `.@gA`, [[`img`, `&@alt>${Sell.alpha}`, `&@src>/${Sell.files[0]}`]]], [
                           `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);right:0`]]]]]]], 
-                    ModelFileSwipe]]]]]]]]]]]]]]]];
+                    ModelFileSwipe]]]]]], [
+          `div`, `.@_azX- _gMX _gmg _gp0`, `&@style>border: none`, [[
+            `div`, `.@_gxM _gMX`, [[
+              `div`, `.@_gMX _geQ`, ModelPollCart]]]]]]]]]]]]]]];
 
 
   }

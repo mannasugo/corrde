@@ -8613,7 +8613,7 @@ class AJXReqs extends Auxll {
       if (!Sell.Sell[1][Arg.sum]) return;
 
       this.app.to.writeHead(200, config.reqMime.json);
-      this.app.to.end(JSON.stringify({exit: true, ModalRetailStock: model.ModalRetailStock(Sell.Sell[1][Arg.sum])}));
+      this.app.to.end(JSON.stringify({exit: true, ModalRetailStock: model.ModalRetailStock(Sell.Sell[1][Arg.sum], Arg.pull)}));
     })
   }
 

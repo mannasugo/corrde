@@ -318,11 +318,22 @@
 
     else if (e.id === `pullRetailStock`) {
 
+      let RetailStock = [];
+
+      let Pull = false;
+
+      if (JSStore.avail().myCart) RetailStock = JSStore.avail().myCart;
+
+      RetailStock.forEach(S => {
+
+        if (S.MD5 === e.getAttribute(`sum`)) Pull = S;
+      })
+
       let ModelSource = document.createElement(`div`);
 
       let M = new Model();
 
-      AJXReq([`/devs_reqs/`, `pullRetailStock`], {sum: e.getAttribute(`sum`)}, (A, B) => {
+      AJXReq([`/devs_reqs/`, `pullRetailStock`], {pull: Pull, sum: e.getAttribute(`sum`)}, (A, B) => {
 
         if (B.exit === true) {
 
@@ -499,7 +510,7 @@
 
     let Data = JSON.parse(e.getAttribute(`data`));
 
-    if (e.id === `alterCart`) {
+    if (e.id === `alterCart` || (e.id === `pollCartPile` && e.getAttribute(`role`) === `plus`)) {
 
       let item;
 
@@ -527,6 +538,24 @@
       Cart[item].items += 1;
 
       JSStore.to({myCart: Cart});
+
+      if (e.id === `pollCartPile`) {
+
+        let toll = ((Data.dollars*Data.swap*Cart[item].items)).toFixed(2);
+
+        e.parentNode.parentNode.parentNode.nextElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
+
+        e.parentNode.previousElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
+
+      if (e.getAttribute(`role`) === `max`) {
+
+        let toll = ((Data.dollars*Data.swap*Cart[item].items)).toFixed(2);
+
+        e.parentNode.parentNode.parentNode.previousElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
+
+        e.parentNode.parentNode.parentNode.previousElementSibling.previousElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
 
       if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
               
@@ -570,7 +599,7 @@
 
     }
 
-    else if (e.id === `sliceCart`) {
+    else if (e.id === `sliceCart` || (e.id === `pollCartPile` && e.getAttribute(`role`) === `minus`)) {
 
       let item;
 
@@ -598,6 +627,15 @@
       JSStore.to({myCart: Cart});
 
       let M = new Model();
+
+      if (e.id === `pollCartPile`) {
+
+        let toll = ((Data.dollars*Data.swap*Cart[item].items)).toFixed(2);
+
+        e.parentNode.parentNode.parentNode.nextElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
+
+        e.parentNode.nextElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
 
       if (document.querySelector(`#ModalMyCart`)) {
 
