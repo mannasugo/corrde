@@ -333,6 +333,18 @@
       });
     }
 
+    else if (e.id === `pullFile`) {
+
+      e.parentNode.querySelectorAll(`#pullFile`).forEach(Source => {
+
+        Source.style.background = `none`;
+      })
+
+      e.style.background = `#54575a`;
+
+      e.parentNode.previousElementSibling.querySelector(`img`).src = e.getAttribute(`file`);
+    }
+
     if (e.id === `CreateStore`) {
 
       if (!JSStore.avail().mug || JSStore.avail().mug === false) window.location = `/signup/`;

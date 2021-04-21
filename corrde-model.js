@@ -9633,6 +9633,21 @@ module.exports = {
 
   ModalRetailStock (Sell) {
 
+    let ModelFileSwipe = [];
+
+    if (Sell.files.length > 1) {
+
+      let ModelFileSelect = [];
+
+      Sell.files.forEach(File => {
+
+        ModelFileSelect.push([
+          `span`, `#@pullFile`, `&@file>${File}`, `&@style>${(Sell.files.indexOf(File) === 0)?`background:#54575a;`:``}width:10px;height:10px;border:1px solid #e3e3e3;margin:0 4px;border-radius:100%;cursor:pointer;opacity:1`])
+      })
+
+      ModelFileSwipe = [`div`, `.@_yZS _gMX`, ModelFileSelect];
+    }
+
     return [
       `div`, `@_-Zz`, `#@ModalRetailStock`, [[
         `div`, `.@_UQe _tY0`, `#@modalView`, [[
@@ -9650,7 +9665,8 @@ module.exports = {
                         `div`, `&@style>height:100%;overflow:hidden`, [[
                           `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);left:0`], [
                           `div`, `.@gA`, [[`img`, `&@alt>${Sell.alpha}`, `&@src>/${Sell.files[0]}`]]], [
-                          `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);right:0`]]]]]]]]]]]]]]]]]]]]]]];
+                          `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);right:0`]]]]]]], 
+                    ModelFileSwipe]]]]]]]]]]]]]]]];
 
 
   }
