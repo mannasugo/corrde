@@ -657,6 +657,59 @@ const Model = (function () {
         `div`, `.@_tY0 _gxM`, `&@style>background:#000;color:#fff;font-size:11px;padding:8px;max-width:424px;border-radius:100px;width:100%`, [[
           `div`, `.@_eYG`, [[`span`, `#@toastAlpha`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:100%;padding:0 16px 0 0`, `~@+ Organic Bananas`]]], [
           `div`, `.@_QZg`, [[`span`, `#@toastPay`, `&@style>white-space:nowrap;border-left:1px solid #999;padding:0 16px`, `~@k£. 51.23`]]]]]]]
+    }, 
+
+    ModalMailFee: function (Arg) {
+
+      let ModelMailFee = [];
+
+      Arg[0].zones.forEach(Geog => {
+
+        let mailera = `${Geog.drop[0][0]}` + Geog.drop[0][1] + ` - ` + Geog.drop[1][0] + Geog.drop[1][1];
+
+        let sum = Arg[1].dollars*Arg[1].items;console.log(Arg[1].items)
+
+        let g = Arg[1].mass*Arg[1].items;
+
+        let fee;
+
+        Geog.rates.forEach(Fee => {
+
+          if (Fee.saleSetAlpha[1] > sum && sum > Fee.saleSetAlpha[0]) {
+
+            Fee.grams.forEach(G => {
+
+              if (G.gramSetAlpha[0] < g && g < G.gramSetAlpha[1]) fee = G.sale[1];
+          })
+        }
+      })
+
+      fee = parseFloat(fee)*Arg[0].swap;
+
+        ModelMailFee.push([
+          `div`, `.@_gZ`, [[
+            `div`, `.@_gcQ _aXZ`, [[
+              `span`, `.@_tXx`, `~@${Geog.locale}`], [
+              `div`, `.@_eYG`, [[
+                `span`, `&@style>font-size:10px;font-weight:600;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;text-transform:uppercase`, `~@${mailera}`]]], [
+              `div`, `.@_QZg`, [[
+                `span`, `&@style>fnt-size:17px`, `~@${Arg[0].swapAlpha + ` ` + fee.toFixed(2)}`]]]]]]])
+      })
+
+      console.log(Arg[0]);
+      
+      return [`div`, `@_-Zz`, `#@ModalMailFee`, [[
+        `div`, `.@_UQe _tY0`, `#@modalView`, [[
+         `div`, `.@_HUa`], [`div`, `.@_UfX`, [[
+          `div`, `.@_oPQ`, [[
+            `div`, `&@style>letter-spacing:1.2px`, [[
+              `div`, `.@_gcQ _aXZ uZM`, [[
+                `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[`a`, `#@DelMailFee`, `.@-_tX From`, `&@href>javascript:;`], [
+                  `div`, `.@_eYG`, []]]]]], [
+              `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0;`, [[
+                `div`, `.@sZ2`, `&@style>font-size:12px`, ModelMailFee]]]]]]]]]]]]];
+
+
     }
   }
   

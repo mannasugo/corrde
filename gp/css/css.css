@@ -631,10 +631,10 @@ body {
 
 .AddStoriesColor, .ArchiveGray, .CartGray, .Close, .closelighticonUA, .Collapse, .CommentsGray, 
 .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
-.FilterColor, .Filter2Gray, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
+.FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
-.poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .SortGray, .StarColor, .StarMiniColor, 
-.StatsCircleColor, .StatsPlaneColor, .twineiconUA, .TwitterColor, .VKBlack, .vServiceGray, .verifylighticonUA, ._y4x {
+.poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .SortGray, .StarColor, .StarMiniColor, 
+.StatsCircleColor, .StatsPlaneColor, .To, .twineiconUA, .TwitterColor, .VKBlack, .vServiceGray, .verifylighticonUA, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -743,6 +743,10 @@ body {
 
 .FroColor {
   background-position: -198px -180px;
+}
+
+.From {
+  background-image: url(/gp/p/vector/from.svg);
 }
 
 .GeoGray {background-image: url(/gp/p/vector/geo_pin_2.svg);}
@@ -866,6 +870,10 @@ body {
   background-position: -166px -120px;
 }
 
+.Ship {
+  background-image: url(/gp/p/vector/ship.svg);
+}
+
 .AddStoriesColor, .SellColor {
   background-position: -134px -120px;
 }
@@ -895,6 +903,10 @@ body {
   background-repeat: no-repeat;
   width: 60px;
   height: 36px;
+}
+
+.To {
+  background-image: url(/gp/p/vector/to.svg);
 }
 
 .TwitterColor {

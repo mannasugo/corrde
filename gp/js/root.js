@@ -318,6 +318,11 @@
 
     else if (e.id === `pullRetailStock`) {
 
+      document.querySelectorAll(`#ModalRetailStock`).forEach(Source => {
+
+        document.querySelector(`#corrde-root > main`).removeChild(Source.parentNode)
+      })
+
       let RetailStock = [];
 
       let Pull = false;
@@ -467,6 +472,36 @@
       document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModalRetailStock`).parentNode)
     }
 
+    else if (e.id === `pullMailFee`) {
+
+      document.querySelector(`#ModalRetailStock`).setAttribute(`class`, `_-Zz`);
+
+      let RetailStock = [];
+
+      let Pull = false;
+
+      if (JSStore.avail().myCart) RetailStock = JSStore.avail().myCart;
+
+      RetailStock.forEach(S => {
+
+        if (S.MD5 === e.getAttribute(`sum`)) Pull = S;
+      })
+
+      let ModelSource = document.createElement(`div`);
+
+      let M = new Model();
+      
+      ModelSource.innerHTML = M.modelStringify([M.ModalMailFee([JSStore.avail().regionMeta, Pull])]);
+
+      document.querySelector(`#corrde-root > main`).appendChild(ModelSource);
+    }
+
+    else if (e.id === `DelMailFee`) {
+
+      document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModalMailFee`).parentNode);
+
+      document.querySelector(`#ModalRetailStock`).className = `-Zz`;
+    }
 
     else if (e.id === `foldMyCart`) Modal = document.querySelector(`#ModalMyCart`);
 

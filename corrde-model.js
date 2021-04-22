@@ -5,7 +5,8 @@ const config = require(`./corrde-config`),
   SVG        = config.SVG,
   TagSets    = config.TagSets,
   AlterCues  = config.AlterCues,
-  MakeCues   = config.MakeCues;
+  MakeCues   = config.MakeCues,
+  UASVG      = config.icons;
 
 class ModelString {
   
@@ -7775,7 +7776,7 @@ module.exports = {
     if (zone === `kenya`) {
 
       ModelPayAd = [
-      `section`, `.@_g29 _sZ2`, `&@style>line-height:1.5rem;font-size:11px;color:#fff`, [[
+      `section`, `.@_g29 sZ2`, `&@style>line-height:1.5rem;font-size:11px;color:#fff`, [[
         `div`, `.@_cX3`, [[
           `div`, `.@_yZS _gxM _geQ _gMX`, [[
             `div`,`.@_gxM _S8Y`, [[`span`, `.@_atX`, `&@style>font-size:13px`, `~@Payment Options For Kenya`]]]]]]], [
@@ -7897,7 +7898,7 @@ module.exports = {
         Shelve(`clothing`, Retail),
         ModelPayAd, [
         `section`, [[
-          `div`, `.@_sZ2`, [[
+          `div`, `.@_sZ2 _-Zz`, [[
                     `div`, `.@_cX3`, [[
                       `div`, `.@_yZS _gxM _geQ _gMX`, [[
                         `div`,`.@_gxM`, [[`span`, `.@_aA2`, `~@Delivery Time & Rates`]]]]]]], [
@@ -9647,6 +9648,7 @@ module.exports = {
         &quot;alpha&quot;: &quot;${Sell.alpha.replace(new RegExp(`/`, `g`), `u/002F`)}&quot;,
         &quot;dollars&quot;: &quot;${Sell.dollars}&quot;,
         &quot;file&quot;: &quot;${Sell.files[0]}&quot;,
+        &quot;items&quot;: &quot;${items}&quot;,
         &quot;mass&quot;: &quot;${Sell.mass}&quot;,
         &quot;MD5&quot;: &quot;${Sell.MD5}&quot;,
         &quot;swap&quot;: &quot;${Swap[1]}&quot;,
@@ -9710,9 +9712,12 @@ module.exports = {
                       `div`, `.@_yZ`, [[
                         `div`, `&@style>height:100%;overflow:hidden`, [[
                           `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);left:0`], [
-                          `div`, `.@gA`, [[`img`, `&@alt>${Sell.alpha}`, `&@src>/${Sell.files[0]}`]]], [
+                          `div`, `.@gA`, [[`img`, `&@style>width:100%`, `&@alt>${Sell.alpha}`, `&@src>/${Sell.files[0]}`]]], [
                           `div`, `.@gA`, `&@style>z-index:1;position:absolute;top:50%;transform:translateY(-50%);right:0`]]]]]]], 
-                    ModelFileSwipe]]]]]], [
+                    ModelFileSwipe, [
+                    `div`, `.@_gcQ _aXZ`, [[`span`, `.@-_tX Ship`], [
+                      `div`, `.@_eYG`, [[`span`, `~@Shipping & Delivery Time/Fees`]]], [
+                      `div`, `.@_QZg`, [[`a`, `#@pullMailFee`, `.@-_tX To`, ModelJSON, `&@sum>${Sell.MD5}`, `&@href>javascript:;`]]]]]]]]]]], [
           `div`, `.@_azX- _gMX _gmg _gp0`, `&@style>border: none`, [[
             `div`, `.@_gxM _gMX`, [[
               `div`, `.@_gMX _geQ`, ModelPollCart]]]]]]]]]]]]]]];
