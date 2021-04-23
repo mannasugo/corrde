@@ -7700,7 +7700,7 @@ module.exports = {
         //Shelf = Shelf.replace(new RegExp(/&/, `g`), `u/0026`);
         //Shelf = this.filter(this.filter(Shelf));console.log(Shelf)
 
-        if (Row.mass && this.filter(this.filter(Row.set)) === Shelf && Row.market === zone) Stock.push(Row)
+        if (Row.mass && Row.set && this.filter(this.filter(Row.set)) === Shelf && Row.market === zone) Stock.push(Row)
       });
 
       Stock = Stock.slice(0, 3);
