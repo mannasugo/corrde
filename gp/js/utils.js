@@ -667,7 +667,7 @@ const Model = (function () {
 
         let mailera = `${Geog.drop[0][0]}` + Geog.drop[0][1] + ` - ` + Geog.drop[1][0] + Geog.drop[1][1];
 
-        let sum = Arg[1].dollars*Arg[1].items;console.log(Arg[1].items)
+        let sum = Arg[1].dollars*Arg[1].items;
 
         let g = Arg[1].mass*Arg[1].items;
 

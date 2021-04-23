@@ -478,7 +478,7 @@
 
       let RetailStock = [];
 
-      let Pull = false;
+      let Pull = JSON.parse(e.getAttribute(`data`));
 
       if (JSStore.avail().myCart) RetailStock = JSStore.avail().myCart;
 
