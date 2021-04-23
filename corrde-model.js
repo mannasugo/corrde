@@ -8508,14 +8508,14 @@ module.exports = {
             `div`, `.@_gA0`, [[
               `div`, `.@_gY`, [[
                 `a`, `.@_Qg`, [[
-                  `div`, `.@_Qg0`, [[`img`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>/grocery/${Row.MD5}/`], [
+                  `div`, `.@_Qg0`, [[`img`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@src>/${Row.files[0]}`]]]], `&@href>javascript:;`], [
                 `div`, [[
                   `div`, `.@_pY`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.units})`]]]]], [
-                    `a`, `.@_a2`, [[
-                      `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>/grocery/${Row.MD5}/`]]], [
+                    `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
+                      `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                   `div`, `.@_2pY`, [[
                     `div`, `&@style>width:max-content`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;${(Row.pile && Row.pile > 0)?``:`border-color:#000;color:#000;background:none`}`, [[

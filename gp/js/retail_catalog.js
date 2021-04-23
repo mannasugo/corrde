@@ -194,6 +194,51 @@
 
     }
 
+    else if (e.id === `pullRetailStock`) {
+
+      document.querySelectorAll(`#ModalRetailStock`).forEach(Source => {
+
+        document.querySelector(`#corrde-root > main`).removeChild(Source.parentNode)
+      })
+
+      let RetailStock = [];
+
+      let Pull = false;
+
+      if (JSStore.avail().myCart) RetailStock = JSStore.avail().myCart;
+
+      RetailStock.forEach(S => {
+
+        if (S.MD5 === e.getAttribute(`sum`)) Pull = S;
+      })
+
+      let ModelSource = document.createElement(`div`);
+
+      let M = new Model();
+
+      AJXReq([`/devs_reqs/`, `pullRetailStock`], {pull: Pull, sum: e.getAttribute(`sum`)}, (A, B) => {
+
+        if (B.exit === true) {
+
+          ModelSource.innerHTML = M.modelStringify([B.ModalRetailStock]);
+
+          document.querySelector(`#corrde-root > main`).appendChild(ModelSource);
+        }
+      });
+    }
+
+    else if (e.id === `pullFile`) {
+
+      e.parentNode.querySelectorAll(`#pullFile`).forEach(Source => {
+
+        Source.style.background = `none`;
+      })
+
+      e.style.background = `#54575a`;
+
+      e.parentNode.previousElementSibling.querySelector(`img`).src = e.getAttribute(`file`);
+    }
+
     else if (e.id === `retailMaps`) to = document.querySelector(`#ModalRetailRates`);
 
     if (!to) return;
@@ -267,6 +312,42 @@
       window.location = e.getAttribute(`route`);
     }
 
+    else if (e.id === `DelRetailStock`) {
+
+      document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModalRetailStock`).parentNode)
+    }
+
+    else if (e.id === `pullMailFee`) {
+
+      document.querySelector(`#ModalRetailStock`).setAttribute(`class`, `_-Zz`);
+
+      let RetailStock = [];
+
+      let Pull = JSON.parse(e.getAttribute(`data`));
+
+      if (JSStore.avail().myCart) RetailStock = JSStore.avail().myCart;
+
+      RetailStock.forEach(S => {
+
+        if (S.MD5 === e.getAttribute(`sum`)) Pull = S;
+      })
+
+      let ModelSource = document.createElement(`div`);
+
+      let M = new Model();
+      
+      ModelSource.innerHTML = M.modelStringify([M.ModalMailFee([JSStore.avail().regionMeta, Pull])]);
+
+      document.querySelector(`#corrde-root > main`).appendChild(ModelSource);
+    }
+
+    else if (e.id === `DelMailFee`) {
+
+      document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModalMailFee`).parentNode);
+
+      document.querySelector(`#ModalRetailStock`).className = `-Zz`;
+    }
+
     else if (e.id === `foldMyCart`) Modal = document.querySelector(`#ModalMyCart`);
 
     else if (e.id === `DelZonal`) Modal = document.querySelector(`aside > div`);
@@ -288,7 +369,7 @@
 
     let Data = JSON.parse(e.getAttribute(`data`));
 
-    if (e.id === `alterCart`) {
+    if (e.id === `alterCart` || (e.id === `pollCartPile` && e.getAttribute(`role`) === `plus`)) {
 
       let item;
 
@@ -316,6 +397,24 @@
       Cart[item].items += 1;
 
       JSStore.to({myCart: Cart});
+
+      if (e.id === `pollCartPile`) {
+
+        let toll = ((Data.dollars*Data.swap*Cart[item].items)).toFixed(2);
+
+        e.parentNode.parentNode.parentNode.nextElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
+
+        e.parentNode.previousElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
+
+      if (e.getAttribute(`role`) === `max`) {
+
+        let toll = ((Data.dollars*Data.swap*Cart[item].items)).toFixed(2);
+
+        e.parentNode.parentNode.parentNode.previousElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
+
+        e.parentNode.parentNode.parentNode.previousElementSibling.previousElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
 
       if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
               
@@ -359,7 +458,7 @@
 
     }
 
-    else if (e.id === `sliceCart`) {
+    else if (e.id === `sliceCart` || (e.id === `pollCartPile` && e.getAttribute(`role`) === `minus`)) {
 
       let item;
 
@@ -387,6 +486,15 @@
       JSStore.to({myCart: Cart});
 
       let M = new Model();
+
+      if (e.id === `pollCartPile`) {
+
+        let toll = ((Data.dollars*Data.swap*Cart[item].items)).toFixed(2);
+
+        e.parentNode.parentNode.parentNode.nextElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
+
+        e.parentNode.nextElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
 
       if (document.querySelector(`#ModalMyCart`)) {
 

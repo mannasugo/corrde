@@ -4233,13 +4233,13 @@ class UAPublic extends Auxll {
 
             let PplSet = Sell.Ppl[1],
 
-              Shelve = [],
+              Shelve = [];
 
-              ShelfAlpha = Shelf.replace(new RegExp(`&`, `g`), `u/0026`);
+              //ShelfAlpha = Shelf.replace(new RegExp(`&`, `g`), `u/0026`);
 
             Sell.Sell[0].forEach(Stock => {
 
-              if (Stock.mass && Stock.set === ShelfAlpha && Stock.market === locale) Shelve.push(Stock);
+              if (Stock.mass && model.filter(model.filter(Stock.set)) === Shelf && Stock.market === locale) Shelve.push(Stock);
             });
 
             const Stack = {
