@@ -4239,7 +4239,7 @@ class UAPublic extends Auxll {
 
             Sell.Sell[0].forEach(Stock => {
 
-              if (Stock.mass && model.filter(model.filter(Stock.set)) === Shelf && Stock.market === locale) Shelve.push(Stock);
+              if (Stock.mass && Stock.set && model.filter(model.filter(Stock.set)) === Shelf && Stock.market === locale) Shelve.push(Stock);
             });
 
             const Stack = {
