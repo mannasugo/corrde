@@ -8513,7 +8513,7 @@ module.exports = {
                   `div`, `.@_pY`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[`span`, `.@_p0`, `~@${Swap[0]} ${dollars.toLocaleString()}`]]], [
-                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.units})`]]]]], [
+                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@(${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                   `div`, `.@_2pY`, [[
