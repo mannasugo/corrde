@@ -106,7 +106,7 @@ const Model = (function () {
         if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`; 
       }
 
-      return this.avail_esc_Chars(this.appendString);
+      return this.avail_esc_Chars(this.avail_esc_Chars(this.appendString));
     },
 
     avail_esc_Chars: (String) => {
