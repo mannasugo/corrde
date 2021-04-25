@@ -9365,7 +9365,9 @@ module.exports = {
         `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
           `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@Recent Inventory`]]], [
-            `div`, `.@_QZg`, []]]], [`div`, ModelSliceStock]]], [
+            `div`, `.@_QZg`, [[
+              `a`, `.@_aA2`, `#@pullRetails`, `&@style>text-decoration:underline`, `&@href>javascript:;`, `~@view all`]]]]], [
+          `div`, ModelSliceStock]]], [
         `script`, `#@sell`, `&@type>text/javascript`, `~@${JSON.stringify(SellSet)}`]]]
   },
 
@@ -9727,6 +9729,61 @@ module.exports = {
           `div`, `.@_azX- _gMX _gmg _gp0`, `&@style>border: none`, [[
             `div`, `.@_gxM _gMX`, [[
               `div`, `.@_gMX _geQ`, ModelPollCart]]]]]]]]]]]]]]];
+  }, 
+
+  ModalRetails (Arg) {
+
+    let ModelSliceStock = [];
+
+    let SliceStock = Arg.sort((A, B) => {return B.log - A.log});
+
+    SliceStock = SliceStock.slice(0, 100);
+
+    SliceStock.forEach(Sell => {
+
+      let alpha = `anonymous`;
+
+      if (Sell.set) alpha = Sell.set;
+
+      let ModelAlpha = [
+        `span`, `#@getStock`, `&@sum>${Sell.MD5}`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;cursor:pointer;`, `.@_a2X`, `~@${alpha}`];
+
+      let ModelMug = [
+      `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `#@mug-ava`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#4444441c`], [
+          `text`, `#@mug-ava`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill:#444;text-transform:capitalize;letter-spacing:normal;font-size: 12px;`, `~@${alpha.toString().slice(0, 2)}`]]];
+
+      if (Sell.files.length > 0) ModelMug = [`img`, `#@mug-ava`, `.@_aWz`, `&@style>height:auto`, `&@src>/${Sell.files[0]}`];
+
+      if (Sell.alpha) {
+
+        ModelAlpha = [
+        `a`, `#@getStock`, `.@_tXv _aA2 _aWz`, `&@sum>${Sell.MD5}`, `&@href>javascript:;`, `~@${Sell.alpha}`];
+      }
+
+      ModelSliceStock.push([
+        `div`, `.@_gZ`, [[
+          `div`, `.@_gcQ _aXZ`, `&@style>padding: 16px 24px`, [[
+            `span`, `.@_cCq _gS3`, `#@mug-ava`, `@href>javascript:;`, `&@style>height:24px;width:24px;`, [ModelMug]], [
+              `div`, `.@_eYG`, [ModelAlpha]], [
+          `div`, `.@_QZg`, [[
+            `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X _tXx _tY0`, `~@€${(Sell.dollars*.84).toFixed(2)}`]]]]]]]);
+    })
+
+    return [
+      `div`, `@_-Zz`, `#@ModalRetailStock`, [[
+        `div`, `.@_UQe _tY0`, `#@modalView`, [[
+         `div`, `.@_HUa`], [`div`, `.@_UfX`, [[
+          `div`, `.@_oPQ`, `&@style>max-width:940px;`, [[
+            `div`, `&@style>letter-spacing:1.2px`, [[
+              `div`, `.@_gcQ _aXZ uZM`, [[
+                `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[`a`, `#@DelRetailStock`, `.@-_tX Close`, `&@href>javascript:;`], [
+                  `div`, `.@_eYG`, []]]]]], [
+              `div`, `.@_aXY _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0;`, [[
+                `div`, `.@sZ2`, `&@style>font-size:12px`, ModelSliceStock]]], [
+          `div`, `.@_azX- _gMX _gmg _gp0 _-Zz`, `&@style>border: none`, [[
+            `div`, `.@_gxM _gMX`, [[
+              `div`, `.@_gMX _geQ`, `ModelPollCart`]]]]]]]]]]]]]]];
 
 
   }

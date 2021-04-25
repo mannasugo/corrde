@@ -7395,6 +7395,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.pollZone) this.pollZone(JSON.parse(this.args.pollZone));
 
+      else if (this.args.pullRetails) this.pullRetails(JSON.parse(this.args.pullRetails));
+
       else if (this.args.pullRetailStock) this.pullRetailStock(JSON.parse(this.args.pullRetailStock));
 
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
@@ -8664,6 +8666,22 @@ class AJXReqs extends Auxll {
           this.app.to.writeHead(200, config.reqMime.json);
           this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
         });
+    })
+  }
+
+  pullRetails(Arg) {
+
+    this.Sell(Sell => { 
+
+      let Model = [
+        model.Controller(model.ModelRootController(Sell)),
+        model.loadDOMModalView([model.modalView([model.ModalControllers()])], `ModalControllers`),
+        model.loadDOMModalView([model.modalView([model.ModalControlsCatalog()])], `ModalControlsCatalog`),
+        model.loadDOMModalView([model.modalView([model.ModalMyPay()])], `ModalMyPay`),
+        [`div`, [model.ModalRetails(Sell.Sell[0])]]];
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
     })
   }
 }
