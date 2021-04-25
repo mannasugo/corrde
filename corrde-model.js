@@ -7868,11 +7868,15 @@ module.exports = {
               `div`, `.@tXx _aA2`, [[
                 `a`, `#@getZoneOptions`, `&@for>${Zone.locale}`, `.@_aA2`, `&@href>javascript:;`, `&@style>text-transform: capitalize`, `~@${Zone.locale}`]]], [
                 `div`, [[`span`, `&@style>text-transform:uppercase;color:#999;font-size:11px`, `~@${Zone.drop[0][0]} ${Zone.drop[0][1]} - ${Zone.drop[1][0]} ${Zone.drop[1][1]}`]]]]]]]]]);
-    })
+    });
+
+    let ModelCallSupport = [
+      `div`, `.@_gcQ _gxM`, `&@style>background:#ff8f00;width:100%;color:#fff`, [[
+        `span`, `&@style>text-align:center;width:100%`, `~@Need help placing an order? Call or Whatsapp 0704174162`]]];
 
     return [
     `main`, `.@_xC2`, [[
-      `div`, `.@_tY0`, [[
+      `div`, `.@_tY0`, [(zone === `kenya`?ModelCallSupport:[]), [
         `section`, `.@_-Zz`, `&@style>background-image:url(gp/p/store/assets/clothing_hero_0.jpg);background-repeat:no-repeat;min-height:300px;background-size: 100%`, [[
           `div`, `.@_cX3`, [[
             `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>color:#fff;min-height:300px`, [[
