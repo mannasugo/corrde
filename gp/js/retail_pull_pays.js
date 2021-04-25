@@ -208,7 +208,7 @@
 
     else if (e.id === `getZone`) {
 
-      JSStore.to({locale: e.value.toLowerCase()});
+      JSStore.to({locale: e.innerHTML.toLowerCase()});
 
       document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
 
@@ -219,7 +219,7 @@
 
     else if (e.id === `getRegion`) {
 
-      JSStore.to({Billto: [e.value.toLowerCase(), false], myRegion: JSStore.avail().regionMeta});
+      JSStore.to({Billto: [e.innerHTML.toLowerCase(), false], myRegion: JSStore.avail().regionMeta});
 
       Modal = document.querySelector(`#ModalRegions`);
 

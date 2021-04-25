@@ -423,7 +423,7 @@ const Model = (function () {
                   `label`, `.@_tXv`, `&@role>radio`, [[
                     `input`, `&@type>radio`, `#@ShipBy`, `&@value>standard`, `&@name>shipby`], [
                       `span`, `.@_tCw _a2X _tY0`, `&@style>text-transform:uppercase;font-size:12px`, `~@standard delivery`]]]]], [
-                `div`, `.@_yZS`, [[`span`, `&@style>font-size: 0.9rem;border: 1px solid #1185fe;border-radius: .5em;padding: .75rem 1rem .75rem 2.75rem;margin: 1.5rem 0;`, `~@This option is our standard method of delivery and is 
+                `div`, `.@_yZS`, [[`span`, `&@style>font-size: 12px;border: 1px solid #1185fe;border-radius: .5em;padding: .75rem 1rem .75rem 2.75rem;margin: 1.5rem 0;`, `~@This option is our standard method of delivery and is 
                   entirely dependent to day to day logistical factors like traffic, accessibility and time; this option does 
                   not fully guarantee night-time deliveries and therefore warrants you checkout earlier in the day. Choosing 
                   this option prompts saving a one time off GPS location, please make sure to accept location tracking when 
@@ -433,7 +433,7 @@ const Model = (function () {
                   `label`, `.@_tXv`, `&@role>radio`, [[
                     `input`, `&@type>radio`, `#@ShipBy`, `&@value>expedite`, `&@name>shipby`], [
                       `span`, `.@_tCw _a2X _tY0`, `&@style>text-transform:uppercase;font-size:12px`, `~@pickup & expedited delivery`]]]]], [
-                `div`, `.@_yZS`, [[`span`, `&@style>font-size: 0.9rem;border: 1px solid #1185fe;border-radius: .5em;padding: .75rem 1rem .75rem 2.75rem;margin: 1.5rem 0;`, `~@Expedited delivery at you discretion, use our freighter hailing 
+                `div`, `.@_yZS`, [[`span`, `&@style>font-size: 12px;border: 1px solid #1185fe;border-radius: .5em;padding: .75rem 1rem .75rem 2.75rem;margin: 1.5rem 0;`, `~@Expedited delivery at you discretion, use our freighter hailing 
                   services & drone delivery services. This is an extension delivery service into our shipping & delivery mobile 
                   application which gives you the option of hailing a delivery drone or freight vehicle on a live app to 
                   deliver your package. It also avails pickup stations, for self-pickup.`]]]]]]]]]]]]]
@@ -472,14 +472,14 @@ const Model = (function () {
       });
 
       return [
-      `div`, `&@style>letter-spacing:0.75px`, [[
-        `div`, `.@_gcQ _aXZ _uZM`, [[
+      `div`, [[
+        `div`, `.@_gcQ _aXZ _uZM _tY0`, [[
           `div`, `.@_geQ _gxM _eYG`, [[
             `div`, `.@_aA2`, [[
               `div`, [[
                 `span`, `&@style>`, `~@Choose Your Towns of Operation`]]]]]]], [
           `div`, `.@_QZg _gMz`, [[`a`, `#@DelModalStallCities`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]], [
-        `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);margin: 0 0 55px`, [[
+        `div`, `.@_aXY _tY0 _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);margin: 0 0 55px`, [[
           `div`, `.@_sZ2`, ModelZones]]], [
           `div`, `.@_azX- _gMX _gp0 _gmg`, [[
             `div`, `.@_gxM _gMX`, [[

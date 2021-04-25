@@ -318,10 +318,13 @@
 
     else if (e.id === `pullRetailStock`) {
 
-      document.querySelectorAll(`#ModalRetailStock`).forEach(Source => {
+      if (document.querySelector(`#ModalRetailStock`)) {
 
-        document.querySelector(`#corrde-root > main`).removeChild(Source.parentNode)
-      })
+        document.querySelectorAll(`#ModalRetailStock`).forEach(Source => {
+      
+          document.querySelector(`#corrde-root > main`).removeChild(Source.parentNode)
+        });
+      }
 
       let RetailStock = [];
 
@@ -354,7 +357,7 @@
       e.parentNode.querySelectorAll(`#pullFile`).forEach(Source => {
 
         Source.style.background = `none`;
-      })
+      });
 
       e.style.background = `#54575a`;
 
@@ -406,11 +409,11 @@
 
     else if (e.id === `getZone`) {
 
-      JSStore.to({locale: e.value.toLowerCase()});
+      JSStore.to({locale: e.innerHTML.toLowerCase()});
 
       document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
           
-      AJXReq([`/devs_reqs/`, `localeCookie`], e.value.toLowerCase(), (A, B) => {
+      AJXReq([`/devs_reqs/`, `localeCookie`], e.innerHTML.toLowerCase(), (A, B) => {
 
         if (B.exit === true) window.location = `/`;
       });
@@ -418,7 +421,7 @@
 
     else if (e.id === `getRegion`) {
 
-      JSStore.to({Billto: [e.value.toLowerCase(), false], myRegion: JSStore.avail().regionMeta});
+      JSStore.to({Billto: [e.innerHTML.toLowerCase(), false], myRegion: JSStore.avail().regionMeta});
 
       Modal = document.querySelector(`#ModalRegions`);
 
