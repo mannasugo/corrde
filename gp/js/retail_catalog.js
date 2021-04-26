@@ -239,7 +239,7 @@
 
       e.style.background = `#54575a`;
 
-      e.parentNode.previousElementSibling.querySelector(`img`).src = e.getAttribute(`file`);
+      e.parentNode.previousElementSibling.querySelector(`img`).src = `/` + e.getAttribute(`file`);
     }
 
     else if (e.id === `retailMaps`) to = document.querySelector(`#ModalRetailRates`);
