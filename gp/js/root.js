@@ -536,6 +536,21 @@
 
       ModelSource.innerHTML = M.modelStringify(JSModel);
 
+      let Source = document.querySelector(`#myBag`);
+
+      Source.setAttribute(`style`, `margin:0 15px;width:24px;height:24px;position:relative;overflow:visible;text-indent:unset`);
+
+      let ModelStat = Source.appendChild(document.createElement(`span`));
+
+      ModelStat.className = `_-Zz _aAQ-`;
+
+      if (JSStore.avail().myCart && JSStore.avail().myCart.length > 0) {
+
+        ModelStat.innerHTML = JSStore.avail().myCart.length;
+
+        ModelStat.className = `_aAQ-`
+      }
+
       document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
     }
   }
@@ -593,6 +608,15 @@
         e.parentNode.parentNode.parentNode.previousElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
 
         e.parentNode.parentNode.parentNode.previousElementSibling.previousElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
+
+      if (document.querySelector(`#myBag`)) {
+
+        let ModelStat = document.querySelector(`#myBag`).querySelector(`span`);
+
+        ModelStat.innerHTML = Cart.length;
+
+        ModelStat.className = `-Zz _aAQ-`;
       }
 
       if (document.querySelector(`#ModelToast`)) document.querySelector(`#corrde-root`).removeChild(document.querySelector(`#ModelToast`));
@@ -673,6 +697,20 @@
         e.parentNode.parentNode.parentNode.nextElementSibling.querySelector(`span`).innerHTML = `${Data.swapAlpha} ${toll.toLocaleString()}`;
 
         e.parentNode.nextElementSibling.querySelector(`span`).innerHTML = Cart[item].items;
+      }
+
+      if (document.querySelector(`#myBag`)) {
+        
+        let ModelStat = document.querySelector(`#myBag`).querySelector(`span`);
+
+        ModelStat.className = `_-Zz _aAQ-`;
+
+        if (Cart.length > 0) {
+
+          ModelStat.innerHTML = Cart.length;
+
+          ModelStat.className = `-Zz _aAQ-`;
+        }
       }
 
       if (document.querySelector(`#ModalMyCart`)) {
