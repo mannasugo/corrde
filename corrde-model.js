@@ -1824,15 +1824,15 @@ module.exports = {
 
     return [
       `footer`, `.@_CuH`, [[  
-        `div`, `.@_gxM _aYS`, footAll], [
-        `div`, `.@_gMX _aYS`, [[
+        `div`, `.@_gxM _aYS _-Zz`, footAll], [
+        `div`, `.@_gMX _aYS`, `&@style>margin:25px 0`, [[
           `a`, `.@-_tX _4Qx GramColor`, config.out_to, `&@href>https://instagram.com/corrdeapp`, `~@instagram`], [
           `a`, `.@-_tX _4Qx TwitterColor`,config.out_to, `&@href>https://twitter.com/corrdeapp`, `~@twitter`], [
           `a`, `.@-_tX _4Qx VKBlack`,config.out_to, `&@href>https://vk.com/corrdeapp`, `~@vk`], [
           `a`, `.@-_tX _4Qx Dribbble`,config.out_to, `&@href>https://dribbble.com/corrde`, `~@dribbble`], [
           `a`, `.@-_tX _4Qx GitHub`,config.out_to, `&@href>https://github.com/mannasugo/corrde`, `~@GitHub`]]], [
         `div`, `.@_geQ _aYS`, [[`span`, `.@_uHB`, config.ip]]], [  
-        `div`, `.@_gxM _aYS`, ModelSaleGateWay]]]
+        `div`, `.@_gxM _aYS _-Zz`, ModelSaleGateWay]]]
   },
 
   jS (pool) {
@@ -7472,7 +7472,7 @@ module.exports = {
 
       ModelZones.push([
         `div`, `.@_gZ`, [[
-          `span`, `.@_gcQ _aWz`, `#@getZone`, `&@style>padding:15px;cursor:pointer`, `~@${Zone}`]]]);
+          `span`, `.@_gcQ _aWz`, `#@getZone`, `&@style>padding:12px 24px;cursor:pointer`, `~@${Zone}`]]]);
     });
 
     return [
@@ -8547,7 +8547,7 @@ module.exports = {
 
       ModelRegions.push([
         `div`, `.@_gZ`, [[
-          `span`, `.@_gcQ _aWz _tXx`, `#@getRegion`, `&@style>text-transform:capitalize;padding:15px;cursor:pointer`, `~@${Region.locale}`]]]);
+          `span`, `.@_gcQ _aWz _tXx`, `#@getRegion`, `&@style>text-transform:capitalize;padding:12px 24px;cursor:pointer`, `~@${Region.locale}`]]]);
     });
 
     return [
