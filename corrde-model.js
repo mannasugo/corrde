@@ -7413,11 +7413,11 @@ module.exports = {
 
     let ModelMug = [`a`, `#@offmugger`, `.@-_tX Mug`, `&@style>margin:0 15px`, `&@href>javascript:;`];
 
-    let ModalA = [`pay orders & invoices`, `Shop by Category`, `Vendors & MarketPlace`, `Mail & Notifications`, `Sign Out`]
+    let ModalA = [`pay orders & invoices`, `Shop by Category`, `Shop by Country`, `Vendors & MarketPlace`, `Mail & Notifications`, `Sign Out`]
 
-    let ModalB = [``, `getSets`, `marketplace`, `mail`, ``]
+    let ModalB = [``, `getSets`, `SetZone`, `marketplace`, `mail`, ``]
 
-    let ModalC = [`/invoices/`, `javascript:;`, `/vendors/`, `javascript:;`, `javascript:;`];
+    let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `/vendors/`, `javascript:;`, `javascript:;`];
 
     if (State !== false) {
 
@@ -7442,16 +7442,16 @@ module.exports = {
                 `a`, `#@devs`, `.@-_tX AppMedium`, `&@href>/`, `~@corrde`], [
                 `span`, `@_aA6`, `&@style>padding: 0 7px`, `~@ | CORRDE STORE`]]], [
               `div`, `.@_QZg`, [[
-                `a`, `#@SetZone`, `.@-_tX GeoGray`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], [
+                `a`, `#@pull`, `.@-_tX Pull _-Zz`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], [
                 `a`, `#@myBag`, `.@-_tX Bag`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`],
                 ModelMug]], 
               this.inModal({id: `mugger`, in: this.aPoolModal(ModalA, ModalB, ModalC)}), 
               this.inModal({
                 id: `offmug`, 
                 in: this.aPoolModal([
-                  `Sign in`, `Create Free Account`, `Shop By Category`, `Vendors & MarketPlace`], [
-                  ``, ``, `getSets`, `marketplace`], [
-                  `/login/`, `/signup/`, `javascript:;`, `/vendors/`])})]]]]]]]];
+                  `Sign in`, `Create Free Account`, `Shop By Category`, `Shop By Country`, `Vendors & MarketPlace`], [
+                  ``, ``, `getSets`, `SetZone`, `marketplace`], [
+                  `/login/`, `/signup/`, `javascript:;`, `javascript:;`, `/vendors/`])})]]]]]]]];
 
   },
 

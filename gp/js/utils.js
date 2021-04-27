@@ -694,9 +694,7 @@ const Model = (function () {
                 `span`, `&@style>font-size:10px;font-weight:600;padding:0 12px;background:#9999992e;border-radius:100px;color:#999;text-transform:uppercase`, `~@${mailera}`]]], [
               `div`, `.@_QZg`, [[
                 `span`, `&@style>fnt-size:17px`, `~@${Arg[0].swapAlpha + ` ` + fee.toFixed(2)}`]]]]]]])
-      })
-
-      console.log(Arg[0]);
+      });
       
       return [`div`, `@_-Zz`, `#@ModalMailFee`, [[
         `div`, `.@_UQe _tY0`, `#@modalView`, [[
@@ -708,8 +706,25 @@ const Model = (function () {
                   `div`, `.@_eYG`, []]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0;`, [[
                 `div`, `.@sZ2`, `&@style>font-size:12px`, ModelMailFee]]]]]]]]]]]]];
+    },
 
+    ModelPull: function () {
 
+      return [[
+      `main`, `.@_xC2`, [[
+        `div`, `.@_tY0`, [[
+          `section`, `#@ModelBilling`, [[
+            `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;margin-top:16px`, [[
+              `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px;font-weight:600`, [[`div`, [[`p`, `~@cart items`]]]]], [
+              `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, []]]]]]]]]], [
+      `nav`, `.@_uHC _tY0`, [[
+        `div`, `.@_xCt`], [
+        `div`, [[
+          `div`, `.@_-tY`, [[
+            `div`, `.@_aXz`, [[
+              `a`, `#@foldPull`, `.@_-tX From`, `&@href>javascript:;`], [
+              `div`, `.@_eYG _tY0`, `&@style>width:100%`, [[`input`, `.@_tY0`, `&@style>border:none;width:100%`, `&@placeholder>Search...`]]], [
+              `div`, `.@_QZg`, [[`a`, `.@_-tX Close`, `&@href>javascript:;`]]]]]]]]]]]]
     }
   }
   

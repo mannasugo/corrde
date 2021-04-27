@@ -364,6 +364,18 @@
       e.parentNode.previousElementSibling.querySelector(`img`).src = e.getAttribute(`file`);
     }
 
+    else if (e.id === `pull`) {
+
+      let ModelSource = document.querySelector(`main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify(M.ModelPull())
+
+    }
+
+    else if (e.id === `foldPull`) window.location = window.location;
+
     if (e.id === `CreateStore`) {
 
       if (!JSStore.avail().mug || JSStore.avail().mug === false) window.location = `/signup/`;

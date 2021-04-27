@@ -633,7 +633,7 @@ body {
 .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
 .FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
-.poolsiconUA, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .SortGray, .StarColor, .StarMiniColor, 
+.poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .SortGray, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .To, .twineiconUA, .TwitterColor, .VKBlack, .vServiceGray, .verifylighticonUA, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
@@ -853,6 +853,10 @@ body {
 
 .ProceedColor {
   background-position: -166px -180px;
+}
+
+.Pull {
+  background-image: url(/gp/p/vector/find.svg);
 }
 
 .RootGray {
