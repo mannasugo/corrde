@@ -7442,7 +7442,7 @@ module.exports = {
                 `a`, `#@devs`, `.@-_tX AppMedium`, `&@href>/`, `~@corrde`], [
                 `span`, `@_aA6`, `&@style>padding: 0 7px`, `~@ | CORRDE STORE`]]], [
               `div`, `.@_QZg`, [[
-                `a`, `#@pull`, `.@-_tX Pull _-Zz`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], [
+                `a`, `#@pull`, `.@-_tX Pull -Zz`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], [
                 `a`, `#@myBag`, `.@-_tX Bag`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`],
                 ModelMug]], 
               this.inModal({id: `mugger`, in: this.aPoolModal(ModalA, ModalB, ModalC)}), 
@@ -7899,10 +7899,12 @@ module.exports = {
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
                       `a`, `#@CreateStore`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]]]]],  
         Shelve(`bread & bakery`, Retail),  
+        Shelve(`eggs & dairy`, Retail),   
         Shelve(`deli`, Retail),
         Shelve(`beverages`, Retail),
         Shelve(`pantry`, Retail),  
-        Shelve(`alcohol`, Retail),  
+        Shelve(`alcohol`, Retail),   
+        Shelve(`baby`, Retail),  
         Shelve(`beauty & personal care`, Retail),   
         Shelve(`clothing`, Retail),
         ModelPayAd, [
