@@ -7700,7 +7700,7 @@ module.exports = {
         if (Row.mass && Row.set && this.filter(this.filter(Row.set)) === Shelf && Row.market === zone) Stock.push(Row)
       });
 
-      if (Shelf === `fast food & eatery`) Stock = Stock.slice(0, 12);
+      //if (Shelf === `fast food & eatery`) Stock = Stock.slice(0, 12);
 
       else Stock = Stock.slice(0, 3);
 
