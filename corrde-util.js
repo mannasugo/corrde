@@ -8248,7 +8248,7 @@ class AJXReqs extends Auxll {
 
     this.Sell(Sell => {
 
-      let filterSet = model.filter(model.filter(Sell.Sell[1][Arg.sum].set))
+      let filterSet = model.filter(model.filter(Sell.Sell[1][Arg.sum].set));
 
       if (!Sell.Sell[1][Arg.sum] || RetailSets.indexOf(filterSet) === -1 || !TagSets[filterSet]) return;
 
