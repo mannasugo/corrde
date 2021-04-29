@@ -710,13 +710,27 @@ const Model = (function () {
 
     ModelPull: function () {
 
+      let ModelPullArgs = [];
+
+      let PullArgs = [`brands`, `departments & categories`, `product tag`];
+
+      PullArgs.forEach(Arg => {
+
+        let style = ``;
+
+        if (Arg === `product tag`) style = `text-decoration:line-through`; 
+
+        ModelPullArgs.push([
+          `a`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;color:#fff;border:1px solid #fff;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${Arg}`])
+      })
+
       return [[
       `main`, `.@_xC2`, [[
         `div`, `.@_tY0`, [[
-          `section`, `#@ModelBilling`, [[
+          `section`, `#@ModelPull`, `&@style>background: #000`, [[
             `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;margin-top:16px`, [[
-              `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px;font-weight:600`, [[`div`, [[`p`, `~@cart items`]]]]], [
-              `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, []]]]]]]]]], [
+              `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+                `div`, `.@_gZy`, ModelPullArgs]]]]]]]]]]], [
       `nav`, `.@_uHC _tY0`, [[
         `div`, `.@_xCt`], [
         `div`, [[

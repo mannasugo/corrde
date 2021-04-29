@@ -6804,7 +6804,7 @@ class UATCP extends UAPublic {
 
         let payer = Args.log_secs;
 
-        if (Args.u_md5) payer = Args.u_md5;
+        if (Args.mug) payer = Args.mug;
 
         let logSum = crypto.createHash(`md5`).update(`${timeStamp}`, `utf8`).digest(`hex`);
 
