@@ -730,15 +730,36 @@ const Model = (function () {
           `section`, `#@ModelPull`, `&@style>background: #000`, [[
             `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;margin-top:16px`, [[
               `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
-                `div`, `.@_gZy`, ModelPullArgs]]]]]]]]]]], [
+                `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
+          `section`, `#@ModelPullStack`, `&@style>max-width:960px;margin:24px auto;width:100%`]]]]], [
       `nav`, `.@_uHC _tY0`, [[
         `div`, `.@_xCt`], [
         `div`, [[
           `div`, `.@_-tY`, [[
             `div`, `.@_aXz`, [[
               `a`, `#@foldPull`, `.@_-tX From`, `&@href>javascript:;`], [
-              `div`, `.@_eYG _tY0`, `&@style>width:100%`, [[`input`, `.@_tY0`, `&@style>border:none;width:100%`, `&@placeholder>Search...`]]], [
+              `div`, `.@_eYG _tY0`, `&@style>width:100%`, [[`input`, `#@pullRetailStack`, `.@_tY0`, `&@style>border:none;width:100%`, `&@placeholder>Search...`]]], [
               `div`, `.@_QZg`, [[`a`, `.@_-tX Close`, `&@href>javascript:;`]]]]]]]]]]]]
+    },
+
+    ModelPullStack: function (Arg) {
+
+      let ModelPullStack = [];
+
+      Arg.forEach(Sell => {
+
+        ModelPullStack.push([
+        `div`, `.@_gZ`, [[
+          `div`, `.@_gcQ _aXZ`, `&@style>padding: 16px 24px`, [[
+            `span`, `.@_cCq _gS3`, `#@mug-ava`, `@href>javascript:;`, `&@style>height:24px;width:24px;`, [[
+              `img`, `#@mug-ava`, `.@_aWz`, `&@style>height:auto`, `&@src>/${Sell.files[0]}`]]], [
+              `div`, `.@_eYG`, [[
+                `a`, `#@getStock`, `.@_tXv _aA2 _aWz`, `&@sum>${Sell.MD5}`, `&@href>javascript:;`, `~@${Sell.alpha}`]]], [
+          `div`, `.@_QZg`, [[
+            `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X _tXx _tY0`, `~@€${(Sell.dollars*.84).toFixed(2)}`]]]]]]])
+      })
+
+      return [`div`, `.@_z4`, ModelPullStack]
     }
   }
   

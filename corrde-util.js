@@ -7397,6 +7397,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.pullRetails) this.pullRetails(JSON.parse(this.args.pullRetails));
 
+      else if (this.args.pullRetailStack) this.pullRetailStack(JSON.parse(this.args.pullRetailStack));
+
       else if (this.args.pullRetailStock) this.pullRetailStock(JSON.parse(this.args.pullRetailStock));
 
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
@@ -8682,6 +8684,15 @@ class AJXReqs extends Auxll {
 
       this.app.to.writeHead(200, config.reqMime.json);
       this.app.to.end(JSON.stringify({exit: true, ModelController: Model}));
+    })
+  }
+
+  pullRetailStack(Arg) {
+
+    this.Sell(Sell => {
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({exit: true, retailStack: Sell.Sell[0]}));
     })
   }
 }

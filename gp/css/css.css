@@ -3878,6 +3878,8 @@ table > thead > tr > th {
   }
 
   ._g0X > ._yZ {height: 100%}
+
+  #ModelPullStack ._z4 {border: 1px solid #e6e7e8;border-radius: .5em;}
 }
 
 @media (min-width: 1024px) {

@@ -7442,7 +7442,7 @@ module.exports = {
                 `a`, `#@devs`, `.@-_tX AppMedium`, `&@href>/`, `~@corrde`], [
                 `span`, `@_aA6`, `&@style>padding: 0 7px`, `~@ | CORRDE STORE`]]], [
               `div`, `.@_QZg`, [[
-                `a`, `#@pull`, `.@-_tX Pull _-Zz`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], [
+                `a`, `#@pull`, `.@-_tX Pull -Zz`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], [
                 `a`, `#@myBag`, `.@-_tX Bag`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`],
                 ModelMug]], 
               this.inModal({id: `mugger`, in: this.aPoolModal(ModalA, ModalB, ModalC)}), 

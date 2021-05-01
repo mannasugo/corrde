@@ -370,7 +370,15 @@
 
       let M = new Model();
 
-      ModelSource.innerHTML = M.modelStringify(M.ModelPull())
+      AJXReq([`/devs_reqs/`, `pullRetailStack`], {}, (A, B) => {
+
+        if (B.exit === true) {
+
+          JSStore.to({retails: B.retailStack});
+
+          ModelSource.innerHTML = M.modelStringify(M.ModelPull());
+        }
+      });
 
     }
 
@@ -789,9 +797,34 @@
     ModelShelf()
   }
 
+  let Keyup = e => {
+
+    e = e.target;
+
+    if (e.id === `pullRetailStack`) {
+
+      let Retails = JSStore.avail().retails;
+
+      if (!e.value.length > 0) return;
+
+      let Stack = [];
+
+      Retails.forEach(Sell => {
+
+        if ((Sell.alpha).toString().match(new RegExp(`${e.value}`, `i`))) Stack.push(Sell);
+      });
+
+      let M = new Model();
+
+      document.querySelector(`#ModelPullStack`).innerHTML = M.modelStringify([M.ModelPullStack(Stack)]);
+    }
+  }
+
   Zonal();
 
   document.addEventListener(`click`, e0);
+
+  document.addEventListener(`keyup`, Keyup);
 
   window.addEventListener(`resize`, eSize);
 
