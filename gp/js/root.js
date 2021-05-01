@@ -398,7 +398,33 @@
       document.querySelector(`#ModelPullStack`).innerHTML = ``;
     }
 
-    else if (e.id === `foldPull`) window.location = window.location;
+    else if (e.id === `foldPull`) {
+
+      let ModelSource = document.querySelector(`main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify(JSModel);
+
+      let Source = document.querySelector(`#myBag`);
+
+      Source.setAttribute(`style`, `margin:0 15px;width:24px;height:24px;position:relative;overflow:visible;text-indent:unset`);
+
+      let ModelStat = Source.appendChild(document.createElement(`span`));
+
+      ModelStat.className = `_-Zz _aAQ-`;
+
+      if (JSStore.avail().myCart && JSStore.avail().myCart.length > 0) {
+
+        ModelStat.innerHTML = JSStore.avail().myCart.length;
+
+        ModelStat.className = `_aAQ-`
+      }
+
+      document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
+
+      
+    }
 
     if (e.id === `CreateStore`) {
 
@@ -826,8 +852,6 @@
       let pullArg = `alpha`;
 
       if (JSStore.avail().pullArg === `brands`) pullArg = `factory`;
-
-      //if (JSStore.avail().pullArg === (`departments & categories`).replace(new RegExp(/&/), `u/0026`)) pullArg = `tags`;
 
       let Stack = [];
 
