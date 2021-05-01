@@ -382,6 +382,22 @@
 
     }
 
+    else if (e.id === `pullArg`) {
+
+      if (!document.querySelector(`#pullArg`)) return;
+
+      document.querySelectorAll(`#pullArg`).forEach(Source => {
+
+        Source.style.textDecoration = `none`;
+      });
+
+      e.style.textDecoration = `line-through`;
+
+      JSStore.to({pullArg: e.innerHTML});
+
+      document.querySelector(`#ModelPullStack`).innerHTML = ``;
+    }
+
     else if (e.id === `foldPull`) window.location = window.location;
 
     if (e.id === `CreateStore`) {
@@ -807,11 +823,18 @@
 
       if (!e.value.length > 0) return;
 
+      let pullArg = `alpha`;
+
+      if (JSStore.avail().pullArg === `brands`) pullArg = `factory`;
+
+      //if (JSStore.avail().pullArg === (`departments & categories`).replace(new RegExp(/&/), `u/0026`)) pullArg = `tags`;
+
       let Stack = [];
 
       Retails.forEach(Sell => {
 
-        if ((Sell.alpha).toString().match(new RegExp(`${e.value}`, `i`))) Stack.push(Sell);
+        if (Sell[pullArg] && (Sell[pullArg]).toString().match(new RegExp(`${e.value}`, `i`))) Stack.push(Sell);
+
       });
 
       let M = new Model();

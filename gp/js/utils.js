@@ -712,7 +712,7 @@ const Model = (function () {
 
       let ModelPullArgs = [];
 
-      let PullArgs = [`brands`, `departments & categories`, `product tag`];
+      let PullArgs = [`brands`, `product tag`];
 
       PullArgs.forEach(Arg => {
 
@@ -721,7 +721,7 @@ const Model = (function () {
         if (Arg === `product tag`) style = `text-decoration:line-through`; 
 
         ModelPullArgs.push([
-          `a`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;color:#fff;border:1px solid #fff;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${Arg}`])
+          `a`, `#@pullArg`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;color:#fff;border:1px solid #fff;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${Arg}`])
       })
 
       return [[
@@ -739,7 +739,7 @@ const Model = (function () {
             `div`, `.@_aXz`, [[
               `a`, `#@foldPull`, `.@_-tX From`, `&@href>javascript:;`], [
               `div`, `.@_eYG _tY0`, `&@style>width:100%`, [[`input`, `#@pullRetailStack`, `.@_tY0`, `&@style>border:none;width:100%`, `&@placeholder>Search...`]]], [
-              `div`, `.@_QZg`, [[`a`, `.@_-tX Close`, `&@href>javascript:;`]]]]]]]]]]]]
+              `div`, `.@_QZg`, [[`a`, `#@foldPull`, `.@_-tX Close`, `&@href>javascript:;`]]]]]]]]]]]]
     },
 
     ModelPullStack: function (Arg) {
@@ -752,9 +752,9 @@ const Model = (function () {
         `div`, `.@_gZ`, [[
           `div`, `.@_gcQ _aXZ`, `&@style>padding: 16px 24px`, [[
             `span`, `.@_cCq _gS3`, `#@mug-ava`, `@href>javascript:;`, `&@style>height:24px;width:24px;`, [[
-              `img`, `#@mug-ava`, `.@_aWz`, `&@style>height:auto`, `&@src>/${Sell.files[0]}`]]], [
+              `img`, `#@pullRetailStock`, `&@sum>${Sell.MD5}`, `.@_aWz`, `&@style>height:auto`, `&@src>/${Sell.files[0]}`]]], [
               `div`, `.@_eYG`, [[
-                `a`, `#@getStock`, `.@_tXv _aA2 _aWz`, `&@sum>${Sell.MD5}`, `&@href>javascript:;`, `~@${Sell.alpha}`]]], [
+                `a`, `#@pullRetailStock`, `.@_tXv _aA2 _aWz`, `&@sum>${Sell.MD5}`, `&@href>javascript:;`, `~@${Sell.alpha}`]]], [
           `div`, `.@_QZg`, [[
             `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X _tXx _tY0`, `~@€${(Sell.dollars*.84).toFixed(2)}`]]]]]]])
       })
@@ -789,7 +789,7 @@ const WebStore = (function () {
         this.allValues[value] = allValues[value];
       }
 
-      sessionStorage.setItem(`u`, JSON.stringify(this.allValues).replace(new RegExp(/&/g, `g`), `u/0026`));
+      sessionStorage.setItem(`u`, JSON.stringify(this.allValues).replace(new RegExp(/&/), `u/0026`));
       return sessionStorage;
     },
 
