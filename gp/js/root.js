@@ -423,7 +423,7 @@
 
       document.querySelector(`#localeZone`).innerHTML = JSStore.avail().locale;
 
-      
+
     }
 
     if (e.id === `CreateStore`) {
@@ -846,6 +846,8 @@
     if (e.id === `pullRetailStack`) {
 
       let Retails = JSStore.avail().retails;
+
+      Retails = Retails.sort((A, B) => {return B.log - A.log});
 
       if (!e.value.length > 0) return;
 

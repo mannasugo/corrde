@@ -746,6 +746,8 @@ const Model = (function () {
 
       let ModelPullStack = [];
 
+      //Arg = Arg.sort((A, B) => {return B.log - A.log});
+
       Arg.forEach(Sell => {
 
         ModelPullStack.push([
