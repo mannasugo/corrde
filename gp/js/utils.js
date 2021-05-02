@@ -738,15 +738,13 @@ const Model = (function () {
           `div`, `.@_-tY`, [[
             `div`, `.@_aXz`, [[
               `a`, `#@foldPull`, `.@_-tX From`, `&@href>javascript:;`], [
-              `div`, `.@_eYG _tY0`, `&@style>width:100%`, [[`input`, `#@pullRetailStack`, `.@_tY0`, `&@style>border:none;width:100%`, `&@placeholder>Search...`]]], [
+              `div`, `.@_eYG _tY0`, `&@style>width:100%`, [[`input`, `#@pullRetailStack`, `.@_tY0 _RRD`, `&@style>border:none;width:100%;margin:0`, `&@placeholder>Search...`]]], [
               `div`, `.@_QZg`, [[`a`, `#@foldPull`, `.@_-tX Close`, `&@href>javascript:;`]]]]]]]]]]]]
     },
 
     ModelPullStack: function (Arg) {
 
       let ModelPullStack = [];
-
-      //Arg = Arg.sort((A, B) => {return B.log - A.log});
 
       Arg.forEach(Sell => {
 
