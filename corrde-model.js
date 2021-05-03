@@ -7413,11 +7413,11 @@ module.exports = {
 
     let ModelMug = [`a`, `#@offmugger`, `.@-_tX Mug`, `&@style>margin:0 15px`, `&@href>javascript:;`];
 
-    let ModalA = [`pay orders & invoices`, `Shop by Category`, `Shop by Country`, `Vendors & MarketPlace`, `Mail & Notifications`, `Sign Out`]
+    let ModalA = [`pay orders & invoices`, `Shop by Category`, `Shop by Country`, `Corrde Stake & Stock Offerings`, `Vendors & MarketPlace`, `Mail & Notifications`, `Sign Out`]
 
     let ModalB = [``, `getSets`, `SetZone`, `marketplace`, `mail`, ``]
 
-    let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `/vendors/`, `javascript:;`, `javascript:;`];
+    let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `/bayvex`, `/vendors/`, `javascript:;`, `javascript:;`];
 
     if (State !== false) {
 
@@ -7449,9 +7449,9 @@ module.exports = {
               this.inModal({
                 id: `offmug`, 
                 in: this.aPoolModal([
-                  `Sign in`, `Create Free Account`, `Shop By Category`, `Shop By Country`, `Vendors & MarketPlace`], [
+                  `Sign in`, `Create Free Account`, `Shop By Category`, `Shop By Country`, `Corrde Stake & Stock Offerings`, `Vendors & MarketPlace`], [
                   ``, ``, `getSets`, `SetZone`, `marketplace`], [
-                  `/login/`, `/signup/`, `javascript:;`, `javascript:;`, `/vendors/`])})]]]]]]]];
+                  `/login/`, `/signup/`, `javascript:;`, `javascript:;`, `/bayvex/`, `/vendors/`])})]]]]]]]];
 
   },
 
@@ -7885,8 +7885,30 @@ module.exports = {
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 200px`, [[
                       `a`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>/store/clothing`, `~@shop now`]]]]]]]]], [
               `div`, `.@_ge0 _c3x _Qtx`, [[]]]]]]]]],
-        Shelve(`fast food & eatery`, Retail),
-        Shelve(`fruits & vegetables`, Retail), [
+        Shelve(`fast food & eatery`, Retail),  
+        Shelve(`bread & bakery`, Retail),
+        Shelve(`beverages`, Retail), [
+        `section`, `.@_g29`, `&@style>line-height:1.5rem;background:#14312d`, [[
+          `div`, `.@_cX3`, [[
+            `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
+              `div`, `.@_gxQ _gQ0 _S8Y _c3x`, [[
+                `svg`, `&@style>height:200px;width:200px`, [[
+                  `g`, `&@style>stroke:orange;fill:none`, [[`path`, `&@d>M0 110 l32 -10 4 4 39 -17 4 2 22 -22 12 2 9 -4 22 -6 45 -30`]]], [
+                  `g`, `&@style>stroke:#fff;fill:none`, [[
+                    `rect`, `&@height>190px`, `&@width>90px`, `&@x>55`, `&@y>5`, `&@ry>10px`, `&@rx>12px`], [
+                    `rect`, `&@height>2px`, `&@width>25px`, `&@x>80`, `&@y>10.5`, `&@ry>4px`, `&@rx>4px`], [
+                    `circle`, `&@r>1.5px`, `&@cx>115`, `&@cy>12`], [
+                    `rect`, `&@style>fill:#1811fe`, `&@height>50px`, `&@width>50px`, `&@x>130`, `&@y>20`, `&@ry>8px`, `&@rx>10px`], [
+                    `text`, `&@style>fill:#fff;stroke:none;font-size:42px;font-family:proxima-nova`, `&@x>71.5%`, `&@y>29%`, `~@$`]]]]]]], [
+              `div`, `.@_ge0 _c3x _Qtx`, [[`span`, `&@style>padding-bottom: 24px;font-weight:600`, `~@Invest in our growth and earn daily`], [
+                `div`, `~@Commission-free stake trading and investing at any price for anyone with fair investment caps.`], [
+                `div`, `.@_geQ`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>width:max-content`, [[
+                    `a`, `.@_TX_a _atX _utQ gMX _aA0`, `&@href>/bayvex`, `~@start earning`]]]]]]]]]]]]],  
+        Shelve(`eggs & dairy`, Retail),
+        Shelve(`fruits & vegetables`, Retail),   
+        Shelve(`deli`, Retail),
+        Shelve(`pantry`, Retail), [
         `section`, `.@_g29`, `&@style>line-height:1.5rem;background:#14312d`, [[
           `div`, `.@_cX3`, [[
             `div`, `.@_gxQ _gxM _X2Y _gxZ`, `&@style>min-height:250px`, [[
@@ -7898,11 +7920,6 @@ module.exports = {
                   `div`, `.@QZg`, [[
                     `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>max-width: 450px`, [[
                       `a`, `#@CreateStore`, `.@_TX_a _atX _utQ _gMX _aA0`, `&@href>javascript:;`, `~@sign up your store`]]]]]]]]]]]]]]],  
-        Shelve(`bread & bakery`, Retail),  
-        Shelve(`eggs & dairy`, Retail),   
-        Shelve(`deli`, Retail),
-        Shelve(`beverages`, Retail),
-        Shelve(`pantry`, Retail),  
         Shelve(`alcohol`, Retail),   
         Shelve(`baby`, Retail),  
         Shelve(`beauty & personal care`, Retail),   
