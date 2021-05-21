@@ -26,6 +26,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'gotham-book';
+  src: url('/gp/font/Gotham Book Font.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
 a, article, body, div, footer, form, h1, h2, h3, h4, header, html, img, label, li, nav, p, section, span, time, ul {
   margin: 0;
   padding: 0;

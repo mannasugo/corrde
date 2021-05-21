@@ -55,18 +55,23 @@
 
       let D = new Auxll().longSlim(document.querySelector(`#pass`).value);
 
+      let E = new Auxll().longSlim(document.querySelector(`#call`).value);
+
       if (A) JSStore.to({ini_mail: slim(document.querySelector(`#ini_mail`).value).replace(new RegExp(/&/g, `g`), `u/0026`)});
 
       if (B && C) JSStore.to({u_md5_alt: `${slim(document.querySelector(`#pre`).value).replace(new RegExp(/&/g, `g`), `u/0026`)} ${slim(document.querySelector(`#suff`).value).replace(new RegExp(/&/g, `g`), `u/0026`)}`});
 
       if (D) JSStore.to({ini_pass: slim(document.querySelector(`#pass`).value).replace(new RegExp(/&/g, `g`), `u/0026`)});
 
+      if (E) JSStore.to({cellCall: parseInt(slim(document.querySelector(`#call`).value).replace(new RegExp(/&/g, `g`), `u/0026`))});
+
       document.querySelector(`#ini_mail`).value = ``;
+      document.querySelector(`#call`).value = ``;
       document.querySelector(`#pre`).value = ``;
       document.querySelector(`#suff`).value = ``;
       document.querySelector(`#pass`).value = ``;
 
-      if (A && B && C && D) {
+      if (A && B && C && D && E) {
 
         if (JSStore.avail().ini_mail && JSStore.avail().u_md5_alt && JSStore.avail().ini_pass) {
           

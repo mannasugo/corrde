@@ -849,13 +849,13 @@ const Model = (function () {
           `div`, `.@_geQ`, [[
             `div`, `.@_gxM`, [[
               `span`, `.@_tXx _tAa`, `~@${Value[0]}`], [
-              `div`, `.@_eYG`, [[`span`, `.@_tXx tAa`, `&@style>font-family:proxima-nova`, `~@${Value[1]}`]]]]]]])
+              `div`, `.@_eYG`, [[`span`, `.@_tXx tAa`, `~@${Value[1]}`]]]]]]])
       })
 
       return [
-        `section`, `#@ModelPullSharePay`, `.@_-Zz`, `&@style>max-width:940px;margin:24px auto;width:100%`, [[
+        `section`, `#@ModelPullSharePay`, `.@_-Zz`, `&@style>max-width:940px;margin:24px auto;width:100%;font-family:gotham-book`, [[
           `div`, `.@_z4`, [[
-            `div`, `.@_gcQ _aXZ`, [[`span`, `.@`, `~@Stock Price`]]], [
+            `div`, `.@_gcQ _aXZ`, [[`span`, `&@style>font-family:gotham-book`, `~@Price per Share unit`]]], [
             `div`, `.@_gxM _gcQ`, [[
               `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:24px`, `~@$${price[0].toLocaleString() + `.` + price[1]} USD`], 
               ModelCentile]], [
@@ -939,7 +939,7 @@ const Model = (function () {
         ModelSVGCountY.push([
           `g`, [[
             `rect`, `.@_pg4`, `&@x>1%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@width>90%`, `&@height>1`], [
-            `text`, `&@x>92%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${a.toFixed(2)}`]]]);
+            `text`, `&@x>92%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${parseInt(a)}`]]]);
       });
 
       let ModelSVGCountX = [];
@@ -967,7 +967,7 @@ const Model = (function () {
       return [
         `section`, `#@ModelValuation`, `&@style>max-width:940px;margin:24px auto;width:100%`, [[
           `div`, `.@_z4`, `&@style>padding: 16px 0`, [[
-            `div`, `.@_gcQ _aXZ`, [[`span`, `.@`, `~@Market Valuation & Equity`]]], [
+            `div`, `.@_gcQ _aXZ`, [[`span`, `&@style>font-family:gotham-book`, `~@Market Valuation & Equity`]]], [
             `div`, `.@_gxM _gcQ`, [[
               `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:24px`, `~@$${Sum[0].toLocaleString() + `.` + Sum[1]} USD`], 
               ModelCentile]], [
