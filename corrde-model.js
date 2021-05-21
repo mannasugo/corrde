@@ -7417,7 +7417,7 @@ module.exports = {
 
     let ModalB = [``, `getSets`, `SetZone`, `marketplace`, `mail`, ``]
 
-    let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `/bayvex`, `/vendors/`, `javascript:;`, `javascript:;`];
+    let ModalC = [`/invoices/`, `javascript:;`, `javascript:;`, `/securities`, `/vendors/`, `javascript:;`, `javascript:;`];
 
     if (State !== false) {
 
@@ -7451,7 +7451,7 @@ module.exports = {
                 in: this.aPoolModal([
                   `Sign in`, `Create Free Account`, `Shop By Category`, `Shop By Country`, `Corrde Stake & Stock Offerings`, `Vendors & MarketPlace`], [
                   ``, ``, `getSets`, `SetZone`, `marketplace`], [
-                  `/login/`, `/signup/`, `javascript:;`, `javascript:;`, `/bayvex/`, `/vendors/`])})]]]]]]]];
+                  `/login/`, `/signup/`, `javascript:;`, `javascript:;`, `/securities/`, `/vendors/`])})]]]]]]]];
 
   },
 
@@ -7904,7 +7904,7 @@ module.exports = {
                 `div`, `~@Commission-free stake trading and investing at any price for anyone with fair investment caps.`], [
                 `div`, `.@_geQ`, `&@style>padding: 24px 0`, [[
                   `div`, `.@_gM_0 _agM _guZ gMX`, `&@style>width:max-content`, [[
-                    `a`, `.@_TX_a _atX _utQ gMX _aA0`, `&@href>/bayvex`, `~@start earning`]]]]]]]]]]]]],  
+                    `a`, `.@_TX_a _atX _utQ gMX _aA0`, `&@href>/securities`, `~@start earning`]]]]]]]]]]]]],  
         Shelve(`eggs & dairy`, Retail),
         Shelve(`fruits & vegetables`, Retail),   
         Shelve(`deli`, Retail),
@@ -9803,7 +9803,48 @@ module.exports = {
           `div`, `.@_azX- _gMX _gmg _gp0 _-Zz`, `&@style>border: none`, [[
             `div`, `.@_gxM _gMX`, [[
               `div`, `.@_gMX _geQ`, `ModelPollCart`]]]]]]]]]]]]]]];
+  },
 
+  ModelStickyStake (A, State) {
 
+    let ModelMug = [`a`, `#@offmugger`, `.@-_tX Mug`, `&@style>margin:0 15px`, `&@href>javascript:;`];
+
+    if (State !== false) {
+
+      let ModelMugFile = [
+      `svg`, `#@mug-ava`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+        `circle`, `#@mug-ava`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+          `text`, `#@mug-ava`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${A[State].full[0]}`]]]
+
+      if (A[State].ava !== false) ModelMugFile = [`img`, `#@mug-ava`, `.@_aWz`, `&@src>/${A[State].ava}`];
+ 
+      ModelMug = [
+        `a`, `.@_cCq _gS3`, `#@mug-ava`, `&@href>javascript:;`, `&@style>height:24px;width:24px;margin: 0 15px`, [ModelMugFile]];
+    }
+
+    return [`nav`, 
+      `.@_uHC _tY0`, [[
+        `div`, `.@_xCt g2s`], [
+        `div`, [[
+          `div`, `.@_-tY y2s`, [[
+            `div`, `.@_aXz`, [[
+              `div`, `.@_-Xg _gxM _geQ`, [[
+                `a`, `#@devs`, `.@-_tX AppMedium`, `&@href>/`, `~@corrde`], [
+                `span`, `@_aA6`, `&@style>padding: 0 7px`, `~@ | CORRDE SECURITIES`]]], [
+              `div`, `.@_QZg`, [
+                ModelMug]]]]]]]]]];
+  },
+
+  ModelSecurities () {
+
+    return [
+      `main`, `.@_xC2`, [[
+        `div`, `.@_tY0`, [[
+          `section`, `#@ModelPull`, `&@style>background: #000;color:#fff`, [[
+            `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+              `div`, `.@_gX0`, `&@style>max-width:940px;margin:0 auto;padding:0 8px;width:100%`, [[
+                `div`, `.@_gxM _-Zz`, [[`span`, `.@_tXx`, `~@BYVEX FINTECH Index`]]], [
+                `div`, `.@_gxM _yZS`, [[`span`, `.@_tXv`, `&@style>font-size:12px`, `~@Bay Vault Exchange | BYVEX FINTECH Index | Corrde Store`]]]]]]]]], [
+          `section`, `#@ModelPullSecurities`, []]]]]];
   }
 }

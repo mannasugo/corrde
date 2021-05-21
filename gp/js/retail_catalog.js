@@ -177,7 +177,7 @@
 
       let ModelSource = document.querySelector(`main`);
 
-      ModelSource.innerHTML = M.modelStringify([M.ModelProxy(`Arg`)]);
+      ModelSource.innerHTML = M.modelStringify([M.ModelPaygate()]);
 
       JSStore.to({gArray: [], log_secs: new Date().valueOf()})
 
@@ -185,11 +185,11 @@
 
         gArray(a);
 
-        S.emit(`flutterwave`, JSStore.avail());
+        //S.emit(`flutterwave`, JSStore.avail());
 
       }, (b) => {
 
-        S.emit(`flutterwave`, JSStore.avail());
+        //S.emit(`flutterwave`, JSStore.avail());
       });
 
     }
@@ -349,6 +349,39 @@
       document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModalMailFee`).parentNode);
 
       document.querySelector(`#ModalRetailStock`).className = `-Zz`;
+    }
+
+    else if (e.id === `gate`) {
+
+      if (e.getAttribute(`for`).toLowerCase() === `intasend`) {
+
+        let M = new Model();
+
+        let ModelSource = document.querySelector(`main`);
+
+        ModelSource.innerHTML = M.modelStringify([M.ModelCustomPay(JSStore.avail())]);
+
+      }
+    }
+
+    else if (e.id === `paycustom`) {
+
+      let Payer = document.querySelector(`#payer`).value;
+
+      if (Payer.length < 9 || Payer[0] !== `7`) return;
+
+      JSStore.to({gateway: `intasend`, payer: Payer});
+
+      let M = new Model();
+
+      let ModelSource = document.querySelector(`main`);
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+      AJXReq([`/devs_reqs/`, `paygate`], JSStore.avail(), (A, B) => {
+
+        if (B.exit === true) window.location = `/`;
+      });
     }
 
     else if (e.id === `foldMyCart`) Modal = document.querySelector(`#ModalMyCart`);

@@ -371,7 +371,7 @@ const Model = (function () {
 
               Grams = Mass.gramSetAlpha;
 
-              Sell = Mass.sale;console.log(Sell)
+              Sell = Mass.sale;
             }
           })
         }
@@ -760,6 +760,442 @@ const Model = (function () {
       })
 
       return [`div`, `.@_z4`, ModelPullStack]
+    }, 
+
+    ModelPullSharePay: function (Arg) {
+
+      let Pay = Arg.fid[0][0];
+
+      let ModelCentile = [];
+
+      let price = (Pay[0].toFixed(2)).toString().split(`.`);
+
+      if (Pay[1] > 0 || Pay[1] < 0) {
+
+        let ModelSymbol = [];
+
+        if (Pay[1] > 0) ModelSymbol = [`path`, `&@style>stroke:#17dd17;fill:none`, `&@d>M12 17.5 12 8 M6 13 12 8 18 13`];
+
+        if (Pay[1] < 0) ModelSymbol = [`path`, `&@style>stroke:red;fill:none`, `&@d>M12 17.5 12 8 M6 13 12 17.5 18 13`];
+
+        ModelCentile = [
+          `div`, `.@_gxM`, [[
+            `svg`, `&@style>width:24px;height:24px;min-height:24px`, [ModelSymbol]], [
+            `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:15px;color:${(Pay[1]>0?`#17dd17`:`red`)}`, `~@${(Pay[1]>0?`+`:``)}${Pay[1].toFixed(2)} (${(Pay[1]>0?`+`:``)}${Pay[2].toFixed(2)}%)`]]]
+      }
+
+      let ModelTimeline = [];
+
+      Pay[3].forEach(era => {ModelTimeline.push([`div`, `.@_geQ`, [[`span`, `.@_tXx`, `~@${era}`]]])});
+
+      let ModelSVGCountY = [];
+
+      Pay[4][1].sort((A, B) => {return B[1] - A[1]});
+
+      let Vees = [Pay[4][1][0][1]*.75, Pay[4][1][0][1]*1.25, (Pay[4][1][0][1]*1.25 - Pay[4][1][0][1]*.75)];
+
+      if (Pay[4][1][1] && Pay[4][1][0][1] - Pay[4][1][Pay[4][1].length -1][1] > 0) {
+
+        Vees = [Pay[4][1][Pay[4][1].length -1][1]*.75, Pay[4][1][0][1]*1.25, Pay[4][1][0][1]*1.25  - (Pay[4][1][Pay[4][1].length -1][1]*.75)];
+      }
+
+      let V = [Vees[0] + Vees[2], Vees[0] + Vees[2]*.66, Vees[0] + Vees[2]*.33, Vees[0]];
+
+      V.reverse();
+
+      V.forEach((a) => {
+
+        ModelSVGCountY.push([
+          `g`, [[
+            `rect`, `.@_pg4`, `&@x>1%`, `&@y>${((240*.9/V[3])*(V[3] - a))}`, `&@width>90%`, `&@height>1`], [
+            `text`, `&@x>94%`, `&@y>${((240*.9/V[3])*(V[3] - a))}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${a.toFixed(2)}`]]]);
+      });
+
+      let ModelSVGCountX = [];
+
+      let max = Arg.secs - 60000*2;
+
+      let H = [max - 60000*52, max - 60000*42, max - 60000*31, max - 60000*21, max - 60000*10, max];
+
+      H.reverse();
+
+      H.forEach((a) => {
+
+        ModelSVGCountX.push([
+          `text`, `&@x>${82 - (H.indexOf(a) * 77.5/(H.length - 1))}%`, `&@y>${((240*.9/V[3])*(V[3] - V[0])) + 17}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${new Date(a).getUTCHours() + `:` + new Date(a).getUTCMinutes()}`]);
+      });
+
+      Pay[4][1].sort((A, B) => {return B[0] - A[0]});
+
+      let JS = JSON.stringify(Pay[4][1]);
+
+      JS.replace(new RegExp(`"`, `g`), `&quot;`);
+
+      let ModelSVGline = [`g`, [[`path`, `&@ymax>${V[3] - V[0]}-${V[3]}`, `&@data>${JS}`, `&@style>fill:none;stroke:#5841d8;stroke-linejoin:round;stroke-width:2;stroke-linecap:round`, `&@d>M`]]];
+
+      let ModelSVGDetails = [];
+
+      let Pays = Pay[4][1].sort((A, B) => {return B[1] - A[1]});
+
+      let SVGDetails = [
+        [
+          `high`, (Pays[1] && (Pays[0][1] > Pays[Pays.length - 1][1]))?Pays[0][1]: `unch`], 
+        [
+          `low`, (Pays[1] && (Pays[0][1] > Pays[Pays.length - 1][1]))?Pays[Pays.length - 1][1]: `unch`]];
+
+      SVGDetails.forEach(Value => {
+
+        ModelSVGDetails.push([
+          `div`, `.@_geQ`, [[
+            `div`, `.@_gxM`, [[
+              `span`, `.@_tXx _tAa`, `~@${Value[0]}`], [
+              `div`, `.@_eYG`, [[`span`, `.@_tXx tAa`, `&@style>font-family:proxima-nova`, `~@${Value[1]}`]]]]]]])
+      })
+
+      return [
+        `section`, `#@ModelPullSharePay`, `.@_-Zz`, `&@style>max-width:940px;margin:24px auto;width:100%`, [[
+          `div`, `.@_z4`, [[
+            `div`, `.@_gcQ _aXZ`, [[`span`, `.@`, `~@Stock Price`]]], [
+            `div`, `.@_gxM _gcQ`, [[
+              `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:24px`, `~@$${price[0].toLocaleString() + `.` + price[1]} USD`], 
+              ModelCentile]], [
+            `div`, `.@_gxM _yZS`, [[
+              `div`, `.@_eYG`], [
+              `div`, `.@_QZg _geQ`, `&@style>text-transform:uppercase;font-size:11px`, ModelTimeline]]], [
+            `div`, `.@_gcQ _aXZ _gZ`, [[
+              `svg`, `#@ModelStockState`, `&@style>width:100%;min-height:${((240*.9/V[3])*(V[3] - V[0])) + 36}px;overflow:visible`, [[
+                `g`, ModelSVGCountX], [`g`, ModelSVGCountY], ModelSVGline]]]], [
+            `div`, `.@_gZ _gcQ _gxM`, `&@style>font-size:11px`, ModelSVGDetails]]]]];
+    },
+
+    ModelValuation: function (Arg) {
+
+      let Till = Arg.fid[0][1];
+
+      let ModelCentile = [];
+
+      let Sum = (Till[0].toFixed(2)).split(`.`);
+
+      if (Till[5][1][0] > 0 || Till[5][1][0] < 0) {
+
+        let ModelSymbol = [];
+
+        if (Till[5][1][0] > 0) ModelSymbol = [`path`, `&@style>stroke:#17dd17;fill:none`, `&@d>M12 17.5 12 8 M6 13 12 8 18 13`];
+
+        if (Till[5][1][0] < 0) ModelSymbol = [`path`, `&@style>stroke:red;fill:none`, `&@d>M12 17.5 12 8 M6 13 12 17.5 18 13`];
+
+        ModelCentile = [
+          `div`, `.@_gxM`, [[
+            `svg`, `&@style>width:24px;height:24px;min-height:24px`, [ModelSymbol]], [
+            `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:15px;color:${(Till[5][1][0]>0?`#17dd17`:`red`)}`, `~@${(Till[5][1][0]>0?`+`:``)}${Till[5][1][0].toFixed(2)} (${(Till[5][1][0]>0?`+`:``)}${Till[5][1][1].toFixed(2)}%)`]]]
+      }
+
+      let ModelTimeline = [];
+
+      Till[3].forEach(era => {ModelTimeline.push([`div`, `.@_geQ`, [[`span`, `.@_tXx`, `~@${era}`]]])});
+
+      let ModelSVGCountY = [];
+
+      let Axes = [];
+
+      Till[4][6].forEach(Axis => {
+
+        if (Axis[0] >= (Arg.secs - 3600000)) Axes.push(Axis);
+      });
+
+      Axes.sort((A, B) => {return B[1] - A[1]});
+
+      Axes.push([Arg.secs - 3600000, Till[4][6][Till[4][6].indexOf(Axes[Axes.length - 1]) + 1][1]]);
+
+      Axes.push([Arg.secs, Till[0]]);
+
+      Axes.sort((A, B) => {return B[1] - A[1]});
+
+      let Old = Axes.length - 1;
+
+      let Factors = [Axes[Old][1]*.999, Axes[0][1]*1.001, (Axes[0][1]*1.001 - Axes[Old][1]*.999)];
+
+      if (Axes[1] && Axes[0][1] - Axes[Old][1] > 0) {
+
+        Factors = [Axes[Old][1]*.999, Axes[0][1]*1.001, Axes[0][1]*1.001  - (Axes[Old][1]*.999)];
+      }
+
+      let Scale = 320;console.log(Factors[2])
+
+      if (Factors[2] > 10) Scale = 140
+
+      if (Factors[2] > 20) Scale = 100
+
+      if (Factors[2] > 50) Scale = 72
+
+      if (Factors[2] > 100) Scale = 72
+
+      let V = [Factors[0] + Factors[2], Factors[0] + Factors[2]*.66, Factors[0] + Factors[2]*.33, Factors[0]];
+
+      V.reverse();
+
+      V.forEach((a) => {
+
+        ModelSVGCountY.push([
+          `g`, [[
+            `rect`, `.@_pg4`, `&@x>1%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@width>90%`, `&@height>1`], [
+            `text`, `&@x>92%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${a.toFixed(2)}`]]]);
+      });
+
+      let ModelSVGCountX = [];
+
+      let max = Arg.secs - 60000*2;
+
+      let H = [max - 60000*52, max - 60000*42, max - 60000*31, max - 60000*21, max - 60000*10, max];
+
+      H.reverse();
+
+      H.forEach((a) => {
+
+        ModelSVGCountX.push([
+          `text`, `&@x>${82 - (H.indexOf(a) * 77.5/(H.length - 1))}%`, `&@y>${((240*Scale/V[3])*(V[3] - V[0])) + 17}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${new Date(a).getUTCHours() + `:` + new Date(a).getUTCMinutes()}`]);
+      });
+
+      Axes.sort((A, B) => {return B[0] - A[0]});
+
+      let JS = JSON.stringify(Axes);
+
+      JS.replace(new RegExp(`"`, `g`), `&quot;`);
+
+      let ModelSVGline = [`g`, [[`path`, `&@ymax>${V[3] - V[0]}-${V[3] + `-` + Scale}`, `&@data>${JS}`, `&@style>fill:none;stroke:#5841d8;stroke-linejoin:round;stroke-width:2;stroke-linecap:round`, `&@d>M`]]];
+
+      return [
+        `section`, `#@ModelValuation`, `&@style>max-width:940px;margin:24px auto;width:100%`, [[
+          `div`, `.@_z4`, `&@style>padding: 16px 0`, [[
+            `div`, `.@_gcQ _aXZ`, [[`span`, `.@`, `~@Market Valuation & Equity`]]], [
+            `div`, `.@_gxM _gcQ`, [[
+              `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:24px`, `~@$${Sum[0].toLocaleString() + `.` + Sum[1]} USD`], 
+              ModelCentile]], [
+            `div`, `.@_gxM _yZS _sZ2 _-Zz`, [[
+              `div`, `.@_eYG`], [
+              `div`, `.@_QZg _geQ`, `&@style>text-transform:uppercase;font-size:11px`, ModelTimeline]]], [
+            `div`, `.@_gcQ _aXZ _gZ`, [[
+              `svg`, `#@ModelTillState`, `&@style>width:100%;min-height:${((240*Scale/V[3])*(V[3] - V[0])) + 36}px;overflow:visible`, [[
+                `g`, ModelSVGCountX], [`g`, ModelSVGCountY], ModelSVGline]]]]]]]];
+    },
+
+    ModelSales: function (Arg) {
+
+      let Till = Arg.fid[0][1];
+
+      let ModelCentile = [];
+
+      let Sum = (Till[0].toFixed(2)).split(`.`);
+
+      if (Till[5][1][0] > 0 || Till[5][1][0] < 0) {
+
+        let ModelSymbol = [];
+
+        if (Till[5][1][0] > 0) ModelSymbol = [`path`, `&@style>stroke:#17dd17;fill:none`, `&@d>M12 17.5 12 8 M6 13 12 8 18 13`];
+
+        if (Till[5][1][0] < 0) ModelSymbol = [`path`, `&@style>stroke:red;fill:none`, `&@d>M12 17.5 12 8 M6 13 12 17.5 18 13`];
+
+        ModelCentile = [
+          `div`, `.@_gxM`, [[
+            `svg`, `&@style>width:24px;height:24px;min-height:24px`, [ModelSymbol]], [
+            `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:15px;color:${(Till[5][1][0]>0?`#17dd17`:`red`)}`, `~@${(Till[5][1][0]>0?`+`:``)}${Till[5][1][0].toFixed(2)} (${(Till[5][1][0]>0?`+`:``)}${Till[5][1][1].toFixed(2)}%)`]]]
+      }
+
+      let ModelTimeline = [];
+
+      Till[3].forEach(era => {ModelTimeline.push([`div`, `.@_geQ`, [[`span`, `.@_tXx`, `~@${era}`]]])});
+
+      let ModelSVGCountY = [];
+
+      let Axes = [];
+
+      Till[4][6].forEach(Axis => {
+
+        if (Axis[0] >= (Arg.secs - 3600000)) Axes.push(Axis);
+      });
+
+      Axes.sort((A, B) => {return B[1] - A[1]});
+
+      Axes.push([Arg.secs - 3600000, Till[4][6][Till[4][6].indexOf(Axes[Axes.length - 1]) + 1][1]]);
+
+      Axes.push([Arg.secs, Till[0]]);
+
+      Axes.sort((A, B) => {return B[1] - A[1]});
+
+      let Old = Axes.length - 1;
+
+      let Factors = [Axes[Old][1]*.999, Axes[0][1]*1.001, (Axes[0][1]*1.001 - Axes[Old][1]*.999)];
+
+      if (Axes[1] && Axes[0][1] - Axes[Old][1] > 0) {
+
+        Factors = [Axes[Old][1]*.999, Axes[0][1]*1.001, Axes[0][1]*1.001  - (Axes[Old][1]*.999)];
+      }
+
+      let Scale = 320;console.log(Factors[2])
+
+      if (Factors[2] > 10) Scale = 28
+
+      if (Factors[2] > 50) Scale = 72
+
+      if (Factors[2] > 100) Scale = 72
+
+      let V = [Factors[0] + Factors[2], Factors[0] + Factors[2]*.66, Factors[0] + Factors[2]*.33, Factors[0]];
+
+      V.reverse();
+
+      V.forEach((a) => {
+
+        ModelSVGCountY.push([
+          `g`, [[
+            `rect`, `.@_pg4`, `&@x>1%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@width>90%`, `&@height>1`], [
+            `text`, `&@x>92%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${a.toFixed(2)}`]]]);
+      });
+
+      let ModelSVGCountX = [];
+
+      let max = Arg.secs - 60000*2;
+
+      let H = [max - 60000*52, max - 60000*42, max - 60000*31, max - 60000*21, max - 60000*10, max];
+
+      H.reverse();
+
+      H.forEach((a) => {
+
+        ModelSVGCountX.push([
+          `text`, `&@x>${82 - (H.indexOf(a) * 77.5/(H.length - 1))}%`, `&@y>${((240*Scale/V[3])*(V[3] - V[0])) + 17}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${new Date(a).getUTCHours() + `:` + new Date(a).getUTCMinutes()}`]);
+      });
+
+      Axes.sort((A, B) => {return B[0] - A[0]});
+
+      let JS = JSON.stringify(Axes);
+
+      JS.replace(new RegExp(`"`, `g`), `&quot;`);
+
+      let ModelSVGline = [`g`, [[`path`, `&@ymax>${V[3] - V[0]}-${V[3] + `-` + Scale}`, `&@data>${JS}`, `&@style>fill:none;stroke:#5841d8;stroke-linejoin:round;stroke-width:2;stroke-linecap:round`, `&@d>M`]]];
+
+      return [
+        `section`, `#@ModelValuation`, `&@style>max-width:940px;margin:24px auto;width:100%`, [[
+          `div`, `.@_z4`, `&@style>padding: 16px 0`, [[
+            `div`, `.@_gcQ _aXZ`, [[`span`, `.@`, `~@Sales`]]], [
+            `div`, `.@_gxM _gcQ`, [[
+              `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:24px`, `~@$${Sum[0].toLocaleString() + `.` + Sum[1]} USD`], 
+              ModelCentile]], [
+            `div`, `.@_gxM _yZS _sZ2 _-Zz`, [[
+              `div`, `.@_eYG`], [
+              `div`, `.@_QZg _geQ`, `&@style>text-transform:uppercase;font-size:11px`, ModelTimeline]]], [
+            `div`, `.@_gcQ _aXZ _gZ`, [[
+              `svg`, `#@ModelTillState`, `&@style>width:100%;min-height:${((240*Scale/V[3])*(V[3] - V[0])) + 36}px;overflow:visible`, [[
+                `g`, ModelSVGCountX], [`g`, ModelSVGCountY], ModelSVGline]]]]]]]];
+    },
+
+    ModelPaygate: function (Arg) {
+
+      let Paygates = [
+        //[`flutterwave`, [`m-pesa, paypal, debit & credit cards`, `unstable`]], 
+        [`intasend`, [`m-pesa`, `recommended`]], 
+        //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
+      ];
+
+      let ModelPaygates = [];
+
+      Paygates.forEach(Paygate => {
+
+      let Style = `&@style>padding:0 12px;color:#fff;font-size:10px;border-radius:12px;`;
+
+        if (Paygate[1][1] === `offline`) Style += `background:red`;
+
+        else if (Paygate[1][1] === `recommended`) Style += `background:#19e819`;
+
+        else if (Paygate[1][1] === `unstable`) Style += `background:orange`;
+
+        ModelPaygates.push([
+          `div`, `.@_gZ _gcQ`, [[
+            `div`, [[
+              `span`, `&@style>text-transform:uppercase`, `~@${Paygate[0]}`], [
+              `div`, [[`span`, `&@style>font-weight:600;color:#a6a6a6`, `~@${Paygate[1][0]}`]]]]], [
+            `div`, `.@_QZg`, [[`span`, Style, `~@${Paygate[1][1]}`]]], [
+            `label`, `#@gate`, `&@for>${Paygate[0]}`, `&@style>position:absolute;left:0;width:100%;height:100%`]]])
+      })
+
+      return [`div`, `.@_geQ _tY0`, `&@style>justify-content:center`, [[
+        `div`, `&@style>padding:0 16px`, `~@Payment Options`], [
+        `div`, `&@style>margin:24px auto;max-width:600px;width:100%;padding:0 12px`, [[
+          `div`, `&@style>border: 1px solid #e6e7e8;border-radius: .5em;`, ModelPaygates]]]]]
+    },
+
+    ModelCustomPay: function (Arg) {
+
+      Arg = [Arg.myCart, Arg.myRegion, Arg.Billto];
+
+      if (Arg[0].length === 0) return [];
+
+      let sum = 0,
+
+        mass = 0;
+
+      Arg[0].forEach(Stock => {
+
+        sum += Stock.dollars*Stock.items
+
+        mass += Stock.mass*Stock.items
+
+      });
+
+      let Meta = Arg[0][0];
+
+      let Sum = (sum*Meta.swap).toFixed(2);
+
+      let RegionSet, Range, Grams, Sell;
+
+      Arg[1].zones.forEach(Region => {
+
+        if (Region.locale === Arg[2][0]) RegionSet = Region;
+      });
+
+      RegionSet.rates.forEach(Rate => {
+
+        if (Rate.saleSetAlpha[1] > sum && sum > Rate.saleSetAlpha[0]) {
+
+          Range = Rate.saleSetAlpha;
+
+          Rate.grams.forEach(Mass => {
+
+            if (Mass.gramSetAlpha[0] < mass && mass < Mass.gramSetAlpha[1]) {
+
+              Grams = Mass.gramSetAlpha;
+
+              Sell = Mass.sale;
+            }
+          })
+        }
+      })
+
+      let Gross = parseFloat(Sum) + parseFloat(Sell[1])*Meta.swap
+
+      return [`div`, `.@_geQ _tY0`, `&@style>justify-content:center`, [[
+        `div`, `&@style>margin:24px auto;max-width:600px;width:100%;padding:0 12px`, [[
+          `div`, `&@style>border: 1px solid #e6e7e8;border-radius: .5em;`, [[
+            `div`, `.@_gcQ _gZ`, [[
+              `div`, `.@_-Xg _gxM _geQ`, [[
+                `a`, `.@-_tX AppMedium`, `&@href>/`, `~@corrde`], [`span`, `&@style>padding:0 7px`, `~@| CORRDE PAY`]]], [
+              `div`, `.@_QZg`, [[
+                `span`, `.@-_tX Bag`, `&@style>width:15px;height:15px;margin: 0 8px`], [
+                `span`, `&@style>font-weight: 600`, `~@K£.${Gross} KES`]]]]], [
+            `div`, `.@_gZ`, [[
+              `div`, `.@_gcQ _gxM`, `&@style>margin: 24px auto`, [[
+                `span`, `~@Pay with`], [
+                `div`, [[`span`, `.@-_tX Mpesa`, `&@style>width:100px;height:20px;margin: 0 -24px`]]]]], [
+              `div`, `.@_gcQ`, [[
+          `div`, `&@style>width:100%;`, [[
+            `div`, `.@sZ2`, [[
+              `div`, `.@_yZS _gMX`, [[
+                `div`, `.@_UFA _gMX _gxM _geQ`, [[
+                  `span`, `&@style>border-right:1px solid #e5e5e5;font-weight:600;color:#1dcae1;padding-right:8px`, `~@+254`], [
+                  `input`, `#@payer`, `.@_RRD _aA2 _pVa`, `&@autocomplete>off`, `&@style>margin: 0;padding-left:8px`, `&@placeholder>Phone Number`]]]]]]], [
+                `div`, `&@style>padding: 24px 0`, [[
+                  `div`, `.@QZg`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 450px;width:100%;margin:0 auto`, [[
+                      `a`, `#@paycustom`, `.@_TX_a _atX _utQ _gMX _tXx`, `&@href>javascript:;`, `~@Pay Now`]]]]]]]]]]]]]]]]]]]
     }
   }
   

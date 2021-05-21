@@ -1194,7 +1194,8 @@ class Auxll {
       ;select * from payrequest
       ;select * from fronts
       ;select * from listings
-      ;select * from u`, (A, B, C) => {
+      ;select * from u
+      ;select * from trades`, (A, B, C) => {
 
         let Pay = [];
 
@@ -1215,6 +1216,10 @@ class Auxll {
         let Ppl = [];
 
         let PplSet = {};
+
+        let Trades = [];
+
+        let TradeSet = {};
 
         for (let row in B[0]) {
 
@@ -1261,12 +1266,22 @@ class Auxll {
           PplSet[Row.sum] = Row;
         }
 
+        for (let row in B[5]) {
+
+          let Row = JSON.parse(B[5][row].json);
+
+          Trades.push(Row);
+
+          TradeSet[Row.sum] = Row;
+        }
+
         Aft({
-          Sell: [Sell, SellSet],
           Pay: [Pay, PaySet],
+          Pledge: [Pledge, PledgeSet],
           Ppl: [Ppl, PplSet],
+          Sell: [Sell, SellSet],
           Stalls: [Stalls, StallSet],
-          Pledge: [Pledge, PledgeSet]})
+          Trade: [Trades, TradeSet]})
       })
   }
 }
@@ -1310,6 +1325,7 @@ class Sql extends Auxll {
         ;${config.sql.sales}
         ;${config.sql.stories}
         ;${config.sql.support_mail}
+        ;${config.sql.trades}
         ;${config.sql.traffic}
         ;${config.sql.transfers}
         ;${config.sql.u}
@@ -1402,7 +1418,7 @@ class UAPublic extends Auxll {
 
       this.app.to.writeHead(200, {
         [`Content-Type`]: `image/svg+xml`
-      })
+      });
 
       File.on(`data`, this.app.to.write.bind(this.app.to));
 
@@ -1425,9 +1441,11 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `portfolio`) this.createStory();
 
-    else if (this.levelState === `signup`) this.signup();
+    else if (this.levelState === `securities`) this.Stake();
 
     else if (this.levelState === `seek`) this.seek();
+
+    else if (this.levelState === `signup`) this.signup();
 
     else if (this.levelState === `tour`) this.tour();
 
@@ -3892,6 +3910,7 @@ class UAPublic extends Auxll {
                 css: CSS,
                 jsState: [config.reqs.root_js],
                 jSStore: JSON.stringify({
+                  mail: (PplSet[mug])? PplSet[mug].mail: false,
                   mug: mug,
                   regionMeta: RetailMaps[locale]
                 })
@@ -4247,6 +4266,7 @@ class UAPublic extends Auxll {
               jsState: [config.reqs.retail_catalog_js],
               css: CSS,
               jSStore: JSON.stringify({
+                mail: (PplSet[mug])? PplSet[mug].mail: false,
                 mug: mug,
                 regionMeta: RetailMaps[locale],
                 retailSet: Shelf,
@@ -4336,6 +4356,57 @@ class UAPublic extends Auxll {
               appendModel: [
                 model.ModelWait(Model),
                 model.loadDOMModalView([model.modalView([model.ModalZones()])], `ModelZones`),
+                model.jS(Stack)]
+            })];
+                              
+          this.app.to.writeHead(200, config.reqMime.htm);
+          this.app.to.end(model.call(Stack));
+        });
+      });
+    });
+  }
+
+  Stake () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      this.getCookie(`u`, (A, B) => {
+
+        let mug = false;
+
+        if (A === false) mug = B;
+
+        this.Sell(A => {
+
+          let Sell = A;
+
+          let PplSet = Sell.Ppl[1];
+
+          const Stack = {
+            title: `Corrde Store Stakes & Valuations`,
+            jsState: [config.reqs.stakes_js],
+            css: CSS,
+            jSStore: JSON.stringify({
+              mug: mug,
+              mail: (PplSet[mug])? PplSet[mug].mail: false
+            })
+          };
+
+          let Model = [];
+
+          let UAStore = JSON.parse(Stack.jSStore);
+
+          Stack[`jSStore`] = JSON.stringify(UAStore);
+
+          Model = [
+            model.ModelSecurities(),
+            model.ModelStickyStake(PplSet, mug),
+            model.footer()];
+                
+          Stack.appendModel = [
+            model.rootView({
+              appendModel: [
+                model.ModelWait(Model),
                 model.jS(Stack)]
             })];
                               
@@ -6804,7 +6875,14 @@ class UATCP extends UAPublic {
 
         let payer = Args.log_secs;
 
-        if (Args.mug) payer = Args.mug;
+        let mail = `hello@corrde.com`;
+
+        if (Args.mug) {
+
+          payer = Args.mug;
+
+          if (Args.mail !== false) mail = Args.mail;
+        }
 
         let logSum = crypto.createHash(`md5`).update(`${timeStamp}`, `utf8`).digest(`hex`);
 
@@ -6822,13 +6900,13 @@ class UATCP extends UAPublic {
               consumer_id: payer,
             },
             customer: {
-              email: `paywall@corrde.com`,
+              email: mail,
               name: `express pay`
             }
           }
         };
 
-        UrlCall(Pay, (error, Pull) => {
+        /*UrlCall(Pay, (error, Pull) => {
 
           if (error) throw new Error(error);
             
@@ -6836,7 +6914,7 @@ class UATCP extends UAPublic {
 
             let S = JSON.parse(Pull.body)
 
-            Args.Pay = [timeStamp, logSum, S.data.link];
+            Args.Pay = [timeStamp, logSum, S.data.link];*/
 
             new Sql().to([`payrequest`, {json: JSON.stringify({
               bag: Args.myCart,
@@ -6852,8 +6930,8 @@ class UATCP extends UAPublic {
 
                 tcp.emit(`flutterwave`, Args)
             })
-          }
-        });
+          /*}
+        });*/
       });
 
       tls.on(`pullPays`, J => {
@@ -7045,6 +7123,141 @@ class UATCP extends UAPublic {
           })
         });
       });
+
+      tls.on(`paygate`, Args => {
+
+        if (Args.data.myCart.length === 0) return [];
+
+        let sum = 0, mass = 0;
+
+        Args.data.myCart.forEach(Stock => {
+
+          sum += Stock.dollars*Stock.items
+
+          mass += Stock.mass*Stock.items
+
+        });
+
+        let Meta = Args.data.myCart[0];
+
+        let Sum = (sum*Meta.swap).toFixed(2);
+
+        let RegionSet, Range, Grams, Sell;
+
+        Args.data.myRegion.zones.forEach(Region => {
+
+          if (Region.locale === Args.data.Billto[0]) RegionSet = Region;
+        });
+
+        RegionSet.rates.forEach(Rate => {
+
+          if (Rate.saleSetAlpha[1] > sum && sum > Rate.saleSetAlpha[0]) {
+
+            Range = Rate.saleSetAlpha;
+
+            Rate.grams.forEach(Mass => {
+
+              if (Mass.gramSetAlpha[0] < mass && mass < Mass.gramSetAlpha[1]) {
+
+                Grams = Mass.gramSetAlpha;
+
+                Sell = Mass.sale;
+              }
+            })
+          }
+        })
+
+        let Gross = parseFloat(Sum) + parseFloat(Sell[1])*Meta.swap
+
+        let timeStamp = Date.now();
+
+        let payer = Args.data.log_secs;
+
+        let mail = `hello@corrde.com`;
+
+        if (Args.data.mug) {
+
+          payer = Args.data.mug;
+
+          if (Args.data.mail !== false) mail = Args.data.mail;
+        }
+
+        let logSum = crypto.createHash(`md5`).update(`${timeStamp}`, `utf8`).digest(`hex`);
+
+        let Pay = {
+          method: `POST`,
+          url: 'https://api.flutterwave.com/v3/payments',
+          headers: {'Authorization': 'Bearer FLWSECK-9da614832e3764fcdfa1eb9914f09d88-X'},
+          form: {
+            tx_ref: logSum,
+            amount: Gross,
+            currency: `KES`,
+            redirect_url: `https://corrde.com/`,
+            payment_options: `mpesa`,
+            meta: {
+              consumer_id: payer,
+            },
+            customer: {
+              email: mail,
+              name: payer
+            }
+          }
+        };
+
+        if (Args.paygate === `intasend`) {
+
+          Pay = {
+            method: `POST`,
+            //url: `https://sandbox.intasend.com/api/v1/payment/collection/`,
+            url: `https://sandbox.intasend.com/api/v1/authentication/login/`,
+          headers: {'Content-Type': 'application/json'},
+            form: {
+              password: `MTVkZGI2Njg2NzZmYjRmZmJjOTIyM2QxNjQ3ZDI4ZGJlNTk2Mzg1NjIyZTUyNjY5ZjlhODI2MDRmZjEyMDYyMWRjMDc3MTg2YTRmZjhjOTIxYWVmZDg2OGZkYjg3MGNkYzEyY2JkZjEzNjU5NjNjNDY5NjRkZmU4ZWM1ZjliNWVkZTZiZTRiZjdlYmU0NmM3NWUzYzMzNGE2ZmMyNTg1MjA4NzJkYmI3OTIxMjkzYzYyOGQ4ZTY1MjFlMDg0ZDZhMzk2MmY0YTkzMDg1NTliOTU3NmI0NmFmZGRkM2QxMWFiNjAzMzhjMDdmZDBmZTA4ZmNmOTk2ODYzYzZjOGU0Y2EwOTMxMDk0OWUwZWFhYWJkYzEzYmUxZTJkOTIxZmRjMGYyMzk5MzI3NjcwOGUxN2FiNzliYjJiZTQ1ODAwMDUwZmUwYmZjNjdlMDk5YTExOGYwZDc0ODc2NWQ0Mjg5ZjA2MzJmMjZmZmRmYTNhMDUxMzNhOWIwM2E1NDQzYTk5YWM2ZTBmNzE3YjUwNDdiYWE4NDhhZTg4ZTM1OTU3YmQ1N2IxN2RmMDgwMzMyMGZmZDI5YTBlMGUzODJkNzJjYmQxNTk4ZGFkMjc1ZGI4YzI4NTUzODNmNzc3Y2NhODExODI5ZTM1Zjk3YTEyY2Y1NTBhOTM4ZDQ5ZDk1MmI4NDQ=`,
+              username: `254704174162`,
+              /*public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
+              currency: `KES`,
+              method: `M-PESA`,
+              amount: Gross,
+              api_ref: logSum,
+              name: payer,
+              phone_number: 254704174162,
+              email: mail*/
+            }}
+        }
+
+        UrlCall(Pay, (error, Pull) => {
+
+          if (error) throw new Error(error);
+            
+          else {
+
+            let S = JSON.parse(Pull.body);console.log(S)
+
+            if (Args.paygate === `flutterwave`) Args.data.Pay = [timeStamp, logSum, S.data.link];
+
+            Args.data[`paygate`] = Args.paygate;
+
+            Args.data[`log_secs`] = Args.log_secs;
+
+            new Sql().to([`payrequest`, {json: JSON.stringify({
+              bag: Args.data.myCart,
+              complete: false,
+              dollars: sum,
+              gArray: [Args.data.locale, Args.data.Billto[0], Args.data.gArray], 
+              mass: mass,
+              MD5: logSum,
+              paid: false,
+              pay: Gross,
+              payer: payer,
+              secs: timeStamp})}], (A, B, C) => {
+
+                tcp.emit(`flutterwave`, Args.data)
+            })
+          }
+        });
+      });
+
+      tls.on(`status`, J => {tcp.emit(`status`, {secs: new Date().valueOf()})});
 
 
       /**
@@ -7379,6 +7592,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.pollAltString) this.pollAltString(JSON.parse(this.args.pollAltString));
 
+      else if (this.args.paygate) this.paygate(JSON.parse(this.args.paygate));
+
       else if (this.args.pollMake) this.pollMake(JSON.parse(this.args.pollMake));
 
       else if (this.args.pollRetailKilo) this.pollRetailKilo(JSON.parse(this.args.pollRetailKilo));
@@ -7400,6 +7615,8 @@ class AJXReqs extends Auxll {
       else if (this.args.pullRetailStack) this.pullRetailStack(JSON.parse(this.args.pullRetailStack));
 
       else if (this.args.pullRetailStock) this.pullRetailStock(JSON.parse(this.args.pullRetailStock));
+
+      else if (this.args.pullSecurities) this.pullSecurities(JSON.parse(this.args.pullSecurities));
 
       else if (this.args.pushSellArgs) this.pushSellArgs(JSON.parse(this.args.pushSellArgs));
 
@@ -8694,6 +8911,240 @@ class AJXReqs extends Auxll {
       this.app.to.writeHead(200, config.reqMime.json);
       this.app.to.end(JSON.stringify({exit: true, retailStack: Sell.Sell[0]}));
     })
+  }
+
+  pullSecurities (Arg) {
+
+    this.Sell(Sell => {
+
+      let Fids = [[]];
+
+      let log = new Date().valueOf();
+
+      if (!Sell.Trade[0].length > 0) {
+
+        Sell.Trade[0].push({pay: (2220/1776), secs: log, sum: ``});
+
+        Sell.Trade[0].push({pay: 1.26, secs: (log - 102800), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.38, secs: (log - 600280), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.02, secs: (log - 824800), sum: ``});
+
+        Sell.Trade[0].push({pay: 0.96, secs: (log - 902300), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.46, secs: (log - 1002800), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.76, secs: (log - 1502800), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.21, secs: (log - 2403000), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.32, secs: (log - 2510000), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.06, secs: (log - 2716000), sum: ``});
+
+        Sell.Trade[0].push({pay: 1.25, secs: (log - 3200000), sum: ``});
+      }
+
+      Sell.Trade[0].sort((A, B) => {return B.secs - A.secs});
+
+      let Pays = Sell.Trade[0];
+
+      let Old = Pays[Pays.length - 1];
+
+      let payCentile = (Pays[1])? ((Pays[0].pay - Pays[1].pay)/Pays[1].pay)*100: 0;
+
+      Fids[0][0] = [Pays[0].pay, (Pays[1])? Pays[0].pay - Pays[1].pay: 0, payCentile, []];
+
+      if (log - Old.secs > 86400000*354) Fids[0][0][3] = [`1Y`, `YTD`, `1M`, `1W`, `1D`, `1H`];
+
+      else if (log - Old.secs > 86400000*31) Fids[0][0][3] = [`YTD`, `1M`, `1W`, `1D`, `1H`];
+
+      else if (log - Old.secs > 86400000*7) Fids[0][0][3] = [`1W`, `1D`, `1H`];
+
+      else if (log - Old.secs > 86400000*1) Fids[0][0][3] = [`1D`, `1H`];
+
+      //else if (log - Old.secs > 3600000) Fids[0][0][3] = [`1H`];
+
+      let Plots = [[], [], []];
+
+      Pays.forEach(Pay => {
+
+        if (log - Pay.secs < 3600000) Plots[0].push([Pay.secs, Pay.pay]);
+
+        if (log - Pay.secs <= 3600000) Plots[1].push([Pay.secs, Pay.pay]);
+      });
+
+      Fids[0][0][4] = Plots;
+
+      let Till = [];
+
+      let till = 2220
+
+      Sell.Pay[0].forEach(A => {
+
+        till += A.pay/109;
+
+        Till.push({pay: till, secs: A.secs});
+      });
+
+      Till.sort((A, B) => {return B.secs - A.secs});
+
+      let TillOld = Till[Till.length - 1];
+
+      let tillCentile = (Till[1])? ((Till[0].pay - Till[1].pay)/Till[1].pay)*100: 0;
+
+      Fids[0][1] = [Till[0].pay, (Till[1])? Till[0].pay - Till[1].pay: 0, tillCentile, []];
+
+      if (log - TillOld.secs > 86400000*354) Fids[0][1][3] = [`1Y`, `YTD`, `1M`, `1W`, `1D`, `1H`];
+
+      else if (log - TillOld.secs > 86400000*31) Fids[0][1][3] = [`YTD`, `1M`, `1W`, `1D`, `1H`];
+
+      else if (log - TillOld.secs > 86400000*7) Fids[0][1][3] = [`1W`, `1D`, `1H`];
+
+      else if (log - TillOld.secs > 86400000*1) Fids[0][1][3] = [`1D`, `1H`];
+
+      //else if (log - Old.secs > 3600000) Fids[0][0][3] = [`1H`];
+
+      let TillPlane = [[], [], [], [], [], [], []];
+
+      Till.forEach(Pay => {
+
+        if (log - Pay.secs < 3600000) TillPlane[0].push([Pay.secs, Pay.pay]);
+
+        if (log - Pay.secs <= 3600000) TillPlane[1].push([Pay.secs, Pay.pay]);
+
+        if (log - Pay.secs <= 86400000) TillPlane[2].push([Pay.secs, Pay.pay]);
+
+        if (log - Pay.secs <= 86400000*7) TillPlane[3].push([Pay.secs, Pay.pay]);
+
+        if (log - Pay.secs <= 86400000*31) TillPlane[4].push([Pay.secs, Pay.pay]);
+
+        if (log - Pay.secs < 86400000*354) TillPlane[5].push([Pay.secs, Pay.pay]);
+
+        if (log - Pay.secs <= 86400000*354) TillPlane[6].push([Pay.secs, Pay.pay]);
+      });
+
+      Fids[0][1][4] = TillPlane;
+
+      Fids[0][1][5] = [[], [], [], [], [], [], []];
+
+      TillPlane.forEach(Axes => Axes.sort((A, B) => {return B[0] - A[0]}));
+
+      let B4 = [];
+
+      TillPlane[6].forEach(XY => (XY[0] < log - 3600000*2)? B4.push(XY): B4 = B4);
+
+      B4.sort((A, B) => {return B[0] - A[0]});
+
+      let tillMargin = (B4[0])? (Till[0].pay - B4[0][1]): 0;console.log(B4)
+
+      Fids[0][1][5][1] = [tillMargin, tillMargin/Till[0].pay*100];
+
+      this.app.to.writeHead(200, config.reqMime.json);
+      this.app.to.end(JSON.stringify({exit: true, fid: Fids, secs: new Date().valueOf()}));
+    });
+  }
+
+  paygate (Arg) {
+
+    this.app.to.writeHead(200, {
+      [`Content-Type`]: `application/json`});
+
+    let Stack = {};
+
+    if (Arg.myCart.length === 0 || !RetailMaps[Arg.locale]) return;
+
+    let sum = 0, mass = 0;
+
+    Arg.myCart.forEach(Stock => {
+
+      sum += Stock.dollars*Stock.items
+
+      mass += Stock.mass*Stock.items
+
+    });
+
+    let Sum = (sum*RetailMaps[Arg.locale].swap).toFixed(2);
+
+    let RegionSet, Range, Grams, Sell;
+
+    RetailMaps[Arg.locale].zones.forEach(Region => {
+
+      if (Region.locale === Arg.Billto[0]) RegionSet = Region;
+    });
+
+    RegionSet.rates.forEach(Rate => {
+
+      if (Rate.saleSetAlpha[1] > sum && sum > Rate.saleSetAlpha[0]) {
+
+        Range = Rate.saleSetAlpha;
+
+        Rate.grams.forEach(Mass => {
+
+          if (Mass.gramSetAlpha[0] < mass && mass < Mass.gramSetAlpha[1]) {
+
+            Grams = Mass.gramSetAlpha;
+
+            Sell = Mass.sale;
+          }
+        })
+      }
+    });
+
+    let Gross = parseFloat(Sum) + parseFloat(Sell[1])*RetailMaps[Arg.locale].swap
+
+    let Stamp = Date.now();
+
+    let payer = Stamp.valueOf();
+
+    let mail = `hello@corrde.com`;
+
+    if (Arg.mug) {
+
+      payer = Arg.mug;
+
+      if (Arg.mail !== false) mail = Arg.mail;
+    }
+
+    let MD = crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`);
+
+    if (Arg.gateway === `intasend`) {
+      
+      Stack = { method: `POST`
+      , uri: `https://payment.intasend.com/api/v1/payment/collection/`
+      , json: 
+          { public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
+            currency: `KES`,
+            method: `M-PESA`,
+            amount: Gross,
+            api_ref: MD,
+            name: payer,
+            phone_number: `254` + `${Arg.payer}`,
+            email: mail
+          }
+      }
+    };
+
+    UrlCall(Stack, (error, JS, Pull) => {
+
+      new Sql().to([`payrequest`, {json: JSON.stringify({
+        bag: Arg.myCart,
+        complete: false,
+        dollars: sum,
+        gArray: [Arg.locale, Arg.Billto[0], Arg.gArray],
+        gateway: Arg.gateway, 
+        mass: mass,
+        MD5: MD,
+        paid: false,
+        pay: Gross,
+        payer: payer,
+        secs: Stamp})}], (A, B, C) => {
+
+          this.app.to.end(JSON.stringify({exit: true, paygate: Pull}));
+        });
+    });
+
   }
 }
 

@@ -285,7 +285,7 @@
     }
 
     else if (e.id === `pollRetailPile`) {
-
+      
       let retailPile = e.parentNode.parentNode.querySelector(`#retailPile`).value;
 
       if (!parseInt(retailPile)) return;
