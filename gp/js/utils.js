@@ -887,7 +887,7 @@ const Model = (function () {
         ModelCentile = [
           `div`, `.@_gxM`, [[
             `svg`, `&@style>width:24px;height:24px;min-height:24px`, [ModelSymbol]], [
-            `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:15px;color:${(Till[5][1][0]>0?`#17dd17`:`red`)}`, `~@${(Till[5][1][0]>0?`+`:``)}${Till[5][1][0].toFixed(2)} (${(Till[5][1][0]>0?`+`:``)}${Till[5][1][1].toFixed(2)}%)`]]]
+            `span`, `.@_tXx`, `&@style>font-family:gotham-book;letter-spacing:.2px;font-size:15px;color:${(Till[5][1][0]>0?`#17dd17`:`red`)}`, `~@${(Till[5][1][0]>0?`+`:``)}${Till[5][1][0].toFixed(2)} (${(Till[5][1][0]>0?`+`:``)}${Till[5][1][1].toFixed(2)}%)`]]]
       }
 
       let ModelTimeline = [];
@@ -939,7 +939,7 @@ const Model = (function () {
         ModelSVGCountY.push([
           `g`, [[
             `rect`, `.@_pg4`, `&@x>1%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@width>90%`, `&@height>1`], [
-            `text`, `&@x>92%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${parseInt(a)}`]]]);
+            `text`, `&@x>92%`, `&@y>${((240*Scale/V[3])*(V[3] - a))}`, `&@style>font-size:10px;font-family:gotham-book;letter-spacing:.2px;font-weight:300`, `~@${parseInt(a)}`]]]);
       });
 
       let ModelSVGCountX = [];
@@ -952,8 +952,12 @@ const Model = (function () {
 
       H.forEach((a) => {
 
+        let mins = new Date(a).getUTCMinutes();
+
+        (mins < 10) ? mins = `0${mins}`: mins;
+
         ModelSVGCountX.push([
-          `text`, `&@x>${82 - (H.indexOf(a) * 77.5/(H.length - 1))}%`, `&@y>${((240*Scale/V[3])*(V[3] - V[0])) + 17}`, `&@style>font-size:10px;font-family:proxima-nova;font-weight:600`, `~@${new Date(a).getUTCHours() + `:` + new Date(a).getUTCMinutes()}`]);
+          `text`, `&@x>${82 - (H.indexOf(a) * 77.5/(H.length - 1))}%`, `&@y>${((240*Scale/V[3])*(V[3] - V[0])) + 17}`, `&@style>font-size:10px;font-family:gotham-book;letter-spacing:.2px;font-weight:300`, `~@${new Date(a).getUTCHours() + `:` + mins}`]);
       });
 
       Axes.sort((A, B) => {return B[0] - A[0]});
@@ -969,7 +973,7 @@ const Model = (function () {
           `div`, `.@_z4`, `&@style>padding: 16px 0`, [[
             `div`, `.@_gcQ _aXZ`, [[`span`, `&@style>font-family:gotham-book`, `~@Market Valuation & Equity`]]], [
             `div`, `.@_gxM _gcQ`, [[
-              `span`, `.@_tXx`, `&@style>font-family:proxima-nova;font-size:24px`, `~@$${Sum[0].toLocaleString() + `.` + Sum[1]} USD`], 
+              `span`, `.@_tXx`, `&@style>font-family:gotham-book;letter-spacing:.2px;font-size:24px`, `~@$${Sum[0].toLocaleString() + `.` + Sum[1]} USD`], 
               ModelCentile]], [
             `div`, `.@_gxM _yZS _sZ2 _-Zz`, [[
               `div`, `.@_eYG`], [

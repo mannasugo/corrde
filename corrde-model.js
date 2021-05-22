@@ -9197,7 +9197,7 @@ module.exports = {
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${Ps.full}`]]]]], [
           `div`, `.@_gxM _yZS`, [[
             `div`, `.@_QZg _gxM`, [[
-              `span`, `&@style>font-size:10px;color:#fff;padding:0 12px;background:#00e;border-radius:100px;margin:0 8px`, `.@_a2X _tY0 _tXx`, `~@${(Ps.call)? Ps.call: `N/a`}`], [
+              `span`, `&@style>font-size:10px;color:#fff;padding:0 12px;background:#00e;border-radius:100px;margin:0 8px`, `.@_a2X _tY0`, `~@${(Ps.call)? Ps.call: `N/a`}`], [
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${Ps.mail}`]]]]]]])
     })
 
