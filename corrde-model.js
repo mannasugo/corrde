@@ -9081,8 +9081,7 @@ module.exports = {
       ModelPay.push([
           `div`, `.@_gZy _geQ`, `&@style>max-width:960px;margin:0 auto; padding: 16px`, [[
             `div`, `.@_gX0`, `&@style>overflow:hidden`, [[
-              `div`, [[`div`, `.@_gxM`, [[`span`, `&@style>font-size:10px;padding:0 12px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@${Pay.MD5}`]]], [
-                `span`, `&@style>font-size:10px`, `.@_a2X`, `~@${this.log(Pay.secs)}`]]]]], [
+              `div`, [[`div`, `.@_gxM`, [[`span`, `&@style>font-size:10px;padding:0 12px;background:#1185fe3b;border-radius:100px;color:#1185fe`, `~@${Pay.MD5}`]]]]]]], [
             `div`, `.@_gX2`, [[
               `div`, [[
                 `div`, `.@_gxM _yZS`, [[
@@ -9093,7 +9092,9 @@ module.exports = {
                   `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px`, `.@_a2X`, `~@${Pay.mass}grams`]]]]], [
                 `div`, `.@_gxM _yZS`, [[
                   `span`, `.@_-Zz`, `&@style>font-size:10px;padding:0 24px;background:#ffacac2b;border-radius:100px;color:#ffacac;text-transform:uppercase`, `~@cancelled`], [
-                  `div`, `.@_QZg`, [[`span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.pay).toFixed(2)}`]]]]]]]]], [
+                  `div`, `.@_QZg _gxM`, [[
+                    `div`, [[
+                      `span`, `&@style>font-size:10px;margin: 0 8px`, `.@_a2X _tXx _tY0`, `~@${this.log(Pay.secs)}`]]], [`span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@kes${(Pay.pay).toFixed(2)}`]]]]]]]]], [
             `div`, `.@_gX3 _geQ _QZg`, [[
               `div`, `.@_gM_a _agM _guZ`, [[
                 `a`, `#@getPay`, `.@_TX_a _atX qXS _utQ a2X`, `&@sum>${Pay.MD5}`, `&@href>javascript:;`, `~@view order`]]]]]]])
