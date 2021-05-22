@@ -7770,12 +7770,22 @@ module.exports = {
         }
       });
 
+      let ModelShelveAd = [[]];
+
+      if (alpha === `fast food & eatery`) {
+
+        ModelShelveAd[0] = [
+          `div`, `#@ModelShelveAd`, [[
+            `div`, `.@_Zg`, [[`img`, `&@src>/gp/p/banner/meals_wide.jpg`]]], [
+            `div`, `.@_2Zg`, [[`img`, `&@src>/gp/p/banner/meals_medium.jpg`]]]]]
+      }
+
       return [
       `section`, `#@ModelShelf`, [[
         `div`, `.@_g0`, `&@style>border-bottom: 1px solid #e6e7e8;margin-top:16px`, [[
           `div`, `.@_gxM _geQ _cX3`, `&@style>margin-bottom:16px`, [[
             `div`, [[`p`, `.@_tXx`, `&@style>color:rgb(34, 34, 34)`, `~@${alpha}`]]], [
-            `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>/store/${toShelf}/`, `~@view all`]]]]], [
+            `div`, `.@_QZg`, [[`a`, `.@_aA2`, `&@style>text-decoration:underline`, `&@href>/store/${toShelf}/`, `~@view all`]]]]], ModelShelveAd[0], [
           `div`, `.@_gX0`, ModelShelve]]]]]
     }
 

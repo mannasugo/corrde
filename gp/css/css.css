@@ -3213,6 +3213,12 @@ table > thead > tr > th {
   color: #fff;
 }
 
+#ModelShelveAd ._Zg, #ModelShelveAd ._2Zg {
+  max-width: 960px;
+  margin: 0 auto;
+  display: none;
+}
+
 ._-Zz {
   display: none
 }
@@ -3759,6 +3765,12 @@ table > thead > tr > th {
   ._x16 {width: 60%}
 }
 
+@media (min-width: 464px) {
+
+  #ModelShelf ._gA0 {width: 33.333333336%}
+
+}
+
 @media (min-width: 480px) {
 
   #ModelShelf ._gA0 {padding: 8px !important}
@@ -3831,6 +3843,8 @@ table > thead > tr > th {
     max-width: 100%;
     flex: 0 0 93%;
   }
+
+  #ModelShelveAd ._Zg {display: flex}
 
 }
 
@@ -3999,7 +4013,7 @@ table > thead > tr > th {
     flex-direction: row;
   }
 
-
+  #ModelShelveAd ._2Zg {display: flex};
 }
 
 @media (max-width: 560px) {
