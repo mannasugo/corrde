@@ -647,7 +647,7 @@ body {
 .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
 .FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
-.poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .SortGray, .StarColor, .StarMiniColor, 
+.poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .To, .twineiconUA, .TwitterColor, .VKBlack, .vServiceGray, .verifylighticonUA, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
@@ -890,6 +890,10 @@ body {
 
 .Ship {
   background-image: url(/gp/p/vector/ship.svg);
+}
+
+.Shop {
+  background-image: url(/gp/p/vector/shop.svg);
 }
 
 .AddStoriesColor, .SellColor {
@@ -3219,6 +3223,10 @@ table > thead > tr > th {
   display: none;
 }
 
+._2Q {}
+
+._2Q::after {}
+
 ._-Zz {
   display: none
 }
@@ -3873,6 +3881,15 @@ table > thead > tr > th {
   #ModelStallAlerts ._gX3 {flex: 0 0 20%;}
 }
 
+@media (min-width: 960px) {
+
+  #ModelStart ._0yg {
+    max-height: calc(95vh)
+  }
+
+  #ModelStart ._2yQ img {max-height: calc(95vh)}
+}
+
 @media (min-width: 992px) {
 
   ._cX3 {
@@ -3949,6 +3966,28 @@ table > thead > tr > th {
     -ms-flex-direction: column;
     flex-direction: column;
   }
+}
+
+@media (max-width: 960px) {
+
+  #ModelStart ._0yg {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-height: calc(95vh)
+  }
+
+  #ModelStart ._0yQ, #ModelStart ._2yQ, #ModelStart ._2yQ img {max-height: calc(47.5vh)}
+
+  #ModelStart ._0yQ {order: 1;}
+  
+  #ModelStart ._0yQ > ._aXZ {align-items: center;}
+
+  #ModelStart ._2yQ {margin-top: 55px}
+
+  #ModelStart #alpha {padding: 0 24px}
 }
 
 @media (max-width: 920px) {

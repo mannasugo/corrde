@@ -1235,6 +1235,30 @@ const WebStore = (function () {
 
     avail: function () {
       return JSON.parse(sessionStorage.u);
+    },
+
+    set: function (allValues) {
+
+      if (sessionStorage.u) {
+        this.allValues = JSON.parse(sessionStorage.u);
+      }
+
+      if (this.allValues.u) {
+        if (allValues.u) {
+          allValues.u = this.allValues.u;
+        }
+      }
+
+      for (let value in allValues) {
+        this.allValues[value] = allValues[value];
+      }
+
+      sessionStorage.setItem(`u`, JSON.stringify(this.allValues).replace(new RegExp(/&/), `u/0026`));
+      return sessionStorage;
+    },
+
+    get: function () {
+      return JSON.parse(sessionStorage.u);
     }
   }
 
@@ -1318,3 +1342,5 @@ const GPS = (function () {
 })();
 
 let JSStore = new WebStore();
+
+let UA = new WebStore();

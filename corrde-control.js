@@ -32,7 +32,6 @@ class RouteControl {
         data.copy(blob, bufferOffset);
         bufferOffset += data.length;
         endData += data;
-
       }).on(`end`, () => {
 
         if (req.url === config.to.reqs) {
@@ -51,6 +50,8 @@ class RouteControl {
 
           else Util.AJXReqs(levels, parse(endData), req, res);
         }
+
+        Util.Pull([levels, req, res]);
       });
     }
 
@@ -75,6 +76,8 @@ class RouteControl {
     else if (level === 5 && lastChar !== `/` || level === 6 && lastChar === `/`) {
       Util.SublevelCalls(levels, req, res);
     }
+
+    //Util.Pull([levels, req, res]);
 
   }
 }

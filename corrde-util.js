@@ -1371,7 +1371,7 @@ class UAPublic extends Auxll {
 
   handleUACalls () {
 
-    if (this.levelState === `.`) this.Root();
+    if (this.levelState === `.`) this.App()//this.Root();
 
     /**
     Adhere to Alphabetic Order
@@ -4414,6 +4414,37 @@ class UAPublic extends Auxll {
           this.app.to.end(model.call(Stack));
         });
       });
+    });
+  }
+
+  /**
+  @corrdestore.beta.0.1.0
+  **/
+
+  App () {
+
+    this.modelStyler(config.lvl.css, CSS => {
+
+      const Stack = {
+        title: `Corrde Store`,
+        css: CSS,
+        jsState: [config.reqs.js],
+        jSStore: JSON.stringify({r: `u`})
+      };
+
+      let Model = [];
+                
+      Stack.appendModel = [
+        model.rootView({
+          appendModel: [
+            model.ModelWait(Model),
+            model.jS(Stack)
+          ]
+        })
+      ];
+                              
+      this.app.to.writeHead(200, config.reqMime.htm);
+      this.app.to.end(model.call(Stack));
     });
   }
 }
@@ -9158,6 +9189,33 @@ class AJXReqs extends Auxll {
   }
 }
 
+class Puller extends Auxll {
+
+  constructor (Stack) {
+
+    super();
+
+    this.Stack = Stack;
+  }
+
+  Pull () {
+
+    if (this.Stack[0][1] === `pulls`) {
+
+      if (this.Stack[0][2] === `ua`) {
+
+        this.Sell(Data => {
+
+          this.Stack[2].setHeader(`Content-Type`, `application/json`);
+
+          this.Stack[2].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
+
+        });
+      }
+    }
+  }
+}
+
 module.exports = {
 
   AJXReqs: (level, arg, req, res) => new AJXReqs(level, arg, req, res).AJXCalls(),
@@ -9184,5 +9242,7 @@ module.exports = {
 
   UATCP(tcp) {
     new UATCP().TCPCalls(tcp);
-  }
+  },
+
+  Pull: (Stack) => new Puller(Stack).Pull()
 }

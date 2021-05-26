@@ -1859,7 +1859,10 @@ module.exports = {
         `script`, `&@src>/gp/d3.js`]/*, [
         `script`, `&@src>/gp/topojson-client-master/src/index.js`]*/, [
         `script`, `&@src>${config.cd.utilJS}`], [
-        `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], JS]]
+        `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], [
+        `script`, config.valjS, `~@UA.set(${pool.jSStore})`], [
+        `script`, `&@src>${config.reqs.JSModel}`], [
+        `script`, `&@src>/gp/js/route.js`], JS]]
   },
 
   in () {
@@ -8225,7 +8228,8 @@ module.exports = {
     }
 
     return [
-    `main`, `.@_xC2 _aA2`, [[`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`]]], ModelJS]];
+    `main`, `.@_xC2 _aA2`, `&@style>height:100%`, [[
+      `div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`]]], ModelJS]];
 
   },
 
