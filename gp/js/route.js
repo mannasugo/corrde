@@ -19,7 +19,41 @@ class Puller {
 
 class Event {
 
-	ScrollStartPulls () {
+	listen (Arg) { 
+
+		(Arg[0].addEventListener) ? Arg[0].addEventListener(Arg[1], Arg[2]) : Arg[0].attachEvent(`on` + Arg[1], Arg[2]);
+	}
+
+	getSource (Arg) {
+
+		if (Arg.target) return Arg.target;
+	}
+
+	Call () {
+
+		if (new Controller().Old() === `.`) {
+
+			this.SelectSlide();
+		}
+	}
+
+	SelectSlide () {
+
+		document.querySelectorAll(`.pullSlide`).forEach((Slide, slide)=> {
+
+			this.listen([Slide, `click`, (e) => {
+				
+				UA.set({pullState: slide - 1});
+
+				this.SlidePulls();
+			}]);
+
+		});
+	}
+
+	SlidePulls () {
+
+		if (new Controller().Old() !== `.`) return;
 
 		UA.set({pullState: UA.get().pullState + 1});
 
@@ -72,7 +106,9 @@ class Controller extends Puller {
 
 			new View().DOM([`main`, [Models.ModelStart(UA.get().pulls)]]);
 
-			setInterval(() => new Event().ScrollStartPulls(), 6000);
+			setInterval(() => new Event().SlidePulls(), 6000);
+
+			new Event().Call();
 		}
 	}
 }

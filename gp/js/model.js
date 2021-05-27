@@ -88,7 +88,7 @@ let Models = {
 					`svg`, `#@pullState`, `&@style>width:14px;min-height:14px;height:14px`, [[
 						`circle`, `&@r>1.8`, `&@cx>7`, `&@cy>7`, `&@style>fill:#fff;stroke:none`], [
 						`circle`, `.@_2Q`, `&@r>5`, `&@cx>7`, `&@cy>7`, `&@style>fill:none;stroke:none`]]], [
-					`a`, `&@style>position:absolute;height:100%;width:100%`, `&@href>javascript:;`]]])
+					`a`, `.@pullSlide`, `&@style>position:absolute;height:100%;width:100%`, `&@href>javascript:;`]]])
 		})
 
 		return [
