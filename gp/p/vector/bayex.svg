@@ -1,0 +1,19 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    path, circle, rect {
+      fill: none;
+      stroke-width: 1.5;
+      stroke: #000
+    }
+
+    path {stroke: #fff}
+
+    circle {fill: #000;stroke:none}
+
+    .graph {stroke: #000}
+  </style>
+  <rect x="1.5" y="1.5" width="21" height="21" rx="2"></rect>
+  <path d="M1.5 13 1.5 17"></path>
+  <circle r=".75" cx="1.5" cy="15"></circle>
+  <path class="graph" d="M5.5 17 9.5 12"></path>
+  </svg>

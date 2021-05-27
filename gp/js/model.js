@@ -116,5 +116,37 @@ let Models = {
       			`div`, `.@_geQ _2yQ`, [[`img`, `&@src>${Arg[0].files[0]}`]]]]], [
       			`div`, `&@style>position: fixed;bottom: 16px;width: max-content;align-content: center;justify-content: center;align-items: center;z-index: 31;`, [[
         			`div`, `.@_gxM`, `&@style>background:rgba(0, 0, 0, .85);padding:8px 12px;border-radius:100px;width:100%`, ModelScroll]]]]]]];
+	},
+
+	ModelAisles () {
+
+		let Aisles = [
+			[`alcohol`, [`Alcohol`]], 
+			[`beauty & personal care`, [``]], 
+			[`beverages`, [`Beve`]],
+			[`bread & bakery`, [`Wheat`]], 
+			[`fast food & eatery`, [`Meals`]], 
+			[`fruits & vegetables`, [`Veges`]]];
+
+		let ModelAisles = [];
+
+		Aisles.forEach(Aisle => {
+
+			ModelAisles.push([
+				`div`, `.@_gZ _gxM _geQ`, `&@style>text-transform:capitalize;padding:12px 24px;cursor:pointer`, [[
+          `span`, `.@-_tX ${Aisle[1][0]}`], [`div`, `.@_eYG`, [[`span`, `~@${Aisle[0]}`]]]]])
+		})
+		
+		return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@shop by category`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+      	`div`, `#@ModelAisles`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+      		`div`, `.@_aXZ`, ModelAisles]]]]];
+
+
 	}
 }

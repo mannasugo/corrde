@@ -643,16 +643,18 @@ body {
 
 .CommentsGray, .HeartsColor, .HeartsGray {background-image: url(/gp/css/icons/gram_canvas.png);}
 
-.AddStoriesColor, .ArchiveGray, .CartGray, .Close, .closelighticonUA, .Collapse, .CommentsGray, 
+.AddStoriesColor, .Alcohol, .ArchiveGray, .Beve, .CartGray, .Close, .closelighticonUA, .Collapse, .CommentsGray, 
 .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
 .FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
-.HeartsGray, .MailColor, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
+.HeartsGray, .MailColor, .Meals, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
-.StatsCircleColor, .StatsPlaneColor, .To, .twineiconUA, .TwitterColor, .VKBlack, .vServiceGray, .verifylighticonUA, ._y4x {
+.StatsCircleColor, .StatsPlaneColor, .To, .twineiconUA, .TwitterColor, .Veges, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
 }
+
+.Alcohol {background-image: url(/gp/p/vector/liquor.svg);}
 
 .Amex {
   background-image: url(/gp/p/vector/amex.svg);
@@ -683,6 +685,8 @@ body {
   width: 24px;
   height: 24px;
 }
+
+.Beve {background-image: url(/gp/p/vector/seltzer.svg);}
 
 .Bitcoin {
   background-image: url(/gp/p/vector/bitcoin.svg);
@@ -810,6 +814,8 @@ body {
   height: 36px;
 }
 
+.Meals {background-image: url(/gp/p/vector/food-dinner.svg);}
+
 .Minus {
   background-image: url(/gp/p/vector/minus.svg);
   background-repeat: no-repeat;
@@ -935,6 +941,8 @@ body {
   background-image: url(/gp/p/vector/twitter.svg);
 }
 
+.Veges {background-image: url(/gp/p/vector/veges.svg);}
+
 .Venmo {
   background-image: url(/gp/p/vector/venmo.svg);
   background-repeat: no-repeat;
@@ -956,6 +964,8 @@ body {
 .vServiceGray {
   background-image: url(/gp/p/vector/vending.svg);
 }
+
+.Wheat {background-image: url(/gp/p/vector/wheat.svg);}
 
 ._tCx {
   color: #000;
@@ -3787,6 +3797,13 @@ table > thead > tr > th {
 
   #ModelShelf-2 ._gY-0 {width: 220px}
 
+}
+
+@media (min-width: 600px) {
+
+  #ModelAisles {justify-content: center;}
+
+  #ModelAisles > ._aXZ {border: 1px solid #f4f4f4;border-radius: 4px}
 }
 
 @media (min-width: 576px) {
