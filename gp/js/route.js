@@ -36,9 +36,18 @@ class Event {
 			this.SelectSlide();
 
 			this.getAisles();
+
+			this.getMailable();
+
+			setInterval(() => this.SlidePulls(), 7000);
 		}
 
 		if (new Controller().Old() === `/aisles/`) {
+
+			this.getOld();
+		}
+
+		if (new Controller().Old() === `/ships/`) {
 
 			this.getOld();
 		}
@@ -63,25 +72,33 @@ class Event {
 
 		if (new Controller().Old() !== `.`) return;
 
-		UA.set({pullState: UA.get().pullState + 1});
+		//setInterval(() => {
 
-		if (!UA.get().pulls[parseInt(UA.get().pullState)]) UA.set({pullState: 0});
+			UA.set({pullState: UA.get().pullState + 1});
 
-		let Sell = UA.get().pulls;
+			if (!UA.get().pulls[parseInt(UA.get().pullState)]) UA.set({pullState: 0});
 
-		document.querySelector(`#ModelStart #alpha`).innerHTML = Sell[UA.get().pullState].alpha;
+			let Sell = UA.get().pulls;
 
-		document.querySelector(`#ModelStart #pay`).innerHTML = `$${parseFloat(Sell[UA.get().pullState].dollars).toFixed(2)} usd/k£.${parseFloat((Sell[UA.get().pullState].dollars)*109).toFixed(2)} kes`;
+			let V = new View();
 
-		document.querySelector(`#ModelStart img`).src = Sell[UA.get().pullState].files[0];
+			document.querySelector(`#ModelStart #alpha`).innerHTML = Sell[UA.get().pullState].alpha;
 
-		document.querySelector(`#ModelStart #set`).innerHTML = Sell[UA.get().pullState].set;
+			document.querySelector(`#ModelStart #pay`).innerHTML = `$${parseFloat(Sell[UA.get().pullState].dollars).toFixed(2)} usd/k£.${parseFloat((Sell[UA.get().pullState].dollars)*109).toFixed(2)} kes`;
 
-		let PullState = document.querySelectorAll(`#pullState`);
+			document.querySelector(`#ModelStart img`).src = Sell[UA.get().pullState].files[0];
 
-		PullState.forEach(State => State.querySelector(`._2Q`).style.stroke = `none`);
+			document.querySelector(`#ModelStart #set`).innerHTML = V.Alias(V.Alias(Sell[UA.get().pullState].set));
 
-		PullState[UA.get().pullState].querySelector(`._2Q`).style.stroke = `#fff`
+			document.querySelectorAll(`.mailable`).forEach(M => {M.setAttribute(`md`, Sell[UA.get().pullState].MD5)});
+
+			let PullState = document.querySelectorAll(`#pullState`);
+
+			PullState.forEach(State => State.querySelector(`._2Q`).style.stroke = `none`);
+
+			PullState[UA.get().pullState].querySelector(`._2Q`).style.stroke = `#fff`
+
+		//}, 7000)
 	}
 
 	getAisles () {
@@ -121,6 +138,30 @@ class Event {
 			Control.Call();
 		}]);
 	}
+
+	getMailable () {
+
+		document.querySelectorAll(`.mailable`).forEach(Mailable => {
+
+			this.listen([Mailable, `click`, (e) => {
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(`/ships/`); 
+
+				UA.set({ualog: UAlog});
+
+				let Control = new Controller();
+
+				Control.Mailable();
+
+			}]);
+
+		});
+
+		this.listen([document.querySelector(`#catalog`), `click`, e => {
+		}]);
+	}
 }
 
 class Controller extends Puller {
@@ -149,6 +190,8 @@ class Controller extends Puller {
 		if (this.Old() === `.`) this.Root();
 
 		if (this.Old() === `/aisles/`) this.Aisles();
+
+		if (this.Old() === `/ships/`) this.Mailable();
 	}
 
 	Root () {
@@ -161,8 +204,6 @@ class Controller extends Puller {
 
 			new View().DOM([`main`, [Models.ModelStart(UA.get().pulls)]]);
 
-			setInterval(() => new Event().SlidePulls(), 6000);
-
 			new Event().Call();
 		}
 	}
@@ -170,6 +211,13 @@ class Controller extends Puller {
 	Aisles () {
 
 		new View().DOM([`main`, [Models.ModelAisles()]]);
+
+		new Event().Call()
+	}
+
+	Mailable () {
+
+		new View().DOM([`main`, [Models.ModelMailable()]]);
 
 		new Event().Call()
 	}

@@ -77,6 +77,8 @@ class View {
 
 let Models = {
 
+	Alias: (Arg) => new View().Alias(Arg),
+
 	ModelStart (Arg) {
 
 		let ModelScroll = [];
@@ -89,7 +91,7 @@ let Models = {
 						`circle`, `&@r>1.8`, `&@cx>7`, `&@cy>7`, `&@style>fill:#fff;stroke:none`], [
 						`circle`, `.@_2Q`, `&@r>5`, `&@cx>7`, `&@cy>7`, `&@style>fill:none;stroke:none`]]], [
 					`a`, `.@pullSlide`, `&@style>position:absolute;height:100%;width:100%`, `&@href>javascript:;`]]])
-		})
+		});
 
 		return [
       `main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -110,9 +112,9 @@ let Models = {
       					`div`, `.@`, [[
       					  `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
       					    `a`, `#@`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, [[
-      					    	`span`, `&@style>padding:0 6px`, `~@Available in`], [
-      					    	`span`, `&@style>width:17px;height:17px`, `.@-_tX To`]]]]]]], [
-            		`div`, `.@_yZS`, [[`a`, `#@set`, `.@_aA2 _-Zz`, `&@style>text-decoration:underline;font-size:11px;color:#646060`, `&@href>javascript;;`, `~@${Arg[0].set}`]]]]]]], [
+      					    	`span`, `#@set`, `.@mailable`, `&@md>${Arg[0].MD5}`, `&@style>padding:0 6px`, `~@${this.Alias(Arg[0].set)}`], [
+      					    	`span`, `&@md>${Arg[0].MD5}`, `&@style>width:17px;height:17px`, `.@-_tX To mailable`]]]]]]], [
+            		`div`, `.@_yZS`, [[`a`, `@set`, `.@_aA2 _-Zz`, `&@style>text-decoration:underline;font-size:11px;color:#646060`, `&@href>javascript;;`, `~@${Arg[0].set}`]]]]]]], [
       			`div`, `.@_geQ _2yQ`, [[`img`, `&@src>/${Arg[0].files[0]}`]]]]], [
       			`div`, `&@style>position: fixed;bottom: 16px;width: max-content;align-content: center;justify-content: center;align-items: center;z-index: 31;`, [[
         			`div`, `.@_gxM`, `&@style>background:rgba(0, 0, 0, .85);padding:8px 12px;border-radius:100px;width:100%`, ModelScroll]]]]]]];
@@ -146,7 +148,41 @@ let Models = {
           `div`, `.@_QZg`, [[]]]]]]], [
       	`div`, `#@ModelAisles`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, ModelAisles]]]]];
+	},
 
+	ModelMailable () {
 
+		let Regions = [
+			`australia`, 
+			`ethiopia`, 
+			`germany`,
+			`great britain`,
+			`ireland`, 
+			`kenya`, 
+			`new zealand`, 
+			`norway`, 
+			`morocco`, 
+			`south africa`, 
+			`sweden`, 
+			`united states of america`];
+
+		let ModelRegions = [];
+
+		Regions.forEach(a => {
+
+			ModelRegions.push([
+        `div`, `.@_gZ`, [[
+          `a`, `.@_gcQ _aXZ _tXx _aA2`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px;cursor:pointer`, `~@${a}`]]])
+		})
+		
+		return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@shipping & delivery`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+      	`div`, `#@ModelAisles`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+      		`div`, `.@_aXZ`, ModelRegions]]]]];
 	}
 }
