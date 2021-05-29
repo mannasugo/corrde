@@ -113,7 +113,7 @@ let Models = {
       					    	`span`, `&@style>padding:0 6px`, `~@Available in`], [
       					    	`span`, `&@style>width:17px;height:17px`, `.@-_tX To`]]]]]]], [
             		`div`, `.@_yZS`, [[`a`, `#@set`, `.@_aA2 _-Zz`, `&@style>text-decoration:underline;font-size:11px;color:#646060`, `&@href>javascript;;`, `~@${Arg[0].set}`]]]]]]], [
-      			`div`, `.@_geQ _2yQ`, [[`img`, `&@src>${Arg[0].files[0]}`]]]]], [
+      			`div`, `.@_geQ _2yQ`, [[`img`, `&@src>/${Arg[0].files[0]}`]]]]], [
       			`div`, `&@style>position: fixed;bottom: 16px;width: max-content;align-content: center;justify-content: center;align-items: center;z-index: 31;`, [[
         			`div`, `.@_gxM`, `&@style>background:rgba(0, 0, 0, .85);padding:8px 12px;border-radius:100px;width:100%`, ModelScroll]]]]]]];
 	},
