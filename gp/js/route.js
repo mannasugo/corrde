@@ -45,6 +45,8 @@ class Event {
 		if (new Controller().Old() === `/aisles/`) {
 
 			this.getOld();
+
+			this.getMailable();
 		}
 
 		if (new Controller().Old() === `/ships/`) {
@@ -158,9 +160,6 @@ class Event {
 			}]);
 
 		});
-
-		this.listen([document.querySelector(`#catalog`), `click`, e => {
-		}]);
 	}
 }
 

@@ -134,9 +134,10 @@ let Models = {
 
 		Aisles.forEach(Aisle => {
 
-			ModelAisles.push([
-				`div`, `.@_gZ _gxM _geQ`, `&@style>text-transform:capitalize;padding:12px 24px;cursor:pointer`, [[
-          `span`, `.@-_tX ${Aisle[1][0]}`], [`div`, `.@_eYG`, [[`span`, `~@${Aisle[0]}`]]]]])
+			ModelAisles.push([`div`, `.@_gZ`, [[
+				`div`, `.@_gxM _geQ`, `&@style>text-transform:capitalize;padding:12px 24px`, [[
+					`span`, `.@-_tX ${Aisle[1][0]}`], [`div`, `.@_eYG`, [[`span`, `~@${Aisle[0]}`]]]]], [
+				`a`, `.@_aWz mailable`, `&@style>position:absolute`, `&@href>javascript:;`]]])
 		})
 		
 		return [`main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -157,11 +158,13 @@ let Models = {
 			`ethiopia`, 
 			`germany`,
 			`great britain`,
-			`ireland`, 
+			`ireland`,
+			`japan`, 
 			`kenya`, 
 			`new zealand`, 
 			`norway`, 
-			`morocco`, 
+			`morocco`,
+			`seychelles`, 
 			`south africa`, 
 			`sweden`, 
 			`united states of america`];
@@ -172,7 +175,7 @@ let Models = {
 
 			ModelRegions.push([
         `div`, `.@_gZ`, [[
-          `a`, `.@_gcQ _aXZ _tXx _aA2`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px;cursor:pointer`, `~@${a}`]]])
+          `a`, `.@_gcQ _aXZ _tXx _aA2`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${a}`]]])
 		})
 		
 		return [`main`, `.@_tY0`, `&@style>height:100%`, [[
