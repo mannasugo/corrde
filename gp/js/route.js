@@ -149,7 +149,7 @@ class Event {
 
 			this.listen([Mailable, `click`, S => {
 
-				UA.set({mailable: Mailable.getAttribute(`md`), set: Mailable.innerHTML});
+				UA.set({mailable: Mailable.getAttribute(`md`), set: Mailable.getAttribute(`for`)});
 
 				let UAlog = UA.get().ualog;
 
@@ -290,7 +290,7 @@ class Controller extends Puller {
 
 				UA.set({aislePull: Pulls.pulls});
 
-				new View().DOM([`main`, [Models.ModelAisle(UA.get().aislePull)]]);
+				new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set])]]);
 
 				new Event().Call();
 			}
