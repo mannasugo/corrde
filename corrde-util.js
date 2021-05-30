@@ -1503,10 +1503,7 @@ class UAPublic extends Auxll {
         this.Stores(A => {this.toolSuite(A)})}
     }
 
-    else if (this.levelState[1] === `grocery`) {
-
-      if (this.levelState[2]) this.RetailStock([`grocery`, this.levelState[2]]);
-    }
+    else if (this.levelState[1] === `grocery`) this.App();
 
     else if (this.levelState[1] === `j`) {
 
@@ -9208,9 +9205,21 @@ class Puller extends Auxll {
 
         this.Sell(Data => {
 
-          this.Stack[2].setHeader(`Content-Type`, `application/json`);
+          this.Stack[3].setHeader(`Content-Type`, `application/json`);
 
-          this.Stack[2].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
+          if (this.Stack[1].pull === `aisle`) {
+
+            let Pulls = [];
+
+            Data.Sell[0].forEach(Sell => {
+
+              if (model.filter(model.filter(Sell.set)) === (this.Stack[1].aisle).toLowerCase()) Pulls.push(Sell);
+            });
+
+            this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((this.Stack[1].aisle).toLowerCase()), pulls: Pulls}))
+          }
+
+          else this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
 
         });
       }

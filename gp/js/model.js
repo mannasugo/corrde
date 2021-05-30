@@ -106,9 +106,9 @@ let Models = {
       		`div`, `.@_geQ _gxM _aXZ _0yg`, [[
       			`div`, `.@_geQ _0yQ`, [[
       				`div`, `.@_aXZ`, [[
-      					`div`, [[`span`, `#@alpha`, `.@_sZ2 _tXx`, `&@style>font-size:12.5px;text-transform:capitalize`, `~@${Arg[0].alpha}`]]], [
+      					`div`, [[`span`, `#@alpha`, `.@_sZ2`, `&@style>font-size:12.5px;text-transform:uppercase`, `~@${Arg[0].alpha}`]]], [
       					`div`, `.@_gxM _sZ2`, [[
-      						`span`, `#@pay`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:12px;text-transform:uppercase`, `~@$${parseFloat(Arg[0].dollars).toFixed(2)} usd/k£.${parseFloat((Arg[0].dollars)*109).toFixed(2)} kes`]]], [
+      						`span`, `#@pay`, `.@_tXx`, `&@style>font-family:DIN-reg;text-transform:uppercase`, `~@$${parseFloat(Arg[0].dollars).toFixed(2)} usd/k£.${parseFloat((Arg[0].dollars)*109).toFixed(2)} kes`]]], [
       					`div`, `.@`, [[
       					  `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
       					    `a`, `#@`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, [[
@@ -136,7 +136,7 @@ let Models = {
 
 			ModelAisles.push([`div`, `.@_gZ`, [[
 				`div`, `.@_gxM _geQ`, `&@style>text-transform:capitalize;padding:12px 24px`, [[
-					`span`, `.@-_tX ${Aisle[1][0]}`], [`div`, `.@_eYG`, [[`span`, `~@${Aisle[0]}`]]]]], [
+					`span`, `.@-_tX ${Aisle[1][0]}`], [`div`, `.@_eYG`, [[`span`, `&@style>text-transform:uppercase;font-size:11px`, `~@${Aisle[0]}`]]]]], [
 				`a`, `.@_aWz mailable`, `&@style>position:absolute`, `&@href>javascript:;`]]])
 		})
 		
@@ -175,7 +175,7 @@ let Models = {
 
 			ModelRegions.push([
         `div`, `.@_gZ`, [[
-          `a`, `.@_gcQ _aXZ _tXx _aA2`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${a}`]]])
+          `a`, `#@${a}`, `.@_gcQ _aXZ _tXx _aA2 area`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${a}`]]])
 		})
 		
 		return [`main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -187,5 +187,18 @@ let Models = {
           `div`, `.@_QZg`, [[]]]]]]], [
       	`div`, `#@ModelAisles`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, ModelRegions]]]]];
+	},
+
+	ModelAisle () {
+		
+		return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+      	`div`, `#@ModelAisle`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+      		`div`, `.@_aXZ`, `ModelRegions`]]]]];
 	}
 }

@@ -39,7 +39,7 @@ class Event {
 
 			this.getMailable();
 
-			setInterval(() => this.SlidePulls(), 7000);
+			setInterval(() => this.SlidePulls(), 15000);
 		}
 
 		if (new Controller().Old() === `/aisles/`) {
@@ -52,6 +52,8 @@ class Event {
 		if (new Controller().Old() === `/ships/`) {
 
 			this.getOld();
+
+			this.getAisle();
 		}
 	}
 
@@ -88,7 +90,7 @@ class Event {
 
 			document.querySelector(`#ModelStart #pay`).innerHTML = `$${parseFloat(Sell[UA.get().pullState].dollars).toFixed(2)} usd/k£.${parseFloat((Sell[UA.get().pullState].dollars)*109).toFixed(2)} kes`;
 
-			document.querySelector(`#ModelStart img`).src = Sell[UA.get().pullState].files[0];
+			document.querySelector(`#ModelStart img`).src = `/${Sell[UA.get().pullState].files[0]}`;
 
 			document.querySelector(`#ModelStart #set`).innerHTML = V.Alias(V.Alias(Sell[UA.get().pullState].set));
 
@@ -145,7 +147,9 @@ class Event {
 
 		document.querySelectorAll(`.mailable`).forEach(Mailable => {
 
-			this.listen([Mailable, `click`, (e) => {
+			this.listen([Mailable, `click`, S => {
+
+				UA.set({mailable: Mailable.getAttribute(`md`), set: Mailable.innerHTML});
 
 				let UAlog = UA.get().ualog;
 
@@ -156,6 +160,23 @@ class Event {
 				let Control = new Controller();
 
 				Control.Mailable();
+
+			}]);
+
+		});
+	}
+
+	getAisle () {
+
+		document.querySelectorAll(`.area`).forEach(Area => {
+
+			this.listen([Area, `click`, S => {
+
+				UA.set({area: Area.id});
+
+				let Control = new Controller();
+
+				Control.Aisle();
 
 			}]);
 
@@ -191,6 +212,8 @@ class Controller extends Puller {
 		if (this.Old() === `/aisles/`) this.Aisles();
 
 		if (this.Old() === `/ships/`) this.Mailable();
+
+		if (this.Old().split(`/`)[1] === `grocery`) this.Aisle();
 	}
 
 	Root () {
@@ -219,5 +242,58 @@ class Controller extends Puller {
 		new View().DOM([`main`, [Models.ModelMailable()]]);
 
 		new Event().Call()
+	}
+
+	Aisle () {
+
+		if (!UA.get().set) {
+
+			let UAlog = UA.get().ualog;
+
+			UAlog.push(`/aisles/`); 
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `aisles`, `/aisles/`]);
+
+			this.Aisles();
+		}
+
+		if (!UA.get().area) {
+
+			let UAlog = UA.get().ualog;
+
+			UAlog.push(`/ships/`); 
+
+			UA.set({ualog: UAlog});
+
+			this.Mailable();
+		}
+
+		if (UA.get().set && UA.get().area) {
+
+			let Pull = this.Pull([`/pulls/ua/`, {aisle: UA.get().set, pull: `aisle`, area: UA.get().area}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				if (!Pulls.aisle) return;
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(`/grocery/${Pulls.aisle}/`);
+
+				UA.set({ualog: UAlog});
+
+				this.SetState([{}, `grocery`, `/grocery/${Pulls.aisle}/`]);
+
+				UA.set({aislePull: Pulls.pulls});
+
+				new View().DOM([`main`, [Models.ModelAisle(UA.get().aislePull)]]);
+
+				new Event().Call();
+			}
+		}
 	}
 }

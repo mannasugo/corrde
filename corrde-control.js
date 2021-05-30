@@ -51,7 +51,7 @@ class RouteControl {
           else Util.AJXReqs(levels, parse(endData), req, res);
         }
 
-        Util.Pull([levels, req, res]);
+        Util.Pull([levels, JSON.parse(endData), req, res]);
       });
     }
 
