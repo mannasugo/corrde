@@ -191,6 +191,10 @@ let Models = {
 
 	ModelAisle (Arg) {
 
+    let Seen = {};
+
+    (!UA.get().UASeen)? UA.set({UASeen: Seen}): Seen = UA.get().UASeen;
+
 		let Column = 3;
 
 		if (Arg[2] < 540) Column = 2;
@@ -222,6 +226,17 @@ let Models = {
 
 			Multi[row].slice(row*Column, ((row*Column) + Column)).forEach(Row => {
 
+        if (!Seen[Row.MD5]) {
+
+          Seen[Row.MD5] = Row;
+
+          UA.set({UASeen: Seen});
+        }
+
+				Row[`Fx`] = Fx[UA.get().area];
+
+      let data = `&@data>${JSON.stringify(Row).replace(new RegExp(`"`, `g`), `&quot;`)}`;
+
 				ModelShelve.push([
             `div`, `.@_gA0 _gW0`, `&@style>width:${100/Column}%;padding:16px`, [[
               `div`, `.@_gY`, [[
@@ -232,12 +247,15 @@ let Models = {
                   `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
-                      	`span`, `.@_p0`, `&@style>font-family:DIN-reg;text-transform:uppercase`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
+                      	`span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
-                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:uppercase`, `~@${Row.alpha}`]], `&@href>javascript:;`]]]]]]], [
-      			`div`, `.@_-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
-      				`a`, `&@href>javascript:;`], [`span`, ``], [`a`, `.@alterCart Max`, `&@href>javascript:;`,]]]]])
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]]]]]], [
+      			`div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
+              `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
+                `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
+                `span`, `&@style>text-align:center;font-family:gotham-book`, `~@${(Seen[Row.MD5].items)? ((Seen[Row.MD5].items < 10)? `0`+ Seen[Row.MD5].items: Seen[Row.MD5].items): `00`}`]]], [
+      				`a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]])
 			});
 			
 			ModelAisle.push([`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelShelve])

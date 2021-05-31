@@ -34,24 +34,24 @@ class RouteControl {
         endData += data;
       }).on(`end`, () => {
 
-        if (req.url === config.to.reqs) {
+        if (endData[0] === `{`) Util.Pull([levels, JSON.parse(endData), req, res]);
 
-          if (req.headers[`content-type`] === `image/jpeg`) Util.AJXJPEG(blob, req, res);
+        else {
+
+          if (req.url === config.to.reqs) {
+
+            if (req.headers[`content-type`] === `image/jpeg`) Util.AJXJPEG(blob, req, res);
           
-          else {
+            else Util.viaAJX(parse(endData), req, res);
+          }
 
-            Util.viaAJX(parse(endData), req, res);
+          else if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {
+
+            if (req.headers[`content-type`] === `image/jpeg`) Util.AJXJPEG(blob, req, res); 
+
+            else Util.AJXReqs(levels, parse(endData), req, res);
           }
         }
-
-        else if (level === 2 && lastChar !== `/` || level === 3 && lastChar === `/`) {
-
-          if (req.headers[`content-type`] === `image/jpeg`) Util.AJXJPEG(blob, req, res); 
-
-          else Util.AJXReqs(levels, parse(endData), req, res);
-        }
-
-        Util.Pull([levels, JSON.parse(endData), req, res]);
       });
     }
 

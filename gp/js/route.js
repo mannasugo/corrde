@@ -61,6 +61,8 @@ class Event {
 			this.getApp();
 
 			this.Shelve();
+
+			this.AlterCart();
 		}
 	}
 
@@ -216,6 +218,97 @@ class Event {
 
 			this.Call()
 		}])
+	}
+
+	AlterCart () {
+
+		document.querySelectorAll(`.alterCart`).forEach(Alter => {
+
+			this.listen([Alter, `click`, S => {
+
+				S = this.getSource(S);
+
+    		if (!UA.get().trolley) UA.set({trolley: []});
+
+    		let Cart = UA.get().trolley;
+
+    		let Data = JSON.parse(S.getAttribute(`data`));
+
+    		if (S.id === `max`) {
+
+      		let item;
+
+      		Cart.forEach(Stock => {
+
+        		if (Stock.MD5 === Data[`MD5`]) item = Cart.indexOf(Stock);
+      		});
+
+      		if (typeof item !== `number`) {
+
+      			Data[`items`] = 0;
+
+        		Cart.push(Data);
+
+        		item = Cart.length - 1;
+      		}
+
+      		Cart[item].items += 1;
+
+      		let Seen = UA.get().UASeen;
+
+      		Seen[Data.MD5] = Cart[item];
+
+      		UA.set({trolley: Cart, UASeen: Seen});
+
+      		S.parentNode.querySelector(`div`).className = `-Zz`;
+
+      		S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
+				
+      	}
+
+    		else if (S.id == `min`) {
+
+      		let item;
+
+      		Cart.forEach(Stock => {
+
+        		if (Stock.MD5 === Data.MD5) item = Cart.indexOf(Stock);
+      		});
+
+      		if (typeof item !== `number`) return;
+
+      		let CartSelf = [];
+
+      		Cart[item].items -= 1;
+
+      		let Seen = UA.get().UASeen;
+
+      		if (Cart[item].items < 1) {
+
+        		Cart.forEach(Stock => {
+
+          		if (Stock.MD5 !== Data.MD5) item = CartSelf.push(Stock);
+        		});
+
+        		Seen[Data.MD5].items = 0;
+
+        		Cart = CartSelf;
+
+      			S.parentNode.className = `_-Zz`;
+      		}
+
+      		if (Cart[item]) {
+
+      			Seen[Data.MD5] = Cart[item];
+
+      			S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
+      		}
+      		
+      		UA.set({trolley: Cart, UASeen: Seen});
+      	
+      	}
+			}])
+		});
 	}
 }
 
