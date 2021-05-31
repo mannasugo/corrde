@@ -190,16 +190,67 @@ let Models = {
 	},
 
 	ModelAisle (Arg) {
+
+		let Column = 3;
+
+		if (Arg[2] < 540) Column = 2;
+
+		if (Arg[2] > 960) Column = 4;
+
+		let Rows = parseInt(Arg[0].length/Column);
+
+		(Arg[0].length%Column > 0)? Rows++: Rows;
+
+		let ModelAisle = [];
+
+		let Fx = {kenya: [109, `k£.`]};
+
+		let Multi = [];
+
+		for (let row = 0; row < Rows; row++) {
+
+			Multi.push(Arg[0]);}
+
+		for (let row = 0; row < Rows; row++) {
+
+			let ModelShelve = [];
+
+			let Slice = JSON.parse(JSON.stringify(Arg[0]));
+
+			Multi[row].slice(row*Column, ((row*Column) + Column)).forEach(Row => {
+
+				ModelShelve.push([
+            `div`, `.@_gA0 _gW0`, `&@style>width:${100/Column}%;padding:16px`, [[
+              `div`, `.@_gY`, [[
+                `a`, `.@_Qg`, [[
+                  `div`, `.@_Qg0 _geQ`, [[
+                  	`img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:200px`, `&@src>/${Row.files[0]}`]]]], `&@href>javascript:;`], [
+                `div`, [[
+                  `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
+                    `div`, `.@_Xx _gxM`, [[
+                      `span`, `.@_tXx`, [[`span`, `.@_p0`, `&@style>font-family:DIN-reg`, `~@${Fx[UA.get().area][1]} ${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
+                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
+                    `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:uppercase`, `~@${Row.alpha}`]], `&@href>javascript:;`]]]]]]], [
+      			`div`]]])
+			});
+			
+			ModelAisle.push([`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelShelve])
+		}
 		
-		return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+		return [
+		`main`, `.@_tY0`, `&@style>height:100%`, [[
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
-          `div`, `.@_QZg`, [[]]]]]]], [
+          `div`, `.@_QZg`, [[
+            `a`, `#@`, `.@-_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
+            `a`, `#@`, `.@_-tX Bag`, `&@style>margin: 0 15px;`, `&@href>javascript:;`]]]]]]], [
       	`div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
-      			`span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]]]]]];
+      			`span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]], [
+      		`div`, ModelAisle]]]]];
 	}
 }

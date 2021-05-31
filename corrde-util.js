@@ -9207,13 +9207,15 @@ class Puller extends Auxll {
 
           this.Stack[3].setHeader(`Content-Type`, `application/json`);
 
+          Data.Sell[0].sort((A,B) => {return B.log - A.log});
+
           if (this.Stack[1].pull === `aisle`) {
 
             let Pulls = [];
 
             Data.Sell[0].forEach(Sell => {
 
-              if (model.filter(model.filter(Sell.set)) === (this.Stack[1].aisle).toLowerCase()) Pulls.push(Sell);
+              if (model.filter(model.filter(Sell.set)) === (model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()) Pulls.push(Sell);
             });
 
             this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), pulls: Pulls}))

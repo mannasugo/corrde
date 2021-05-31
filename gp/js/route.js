@@ -55,6 +55,13 @@ class Event {
 
 			this.getAisle();
 		}
+
+		if (new Controller().Old().split(`/`)[1] === `grocery`) {
+
+			this.getApp();
+
+			this.Shelve();
+		}
 	}
 
 	SelectSlide () {
@@ -182,6 +189,34 @@ class Event {
 
 		});
 	}
+
+	getApp () {
+
+		this.listen([document.querySelector(`#app`), `click`, e => {
+
+			let UAlog = UA.get().ualog;
+
+			UAlog.push(`.`); 
+
+			UA.set({ualog: UAlog});
+
+			let Control = new Controller();
+
+			Control.SetState([{}, `.`, `/`]);
+
+			Control.Root();
+		}]);
+	}
+
+	Shelve () {
+
+		this.listen([window, `resize`, S => {
+
+			new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set, document.body.clientWidth])]]);
+
+			this.Call()
+		}])
+	}
 }
 
 class Controller extends Puller {
@@ -290,7 +325,7 @@ class Controller extends Puller {
 
 				UA.set({aislePull: Pulls.pulls});
 
-				new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set])]]);
+				new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set, document.body.clientWidth])]]);
 
 				new Event().Call();
 			}
