@@ -9217,15 +9217,13 @@ class Puller extends Auxll {
 
             Data.Sell[0].forEach(Sell => { 
 
-              if (model.filter(model.filter(Sell.set)) === aisle) {
+              if (aisle === `fruits & vegetables` || aisle === `fast food & eatery`) {
 
-                if (aisle !== `fruits & vegetables` || aisle !== `fast food & eatery`) Pulls.push(Sell);
+                if (model.filter(model.filter(Sell.set)) === aisle && Sell.market === this.Stack[1].area) Pulls.push(Sell);
 
-                else {
-
-                  if (Sell.market === this.Stack[1].area) Pulls.push(Sell);
-                }
               }
+
+              else if (model.filter(model.filter(Sell.set)) === aisle)  Pulls.push(Sell);
             });
 
             this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), pulls: Pulls}))
