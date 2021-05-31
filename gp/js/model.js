@@ -203,7 +203,10 @@ let Models = {
 
 		let ModelAisle = [];
 
-		let Fx = {kenya: [109, `k£.`]};
+		let Fx = {
+			kenya: [109, `k£.`, `kes`/*`k£.`*/],
+			[`united states of america`]: [1, `$`, `usd`]
+		};
 
 		let Multi = [];
 
@@ -224,15 +227,17 @@ let Models = {
               `div`, `.@_gY`, [[
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
-                  	`img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:200px`, `&@src>/${Row.files[0]}`]]]], `&@href>javascript:;`], [
+                  	`img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>javascript:;`], [
                 `div`, [[
                   `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
                     `div`, `.@_Xx _gxM`, [[
-                      `span`, `.@_tXx`, [[`span`, `.@_p0`, `&@style>font-family:DIN-reg`, `~@${Fx[UA.get().area][1]} ${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
+                      `span`, `.@_tXx`, [[
+                      	`span`, `.@_p0`, `&@style>font-family:DIN-reg;text-transform:uppercase`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:uppercase`, `~@${Row.alpha}`]], `&@href>javascript:;`]]]]]]], [
-      			`div`]]])
+      			`div`, `.@_-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
+      				`a`, `&@href>javascript:;`], [`span`, ``], [`a`, `.@alterCart Max`, `&@href>javascript:;`,]]]]])
 			});
 			
 			ModelAisle.push([`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelShelve])
