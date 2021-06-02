@@ -307,6 +307,10 @@ class Event {
       		UA.set({trolley: Cart, UASeen: Seen});
       	
       	}
+
+      	let Bag = document.querySelector(`.Bag`);
+
+      	(UA.get().trolley.length > 0)? Bag.setAttribute(`class`, `-_tX Bag _-gm`): Bag.setAttribute(`class`, `-_tX Bag`)
 			}])
 		});
 	}

@@ -270,7 +270,7 @@ let Models = {
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
           `div`, `.@_QZg`, [[
             `a`, `#@`, `.@-_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
-            `a`, `#@`, `.@_-tX Bag`, `&@style>margin: 0 15px;`, `&@href>javascript:;`]]]]]]], [
+            `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
       	`div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
       			`span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]], [
