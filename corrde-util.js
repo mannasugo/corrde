@@ -1375,6 +1375,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `aisles`) this.App();
 
+    if (this.levelState === `cart`) this.App();
+
     /**
     Adhere to Alphabetic Order
     Perpendicularly Bisect Countries to find tiles-to-quadrant origin.
