@@ -53,6 +53,8 @@ class Event {
 
 			this.pullCart();
 
+			this.getOld();
+
 		}
 
 		if (new Controller().Old() === `/ships/`) {
@@ -93,8 +95,6 @@ class Event {
 
 		if (new Controller().Old() !== `.`) return;
 
-		//setInterval(() => {
-
 			UA.set({pullState: UA.get().pullState + 1});
 
 			if (!UA.get().pulls[parseInt(UA.get().pullState)]) UA.set({pullState: 0});
@@ -118,8 +118,6 @@ class Event {
 			PullState.forEach(State => State.querySelector(`._2Q`).style.stroke = `none`);
 
 			PullState[UA.get().pullState].querySelector(`._2Q`).style.stroke = `#fff`
-
-		//}, 7000)
 	}
 
 	getAisles () {
@@ -221,6 +219,8 @@ class Event {
 	Shelve () {
 
 		this.listen([window, `resize`, S => {
+
+			if (!document.querySelector(`#ModelAisle`)) return;
 
 			new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set, document.body.clientWidth])]]);
 

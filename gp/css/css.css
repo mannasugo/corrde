@@ -658,7 +658,7 @@ body {
 .FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .Max, .Meals, .Min, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
-.StatsCircleColor, .StatsPlaneColor, .To, .twineiconUA, .TwitterColor, .Veges, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
+.StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .Veges, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -773,9 +773,7 @@ body {
   background-position: -198px -180px;
 }
 
-.From {
-  background-image: url(/gp/p/vector/from.svg);
-}
+.From {background-image: url(/gp/p/vector/from.svg);}
 
 .GeoGray {background-image: url(/gp/p/vector/geo_pin_2.svg);}
 
@@ -940,6 +938,8 @@ body {
   background-position: -106px -180px;
 }
 
+.Store {background-image: url(/gp/p/vector/store.svg);}
+
 .Stripe {
   background-image: url(/gp/p/vector/stripe.svg);
   background-repeat: no-repeat;
@@ -947,9 +947,7 @@ body {
   height: 36px;
 }
 
-.To {
-  background-image: url(/gp/p/vector/to.svg);
-}
+.To {background-image: url(/gp/p/vector/to.svg);}
 
 .TwitterColor {
   background-image: url(/gp/p/vector/twitter.svg);

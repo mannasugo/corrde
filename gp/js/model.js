@@ -79,6 +79,33 @@ let Models = {
 
 	Alias: (Arg) => new View().Alias(Arg),
 
+  Shipping: {
+
+    axis: [ //greater than
+      [-1, 0, 1000, 5000], //x
+      [-1, 0, 2, 8] //y
+    ],
+
+    light: [
+      [0, 0, 0, 0],
+      [0, 4.99, 6.99, 8.99], 
+      [0, 7.49, 9.49, 11.99],
+      [0, 10.99, 12.99, 14.99],
+    ],
+
+    freight: [
+      [0, 0, 0, 0],
+      [0, 12.99, 16.99, 18.99], 
+      [0, 22.49, 24.99, 26.99],
+      [0, 33.99, 36.99, 39.99],
+    ]
+  },
+
+  Fx: {
+    kenya: [109, `k£.`, `kes`, 45, 10.6],
+    [`united states of america`]: [1, `$`, `usd`, 120, 1]
+  },
+
 	ModelStart (Arg) {
 
 		let ModelScroll = [];
@@ -208,8 +235,8 @@ let Models = {
 		let ModelAisle = [];
 
 		let Fx = {
-			kenya: [109, `k£.`, `kes`/*`k£.`*/],
-			[`united states of america`]: [1, `$`, `usd`]
+			kenya: [109, `k£.`, `kes`, 45],
+			[`united states of america`]: [1, `$`, `usd`, 120]
 		};
 
 		let Multi = [];
@@ -280,6 +307,129 @@ let Models = {
   ModelCart () {
 
     let ModelCart = [[], []];
+
+    let ModelPorts = [];
+
+    let Fx = this.Fx[UA.get().area];
+
+    let items = 0;
+
+    let fees = 0;
+
+    let gross = 0;
+
+    ModelCart[0] = [
+      `div`, [[
+        `div`, `.@_gZ`, `&@style>margin:75px auto 0;max-width:960px;width:100%;padding: 0 16px`, []], [
+        `div`, `.@_gZ`, `&@style>margin:0 auto;max-width:960px;width:100%;padding: 0 16px`, [[
+          `p`, `&@style>padding: 16px 0;text-transform:uppercase`, `~@shipping fee`, ModelPorts]]]]];
+
+    let Cart = [];
+
+    if (UA.get().trolley) Cart = UA.get().trolley;
+
+    let Ports = {};
+
+    Cart.forEach(Sell => {
+
+      (Sell.dollars*Sell.items > Fx[3])? Sell[`shipping`] = `freight`: Sell[`shipping`] = `light`;
+
+      items += Sell.items;
+
+      gross += Fx[0]*Sell.dollars*Sell.items;
+
+      if (!Sell.port) {
+
+        Sell[`port`] = `corrde port`;
+
+        Sell[`port_gArray`] = [34.753, -.537];
+      }
+
+      if (!Ports[Sell.port_gArray]) Ports[Sell.port_gArray] = [];
+
+      Ports[Sell.port_gArray].push(Sell);
+
+      let Pay = `${Fx[1]}${(Fx[0]*Sell.dollars*Sell.items).toFixed(2)} ${Fx[2]}`;
+
+      ModelCart[0][1][0][3].push([
+        `div`, `.@_gxM _geQ _yZS uZM`, [[
+          `div`, `.@_`, `&@style>max-width:60px`, [[
+            `img`, `&@alt>${Sell.alpha}`, `&@style>max-width:100%`, `&@src>/${Sell.files[0]}`]]], [
+          `div`, `.@_eYG _geQ`, [[
+            `div`, [[
+              `span`, `&@style>text-transform:capitalize;font-weight:300`, `~@${Sell.alpha}`]]], [
+              `div`, `.@_gxM _geQ`, [[
+                `div`, [[
+                  `span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@${Sell.mass*Sell.items} grams`]]], []]], [
+            `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
+              `div`, `&@style>margin: 8px 0`, [[
+                `div`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
+                  `div`, [[`a`, `#@sliceCart`, `.@-_tX Minus`, `&@href>javascript:;`]]], [
+                  `div`, `.@_tXx`, `&@style>padding:0 8px;font-family:gotham-book`, `~@${Sell.items}`], [
+                  `div`, [[`a`, `#@alterCart`, `.@-_tX Plus`, `&@href>javascript:;`]]]]]]], [
+              `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Pay}`]]]]]]]]])
+      });
+
+    for (let Port in Ports) {
+
+      let miles = 0;
+
+      (UA.get().gArray)? miles = (d3.geoDistance(UA.get().gArray, Ports[Port][0].port_gArray) * 6888).toFixed(2): miles = miles;
+
+      let Mass = [0, 0];
+
+      Ports[Port].forEach(P => {
+
+        (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items)
+      });
+
+      let Axes = [[0, 0], [0, 0]];
+
+      this.Shipping.axis[0].forEach(Axis => {
+
+        let succ = this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1];
+
+        if (!this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1]) succ = Axis*2;
+
+        if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = this.Shipping.axis[0].indexOf(Axis);
+
+        if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = this.Shipping.axis[0].indexOf(Axis);
+      });
+
+      this.Shipping.axis[1].forEach(Axis => {
+
+        let succ = this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1];
+
+        if (!this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1]) succ = Axis*2;
+
+        if (miles > Axis && miles < succ) {
+
+          Axes[0][1] = this.Shipping.axis[1].indexOf(Axis); 
+
+          Axes[1][1] = this.Shipping.axis[1].indexOf(Axis);
+        }
+      });
+
+      fees += parseFloat(Fx[0]*(this.Shipping.light[Axes[0][1]][Axes[0][0]] + this.Shipping.freight[Axes[1][1]][Axes[1][0]])/Fx[4]).toFixed(2);
+
+      fees = parseFloat(fees)
+
+      ModelPorts.push([
+        `div`, `.@_gxM _yZS`, [[
+          `div`, `.@_aXZ`, [[
+            `div`, [[`span`, `.@_tXx`, `&@style>text-transform:uppercase;`, `~@${Ports[Port][0].port}`]]], [
+            `div`, `.@_gxM`, [[
+              `div`, `.@_geQ _gxM _aXZ`, [[`span`, `.@-_tX Store`], [`div`, `.@_eYG`, `~@${miles} Miles`], [
+              `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Fx[1]}${fees} ${Fx[2]}`]]]]]]]]]]])
+    }
+
+    ModelCart[0][1].push([
+      `div`, `.@_gZ`, `&@style>margin:0 auto;max-width:960px;width:100%;padding: 0 16px`, [[
+        `div`, `.@_gxM _geQ`, `&@style>padding: 16px 0;text-transform:uppercase`, [[
+          `span`, `~@order total`], [
+          `div`, `.@_QZg _gxM`, [[
+            `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@(${items} items)`]]], [
+            `div`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${Fx[1]}${(gross+fees).toFixed(2)} ${Fx[2]}`]]]]]]]]]);
 
     ModelCart[1] = [
       `div`, `#@ModelCart`, `.@_geQ`, `&@style>max-width:600px;padding:24px;width:100%;margin:auto;justify-content:center`, [[
