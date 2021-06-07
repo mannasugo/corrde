@@ -65,7 +65,11 @@ class Event {
 
 		if (new Controller().Old() === `/paygate/`) {
 
-			this.getOld();
+			this.getApp();
+
+			this.gate();
+
+			this.getPaygate();
 		}
 
 		if (new Controller().Old().split(`/`)[1] === `grocery`) {
@@ -77,6 +81,13 @@ class Event {
 			this.AlterCart();
 
 			this.getCart();
+		}
+
+		if (new Controller().Old() === `/ships/`) {
+
+			this.getOld();
+
+			this.getAisle();
 		}
 	}
 
@@ -205,6 +216,8 @@ class Event {
 	}
 
 	getApp () {
+
+		if (!document.querySelector(`#app`)) return;
 
 		this.listen([document.querySelector(`#app`), `click`, e => {
 
@@ -457,6 +470,35 @@ class Event {
 
 		}]);
 	}
+
+	gate () {
+
+		if (!document.querySelector(`.gate`)) return;
+
+		document.querySelectorAll(`.gate`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Control = new Controller();
+
+				let Via = this.getSource(S).getAttribute(`for`);
+
+				if (Via === `intasend`) Control.Paymobile();
+			}]);
+		});
+	}
+
+	getPaygate () {
+
+		if (!document.querySelector(`#paygate`)) return;
+
+		this.listen([document.querySelector(`#paygate`), `click`, e => {
+
+			let Control = new Controller();
+
+			Control.Paygate();
+		}]);
+	}
 }
 
 class Controller extends Puller {
@@ -613,5 +655,13 @@ class Controller extends Puller {
 
 			new Event().Call()
 		}
+	}
+
+	Paymobile () {
+
+		new View().DOM([`main`, [Models.ModelPaymobile()]]);
+
+		new Event().Call()
+
 	}
 }

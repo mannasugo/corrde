@@ -453,7 +453,9 @@ let Models = {
         `span`, `.@-_tX GeoGray _sZ2`, `&@style>width:36px;height:36px`], [
         `p`, `.@_sZ2`, `&@style>text-align:center`, `~@GPS disabled, turn on location to calculate shipping costs.`], [
         `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
-          `a`, `#@gps`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, `~@turn on location`]]]]]
+          `a`, `#@gps`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, `~@turn on location`]]]]];
+
+    UA.set({payOld: (gross+fees)/Fx[0]});
     
     return [`main`, `.@_tY0`, `&@style>height:100%`, [[
       `div`, `.@_-tY`, [[
@@ -499,7 +501,7 @@ let Models = {
 
     Paygates.forEach(Paygate => {
 
-      let Style = `&@style>padding:0 12px;color:#fff;font-size:10px;border-radius:12px;`;
+      let Style = `&@style>padding:0 12px;color:#fff;font-size:11px;border-radius:12px;`;
 
       if (Paygate[1][1] === `offline`) Style += `background:red`;
 
@@ -511,11 +513,12 @@ let Models = {
 
       ModelPaygates.push([
         `div`, `.@_gZ _gcQ`, [[
-          `div`, [[
+          `div`, `.@_eYG`, [[
             `span`, `.@${(Paygate[2])? Paygate[2][0] + ` -_tX`: ``}`, `&@style>${(Paygate[2])? `width:${Paygate[2][1][0]}px;height:${Paygate[2][1][1]}px;`: ``}text-transform:uppercase`, `~@${Paygate[0]}`], [
-            `div`, [[`span`, `&@style>font-weight:600;color:#a6a6a6`, `~@${Paygate[1][0]}`]]]]], [
+            `div`, `.@_aXZ
+            `, [[`span`, `&@style>font-size:11px;color:#a6a6a6;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;`, `~@${Paygate[1][0]}`]]]]], [
           `div`, `.@_QZg`, [[`span`, Style, `~@${Paygate[1][1]}`]]], [
-          `label`, `#@gate`, `&@for>${Paygate[0]}`, `&@style>position:absolute;left:0;width:100%;height:100%`]]])
+          `label`, `.@gate`, `&@for>${Paygate[0]}`, `&@style>position:absolute;left:0;width:100%;height:100%`]]])
       });
 
     return [
@@ -523,11 +526,28 @@ let Models = {
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
-            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`]]], [
+            `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`]]], [
           `div`, `.@_QZg`, [[]]]]]]], [
       `div`, `.@_geQ _tY0`, `&@style>justify-content:center;margin-top:65px`, [[
         `div`, `&@style>padding:0 16px`, `~@Payment Options`], [
         `div`, `&@style>margin:24px auto;max-width:600px;width:100%;padding:0 12px`, [[
           `div`, `&@style>border: 1px solid #e6e7e8;border-radius: .5em;`, ModelPaygates]]]]]]]; 
-    }
+  },
+
+  ModelPaymobile () {
+
+    let FX = this.Fx[UA.get().area];
+
+    return [
+    `section`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@paygate`, `.@-_tX From`, `&@href>javascript:;`]]], [
+          `div`, `.@_QZg`, `&@style>font-family:gotham-med;text-transform:uppercase`, [[
+            `span`, `.@-_tX Bag`, `&@style>width:15px;height:15px;margin: 0 8px`], [
+            `span`, `~@${FX[1]}${UA.get().payOld*FX[0]} ${FX[2]}`]]]]]]], [
+      `div`, `.@_geQ _tY0`, `&@style>justify-content:center;margin-top:65px`, []]]];
+
+  }
 }
