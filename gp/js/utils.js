@@ -269,7 +269,7 @@ const Model = (function () {
 
     ModelWait: () => {
 
-      return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX AppMedium`, `&@style>width:56px;height:56px`]]]
+      return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX Store`, `&@style>width:56px;height:56px`]]]
     },
 
     ModelBill: function (MyCart, myRegion, region) {
@@ -1104,9 +1104,11 @@ const Model = (function () {
 
       Paygates.forEach(Paygate => {
 
-      let Style = `&@style>padding:0 12px;color:#fff;font-size:10px;border-radius:12px;`;
+        let Style = `&@style>padding:0 12px;color:#fff;font-size:10px;border-radius:12px;`;
 
         if (Paygate[1][1] === `offline`) Style += `background:red`;
+
+        else if (Paygate[1][1] === `stable`) Style += `background:#1185fe`;
 
         else if (Paygate[1][1] === `recommended`) Style += `background:#19e819`;
 

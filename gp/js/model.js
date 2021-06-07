@@ -102,8 +102,20 @@ let Models = {
   },
 
   Fx: {
-    kenya: [109, `k£.`, `kes`, 45, 10.6],
+    germany: [.84, `€`, `eur`, 110, 1],
+    kenya: [109, `k£.`, `kes`, 45, 10.6, [
+        [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `stable`], [`Flutterwave`, [120, 24]]], 
+        [`intasend`, [`m-pesa`, `recommended`]], 
+        //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
+      ]],
     [`united states of america`]: [1, `$`, `usd`, 120, 1]
+  },
+    
+  Slim (String) {
+
+    if (!String || String.length < 1 || String.match(/^(\s+)$/)) return;
+  
+    return String;
   },
 
 	ModelStart (Arg) {
@@ -125,7 +137,7 @@ let Models = {
         `div`, `.@_-tY`, [[
           `div`, `.@_aXz`, [[
             `div`, `.@_-Xg _gxM _geQ`, [[
-              `a`, `.@-_tX AppMedium`, `&@href>/`, `~@corrde`], [
+              `a`, `.@-_tX v2App`, `&@style>width:28px;height:28px`, `&@href>/`, `~@corrde`], [
               `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| corrde store`]]], [
             `div`, `.@_QZg`, [[
               `a`, `#@catalog`, `.@-_tX Shop`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`]]]]]]], [
@@ -234,10 +246,7 @@ let Models = {
 
 		let ModelAisle = [];
 
-		let Fx = {
-			kenya: [109, `k£.`, `kes`, 45],
-			[`united states of america`]: [1, `$`, `usd`, 120]
-		};
+		let Fx = this.Fx;
 
 		let Multi = [];
 
@@ -351,6 +360,8 @@ let Models = {
 
       let Pay = `${Fx[1]}${(Fx[0]*Sell.dollars*Sell.items).toFixed(2)} ${Fx[2]}`;
 
+      let data = `&@data>${JSON.stringify(Sell).replace(new RegExp(`"`, `g`), `&quot;`)}`;
+
       ModelCart[0][1][0][3].push([
         `div`, `.@_gxM _geQ _yZS uZM`, [[
           `div`, `.@_`, `&@style>max-width:60px`, [[
@@ -363,10 +374,10 @@ let Models = {
                   `span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@${Sell.mass*Sell.items} grams`]]], []]], [
             `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
               `div`, `&@style>margin: 8px 0`, [[
-                `div`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
-                  `div`, [[`a`, `#@sliceCart`, `.@-_tX Minus`, `&@href>javascript:;`]]], [
+                `div`, `#@ModelCart`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
+                  `div`, [[`a`, `#@min`, `.@-_tX Minus alterCart`, data, `&@href>javascript:;`]]], [
                   `div`, `.@_tXx`, `&@style>padding:0 8px;font-family:gotham-book`, `~@${Sell.items}`], [
-                  `div`, [[`a`, `#@alterCart`, `.@-_tX Plus`, `&@href>javascript:;`]]]]]]], [
+                  `div`, [[`a`, `#@max`, `.@-_tX Plus alterCart`, data, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Pay}`]]]]]]]]])
       });
 
@@ -431,6 +442,12 @@ let Models = {
             `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@(${items} items)`]]], [
             `div`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${Fx[1]}${(gross+fees).toFixed(2)} ${Fx[2]}`]]]]]]]]]);
 
+    ModelCart[0][1].push([
+      `div`, `&@style>padding: 24px 0`, [[
+        `div`, `.@QZg`, [[
+          `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 362px;width:100%;margin:0 auto`, [[
+            `a`, `#@payout`, `.@_TX_a _atX _utQ _gMX _tXx`, `&@href>javascript:;`, `~@Proceed to Checkout`]]]]]]])
+
     ModelCart[1] = [
       `div`, `#@ModelCart`, `.@_geQ`, `&@style>max-width:600px;padding:24px;width:100%;margin:auto;justify-content:center`, [[
         `span`, `.@-_tX GeoGray _sZ2`, `&@style>width:36px;height:36px`], [
@@ -445,5 +462,72 @@ let Models = {
             `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@shopping bag`]]], [
           `div`, `.@_QZg`, [[]]]]]]], (UA.get().gArray && UA.get().gArray.length === 2)? ModelCart[0]: ModelCart[1]]];
-  }
+  },
+
+  ModelSignin (Arg) {
+
+    let via;
+
+    (Arg[0] === true)? via = `&@via>${Arg[1]}`: via = ``;
+
+    return [`main`, `#@ModelSignin`, `.@_tY0`, `&@style>height:100%;padding:24px;`, [[
+      `div`, `.@_geQ`, `&@style>max-width:362px;width:100%;margin:auto;justify-content:center;fnt-family:gotham-med`, [[
+        `h2`, `~@sign in`], [
+          `div`, `.@_aXZ`, `&@style>margin:16px 0 40px`, [[
+            `div`, `.@_sZ2`, [[
+              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                `span`, `~@email address`]]], [
+              `div`, `.@_aXZ`, [[
+                `input`, `#@email`, `&@style>fnt-family:gotham-med`]]]]], [
+            `div`, `.@_sZ2`, [[
+              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                `span`, `~@password`]]], [
+              `div`, `.@_aXZ`, [[
+                `input`, `#@key`, `&@type>password`, `&@style>font-family:gotham-med`]]]]], [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;fnt-size:14px`, [[
+              `a`, `#@signin`, `.@_TX_a _atX _dMG _aWz`, via, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign in`]]]]], [
+            `p`, `.@_yZS`, `~@don\'t have an account?`], [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;fnt-size:14px`, [[
+              `a`, `#@`, `.@_TX_a _atX _utQ _dMG _aWz`, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@create account`]]]]]]];
+  },
+
+  ModelPaygate () {
+
+    let Paygates = this.Fx[UA.get().area][5]
+
+    let ModelPaygates = [];
+
+    Paygates.forEach(Paygate => {
+
+      let Style = `&@style>padding:0 12px;color:#fff;font-size:10px;border-radius:12px;`;
+
+      if (Paygate[1][1] === `offline`) Style += `background:red`;
+
+      else if (Paygate[1][1] === `stable`) Style += `background:#1185fe`;
+
+      else if (Paygate[1][1] === `recommended`) Style += `background:#19e819`;
+
+      else if (Paygate[1][1] === `unstable`) Style += `background:orange`;
+
+      ModelPaygates.push([
+        `div`, `.@_gZ _gcQ`, [[
+          `div`, [[
+            `span`, `.@${(Paygate[2])? Paygate[2][0] + ` -_tX`: ``}`, `&@style>${(Paygate[2])? `width:${Paygate[2][1][0]}px;height:${Paygate[2][1][1]}px;`: ``}text-transform:uppercase`, `~@${Paygate[0]}`], [
+            `div`, [[`span`, `&@style>font-weight:600;color:#a6a6a6`, `~@${Paygate[1][0]}`]]]]], [
+          `div`, `.@_QZg`, [[`span`, Style, `~@${Paygate[1][1]}`]]], [
+          `label`, `#@gate`, `&@for>${Paygate[0]}`, `&@style>position:absolute;left:0;width:100%;height:100%`]]])
+      });
+
+    return [
+    `section`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+      `div`, `.@_geQ _tY0`, `&@style>justify-content:center;margin-top:65px`, [[
+        `div`, `&@style>padding:0 16px`, `~@Payment Options`], [
+        `div`, `&@style>margin:24px auto;max-width:600px;width:100%;padding:0 12px`, [[
+          `div`, `&@style>border: 1px solid #e6e7e8;border-radius: .5em;`, ModelPaygates]]]]]]]; 
+    }
 }

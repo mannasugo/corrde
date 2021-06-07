@@ -1377,6 +1377,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `cart`) this.App();
 
+    if (this.levelState === `paygate`) this.App();
+
     /**
     Adhere to Alphabetic Order
     Perpendicularly Bisect Countries to find tiles-to-quadrant origin.
@@ -1418,7 +1420,7 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `favicon.ico`) {
 
-      let File = fs.createReadStream(`gp/p/vector/app_logo.svg`);
+      let File = fs.createReadStream(`gp/p/vector/logo.v2.svg`);
 
       this.app.to.writeHead(200, {
         [`Content-Type`]: `image/svg+xml`
@@ -9229,6 +9231,27 @@ class Puller extends Auxll {
             });
 
             this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), pulls: Pulls}))
+          }
+
+          else if (this.Stack[1].pull === `md`) {
+
+            let Vals = this.Stack[1].vals;
+
+            let MD = crypto.createHash(`md5`).update(Vals[1], `utf8`);
+
+            let Ppl = {};
+
+            Data.Ppl[0].forEach(P => {
+
+              if (P.mail === Vals[0] && P.pass === MD.digest(`hex`)) Ppl = P;
+            });
+
+            if (!Ppl.mail) return;
+
+            this.Stack[3].end(JSON.stringify({md: Ppl.sum, pulls: {
+              email: Ppl.mail,
+              md: Ppl.sum
+            }}))
           }
 
           else this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))

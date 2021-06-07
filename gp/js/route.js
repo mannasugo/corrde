@@ -55,13 +55,17 @@ class Event {
 
 			this.getOld();
 
+			this.AlterCart();
+
+			this.PayOut();
+
+			this.Signin();
+
 		}
 
-		if (new Controller().Old() === `/ships/`) {
+		if (new Controller().Old() === `/paygate/`) {
 
 			this.getOld();
-
-			this.getAisle();
 		}
 
 		if (new Controller().Old().split(`/`)[1] === `grocery`) {
@@ -139,6 +143,8 @@ class Event {
 	}
 
 	getOld () {
+
+		if (!document.querySelector(`#old`)) return;
 
 		this.listen([document.querySelector(`#old`), `click`, e => {
 
@@ -268,10 +274,12 @@ class Event {
 
       		UA.set({trolley: Cart, UASeen: Seen});
 
-      		S.parentNode.querySelector(`div`).className = `-Zz`;
+      		if (document.querySelector(`#ModelAisle`)) {
 
-      		S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
-				
+      			S.parentNode.querySelector(`div`).className = `-Zz`;
+
+      			S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
+					}
       	}
 
     		else if (S.id == `min`) {
@@ -302,23 +310,30 @@ class Event {
 
         		Cart = CartSelf;
 
-      			S.parentNode.className = `_-Zz`;
+      			if (document.querySelector(`#ModelAisle`)) S.parentNode.className = `_-Zz`;
       		}
 
       		if (Cart[item]) {
 
       			Seen[Data.MD5] = Cart[item];
 
-      			S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
+      			if (document.querySelector(`#ModelAisle`)) S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
       		}
       		
       		UA.set({trolley: Cart, UASeen: Seen});
       	
       	}
 
-      	let Bag = document.querySelector(`.Bag`);
+      	if (document.querySelector(`#ModelAisle`)) {
 
-      	(UA.get().trolley.length > 0)? Bag.setAttribute(`class`, `-_tX Bag _-gm`): Bag.setAttribute(`class`, `-_tX Bag`)
+      		let Bag = document.querySelector(`.Bag`);
+
+      		(UA.get().trolley.length > 0)? Bag.setAttribute(`class`, `-_tX Bag _-gm`): Bag.setAttribute(`class`, `-_tX Bag`);
+      	}
+
+				let Control = new Controller();
+
+				if (Control.Old() === `/cart/`) Control.Cart();
 			}])
 		});
 	}
@@ -374,6 +389,74 @@ class Event {
 
 		}]);
 	}
+
+	PayOut () {
+
+		if (!document.querySelector(`#payout`)) return;
+
+		this.listen([document.querySelector(`#payout`), `click`, S => {
+
+			let Control = new Controller();
+
+			if (!UA.get().u) Control.Signin([true, `/paygate/`]);
+
+			else {
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(`/paygate/`);
+
+				UA.set({ualog: UAlog});
+
+				Control.SetState([{}, `paygate`, `/paygate/`]);
+
+				Control.Call();
+
+			}
+
+		}]);
+	}
+
+	Signin () {
+
+		if (!document.querySelector(`#signin`)) return;
+
+		let Control = new Controller();
+
+		this.listen([document.querySelector(`#signin`), `click`, S => {
+
+			let Vals = [
+				(!Models.Slim(document.querySelector(`#email`).value))? false: Models.Slim(document.querySelector(`#email`).value),
+				(!Models.Slim(document.querySelector(`#key`).value))? false: Models.Slim(document.querySelector(`#key`).value)
+			];
+
+			if (Vals[0] === false || Vals[1] === false) return;
+
+			let Pull = Control.Pull([`/pulls/ua/`, {pull: `md`, vals : Vals}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				if (!Pulls.md) return;
+
+				let Via = this.getSource(S).getAttribute(`via`);
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(Via);
+
+				UA.set({ualog: UAlog});
+
+				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
+
+				UA.set({u: Pulls.pulls});
+
+				Control.Call();
+			}
+
+		}]);
+	}
 }
 
 class Controller extends Puller {
@@ -403,9 +486,13 @@ class Controller extends Puller {
 
 		if (this.Old() === `/aisles/`) this.Aisles();
 
+		if (this.Old() === `/billings/`) this.Billing();
+
 		if (this.Old() === `/cart/`) this.Cart();
 
 		if (this.Old().split(`/`)[1] === `grocery`) this.Aisle();
+
+		if (this.Old() === `/paygate/`) this.Paygate();
 
 		if (this.Old() === `/ships/`) this.Mailable();
 	}
@@ -496,5 +583,35 @@ class Controller extends Puller {
 		new View().DOM([`main`, [Models.ModelCart()]]);
 
 		new Event().Call()
+	}
+
+	Signin (Arg) {
+
+		new View().DOM([`main`, [Models.ModelSignin(Arg)]]);
+
+		new Event().Call()
+	}
+
+	Paygate () {
+
+		if (!UA.get().trolley || UA.get().trolley.length === 0) {
+
+			let UAlog = UA.get().ualog;
+
+			UAlog.push(`.`);
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `.`, `/`]);
+
+			this.Call();
+		}
+
+		else {
+
+			new View().DOM([`main`, [Models.ModelPaygate()]]);
+
+			new Event().Call()
+		}
 	}
 }

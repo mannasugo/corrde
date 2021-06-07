@@ -1,0 +1,17 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+
+    svg {background: transparent}
+    
+    path {
+      fill: none;
+      stroke-width: 1.7;
+      stroke: #1185fe;
+    }
+  </style>
+  <g>
+    <path stroke-width="1" d="M6 3.5 18 3.5"></path>
+    <path d="M4 12.5 6 6.5 18 6.5 20 12.5z"></path>
+    <path d="M5.5 12 5.5 22 13 22 13 15.5 18.5 15.5 18.5 20"></path>
+  </g>
+  </svg>
