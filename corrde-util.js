@@ -1377,6 +1377,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `cart`) this.App();
 
+    if (this.levelState === `orders`) this.App();
+
     if (this.levelState === `paygate`) this.App();
 
     /**
@@ -9252,6 +9254,47 @@ class Puller extends Auxll {
               email: Ppl.mail,
               md: Ppl.sum
             }}))
+          }
+
+          else if (this.Stack[1].pull === `paygate`) {
+
+            if (this.Stack[1].paygate === `intasend`) {
+
+              let Arg = this.Stack[1];
+
+              let Stamp = new Date().valueOf();
+
+              UrlCall({
+                method: `POST`, 
+                uri: `https://payment.intasend.com/api/v1/payment/collection/`, 
+                json: { 
+                  public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
+                  currency: `KES`,
+                  method: `M-PESA`,
+                  amount: Arg.localePay,
+                  api_ref: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                  name: Data.Ppl[1][Arg.md][`alt`],
+                  phone_number: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
+                  email: Arg.email}}, (error, JS, Pull) => {
+
+                new Sql().to([`payrequest`, {json: JSON.stringify({
+                  bag: Arg.trolley,
+                  complete: false,
+                  dollars: Arg.dollars,
+                  gArray: [Arg.area, false, Arg.gArray],
+                  MD: Arg.md,
+                  paygate: Arg.paygate, 
+                  mass: Arg.mass,
+                  MD5: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                  paid: false,
+                  pay: Arg.localePay,
+                  payer: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
+                  secs: Stamp})}], (A, B, C) => {
+
+                    this.Stack[3].end(JSON.stringify({paygate: Arg.paygate}));
+                  });
+                });
+            }
           }
 
           else this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))

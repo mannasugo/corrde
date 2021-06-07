@@ -3275,9 +3275,9 @@ table > thead > tr > th {
 
 #ModelCart .alterCart {margin: 0;}
 
-#ModelSignin h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
+#ModelSignin h2, #ModelPaygate h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
-#ModelSignin input {
+#ModelSignin input, #ModelPaygate input {
   block-size: 40px;
   background-color:#f4f4f4;
   color:#171a20;
@@ -3290,7 +3290,7 @@ table > thead > tr > th {
   letter-spacing: 1.21px;
 }
 
-#ModelSignin input:focus {
+#ModelSignin input:focus, #ModelPaygate input:focus {
   border: 1px solid #d0d1d2;
   outline: none;
 }
@@ -3863,7 +3863,7 @@ table > thead > tr > th {
 
   #ModelAisles > ._aXZ {border: 1px solid #f4f4f4;border-radius: 4px;margin: 55px 0}
 
-  #ModelSignin h2 {letter-spacing: -.5px;font-size: 28px;font-weight:normal;line-height: 36px;color:#000;}
+  #ModelSignin h2, #ModelPaygate h2 {letter-spacing: -.5px;font-size: 28px;font-weight:normal;line-height: 36px;color:#000;}
 }
 
 @media (min-width: 576px) {
@@ -4134,7 +4134,7 @@ table > thead > tr > th {
 
 @media (max-width: 599px) {
 
-  #ModelSignin h2 {font-size: 24px;line-height: 28px}
+  #ModelSignin h2, #ModelPaygate h2 {font-size: 25px;line-height: 28px}
 }
 
 @media (max-width: 560px) {

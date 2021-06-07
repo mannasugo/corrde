@@ -327,6 +327,8 @@ let Models = {
 
     let gross = 0;
 
+    let mass = 0;
+
     ModelCart[0] = [
       `div`, [[
         `div`, `.@_gZ`, `&@style>margin:75px auto 0;max-width:960px;width:100%;padding: 0 16px`, []], [
@@ -344,6 +346,8 @@ let Models = {
       (Sell.dollars*Sell.items > Fx[3])? Sell[`shipping`] = `freight`: Sell[`shipping`] = `light`;
 
       items += Sell.items;
+
+      mass += Sell.mass*Sell.items;
 
       gross += Fx[0]*Sell.dollars*Sell.items;
 
@@ -455,7 +459,7 @@ let Models = {
         `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
           `a`, `#@gps`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, `~@turn on location`]]]]];
 
-    UA.set({payOld: (gross+fees)/Fx[0]});
+    UA.set({mass: mass, localePayOld: (gross+fees), payOld: (gross+fees)/Fx[0]});
     
     return [`main`, `.@_tY0`, `&@style>height:100%`, [[
       `div`, `.@_-tY`, [[
@@ -528,18 +532,18 @@ let Models = {
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`]]], [
           `div`, `.@_QZg`, [[]]]]]]], [
-      `div`, `.@_geQ _tY0`, `&@style>justify-content:center;margin-top:65px`, [[
-        `div`, `&@style>padding:0 16px`, `~@Payment Options`], [
+      `div`, `#@ModelPaygate`, `.@_geQ _tY0 aXZ`, `&@style>justify-content:center;margin-top:65px`, [[
         `div`, `&@style>margin:24px auto;max-width:600px;width:100%;padding:0 12px`, [[
+          `h2`, `&@style>font-family:gotham-med;margin-bottom:24px`, `~@pay with`], [
           `div`, `&@style>border: 1px solid #e6e7e8;border-radius: .5em;`, ModelPaygates]]]]]]]; 
   },
 
-  ModelPaymobile () {
+  ModelMobilePay () {
 
     let FX = this.Fx[UA.get().area];
 
     return [
-    `section`, [[
+    `section`, `&@style>height:100%`, [[
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
@@ -547,7 +551,21 @@ let Models = {
           `div`, `.@_QZg`, `&@style>font-family:gotham-med;text-transform:uppercase`, [[
             `span`, `.@-_tX Bag`, `&@style>width:15px;height:15px;margin: 0 8px`], [
             `span`, `~@${FX[1]}${UA.get().payOld*FX[0]} ${FX[2]}`]]]]]]], [
-      `div`, `.@_geQ _tY0`, `&@style>justify-content:center;margin-top:65px`, []]]];
+      `section`, `#@ModelPaygate`, `.@_tY0`, `&@style>height:100%;padding:24px;`, [[
+        `div`, `.@_geQ`, `&@style>max-width:362px;width:100%;margin:auto;justify-content:center;`, [[
+          `h2`, `~@mobile pay`], [
+            `div`, `.@_aXZ`, `&@style>margin:16px 0 40px`, [[
+              `div`, `.@_sZ2`, [[
+                `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                  `span`, `~@phone number`]]], [
+                `div`, `.@_aXZ`, [[
+                  `input`, `#@mobile`, `&@type>text`, `&@style>font-family:gotham-med`]]]]], [
+              `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;`, [[
+              `a`, `#@pay`, `.@_TX_a _atX _dMG _aWz`, `&@style>font-weight:normal;`, `&@href>javascript:;`, `~@Pay Now`]]]]]]]]]]];
+  },
 
+  ModelPays () {
+
+    return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX v2App`, `&@style>width:56px;height:56px`]]]
   }
 }

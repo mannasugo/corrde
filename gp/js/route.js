@@ -70,6 +70,8 @@ class Event {
 			this.gate();
 
 			this.getPaygate();
+
+			this.MobilePay();
 		}
 
 		if (new Controller().Old().split(`/`)[1] === `grocery`) {
@@ -483,7 +485,12 @@ class Event {
 
 				let Via = this.getSource(S).getAttribute(`for`);
 
-				if (Via === `intasend`) Control.Paymobile();
+				if (Via === `intasend`) {
+
+					UA.set({paygate: Via});
+
+					Control.MobilePay();
+				}
 			}]);
 		});
 	}
@@ -497,6 +504,53 @@ class Event {
 			let Control = new Controller();
 
 			Control.Paygate();
+		}]);
+	}
+
+	MobilePay () {
+
+		if (!document.querySelector(`#pay`)) return;
+
+		this.listen([document.querySelector(`#pay`), `click`, S => {
+
+			let Control = new Controller();
+
+			let Mobile = Models.Slim(document.querySelector(`#mobile`).value);
+
+			if (!Mobile.length > 9) return;
+
+			Control.MobilePay();
+
+			let Pull = Control.Pull([`/pulls/ua/`, {
+				area: UA.get().area,
+				dollars: UA.get().payOld,
+				email: UA.get().u.email,
+				gArray: UA.get().gArray,
+				localePay: UA.get().localePayOld,
+				mass: UA.get().mass,
+				pull: `paygate`, 
+				paygate: UA.get().paygate, 
+				mobile: Mobile, 
+				md: UA.get().u.md,
+				trolley: UA.get().trolley
+			}]);console.log(Mobile.length)
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				if (!Pulls.paygate) return;
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(`/orders/`);
+
+				UA.set({ualog: UAlog});
+
+				Control.SetState([{}, `orders`, `/orders/`]);
+
+				Control.Call();
+			}
 		}]);
 	}
 }
@@ -533,6 +587,8 @@ class Controller extends Puller {
 		if (this.Old() === `/cart/`) this.Cart();
 
 		if (this.Old().split(`/`)[1] === `grocery`) this.Aisle();
+
+		if (this.Old() === `/orders/`) this.Pays();
 
 		if (this.Old() === `/paygate/`) this.Paygate();
 
@@ -657,9 +713,17 @@ class Controller extends Puller {
 		}
 	}
 
-	Paymobile () {
+	MobilePay () {
 
-		new View().DOM([`main`, [Models.ModelPaymobile()]]);
+		new View().DOM([`main`, [Models.ModelMobilePay()]]);
+
+		new Event().Call()
+
+	}
+
+	Pays () {
+
+		new View().DOM([`main`, [Models.ModelPays()]]);
 
 		new Event().Call()
 
