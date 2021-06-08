@@ -84,7 +84,7 @@ class Auxll {
       
       for (let uself in B[0]) {
 
-        let alt = JSON.parse(B[0][uself].alt);
+        let alt = JSON.parse(B[0][uself].json);
 
         if (alt.sum && alt.sum === u) {
 
@@ -294,9 +294,9 @@ class Auxll {
 
         for (let regular in B[1]) {
 
-          if (B[1][regular].alt[0] === `{`) {
+          if (B[1][regular].json[0] === `{`) {
 
-            let regStack = JSON.parse(B[1][regular].alt);
+            let regStack = JSON.parse(B[1][regular].json);
 
             regs.push(regStack);
 
@@ -415,7 +415,7 @@ class Auxll {
 
         for (let u in B[3]) {
 
-          let uObj = JSON.parse(B[3][u].alt);
+          let uObj = JSON.parse(B[3][u].json);
 
           uKeys[uObj.sum] = uObj;
         }
@@ -715,7 +715,7 @@ class Auxll {
 
           let jobs_log_ = {};
 
-          let md5 = JSON.parse(B[0][u].alt);
+          let md5 = JSON.parse(B[0][u].json);
 
           let DEVS_MAIL = [];
 
@@ -789,7 +789,7 @@ class Auxll {
 
           for (let u in B[0]) {
 
-            let md5_ = JSON.parse(B[0][u].alt);
+            let md5_ = JSON.parse(B[0][u].json);
 
             miniKey[md5_.sum] = md5_;
           }
@@ -1259,7 +1259,7 @@ class Auxll {
 
         for (let u in B[4]) {
 
-          let Row = JSON.parse(B[4][u].alt);
+          let Row = JSON.parse(B[4][u].json);
 
           Ppl.push(Row);
 
@@ -1349,15 +1349,42 @@ class Sql extends Auxll {
     this.uniSql.query({
       sql: config.sql.to,
       values: allVars}, (A, B, C) => call(A, B, C));
-    this.uniSql.end();
+    //this.uniSql.end();
   }
 
   multi (allSubs, conca, call) {
     this.availSubs(allSubs);
 
     this.multiSql.query(this.literalFormat(conca), (A, B, C) =>  call(A, B, C));
-    this.multiSql.end();
+    //this.multiSql.end();
   }
+
+  /** @debug **/
+
+  debug () {
+
+    this.multi({}, 
+      `select * from u`, (A, B, C) => {
+
+      if (C === undefined || C.length === 1) return;
+
+        this.Sell(S => {
+
+          this.multi({}, 
+            `drop table u
+            ;${config.sql.u}`, (A, B, C) => {
+
+              S.Ppl[0].forEach(P => {
+
+                this.to([`u`, {json: JSON.stringify(P)}], (A, B, C) => {});
+              })
+          });
+
+        });
+    });
+  }
+
+  /** @end     **/
 
 }
 
@@ -1453,7 +1480,7 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `seek`) this.seek();
 
-    else if (this.levelState === `signup`) this.signup();
+    //else if (this.levelState === `signup`) this.signup();
 
     else if (this.levelState === `tour`) this.tour();
 
@@ -2140,9 +2167,9 @@ class UAPublic extends Auxll {
 
           for (let auth in B[1]) {
 
-            if (B[1][auth].alt[0] === `{`) {
+            if (B[1][auth].json[0] === `{`) {
 
-              let alt_ = JSON.parse(B[1][auth].alt);
+              let alt_ = JSON.parse(B[1][auth].json);
 
               if (alt_.skills.length > 0) {
 
@@ -5259,7 +5286,7 @@ class ViaAJX extends Auxll {
       if (is_mail !== false) {
 
         let hexPass = crypto.createHash(`md5`).update(q.pass, `utf8`),
-            alt = JSON.parse(is_mail.alt);
+            alt = JSON.parse(is_mail.json);
 
         if (alt.pass === hexPass.digest(`hex`)) {
 
@@ -5754,7 +5781,7 @@ class AJXJPEG extends Auxll {
 
           for (let u in B) {
 
-            let Obj = JSON.parse(B[u].alt);
+            let Obj = JSON.parse(B[u].json);
 
             if (Obj.sum === this.q.u_md5) md5 = Obj;
           }
@@ -7378,9 +7405,9 @@ class UATCP extends UAPublic {
 
             for (let auth in B[1]) {
 
-              if (B[1][auth].alt[0] === `{`) {
+              if (B[1][auth].json[0] === `{`) {
 
-                let alt_ = JSON.parse(B[1][auth].alt);
+                let alt_ = JSON.parse(B[1][auth].json);
 
                 if (alt_.skills.length > 0) {
 
@@ -7961,7 +7988,7 @@ class AJXReqs extends Auxll {
 
               for (let u in B) {
 
-                let Obj = JSON.parse(B[u].alt);
+                let Obj = JSON.parse(B[u].json);
 
                 if (Obj.sum === args.u_md5) md5 = Obj;
               }
@@ -8176,7 +8203,7 @@ class AJXReqs extends Auxll {
 
       for (let u in B) {
 
-        let Obj = JSON.parse(B[u].alt);
+        let Obj = JSON.parse(B[u].json);
 
         if (Obj.mail === args.mail) u_md5[0] = Obj;
       }
@@ -8198,7 +8225,7 @@ class AJXReqs extends Auxll {
     });
   }
 
-  AddCreds (args) {
+  /*AddCreds (args) {
 
     let conca = `select * from u`;
 
@@ -8253,7 +8280,7 @@ class AJXReqs extends Auxll {
 
       else pool[err].push(`true_mail`);
     })
-  }
+  }*/
 
   StockSet (args) {
 
@@ -9256,6 +9283,44 @@ class Puller extends Auxll {
             }}))
           }
 
+          else if (this.Stack[1].pull === `inimd`) {
+
+            let Vals = this.Stack[1].vals;
+
+            let Ppl = {};
+
+            Data.Ppl[0].forEach(P => {
+
+              if (P.mail === Vals[0]) Ppl = P;
+            });
+
+            if (Ppl.mail) return;
+
+            let Stamp = new Date().valueOf();
+          
+            new Sql().to([`u`, {
+              json: JSON.stringify({
+                alt: `${Vals[2]} ${Vals[3]}`,
+                ava: false,
+                full: `${Vals[2]} ${Vals[3]}`,
+                lock: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
+                log: Stamp,
+                mail: Vals[0],
+                mobile: Vals[1],
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                mug: false,
+                pass: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
+                secs: Stamp,
+                sum: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)})}], (A, B, C) => {
+
+              this.Stack[3].end(JSON.stringify({md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`), pulls: {
+                email: Vals[0],
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)
+              }}));
+            });
+
+          }
+
           else if (this.Stack[1].pull === `paygate`) {
 
             if (this.Stack[1].paygate === `intasend`) {
@@ -9273,7 +9338,7 @@ class Puller extends Auxll {
                   method: `M-PESA`,
                   amount: Arg.localePay,
                   api_ref: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
-                  name: Data.Ppl[1][Arg.md][`alt`],
+                  name: Data.Ppl[1][Arg.md][`full`],
                   phone_number: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
                   email: Arg.email}}, (error, JS, Pull) => {
 
@@ -9309,8 +9374,9 @@ module.exports = {
 
   AJXReqs: (level, arg, req, res) => new AJXReqs(level, arg, req, res).AJXCalls(),
 
-  mysql () {
-    new Sql().ini();
+  Sql: {
+    debug: new Sql().debug(),
+    ini: new Sql().ini()
   },
 
   UAPublic (level, req, res) {

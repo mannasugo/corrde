@@ -3,10 +3,12 @@ const fs = require(`fs`);
 
 const {router} = require(`./corrde-control`),
       {RouteTCP} = require(`./corrde-control`);
-const {mysql} = require(`./corrde-util`);
-const {modelString} = require(`./corrde-model`);
 
-mysql();
+const Util = require(`./corrde-util`);
+
+Util.Sql.debug;
+
+Util.Sql.ini;
 
 let app = createSecureServer({
   key: fs.readFileSync(`http2/ssl/privkey.pem`),

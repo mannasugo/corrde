@@ -494,7 +494,7 @@ let Models = {
               `a`, `#@signin`, `.@_TX_a _atX _dMG _aWz`, via, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign in`]]]]], [
             `p`, `.@_yZS`, `~@don\'t have an account?`], [
             `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;fnt-size:14px`, [[
-              `a`, `#@`, `.@_TX_a _atX _utQ _dMG _aWz`, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@create account`]]]]]]];
+              `a`, `#@create`, `.@_TX_a _atX _utQ _dMG _aWz`, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@create account`]]]]]]];
   },
 
   ModelPaygate () {
@@ -550,7 +550,7 @@ let Models = {
             `a`, `#@paygate`, `.@-_tX From`, `&@href>javascript:;`]]], [
           `div`, `.@_QZg`, `&@style>font-family:gotham-med;text-transform:uppercase`, [[
             `span`, `.@-_tX Bag`, `&@style>width:15px;height:15px;margin: 0 8px`], [
-            `span`, `~@${FX[1]}${UA.get().payOld*FX[0]} ${FX[2]}`]]]]]]], [
+            `span`, `~@${FX[1]}${(UA.get().payOld*FX[0]).toFixed(2)} ${FX[2]}`]]]]]]], [
       `section`, `#@ModelPaygate`, `.@_tY0`, `&@style>height:100%;padding:24px;`, [[
         `div`, `.@_geQ`, `&@style>max-width:362px;width:100%;margin:auto;justify-content:center;`, [[
           `h2`, `~@mobile pay`], [
@@ -567,5 +567,44 @@ let Models = {
   ModelPays () {
 
     return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX v2App`, `&@style>width:56px;height:56px`]]]
+  },
+
+  ModelSignup (Arg) {
+
+    let via;
+
+    (Arg[0] === true)? via = `&@via>${Arg[1]}`: via = ``;
+
+    return [`main`, `#@ModelSignin`, `.@_tY0`, `&@style>height:100%;padding:24px;`, [[
+      `div`, `.@_geQ`, `&@style>max-width:362px;width:100%;margin:auto;justify-content:center;fnt-family:gotham-med`, [[
+        `h2`, `~@sign up`], [
+          `div`, `.@_aXZ`, `&@style>margin:16px 0 40px`, [[
+            `div`, `.@_sZ2`, [[
+              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                `span`, `~@email address`]]], [
+              `div`, `.@_aXZ`, [[
+                `input`, `#@email`, `&@style>fnt-family:gotham-med`]]]]], [
+            `div`, `.@_sZ2`, [[
+              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                `span`, `~@phone number`]]], [
+              `div`, `.@_aXZ`, [[
+                `input`, `#@mobile`, `&@style>fnt-family:gotham-med`]]]]], [
+            `div`, `.@_sZ2`, [[
+              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                `span`, `~@first name`]]], [
+              `div`, `.@_aXZ`, [[
+                `input`, `#@first`, `&@style>fnt-family:gotham-med`]]]]], [
+            `div`, `.@_sZ2`, [[
+              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                `span`, `~@last name`]]], [
+              `div`, `.@_aXZ`, [[
+                `input`, `#@last`, `&@style>fnt-family:gotham-med`]]]]], [
+            `div`, `.@_sZ2`, [[
+              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                `span`, `~@password`]]], [
+              `div`, `.@_aXZ`, [[
+                `input`, `#@key`, `&@type>password`, `&@style>font-family:gotham-med`]]]]], [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;fnt-size:14px`, [[
+              `a`, `#@signup`, `.@_TX_a _atX _dMG _aWz`, via, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign up`]]]]]]]]];
   }
 }

@@ -59,7 +59,11 @@ class Event {
 
 			this.PayOut();
 
+			this.Create();
+
 			this.Signin();
+
+			this.Signup();
 
 		}
 
@@ -533,7 +537,7 @@ class Event {
 				mobile: Mobile, 
 				md: UA.get().u.md,
 				trolley: UA.get().trolley
-			}]);console.log(Mobile.length)
+			}]);
 
 			Pull.onload = () => {
 
@@ -551,6 +555,67 @@ class Event {
 
 				Control.Call();
 			}
+		}]);
+	}
+
+	Create () {
+
+		if (!document.querySelector(`#create`)) return;
+
+		this.listen([document.querySelector(`#create`), `click`, S => {
+
+			let Control = new Controller();
+
+			Control.Signup([true, `/paygate/`]);
+
+		}]);
+	}
+
+	Signup () {
+
+		if (!document.querySelector(`#signup`)) return;
+
+		let Control = new Controller();
+
+		this.listen([document.querySelector(`#signup`), `click`, S => {
+
+			let Vals = [
+				(!Models.Slim(document.querySelector(`#email`).value))? false: Models.Alias(Models.Slim(document.querySelector(`#email`).value)),
+				(!Models.Slim(document.querySelector(`#mobile`).value))? false: Models.Alias(Models.Slim(document.querySelector(`#mobile`).value)),
+				(!Models.Slim(document.querySelector(`#first`).value))? false: Models.Alias(Models.Slim(document.querySelector(`#first`).value)),
+				(!Models.Slim(document.querySelector(`#last`).value))? false: Models.Alias(Models.Slim(document.querySelector(`#last`).value)),
+				(!Models.Slim(document.querySelector(`#key`).value))? false: Models.Alias(Models.Slim(document.querySelector(`#key`).value))
+			];
+
+			if (Vals.length !== 5 || Vals[0] === false || Vals[1] === false || Vals[2] === false || Vals[3] === false || Vals[4] === false) return;
+
+			let Via = this.getSource(S).getAttribute(`via`);
+
+			Control.Signup([true, Via]);
+
+			let Pull = Control.Pull([`/pulls/ua/`, {pull: `inimd`, vals : Vals}]);
+
+			Vals = [];
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				if (!Pulls.md) return;
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(Via);
+
+				UA.set({ualog: UAlog});
+
+				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
+
+				UA.set({u: Pulls.pulls});
+
+				Control.Call();
+			}
+
 		}]);
 	}
 }
@@ -686,6 +751,13 @@ class Controller extends Puller {
 	Signin (Arg) {
 
 		new View().DOM([`main`, [Models.ModelSignin(Arg)]]);
+
+		new Event().Call()
+	}
+
+	Signup (Arg) {
+
+		new View().DOM([`main`, [Models.ModelSignup(Arg)]]);
 
 		new Event().Call()
 	}
