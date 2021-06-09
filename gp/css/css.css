@@ -3859,9 +3859,9 @@ table > thead > tr > th {
 
 @media (min-width: 600px) {
 
-  #ModelAisles {justify-content: center;}
+  #ModelAisles, #ModelMugger {justify-content: center;}
 
-  #ModelAisles > ._aXZ {border: 1px solid #f4f4f4;border-radius: 4px;margin: 55px 0}
+  #ModelAisles > ._aXZ, #ModelMugger > ._aXZ {border: 1px solid #f4f4f4;border-radius: 4px;margin: 55px 0}
 
   #ModelSignin h2, #ModelPaygate h2 {letter-spacing: -.5px;font-size: 28px;font-weight:normal;line-height: 36px;color:#000;}
 }
@@ -4001,7 +4001,7 @@ table > thead > tr > th {
 
   ._g0X > ._yZ {height: 100%}
 
-  #ModelPullSecurities ._z4, #ModelPullStack ._z4 {border: 1px solid #e6e7e8;border-radius: .5em;}
+  #ModelPullSecurities ._z4, #ModelPullStack ._z4, #ModelPays ._egQ {border: 1px solid #e6e7e8;border-radius: .5em;}
 }
 
 @media (min-width: 1024px) {

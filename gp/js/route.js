@@ -39,6 +39,16 @@ class Event {
 
 			this.getMailable();
 
+			this.getMugger();
+
+			this.getApp();
+
+			this.Mugger();
+
+			this.Signup();
+
+			this.Signin();
+
 			setInterval(() => this.SlidePulls(), 15000);
 		}
 
@@ -119,7 +129,7 @@ class Event {
 
 	SlidePulls () {
 
-		if (new Controller().Old() !== `.`) return;
+		if (new Controller().Old() !== `.` || !document.querySelector(`#ModelStart`)) return;
 
 			UA.set({pullState: UA.get().pullState + 1});
 
@@ -143,10 +153,12 @@ class Event {
 
 			PullState.forEach(State => State.querySelector(`._2Q`).style.stroke = `none`);
 
-			PullState[UA.get().pullState].querySelector(`._2Q`).style.stroke = `#fff`
+			PullState[UA.get().pullState].querySelector(`._2Q`).style.stroke = `#fff`;
 	}
 
 	getAisles () {
+
+		if (!document.querySelector(`#catalog`)) return;
 
 		this.listen([document.querySelector(`#catalog`), `click`, e => {
 
@@ -576,6 +588,17 @@ class Event {
 		}]);
 	}
 
+	getMugger () {
+
+		if (!document.querySelector(`#mug`)) return;
+
+		this.listen([document.querySelector(`#mug`), `click`, S => {
+
+			new Controller().Mugger();
+
+		}]);
+	}
+
 	Signup () {
 
 		if (!document.querySelector(`#signup`)) return;
@@ -622,6 +645,38 @@ class Event {
 			}
 
 		}]);
+	}
+
+	Mugger () {
+
+		if (!document.querySelector(`.mugger`)) return;
+
+		document.querySelectorAll(`.mugger`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Control = new Controller();
+
+				let Via = this.getSource(S).innerHTML.toLowerCase();
+
+				if (Via === `create account`) Control.Signup([true, `.`]);
+
+				else if (Via === `sign in`) Control.Signin([true, `.`]);
+
+				else if (Via === `my orders`) {
+
+					let UAlog = UA.get().ualog;
+
+					UAlog.push(`/orders/`);
+
+					UA.set({pays: `all`, ualog: UAlog});
+
+					Control.SetState([{}, `orders`, `/orders/`]);
+
+					Control.Call();
+				}
+			}]);
+		});
 	}
 }
 
@@ -810,6 +865,13 @@ class Controller extends Puller {
 
 			new Event().Call();
 		}
+	}
+
+	Mugger () {
+
+		new View().DOM([`main`, [Models.ModelMugger()]]);
+
+		new Event().Call()
 
 	}
 }

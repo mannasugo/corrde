@@ -2,13 +2,13 @@
   <style>
     g {
       fill: none;
-      stroke-width: 1.5px; 
+      stroke-width: 1; 
       stroke: #000
     }
   </style>
   <g>
-    <path d="M2.5,18 A3,1 1 1,1 21.5,18"></path>
-    <circle r="11" cx="12" cy="12"></circle>
-    <circle r="4" cx="12" cy="8.7"></circle>
+    <path d="M4.5,18 A3,1 1 1,1 19.5,18"></path>
+    <circle r="9.5" cx="12" cy="12"></circle>
+    <circle r="3.5" cx="12" cy="9"></circle>
   </g>
   </svg>

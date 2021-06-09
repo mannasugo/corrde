@@ -9278,6 +9278,7 @@ class Puller extends Auxll {
             if (!Ppl.mail) return;
 
             this.Stack[3].end(JSON.stringify({md: Ppl.sum, pulls: {
+              alt: Ppl.full,
               email: Ppl.mail,
               md: Ppl.sum
             }}))
@@ -9332,6 +9333,7 @@ class Puller extends Auxll {
                 sum: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)})}], (A, B, C) => {
 
               this.Stack[3].end(JSON.stringify({md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`), pulls: {
+                alt: Vals[2],
                 email: Vals[0],
                 md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)
               }}));
