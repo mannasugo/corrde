@@ -104,7 +104,7 @@ let Models = {
   Fx: {
     germany: [.84, `€`, `eur`, 110, 1],
     kenya: [109, `k£.`, `kes`, 45, 10.6, [
-        [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `stable`], [`Flutterwave`, [120, 24]]], 
+        [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
         [`intasend`, [`m-pesa`, `recommended`]], 
         //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
       ]],
@@ -116,6 +116,45 @@ let Models = {
     if (!String || String.length < 1 || String.match(/^(\s+)$/)) return;
   
     return String;
+  },
+
+  log (time) {
+
+    let then = new Date(parseInt(time)), lapse = (new Date - then)/1000, lapseString;
+
+    if (lapse < 86400*5) {
+
+      if (lapse >= 0) lapseString = Math.floor(lapse) + ` second`;
+
+      if (lapse >= 60) lapseString = Math.floor(lapse/60) + ` minute`;
+
+      if (lapse >= 3600) lapseString = Math.floor(lapse/3600) + ` hour`;
+
+      if (lapse >= 86400) lapseString = Math.floor(lapse/86400) + ` day`;
+
+      if (parseInt(lapseString) >= 2) lapseString = `${lapseString}s`;
+
+      lapseString += ` ago`;
+    } else {
+
+      let listMonths = [
+        `January`,
+        `February`,
+        `March`,
+        `April`,
+        `May`,
+        `June`,
+        `July`,
+        `August`,
+        `September`,
+        `October`,
+        `November`,
+        `December`];
+
+      lapseString = then.getDate() + ` ` + listMonths[then.getMonth()] + ` ` + then.getFullYear();
+    }
+    
+    return lapseString;
   },
 
 	ModelStart (Arg) {
@@ -564,11 +603,6 @@ let Models = {
               `a`, `#@pay`, `.@_TX_a _atX _dMG _aWz`, `&@style>font-weight:normal;`, `&@href>javascript:;`, `~@Pay Now`]]]]]]]]]]];
   },
 
-  ModelPays () {
-
-    return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX v2App`, `&@style>width:56px;height:56px`]]]
-  },
-
   ModelSignup (Arg) {
 
     let via;
@@ -606,5 +640,84 @@ let Models = {
                 `input`, `#@key`, `&@type>password`, `&@style>font-family:gotham-med`]]]]], [
             `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;fnt-size:14px`, [[
               `a`, `#@signup`, `.@_TX_a _atX _dMG _aWz`, via, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign up`]]]]]]]]];
+  },
+
+  ModelPays () {
+
+    let FX = this.Fx[UA.get().area];
+
+    let State = `all`;
+
+    if (UA.get().pays) State = UA.get().pays;
+
+    let ModelPullArgs = [];
+
+    let PullArgs = [`all`, `pending`, `processing`, `delivered`];
+
+    PullArgs.forEach(S => {
+
+      let style = ``;
+
+      if (S === State) style = `text-decoration:line-through`; 
+
+      ModelPullArgs.push([
+        `a`, `#@pullArg`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;color:#fff;border:1px solid #fff;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    let ModelPays = [];
+
+    let Pay = [];
+
+    if (State === `all`) Pay = UA.get().mdpays;
+
+    Pay.sort((A, B) => {return B.secs - A.secs})
+
+    Pay.slice(0, 5);
+
+    Pay.forEach(P => {
+      
+      let ModelFiles = [];
+
+      let items = 0;
+
+      P.bag.forEach(File => {
+
+        items += File.items
+
+        ModelFiles.push([
+          `span`, `.@_cCq _gS3`, `&@href>javascript:;`, `&@style>height:24px;width:24px;margin: 0 15px`, [[`img`, `.@_aWz`, `&@src>/${File.files[0]}`]]])
+      });
+
+      ModelPays.push([
+        `div`, `.@_gZ`, `&@style>padding:12px`, [[
+          `div`, `.@_gxM _geQ`, [[
+            `div`, `.@_gxM`, ModelFiles], [
+            `div`, `.@_QZg _yZS`, [[
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px`, `.@_a2X`, `~@${FX[1]}${(P.dollars*FX[0]).toFixed(2)} ${FX[2]}`]]]]], [
+          `div`, `.@_gxM _yZS`, [[
+            `span`, `&@style>font-size:10px;padding:0 24px;background:#1185fe3b;border-radius:100px;color:#1185fe;text-transform:uppercase`, `~@${P.MD}`], [
+            `div`, `.@_QZg`, [[
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${this.log(P.secs)}`]]]]], [
+          `div`, `.@_gxM _yZS`, [[
+            `div`, `.@_QZg _gxM`, [[
+              `span`, `&@style>font-size:10px;color:#fff;padding:0 12px;background:#00e;border-radius:100px;margin:0 8px`, `.@_a2X _tY0`, `~@processing`], [
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${items} item(s)`]]]]]]])
+    });
+
+    return [
+    `section`, `.@_tY0`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| my orders`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>background:#000;width:100%;padding-top:65px`, [[
+          `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
+          `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+            `div`, (Pay.length > 0)? `.@_egQ`: ``, ModelPays]]]]]]]
   }
 }

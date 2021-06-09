@@ -304,7 +304,7 @@ class Auxll {
 
             if (parseInt(regStack.log) < Z) dayRegs.push(regStack)
 
-            if (regStack[`skills`].length > 0) {
+            if (regStack.skills && regStack[`skills`].length > 0) {
 
               regStack2.push(regStack);
             }
@@ -7409,7 +7409,7 @@ class UATCP extends UAPublic {
 
                 let alt_ = JSON.parse(B[1][auth].json);
 
-                if (alt_.skills.length > 0) {
+                if (alt_.skills && alt_.skills.length > 0) {
 
                   allPro.set(alt_.sum, alt_.skills);
                 }
@@ -7613,7 +7613,7 @@ class AJXReqs extends Auxll {
 
       if (this.args.createDev) this.createDev(JSON.parse(this.args.createDev));
 
-      else if (this.args.AddCreds) this.AddCreds(JSON.parse(this.args.AddCreds));
+      //else if (this.args.AddCreds) this.AddCreds(JSON.parse(this.args.AddCreds));
 
       else if (this.args.accessDev) this.accessDev(JSON.parse(this.args.accessDev));
 
@@ -9283,6 +9283,24 @@ class Puller extends Auxll {
             }}))
           }
 
+          else if (this.Stack[1].pull === `pays`) {
+
+            let Vals = this.Stack[1];
+
+            let Pays = [];
+
+            if (Vals.state === `md`) {
+
+              Data.Pay[0].forEach(P => {
+
+                if (P.MD && P.MD === Vals.md) Pays.push(P);
+              });
+
+            }
+
+            this.Stack[3].end(JSON.stringify({pulls: Pays}))
+          }
+
           else if (this.Stack[1].pull === `inimd`) {
 
             let Vals = this.Stack[1].vals;
@@ -9351,6 +9369,7 @@ class Puller extends Auxll {
                   paygate: Arg.paygate, 
                   mass: Arg.mass,
                   MD5: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                  mobile: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
                   paid: false,
                   pay: Arg.localePay,
                   payer: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,

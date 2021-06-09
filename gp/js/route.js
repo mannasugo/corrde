@@ -67,6 +67,11 @@ class Event {
 
 		}
 
+		if (new Controller().Old() === `/orders/`) {
+
+			this.getApp();
+		}
+
 		if (new Controller().Old() === `/paygate/`) {
 
 			this.getApp();
@@ -549,7 +554,7 @@ class Event {
 
 				UAlog.push(`/orders/`);
 
-				UA.set({ualog: UAlog});
+				UA.set({pays: `all`, ualog: UAlog});
 
 				Control.SetState([{}, `orders`, `/orders/`]);
 
@@ -795,9 +800,16 @@ class Controller extends Puller {
 
 	Pays () {
 
-		new View().DOM([`main`, [Models.ModelPays()]]);
+		let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `pays`, state: `md`}]);
 
-		new Event().Call()
+		Pull.onload = () => {
+
+			UA.set({mdpays: JSON.parse(Pull.response).pulls});
+
+			new View().DOM([`main`, [Models.ModelPays()]]);
+
+			new Event().Call();
+		}
 
 	}
 }
