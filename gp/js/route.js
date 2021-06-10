@@ -80,6 +80,10 @@ class Event {
 		if (new Controller().Old() === `/orders/`) {
 
 			this.getApp();
+
+			this.getPay();
+
+			this.getOld();
 		}
 
 		if (new Controller().Old() === `/paygate/`) {
@@ -109,6 +113,11 @@ class Event {
 			this.getOld();
 
 			this.getAisle();
+		}
+
+		if (new Controller().Old().split(`/`)[1] === `tracking`) {
+
+			this.getOld();
 		}
 	}
 
@@ -560,15 +569,15 @@ class Event {
 
 				let Pulls = JSON.parse(Pull.response);
 
-				if (!Pulls.paygate) return;
+				if (!Pulls.paygate || !Pulls.md) return;
 
 				let UAlog = UA.get().ualog;
 
-				UAlog.push(`/orders/`);
+				UAlog.push(`/tracking/${Pulls.md}/`);
 
-				UA.set({pays: `all`, ualog: UAlog});
+				Control.SetState([{}, `tracking`, `/tracking/${Pulls.md}/`]);
 
-				Control.SetState([{}, `orders`, `/orders/`]);
+				UA.set({tracking_md: Pulls.md, ualog: UAlog}); 
 
 				Control.Call();
 			}
@@ -678,6 +687,31 @@ class Event {
 			}]);
 		});
 	}
+
+	getPay () {
+
+		if (!document.querySelector(`.tracking`)) return;
+
+		document.querySelectorAll(`.tracking`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Control = new Controller();
+
+				let Via = this.getSource(S);
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(`/tracking/${Via.id}/`);
+
+				Control.SetState([{}, `tracking`, `/tracking/${Via.id}/`]);
+
+				UA.set({tracking_md: Via.id, ualog: UAlog}); 
+
+				Control.Call();
+			}]);
+		});
+	}
 }
 
 class Controller extends Puller {
@@ -718,6 +752,8 @@ class Controller extends Puller {
 		if (this.Old() === `/paygate/`) this.Paygate();
 
 		if (this.Old() === `/ships/`) this.Mailable();
+
+		if (this.Old().split(`/`)[1] === `tracking`) this.Pay();
 	}
 
 	Root () {
@@ -873,5 +909,32 @@ class Controller extends Puller {
 
 		new Event().Call()
 
+	}
+
+	Pay () {
+
+		let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `pays`, state: `md`}]);
+
+		Pull.onload = () => {
+
+			let Pulls = JSON.parse(Pull.response);
+
+			if (!Pulls.pulls) return;
+
+			let Pay = [];
+
+			Pulls.pulls.forEach(P => {
+
+				if (P.MD5 === UA.get().tracking_md) Pay = P;
+			});
+
+			if (Pay.length === 0) return;
+
+			UA.set({tracking: Pay});
+
+			new View().DOM([`main`, [Models.ModelPay()]]);
+
+			new Event().Call();
+		}
 	}
 }

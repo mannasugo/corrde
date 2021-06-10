@@ -1654,6 +1654,8 @@ class UAPublic extends Auxll {
       }
     }
 
+    else if (this.levelState[1] === `tracking`) this.App();
+
     else if (this.levelState[1] === `v`) this.PullStall(this.levelState[2]);
 
     else if (this.levelState[1] === `v2`) {
@@ -9377,7 +9379,9 @@ class Puller extends Auxll {
                   payer: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
                   secs: Stamp})}], (A, B, C) => {
 
-                    this.Stack[3].end(JSON.stringify({paygate: Arg.paygate}));
+                    this.Stack[3].end(JSON.stringify({
+                      md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                      paygate: Arg.paygate}));
                   });
                 });
             }

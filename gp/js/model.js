@@ -723,14 +723,13 @@ let Models = {
             `div`, `.@_gxM _eYG`, ModelFiles], [
             `div`, `.@_QZg _yZS`, [[
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${FX[1]}${(P.dollars*FX[0]).toFixed(2)} ${FX[2]}`]]]]], [
-          `div`, `.@_gxM _yZS _aXZ`, [[
-            `span`, `&@style>font-size:11px;padding:0 24px;background:#1185fe3b;border-radius:100px;color:#1185fe;letter-spacing:1.2px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `~@${P.MD5}`], [
-            `div`, `.@_QZg`, [[
-              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${this.log(P.secs)}`]]]]], [
           `div`, `.@_gxM _yZS`, [[
-            `div`, `.@_QZg _gxM`, [[
+            `div`, `.@_eYG _gxM`, [[
               `span`, `&@style>font-size:10px;color:#fff;padding:0 12px;background:#00e;border-radius:100px;margin:0 8px`, `.@_a2X _tY0`, `~@processing`], [
-              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;`, `.@_a2X`, `~@${items} item(s)`]]]]]]])
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${items} item(s)`]]], [
+            `div`, `.@_QZg _gxM`, [[
+              `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${this.log(P.secs)}`]]]]], [
+          `a`, `#@${P.MD5}`, `.@_aWz tracking`, `&@style>position:absolute;top:0;left:0`, `&@href>javascript:;`]]])
     });
 
     return [
@@ -774,5 +773,53 @@ let Models = {
           `div`, `.@_QZg`, [[]]]]]]], [
         `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
           `div`, `.@_aXZ`, ModelMugger]]]]];
-  }
+  },
+
+  ModelPay() {
+
+    let Flow = [
+      [UA.get().tracking.secs, true, `order placed`, `your order #${UA.get().tracking_md} was placed for delivery.`],
+      [false, false, `pending`, `your order is pending confirmation, will be confirmed within 5 minutes.`],
+      [false, false, `confirmed`, `your order is confirmed, will start delivery soon.`],
+      [false, false, `shipping`, `once confirmed click to process for shipping, step must be done to download QR code for delivery confirmation.`],
+      [false, false, `delivered`, `product delivered to you and marked as delivered by customer.`]];
+
+    let ModelFlow = [];
+
+    Flow.forEach(S => {
+
+      let ModelStep = [
+        `svg`, `&@style>min-height:0;width:100%`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]];
+
+      if (Flow.indexOf(S) === 4) ModelStep = [];
+
+      ModelFlow.push([
+        `div`, [[
+          `div`, `.@_geQ _gxM _yZS`, [[
+            `div`, `&@style>width:20%;`, [[
+              `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, `~@${(S[0] === false)? ``: this.log(S[0])}`]]]]], [
+            `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`], 
+                (S[0] === false)? []: [`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `&@style>width:75%;`, [[`span`, `.@_tXx`, `&@style>white-space:nowrap;padding:0 8px`, `~@${S[2]}`]]]]], [
+          `div`, `.@geQ _gxM`, [[
+            `div`, `&@style>width:20%`], [
+            `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
+            `div`, `&@style>width:75%`, [[`span`, `.@_sZ2`, `&@style>padding:0 8px`, `~@${S[3]}`]]]]]]])
+    })
+
+    return [
+    `section`, `.@_tY0`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz _gxM _geQ`, [[
+          `div`, `.@_gxM`, [[`div`, [[
+            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`]]]]], [
+          `div`, `.@_QZg`, `&@style>overflow:hidden`, [[
+            `div`, `.@_gxM`, `&@style>text-transform:uppercase;align-items:center`, [[
+              `span`, `~@order`], [
+              `div`, `.@_gxM`, [[`span`, `&@style>margin: 0 0 0 8px;background:#1185f3;border-radius:100px;padding:2px 8px;font-size:11px;color:#fff`, `~@ #${UA.get().tracking_md}`]]]]]]]]]]], [
+      `div`, `#@ModelPay`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:65px`, [[
+          `div`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, ModelFlow]]]]]]]}
 }
