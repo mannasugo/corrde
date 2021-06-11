@@ -6,7 +6,7 @@ const {router} = require(`./corrde-control`),
 
 const Util = require(`./corrde-util`);
 
-Util.Sql.debug;
+//Util.Sql.debug;
 
 Util.Sql.ini;
 

@@ -34,7 +34,7 @@ class RouteControl {
         endData += data;
       }).on(`end`, () => {
 
-        if (endData[0] === `{`) Util.Pull([levels, JSON.parse(endData), req, res]);
+        if (endData[0] === `{`) {console.log(levels);Util.Pull([levels, JSON.parse(endData), req, res]);}
 
         else {
 
