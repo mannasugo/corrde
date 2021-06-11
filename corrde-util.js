@@ -9425,7 +9425,12 @@ class Puller extends Auxll {
 
           //https://sandbox.intasend.com/api/v1/payment/status/
 
-          else this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
+          else {
+
+            Data.Sell[0].shuffle();
+
+            this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
+          }
 
         });
       }
