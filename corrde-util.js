@@ -1349,14 +1349,14 @@ class Sql extends Auxll {
     this.uniSql.query({
       sql: config.sql.to,
       values: allVars}, (A, B, C) => call(A, B, C));
-    //this.uniSql.end();
+    this.uniSql.end();
   }
 
   multi (allSubs, conca, call) {
     this.availSubs(allSubs);
 
     this.multiSql.query(this.literalFormat(conca), (A, B, C) =>  call(A, B, C));
-    //this.multiSql.end();
+    this.multiSql.end();
   }
 
   /** @debug **/
