@@ -681,7 +681,7 @@ let Models = {
 
     let ModelPullArgs = [];
 
-    let PullArgs = [`all`, `pending`, `processing`, `delivered`];
+    let PullArgs = [`all`, `pending`, `shipping`, `delivered`];
 
     PullArgs.forEach(S => {
 
@@ -717,6 +717,15 @@ let Models = {
           `span`, `.@_cCq _gS3`, `&@href>javascript:;`, `&@style>height:24px;width:24px;margin: 0 15px`, [[`img`, `.@_aWz`, `&@src>/${File.files[0]}`]]])
       });
 
+      let State = [`#e00`, `pending`];
+
+      if (P.paid === true && P.complete === false) State = [`#eedf00`, `shipping`];
+
+      if (P.paid === true && P.complete === true) State = [`#34ee00`, `delivered`];
+
+      let ModelState = [
+        `span`, `&@style>font-size:12px;color:#fff;padding:0 12px;border-radius:100px;margin:0 8px;background:${State[0]}`, `.@a2X _tY0`, `~@${State[1]}`];
+
       ModelPays.push([
         `div`, `.@_gZ`, `&@style>padding:12px`, [[
           `div`, `.@_gxM _geQ`, [[
@@ -724,8 +733,7 @@ let Models = {
             `div`, `.@_QZg _yZS`, [[
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${FX[1]}${(P.dollars*FX[0]).toFixed(2)} ${FX[2]}`]]]]], [
           `div`, `.@_gxM _yZS`, [[
-            `div`, `.@_eYG _gxM`, [[
-              `span`, `&@style>font-size:10px;color:#fff;padding:0 12px;background:#00e;border-radius:100px;margin:0 8px`, `.@_a2X _tY0`, `~@pending`], [
+            `div`, `.@_eYG _gxM`, [ModelState, [
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${items} item(s)`]]], [
             `div`, `.@_QZg _gxM`, [[
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${this.log(P.secs)}`]]]]], [
@@ -780,7 +788,11 @@ let Models = {
     let Flow = [
       [UA.get().tracking.secs, true, `order placed`, `your order #${UA.get().tracking_md} was placed for delivery.`]/*,
       [false, false, `pending`, `your order is pending confirmation, will be confirmed within 5 minutes.`]*/,
-      [false, false, `confirmed`, `your order is confirmed, will begin delivery processing soon.`],
+      [
+        (UA.get().tracking.paid === true)? UA.get().tracking.last_secs: false, UA.get().tracking.paid, 
+        `confirmed`, 
+        `your order is confirmed, will begin delivery processing soon.`
+      ],
       [false, false, `shipping`, `once your is confirmed/checked click to process for shipping, step must be done to download QR code for delivery confirmation.`],
       [false, false, `delivered`, `product delivered to you and marked as delivered by customer.`]];
 
@@ -792,6 +804,8 @@ let Models = {
         `svg`, `&@style>min-height:0;width:100%`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]];
 
       if (Flow.indexOf(S) === 3) ModelStep = [];
+
+      let ModelState = []
 
       ModelFlow.push([
         `div`, [[
@@ -815,7 +829,7 @@ let Models = {
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz _gxM _geQ`, [[
           `div`, `.@_gxM`, [[`div`, [[
-            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`]]]]], [
+            `a`, `.@-_tX From mugger`, `&@href>javascript:;`, `~@pays`]]]]], [
           `div`, `.@_QZg`, `&@style>overflow:hidden`, [[
             `div`, `.@_gxM`, `&@style>text-transform:uppercase;align-items:center`, [[
               `span`, `~@order`], [
@@ -823,6 +837,11 @@ let Models = {
       `div`, `#@ModelPay`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
         `section`,  `&@style>width:100%;padding-top:65px`, [[
           `div`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, ModelFlow]]]]]]]
+  },
+
+  ModelSplash () {
+
+    return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX v2App`, `&@style>width:56px;height:56px`]]]
   },
 
   ModelSymetMobile () {

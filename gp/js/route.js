@@ -124,6 +124,8 @@ class Event {
 			this.getPayStep();
 
 			this.fillSymetricals();
+
+			this.Mugger()
 		}
 	}
 
@@ -553,7 +555,7 @@ class Event {
 
 			let Mobile = Models.Slim(document.querySelector(`#mobile`).value);
 
-			if (!Mobile.length > 9) return;
+			if (!Mobile || !Mobile.length > 9) return;
 
 			Control.MobilePay();
 
@@ -678,7 +680,7 @@ class Event {
 
 				else if (Via === `sign in`) Control.Signin([true, `.`]);
 
-				else if (Via === `my orders`) {
+				else if (Via === `my orders` || Via === `pays`) {
 
 					let UAlog = UA.get().ualog;
 
@@ -731,7 +733,7 @@ class Event {
 
 				let Via = this.getSource(S);
 
-				if (Via.innerHTML === `confirmed`) {
+				if (Via.innerHTML === `confirmed` && UA.get().tracking.paid === false) {
 
 					if (UA.get().tracking.paygate === `intasend`) Control.SymetMobilePay();
 				}
@@ -747,7 +749,19 @@ class Event {
 
 		document.querySelectorAll(`.val`).forEach((S, val)=> {
 
-			this.listen([S, `keydown`, S => {
+			this.listen([S, `focus`, S => {
+
+				let Via = this.getSource(S);
+
+				if (Vals.length < 10) document.querySelectorAll(`.val`)[Vals.length].focus();
+
+				else document.querySelectorAll(`.val`)[Vals.length - 1].focus();
+			}]);
+		});
+
+		document.querySelectorAll(`.val`).forEach((S, val)=> {
+
+			this.listen([S, `keyup`, S => {
 
 				let Via = this.getSource(S);
 
@@ -755,11 +769,9 @@ class Event {
 
 					if (S.key !== `Backspace`) {
 
-						if (!Vals[val]) document.querySelectorAll(`.val`)[Vals.length].focus();
+						if (Models.Slim(Via.value)) Vals[Vals.length] = Via.value;
 
-						else document.querySelectorAll(`.val`)[Vals.length].focus();
-
-						if (Models.Slim(Via.value)) Vals.push(Via.value);
+						if (Vals.length < 10) document.querySelectorAll(`.val`)[Vals.length].focus();
 					}
 
 				}
@@ -768,10 +780,46 @@ class Event {
 
 					Vals.pop();
 
-					document.querySelectorAll(`.val`)[Vals.length].focus();
+					if (Vals.length < 9) document.querySelectorAll(`.val`)[Vals.length].focus();
 				}
 
 				let Control = new Controller();
+
+				if (Vals.length === 10) {
+
+					new View().DOM([`main`, [Models.ModelSplash()]]);
+
+					let sum = (Vals.toString().replace(new RegExp(`,`, `g`), ``)).toUpperCase();
+
+					Vals = [];
+
+					let Pull = Control.Pull([`/pulls/ua/`, {
+						md: UA.get().u.md, 
+						paygate: UA.get().tracking.paygate,
+						paytrace: (UA.get().tracking.paytrace)? UA.get().tracking.paytrace: null,
+						pull: `paytrace`, 
+						sum : sum, 
+						tracking_md: UA.get().tracking_md}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.tracking_md) Control.Call();
+
+						let UAlog = UA.get().ualog;
+
+				/*UAlog.push(Via);
+
+				UA.set({ualog: UAlog});
+
+				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
+
+				UA.set({u: Pulls.pulls});*/
+
+						Control.Call();
+					}
+				}
 			}]);
 		});
 	}

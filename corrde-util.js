@@ -9370,7 +9370,8 @@ class Puller extends Auxll {
                   dollars: Arg.dollars,
                   gArray: [Arg.area, false, Arg.gArray],
                   MD: Arg.md,
-                  paygate: Arg.paygate, 
+                  paygate: Arg.paygate,
+                  paytrace: (Pull.invoice)? Pull.invoice.id: null, 
                   mass: Arg.mass,
                   MD5: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
                   mobile: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
@@ -9386,6 +9387,43 @@ class Puller extends Auxll {
                 });
             }
           }
+
+          else if (this.Stack[1].pull === `paytrace`) {
+
+            if (this.Stack[1].paygate === `intasend`) {
+
+              let Arg = this.Stack[1];
+
+              let Stamp = new Date().valueOf();
+
+              UrlCall({
+                method: `POST`, 
+                uri: `https://payment.intasend.com/api/v1/payment/status/`, 
+                json: { 
+                  public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
+                  invoice_id: Arg.paytrace}}, (error, JS, Pull) => {
+
+                let val = JSON.stringify(Data.Pay[1][Arg.tracking_md]);
+
+                if (Pull.invoice && Pull.invoice.state === `COMPLETE`) {
+
+                  Data.Pay[1][Arg.tracking_md][`last_secs`] = Stamp;
+
+                  Data.Pay[1][Arg.tracking_md][`paid`] = true;
+                }
+
+                new Sql().multi({},  
+                  `update payrequest set json = '${JSON.stringify(Data.Pay[1][Arg.tracking_md])}' where json = '${val}'`, (A, B, C) => {
+
+                    this.Stack[3].end(JSON.stringify({
+                      tracking_md: Arg.tracking_md,
+                      paygate: Arg.paygate}));
+                });
+              })
+            }
+          }
+
+          //https://sandbox.intasend.com/api/v1/payment/status/
 
           else this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
 
