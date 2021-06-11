@@ -1259,7 +1259,7 @@ class Auxll {
 
         for (let u in B[4]) {
 
-          let Row = JSON.parse(B[4][u].json);
+          let Row = JSON.parse(B[4][u].alt) || JSON.parse(B[4][u].json);
 
           Ppl.push(Row);
 
