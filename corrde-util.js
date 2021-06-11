@@ -1257,7 +1257,7 @@ class Auxll {
           PledgeSet[Row.sum] = Row;
         }
 
-        for (let u in B[4]) {
+        for (let u in B[4]) {console.log(JSON.parse(B[4]);
 
           let Row = JSON.parse(B[4][u].alt) || JSON.parse(B[4][u].json);
 
