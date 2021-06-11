@@ -118,6 +118,12 @@ class Event {
 		if (new Controller().Old().split(`/`)[1] === `tracking`) {
 
 			this.getOld();
+
+			this.getPay()
+
+			this.getPayStep();
+
+			this.fillSymetricals();
 		}
 	}
 
@@ -712,6 +718,63 @@ class Event {
 			}]);
 		});
 	}
+
+	getPayStep () {
+
+		if (!document.querySelector(`.flow`)) return;
+
+		document.querySelectorAll(`.flow`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Control = new Controller();
+
+				let Via = this.getSource(S);
+
+				if (Via.innerHTML === `confirmed`) {
+
+					if (UA.get().tracking.paygate === `intasend`) Control.SymetMobilePay();
+				}
+			}]);
+		});
+	}
+
+	fillSymetricals () {
+
+		if (!document.querySelector(`.val`)) return;
+
+		let Vals = [];
+
+		document.querySelectorAll(`.val`).forEach((S, val)=> {
+
+			this.listen([S, `keydown`, S => {
+
+				let Via = this.getSource(S);
+
+				if (Vals.length < 10) {
+
+					if (S.key !== `Backspace`) {
+
+						if (!Vals[val]) document.querySelectorAll(`.val`)[Vals.length].focus();
+
+						else document.querySelectorAll(`.val`)[Vals.length].focus();
+
+						if (Models.Slim(Via.value)) Vals.push(Via.value);
+					}
+
+				}
+
+				if (S.key === `Backspace`) {
+
+					Vals.pop();
+
+					document.querySelectorAll(`.val`)[Vals.length].focus();
+				}
+
+				let Control = new Controller();
+			}]);
+		});
+	}
 }
 
 class Controller extends Puller {
@@ -936,5 +999,13 @@ class Controller extends Puller {
 
 			new Event().Call();
 		}
+	}
+
+	SymetMobilePay () {
+
+		new View().DOM([`main`, [Models.ModelSymetMobile()]]);
+
+		new Event().Call()
+
 	}
 }

@@ -725,7 +725,7 @@ let Models = {
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${FX[1]}${(P.dollars*FX[0]).toFixed(2)} ${FX[2]}`]]]]], [
           `div`, `.@_gxM _yZS`, [[
             `div`, `.@_eYG _gxM`, [[
-              `span`, `&@style>font-size:10px;color:#fff;padding:0 12px;background:#00e;border-radius:100px;margin:0 8px`, `.@_a2X _tY0`, `~@processing`], [
+              `span`, `&@style>font-size:10px;color:#fff;padding:0 12px;background:#00e;border-radius:100px;margin:0 8px`, `.@_a2X _tY0`, `~@pending`], [
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${items} item(s)`]]], [
             `div`, `.@_QZg _gxM`, [[
               `span`, `&@style>font-size:10px;padding:0 12px;background:#9999992e;border-radius:100px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `.@_a2X`, `~@${this.log(P.secs)}`]]]]], [
@@ -778,10 +778,10 @@ let Models = {
   ModelPay() {
 
     let Flow = [
-      [UA.get().tracking.secs, true, `order placed`, `your order #${UA.get().tracking_md} was placed for delivery.`],
-      [false, false, `pending`, `your order is pending confirmation, will be confirmed within 5 minutes.`],
-      [false, false, `confirmed`, `your order is confirmed, will start delivery soon.`],
-      [false, false, `shipping`, `once confirmed click to process for shipping, step must be done to download QR code for delivery confirmation.`],
+      [UA.get().tracking.secs, true, `order placed`, `your order #${UA.get().tracking_md} was placed for delivery.`]/*,
+      [false, false, `pending`, `your order is pending confirmation, will be confirmed within 5 minutes.`]*/,
+      [false, false, `confirmed`, `your order is confirmed, will begin delivery processing soon.`],
+      [false, false, `shipping`, `once your is confirmed/checked click to process for shipping, step must be done to download QR code for delivery confirmation.`],
       [false, false, `delivered`, `product delivered to you and marked as delivered by customer.`]];
 
     let ModelFlow = [];
@@ -791,7 +791,7 @@ let Models = {
       let ModelStep = [
         `svg`, `&@style>min-height:0;width:100%`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]];
 
-      if (Flow.indexOf(S) === 4) ModelStep = [];
+      if (Flow.indexOf(S) === 3) ModelStep = [];
 
       ModelFlow.push([
         `div`, [[
@@ -802,7 +802,8 @@ let Models = {
               `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
                 `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`], 
                 (S[0] === false)? []: [`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
-                `div`, `&@style>width:75%;`, [[`span`, `.@_tXx`, `&@style>white-space:nowrap;padding:0 8px`, `~@${S[2]}`]]]]], [
+                `div`, `&@style>width:75%;`, [
+                  (UA.get().tracking.paygate === `intasend` && S[2] === `confirmed`)? [`a`, `.@_tXx _aA2 flow`, `&@href>javascript:;`, `&@style>white-space:nowrap;padding:0 8px;text-decoration:underline`, `~@${S[2]}`]: [`span`, `.@_tXx`, `&@style>white-space:nowrap;padding:0 8px`, `~@${S[2]}`]]]]], [
           `div`, `.@geQ _gxM`, [[
             `div`, `&@style>width:20%`], [
             `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
@@ -821,5 +822,36 @@ let Models = {
               `div`, `.@_gxM`, [[`span`, `&@style>margin: 0 0 0 8px;background:#1185f3;border-radius:100px;padding:2px 8px;font-size:11px;color:#fff`, `~@ #${UA.get().tracking_md}`]]]]]]]]]]], [
       `div`, `#@ModelPay`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
         `section`,  `&@style>width:100%;padding-top:65px`, [[
-          `div`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, ModelFlow]]]]]]]}
+          `div`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, ModelFlow]]]]]]]
+  },
+
+  ModelSymetMobile () {
+
+    let ModelVals = [];
+
+    for (let val = 0; val < 10; val++) {
+
+      ModelVals.push([
+        `div`, `.@_geQ`, `&@style>margin:0 4px`, [[
+          `input`, `.@val`, `&@maxlength>1`, `&@style>block-size:30px;max-width:30px;padding: 2px;text-align:center;text-transform:uppercase;font-size:25px`]]])
+      
+    }
+
+    return [
+    `section`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz _gxM _geQ`, [[
+          `div`, `.@_gxM`, [[
+            `div`, [[
+              `a`, `#@${UA.get().tracking_md}`, `.@-_tX From tracking`, `&@href>javascript:;`]]]]], [
+          `div`, `.@_QZg`, `&@style>overflow:hidden`, []]]]]], [
+      `section`, `#@ModelPaygate`, `.@_tY0`, `&@style>height:100%;padding:24px;justify-content:center;`, [[
+        `div`, `&@style>max-width:362px;width:100%;margin:0 auto;justify-content:center;`, [[
+          `h2`, `~@mobile pay confirmation`]]], [
+            `div`, `.@_aXZ`, `&@style>margin:16px 0 40px`, [[
+              `div`, `&@style>max-width:960px;wdth:100%;margin:0 auto`, [[
+                `label`, `&@style>margin:0 20px 24px;color:#5c5e62;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                  `span`, `~@transaction code`]]], [
+                `div`, `.@_geQ _gxM`, ModelVals]]]]]]]]];
+  }
 }
