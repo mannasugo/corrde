@@ -9258,7 +9258,7 @@ class Puller extends Auxll {
 
               }
 
-              else if (model.filter(model.filter(Sell.set)) === aisle)  Pulls.push(Sell);
+              else if (model.filter(model.filter(Sell.set)) === aisle) Pulls.push(Sell);
             });
 
             this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), pulls: Pulls}))
@@ -9426,8 +9426,6 @@ class Puller extends Auxll {
           //https://sandbox.intasend.com/api/v1/payment/status/
 
           else {
-
-            Data.Sell[0].shuffle();
 
             this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
           }
