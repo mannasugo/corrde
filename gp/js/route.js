@@ -733,10 +733,9 @@ class Event {
 
 				let Via = this.getSource(S);
 
-				if (Via.innerHTML === `confirmed` && UA.get().tracking.paid === false) {
+				if (Via.innerHTML === `confirmed` && UA.get().tracking.paid === false) if (UA.get().tracking.paygate === `intasend`) Control.SymetMobilePay();
 
-					if (UA.get().tracking.paygate === `intasend`) Control.SymetMobilePay();
-				}
+				if (Via.innerHTML === `shipping` && UA.get().tracking.paid === true) Control.Shipping();
 			}]);
 		});
 	}
@@ -1052,6 +1051,14 @@ class Controller extends Puller {
 	SymetMobilePay () {
 
 		new View().DOM([`main`, [Models.ModelSymetMobile()]]);
+
+		new Event().Call()
+
+	}
+
+	Shipping () {
+
+		new View().DOM([`main`, [Models.ModelShipping()]]);
 
 		new Event().Call()
 

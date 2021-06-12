@@ -52,9 +52,32 @@
     }
   }
 
+  let Slim = txt => {
+
+    txt = txt.replace(new RegExp(`\f`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\n`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\t`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\r`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`/`, `g`), `u002F`);
+
+    txt = txt.replace(new RegExp(`"`, `g`), `u0022`);
+
+    txt = txt.replace(new RegExp(`&`, `g`), `u0026`);
+
+    txt = txt.replace(new RegExp(`'`, `g`), `u0027`);
+
+    return txt
+  }
+
   let setGPSCookie = () => {
 
     JSStore.to({gps: false});
+
+    Models = new Model();
 
     GPS(a => {
 

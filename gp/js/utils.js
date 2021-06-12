@@ -1208,6 +1208,27 @@ const Model = (function () {
   return Model;
 })();
 
+  let Slim = txt => {
+
+    txt = txt.replace(new RegExp(`\f`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\n`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\t`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\r`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`/`, `g`), `u002F`);
+
+    txt = txt.replace(new RegExp(`"`, `g`), `u0022`);
+
+    txt = txt.replace(new RegExp(`&`, `g`), `u0026`);
+
+    txt = txt.replace(new RegExp(`'`, `g`), `u0027`);
+
+    return txt
+  }
+
 const WebStore = (function () {
 
   function WebStore () {
@@ -1228,7 +1249,7 @@ const WebStore = (function () {
       }
 
       for (let value in allValues) {
-        this.allValues[value] = allValues[value];
+        this.allValues[value] = (typeof allValues[value] === `string`)? Slim(allValues[value]): allValues[value];
       }
 
       sessionStorage.setItem(`u`, JSON.stringify(this.allValues).replace(new RegExp(/&/), `u/0026`));

@@ -3016,6 +3016,27 @@ class UAPublic extends Auxll {
 
         if (A === false) clientJSON[`u_md5`] = B;
 
+  let Viable = txt => {
+
+    txt = txt.replace(new RegExp(`\f`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\n`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\t`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\r`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`/`, `g`), `u002F`);
+
+    txt = txt.replace(new RegExp(`"`, `g`), `u0022`);
+
+    txt = txt.replace(new RegExp(`&`, `g`), `u0026`);
+
+    txt = txt.replace(new RegExp(`'`, `g`), `u0027`);
+
+    return txt
+  }
+
         this.Stores(Stores => {
 
           let StoresStack = [];
@@ -3028,8 +3049,8 @@ class UAPublic extends Auxll {
 
                 StoresStack.push({
                   point: Point,
-                  service: Store.vServiceClass,
-                  store: Store.vServiceSet,
+                  service: Viable(Store.vServiceClass),
+                  store: Viable(Store.vServiceSet),
                   store_md5: Store.log_md5
                 })
               })
@@ -7621,7 +7642,7 @@ class AJXReqs extends Auxll {
 
       else if (this.args.devPassReset) this.devPassReset(JSON.parse(this.args.devPassReset));
 
-      else if (this.args.setGPSCookie) this.setGPSCookie(JSON.parse(this.args.setGPSCookie));
+      else if (this.args.setGPSCookie) {this.setGPSCookie(JSON.parse(this.args.setGPSCookie.replace(new RegExp(`/`, `g`), `u0026`)));}
 
       else if (this.args.appendDevs) this.appendDevs(JSON.parse(this.args.appendDevs));
 

@@ -102,12 +102,13 @@ let Models = {
   },
 
   Fx: {
+    canada: [1.31, `$`, `cad`, 110, 1.31],
     germany: [.84, `€`, `eur`, 110, 1],
     kenya: [109, `k£.`, `kes`, 45, 10.6, [
-        [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
-        [`intasend`, [`m-pesa`, `recommended`]], 
+      [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
+      [`intasend`, [`m-pesa`, `recommended`]], 
         //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
-      ]],
+    ]],
     [`united states of america`]: [1, `$`, `usd`, 120, 1]
   },
     
@@ -218,6 +219,7 @@ let Models = {
 			[`beauty & personal care`, [``]], 
 			[`beverages`, [`Beve`]],
 			[`bread & bakery`, [`Wheat`]], 
+      [`eggs & dairy`, [``]],
 			[`fast food & eatery`, [`Meals`]], 
 			[`fruits & vegetables`, [`Veges`]]];
 
@@ -479,7 +481,7 @@ let Models = {
 
       fees += parseFloat(Fx[0]*(this.Shipping.light[Axes[0][1]][Axes[0][0]] + this.Shipping.freight[Axes[1][1]][Axes[1][0]])/Fx[4]).toFixed(2);
 
-      fees = parseFloat(fees)
+      fees = parseFloat(fees);
 
       ModelPorts.push([
         `div`, `.@_gxM _yZS`, [[
@@ -805,23 +807,24 @@ let Models = {
 
       if (Flow.indexOf(S) === 3) ModelStep = [];
 
-      let ModelState = []
+      let ModelState = [`span`, `.@_tXx`, `&@style>white-space:nowrap;padding:0 8px`, `~@${S[2]}`];
+
+      (UA.get().tracking.paygate === `intasend` && S[2] === `confirmed` || UA.get().tracking.paid === true && S[2] === `shipping`)? ModelState = [`a`, `.@_tXx _aA2 flow`, `&@href>javascript:;`, `&@style>white-space:nowrap;padding:0 8px;text-decoration:underline`, `~@${S[2]}`]: ModelState;
 
       ModelFlow.push([
         `div`, [[
           `div`, `.@_geQ _gxM _yZS`, [[
-            `div`, `&@style>width:20%;`, [[
+            `div`, `&@style>width:35%;`, [[
               `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, `~@${(S[0] === false)? ``: this.log(S[0])}`]]]]], [
             `div`, `.@_geQ`, `&@style>width:5%;`, [[
               `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
                 `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`], 
                 (S[0] === false)? []: [`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
-                `div`, `&@style>width:75%;`, [
-                  (UA.get().tracking.paygate === `intasend` && S[2] === `confirmed`)? [`a`, `.@_tXx _aA2 flow`, `&@href>javascript:;`, `&@style>white-space:nowrap;padding:0 8px;text-decoration:underline`, `~@${S[2]}`]: [`span`, `.@_tXx`, `&@style>white-space:nowrap;padding:0 8px`, `~@${S[2]}`]]]]], [
+                `div`, `&@style>width:60%;`, [ModelState]]]], [
           `div`, `.@geQ _gxM`, [[
-            `div`, `&@style>width:20%`], [
+            `div`, `&@style>width:35%`], [
             `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
-            `div`, `&@style>width:75%`, [[`span`, `.@_sZ2`, `&@style>padding:0 8px`, `~@${S[3]}`]]]]]]])
+            `div`, `&@style>width:60%;overflow:hidden`, [[`span`, `.@_sZ2`, `&@style>padding:0 8px`, `~@${S[3]}`]]]]]]])
     })
 
     return [
@@ -872,5 +875,74 @@ let Models = {
                 `label`, `&@style>margin:0 20px 24px;color:#5c5e62;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
                   `span`, `~@transaction code`]]], [
                 `div`, `.@_geQ _gxM`, ModelVals]]]]]]]]];
+  },
+
+  ModelShipping () {
+
+    let Fx = this.Fx[UA.get().area];
+
+    let Models = [[], []];
+
+    let Cart = UA.get().tracking.bag;
+
+    Cart.forEach(Sell => {
+
+      (Sell.dollars*Sell.items > Fx[3])? Sell[`shipping`] = `freight`: Sell[`shipping`] = `light`;
+
+      let Pay = `${Fx[1]}${(Fx[0]*Sell.dollars*Sell.items).toFixed(2)} ${Fx[2]}`;
+
+      let data = `&@data>${JSON.stringify(Sell).replace(new RegExp(`"`, `g`), `&quot;`)}`;
+
+      let ModelPile = [
+          `div`, `.@_gxM _geQ _yZS uZM`, [[
+            `div`, `.@_`, `&@style>max-width:60px`, [[
+              `img`, `&@alt>${Sell.alpha}`, `&@style>max-width:100%`, `&@src>/${Sell.files[0]}`]]], [
+            `div`, `.@_eYG _geQ`, [[
+              `div`, [[
+                `span`, `&@style>text-transform:capitalize;font-weight:300`, `~@${Sell.alpha}`]]], [
+                `div`, `.@_gxM _geQ`, [[
+                  `div`, [[
+                    `span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@${Sell.mass*Sell.items} grams`]]], []]], [
+              `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
+                `div`, `&@style>margin: 8px 0`, [[
+                  `div`, `#@ModelCart`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
+                    `div`, [[`a`, `#@min`, `.@-_tX Minus alterCart`, data, `&@href>javascript:;`]]], [
+                    `div`, `.@_tXx`, `&@style>padding:0 8px;font-family:gotham-book`, `~@${Sell.items}`], [
+                    `div`, [[`a`, `#@max`, `.@-_tX Plus alterCart`, data, `&@href>javascript:;`]]]]]]], [
+                `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Pay}`]]]]]]]]];
+
+      if (Sell.shipping === `light`) Models[0].push(ModelPile);
+
+      if (Sell.shipping === `freight`) Models[1].push(ModelPile);
+    });
+
+    let ModelPay = [];
+
+    Models.forEach((Model, m) => {
+
+      if (!Model.length > 0) return;
+
+      ModelPay.push([
+        `div`, `.@_gZ`, [[
+          `div`, `&@style>margin:75px auto 0;max-width:960px;width:100%;padding: 0 16px`, [[
+            `p`, `&@style>padding: 16px 0;text-transform:uppercase`, `~@${(m === 0)? `light shipping`: `freight shipping`}`], [
+            `div`, Model]]], [
+          `div`, `&@style>padding: 24px 0`, [[
+            `div`, [[
+              `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 362px;width:100%;margin:0 auto`, [[
+                `a`, `#@payout`, `.@_TX_a _atX _utQ _gMX _tXx`, `&@href>javascript:;`, `~@find courier`]]]]]]]]]);
+    })
+
+    return [
+    `section`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz _gxM _geQ`, [[
+          `div`, `.@_gxM _geQ`, [[
+            `div`, [[
+              `a`, `#@${UA.get().tracking_md}`, `.@-_tX From tracking`, `&@href>javascript:;`]]], [
+            `div`, [[
+              `span`,`&@style>margin: 0 8px;text-transform:uppercase`, `~@shipping & delivery`]]]]], [
+          `div`, `.@_QZg`, `&@style>overflow:hidden`, []]]]]], [
+      `div`, ModelPay]]];
   }
 }
