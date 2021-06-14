@@ -477,6 +477,14 @@ let Models = {
 
           Axes[1][1] = this.Shipping.axis[1].indexOf(Axis);
         }
+
+        else {
+
+          Axes[0][1] = this.Shipping.axis[1].length - 1; 
+
+          Axes[1][1] = this.Shipping.axis[1].length - 1;
+
+        }
       });
 
       fees += parseFloat(Fx[0]*(this.Shipping.light[Axes[0][1]][Axes[0][0]] + this.Shipping.freight[Axes[1][1]][Axes[1][0]])/Fx[4]).toFixed(2);
@@ -788,14 +796,14 @@ let Models = {
   ModelPay() {
 
     let Flow = [
-      [UA.get().tracking.secs, true, `order placed`, `your order #${UA.get().tracking_md} was placed for delivery.`]/*,
+      [UA.get().tracking.secs, true, `order placed`, `your order #${UA.get().tracking_md} was placed for payment.`]/*,
       [false, false, `pending`, `your order is pending confirmation, will be confirmed within 5 minutes.`]*/,
       [
         (UA.get().tracking.paid === true)? UA.get().tracking.last_secs: false, UA.get().tracking.paid, 
         `confirmed`, 
-        `your order is confirmed, will begin delivery processing soon.`
+        `your order payment is confirmed, proceed to order for delivery.`
       ],
-      [false, false, `shipping`, `once your is confirmed/checked click to process for shipping, step must be done to download QR code for delivery confirmation.`],
+      [false, false, `shipping`, `once your payment is confirmed click to process for shipping, step must be done to download QR code for delivery confirmation.`],
       [false, false, `delivered`, `product delivered to you and marked as delivered by customer.`]];
 
     let ModelFlow = [];
@@ -879,59 +887,148 @@ let Models = {
 
   ModelShipping () {
 
-    let Fx = this.Fx[UA.get().area];
-
-    let Models = [[], []];
-
     let Cart = UA.get().tracking.bag;
+
+    let Fx = this.Fx[UA.get().tracking.gArray[0]] || this.Fx[UA.get().area];
+
+    let Ports = {};
 
     Cart.forEach(Sell => {
 
       (Sell.dollars*Sell.items > Fx[3])? Sell[`shipping`] = `freight`: Sell[`shipping`] = `light`;
 
-      let Pay = `${Fx[1]}${(Fx[0]*Sell.dollars*Sell.items).toFixed(2)} ${Fx[2]}`;
+      if (!Sell.port) {
 
-      let data = `&@data>${JSON.stringify(Sell).replace(new RegExp(`"`, `g`), `&quot;`)}`;
+        Sell[`port`] = `corrde port`;
 
-      let ModelPile = [
-          `div`, `.@_gxM _geQ _yZS uZM`, [[
-            `div`, `.@_`, `&@style>max-width:60px`, [[
-              `img`, `&@alt>${Sell.alpha}`, `&@style>max-width:100%`, `&@src>/${Sell.files[0]}`]]], [
-            `div`, `.@_eYG _geQ`, [[
-              `div`, [[
-                `span`, `&@style>text-transform:capitalize;font-weight:300`, `~@${Sell.alpha}`]]], [
-                `div`, `.@_gxM _geQ`, [[
-                  `div`, [[
-                    `span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@${Sell.mass*Sell.items} grams`]]], []]], [
-              `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
-                `div`, `&@style>margin: 8px 0`, [[
-                  `div`, `#@ModelCart`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
-                    `div`, [[`a`, `#@min`, `.@-_tX Minus alterCart`, data, `&@href>javascript:;`]]], [
-                    `div`, `.@_tXx`, `&@style>padding:0 8px;font-family:gotham-book`, `~@${Sell.items}`], [
-                    `div`, [[`a`, `#@max`, `.@-_tX Plus alterCart`, data, `&@href>javascript:;`]]]]]]], [
-                `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Pay}`]]]]]]]]];
+        Sell[`port_gArray`] = [34.753, -.537];
+      }
 
-      if (Sell.shipping === `light`) Models[0].push(ModelPile);
+      if (!Ports[Sell.port_gArray]) Ports[Sell.port_gArray] = [];
 
-      if (Sell.shipping === `freight`) Models[1].push(ModelPile);
+      Ports[Sell.port_gArray].push(Sell);
+
     });
 
-    let ModelPay = [];
+    let ModelPorts = [];
 
-    Models.forEach((Model, m) => {
+    let fees = 0;
 
-      if (!Model.length > 0) return;
+    for (let Port in Ports) {
 
-      ModelPay.push([
-        `div`, `.@_gZ`, [[
-          `div`, `&@style>margin:75px auto 0;max-width:960px;width:100%;padding: 0 16px`, [[
-            `p`, `&@style>padding: 16px 0;text-transform:uppercase`, `~@${(m === 0)? `light shipping`: `freight shipping`}`], [
-            `div`, Model]]], [
-          `div`, `&@style>padding: 24px 0`, [[
-            `div`, [[
-              `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 362px;width:100%;margin:0 auto`, [[
-                `a`, `#@payout`, `.@_TX_a _atX _utQ _gMX _tXx`, `&@href>javascript:;`, `~@find courier`]]]]]]]]]);
-    })
+      let miles = 0;
+
+      (UA.get().gArray)? miles = (d3.geoDistance(UA.get().tracking.gArray[2], Ports[Port][0].port_gArray) * 6888).toFixed(2): miles = miles;
+
+      let Mass = [0, 0];
+
+      let pay = 0;
+
+      Ports[Port].forEach(P => {
+
+        (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items);
+
+        pay += Fx[0]*P.dollars*P.items
+      });
+
+      let Axes = [[0, 0], [0, 0]];
+
+      this.Shipping.axis[0].forEach(Axis => {
+
+        let succ = this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1];
+
+        if (!this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1]) succ = Axis*2;
+
+        if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = this.Shipping.axis[0].indexOf(Axis);
+
+        if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = this.Shipping.axis[0].indexOf(Axis);
+      });
+
+      this.Shipping.axis[1].forEach(Axis => {
+
+        let succ = this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1];
+
+        if (!this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1]) succ = Axis*2;
+
+        if (miles > Axis && miles < succ) {
+
+          Axes[0][1] = this.Shipping.axis[1].indexOf(Axis); 
+
+          Axes[1][1] = this.Shipping.axis[1].indexOf(Axis);
+        }
+
+        else {
+
+          Axes[0][1] = this.Shipping.axis[1].length - 1; 
+
+          Axes[1][1] = this.Shipping.axis[1].length - 1;
+
+        }
+      });
+
+      fees += parseFloat(Fx[0]*(this.Shipping.light[Axes[0][1]][Axes[0][0]] + this.Shipping.freight[Axes[1][1]][Axes[1][0]])/Fx[4]).toFixed(2);
+
+      fees = parseFloat(fees);
+
+      let ModelStep = [
+        `svg`, `&@style>min-height:0;width:100%;height:90px`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]];
+
+      ModelPorts.push([
+        `div`, `.@_gZ`, `&@style>margin:75px auto 0;max-width:960px;width:100%;padding: 0 16px`, [[
+          `div`, [[
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `.@_gxM`, `&@style>width:30%;`, [[
+                `div`, [[
+                  `span`, `.@_tXx`, `&@style>color:#1185fe;font-family:gotham-book;text-transform:uppercase`, `~@${Fx[1]}${(pay+fees).toFixed(2)} ${Fx[2]}`]]]]], [
+            `div`, `&@style>width:5%;`, []], [
+            `div`, `&@style>width:65%;`, [[
+              `div`, `.@_QZg`, [[
+                `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;`, [[
+                  `a`, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@Order delivery`]]]]]]]]], [
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `&@style>width:30%;`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, /*`&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`*/], 
+                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Order accepted`]]]]]]], [
+            `div`, `.@geQ _gxM`, [[
+              `div`, `&@style>width:30%`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
+              `div`, `&@style>width:65%;;padding-left:16px;overflow:hidden`, [[
+                `div`, `.@_gxM _geQ`, [[
+                  `span`, `.@-_tX Store`], [
+                  `div`, `.@_eYG`, [[
+                    `div`, [[`span`, `.@_a2X`, `~@${Ports[Port][0].port}`]]], [
+                    `div`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${miles} mi`]]]]]]], [
+                `div`, `.@_yZS`, [[`span`, `.@_a2X`, `~@${Mass[0] + Mass[1]}g`]]]]]]], [
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `&@style>width:30%;`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, /*`&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`*/], 
+                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Courier`]]]]]]], [
+            `div`, `.@geQ _gxM`, [[
+              `div`, `&@style>width:30%`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
+              `div`, `&@style>width:65%;;padding-left:16px;overflow:hidden`, []]]], [
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `&@style>width:30%;`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, /*`&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`*/], 
+                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Delivery`]]]]]]]]]]]);
+    }
 
     return [
     `section`, `.@_tY0`, `&@style>height:100%`, [[
@@ -943,6 +1040,6 @@ let Models = {
             `div`, [[
               `span`,`&@style>margin: 0 8px;text-transform:uppercase`, `~@shipping & delivery`]]]]], [
           `div`, `.@_QZg`, `&@style>overflow:hidden`, []]]]]], [
-      `div`, ModelPay]]];
+      `div`, ModelPorts]]];
   }
 }
