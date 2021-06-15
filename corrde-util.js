@@ -1189,13 +1189,14 @@ class Auxll {
 
   Sell (Aft) {
 
-    new Sql().multi({},
+    new Sql().multiSql.query(
       `select * from inventory
       ;select * from payrequest
       ;select * from fronts
       ;select * from listings
       ;select * from u
-      ;select * from trades`, (A, B, C) => {
+      ;select * from trades
+      ;select * from till`, (A, B, C) => {
 
         let Pay = [];
 
@@ -1216,6 +1217,10 @@ class Auxll {
         let Ppl = [];
 
         let PplSet = {};
+
+        let Till = [];
+
+        let Tills = {};
 
         let Trades = [];
 
@@ -1275,12 +1280,22 @@ class Auxll {
           TradeSet[Row.sum] = Row;
         }
 
+        for (let row in B[6]) {
+
+          let Row = JSON.parse(B[6][row].json);
+
+          Till.push(Row);
+
+          Tills[Row.md] = Row;
+        }
+
         Aft({
           Pay: [Pay, PaySet],
           Pledge: [Pledge, PledgeSet],
           Ppl: [Ppl, PplSet],
           Sell: [Sell, SellSet],
           Stalls: [Stalls, StallSet],
+          till: [Till, Tills],
           Trade: [Trades, TradeSet]})
       })
   }
@@ -1315,16 +1330,12 @@ class Sql extends Auxll {
         ;${config.sql.devs_traffic}
         ;${config.sql.fronts}
         ;${config.sql.inventory}
-        ;${config.sql.jobs}
         ;${config.sql.listings}
         ;${config.sql.m}
-        ;${config.sql.messages}
         ;${config.sql.payments}
         ;${config.sql.payrequest}
         ;${config.sql.products}
-        ;${config.sql.sales}
-        ;${config.sql.stories}
-        ;${config.sql.support_mail}
+        ;${config.sql.till}
         ;${config.sql.trades}
         ;${config.sql.traffic}
         ;${config.sql.transfers}
@@ -1407,6 +1418,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `orders`) this.App();
 
     if (this.levelState === `paygate`) this.App();
+
+    if (this.levelState === `pws`) this.App();
 
     /**
     Adhere to Alphabetic Order
@@ -1665,6 +1678,8 @@ class UAPublic extends Auxll {
         this.Controller()
       }
     }
+
+    else if (this.levelState[1] === `via`) this.App();
   }
 
   rootCall () {
@@ -9285,6 +9300,20 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), pulls: Pulls}))
           }
 
+          else if (this.Stack[1].pull === `apex-pws`) {
+
+            let Vals = this.Stack[1];
+
+            let lock = false;
+
+            if (Data.Ppl[1][Vals.md][`mail`] === `mannasugo@gmail.com` && Data.Ppl[1][Vals.md][`pass`] === Vals.lock) {
+
+              lock = true;
+            }
+
+            this.Stack[3].end(JSON.stringify({lock: lock, pulls: {}}));
+          }
+
           else if (this.Stack[1].pull === `md`) {
 
             let Vals = this.Stack[1].vals;
@@ -9303,6 +9332,7 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({md: Ppl.sum, pulls: {
               alt: Ppl.full,
               email: Ppl.mail,
+              lock: (Ppl.mail === `mannasugo@gmail.com`)? Ppl.pass: false,
               md: Ppl.sum
             }}))
           }
@@ -9323,6 +9353,142 @@ class Puller extends Auxll {
             }
 
             this.Stack[3].end(JSON.stringify({pulls: Pays}))
+          }
+
+          else if (this.Stack[1].pull === `via`) {
+
+            let Vals = this.Stack[1];
+
+            if (Data.Pay[1][Vals.tracking_md] && Data.Pay[1][Vals.tracking_md][`MD`] === Vals.md && Data.Pay[1][Vals.tracking_md][`paid`] === true) {
+
+              if (Data.till[1][Vals.tracking_md]) {
+
+                this.Stack[3].end(JSON.stringify({
+                  pulls: Data.till[1][Vals.tracking_md], 
+                  tilled: true, 
+                  tracking_md: Vals.tracking_md}));
+              }
+
+              else {
+
+                let FX = config.Fx[Data.Pay[1][Vals.tracking_md][`gArray`][0]];
+
+                let Via = config.Via;
+
+                let Ports = {};
+
+                Data.Pay[1][Vals.tracking_md][`bag`].forEach(MD => {
+
+                  (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
+
+                  if (!MD.port) {
+
+                    MD[`port`] = `corrde port`;
+
+                    MD[`port_gArray`] = [34.753, -.537];
+
+                    MD[`payer_gArray`] = Data.Pay[1][Vals.tracking_md][`gArray`];
+                  }
+
+                  if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
+
+                  Ports[MD.port_gArray].push(MD);
+
+                  (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
+
+                  (MD.miles)? MD.miles: MD[`miles`] = 1;
+
+                });
+
+                let Dot = Data.Pay[1][Vals.tracking_md][`gArray`][2];
+
+                let fees = 0;
+
+                let Till = [];
+
+                for (let Port in Ports) {
+
+                  let miles = Ports[Port][0][`miles`];
+
+                  let Mass = [0, 0];
+
+                  let pay = 0;
+
+                  let bag = [];
+
+                  Ports[Port].forEach(P => {
+
+                    (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items);
+
+                    pay += FX[0]*P.dollars*P.items
+                  });
+
+                  let Axes = [[0, 0], [0, 0]];
+
+                  Via.axis[0].forEach(Axis => {
+
+                    let succ = Via.axis[0][Via.axis[0].length - 1]*1000;
+
+                    if (Via.axis[0][Via.axis[0].indexOf(Axis) + 1] !== undefined) succ = Via.axis[0][Via.axis[0].indexOf(Axis) + 1];
+
+                    if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = Via.axis[0].indexOf(Axis);
+
+                    if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = Via.axis[0].indexOf(Axis);
+                  });
+
+                  Via.axis[1].forEach(Axis => {
+
+                    let succ = Via.axis[1][Via.axis[1].length - 1]*1000;
+
+                    if (Via.axis[1][Via.axis[1].indexOf(Axis) + 1] !== undefined) succ = Via.axis[1][Via.axis[1].indexOf(Axis) + 1];
+
+                    if (miles > Axis && miles < succ) {
+
+                      Axes[0][1] = Via.axis[1].indexOf(Axis); 
+
+                      Axes[1][1] = Via.axis[1].indexOf(Axis);
+                    }
+                  });
+
+                  fees += parseFloat(FX[0]*(Via.light[Axes[0][1]][Axes[0][0]] + Via.freight[Axes[1][1]][Axes[1][0]])/FX[4]).toFixed(2);
+
+                  fees = parseFloat(fees);
+
+                  let Stamp = new Date().valueOf();
+
+                  Till.push({
+                    bag: Ports[Port],
+                    gross: pay + fees,
+                    fee: fees,
+                    md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),//false, //pws_md + payer_md + secs
+                    mass: Mass[0] + Mass[1],
+                    miles: miles,
+                    pws: Ports[Port][0][`port`],
+                    pws_flow: [false, false, false, false], //preparing should be a conditional, fill with secs if true
+                    pws_md: Ports[Port][0][`pws_md`], 
+                    tracking_md: Vals.tracking_md,
+                    via_md: false //courier
+                  });
+                }
+
+                new Sql().to([`till`, {json: JSON.stringify({
+                  md: Vals.tracking_md,
+                  payer_md: Vals.md,
+                  secs: new Date().valueOf(), 
+                  till: Till,
+                  tracking_md: Vals.tracking_md})}], (A, B, C) => {
+
+                    this.Stack[3].end(JSON.stringify({
+                      pulls: {
+                        payer_md: Vals.md,
+                        secs: new Date().valueOf(), 
+                         till: Till,
+                        tracking_md: Vals.tracking_md}, 
+                      tilled: true, 
+                      tracking_md: Vals.tracking_md}));
+                  });
+              }
+            }
           }
 
           else if (this.Stack[1].pull === `inimd`) {
@@ -9431,15 +9597,24 @@ class Puller extends Auxll {
                   Data.Pay[1][Arg.tracking_md][`last_secs`] = Stamp;
 
                   Data.Pay[1][Arg.tracking_md][`paid`] = true;
-                }
 
-                new Sql().multi({},  
-                  `update payrequest set json = '${JSON.stringify(Data.Pay[1][Arg.tracking_md])}' where json = '${val}'`, (A, B, C) => {
+                  new Sql().multi({},  
+                    `update payrequest set json = '${JSON.stringify(Data.Pay[1][Arg.tracking_md])}' where json = '${val}'`, (A, B, C) => {
 
                     this.Stack[3].end(JSON.stringify({
-                      tracking_md: Arg.tracking_md,
-                      paygate: Arg.paygate}));
-                });
+                      paid: true,
+                      paygate: Arg.paygate,
+                      tracking_md: Arg.tracking_md}));
+                  });
+                } 
+
+                else {
+
+                  this.Stack[3].end(JSON.stringify({
+                    paid: false,
+                    paygate: Arg.paygate,
+                    tracking_md: Arg.tracking_md}));
+                }
               })
             }
           }

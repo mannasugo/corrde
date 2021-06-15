@@ -676,19 +676,30 @@ class Event {
 
 				let Via = this.getSource(S).innerHTML.toLowerCase();
 
+				let UAlog = UA.get().ualog;
+
 				if (Via === `create account`) Control.Signup([true, `.`]);
 
 				else if (Via === `sign in`) Control.Signin([true, `.`]);
 
 				else if (Via === `my orders` || Via === `pays`) {
 
-					let UAlog = UA.get().ualog;
-
 					UAlog.push(`/orders/`);
 
 					UA.set({pays: `all`, ualog: UAlog});
 
 					Control.SetState([{}, `orders`, `/orders/`]);
+
+					Control.Call();
+				}
+
+				else if (Via === `manage store`) {
+
+					UAlog.push(`/pws/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `pws`, `/pws/`]);
 
 					Control.Call();
 				}
@@ -735,7 +746,34 @@ class Event {
 
 				if (Via.innerHTML === `confirmed` && UA.get().tracking.paid === false) if (UA.get().tracking.paygate === `intasend`) Control.SymetMobilePay();
 
-				if (Via.innerHTML === `shipping` && UA.get().tracking.paid === true) Control.Shipping();
+				if (Via.innerHTML === `shipping` && UA.get().tracking.paid === true) {
+
+					let Pull = Control.Pull([`/pulls/ua/`, {
+						md: UA.get().u.md,
+						pull: `via`,
+						tracking_md: UA.get().tracking_md}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (Pulls.tilled && Pulls.tilled === true) {
+
+							let UAlog = UA.get().ualog;
+
+							UAlog.push(`/via/${Pulls.tracking_md}/`);
+
+							UA.set({ualog: UAlog});
+
+							Control.SetState([{}, `via`, `/via/${Pulls.tracking_md}/`]);
+
+							UA.set({via: Pulls.pulls});
+						
+						}
+
+						Control.Call();
+					}
+				}
 			}]);
 		});
 	}
@@ -804,18 +842,6 @@ class Event {
 
 						let Pulls = JSON.parse(Pull.response);
 
-						if (!Pulls.tracking_md) Control.Call();
-
-						let UAlog = UA.get().ualog;
-
-				/*UAlog.push(Via);
-
-				UA.set({ualog: UAlog});
-
-				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
-
-				UA.set({u: Pulls.pulls});*/
-
 						Control.Call();
 					}
 				}
@@ -860,6 +886,8 @@ class Controller extends Puller {
 		if (this.Old() === `/orders/`) this.Pays();
 
 		if (this.Old() === `/paygate/`) this.Paygate();
+
+		if (this.Old() === `/pws/`) this.Apex();
 
 		if (this.Old() === `/ships/`) this.Mailable();
 
@@ -1062,5 +1090,35 @@ class Controller extends Puller {
 
 		new Event().Call()
 
+	}
+
+	Apex () {
+
+		let Pull = this.Pull([`/pulls/ua/`, {lock: UA.get().u.lock || false, md: UA.get().u.md, pull: `apex-pws`}]);
+
+		Pull.onload = () => {
+
+			let Pulls = JSON.parse(Pull.response);
+
+			let UAlog = UA.get().ualog;
+
+			if (Pulls.lock === false) {
+
+				UAlog.push(`.`);
+
+				UA.set({ualog: UAlog});
+
+				this.SetState([{}, `root`, `/`]);
+
+				this.Call();
+			}
+
+			else if (Pulls.lock === true) {
+
+				new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelPWSPays()])]]);
+
+				new Event().Call();
+			}
+		}
 	}
 }

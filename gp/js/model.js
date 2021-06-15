@@ -416,6 +416,10 @@ let Models = {
 
       Ports[Sell.port_gArray].push(Sell);
 
+      (Sell.pws_md)? Sell.pws_md: Sell[`pws_md`] = false;
+
+      Sell[`miles`] = (UA.get().gArray)? (d3.geoDistance(UA.get().gArray, Sell.port_gArray) * 6888).toFixed(2): 1;
+
       let Pay = `${Fx[1]}${(Fx[0]*Sell.dollars*Sell.items).toFixed(2)} ${Fx[2]}`;
 
       let data = `&@data>${JSON.stringify(Sell).replace(new RegExp(`"`, `g`), `&quot;`)}`;
@@ -454,38 +458,32 @@ let Models = {
 
       let Axes = [[0, 0], [0, 0]];
 
-      this.Shipping.axis[0].forEach(Axis => {
+      let Via = this.Shipping;
 
-        let succ = this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1];
+      Via.axis[0].forEach(Axis => {
 
-        if (!this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1]) succ = Axis*2;
+                    let succ = Via.axis[0][Via.axis[0].length - 1]*1000;
 
-        if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = this.Shipping.axis[0].indexOf(Axis);
+                    if (Via.axis[0][Via.axis[0].indexOf(Axis) + 1] !== undefined) succ = Via.axis[0][Via.axis[0].indexOf(Axis) + 1];
 
-        if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = this.Shipping.axis[0].indexOf(Axis);
-      });
+                    if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = Via.axis[0].indexOf(Axis);
 
-      this.Shipping.axis[1].forEach(Axis => {
+                    if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = Via.axis[0].indexOf(Axis);
+                  });
 
-        let succ = this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1];
+      Via.axis[1].forEach(Axis => {
 
-        if (!this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1]) succ = Axis*2;
+                    let succ = Via.axis[1][Via.axis[1].length - 1]*1000;
 
-        if (miles > Axis && miles < succ) {
+                    if (Via.axis[1][Via.axis[1].indexOf(Axis) + 1] !== undefined) succ = Via.axis[1][Via.axis[1].indexOf(Axis) + 1];
 
-          Axes[0][1] = this.Shipping.axis[1].indexOf(Axis); 
+                    if (miles > Axis && miles < succ) {
 
-          Axes[1][1] = this.Shipping.axis[1].indexOf(Axis);
-        }
+                      Axes[0][1] = Via.axis[1].indexOf(Axis); 
 
-        else {
-
-          Axes[0][1] = this.Shipping.axis[1].length - 1; 
-
-          Axes[1][1] = this.Shipping.axis[1].length - 1;
-
-        }
-      });
+                      Axes[1][1] = Via.axis[1].indexOf(Axis);
+                    }
+                  });
 
       fees += parseFloat(Fx[0]*(this.Shipping.light[Axes[0][1]][Axes[0][0]] + this.Shipping.freight[Axes[1][1]][Axes[1][0]])/Fx[4]).toFixed(2);
 
@@ -773,6 +771,8 @@ let Models = {
 
     if (UA.get().u) Mugger = [`my orders`];
 
+    (Mugger && UA.get().u && UA.get().u.lock !== false)? Mugger.push(`manage store`): Mugger;
+
     let ModelMugger = [];
 
     Mugger.forEach(a => {
@@ -863,8 +863,7 @@ let Models = {
 
       ModelVals.push([
         `div`, `.@_geQ`, `&@style>margin:0 4px`, [[
-          `input`, `.@val`, `&@maxlength>1`, `&@style>block-size:30px;max-width:30px;padding: 2px;text-align:center;text-transform:uppercase;font-size:25px`]]])
-      
+          `input`, `.@val`, `&@maxlength>1`, `&@style>block-size:30px;max-width:30px;padding: 2px;text-align:center;text-transform:uppercase;font-size:25px`]]]);   
     }
 
     return [
@@ -1041,5 +1040,81 @@ let Models = {
               `span`,`&@style>margin: 0 8px;text-transform:uppercase`, `~@shipping & delivery`]]]]], [
           `div`, `.@_QZg`, `&@style>overflow:hidden`, []]]]]], [
       `div`, ModelPorts]]];
+  },
+
+  ModelPWS (Arg) {
+
+    let ModelMug = [`a`, `#@mug`, `.@-_tX Mug`, `&@style>margin: 0 15px`, `&@href>javascript:;`];
+
+    if (UA.get().u) {
+
+      ModelMug = [
+      `span`,  `&@style>margin: 0 15px;position:relative;height:24px`, [[
+        `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+            `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().u.alt[0]}`]]], [
+        `a`, `#@mug`, `.@_aWz`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+    }
+
+    let Opts = [[`Bag`, `orders`]];
+
+    let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
+
+    Opts.forEach(Opt => {
+
+      ModelOpts.push([
+        `div`, `.@_gMX _geQ _s0`, [[`a`, `.@-_tX ${Opt[0]} pws`, `&@href>javascript:;`, `~@${Opt[1]}`]]])
+    });
+
+    return [
+      `article`, `#@ModelStallControls`, [[
+        `div`, `.@_tY0`, [[
+          `main`, `.@_gZy`, [[
+            `nav`, `.@_gy0`, [[
+              `div`, `.@_gy`, [[
+                `div`, `.@_gq`, ModelOpts]]]]], [
+            `section`, `.@_gy2`, `&@style>width:100%`, [[
+              `div`, [Arg[1]]], [
+              `nav`, `.@_uHC`, `&@style>background:none`, [[
+                `div`, `.@_xCt`], [
+                `div`, [[
+                  `div`, `.@_-tY`, [[
+                    `div`, `.@_aXz`, [[
+                      `div`, `.@_-Xg _gxM _geQ`, [[
+                        `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
+                        `span`, `@_aA6`, `&@style>padding: 0 7px;text-transform:uppercase`, `~@ | ${Arg[0]}`]]], [
+                      `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
+  },
+
+  ModelPWSPays () {
+
+    let State = `all`;
+
+    if (UA.get().pws_pays) State = UA.get().pws_pays;
+
+    let ModelPullArgs = [];
+
+    let PullArgs = [`all`, `new`, `preparing`, `ready`, `delivered`];
+
+    PullArgs.forEach(S => {
+
+      let style = ``;
+
+      if (S === State) style = `text-decoration:line-through`; 
+
+      ModelPullArgs.push([
+        `a`, `#@pullArg`, `.@_aA2 _tXx`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;border:2px solid #000;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    let Pay = [];
+    
+    return [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:45px`, [[
+          `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
+          `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+            `div`, (Pay.length > 0)? `.@_egQ`: ``, `ModelPays`]]]]];
   }
 }
