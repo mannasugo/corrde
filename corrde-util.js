@@ -9314,6 +9314,38 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({lock: lock, pulls: {}}));
           }
 
+          else if (this.Stack[1].pull === `init-via`) {
+
+            let Vals = this.Stack[1];
+
+            if (Data.till[1][Vals.tracking_md] && Data.till[1][Vals.tracking_md][`payer_md`] === Vals.md) {
+
+              let Via = {};
+
+              Data.till[1][Vals.tracking_md][`till`].forEach(V => {
+
+                if (V.md === Vals.via_md) Via = V;
+              });
+
+              if (Via.md && Via.pws_flow[0] === false) {
+
+                let val = JSON.stringify(Data.till[1][Vals.tracking_md]);
+
+                let v = Data.till[1][Vals.tracking_md][`till`].indexOf(Via);
+
+                Data.till[1][Vals.tracking_md][`till`][v][`pws_flow`][0] = new Date().valueOf();
+
+                new Sql().multi({},  
+                  `update till set json = '${JSON.stringify(Data.till[1][Vals.tracking_md])}' where json = '${val}'`, (A, B, C) => {
+
+                  this.Stack[3].end(JSON.stringify({
+                    pulls: Data.till[1][Vals.tracking_md][`till`][v],
+                    tracking_md: Vals.tracking_md}));
+                  });
+              }
+            }
+          }
+
           else if (this.Stack[1].pull === `md`) {
 
             let Vals = this.Stack[1].vals;
@@ -9464,7 +9496,7 @@ class Puller extends Auxll {
                     mass: Mass[0] + Mass[1],
                     miles: miles,
                     pws: Ports[Port][0][`port`],
-                    pws_flow: [false, false, false, false], //preparing should be a conditional, fill with secs if true
+                    pws_flow: [false, false, false, false, false], //preparing should be a conditional, fill with secs if true
                     pws_md: Ports[Port][0][`pws_md`], 
                     tracking_md: Vals.tracking_md,
                     via_md: false //courier

@@ -884,164 +884,6 @@ let Models = {
                 `div`, `.@_geQ _gxM`, ModelVals]]]]]]]]];
   },
 
-  ModelShipping () {
-
-    let Cart = UA.get().tracking.bag;
-
-    let Fx = this.Fx[UA.get().tracking.gArray[0]] || this.Fx[UA.get().area];
-
-    let Ports = {};
-
-    Cart.forEach(Sell => {
-
-      (Sell.dollars*Sell.items > Fx[3])? Sell[`shipping`] = `freight`: Sell[`shipping`] = `light`;
-
-      if (!Sell.port) {
-
-        Sell[`port`] = `corrde port`;
-
-        Sell[`port_gArray`] = [34.753, -.537];
-      }
-
-      if (!Ports[Sell.port_gArray]) Ports[Sell.port_gArray] = [];
-
-      Ports[Sell.port_gArray].push(Sell);
-
-    });
-
-    let ModelPorts = [];
-
-    let fees = 0;
-
-    for (let Port in Ports) {
-
-      let miles = 0;
-
-      (UA.get().gArray)? miles = (d3.geoDistance(UA.get().tracking.gArray[2], Ports[Port][0].port_gArray) * 6888).toFixed(2): miles = miles;
-
-      let Mass = [0, 0];
-
-      let pay = 0;
-
-      Ports[Port].forEach(P => {
-
-        (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items);
-
-        pay += Fx[0]*P.dollars*P.items
-      });
-
-      let Axes = [[0, 0], [0, 0]];
-
-      this.Shipping.axis[0].forEach(Axis => {
-
-        let succ = this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1];
-
-        if (!this.Shipping.axis[0][this.Shipping.axis[0].indexOf(Axis) + 1]) succ = Axis*2;
-
-        if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = this.Shipping.axis[0].indexOf(Axis);
-
-        if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = this.Shipping.axis[0].indexOf(Axis);
-      });
-
-      this.Shipping.axis[1].forEach(Axis => {
-
-        let succ = this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1];
-
-        if (!this.Shipping.axis[1][this.Shipping.axis[1].indexOf(Axis) + 1]) succ = Axis*2;
-
-        if (miles > Axis && miles < succ) {
-
-          Axes[0][1] = this.Shipping.axis[1].indexOf(Axis); 
-
-          Axes[1][1] = this.Shipping.axis[1].indexOf(Axis);
-        }
-
-        else {
-
-          Axes[0][1] = this.Shipping.axis[1].length - 1; 
-
-          Axes[1][1] = this.Shipping.axis[1].length - 1;
-
-        }
-      });
-
-      fees += parseFloat(Fx[0]*(this.Shipping.light[Axes[0][1]][Axes[0][0]] + this.Shipping.freight[Axes[1][1]][Axes[1][0]])/Fx[4]).toFixed(2);
-
-      fees = parseFloat(fees);
-
-      let ModelStep = [
-        `svg`, `&@style>min-height:0;width:100%;height:90px`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]];
-
-      ModelPorts.push([
-        `div`, `.@_gZ`, `&@style>margin:75px auto 0;max-width:960px;width:100%;padding: 0 16px`, [[
-          `div`, [[
-            `div`, `.@_geQ _gxM _yZS`, [[
-              `div`, `.@_gxM`, `&@style>width:30%;`, [[
-                `div`, [[
-                  `span`, `.@_tXx`, `&@style>color:#1185fe;font-family:gotham-book;text-transform:uppercase`, `~@${Fx[1]}${(pay+fees).toFixed(2)} ${Fx[2]}`]]]]], [
-            `div`, `&@style>width:5%;`, []], [
-            `div`, `&@style>width:65%;`, [[
-              `div`, `.@_QZg`, [[
-                `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;`, [[
-                  `a`, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@Order delivery`]]]]]]]]], [
-            `div`, `.@_geQ _gxM _yZS`, [[
-              `div`, `&@style>width:30%;`, [[
-                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
-              `div`, `.@_geQ`, `&@style>width:5%;`, [[
-              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
-                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, /*`&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`*/], 
-                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
-                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
-                  `div`, [[`span`, `.@_tXx`, `~@Order accepted`]]]]]]], [
-            `div`, `.@geQ _gxM`, [[
-              `div`, `&@style>width:30%`, [[
-                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
-              `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
-              `div`, `&@style>width:65%;;padding-left:16px;overflow:hidden`, [[
-                `div`, `.@_gxM _geQ`, [[
-                  `span`, `.@-_tX Store`], [
-                  `div`, `.@_eYG`, [[
-                    `div`, [[`span`, `.@_a2X`, `~@${Ports[Port][0].port}`]]], [
-                    `div`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${miles} mi`]]]]]]], [
-                `div`, `.@_yZS`, [[`span`, `.@_a2X`, `~@${Mass[0] + Mass[1]}g`]]]]]]], [
-            `div`, `.@_geQ _gxM _yZS`, [[
-              `div`, `&@style>width:30%;`, [[
-                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
-              `div`, `.@_geQ`, `&@style>width:5%;`, [[
-              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
-                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, /*`&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`*/], 
-                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
-                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
-                  `div`, [[`span`, `.@_tXx`, `~@Courier`]]]]]]], [
-            `div`, `.@geQ _gxM`, [[
-              `div`, `&@style>width:30%`, [[
-                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
-              `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
-              `div`, `&@style>width:65%;;padding-left:16px;overflow:hidden`, []]]], [
-            `div`, `.@_geQ _gxM _yZS`, [[
-              `div`, `&@style>width:30%;`, [[
-                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
-              `div`, `.@_geQ`, `&@style>width:5%;`, [[
-              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
-                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, /*`&@style>${(S[0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`*/], 
-                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
-                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
-                  `div`, [[`span`, `.@_tXx`, `~@Delivery`]]]]]]]]]]]);
-    }
-
-    return [
-    `section`, `.@_tY0`, `&@style>height:100%`, [[
-      `div`, `.@_-tY`, [[
-        `div`, `.@_aXz _gxM _geQ`, [[
-          `div`, `.@_gxM _geQ`, [[
-            `div`, [[
-              `a`, `#@${UA.get().tracking_md}`, `.@-_tX From tracking`, `&@href>javascript:;`]]], [
-            `div`, [[
-              `span`,`&@style>margin: 0 8px;text-transform:uppercase`, `~@shipping & delivery`]]]]], [
-          `div`, `.@_QZg`, `&@style>overflow:hidden`, []]]]]], [
-      `div`, ModelPorts]]];
-  },
-
   ModelPWS (Arg) {
 
     let ModelMug = [`a`, `#@mug`, `.@-_tX Mug`, `&@style>margin: 0 15px`, `&@href>javascript:;`];
@@ -1116,5 +958,102 @@ let Models = {
               `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
           `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
             `div`, (Pay.length > 0)? `.@_egQ`: ``, `ModelPays`]]]]];
+  },
+
+  ModelVia () {
+
+    let ModelStores = [];
+
+    let fees = 0;
+
+    let FX = this.Fx[UA.get().via[`till`][0][`bag`][0][`payer_gArray`][0]];
+
+    UA.get().via[`till`].forEach(Store => {
+
+      let ModelStep = [
+        `svg`, `&@style>min-height:0;width:100%;height:90px`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]];
+
+      ModelStores.push([
+        `div`, `.@_gZ`, `&@style>margin:75px auto 0;max-width:960px;width:100%;padding: 0 16px`, [[
+          `div`, [[
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `.@_gxM`, `&@style>width:30%;`, [[
+                `div`, [[
+                  `span`, `.@_tXx`, `&@style>color:#1185fe;font-family:gotham-book;text-transform:uppercase`, `~@${FX[1]}${(Store.gross+Store.fee).toFixed(2)} ${FX[2]}`]]]]], [
+            `div`, `&@style>width:5%;`, []], [
+            `div`, `&@style>width:65%;`, [[
+              `div`, `.@${(Store.pws_flow[0] !== false)? `_-Zz`: ``} _QZg`, [[
+                `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;`, [[
+                  `a`, `#@${Store.md}`, `.@_TX_a _atX init-via`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@Order delivery`]]]]]]]]], [
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `&@style>width:30%;`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, `~@${(Store[`pws_flow`][0] === false)? ``: this.log(Store[`pws_flow`][0])}`]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>${(Store[`pws_flow`][0] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`], 
+                (Store[`pws_flow`][0] === false)? []: [`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Delivery ordered`]]]]]]], [
+            `div`, `.@geQ _gxM`, [[
+              `div`, `&@style>width:30%`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(Store[`pws_flow`][1] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
+              `div`, `&@style>width:65%;;padding-left:16px;overflow:hidden`, []]]], [
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `&@style>width:30%;`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>${(Store[`pws_flow`][1] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`], 
+                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Order accepted`]]]]]]], [
+            `div`, `.@geQ _gxM`, [[
+              `div`, `&@style>width:30%`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
+              `div`, `&@style>width:65%;;padding-left:16px;overflow:hidden`, [[
+                `div`, `.@_gxM _geQ`, [[
+                  `span`, `.@-_tX Store`], [
+                  `div`, `.@_eYG`, [[
+                    `div`, [[`span`, `.@_a2X`, `~@${Store.pws}`]]], [
+                    `div`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${Store.miles} mi`]]]]]]], [
+                `div`, `.@_yZS`, [[`span`, `.@_a2X`, `~@${Store.mass}g`]]]]]]], [
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `&@style>width:30%;`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>${(Store[`pws_flow`][3] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`], 
+                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Courier`]]]]]]], [
+            `div`, `.@geQ _gxM`, [[
+              `div`, `&@style>width:30%`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%`, [ModelStep]], [
+              `div`, `&@style>width:65%;;padding-left:16px;overflow:hidden`, []]]], [
+            `div`, `.@_geQ _gxM _yZS`, [[
+              `div`, `&@style>width:30%;`, [[
+                `div`, `.@_QZg`, [[`span`, `.@_a2X`, `&@style>white-space:nowrap;padding:0 8px`, /*`~@${(S[0] === false)? ``: this.log(S[0])}`*/]]]]], [
+              `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>${(Store[`pws_flow`][4] === false)? `fill:none;stroke:#f4f4f4`: `fill:#19e819;stroke:none`}`], 
+                /*(S[0] === false)? []: */[`path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff`]]]]], [
+                `div`, `.@geQ`, `&@style>width:65%;padding-left:16px`, [[
+                  `div`, [[`span`, `.@_tXx`, `~@Delivery`]]]]]]]]]]]);
+    });
+
+    return [
+    `section`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz _gxM _geQ`, [[
+          `div`, `.@_gxM _geQ`, [[
+            `div`, [[
+              `a`, `#@${UA.get().via.tracking_md}`, `.@-_tX From tracking`, `&@href>javascript:;`]]], [
+            `div`, [[
+              `span`,`&@style>margin: 0 8px;text-transform:uppercase`, `~@shipping & delivery`]]]]], [
+          `div`, `.@_QZg`, `&@style>overflow:hidden`, []]]]]], [
+      `div`, ModelStores]]];
   }
 }
