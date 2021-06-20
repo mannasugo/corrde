@@ -1417,6 +1417,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `orders`) this.App();
 
+    if (this.levelState === `paas`) this.App();
+
     if (this.levelState === `paygate`) this.App();
 
     if (this.levelState === `pws`) this.App();
@@ -9658,6 +9660,39 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
           }
 
+        });
+      }
+
+      else if (this.Stack[0][2] === `mobile`) {
+
+        this.Sell(Data => {
+
+          this.Stack[3].setHeader(`Content-Type`, `application/json`);
+
+          Data.Sell[0].sort((A,B) => {return B.log - A.log});
+
+          if (this.Stack[1][`pull`]) {
+
+          }
+
+          else {
+
+            let Sells = {};
+
+            Data.Sell[0].forEach(MD => {
+
+              (Sells[MD[`set`]])? Sells[MD[`set`]] = Sells[MD[`set`]]: Sells[MD[`set`]] = [];
+
+              Sells[MD[`set`]].push({
+                alpha: MD.alpha,
+                dollars: (MD.dollars*109).toFixed(2), 
+                file: `https://corrde.com/${MD.files[0]}`,
+                mass: MD.mass, 
+                md: MD.MD5})
+            });
+
+            this.Stack[3].end(JSON.stringify(Sells));
+          }
         });
       }
     }
