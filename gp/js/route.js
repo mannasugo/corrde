@@ -130,7 +130,7 @@ class Event {
 
 		if (new Controller().Old().split(`/`)[1] === `via`) {
 
-			this.Mugger()
+			this.getPay()
 
 			this.initVia();
 		}
@@ -710,6 +710,17 @@ class Event {
 
 					Control.Call();
 				}
+
+				else if (Via === `corrde for business`) {
+
+					UAlog.push(`/paas/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `paas`, `/paas/`]);
+
+					Control.Call();
+				}
 			}]);
 		});
 	}
@@ -911,6 +922,8 @@ class Controller extends Puller {
 		if (this.Old() === `.`) this.Root();
 
 		if (this.Old() === `/aisles/`) this.Aisles();
+
+		if (this.Old() === `/paas/`) this.PaaS();
 
 		if (this.Old() === `/billings/`) this.Billing();
 
@@ -1174,5 +1187,13 @@ class Controller extends Puller {
 				new Event().Call();
 			}
 		}
+	}
+
+	PaaS () {
+
+		new View().DOM([`main`, [Models.ModelSplash()]]);
+
+		new Event().Call();
+
 	}
 }

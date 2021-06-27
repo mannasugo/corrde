@@ -767,9 +767,9 @@ let Models = {
 
   ModelMugger () {
 
-    let Mugger = [`create account`, `sign in`];
+    let Mugger = [`create account`, `sign in`, `corrde for business`];
 
-    if (UA.get().u) Mugger = [`my orders`];
+    if (UA.get().u) Mugger = [`my orders`, `corrde for business`];
 
     (Mugger && UA.get().u && UA.get().u.lock !== false)? Mugger.push(`manage store`): Mugger;
 
@@ -920,7 +920,7 @@ let Models = {
               `nav`, `.@_uHC`, `&@style>background:none`, [[
                 `div`, `.@_xCt`], [
                 `div`, [[
-                  `div`, `.@_-tY`, [[
+                  `div`, `.@_-tY`, `&@style>left:0`, [[
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, [[
                         `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
