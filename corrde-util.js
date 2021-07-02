@@ -1299,6 +1299,27 @@ class Auxll {
           Trade: [Trades, TradeSet]})
       })
   }
+
+  getMiles (Arg) {
+
+    if (Arg[0][1] === Arg[1][1] && Arg[0][0] === Arg[1][0]) return 0;
+
+    let XRadians = [Math.PI*Arg[0][1]/180, Math.PI*Arg[1][1]/180];
+
+    let YRadian = [Math.PI * (Arg[0][0] - Arg[1][0])];
+
+    let miles = Math.sin(XRadians[0])*Math.sin(XRadians[1]) + Math.cos(XRadians[0])*Math.cos(XRadians[1])*Math.cos(YRadian[0]);
+
+    if (miles > 1) miles = 1;
+
+    miles = Math.acos(miles);
+
+    miles = miles*180/Math.PI;
+
+    miles = miles*60*1.515;
+
+    return miles;
+  }
 }
 
 class Sql extends Auxll {
@@ -9671,8 +9692,114 @@ class Puller extends Auxll {
 
           Data.Sell[0].sort((A,B) => {return B.log - A.log});
 
-          if (this.Stack[1][`pull`]) {
+          if (this.Stack[1][`pull`] && this.Stack[1][`pull`] === `viapay`) {
 
+            /** @unittest
+            * 
+              this.Stack[1][`trolley`] = [Data.Sell[0][0][`MD5`] + `u&0` + 4, Data.Sell[0][2][`MD5`] + `u&0` + 6];
+
+              this.Stack[1][`dot`] = [34.753, -.527];
+            *
+            **/
+
+            let Vals = this.Stack[1][`trolley`]; //
+
+            let Bag = [];
+
+            let FX = config.Fx[`kenya`], Via = config.Via, Ports = {};
+
+            let totalPay = 0, totalMass = 0;
+
+            Vals.forEach(MD => {
+
+              let State = MD.split(`u&0`); //
+
+              MD = Data.Sell[1][State[0]];
+
+              MD[`items`] = parseInt(State[1]);
+
+              totalPay += (MD.dollars*MD.items)*FX[0];
+
+              totalMass += MD.mass*MD.items;
+
+              (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
+
+              if (!MD.port) {
+
+                MD[`port`] = `corrde port`;
+
+                MD[`port_gArray`] = [34.753, -.537];
+              }
+
+              if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
+
+              Ports[MD.port_gArray].push(MD);
+
+              (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
+
+              MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]); //
+
+              Bag.push(MD);
+
+            });
+
+            let fees = 0;
+
+            let Till = [];
+
+            for (let Port in Ports) {
+
+              let miles = Ports[Port][0][`miles`];
+
+              let Mass = [0, 0];
+
+              let pay = 0;
+
+              Ports[Port].forEach(P => {
+
+                (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items);
+
+                pay += FX[0]*P.dollars*P.items
+              });
+
+              let Axes = [[0, 0], [0, 0]];
+
+              Via.axis[0].forEach(Axis => {
+
+                let succ = Via.axis[0][Via.axis[0].length - 1]*1000;
+
+                if (Via.axis[0][Via.axis[0].indexOf(Axis) + 1] !== undefined) succ = Via.axis[0][Via.axis[0].indexOf(Axis) + 1];
+
+                if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = Via.axis[0].indexOf(Axis);
+
+                if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = Via.axis[0].indexOf(Axis);
+              });
+
+              Via.axis[1].forEach(Axis => {
+
+                let succ = Via.axis[1][Via.axis[1].length - 1]*1000;
+
+                  if (Via.axis[1][Via.axis[1].indexOf(Axis) + 1] !== undefined) succ = Via.axis[1][Via.axis[1].indexOf(Axis) + 1];
+
+                  if (miles > Axis && miles < succ) {
+
+                    Axes[0][1] = Via.axis[1].indexOf(Axis); 
+
+                    Axes[1][1] = Via.axis[1].indexOf(Axis);
+                  }
+              });
+
+              fees += parseFloat(FX[0]*(Via.light[Axes[0][1]][Axes[0][0]] + Via.freight[Axes[1][1]][Axes[1][0]])/FX[4]).toFixed(2);
+
+              fees = parseFloat(fees);
+            }
+
+            this.Stack[3].end(JSON.stringify({
+              gArray: [`kenya`, false, this.Stack[1][`dot`]],
+              mass: totalMass,
+              totalPay: totalPay + fees,
+              trolley: Bag,
+              viapay: fees}));
           }
 
           else {
