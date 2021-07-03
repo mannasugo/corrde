@@ -9712,34 +9712,36 @@ class Puller extends Auxll {
 
             Vals.forEach(MD => {
 
-              let State = MD.split(`u0`); //
+              if (MD.match(`u0`)) {
 
-              MD = Data.Sell[1][State[0]];
-
-              MD[`items`] = parseInt(State[1]);
-
-              totalPay += (MD.dollars*MD.items)*FX[0];
-
-              totalMass += MD.mass*MD.items;
-
-              (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
-
-              if (!MD.port) {
-
-                MD[`port`] = `corrde port`;
-
-                MD[`port_gArray`] = [34.753, -.537];
-              }
-
-              if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
-
-              Ports[MD.port_gArray].push(MD);
-
-              (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
-
-              MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]); //
-
-              Bag.push(MD);
+                let State = MD.split(`u0`); //
+              
+                            MD = Data.Sell[1][State[0]];
+              
+                            MD[`items`] = parseInt(State[1]);
+              
+                            totalPay += (MD.dollars*MD.items)*FX[0];
+              
+                            totalMass += MD.mass*MD.items;
+              
+                            (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
+              
+                            if (!MD.port) {
+              
+                              MD[`port`] = `corrde port`;
+              
+                              MD[`port_gArray`] = [34.753, -.537];
+                            }
+              
+                            if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
+              
+                            Ports[MD.port_gArray].push(MD);
+              
+                            (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
+              
+                            MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]); //
+              
+                            Bag.push(MD);}
 
             });
 
