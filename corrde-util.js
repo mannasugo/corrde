@@ -9712,7 +9712,7 @@ class Puller extends Auxll {
 
             Vals.forEach(MD => {
 
-              let State = MD.split(`u&0`); //
+              let State = MD.split(`u0`); //
 
               MD = Data.Sell[1][State[0]];
 
