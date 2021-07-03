@@ -9797,7 +9797,7 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({
               gArray: [`kenya`, false, this.Stack[1][`dot`]],
               mass: totalMass,
-              totalPay: totalPay + fees,
+              totalPay: (totalPay + fees).toFixed(2),
               trolley: Bag,
               viapay: fees}));
           }
