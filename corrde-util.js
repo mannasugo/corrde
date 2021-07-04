@@ -9692,7 +9692,7 @@ class Puller extends Auxll {
 
           Data.Sell[0].sort((A,B) => {return B.log - A.log});
 
-          if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {console.log(this.Stack[1].pull);
+          if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {console.log(this.Stack[1]);
 
             /** @unittest
             * 
@@ -9741,7 +9741,7 @@ class Puller extends Auxll {
               
                             Bag.push(MD);
 
-            });console.log(Bag);
+            });
 
             let fees = 0;
 
