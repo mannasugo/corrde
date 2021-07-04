@@ -9692,7 +9692,7 @@ class Puller extends Auxll {
 
           Data.Sell[0].sort((A,B) => {return B.log - A.log});
 
-          if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {console.log(this.Stack[1]);
+          if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {
 
             /** @unittest
             * 
@@ -9711,8 +9711,6 @@ class Puller extends Auxll {
             let totalPay = 0, totalMass = 0;
 
             Vals.forEach(MD => {
-
-              if (MD.match(`u0`)) {
 
                 let State = MD.split(`u0`); //
               
@@ -9741,9 +9739,9 @@ class Puller extends Auxll {
               
                             MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]); //
               
-                            Bag.push(MD);}
+                            Bag.push(MD);
 
-            });
+            });console.log(Bag);
 
             let fees = 0;
 
