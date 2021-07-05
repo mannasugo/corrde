@@ -9692,7 +9692,7 @@ class Puller extends Auxll {
 
           Data.Sell[0].sort((A,B) => {return B.log - A.log});
 
-          if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {console.log(this.Stack[1]);
+          if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {
 
             /** @unittest
             * 
@@ -9712,7 +9712,7 @@ class Puller extends Auxll {
 
             Vals.forEach(MD => {
 
-                let State = MD.split(`u0`); //
+              let State = MD.split(`u0`); //
               
                             MD = Data.Sell[1][State[0]];
               
@@ -9800,6 +9800,24 @@ class Puller extends Auxll {
               totalPay: (totalPay).toFixed(2),
               trolley: Bag,
               viapay: fees}));
+          }
+
+          else if (this.Stack[1].pull && this.Stack[1].pull === `md`) {
+
+            let Vals = this.Stack[1].vals;
+
+            let MD = crypto.createHash(`md5`).update(Vals[1], `utf8`);
+
+            let Ppl = {};
+
+            Data.Ppl[0].forEach(P => {
+
+              if (P.mail === Vals[0] && P.pass === MD.digest(`hex`)) Ppl = P;
+            });
+
+            if (!Ppl.mail) return;
+
+            this.Stack[3].end(JSON.stringify({MD: Ppl.sum}))
           }
 
           else {
