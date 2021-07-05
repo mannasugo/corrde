@@ -9820,6 +9820,41 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({MD: Ppl.sum}))
           }
 
+          else if (this.Stack[1].pull && this.Stack[1].pull === `inimd`) {
+
+            let Vals = this.Stack[1].vals;
+
+            let Ppl = {};
+
+            Data.Ppl[0].forEach(P => {
+
+              if (P.mail === Vals[0]) Ppl = P;
+            });
+
+            if (Ppl.mail) return;
+
+            let Stamp = new Date().valueOf();
+          
+            new Sql().to([`u`, {
+              json: JSON.stringify({
+                alt: `${Vals[2]} ${Vals[3]}`,
+                ava: false,
+                full: `${Vals[2]} ${Vals[3]}`,
+                lock: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
+                log: Stamp,
+                mail: Vals[0],
+                mobile: Vals[1],
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                mug: false,
+                pass: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
+                secs: Stamp,
+                sum: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)})}], (A, B, C) => {
+
+              this.Stack[3].end(JSON.stringify({MD: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)}));
+            });
+
+          }
+
           else {
 
             let Sells = {};
