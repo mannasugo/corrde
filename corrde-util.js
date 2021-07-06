@@ -1304,21 +1304,24 @@ class Auxll {
 
     if (Arg[0][1] === Arg[1][1] && Arg[0][0] === Arg[1][0]) return 0;
 
-    let XRadians = [Math.PI*Arg[0][1]/180, Math.PI*Arg[1][1]/180];
+    else {
 
-    let YRadian = [Math.PI * (Arg[0][0] - Arg[1][0])];
+      let XRadians = [Math.PI*Arg[0][1]/180, Math.PI*Arg[1][1]/180];
 
-    let miles = Math.sin(XRadians[0])*Math.sin(XRadians[1]) + Math.cos(XRadians[0])*Math.cos(XRadians[1])*Math.cos(YRadian[0]);
+      let YRadian = [Math.PI * (Arg[0][0] - Arg[1][0])/180];
 
-    if (miles > 1) miles = 1;
+      let miles = Math.sin(XRadians[0])*Math.sin(XRadians[1]) + Math.cos(XRadians[0])*Math.cos(XRadians[1])*Math.cos(YRadian[0]);
 
-    miles = Math.acos(miles);
+      if (miles > 1) miles = 1;
 
-    miles = miles*180/Math.PI;
+      miles = Math.acos(miles);
 
-    miles = miles*60*1.515;
+      miles = miles*180/Math.PI;
 
-    return miles;
+      miles = miles*60*1.515;
+
+      return miles;
+    }
   }
 }
 
@@ -9696,9 +9699,9 @@ class Puller extends Auxll {
 
             /** @unittest
             * 
-              this.Stack[1][`trolley`] = [Data.Sell[0][0][`MD5`] + `u&0` + 4, Data.Sell[0][2][`MD5`] + `u&0` + 6];
+              this.Stack[1][`trolley`] = [Data.Sell[0][0][`MD5`] + `u0` + 4, Data.Sell[0][2][`MD5`] + `u0` + 6];
 
-              this.Stack[1][`dot`] = [34.753, -.527];
+              this.Stack[1][`dot`] = [34.7204071, -.5328963];
             *
             **/
 
