@@ -9858,7 +9858,7 @@ class Puller extends Auxll {
 
           }
 
-          else if (this.Stack[1].pull && this.Stack[1].pull === `paygate`) {
+          else if (this.Stack[1].pull && this.Stack[1].pull === `paygate`) {console.log(this.Stack[1]);
 
             if (this.Stack[1].paygate === `intasend`) {
 
