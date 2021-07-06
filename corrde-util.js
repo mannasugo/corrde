@@ -9858,6 +9858,53 @@ class Puller extends Auxll {
 
           }
 
+          else if (this.Stack[1].pull && this.Stack[1].pull === `paygate`) {
+
+            if (this.Stack[1].paygate === `intasend`) {
+
+              let Arg = this.Stack[1];
+
+              let Pulls = this.Stack[1].pulls;
+
+              let Stamp = new Date().valueOf();
+
+              UrlCall({
+                method: `POST`, 
+                uri: `https://payment.intasend.com/api/v1/payment/collection/`, 
+                json: { 
+                  public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
+                  currency: `KES`,
+                  method: `M-PESA`,
+                  amount: parseFloat(Pulls.viapay) + parseFloat(Pulls.totalPay),
+                  api_ref: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                  name: Data.Ppl[1][Arg.md][`full`],
+                  phone_number: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
+                  email: Data.Ppl[1][Arg.md][`mail`]}}, (error, JS, Pull) => {
+
+                new Sql().to([`payrequest`, {json: JSON.stringify({
+                  bag: Pulls.trolley,
+                  complete: false,
+                  dollars: (parseFloat(Pulls.viapay) + parseFloat(Pulls.totalPay))*109,
+                  gArray: Pulls.gArray,
+                  MD: Arg.md,
+                  paygate: Arg.paygate,
+                  paytrace: (Pull.invoice)? Pull.invoice.id: null, 
+                  mass: Pulls.mass,
+                  MD5: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                  mobile: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
+                  paid: false,
+                  pay: parseFloat(Pulls.viapay) + parseFloat(Pulls.totalPay),
+                  payer: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
+                  secs: Stamp})}], (A, B, C) => {
+
+                    this.Stack[3].end(JSON.stringify({
+                      md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                      paygate: Arg.paygate}));
+                  });
+                });
+            }
+          }
+
           else {
 
             let Sells = {};
