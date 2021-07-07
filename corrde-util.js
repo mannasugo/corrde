@@ -9875,7 +9875,7 @@ class Puller extends Auxll {
                   public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
                   currency: `KES`,
                   method: `M-PESA`,
-                  amount: parseFloat(Pulls.viapay) + parseFloat(Pulls.totalPay),
+                  amount: (parseFloat(Pulls.viapay) + parseFloat(Pulls.totalPay)).toFixed(2),
                   api_ref: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
                   name: Data.Ppl[1][Arg.md][`full`],
                   phone_number: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
