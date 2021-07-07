@@ -9879,12 +9879,12 @@ class Puller extends Auxll {
                   api_ref: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
                   name: Data.Ppl[1][Arg.md][`full`],
                   phone_number: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
-                  email: Data.Ppl[1][Arg.md][`mail`]}}, (error, JS, Pull) => {
+                  email: Data.Ppl[1][Arg.md][`mail`]}}, (error, JS, Pull) => {console.log(JS)
 
                 new Sql().to([`payrequest`, {json: JSON.stringify({
                   bag: Pulls.trolley,
                   complete: false,
-                  dollars: (parseFloat(Pulls.viapay) + parseFloat(Pulls.totalPay))*109,
+                  dollars: (parseFloat(Pulls.viapay) + parseFloat(Pulls.totalPay))/109,
                   gArray: Pulls.gArray,
                   MD: Arg.md,
                   paygate: Arg.paygate,
