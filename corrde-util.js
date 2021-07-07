@@ -9903,6 +9903,8 @@ class Puller extends Auxll {
 
             let Pays = [];
 
+            Data[`Pay`][0].sort((A, B) => {return B.secs - A.secs});
+
             //if (Vals.state === `md`) {
 
               Data.Pay[0].forEach(P => {
@@ -9920,7 +9922,7 @@ class Puller extends Auxll {
                 if (P.MD && P.MD === Vals.md) {
 
                 let Ps = {
-                  file: P.bag[0][`files`][0],
+                  file: `https://corrde.com/${P.bag[0][`files`][0]}`,
                   file_plus: P.bag.length - 1,
                   log: model.log(P.secs),
                   md: P.MD5,
