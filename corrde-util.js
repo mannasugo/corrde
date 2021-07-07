@@ -9697,14 +9697,6 @@ class Puller extends Auxll {
 
           if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {
 
-            /** @unittest
-            * 
-              this.Stack[1][`trolley`] = [Data.Sell[0][0][`MD5`] + `u0` + 4, Data.Sell[0][2][`MD5`] + `u0` + 6];
-
-              this.Stack[1][`dot`] = [34.7204071, -.5328963];
-            *
-            **/
-
             let Vals = this.Stack[1][`trolley`]; //
 
             let Bag = [];
@@ -9903,6 +9895,44 @@ class Puller extends Auxll {
                   });
                 });
             }
+          }
+
+          else if (this.Stack[1].pull && this.Stack[1].pull === `pays`) {
+
+            let Vals = this.Stack[1];
+
+            let Pays = [];
+
+            //if (Vals.state === `md`) {
+
+              Data.Pay[0].forEach(P => {
+
+                let items = 0;
+
+                P.bag.forEach(MD => items += parseInt(MD.items));
+
+                let State = [`pending`];
+
+                if (P.paid === true && P.complete === false) State = [`shipping`];
+
+                if (P.paid === true && P.complete === true) State = [`delivered`];
+
+                if (P.MD && P.MD === Vals.md) {
+
+                let Ps = {
+                  file: P.bag[0][`files`][0],
+                  file_plus: P.bag.length - 1,
+                  log: model.log(P.secs),
+                  md: P.MD5,
+                  pile: items,
+                  state: State[0],
+                  total: (P.pay).toFixed(2)
+                };Pays.push(Ps);}
+              });
+
+            //}
+
+            this.Stack[3].end(JSON.stringify({pulls: Pays}))
           }
 
           else {
