@@ -9943,7 +9943,7 @@ class Puller extends Auxll {
 
             Data.Sell[0].forEach(MD => {
 
-              MD[`set`] = MD[`set`].replace(new RegExp(`uu/002F0026`, `g`), `u0026`);
+              MD[`set`] = MD[`set`].replace(new RegExp(`uu/002F0026`, `g`), `and`);
 
               (Sells[MD[`set`]])? Sells[MD[`set`]] = Sells[MD[`set`]]: Sells[MD[`set`]] = [];
 
