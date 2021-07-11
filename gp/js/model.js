@@ -248,7 +248,8 @@ let Models = {
 	ModelMailable () {
 
 		let Regions = [
-			`australia`, 
+			`australia`,
+      `canada`, 
 			`ethiopia`, 
 			`germany`,
 			`great britain`,
@@ -331,6 +332,11 @@ let Models = {
 				ModelShelve.push([
             `div`, `.@_gA0 _gW0`, `&@style>width:${100/Column}%;padding:16px`, [[
               `div`, `.@_gY`, [[
+                `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0`, [[
+                  `div`, `.@_eYG`], [
+                  `div`, `.@_QZg`, [[
+                    `span`, `.@_-tX Store`], [
+                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
                   	`img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>javascript:;`], [
@@ -341,7 +347,9 @@ let Models = {
                       	`span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
-                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]]]]]], [
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX Ship`], [
+                      `div`, `.@_eYG _gxM _a2X _tXx`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
       			`div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
@@ -1060,17 +1068,11 @@ let Models = {
 
   ModelNullDot () {
 
-    return [`main`, `.@_tY0`, `&@style>height:100%`, [/*[
-      `div`, `.@_-tY`, [[
-        `div`, `.@_aXz`, [[
-          `div`, `.@_-Xg _gxM _geQ`, [[
-            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`], [
-            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@shopping bag`]]], [
-          `div`, `.@_QZg`, [[]]]]]]],*/ [
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
       `div`, `#@ModelCart`, `.@_geQ`, `&@style>max-width:600px;padding:24px;width:100%;margin:auto;justify-content:center`, [[
         `span`, `.@-_tX GeoGray _sZ2`, `&@style>width:36px;height:36px`], [
-        `p`, `.@_sZ2`, `&@style>text-align:center`, `~@GPS disabled, turn on location to calculate shipping costs.`], [
+        `p`, `.@_sZ2`, `&@style>text-align:center`, `~@Set location to calculate accurate shipping costs.`], [
         `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
-          `a`, `#@gps`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, `~@turn on location`]]]]]]]
+          `a`, `#@gps`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, `~@Update GPS`]]]]]]]
   }
 }

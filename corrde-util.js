@@ -9409,6 +9409,8 @@ class Puller extends Auxll {
 
             let Stack = this.Stack[1];
 
+            if (!config.Fx[Stack.area]) Stack.area = `united states of america`;
+
             let aisle = model.filter(model.filter(this.Stack[1].aisle)).toLowerCase();
 
             let Pulls = [];
