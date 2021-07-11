@@ -108,6 +108,8 @@ class Event {
 			this.getCart();
 		}
 
+		if (new Controller().Old() === `/nogps/`) this.NonNullDot();
+
 		if (new Controller().Old() === `/ships/`) {
 
 			this.getOld();
@@ -223,6 +225,8 @@ class Event {
 	}
 
 	getMailable () {
+
+		if (!document.querySelectorAll(`.mailable`)) return;
 
 		document.querySelectorAll(`.mailable`).forEach(Mailable => {
 
@@ -442,7 +446,7 @@ class Event {
 
 				Control.Cart();
 
-      }, (b) => { UA.set({gArray: [34.753, -.533]})
+      }, (b) => { //UA.set({gArray: [34.753, -.533]})
 
 				Control.Cart();
       });
@@ -894,6 +898,37 @@ class Event {
 			}]);
 		});
 	}
+
+	NonNullDot () {
+
+		if (!document.querySelector(`#gps`)) return;
+
+		this.listen([document.querySelector(`#gps`), `click`, S => {
+
+      let g = (gArray, gBugs) => navigator.geolocation.getCurrentPosition(a => {gArray(a)}, b => {gBugs(b)});
+
+      let gArray = (Geo) => {
+
+        let G = Geo.coords;
+
+        if (typeof G.latitude === `number` && typeof G.longitude === `number`) UA.set({gArray: [G.longitude, G.latitude]});
+      }
+
+			let Control = new Controller();
+
+      g(a => {
+
+        gArray(a);
+
+				Control.Aisle();
+
+      }, (b) => { UA.set({gArray: [34.753, -.533]})
+
+				Control.Aisle();
+      });
+
+		}]);
+	}
 }
 
 class Controller extends Puller {
@@ -974,6 +1009,34 @@ class Controller extends Puller {
 
 	Aisle () {
 
+		if (UA.get().set && UA.get().area && UA.get().gArray && UA.get().gArray.length === 2) {
+
+			let Pull = this.Pull([`/pulls/ua/`, {aisle: UA.get().set, gArray: UA.get().gArray, pull: `aisle`, area: UA.get().area}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				if (Pulls.pulls) {
+
+					let UAlog = UA.get().ualog;
+
+					UAlog.push(`/grocery/${Pulls.aisle}/`);
+
+					UA.set({ualog: UAlog});
+
+					this.SetState([{}, `grocery`, `/grocery/${Pulls.aisle}/`]);
+
+					UA.set({aislePull: Pulls.pulls});
+
+					new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set, document.body.clientWidth])]]);
+
+					new Event().Call();
+
+				}
+			}
+		}
+
 		if (!UA.get().set) {
 
 			let UAlog = UA.get().ualog;
@@ -998,30 +1061,18 @@ class Controller extends Puller {
 			this.Mailable();
 		}
 
-		if (UA.get().set && UA.get().area) {
 
-			let Pull = this.Pull([`/pulls/ua/`, {aisle: UA.get().set, pull: `aisle`, area: UA.get().area}]);
+		if (!UA.get().gArray || UA.get().gArray.length !== 2) {
 
-			Pull.onload = () => {
+			let UAlog = UA.get().ualog;
 
-				let Pulls = JSON.parse(Pull.response);
+			UAlog.push(`/nogps/`);
 
-				if (!Pulls.aisle) return;
+			UA.set({ualog: UAlog});
 
-				let UAlog = UA.get().ualog;
+			new View().DOM([`main`, [Models.ModelNullDot()]]);
 
-				UAlog.push(`/grocery/${Pulls.aisle}/`);
-
-				UA.set({ualog: UAlog});
-
-				this.SetState([{}, `grocery`, `/grocery/${Pulls.aisle}/`]);
-
-				UA.set({aislePull: Pulls.pulls});
-
-				new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set, document.body.clientWidth])]]);
-
-				new Event().Call();
-			}
+			new Event().Call();
 		}
 	}
 

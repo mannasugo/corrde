@@ -216,7 +216,8 @@ let Models = {
 
 		let Aisles = [
 			[`alcohol`, [`Alcohol`]], 
-			[`beauty & personal care`, [``]], 
+			[`beauty & personal care`, [``]],
+      [`clothing`, [``]],
 			[`beverages`, [`Beve`]],
 			[`bread & bakery`, [`Wheat`]], 
       [`eggs & dairy`, [``]],
@@ -510,7 +511,7 @@ let Models = {
       `div`, `&@style>padding: 24px 0`, [[
         `div`, `.@QZg`, [[
           `div`, `.@_gM_a _agM _guZ`, `&@style>max-width: 362px;width:100%;margin:0 auto`, [[
-            `a`, `#@payout`, `.@_TX_a _atX _utQ _gMX _tXx`, `&@href>javascript:;`, `~@Proceed to Checkout`]]]]]]])
+            `a`, `#@payout`, `.@_TX_a _atX _utQ _gMX _tXx`, `&@href>javascript:;`, `~@Proceed to Checkout`]]]]]]]);
 
     ModelCart[1] = [
       `div`, `#@ModelCart`, `.@_geQ`, `&@style>max-width:600px;padding:24px;width:100%;margin:auto;justify-content:center`, [[
@@ -553,16 +554,16 @@ let Models = {
                   `span`, `~@email address`]]], [
                 `div`, `.@_aXZ`, [[
                 `input`, `#@email`, `&@style>fnt-family:gotham-med`]]]]], [
-            `div`, `.@_sZ2`, [[
-              `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
-                `span`, `~@password`]]], [
-              `div`, `.@_aXZ`, [[
-                `input`, `#@key`, `&@type>password`, `&@style>font-family:gotham-med`]]]]], [
-            `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;fnt-size:14px`, [[
-              `a`, `#@signin`, `.@_TX_a _atX _dMG _aWz`, via, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign in`]]]]], [
-            `p`, `.@_yZS`, `~@don\'t have an account?`], [
-            `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;fnt-size:14px`, [[
-              `a`, `#@create`, `.@_TX_a _atX _utQ _dMG _aWz`, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@create account`]]]]]]]]];
+              `div`, `.@_sZ2`, [[
+                `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                  `span`, `~@password`]]], [
+                `div`, `.@_aXZ`, [[
+                  `input`, `#@key`, `&@type>password`, `&@style>font-family:gotham-med`]]]]], [
+              `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;fnt-size:14px`, [[
+                `a`, `#@signin`, `.@_TX_a _atX _dMG _aWz`, via, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign in`]]]]], [
+              `p`, `.@_yZS`, `~@don\'t have an account?`], [
+              `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;fnt-size:14px`, [[
+                `a`, `#@create`, `.@_TX_a _atX _utQ _dMG _aWz`, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@create account`]]]]]]]]];
   },
 
   ModelPaygate () {
@@ -1055,5 +1056,21 @@ let Models = {
               `span`,`&@style>margin: 0 8px;text-transform:uppercase`, `~@shipping & delivery`]]]]], [
           `div`, `.@_QZg`, `&@style>overflow:hidden`, []]]]]], [
       `div`, ModelStores]]];
+  },
+
+  ModelNullDot () {
+
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [/*[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@shopping bag`]]], [
+          `div`, `.@_QZg`, [[]]]]]]],*/ [
+      `div`, `#@ModelCart`, `.@_geQ`, `&@style>max-width:600px;padding:24px;width:100%;margin:auto;justify-content:center`, [[
+        `span`, `.@-_tX GeoGray _sZ2`, `&@style>width:36px;height:36px`], [
+        `p`, `.@_sZ2`, `&@style>text-align:center`, `~@GPS disabled, turn on location to calculate shipping costs.`], [
+        `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
+          `a`, `#@gps`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, `~@turn on location`]]]]]]]
   }
 }

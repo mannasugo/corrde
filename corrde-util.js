@@ -1323,6 +1323,105 @@ class Auxll {
       return miles;
     }
   }
+
+  billShipping (Arg) {
+
+    //this.Sell(Data => {
+
+      let FX = config.Fx[Arg[1]], Via = config.Via, Ports = {};
+
+      let totalPay = 0, totalMass = 0, Trolley = [];
+
+      Arg[0].forEach(MD => {
+              
+        MD = Arg[3].Sell[1][MD[`md`]];
+
+      if (!MD.items) MD[`items`] = 1;
+              
+      totalPay += (MD.dollars*MD.items)*FX[0];
+              
+      totalMass += MD.mass*MD.items;
+              
+      (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
+              
+      if (!MD.port) {
+              
+        MD[`port`] = `corrde port`;
+              
+          MD[`port_gArray`] = [34.753, -.537];
+      }
+              
+      if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
+              
+      Ports[MD.port_gArray].push(MD);
+              
+      (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
+              
+      MD[`miles`] = this.getMiles([MD[`port_gArray`], Arg[2]]);
+
+      Trolley.push(MD);
+
+      });
+
+      let fees = 0;
+
+      let Till = [];
+
+      for (let Port in Ports) {
+
+              let miles = Ports[Port][0][`miles`];
+
+              let Mass = [0, 0];
+
+              let pay = 0;
+
+              Ports[Port].forEach(P => {
+
+                (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items);
+
+                pay += FX[0]*P.dollars*P.items
+              });
+
+              let Axes = [[0, 0], [0, 0]];
+
+              Via.axis[0].forEach(Axis => {
+
+                let succ = Via.axis[0][Via.axis[0].length - 1]*1000;
+
+                if (Via.axis[0][Via.axis[0].indexOf(Axis) + 1] !== undefined) succ = Via.axis[0][Via.axis[0].indexOf(Axis) + 1];
+
+                if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = Via.axis[0].indexOf(Axis);
+
+                if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = Via.axis[0].indexOf(Axis);
+              });
+
+              Via.axis[1].forEach(Axis => {
+
+                let succ = Via.axis[1][Via.axis[1].length - 1]*1000;
+
+                  if (Via.axis[1][Via.axis[1].indexOf(Axis) + 1] !== undefined) succ = Via.axis[1][Via.axis[1].indexOf(Axis) + 1];
+
+                  if (miles > Axis && miles < succ) {
+
+                    Axes[0][1] = Via.axis[1].indexOf(Axis); 
+
+                    Axes[1][1] = Via.axis[1].indexOf(Axis);
+                  }
+              });
+
+              fees += parseFloat(FX[0]*(Via.light[Axes[0][1]][Axes[0][0]] + Via.freight[Axes[1][1]][Axes[1][0]])/FX[4]).toFixed(2);
+
+              fees = parseFloat(fees);
+      }
+
+      return {
+        mass: totalMass,
+        totalPay:(totalPay).toFixed(2),
+        trolley: Trolley,
+        viapay: fees};
+    //});
+  }
+
 }
 
 class Sql extends Auxll {
@@ -9308,11 +9407,21 @@ class Puller extends Auxll {
 
           if (this.Stack[1].pull === `aisle`) {
 
+            let Stack = this.Stack[1];
+
             let aisle = model.filter(model.filter(this.Stack[1].aisle)).toLowerCase();
 
             let Pulls = [];
 
-            Data.Sell[0].forEach(Sell => { 
+            Data.Sell[0].forEach(Sell => {
+
+              Sell[`md`] = Sell.MD5;
+
+              Sell[`miles`] = this.billShipping([[Sell], Stack.area, Stack.gArray, Data])[`trolley`][0][`miles`];
+
+              Sell[`mailing`] = this.billShipping([[Sell], Stack.area, Stack.gArray, Data])[`viapay`];
+
+              Sell[`items`] = 0;
 
               if (aisle === `fruits & vegetables` || aisle === `fast food & eatery`) {
 
@@ -9850,7 +9959,7 @@ class Puller extends Auxll {
 
           }
 
-          else if (this.Stack[1].pull && this.Stack[1].pull === `paygate`) {console.log(this.Stack[1]);
+          else if (this.Stack[1].pull && this.Stack[1].pull === `paygate`) {
 
             if (this.Stack[1].paygate === `intasend`) {
 
