@@ -335,7 +335,7 @@ let Models = {
                 `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0`, [[
                   `div`, `.@_eYG`], [
                   `div`, `.@_QZg`, [[
-                    `span`, `.@_-tX Store`], [
+                    `span`, `.@_-tX Store`, `&@style>width:19px;height:19px`], [
                     `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
@@ -349,7 +349,7 @@ let Models = {
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX Ship`], [
-                      `div`, `.@_eYG _gxM _a2X _tXx`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
+                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
       			`div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
@@ -1074,5 +1074,55 @@ let Models = {
         `p`, `.@_sZ2`, `&@style>text-align:center`, `~@Set location to calculate accurate shipping costs.`], [
         `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
           `a`, `#@gps`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, `~@Update GPS`]]]]]]]
-  }
+  },
+
+  ModelPAAS () {
+
+    let Mugger = [
+      [
+        `Store`, 
+        `build web store`, 
+        `integrate your restuarant or store services with our online platform and upload your meals menu and stock inventory while operating for free.`,
+        `sign up your store`,
+        `Via`]];
+
+    let ModelMugger = [];
+
+    Mugger.forEach(Opt => {
+
+      ModelMugger.push([
+        `div`, `.@_gZ`, [[
+          `div`, `.@_gxM`, `&@style>padding:12px 16px`, [[
+            `div`, `.@_gxM _aXZ`, [[`div`, [[
+              `span`, `.@${Opt[0]} _-tX`]]], [
+              `div`, `.@_eYG`, [[
+                `div`, [[`span`, `.@_tXx`, `~@${Opt[1]}`]]], [
+                `div`, `.@_yZS`, [[`span`, `~@${Opt[2]}`]]], [
+                `div`, `.@_geQ _gxM`, [[
+                  `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@${Opt[3]}`]]], [
+                  `div`, `.@_eYG`, [[`span`, `.@${Opt[4]} _-tX`]]], [`a`, `.@_aWz -_tX PAASModeller`, `&@href>javascript:;`, `&@style>position:absolute`, `~@${Opt[3]}`]]]]]]]]]]])
+    })
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, ModelMugger]]]]];
+  },
+
+  ModelPWSModeller () {
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, `ModelMugger`]]]]];}
 }

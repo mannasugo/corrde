@@ -1,11 +1,11 @@
 <svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <style>
 
-    path {
+    path, circle {
       fill: none;
-      stroke-width: 1;
-      stroke: #19e819
+      stroke: #eedf00
     }
   </style>
-  <path d="M2 6 22 6 22 18 2 18z M4 8 12 12 20 8"></path>
+    <circle r="11" cx="12" cy="12"></circle>
+    <path d="M8 12 10 16 16 8"></path>
   </svg>

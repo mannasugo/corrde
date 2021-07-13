@@ -674,7 +674,7 @@ body {
 .FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .Max, .Meals, .Min, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
-.StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .Veges, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
+.StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .Veges, .Via, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -998,6 +998,8 @@ body {
 }
 
 .Wheat {background-image: url(/gp/p/vector/wheat.svg);}
+
+.Via {background-image: url(/gp/p/vector/via.svg);}
 
 ._tCx {
   color: #000;

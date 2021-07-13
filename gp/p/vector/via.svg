@@ -4,8 +4,8 @@
     path {
       fill: none;
       stroke-width: 1;
-      stroke: #19e819
+      stroke: #e00
     }
   </style>
-  <path d="M2 6 22 6 22 18 2 18z M4 8 12 12 20 8"></path>
+  <path d="M2 12 22 12 M14 6 22 12 14 18"></path>
   </svg>

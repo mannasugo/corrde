@@ -110,6 +110,17 @@ class Event {
 
 		if (new Controller().Old() === `/nogps/`) this.NonNullDot();
 
+		if (new Controller().Old() === `/paas/`) {
+
+			this.getApp();
+
+			this.initPAASModeller();
+
+			this.Signup();
+
+			this.Signin();
+		}
+
 		if (new Controller().Old() === `/ships/`) {
 
 			this.getOld();
@@ -929,6 +940,25 @@ class Event {
 
 		}]);
 	}
+
+	initPAASModeller () {
+
+		if (!document.querySelector(`.PAASModeller`)) return;
+
+		document.querySelectorAll(`.PAASModeller`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Control = new Controller();
+
+				let Via = this.getSource(S);
+
+				if (Via.innerHTML === `sign up your store` && UA.get().u) Control.PAASModeller([`pws`]);
+
+				else Control.Signin([true, `/paas/`]);
+			}]);
+		});
+	}
 }
 
 class Controller extends Puller {
@@ -1242,7 +1272,19 @@ class Controller extends Puller {
 
 	PaaS () {
 
-		new View().DOM([`main`, [Models.ModelSplash()]]);
+		new View().DOM([`main`, [Models.ModelPAAS()]]);
+
+		new Event().Call();
+
+	}
+
+	PAASModeller (Arg) {
+
+		let Model = Models.ModelSplash();
+
+		if (Arg[0] === `pws`) Model = Models.ModelPWSModeller();
+
+		new View().DOM([`main`, [Model]]);
 
 		new Event().Call();
 
