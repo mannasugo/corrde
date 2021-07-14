@@ -130,6 +130,13 @@ class Event {
 			this.getAisle();
 		}
 
+		if (new Controller().Old() === `/stores/`) {
+
+			this.getApp();
+
+			this.Maller();
+		}
+
 		if (new Controller().Old().split(`/`)[1] === `tracking`) {
 
 			this.getOld();
@@ -148,6 +155,15 @@ class Event {
 			this.getPay()
 
 			this.initVia();
+		}
+
+		if (new Controller().Old() === `/ws/paid/`) {
+
+			this.getPay();
+
+			this.getWSMugger();
+
+			this.getPaid();
 		}
 	}
 
@@ -1014,6 +1030,73 @@ class Event {
 
 		}]);
 	}
+
+	Maller () {
+
+		if (!document.querySelector(`.maller`)) return;
+
+		document.querySelectorAll(`.maller`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Via = this.getSource(S);
+
+				let Control = new Controller();
+
+				let Pull = Control.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `ws-till`, ws_md : Via.id}]);
+
+				Pull.onload = () => {
+
+					let Pulls = JSON.parse(Pull.response);
+
+					if (!Pulls.pulls) return;
+
+					let UAlog = UA.get().ualog;
+
+					UAlog.push(`/ws/paid/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `ws`, `/ws/paid/`]);
+
+					UA.set({ws: {alt: Pulls.alt, md: Via.id, till: Pulls.pulls}});
+
+					Control.Call();
+				}
+			}]);
+		});
+	}
+
+	getWSMugger () {
+
+		if (!document.querySelector(`#mug`)) return;
+
+		this.listen([document.querySelector(`#mug`), `click`, S => {
+
+			new Controller().WSMugger();
+
+		}]);
+	}
+
+	getPaid () {
+
+		if (!document.querySelector(`#app`)) return;
+
+		this.listen([document.querySelector(`#app`), `click`, e => {
+
+			let UAlog = UA.get().ualog;
+
+			UAlog.push(`/ws/paid/`); 
+
+			UA.set({ualog: UAlog});
+
+			let Control = new Controller();
+
+			Control.SetState([{}, `.`, `/ws/paid/`]);
+
+			Control.Call();
+		}]);
+	}
 }
 
 class Controller extends Puller {
@@ -1059,9 +1142,13 @@ class Controller extends Puller {
 
 		if (this.Old() === `/ships/`) this.Mailable();
 
+		if (this.Old() === `/stores/`) this.Maller();
+
 		if (this.Old().split(`/`)[1] === `tracking`) this.Pay();
 
 		if (this.Old().split(`/`)[1] === `via`) this.Via();
+
+		if (this.Old() === `/ws/paid/`) this.WSPay();
 	}
 
 	Root () {
@@ -1342,6 +1429,52 @@ class Controller extends Puller {
 		new View().DOM([`main`, [Model]]);
 
 		new Event().Call();
+
+	}
+
+	Maller () {
+
+		new View().DOM([`main`, [Models.ModelMaller()]]);
+
+		new Event().Call();
+
+	}
+
+	WSPay () {
+
+		let UAlog = UA.get().ualog;
+
+		if (!UA.get().ws) {
+
+			UAlog.push(`.`);
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `root`, `/`]);
+
+			this.Call();
+		} 
+
+		else {
+
+			let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `ws-till`, ws_md: UA.get().ws.md}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				new View().DOM([`main`, [Models.ModelWS([`store orders`, Models.ModelWSPay()])]]);
+
+				new Event().Call();
+			}
+		}
+	}
+
+	WSMugger () {
+
+		new View().DOM([`main`, [Models.ModelWSMugger()]]);
+
+		new Event().Call()
 
 	}
 }

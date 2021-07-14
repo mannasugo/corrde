@@ -1821,6 +1821,8 @@ class UAPublic extends Auxll {
     }
 
     else if (this.levelState[1] === `via`) this.App();
+
+    else if (this.levelState[1] === `ws`) this.App();
   }
 
   rootCall () {
@@ -9834,6 +9836,22 @@ class Puller extends Auxll {
                 }
               })
             }
+          }
+
+          else if (this.Stack[1].pull === `ws-till`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.mall[1][Pulls.ws_md]) return;
+
+            let Till = [];
+
+            Data.till[0].forEach(MD => {
+
+              if (MD.pws_md === Pulls.ws_md) Till.push(MD);
+            });
+
+            this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.ws_md].alt, pulls: Till}));
           }
 
           //https://sandbox.intasend.com/api/v1/payment/status/

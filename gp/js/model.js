@@ -200,7 +200,7 @@ let Models = {
       				`div`, `.@_aXZ`, [[
       					`div`, [[`span`, `#@alpha`, `.@_sZ2`, `&@style>font-size:12.5px;text-transform:uppercase`, `~@${Arg[0].alpha}`]]], [
       					`div`, `.@_gxM _sZ2`, [[
-      						`span`, `#@pay`, `.@_tXx`, `&@style>font-family:DIN-reg;text-transform:uppercase`, `~@$${parseFloat(Arg[0].dollars).toFixed(2)} usd/k£.${parseFloat((Arg[0].dollars)*109).toFixed(2)} kes`]]], [
+      						`span`, `#@pay`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@$${parseFloat(Arg[0].dollars).toFixed(2)} usd/k£.${parseFloat((Arg[0].dollars)*109).toFixed(2)} kes`]]], [
       					`div`, `.@_-Zz`, [[
       					  `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
       					    `a`, `#@`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, [[
@@ -1136,5 +1136,139 @@ let Models = {
                 `input`, `#@pws`, `&@style>fnt-family:gotham-med`]]]]], [
               `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;fnt-size:14px`, [[
                 `a`, `#@init-pws`, `.@_TX_a _atX _dMG _aWz`, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign up`]]]]]]]]]]];
+  },
+
+  ModelMaller () {
+
+    let Maller = [];
+
+    if (Maller && UA.get().u && UA.get().u.malls.length > 0) Maller = UA.get().u.malls;
+
+    let ModelMaller = [];
+
+    Maller.forEach(Mall => {
+
+      ModelMaller.push([
+        `div`, `.@_gZ`, [[
+          `a`, `#@${Mall.md}`, `.@_gcQ _aXZ _tXx _aA2 maller`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${Mall.alt}`]]])
+    })
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, ModelMaller]]]]];
+  },
+
+  ModelWS (Arg) {
+
+    let ModelMug = [`a`, `#@mug`, `.@-_tX Mug`, `&@style>margin: 0 15px`, `&@href>javascript:;`];
+
+    if (UA.get().ws) {
+
+      ModelMug = [
+      `span`,  `&@style>margin: 0 15px;position:relative;height:24px`, [[
+        `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+            `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().ws.alt[0]}`]]], [
+        `a`, `#@mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+    }
+
+    let Opts = [[`Bag`, `orders`]];
+
+    let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
+
+    Opts.forEach(Opt => {
+
+      ModelOpts.push([
+        `div`, `.@_gMX _geQ _s0`, [[`a`, `.@-_tX ${Opt[0]} pws`, `&@href>javascript:;`, `~@${Opt[1]}`]]])
+    });
+
+    return [
+      `article`, `#@ModelStallControls`, `.@_AvZ`, [[
+        `div`, `.@_tY0 _AvZ`, [[
+          `main`, `.@_gZy _AvZ`, [[
+            `nav`, `.@_gy0`, [[
+              `div`, `.@_gy`, [[
+                `div`, `.@_gq`, ModelOpts]]]]], [
+            `section`, `.@_gy2 _AvZ`, `&@style>width:100%`, [[
+              `div`, `.@_AvZ`, [Arg[1]]], [
+              `nav`, `.@_uHC`, `&@style>background:none`, [[
+                `div`, `.@_xCt`], [
+                `div`, [[
+                  `div`, `.@_-tY`, `&@style>left:0`, [[
+                    `div`, `.@_aXz`, [[
+                      `div`, `.@_-Xg _gxM _geQ`, [[
+                        `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
+                        `span`, `@_aA6`, `&@style>padding: 0 7px;text-transform:uppercase`, `~@ | ${Arg[0]}`]]], [
+                      `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
+  },
+
+  ModelWSPay () {
+
+    let State = `all`;
+
+    if (UA.get().pws_pays) State = UA.get().pws_pays;
+
+    let ModelPays = [[], []];
+
+    ModelPays[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center`, [[
+        `span`, `.@-_tX Bag`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 orders`]]]
+
+    let ModelPullArgs = [];
+
+    let PullArgs = [`all`, `new`, `preparing`, `ready`, `delivered`];
+
+    PullArgs.forEach(S => {
+
+      let style = ``;
+
+      if (S === State) style = `text-decoration:line-through`; 
+
+      ModelPullArgs.push([
+        `a`, `#@pullArg`, `.@_aA2 _tXx`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;border:2px solid #000;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    let Pay = [];
+    
+    return [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:45px`, [[
+          `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
+          `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+            `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]];
+  },
+
+  ModelWSMugger () {
+
+    if (!UA.get().ws) return;
+
+    let Mugger = [`settings`];
+
+    let ModelMugger = [];
+
+    Mugger.forEach(a => {
+
+      ModelMugger.push([
+        `div`, `.@_gZ`, [[
+          `a`, `#@${a}`, `.@_gcQ _aXZ _tXx _aA2 mugger`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${a}`]]])
+    })
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, ModelMugger]]]]];
   }
 }
