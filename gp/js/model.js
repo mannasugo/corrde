@@ -201,7 +201,7 @@ let Models = {
       					`div`, [[`span`, `#@alpha`, `.@_sZ2`, `&@style>font-size:12.5px;text-transform:uppercase`, `~@${Arg[0].alpha}`]]], [
       					`div`, `.@_gxM _sZ2`, [[
       						`span`, `#@pay`, `.@_tXx`, `&@style>font-family:DIN-reg;text-transform:uppercase`, `~@$${parseFloat(Arg[0].dollars).toFixed(2)} usd/k£.${parseFloat((Arg[0].dollars)*109).toFixed(2)} kes`]]], [
-      					`div`, `.@`, [[
+      					`div`, `.@_-Zz`, [[
       					  `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
       					    `a`, `#@`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, [[
       					    	`span`, `#@set`, `.@mailable`, `&@md>${Arg[0].MD5}`, `&@style>padding:0 6px;font-size:12px`, `~@${this.Alias(Arg[0].set)}`], [
@@ -230,7 +230,7 @@ let Models = {
 
 			ModelAisles.push([`div`, `.@_gZ`, [[
 				`div`, `.@_gxM _geQ`, `&@style>text-transform:capitalize;padding:12px 24px`, [[
-					`span`, `.@-_tX ${Aisle[1][0]}`], [`div`, `.@_eYG`, [[`span`, `&@style>font-size:12px`, `~@${Aisle[0]}`]]]]], [
+					`span`, `.@_-Zz -_tX ${Aisle[1][0]}`], [`div`, `.@eYG`, [[`span`, `&@style>font-size:12.5px`, `~@${Aisle[0]}`]]]]], [
 				`a`, `.@_aWz mailable`, `&@style>position:absolute`, `&@href>javascript:;`, `&@for>${Aisle[0]}`]]])
 		})
 		
@@ -248,21 +248,21 @@ let Models = {
 	ModelMailable () {
 
 		let Regions = [
-			`australia`,
+			/*`australia`,
       `canada`, 
 			`ethiopia`, 
 			`germany`,
 			`great britain`,
 			`ireland`,
-			`japan`, 
-			`kenya`, 
-			`new zealand`, 
+			`japan`,*/ 
+			`kenya`/*, 
+      `new zealand`, 
 			`norway`, 
 			`morocco`,
 			`seychelles`, 
 			`south africa`, 
 			`sweden`, 
-			`united states of america`];
+			`united states of america`*/];
 
 		let ModelRegions = [];
 
@@ -368,7 +368,7 @@ let Models = {
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
           `div`, `.@_QZg`, [[
-            `a`, `#@`, `.@-_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
+            `a`, `#@`, `.@_-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
       	`div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
@@ -780,6 +780,8 @@ let Models = {
 
     if (UA.get().u) Mugger = [`my orders`, `corrde for business`];
 
+    (Mugger && UA.get().u && UA.get().u.malls.length > 0)? Mugger.push(`my stores`): Mugger;
+
     (Mugger && UA.get().u && UA.get().u.lock !== false)? Mugger.push(`manage store`): Mugger;
 
     let ModelMugger = [];
@@ -1123,6 +1125,16 @@ let Models = {
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
           `div`, `.@_QZg`, [[]]]]]]], [
-        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
-          `div`, `.@_aXZ`, `ModelMugger`]]]]];}
+        `main`, `#@ModelSignin`, `.@_tY0`, `&@style>height:100%;padding:24px;margin-top:65px`, [[
+          `div`, `.@_geQ`, `&@style>max-width:362px;width:100%;margin:auto;justify-content:center;fnt-family:gotham-med`, [[
+            `h2`, `~@Create Store`], [
+            `div`, `.@_aXZ`, `&@style>margin:16px 0 40px`, [[
+              `div`, `.@_sZ2`, [[
+                `label`, `&@style>margin:0 20px 8px;color:#5c5e62;fnt-size:14px;line-height:1.414;font-weight:500;text-transform:capitalize`, [[
+                  `span`, `~@store name`]]], [
+                `div`, `.@_aXZ`, [[
+                `input`, `#@pws`, `&@style>fnt-family:gotham-med`]]]]], [
+              `div`, `.@_gM_a _agM _guZ`, `&@style>width:100%;block-size:40px;background:#1185fe;fnt-size:14px`, [[
+                `a`, `#@init-pws`, `.@_TX_a _atX _dMG _aWz`, `&@style>font-weight:normal;fnt-size:14px`, `&@href>javascript:;`, `~@sign up`]]]]]]]]]]];
+  }
 }

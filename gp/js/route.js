@@ -119,6 +119,8 @@ class Event {
 			this.Signup();
 
 			this.Signin();
+
+			this.PWSSignup();
 		}
 
 		if (new Controller().Old() === `/ships/`) {
@@ -736,6 +738,17 @@ class Event {
 
 					Control.Call();
 				}
+
+				else if (Via === `my stores`) {
+
+					UAlog.push(`/stores/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `paas`, `/stores/`]);
+
+					Control.Call();
+				}
 			}]);
 		});
 	}
@@ -958,6 +971,48 @@ class Event {
 				else Control.Signin([true, `/paas/`]);
 			}]);
 		});
+	}
+
+	PWSSignup () {
+
+		if (!document.querySelector(`#init-pws`)) return;
+
+		let Control = new Controller();
+
+		this.listen([document.querySelector(`#init-pws`), `click`, S => {
+
+			let Vals = [
+				(!Models.Slim(document.querySelector(`#pws`).value))? false: Models.Alias(Models.Slim(document.querySelector(`#pws`).value))
+			];
+
+			if (Vals[0] === false) return;
+
+			Control.PAASModeller([`/pws/`]);
+
+			let Pull = Control.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `init-pws`, vals : Vals}]);
+
+			Vals = [];
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				if (!Pulls.ws_md) return;
+
+				let UAlog = UA.get().ualog;
+
+				UAlog.push(`/ws/`);
+
+				UA.set({ualog: UAlog});
+
+				Control.SetState([{}, `ws`, `/dashboard/${Pulls.ws_md}/`]);
+
+				UA.set({ws: Pulls.pulls});
+
+				Control.Call();
+			}
+
+		}]);
 	}
 }
 

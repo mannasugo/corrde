@@ -1196,7 +1196,10 @@ class Auxll {
       ;select * from listings
       ;select * from u
       ;select * from trades
-      ;select * from till`, (A, B, C) => {
+      ;select * from till
+      ;select * from ws`, (A, B, C) => {
+
+        let Mall = [], Malls = {};
 
         let Pay = [];
 
@@ -1289,7 +1292,17 @@ class Auxll {
           Tills[Row.md] = Row;
         }
 
+        for (let row in B[7]) {
+
+          let Row = JSON.parse(B[7][row].json);
+
+          Mall.push(Row);
+
+          Malls[Row.md] = Row;
+        }
+
         Aft({
+          mall: [Mall, Malls],
           Pay: [Pay, PaySet],
           Pledge: [Pledge, PledgeSet],
           Ppl: [Ppl, PplSet],
@@ -1465,7 +1478,8 @@ class Sql extends Auxll {
         ;${config.sql.u}
         ;${config.sql.u_md5_logs}
         ;${config.sql.u_md5_mail}
-        ;${config.sql.vServices}`);
+        ;${config.sql.vServices}
+        ;${config.sql.ws}`);
       this.multiSql.end();
     });
     this.iniSql.end();
@@ -1545,6 +1559,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `paygate`) this.App();
 
     if (this.levelState === `pws`) this.App();
+
+    else if (this.levelState === `stores`) this.App();
 
     /**
     Adhere to Alphabetic Order
@@ -9498,10 +9514,18 @@ class Puller extends Auxll {
 
             if (!Ppl.mail) return;
 
+            let Mall = [];
+
+            Data.mall[0].forEach(M => {console.log(M);
+
+              if (M.umd === Ppl.sum) Mall.push({alt: M.alt, md: M.md});
+            })
+
             this.Stack[3].end(JSON.stringify({md: Ppl.sum, pulls: {
               alt: Ppl.full,
               email: Ppl.mail,
               lock: (Ppl.mail === `mannasugo@gmail.com`)? Ppl.pass: false,
+              malls: Mall,
               md: Ppl.sum
             }}))
           }
@@ -9694,6 +9718,30 @@ class Puller extends Auxll {
                 alt: Vals[2],
                 email: Vals[0],
                 md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)
+              }}));
+            });
+
+          }
+
+          else if (this.Stack[1].pull === `init-pws`) {
+
+            if (!Data.Ppl[1][this.Stack[1].md]) return;
+
+            let Vals = this.Stack[1].vals;
+
+            let Stamp = new Date().valueOf();
+          
+            new Sql().to([`ws`, {
+              json: JSON.stringify({
+                alt: `${Vals[0]}`,
+                log: Stamp,
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                secs: Stamp,
+                umd: this.Stack[1].md})}], (A, B, C) => {
+
+              this.Stack[3].end(JSON.stringify({ws_md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`), pulls: {
+                alt: Vals[0],
+                ws_md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)
               }}));
             });
 
