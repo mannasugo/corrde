@@ -9854,6 +9854,44 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.ws_md].alt, pulls: Till}));
           }
 
+          else if (this.Stack[1].pull === `ws`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.mall[1][Pulls.ws_md]) return;
+
+            this.Stack[3].end(JSON.stringify({pulls: Data.mall[1][Pulls.ws_md]}));
+          }
+
+          else if (this.Stack[1].pull === `alter-mall`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.mall[1][Pulls.mall_md]) return;
+
+            let old = JSON.stringify(Data.mall[1][Pulls.mall_md]);
+
+            let Old = JSON.parse(old);
+
+            let Till = [];
+
+            Data.till[0].forEach(MD => {
+
+              if (MD.mall_md === Pulls.mall_md) Till.push(MD);
+            });
+
+            for (let Alter in Pulls.pulls) {
+
+              Old[Alter] = Pulls.pulls[Alter];
+            }
+
+            new Sql().multi({},  
+              `update ws set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.mall[1][Pulls.mall_md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Till}));
+              });
+          }
+
           //https://sandbox.intasend.com/api/v1/payment/status/
 
           else {
