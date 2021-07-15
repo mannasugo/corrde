@@ -159,11 +159,20 @@ class Event {
 
 		if (new Controller().Old() === `/ws/paid/`) {
 
-			this.getPay();
-
 			this.getWSMugger();
 
 			this.getPaid();
+
+			this.Mugger();
+		}
+
+		if (new Controller().Old() === `/ws/settings/`) {
+
+			this.getPaid();
+
+			this.foldWSAlter();
+
+			this.WSOptAlter();
 		}
 	}
 
@@ -765,6 +774,28 @@ class Event {
 
 					Control.Call();
 				}
+
+				else if (Via === `settings`) {
+
+					UAlog.push(`/ws/settings/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `paas`, `/ws/settings`]);
+
+					Control.Call();
+				}
+
+				else if (Via === `corrde store`) {
+
+					UAlog.push(`.`); 
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `.`, `/`]);
+
+					Control.Root();
+				}
 			}]);
 		});
 	}
@@ -1017,11 +1048,11 @@ class Event {
 
 				let UAlog = UA.get().ualog;
 
-				UAlog.push(`/ws/`);
+				UAlog.push(`/ws/settings`);
 
 				UA.set({ualog: UAlog});
 
-				Control.SetState([{}, `ws`, `/dashboard/${Pulls.ws_md}/`]);
+				Control.SetState([{}, `ws`, `/ws/settings/`]);
 
 				UA.set({ws: Pulls.pulls});
 
@@ -1097,6 +1128,138 @@ class Event {
 			Control.Call();
 		}]);
 	}
+
+	foldWSAlter () {
+
+		if (!document.querySelector(`.foldOpt`)) return;
+
+		document.querySelectorAll(`.foldOpt`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Control = new Controller();
+
+				let Via = this.getSource(S);
+
+				let Opts = Via.parentNode.parentNode.nextElementSibling;
+
+				if (Via.className === `Max000 foldOpt`) {
+
+					Via.className = `Min000 foldOpt`;
+
+					Opts.className = ``;
+				}
+
+				else {
+
+					Via.className = `Max000 foldOpt`;
+
+					Opts.className = `_-Zz`;
+				}
+			}]);
+		});
+	}
+
+	WSOptAlter () {
+
+		if (document.querySelector(`.OptArea`)) {
+
+			document.querySelectorAll(`.OptArea`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					document.querySelectorAll(`.OptArea`).forEach(S2 => {
+
+						S2.style.textDecoration = `none`
+
+						S2.style.fontWeight = `normal`;
+					});
+
+					Via.style.textDecoration = `line-through`;
+
+					Via.style.fontWeight = `600`;
+
+					let Alter = UA.get().ws;
+
+					(!Alter[`alter`])? Alter[`alter`] = {}: Alter;
+
+					Alter[`alter`][`locale`] = Models.Filter(Via.innerHTML);
+
+					UA.set({ws: Alter});
+				}]);
+			});
+		}
+
+		if (document.querySelector(`.OptRetail`)) {
+
+			document.querySelectorAll(`.OptRetail`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					document.querySelectorAll(`.OptRetail`).forEach(S2 => {
+
+						S2.style.textDecoration = `none`
+
+						S2.style.fontWeight = `normal`;
+					});
+
+					Via.style.textDecoration = `line-through`;
+
+					Via.style.fontWeight = `600`;
+
+					let Alter = UA.get().ws;
+
+					(!Alter[`alter`])? Alter[`alter`] = {}: Alter;
+
+					Alter[`alter`][`retail`] = Models.Filter(Via.id);
+
+					//avoid filtering rendered html text
+
+					UA.set({ws: Alter});
+				}]);
+			});
+		}
+
+		if (document.querySelector(`.WSAlter`)) {
+
+			this.listen([document.querySelector(`.WSAlter`), `click`, S => {
+
+				if (UA.get().ws && UA.get().ws.alter) {
+
+					let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {mall_md : UA.get().ws.md, md: UA.get().u.md, pull: `alter-mall`, pulls: UA.get().ws.alter}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						let UAlog = UA.get().ualog;
+
+						UAlog.push(`/ws/paid/`);
+
+						UA.set({ualog: UAlog});
+
+						Control.SetState([{}, `ws`, `/ws/paid/`]);
+
+						UA.set({ws: {alt: Pulls.alt, md: Pulls.md, till: Pulls.pulls}});
+
+						Control.Call();
+					}
+				}
+			}]);
+		}
+	}
 }
 
 class Controller extends Puller {
@@ -1149,6 +1312,8 @@ class Controller extends Puller {
 		if (this.Old().split(`/`)[1] === `via`) this.Via();
 
 		if (this.Old() === `/ws/paid/`) this.WSPay();
+
+		if (this.Old() === `/ws/settings/`) this.WSAlter();
 	}
 
 	Root () {
@@ -1476,5 +1641,37 @@ class Controller extends Puller {
 
 		new Event().Call()
 
+	}
+
+	WSAlter () {
+
+		let UAlog = UA.get().ualog;
+
+		if (!UA.get().ws) {
+
+			UAlog.push(`.`);
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `root`, `/`]);
+
+			this.Call();
+		} 
+
+		else {
+
+			let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `ws`, ws_md: UA.get().ws.md}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				UA.set({ws: Pulls.pulls});
+
+				new View().DOM([`main`, [Models.ModelWSAlter()]]);
+
+				new Event().Call();
+			}
+		}
 	}
 }

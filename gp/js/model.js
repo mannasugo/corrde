@@ -79,6 +79,46 @@ let Models = {
 
 	Alias: (Arg) => new View().Alias(Arg),
 
+  Filter: txt => {
+
+    txt = txt.replace(new RegExp(`\f`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\n`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\t`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`\r`, `g`), ` `);
+
+    txt = txt.replace(new RegExp(`/`, `g`), `u002F`);
+
+    txt = txt.replace(new RegExp(`"`, `g`), `u0022`);
+
+    txt = txt.replace(new RegExp(`&`, `g`), `u0026`);
+
+    txt = txt.replace(new RegExp(`'`, `g`), `u0027`);
+
+    return txt
+  },
+
+  Unfilter: String => {
+
+    String = String.replace(new RegExp(`u0026`, `g`), `&`);
+
+    String = String.replace(new RegExp(`u0027`, `g`), `'`);
+
+    String = String.replace(new RegExp(`u0022`, `g`), `"`);
+
+    String = String.replace(new RegExp(`u002F`, `g`), `/`);
+
+    return String;
+  },
+
+  Retail: [
+      `alcohol`, `baby`, `beverages`, `beauty & personal care`, `bread & bakery`, `christmas shop`, `clothing`, `cold & flu`, 
+      `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `fruits & vegetables`, `garden & tools`, `gift shop`, `health & nutrition`, 
+      `home, kitchen & dine`, `household essentials`, `meat & seafood`, `office & electronics`, `organic shop`, 
+      `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`],
+
   Shipping: {
 
     axis: [ //greater than
@@ -108,7 +148,15 @@ let Models = {
       [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
       [`intasend`, [`m-pesa`, `recommended`]], 
         //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
-    ]],
+    ], [
+      `eldoret`, 
+      `homa bay`, 
+      `kakamega`, 
+      `kisii`, 
+      `kisumu`, 
+      `limuru`, 
+      `machakos`, 
+      `maseno`, `mombasa`, `nairobi`, `oyugis`, `thika`]],
     [`united states of america`]: [1, `$`, `usd`, 120, 1]
   },
     
@@ -1242,15 +1290,15 @@ let Models = {
           `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
             `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
               `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
-          `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
-            `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]];
+        `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+          `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]];
   },
 
   ModelWSMugger () {
 
     if (!UA.get().ws) return;
 
-    let Mugger = [`settings`];
+    let Mugger = [`settings`, `corrde store`];
 
     let ModelMugger = [];
 
@@ -1270,5 +1318,71 @@ let Models = {
           `div`, `.@_QZg`, [[]]]]]]], [
         `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
           `div`, `.@_aXZ`, ModelMugger]]]]];
+  },
+
+  ModelWSAlter () {
+
+    if (!UA.get().ws) return;
+
+    let Mall = UA.get().ws;
+
+    let ModelOptArea = [];
+
+    let OptArea = this.Fx[`kenya`][6];
+
+    let ModelOptRetail = [];
+
+    OptArea.forEach(S => {
+
+      let style = ``;
+
+      if (Mall.locale && S === Mall.locale) style = `font-weight:600;text-decoration:line-through`; 
+
+      ModelOptArea.push([
+        `a`, `.@_aA2 tXx OptArea`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    this.Retail.forEach(S => {
+
+      let style = ``;
+
+      if (Mall.retail && Models.Filter(S) === Mall.retail) style = `font-weight:600;text-decoration:line-through`;
+
+      ModelOptRetail.push([
+        `a`, `#@${S}`, `.@_aA2 tXx OptRetail`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%; font-size:13px`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ _sZ2`, `&@style>width:100%;`, [[
+            `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+              `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+              `span`, `.@_tXx`, `~@1. Select Region of Operation`], [
+              `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;padding-top:45px`, [[
+              `div`, `.@_g0 _eYG`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@_gZy`, ModelOptArea]]]]]]]]], [
+            `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+              `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+              `span`, `.@_tXx`, `~@2. Select Product Category`], [
+              `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;padding-top:45px`, [[
+              `div`, `.@_g0 _eYG`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@_gZy`, ModelOptRetail]]]]]]]]]]], [
+                `div`, `.@_gcQ _gxM`, `&@style>width:100%`, [[
+                  `div`, `.@_eYG`], [
+                  `div`, `.@_QZg _gxM`, [[
+                    `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@save changes`]]], [
+                    `div`, `.@eYG`, [[`span`, `.@Via _-tX`, `&@style>margin:0 0 0 8px`]]], [
+                    `a`, `.@_aWz -_tX WSAlter`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
   }
 }
