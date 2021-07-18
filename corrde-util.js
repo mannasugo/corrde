@@ -9743,7 +9743,7 @@ class Puller extends Auxll {
 
               this.Stack[3].end(JSON.stringify({ws_md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`), pulls: {
                 alt: Vals[0],
-                ws_md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)
               }}));
             });
 
@@ -9851,7 +9851,9 @@ class Puller extends Auxll {
               if (MD.pws_md === Pulls.ws_md) Till.push(MD);
             });
 
-            this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.ws_md].alt, pulls: Till}));
+            Data.mall[1][Pulls.ws_md][`till`] = Till;
+
+            this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.ws_md].alt, pulls: Data.mall[1][Pulls.ws_md]}));
           }
 
           else if (this.Stack[1].pull === `ws`) {
@@ -10172,6 +10174,24 @@ class Puller extends Auxll {
 
             this.Stack[3].end(JSON.stringify(Sells));
           }
+        });
+      }
+
+      else if (this.Stack[0][2] === `jpeg`) {//console.log(this.Stack[2].headers[`md`])
+
+        this.Stack[3].setHeader(`Content-Type`, `application/json`);
+
+        let log = new Date().valueOf();
+
+        const u = config.write_reqs.asset_img + `g/`;
+
+        fs.mkdir(u, {recursive: true}, (err) => {
+
+          fs.writeFile(u + log + `.jpg`, this.Stack[1], err => {
+
+            this.Stack[3].end(JSON.stringify({log: log}));
+
+          });
         });
       }
     }

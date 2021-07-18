@@ -15,6 +15,22 @@ class Puller {
     return Pull;
   }
 
+  PutMedia (Arg) {
+
+    let Pull = new XMLHttpRequest;
+
+    Pull.open(`POST`, Arg[0], true);
+
+    Pull.setRequestHeader(`Content-Type`, `image/jpeg`);
+
+    Pull.setRequestHeader(`md`, Arg[1]);
+
+    Pull.send(Arg[2]);
+
+    return Pull;
+
+  }
+
  }
 
 class Event {
@@ -164,6 +180,12 @@ class Event {
 			this.getPaid();
 
 			this.Mugger();
+
+			this.WStools();
+
+			this.foldWSAlter();
+
+			this.WSOptAlter();
 		}
 
 		if (new Controller().Old() === `/ws/settings/`) {
@@ -1228,6 +1250,40 @@ class Event {
 			});
 		}
 
+		if (document.querySelector(`.OptSet`)) {
+
+			document.querySelectorAll(`.OptSet`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					document.querySelectorAll(`.OptSet`).forEach(S2 => {
+
+						S2.style.textDecoration = `none`
+
+						S2.style.fontWeight = `normal`;
+					});
+
+					Via.style.textDecoration = `line-through`;
+
+					Via.style.fontWeight = `600`;
+
+					/*let Alter = UA.get().ws;
+
+					(!Alter[`alter`])? Alter[`alter`] = {}: Alter;
+
+					Alter[`alter`][`retail`] = Models.Filter(Via.id);
+
+					//avoid filtering rendered html text
+
+					UA.set({ws: Alter});*/
+				}]);
+			});
+		}
+
 		if (document.querySelector(`.WSAlter`)) {
 
 			this.listen([document.querySelector(`.WSAlter`), `click`, S => {
@@ -1259,6 +1315,156 @@ class Event {
 				}
 			}]);
 		}
+
+  	let allocFile = (img, file) => {
+
+    	let alloc = new FileReader();
+
+    	alloc.onload = (e) => img.src = e.target.result;
+
+    	alloc.readAsDataURL(file);
+  	}
+
+  	const PollFile = Files => {
+
+    	if (!Files || !Files.length) return;
+
+    	for (let i = 0; i < Files.length; i++) {
+
+      	let File = Files[i];
+
+      	if (!File.type.match(`image.*`) || File.size > 3048576) return;
+
+      	let Plane;
+
+      	if (!document.querySelector(`#plane`)) {
+
+        	Plane = new Image();
+
+        	Plane.setAttribute(`id`, `plane`);
+      	}
+
+      	else Plane = document.querySelector(`#plane`);
+
+      	allocFile(Plane, File);
+
+      	Plane.onload = () => {
+
+      		if (Plane.naturalWidth < 500) return;
+
+      		if (Plane.naturalWidth !== Plane.naturalHeight) return;
+
+        	let fileSort;
+
+        	if (Plane.src.charAt(11) === `j`) fileSort = `data:image/jpeg;base64,`;
+
+        	else if (Plane.src.charAt(11) === `p`) fileSort = `data:image/png;base64,`;
+
+        	if (!fileSort) return;
+        
+        	let b64 = Plane.src.replace(fileSort,``), Duals = atob(b64), Alloc = [];
+
+        	for (let i = 0; i < Duals.length; i++) {
+
+          	Alloc.push(Duals.charCodeAt(i));
+        	}
+  
+        	let AllocFile = new Blob([new Uint8Array(Alloc)], {type: `image/jpeg`});
+
+        	document.querySelector(`#file-plane`).src = Plane.src;
+
+					let Control = new Controller();
+
+					let Pull = Control.PutMedia([`/pulls/jpeg/`, UA.get().u.md, AllocFile]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						let UAlog = UA.get().ualog;
+
+						UAlog.push(`/ws/paid/`);
+
+						UA.set({ualog: UAlog});
+
+						Control.SetState([{}, `ws`, `/ws/paid/`]);
+
+						UA.set({ws: {alt: Pulls.alt, md: Pulls.md, till: Pulls.pulls}});
+
+						Control.Call();
+					}
+
+        	/*let AJX = new AJXFile();
+
+        let ModelSource = document.querySelector(`#corrde-root > main`);
+
+        let M = new Model();
+
+        ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+        AJX.call(`/devs_reqs/`, {
+          value: JSON.stringify({file: `SellFile`, poll_file_temp: JSStore.avail().poll_file_temp}),
+          to: () => {
+
+            if (AJX.req.responseText.length > 0) {
+
+              B = JSON.parse(AJX.req.responseText);
+
+              if (B.exit === true) {
+
+                let M2 = new Model();
+
+                ModelSource.innerHTML = M2.modelStringify(B.ModelController);
+              }
+            }
+          }}, AllocFile);*/
+      };
+          
+    }
+  }
+
+		if (document.querySelector(`#file`)) {
+
+			this.listen([document.querySelector(`#file`), `change`, S => {
+
+				S.stopImmediatePropagation();
+
+      	PollFile(S.target.files);
+				
+			}])
+		}
+	}
+
+	WStools () {
+
+		if (!document.querySelector(`.pws`)) return;
+
+		document.querySelectorAll(`.pws`).forEach(S => {
+
+			this.listen([S, `click`, S => {
+
+				let Control = new Controller();
+
+				let Via = this.getSource(S).innerHTML.toLowerCase();
+
+				let UAlog = UA.get().ualog;
+
+				if (Via === `sell`) Control.initinventory();
+
+				/*else if (Via === `manage store`) {
+
+					UAlog.push(`/pws/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `pws`, `/pws/`]);
+
+					Control.Call();
+				}*/
+			}]);
+		});
 	}
 }
 
@@ -1628,6 +1834,8 @@ class Controller extends Puller {
 
 				let Pulls = JSON.parse(Pull.response);
 
+				UA.set({ws: Pulls.pulls});
+
 				new View().DOM([`main`, [Models.ModelWS([`store orders`, Models.ModelWSPay()])]]);
 
 				new Event().Call();
@@ -1666,12 +1874,20 @@ class Controller extends Puller {
 
 				let Pulls = JSON.parse(Pull.response);
 
-				UA.set({ws: Pulls.pulls});
+				//UA.set({ws: Pulls.pulls});
 
 				new View().DOM([`main`, [Models.ModelWSAlter()]]);
 
 				new Event().Call();
 			}
 		}
+	}
+
+	initinventory () {
+
+		new View().DOM([`main`, [Models.Modeliniinventory()]]);
+
+		new Event().Call()
+
 	}
 }

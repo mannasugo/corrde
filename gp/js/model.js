@@ -119,6 +119,13 @@ let Models = {
       `home, kitchen & dine`, `household essentials`, `meat & seafood`, `office & electronics`, `organic shop`, 
       `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`],
 
+  Retails: {
+
+    [`fruits & vegetables`]: {
+      [`shelf`]: [`apples`, `kale`, `mangoes`]
+    }
+  },
+
   Shipping: {
 
     axis: [ //greater than
@@ -1226,7 +1233,7 @@ let Models = {
         `a`, `#@mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
     }
 
-    let Opts = [[`Bag`, `orders`]];
+    let Opts = [[`Bag`, `orders`], [`Sell000`, `sell`]];
 
     let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
 
@@ -1384,5 +1391,105 @@ let Models = {
                     `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@save changes`]]], [
                     `div`, `.@eYG`, [[`span`, `.@Via _-tX`, `&@style>margin:0 0 0 8px`]]], [
                     `a`, `.@_aWz -_tX WSAlter`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
+  },
+
+  Modeliniinventory () {
+
+    if (!UA.get().ws) return;
+
+    let Mall = UA.get().ws;
+
+    let ModelOptSets = [];
+
+    let OptSets = this.Retails[Models.Unfilter(UA.get().ws.retail)].shelf;
+
+    let ModelOptRetail = [];
+
+    OptSets.forEach(S => {
+
+      let style = ``;
+
+      if (Mall.locale && S === Mall.locale) style = `font-weight:600;text-decoration:line-through`; 
+
+      ModelOptSets.push([
+        `a`, `.@_aA2 tXx OptSet`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    this.Retail.forEach(S => {
+
+      let style = ``;
+
+      if (Mall.retail && Models.Filter(S) === Mall.retail) style = `font-weight:600;text-decoration:line-through`;
+
+      ModelOptRetail.push([
+        `a`, `#@${S}`, `.@_aA2 tXx OptRetail`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%; font-size:13px`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `h2`, `.@_gcQ`, `&@style>font-size:17.5px;letter-spacing:1.2px;font-weight:300`, `~@create inventory`], [
+          `div`, `.@_aXZ _sZ2`, `&@style>width:100%;`, [[
+            `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+              `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+              `span`, `.@_tXx`, `~@1. Select item kind`], [
+              `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;padding-top:45px`, [[
+              `div`, `.@_g0 _eYG`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@_gZy`, ModelOptSets]]]]]]]]], [
+            `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+              `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+                `span`, `.@_tXx`, `~@2. Product information`], [
+                `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+              `section`, `#@ModelSignin`, `.@_-Zz`, `&@style>width:100%;padding:25px 16px`, [[
+                `div`, [[
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_gxM _geQ`, `&@style>margin:0 20px 8px;line-height:1.414;`, [[`div`], [
+                      `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@50 characters max.`]]]]], [
+                  `div`, `.@_aXZ`, [[
+                    `input`, `#@item-alt`, `&@placeholder>product title`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_geQ _gxM`, [[
+                      `div`, `.@geQ`, `&@style>width:50%;padding:10px`, [[
+                        `div`, `.@_gxM _geQ`, `&@style>margin:0 0 8px;line-height:1.414;`, [[
+                          `div`], [
+                          `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@in kes.`]]]]], [
+                      `div`, `.@_aXZ`, [[
+                        `input`, `#@item-alt`, `&@placeholder>price`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
+                      `div`, `.@geQ`, `&@style>width:50%;padding:10px`, [[
+                        `div`, `.@_gxM _geQ`, `&@style>margin:0 0 8px;line-height:1.414;`, [[`div`], [
+                          `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@in grams`]]]]], [
+                      `div`, `.@_aXZ`, [[
+                        `input`, `#@item-alt`, `&@placeholder>weight`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]]]]]]]]]]]], [
+            `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+              `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+                `span`, `.@_tXx`, `~@3. Product media`], [
+                `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+              `section`, `.@_-Zz`, `&@style>width:100%;padding:25px 16px`, [[
+                `div`, [[
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_sZ2`, `&@style>align-items:center`, [[
+                      `img`, `#@file-plane`, `&@style>height:180px;width:180px`, `&@src>/gp/p/vector/bag2.svg`]]], [
+                    `div`, `.@_gxM _geQ`, `&@style>margin:0 20px 8px;line-height:1.414;`, [[
+                      `label`, `.@Sell000 image`, `&@for>file`], [
+                      `form`, `&@enctype>multipart/form-data`, [[
+                        `input`, `#@file`, `&@type>file`, `&@accepts>image/*`]]], [
+                      `div`, `.@_eYG`, [[
+                        `span`, `.@_a2X`, `~@upload/replace item image`]]]]], [
+                    `div`, `.@_geQ`, [[
+                      `p`, `&@style>margin-top:24px;padding:5px 16px;border-radius:50px;color:#fff;background:#1e1e1e;text-align:center;font-size:13px`, `~@*your image must be at least 500 x 500 pixels and set against a plain white background.`]]]]]]]]]]]]], [
+                `div`, `.@_gcQ _gxM`, `&@style>width:100%`, [[
+                  `div`, `.@_eYG`], [
+                  `div`, `.@_QZg _gxM`, [[
+                    `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@save`]]], [
+                    `div`, `.@eYG`, [[`span`, `.@Via _-tX`, `&@style>margin:0 0 0 8px`]]], [
+                    `a`, `.@_aWz -_tX Shelve`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
   }
 }

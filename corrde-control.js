@@ -36,6 +36,8 @@ class RouteControl {
 
         if (endData[0] === `{`) Util.Pull([levels, JSON.parse(endData), req, res]);
 
+        else if (req.headers[`content-type`] === `image/jpeg`)  Util.Pull([levels, blob, req, res]);
+
         else {
 
           if (req.url === config.to.reqs) {

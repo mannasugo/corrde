@@ -673,7 +673,7 @@ body {
 .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
 .FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .Max, .Max000, .Meals, .Min, .Min000, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
-.poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
+.poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .Sell000, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .Veges, .Via, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
@@ -924,6 +924,10 @@ body {
 
 .SearchColor {
   background-position: -166px -120px;
+}
+
+.Sell000 {
+  background-image: url(/gp/p/vector/sell_000.svg);
 }
 
 .Ship {
@@ -3283,7 +3287,7 @@ table > thead > tr > th {
 
 #ModelCart .alterCart {margin: 0;}
 
-#ModelSignin h2, #ModelPaygate h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
+#ModelMugger h2, #ModelSignin h2, #ModelPaygate h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
 #ModelSignin input, #ModelPaygate input {
   block-size: 40px;
@@ -3873,7 +3877,7 @@ table > thead > tr > th {
 
   #ModelAisles > ._aXZ, #ModelMugger > ._aXZ {border: 1px solid #f4f4f4;border-radius: 4px;margin: 55px 0}
 
-  #ModelSignin h2, #ModelPaygate h2 {letter-spacing: -.5px;font-size: 28px;font-weight:normal;line-height: 36px;color:#000;}
+  #ModelMugger h2, #ModelSignin h2, #ModelPaygate h2 {letter-spacing: -.5px;font-size: 28px;font-weight:normal;line-height: 36px;color:#000;}
 }
 
 @media (min-width: 576px) {
@@ -4144,7 +4148,9 @@ table > thead > tr > th {
 
 @media (max-width: 599px) {
 
-  #ModelSignin h2, #ModelPaygate h2 {font-size: 25px;line-height: 28px}
+  #ModelMugger h2 {padding-left: 16px; padding-bottom: 24px;} 
+
+  #ModelMugger h2, #ModelSignin h2, #ModelPaygate h2 {font-size: 25px;line-height: 28px}
 }
 
 @media (max-width: 560px) {
