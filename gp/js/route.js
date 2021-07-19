@@ -1271,15 +1271,13 @@ class Event {
 
 					Via.style.fontWeight = `600`;
 
-					/*let Alter = UA.get().ws;
+					let Alter = UA.get().ws;
 
-					(!Alter[`alter`])? Alter[`alter`] = {}: Alter;
+					(!Alter[`shelve`])? Alter[`shelve`] = {}: Alter;
 
-					Alter[`alter`][`retail`] = Models.Filter(Via.id);
+					Alter[`shelve`][`shelf`] = Models.Filter(Via.id);;
 
-					//avoid filtering rendered html text
-
-					UA.set({ws: Alter});*/
+					UA.set({ws: Alter});
 				}]);
 			});
 		}
@@ -1381,49 +1379,20 @@ class Event {
 
 						let Pulls = JSON.parse(Pull.response);
 
-						if (!Pulls.pulls) return;
+						if (!Pulls.log) return;
 
-						let UAlog = UA.get().ualog;
+						let Alter = UA.get().ws;
 
-						UAlog.push(`/ws/paid/`);
+						(!Alter[`shelve`])? Alter[`shelve`] = {}: Alter;
 
-						UA.set({ualog: UAlog});
+						Alter[`shelve`][`log`] = Pulls.log;
 
-						Control.SetState([{}, `ws`, `/ws/paid/`]);
-
-						UA.set({ws: {alt: Pulls.alt, md: Pulls.md, till: Pulls.pulls}});
-
-						Control.Call();
+						UA.set({ws: Alter});
 					}
-
-        	/*let AJX = new AJXFile();
-
-        let ModelSource = document.querySelector(`#corrde-root > main`);
-
-        let M = new Model();
-
-        ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
-
-        AJX.call(`/devs_reqs/`, {
-          value: JSON.stringify({file: `SellFile`, poll_file_temp: JSStore.avail().poll_file_temp}),
-          to: () => {
-
-            if (AJX.req.responseText.length > 0) {
-
-              B = JSON.parse(AJX.req.responseText);
-
-              if (B.exit === true) {
-
-                let M2 = new Model();
-
-                ModelSource.innerHTML = M2.modelStringify(B.ModelController);
-              }
-            }
-          }}, AllocFile);*/
-      };
+      	};
           
-    }
-  }
+    	}
+  	}
 
 		if (document.querySelector(`#file`)) {
 
@@ -1434,6 +1403,69 @@ class Event {
       	PollFile(S.target.files);
 				
 			}])
+		}
+
+		if (document.querySelector(`.MallShelve`)) {
+
+			this.listen([document.querySelector(`.MallShelve`), `click`, S => {
+
+				if (UA.get().ws && UA.get().ws.shelve) {
+
+					let Vals = [
+						(!Models.Slim(document.querySelector(`#item-alt`).value))? false: Models.Slim(document.querySelector(`#item-alt`).value),
+						(!Models.Slim(document.querySelector(`#item-dollars`).value))? false: Models.Slim(document.querySelector(`#item-dollars`).value),
+						(!Models.Slim(document.querySelector(`#item-mass`).value))? false: Models.Slim(document.querySelector(`#item-mass`).value),
+						(!Models.Slim(document.querySelector(`#item-text`).value))? false: Models.Slim(document.querySelector(`#item-text`).value)
+					];
+
+					if (Vals[0] === false || Vals[1] === false || Vals[2] === false || Vals[3] === false) return;
+
+					let Alter = UA.get().ws;
+
+					if (!Alter.shelve[`shelf`]) return;
+
+					if (!Alter.shelve[`log`] || Alter.shelve[`log`] === false) return;
+
+					if (typeof Vals[1] !== `number` || typeof Vals[2] !== `number`) return;
+
+					Alter.shelve[`alt`] = Models.Filter(document.querySelector(`#item-alt`).value);
+
+					Alter.shelve[`dollars`] = Vals[1];
+
+					Alter.shelve[`mass`] = Vals[2];
+
+					Alter.shelve[`text`] = Models.Filter(document.querySelector(`#item-text`).value);
+
+					let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {mall_md : UA.get().ws.md, md: UA.get().u.md, pull: `shelve-mall`, pulls: Alter.shelve}]);
+
+					Alter.shelve = {};
+
+					UA.set({ws: Alter});
+
+					Control.Splash();
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						let UAlog = UA.get().ualog;
+
+						UAlog.push(`/ws/listings/`);
+
+						UA.set({ualog: UAlog});
+
+						Control.SetState([{}, `ws`, `/ws/listings/`]);
+
+						UA.set({ws: {alt: Pulls.alt, md: Pulls.md, listings: Pulls.pulls}});
+
+						Control.Call();
+					}
+				}
+			}]);
 		}
 	}
 
@@ -1450,6 +1482,17 @@ class Event {
 				let Via = this.getSource(S).innerHTML.toLowerCase();
 
 				let UAlog = UA.get().ualog;
+
+				if (Via === `listings`) {
+
+					UAlog.push(`/ws/listings/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `ws`, `/ws/listings/`]);
+
+					Control.Call();
+				}
 
 				if (Via === `sell`) Control.initinventory();
 
@@ -1516,6 +1559,8 @@ class Controller extends Puller {
 		if (this.Old().split(`/`)[1] === `tracking`) this.Pay();
 
 		if (this.Old().split(`/`)[1] === `via`) this.Via();
+
+		if (this.Old() === `/ws/listings/`) this.WSAisles();
 
 		if (this.Old() === `/ws/paid/`) this.WSPay();
 
@@ -1889,5 +1934,45 @@ class Controller extends Puller {
 
 		new Event().Call()
 
+	}
+
+	Splash () {
+
+		let Model = Models.ModelSplash();
+
+		new View().DOM([`main`, [Model]]);
+
+	}
+
+	WSAisles () {
+
+		let UAlog = UA.get().ualog;
+
+		if (!UA.get().ws) {
+
+			UAlog.push(`.`);
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `root`, `/`]);
+
+			this.Call();
+		} 
+
+		else {
+
+			let Pull = this.Pull([`/pulls/ua/`, {mall_md: UA.get().ws.md, md: UA.get().u.md, pull: `mall-listings`}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				UA.set({ws: Pulls.pulls});
+
+				new View().DOM([`main`, [Models.ModelWS([`inventory`, Models.ModelWSAisles()])]]);
+
+				new Event().Call();
+			}
+		}
 	}
 }

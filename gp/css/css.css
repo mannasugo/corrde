@@ -3289,7 +3289,7 @@ table > thead > tr > th {
 
 #ModelMugger h2, #ModelSignin h2, #ModelPaygate h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
-#ModelSignin input, #ModelPaygate input {
+#ModelSignin input, #ModelPaygate input, textarea {
   block-size: 40px;
   background-color:#f4f4f4;
   color:#171a20;
@@ -3302,7 +3302,7 @@ table > thead > tr > th {
   letter-spacing: 1.21px;
 }
 
-#ModelSignin input:focus, #ModelPaygate input:focus {
+#ModelSignin input:focus, #ModelPaygate input:focus, textarea:focus {
   border: 1px solid #d0d1d2;
   outline: none;
 }

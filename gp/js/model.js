@@ -1233,7 +1233,7 @@ let Models = {
         `a`, `#@mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
     }
 
-    let Opts = [[`Bag`, `orders`], [`Sell000`, `sell`]];
+    let Opts = [[`Bag`, `orders`], [`Sell000`, `sell`], [`Shop`, `listings`]];
 
     let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
 
@@ -1462,12 +1462,17 @@ let Models = {
                           `div`], [
                           `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@in kes.`]]]]], [
                       `div`, `.@_aXZ`, [[
-                        `input`, `#@item-alt`, `&@placeholder>price`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
+                        `input`, `#@item-dollars`, `&@placeholder>price`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
                       `div`, `.@geQ`, `&@style>width:50%;padding:10px`, [[
                         `div`, `.@_gxM _geQ`, `&@style>margin:0 0 8px;line-height:1.414;`, [[`div`], [
                           `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@in grams`]]]]], [
                       `div`, `.@_aXZ`, [[
-                        `input`, `#@item-alt`, `&@placeholder>weight`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]]]]]]]]]]]], [
+                        `input`, `#@item-mass`, `&@placeholder>weight`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]]]]]], [
+                  `div`, `.@_sZ2`, [[
+                    `div`, `.@_gxM _geQ`, `&@style>margin:0 20px 8px;line-height:1.414;`, [[`div`], [
+                      `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@1500 characters max.`]]]]], [
+                  `div`, `.@_aXZ`, [[
+                    `textarea`, `#@item-text`, `&@placeholder>product description`, `&@maxlength>1500`, `&@autocomplete>off`, `&@style>block-size:240px`]]]]]]]]]]], [
             `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
               `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
                 `span`, `.@_tXx`, `~@3. Product media`], [
@@ -1490,6 +1495,44 @@ let Models = {
                   `div`, `.@_QZg _gxM`, [[
                     `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@save`]]], [
                     `div`, `.@eYG`, [[`span`, `.@Via _-tX`, `&@style>margin:0 0 0 8px`]]], [
-                    `a`, `.@_aWz -_tX Shelve`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
+                    `a`, `.@_aWz -_tX MallShelve`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
+  },
+
+  ModelWSAisles () {
+
+    let State = `all`;
+
+    if (UA.get().pws_pays) State = UA.get().pws_pays;
+
+    let ModelAisle = [[], []];
+
+    ModelAisle[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center`, [[
+        `span`, `.@-_tX Shop`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 listings`]]]
+
+    let ModelPullArgs = [];
+
+    let PullArgs = [`all`, `new`, `preparing`, `ready`, `delivered`];
+
+    PullArgs.forEach(S => {
+
+      let style = ``;
+
+      if (S === State) style = `text-decoration:line-through`; 
+
+      ModelPullArgs.push([
+        `a`, `#@pullArg`, `.@_aA2 _tXx`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;border:2px solid #000;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    let Pay = [];
+    
+    return [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:45px`, [[
+          `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
+        `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+          `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelAisle[1]: [ModelAisle[0]]]]]]];
   }
 }

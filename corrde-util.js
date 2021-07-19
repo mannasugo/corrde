@@ -1197,7 +1197,8 @@ class Auxll {
       ;select * from u
       ;select * from trades
       ;select * from till
-      ;select * from ws`, (A, B, C) => {
+      ;select * from ws
+      ;select * from shelve`, (A, B, C) => {
 
         let Mall = [], Malls = {};
 
@@ -1212,6 +1213,8 @@ class Auxll {
         let Sell = [];
 
         let SellSet = {};
+
+        let Shelf = [], Shelfs = {};
 
         let Stalls = [];
 
@@ -1301,12 +1304,22 @@ class Auxll {
           Malls[Row.md] = Row;
         }
 
+        for (let row in B[8]) {
+
+          let Row = JSON.parse(B[7][row].json);
+
+          Shelf.push(Row);
+
+          Shelfs[Row.md] = Row;
+        }
+
         Aft({
           mall: [Mall, Malls],
           Pay: [Pay, PaySet],
           Pledge: [Pledge, PledgeSet],
           Ppl: [Ppl, PplSet],
           Sell: [Sell, SellSet],
+          shelve: [Shelf, Shelfs],
           Stalls: [Stalls, StallSet],
           till: [Till, Tills],
           Trade: [Trades, TradeSet]})
@@ -1471,6 +1484,7 @@ class Sql extends Auxll {
         ;${config.sql.payments}
         ;${config.sql.payrequest}
         ;${config.sql.products}
+        ;${config.sql.shelve}
         ;${config.sql.till}
         ;${config.sql.trades}
         ;${config.sql.traffic}
@@ -9518,7 +9532,7 @@ class Puller extends Auxll {
 
             let Mall = [];
 
-            Data.mall[0].forEach(M => {console.log(M);
+            Data.mall[0].forEach(M => {
 
               if (M.umd === Ppl.sum) Mall.push({alt: M.alt, md: M.md});
             })
@@ -9865,6 +9879,43 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({pulls: Data.mall[1][Pulls.ws_md]}));
           }
 
+          else if (this.Stack[1].pull === `shelve-mall`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.mall[1][Pulls.mall_md]) return;
+
+            let Shelve = [];
+
+            Data.shelve[0].forEach(MD => {
+
+              if (MD.mall_md === Pulls.mall_md) Shelve.push(MD);
+            });
+
+            let Alter = this.Stack[1].pulls;
+
+            let Stamp = new Date().valueOf();
+
+            let space = `gp/img-ssl/store/assets/g/`;
+          
+            new Sql().to([`shelve`, {
+              json: JSON.stringify({
+                alt: Alter.alt,
+                dollars: parseFloat((Alter.dollars)/config.Fx[`kenya`][0]).toFixed(2),
+                files: [space + Alter.log + `.jpg`],
+                log: Alter.log,
+                long: Alter.text,
+                mall_md: Pulls.mall_md,
+                mass: Alter.mass,
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                secs: Stamp,
+                shelf: Alter.shelf,
+                umd: Pulls.md})}], (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Shelve}));
+            });
+          }
+
           else if (this.Stack[1].pull === `alter-mall`) {
 
             let Pulls = this.Stack[1];
@@ -9882,16 +9933,29 @@ class Puller extends Auxll {
               if (MD.mall_md === Pulls.mall_md) Till.push(MD);
             });
 
-            for (let Alter in Pulls.pulls) {
-
-              Old[Alter] = Pulls.pulls[Alter];
-            }
-
             new Sql().multi({},  
               `update ws set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.mall[1][Pulls.mall_md])}'`, (A, B, C) => {
 
                 this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Till}));
               });
+          }
+
+          else if (this.Stack[1].pull === `mall-listings`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.mall[1][Pulls.mall_md]) return;
+
+            let Shelve = [];
+
+            Data.shelve[0].forEach(MD => {
+
+              if (MD.mall_md === Pulls.mall_md) Shelve.push(MD);
+            });
+
+            Data.mall[1][Pulls.mall_md][`listings`] = Shelve;
+
+            this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, pulls: Data.mall[1][Pulls.mall_md]}));
           }
 
           //https://sandbox.intasend.com/api/v1/payment/status/
