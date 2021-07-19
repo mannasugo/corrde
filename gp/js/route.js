@@ -1439,7 +1439,7 @@ class Event {
 
 					if (!Alter.shelve[`shelf`]) return;
 
-					if (!Alter.shelve[`log`] || Alter.shelve[`log`] === false) return;console.log(Alter)
+					if (!Alter.shelve[`log`] || Alter.shelve[`log`] === false) return;
 
 					if (typeof parseFloat(Vals[1]) !== `number` || typeof parseFloat(Vals[2]) !== `number`) return;
 
@@ -1481,6 +1481,29 @@ class Event {
 					}
 				}
 			}]);
+		}
+
+		if (document.querySelector(`.listing`)) {
+
+			document.querySelectorAll(`.listing`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Shelfs = {};
+
+					UA.get().ws.listings.forEach(A => {
+
+						if (A.md === this.getSource(S).id) Shelfs = A;
+					});
+
+					if (!Shelfs.md) return;
+
+					new View().DOM([`main`, [Models.Modeliniinventory([Shelfs])]]);
+
+					this.Call();
+				
+				}])
+			});
 		}
 	}
 

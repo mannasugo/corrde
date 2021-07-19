@@ -1393,7 +1393,7 @@ let Models = {
                     `a`, `.@_aWz -_tX WSAlter`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
   },
 
-  Modeliniinventory () {
+  Modeliniinventory (Arg) {
 
     if (!UA.get().ws) return;
 
@@ -1434,9 +1434,9 @@ let Models = {
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
           `div`, `.@_QZg`, [[]]]]]]], [
         `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
-          `h2`, `.@_gcQ`, `&@style>font-size:17.5px;letter-spacing:1.2px;font-weight:300`, `~@create inventory`], [
+          `h2`, `.@_gcQ`, `&@style>font-size:17.5px;letter-spacing:1.2px;font-weight:300`, `~@${(Arg)? `edit`: `create`} inventory`], [
           `div`, `.@_aXZ _sZ2`, `&@style>width:100%;`, [[
-            `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+            `div`, `.@_gZ `, `&@style>padding: 0 16px;${(Arg)? `border:0;display:none`: ``}`, [[
               `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
               `span`, `.@_tXx`, `~@1. Select item kind`], [
               `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
@@ -1454,7 +1454,7 @@ let Models = {
                     `div`, `.@_gxM _geQ`, `&@style>margin:0 20px 8px;line-height:1.414;`, [[`div`], [
                       `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@50 characters max.`]]]]], [
                   `div`, `.@_aXZ`, [[
-                    `input`, `#@item-alt`, `&@placeholder>product title`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
+                    `input`, `#@item-alt`, `&@placeholder>${(Arg)? Arg[0].alt: `product title`}`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
                   `div`, `.@_sZ2`, [[
                     `div`, `.@_geQ _gxM`, [[
                       `div`, `.@geQ`, `&@style>width:50%;padding:10px`, [[
@@ -1462,17 +1462,17 @@ let Models = {
                           `div`], [
                           `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@in kes.`]]]]], [
                       `div`, `.@_aXZ`, [[
-                        `input`, `#@item-dollars`, `&@placeholder>price`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
+                        `input`, `#@item-dollars`, `&@placeholder>${(Arg)? (Arg[0].dollars*this.Fx[`kenya`][0]): `price`}`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]], [
                       `div`, `.@geQ`, `&@style>width:50%;padding:10px`, [[
                         `div`, `.@_gxM _geQ`, `&@style>margin:0 0 8px;line-height:1.414;`, [[`div`], [
                           `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@in grams`]]]]], [
                       `div`, `.@_aXZ`, [[
-                        `input`, `#@item-mass`, `&@placeholder>weight`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]]]]]], [
+                        `input`, `#@item-mass`, `&@placeholder>${(Arg)? Arg[0].mass: `weight`}`, `&@maxlength>50`, `&@autocomplete>off`, `&@style>`]]]]]]]]], [
                   `div`, `.@_sZ2`, [[
                     `div`, `.@_gxM _geQ`, `&@style>margin:0 20px 8px;line-height:1.414;`, [[`div`], [
                       `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@1500 characters max.`]]]]], [
                   `div`, `.@_aXZ`, [[
-                    `textarea`, `#@item-text`, `&@placeholder>product description`, `&@maxlength>1500`, `&@autocomplete>off`, `&@style>block-size:240px`]]]]]]]]]]], [
+                    `textarea`, `#@item-text`, `&@placeholder>${(Arg)? Arg[0].long: `product description`}`, `&@maxlength>1500`, `&@autocomplete>off`, `&@style>block-size:240px`]]]]]]]]]]], [
             `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
               `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
                 `span`, `.@_tXx`, `~@3. Product media`], [
@@ -1481,7 +1481,7 @@ let Models = {
                 `div`, [[
                   `div`, `.@_sZ2`, [[
                     `div`, `.@_sZ2`, `&@style>align-items:center`, [[
-                      `img`, `#@file-plane`, `&@style>height:180px;width:180px`, `&@src>/gp/p/vector/bag2.svg`]]], [
+                      `img`, `#@file-plane`, `&@style>height:180px;width:180px`, `&@src>/${(Arg)? Arg[0].files[0]: `gp/p/vector/bag2.svg`}`]]], [
                     `div`, `.@_gxM _geQ`, `&@style>margin:0 20px 8px;line-height:1.414;`, [[
                       `label`, `.@Sell000 image`, `&@for>file`], [
                       `form`, `&@enctype>multipart/form-data`, [[
@@ -1495,7 +1495,7 @@ let Models = {
                   `div`, `.@_QZg _gxM`, [[
                     `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@save`]]], [
                     `div`, `.@eYG`, [[`span`, `.@Via _-tX`, `&@style>margin:0 0 0 8px`]]], [
-                    `a`, `.@_aWz -_tX MallShelve`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
+                    `a`, `.@_aWz -_tX ${(Arg)? `AlterShelve`: `MallShelve`}`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
   },
 
   ModelWSAisles () {
@@ -1532,7 +1532,8 @@ let Models = {
         `div`, `.@_gZ _gxM _geQ`, `&@style>padding:10px 16px`, [[
           `img`, `&@style>width:75px`, `&@src>/${P.files[0]}`], [
           `div`, `.@_eYG`, [[`div`, [[`span`, `.@_tXx`, `~@${P.alt}`]]], [`div`, [[`span`, `.@_a2X`, `~@${P.shelf}`]]]]], [
-          `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]]);
+          `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]], [
+          `a`, `#@${P.md}`, `.@listing`, `&@href>javascript:;`, `&@style>position:absolute;width:100%;height:100%`]]]);
     })
     
     return [
