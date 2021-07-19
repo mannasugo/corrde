@@ -173,6 +173,21 @@ class Event {
 			this.initVia();
 		}
 
+		if (new Controller().Old() === `/ws/listings/`) {
+
+			this.getWSMugger();
+
+			this.getPaid();
+
+			this.Mugger();
+
+			this.WStools();
+
+			this.foldWSAlter();
+
+			this.WSOptAlter();
+		}
+
 		if (new Controller().Old() === `/ws/paid/`) {
 
 			this.getWSMugger();
@@ -1424,9 +1439,9 @@ class Event {
 
 					if (!Alter.shelve[`shelf`]) return;
 
-					if (!Alter.shelve[`log`] || Alter.shelve[`log`] === false) return;
+					if (!Alter.shelve[`log`] || Alter.shelve[`log`] === false) return;console.log(Alter)
 
-					if (typeof Vals[1] !== `number` || typeof Vals[2] !== `number`) return;
+					if (typeof parseFloat(Vals[1]) !== `number` || typeof parseFloat(Vals[2]) !== `number`) return;
 
 					Alter.shelve[`alt`] = Models.Filter(document.querySelector(`#item-alt`).value);
 

@@ -1412,7 +1412,7 @@ let Models = {
       if (Mall.locale && S === Mall.locale) style = `font-weight:600;text-decoration:line-through`; 
 
       ModelOptSets.push([
-        `a`, `.@_aA2 tXx OptSet`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+        `a`, `#@${S}`, `.@_aA2 tXx OptSet`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
     });
 
     this.Retail.forEach(S => {
@@ -1524,7 +1524,16 @@ let Models = {
         `a`, `#@pullArg`, `.@_aA2 _tXx`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;border:2px solid #000;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
     });
 
-    let Pay = [];
+    let Pay = UA.get().ws.listings;
+
+    Pay.forEach(P => {
+
+      ModelAisle[1].push([
+        `div`, `.@_gZ _gxM _geQ`, `&@style>padding:10px 16px`, [[
+          `img`, `&@style>width:75px`, `&@src>/${P.files[0]}`], [
+          `div`, `.@_eYG`, [[`div`, [[`span`, `.@_tXx`, `~@${P.alt}`]]], [`div`, [[`span`, `.@_a2X`, `~@${P.shelf}`]]]]], [
+          `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]]);
+    })
     
     return [
       `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
@@ -1532,7 +1541,7 @@ let Models = {
           `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
             `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
               `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
-        `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+        `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
           `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelAisle[1]: [ModelAisle[0]]]]]]];
   }
 }

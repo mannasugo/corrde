@@ -1306,7 +1306,7 @@ class Auxll {
 
         for (let row in B[8]) {
 
-          let Row = JSON.parse(B[7][row].json);
+          let Row = JSON.parse(B[8][row].json);
 
           Shelf.push(Row);
 
