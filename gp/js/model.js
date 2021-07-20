@@ -114,7 +114,8 @@ let Models = {
   },
 
   Retail: [
-     `fruits & vegetables`/*,  `alcohol`, `baby`, `beverages`, `beauty & personal care`, `bread & bakery`, `christmas shop`, `clothing`, `cold & flu`, 
+    `clothing`,
+    `fruits & vegetables`/*,  `alcohol`, `baby`, `beverages`, `beauty & personal care`, `bread & bakery`, `christmas shop`,  `cold & flu`, 
       `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `garden & tools`, `gift shop`, `health & nutrition`, 
       `home, kitchen & dine`, `household essentials`, `meat & seafood`, `office & electronics`, `organic shop`, 
       `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`*/],
@@ -128,7 +129,8 @@ let Models = {
         `fresh vegetables`,`nuts, dried fruit & healthy snacks`, `organic produce`, `summer produce`, `vegetarian proteins`]
     },
     [`clothing`]: {
-      [`shelf`]: [`men boys women girls baby and toddler boy baby and toddler girl shoes jewelry accessories`]
+      [`shelf`]: [
+        `accessories`, `baby and toddler boy`, `baby and toddler girl`, `boys`, `girls`, `jewelry`, `men`,  `shoes`, `women` ]
     },
     [`fast food & eatery`]: {
       [`menu`]: [`breakfast lunch dinner full`],
@@ -1543,7 +1545,7 @@ let Models = {
       ModelAisle[1].push([
         `div`, `.@_gZ _gxM _geQ`, `&@style>padding:10px 16px`, [[
           `img`, `&@style>width:75px`, `&@src>/${P.files[0]}`], [
-          `div`, `.@_eYG`, [[`div`, [[`span`, `.@_tXx`, `~@${P.alt}`]]], [`div`, [[`span`, `.@_a2X`, `~@${P.shelf}`]]]]], [
+          `div`, `.@_eYG`, [[`div`, [[`span`, `.@tXx`, `~@${P.alt}`]]], [`div`, [[`span`, `.@_a2X`, `~@${P.shelf}`]]]]], [
           `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]], [
           `a`, `#@${P.md}`, `.@listing`, `&@href>javascript:;`, `&@style>position:absolute;width:100%;height:100%`]]]);
     })

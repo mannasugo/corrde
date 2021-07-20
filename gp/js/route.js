@@ -1085,7 +1085,7 @@ class Event {
 
 				let UAlog = UA.get().ualog;
 
-				UAlog.push(`/ws/settings`);
+				UAlog.push(`/ws/settings/`);
 
 				UA.set({ualog: UAlog});
 
@@ -1657,6 +1657,17 @@ class Event {
 					Control.Call();
 				}
 
+				if (Via === `orders`) {
+
+					UAlog.push(`/ws/paid/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `ws`, `/ws/paid/`]);
+
+					Control.Call();
+				}
+
 				if (Via === `sell`) Control.initinventory();
 
 				/*else if (Via === `manage store`) {
@@ -2082,7 +2093,7 @@ class Controller extends Puller {
 
 				let Pulls = JSON.parse(Pull.response);
 
-				//UA.set({ws: Pulls.pulls});
+				UA.set({ws: Pulls.pulls});
 
 				new View().DOM([`main`, [Models.ModelWSAlter()]]);
 
