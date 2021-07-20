@@ -9931,7 +9931,9 @@ class Puller extends Auxll {
               Old[alter] = Pulls.pulls[alter];
             }
 
-            if (Old.dollars) Old.dollars = parseFloat((Old.dollars)/config.Fx[`kenya`][0]).toFixed(2)
+            if (Pulls.pulls.dollars) Old.dollars = parseFloat((Old.dollars)/config.Fx[`kenya`][0]).toFixed(2);
+
+            if (Pulls.pulls.log) Old.files = [`gp/img-ssl/store/assets/g/` + Old.log + `.jpg`]
 
             let Shelve = [];
 
@@ -9939,6 +9941,8 @@ class Puller extends Auxll {
 
               if (MD.mall_md === Pulls.mall_md) Shelve.push(MD);
             });
+
+            Shelve = Shelve.sort((A, B) => {return B.secs - A.secs});
 
             new Sql().multi({},  
               `update shelve set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.shelve[1][Pulls.listing_md])}'`, (A, B, C) => {
@@ -9988,6 +9992,8 @@ class Puller extends Auxll {
 
               if (MD.mall_md === Pulls.mall_md) Shelve.push(MD);
             });
+
+            Shelve.sort((A, B) => {return B.secs - A.secs});
 
             Data.mall[1][Pulls.mall_md][`listings`] = Shelve;
 

@@ -1429,7 +1429,11 @@ class Event {
 
 						(!Alter[`shelve`])? Alter[`shelve`] = {}: Alter;
 
+						(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
 						Alter[`shelve`][`log`] = Pulls.log;
+
+						Alter[`alter_listing`][`log`] = Pulls.log;
 
 						UA.set({ws: Alter});
 					}
@@ -1485,6 +1489,8 @@ class Event {
 					let Pull = Control.Pull([`/pulls/ua/`, {mall_md : UA.get().ws.md, md: UA.get().u.md, pull: `shelve-mall`, pulls: Alter.shelve}]);
 
 					Alter.shelve = {};
+
+					Alter.alter_listing = {};
 
 					UA.set({ws: Alter});
 
