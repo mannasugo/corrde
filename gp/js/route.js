@@ -1265,7 +1265,7 @@ class Event {
 			});
 		}
 
-		if (document.querySelector(`.OptSet`)) {
+		if (document.querySelector(`.OptSet`) || document.querySelector(`.SetAlter`)) {
 
 			document.querySelectorAll(`.OptSet`).forEach(S => {
 
@@ -1291,6 +1291,35 @@ class Event {
 					(!Alter[`shelve`])? Alter[`shelve`] = {}: Alter;
 
 					Alter[`shelve`][`shelf`] = Models.Filter(Via.id);;
+
+					UA.set({ws: Alter});
+				}]);
+			});
+
+			document.querySelectorAll(`.SetAlter`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					document.querySelectorAll(`.SetAlter`).forEach(S2 => {
+
+						S2.style.textDecoration = `none`
+
+						S2.style.fontWeight = `normal`;
+					});
+
+					Via.style.textDecoration = `line-through`;
+
+					Via.style.fontWeight = `600`;
+
+					let Alter = UA.get().ws;
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					Alter[`alter_listing`][`shelf`] = Models.Filter(Via.id);;
 
 					UA.set({ws: Alter});
 				}]);
@@ -1504,6 +1533,96 @@ class Event {
 				
 				}])
 			});
+		}
+
+		if (document.querySelector(`.AlterShelve`)) {
+
+			this.listen([document.querySelector(`.AlterShelve`), `click`, S => {
+
+				if (UA.get().ws && UA.get().ws.listings) {
+
+					let Shelfs = {};
+
+					UA.get().ws.listings.forEach(A => {
+
+						if (A.md === this.getSource(S).id) Shelfs = A;
+					});
+
+					if (!Shelfs.md) return;
+
+					let ShelfAlters = {};
+
+					let Alter = UA.get().ws;
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					for (let Shelf in Alter.alter_listing) {
+
+						if (!Shelfs.Shelf || Shelfs.Shelf) {
+
+							ShelfAlters[Shelf] = Alter.alter_listing[Shelf];
+						}
+					}
+
+					let Vals = {
+						alt: (!Models.Slim(document.querySelector(`#item-alt`).value))? false: Models.Slim(document.querySelector(`#item-alt`).value),
+						dollars: (!Models.Slim(document.querySelector(`#item-dollars`).value))? false: Models.Slim(document.querySelector(`#item-dollars`).value),
+						mass: (!Models.Slim(document.querySelector(`#item-mass`).value))? false: Models.Slim(document.querySelector(`#item-mass`).value),
+						long: (!Models.Slim(document.querySelector(`#item-text`).value))? false: Models.Slim(document.querySelector(`#item-text`).value)
+					};
+
+					for (let Val in Vals) {
+
+						if (Vals[Val] !== false) ShelfAlters[Val] = Vals[Val]; 
+					}
+
+					let items = 0;
+
+					for (let alter in ShelfAlters) {
+
+						++items;
+					}
+
+					if (items < 1) return;
+
+					if (ShelfAlters.dollars && typeof parseFloat(ShelfAlters.dollars) !== `number`) return;
+
+					if (ShelfAlters.mass && typeof parseFloat(ShelfAlters.mass) !== `number`) return;
+
+					if (ShelfAlters.alt) ShelfAlters.alt = Models.Filter(document.querySelector(`#item-alt`).value);
+
+					if (ShelfAlters.long) ShelfAlters.long = Models.Filter(document.querySelector(`#item-text`).value);
+
+					let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {listing_md: this.getSource(S).id, mall_md : UA.get().ws.md, md: UA.get().u.md, pull: `alter-listing`, pulls: ShelfAlters}]);
+
+					Alter.alter_listing = {};
+
+					UA.set({ws: Alter});
+
+					Control.Splash();
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						let UAlog = UA.get().ualog;
+
+						UAlog.push(`/ws/listings/`);
+
+						UA.set({ualog: UAlog});
+
+						Control.SetState([{}, `ws`, `/ws/listings/`]);
+
+						UA.set({ws: {alt: Pulls.alt, md: Pulls.md, listings: Pulls.pulls}});
+
+						Control.Call();
+					}
+				}
+			}]);
 		}
 	}
 

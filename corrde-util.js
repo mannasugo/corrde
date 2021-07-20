@@ -9916,6 +9916,37 @@ class Puller extends Auxll {
             });
           }
 
+          else if (this.Stack[1].pull === `alter-listing`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.mall[1][Pulls.mall_md]) return;
+
+            let old = JSON.stringify(Data.shelve[1][Pulls.listing_md]);
+
+            let Old = JSON.parse(old);
+
+            for (let alter in Pulls.pulls) {
+
+              Old[alter] = Pulls.pulls[alter];
+            }
+
+            if (Old.dollars) Old.dollars = parseFloat((Old.dollars)/config.Fx[`kenya`][0]).toFixed(2)
+
+            let Shelve = [];
+
+            Data.shelve[0].forEach(MD => {
+
+              if (MD.mall_md === Pulls.mall_md) Shelve.push(MD);
+            });
+
+            new Sql().multi({},  
+              `update shelve set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.shelve[1][Pulls.listing_md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Shelve}));
+              });
+          }
+
           else if (this.Stack[1].pull === `alter-mall`) {
 
             let Pulls = this.Stack[1];
@@ -9925,6 +9956,11 @@ class Puller extends Auxll {
             let old = JSON.stringify(Data.mall[1][Pulls.mall_md]);
 
             let Old = JSON.parse(old);
+
+            for (let alter in Pulls.pulls) {
+
+              Old[alter] = Pulls.pulls[alter];
+            }
 
             let Till = [];
 

@@ -114,15 +114,27 @@ let Models = {
   },
 
   Retail: [
-      `alcohol`, `baby`, `beverages`, `beauty & personal care`, `bread & bakery`, `christmas shop`, `clothing`, `cold & flu`, 
-      `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `fruits & vegetables`, `garden & tools`, `gift shop`, `health & nutrition`, 
+     `fruits & vegetables`/*,  `alcohol`, `baby`, `beverages`, `beauty & personal care`, `bread & bakery`, `christmas shop`, `clothing`, `cold & flu`, 
+      `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `garden & tools`, `gift shop`, `health & nutrition`, 
       `home, kitchen & dine`, `household essentials`, `meat & seafood`, `office & electronics`, `organic shop`, 
-      `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`],
+      `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`*/],
 
   Retails: {
 
     [`fruits & vegetables`]: {
-      [`shelf`]: [`apples`, `kale`, `mangoes`]
+      [`shelf`]: [ 
+        `fresh flowers`,
+        `fresh fruit`, `fresh herbs`, `fresh prepared produce`,
+        `fresh vegetables`,`nuts, dried fruit & healthy snacks`, `organic produce`, `summer produce`, `vegetarian proteins`]
+    },
+    [`clothing`]: {
+      [`shelf`]: [`men boys women girls baby and toddler boy baby and toddler girl shoes jewelry accessories`]
+    },
+    [`fast food & eatery`]: {
+      [`menu`]: [`breakfast lunch dinner full`],
+      [`shelf`]: [`american sandwiches takeout pickup breakfast desserts lunch salad healthy chicken asian italian coffee & tea delis burgers vegetarian fast food pizza mexican vegan 
+      japanese chinese seafood soup gluten-free indian greek latin america noodles bakery middle eastern smoothie korean steak french barbecue ramen drinks tapas
+      european spanish caribbean african ethiopian`]
     }
   },
 
@@ -1409,10 +1421,10 @@ let Models = {
 
       let style = ``;
 
-      if (Mall.locale && S === Mall.locale) style = `font-weight:600;text-decoration:line-through`; 
+      if (Arg && S === Arg[0].shelf) style = `font-weight:600;text-decoration:line-through`; 
 
       ModelOptSets.push([
-        `a`, `#@${S}`, `.@_aA2 tXx OptSet`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+        `a`, `#@${S}`, `.@_aA2 tXx ${(Arg)? `SetAlter`: `OptSet`}`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
     });
 
     this.Retail.forEach(S => {
@@ -1436,9 +1448,9 @@ let Models = {
         `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
           `h2`, `.@_gcQ`, `&@style>font-size:17.5px;letter-spacing:1.2px;font-weight:300`, `~@${(Arg)? `edit`: `create`} inventory`], [
           `div`, `.@_aXZ _sZ2`, `&@style>width:100%;`, [[
-            `div`, `.@_gZ `, `&@style>padding: 0 16px;${(Arg)? `border:0;display:none`: ``}`, [[
+            `div`, `.@${(Arg)? `_gZ`: `_gZ`}`, `&@style>padding: 0 16px;`, [[
               `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
-              `span`, `.@_tXx`, `~@1. Select item kind`], [
+              `span`, `.@_tXx`, `~@1. Select item category`], [
               `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
             `section`, `.@_-Zz`, `&@style>width:100%;padding-top:45px`, [[
               `div`, `.@_g0 _eYG`, `&@style>`, [[
@@ -1495,7 +1507,7 @@ let Models = {
                   `div`, `.@_QZg _gxM`, [[
                     `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@save`]]], [
                     `div`, `.@eYG`, [[`span`, `.@Via _-tX`, `&@style>margin:0 0 0 8px`]]], [
-                    `a`, `.@_aWz -_tX ${(Arg)? `AlterShelve`: `MallShelve`}`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
+                    `a`, `#@${(Arg)? Arg[0].md: `null`}`, `.@_aWz -_tX ${(Arg)? `AlterShelve`: `MallShelve`}`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
   },
 
   ModelWSAisles () {
