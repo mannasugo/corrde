@@ -995,14 +995,14 @@ let Models = {
     });
 
     return [
-      `article`, `#@ModelStallControls`, `.@_AvZ`, [[
-        `div`, `.@_tY0 _AvZ`, [[
-          `main`, `.@_gZy _AvZ`, [[
+      `article`, `#@ModelStallControls`, `.@AvZ`, [[
+        `div`, `.@_tY0 AvZ`, [[
+          `main`, `.@_gZy AvZ`, [[
             `nav`, `.@_gy0`, [[
               `div`, `.@_gy`, [[
                 `div`, `.@_gq`, ModelOpts]]]]], [
-            `section`, `.@_gy2 _AvZ`, `&@style>width:100%`, [[
-              `div`, `.@_AvZ`, [Arg[1]]], [
+            `section`, `.@_gy2 AvZ`, `&@style>width:100%`, [[
+              `div`, `.@AvZ`, [Arg[1]]], [
               `nav`, `.@_uHC`, `&@style>background:none`, [[
                 `div`, `.@_xCt`], [
                 `div`, [[
@@ -1264,14 +1264,14 @@ let Models = {
     });
 
     return [
-      `article`, `#@ModelStallControls`, `.@_AvZ`, [[
-        `div`, `.@_tY0 _AvZ`, [[
-          `main`, `.@_gZy _AvZ`, [[
+      `article`, `#@ModelStallControls`, `.@AvZ`, [[
+        `div`, `.@_tY0 AvZ`, [[
+          `main`, `.@_gZy AvZ`, [[
             `nav`, `.@_gy0`, [[
               `div`, `.@_gy`, [[
                 `div`, `.@_gq`, ModelOpts]]]]], [
-            `section`, `.@_gy2 _AvZ`, `&@style>width:100%`, [[
-              `div`, `.@_AvZ`, [Arg[1]]], [
+            `section`, `.@_gy2 AvZ`, `&@style>width:100%`, [[
+              `div`, `.@AvZ`, [Arg[1]]], [
               `nav`, `.@_uHC`, `&@style>background:none`, [[
                 `div`, `.@_xCt`], [
                 `div`, [[
@@ -1292,7 +1292,7 @@ let Models = {
     let ModelPays = [[], []];
 
     ModelPays[0] = [
-      `div`, `.@_geQ`, `&@style>justify-content:center`, [[
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
         `span`, `.@-_tX Bag`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 orders`]]]
 
     let ModelPullArgs = [];
@@ -1527,7 +1527,7 @@ let Models = {
     let ModelAisle = [[], []];
 
     ModelAisle[0] = [
-      `div`, `.@_geQ`, `&@style>justify-content:center`, [[
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
         `span`, `.@-_tX Shop`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 listings`]]]
 
     let ModelPullArgs = [];
@@ -1580,7 +1580,7 @@ let Models = {
 
     if (!UA.get().pws || UA.get().pws !== true) return;
 
-    let Mugger = [`manage stores`, `corrde store`];
+    let Mugger = [`manage stores`, `manage inventory`, `corrde store`];
 
     let ModelMugger = [];
 
@@ -1607,7 +1607,7 @@ let Models = {
     let ModelMalls = [[], []];
 
     ModelMalls[0] = [
-      `div`, `.@_geQ`, `&@style>justify-content:center`, [[
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
         `span`, `.@-_tX Store`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 stores`]]];
 
     let Pay = UA.get().apex.malls;
@@ -1639,5 +1639,48 @@ let Models = {
               `div`, `.@_gZy`]]]]]]], [
         `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
           `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelMalls[1]: [ModelMalls[0]]]]]]];
+  },
+
+  ModelWSStock () {
+
+    let ModelStock = [[], []];
+
+    ModelStock[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
+        `span`, `.@-_tX Shop`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 items`]]];
+
+    let Pay = UA.get().apex.malls_listings;
+
+    Pay.forEach(P => {
+
+      ModelStock[1].push([
+        `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+        `div`, `.@_gZ _gxM _geQ`, [[
+          `span`,  `&@style>position:relative;height:24px;margin:0 8px 0 0`, [[
+            `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
+              `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
+              `circle`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>none`]]], [
+              `a`, `#@${P.md}`, `.@_aWz verify-item`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]], [
+          `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
+            `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
+            `div`, `.@_eYG`, [[
+              `div`, [[`span`, `.@tXx`, `~@${P.alt}`], [
+              `span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]], [
+            `div`, `.@_QZg`, [[
+              `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;padding-top:24px`, [[
+              `div`, `.@_g0 _eYG`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@_gZy`, [[]]]]]]]]]]]);
+    });
+    
+    return [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:45px`, [[
+          `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`]]]]]]], [
+        `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
+          `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelStock[1]: [ModelStock[0]]]]]]];
   }
 }

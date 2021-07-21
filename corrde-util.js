@@ -10002,6 +10002,15 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, pulls: Data.mall[1][Pulls.mall_md]}));
           }
 
+          else if (this.Stack[1].pull === `malls-listings`) {
+
+            let Shelve = Data.shelve[0];
+
+            Shelve.sort((A, B) => {return B.secs - A.secs});
+
+            this.Stack[3].end(JSON.stringify({pulls: Shelve}));
+          }
+
           else if (this.Stack[1].pull === `malls`) this.Stack[3].end(JSON.stringify({pulls: Data.mall[0]}));
 
           //https://sandbox.intasend.com/api/v1/payment/status/

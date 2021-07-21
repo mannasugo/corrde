@@ -161,6 +161,19 @@ class Event {
 			this.WStools();
 		}
 
+		if (new Controller().Old() === `/pws/malls/listings/`) {
+
+			this.foldWSAlter();
+
+			this.getPast();
+
+			this.getWSMugger();
+
+			this.Mugger();
+
+			this.WStools();
+		}
+
 		if (new Controller().Old() === `/ships/`) {
 
 			this.getOld();
@@ -856,6 +869,17 @@ class Event {
 					Control.Root();
 				}
 
+				else if (Via === `manage inventory`) {
+
+					UAlog.push(`/pws/malls/listings/`); 
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `pws`, `/pws/malls/listings/`]);
+
+					Control.Call();
+				}
+
 				else if (Via === `manage stores`) {
 
 					UAlog.push(`/pws/malls/`); 
@@ -1210,6 +1234,35 @@ class Event {
 	}
 
 	foldWSAlter () {
+
+		if (document.querySelector(`.fold-item`)) {
+
+			document.querySelectorAll(`.fold-item`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					let Opts = Via.parentNode.parentNode.parentNode.nextElementSibling;
+
+					if (Via.className === `Max000 fold-item`) {
+
+						Via.className = `Min000 fold-item`;
+
+						Opts.className = ``;
+					}
+
+					else {
+
+						Via.className = `Max000 fold-item`;
+
+						Opts.className = `_-Zz`;
+					}
+				}]);
+			});
+		}
 
 		if (!document.querySelector(`.foldOpt`)) return;
 
@@ -1811,6 +1864,8 @@ class Controller extends Puller {
 
 		if (this.Old() === `/pws/malls/`) this.PWSMalls();
 
+		if (this.Old() === `/pws/malls/listings/`) this.WSStock();
+
 		if (this.Old() === `/ships/`) this.Mailable();
 
 		if (this.Old() === `/stores/`) this.Maller();
@@ -2271,6 +2326,38 @@ class Controller extends Puller {
 				UA.set({apex: {malls: Pulls.pulls}});
 
 				new View().DOM([`main`, [Models.ModelPWS([`malls`, Models.ModelPWSMalls()])]]);
+
+				new Event().Call();
+			}
+		}
+	}
+
+	WSStock () {
+
+		let UAlog = UA.get().ualog;
+
+		if (!UA.get().pws || UA.get().pws !== true) {
+
+			UAlog.push(`.`);
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `root`, `/`]);
+
+			this.Call();
+		} 
+
+		else {
+
+			let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `malls-listings`}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				UA.set({apex: {malls_listings: Pulls.pulls}});
+
+				new View().DOM([`main`, [Models.ModelPWS([`inventory`, Models.ModelWSStock()])]]);
 
 				new Event().Call();
 			}
