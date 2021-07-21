@@ -170,14 +170,20 @@ let Models = {
       [`intasend`, [`m-pesa`, `recommended`]], 
         //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
     ], [
-      `eldoret`, 
-      `homa bay`, 
-      `kakamega`, 
-      `kisii`, 
-      `kisumu`, 
-      `limuru`, 
-      `machakos`, 
-      `maseno`, `mombasa`, `nairobi`, `oyugis`, `thika`]],
+      [`eldoret`, [35.291341, .513839]],
+      [`homa bay`, [34.471160, -.524375]], 
+      [`kakamega`, [34.757694, .289395]], 
+      [`kisii`, [34.768873, -.671518]],
+      [`kisumu`, [34.764175, -.112784]], 
+      //[`limuru`, []] 
+      [`machakos`, [37.26360, -1.515885]], 
+      [`maseno`, [34.591577, .000330]],
+      [`mombasa`, [39.846253, -3.619823]], 
+      [`nairobi`, [36.893933, -1.300400]],
+      [`oyugis`, [34.721707, -.526660]], 
+      /*[`thika`, []]*/]
+    ],
+
     [`united states of america`]: [1, `$`, `usd`, 120, 1]
   },
     
@@ -966,7 +972,7 @@ let Models = {
 
   ModelPWS (Arg) {
 
-    let ModelMug = [`a`, `#@mug`, `.@-_tX Mug`, `&@style>margin: 0 15px`, `&@href>javascript:;`];
+    let ModelMug = [`a`, `#@pws-mug`, `.@-_tX Mug`, `&@style>margin: 0 15px`, `&@href>javascript:;`];
 
     if (UA.get().u) {
 
@@ -975,10 +981,10 @@ let Models = {
         `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
           `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
             `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().u.alt[0]}`]]], [
-        `a`, `#@mug`, `.@_aWz`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+        `a`, `#@pws-mug`, `.@_aWz`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
     }
 
-    let Opts = [[`Bag`, `orders`]];
+    let Opts = [[`Bag`, `pws-orders`]];
 
     let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
 
@@ -989,14 +995,14 @@ let Models = {
     });
 
     return [
-      `article`, `#@ModelStallControls`, [[
-        `div`, `.@_tY0`, [[
-          `main`, `.@_gZy`, [[
+      `article`, `#@ModelStallControls`, `.@_AvZ`, [[
+        `div`, `.@_tY0 _AvZ`, [[
+          `main`, `.@_gZy _AvZ`, [[
             `nav`, `.@_gy0`, [[
               `div`, `.@_gy`, [[
                 `div`, `.@_gq`, ModelOpts]]]]], [
-            `section`, `.@_gy2`, `&@style>width:100%`, [[
-              `div`, [Arg[1]]], [
+            `section`, `.@_gy2 _AvZ`, `&@style>width:100%`, [[
+              `div`, `.@_AvZ`, [Arg[1]]], [
               `nav`, `.@_uHC`, `&@style>background:none`, [[
                 `div`, `.@_xCt`], [
                 `div`, [[
@@ -1004,7 +1010,7 @@ let Models = {
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, [[
                         `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `@_aA6`, `&@style>padding: 0 7px;text-transform:uppercase`, `~@ | ${Arg[0]}`]]], [
+                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #000;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
                       `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
@@ -1273,7 +1279,7 @@ let Models = {
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, [[
                         `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `@_aA6`, `&@style>padding: 0 7px;text-transform:uppercase`, `~@ | ${Arg[0]}`]]], [
+                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #000;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
                       `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
@@ -1357,10 +1363,10 @@ let Models = {
 
       let style = ``;
 
-      if (Mall.locale && S === Mall.locale) style = `font-weight:600;text-decoration:line-through`; 
+      if (Mall.locale && S[0] === Mall.locale) style = `font-weight:600;text-decoration:line-through`; 
 
       ModelOptArea.push([
-        `a`, `.@_aA2 tXx OptArea`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+        `a`, `#@${S[1].toString()}`, `.@_aA2 tXx OptArea`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S[0]}`])
     });
 
     this.Retail.forEach(S => {
@@ -1545,7 +1551,17 @@ let Models = {
       ModelAisle[1].push([
         `div`, `.@_gZ _gxM _geQ`, `&@style>padding:10px 16px`, [[
           `img`, `&@style>width:75px`, `&@src>/${P.files[0]}`], [
-          `div`, `.@_eYG`, [[`div`, [[`span`, `.@tXx`, `~@${P.alt}`]]], [`div`, [[`span`, `.@_a2X`, `~@${P.shelf}`]]]]], [
+          `div`, `.@_eYG`, [[
+            `div`, [[`span`, `.@tXx`, `~@${P.alt}`]]], [
+            `div`, `.@_gxM _geQ`, [[
+              `span`, `.@_a2X`, `~@${P.shelf}`], [
+              `div`, `.@_eYG _-Zz`, [[
+                `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                  `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>fill:none;stroke:#19e819`], [
+                  `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#19e819`]]]]]]], [
+                `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                  `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>fill:none;stroke:#19e819`], [
+                  `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#19e819`]]]]], [
           `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]], [
           `a`, `#@${P.md}`, `.@listing`, `&@href>javascript:;`, `&@style>position:absolute;width:100%;height:100%`]]]);
     })
@@ -1558,5 +1574,70 @@ let Models = {
               `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
         `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
           `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelAisle[1]: [ModelAisle[0]]]]]]];
+  },
+
+  ModelApexmugger () {
+
+    if (!UA.get().pws || UA.get().pws !== true) return;
+
+    let Mugger = [`manage stores`, `corrde store`];
+
+    let ModelMugger = [];
+
+    Mugger.forEach(a => {
+
+      ModelMugger.push([
+        `div`, `.@_gZ`, [[
+          `a`, `#@${a}`, `.@_gcQ _aXZ _tXx _aA2 mugger`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${a}`]]])
+    })
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, ModelMugger]]]]];
+  },
+
+  ModelPWSMalls () {
+
+    let ModelMalls = [[], []];
+
+    ModelMalls[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center`, [[
+        `span`, `.@-_tX Store`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 stores`]]];
+
+    let Pay = UA.get().apex.malls;
+
+    Pay.forEach(P => {
+
+      ModelMalls[1].push([
+        `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+          `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
+            `span`,  `&@style>position:relative;height:24px`, [[
+              `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+                `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+                `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${P.alt[0]}`]]], [
+              `a`, `#@mall-mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]], [
+            `div`, `.@_eYG`, [[
+              `div`, [[`span`, `.@tXx`, `~@${P.alt}`]]]]], [
+            `div`, `.@_QZg`, [[`a`, `.@Max000`, `&@href>javascript:;`]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;padding-top:24px`, [[
+              `div`, `.@_g0 _eYG`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@_gZy`, [[]]]]]]]]]]]);
+    });
+    
+    return [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:45px`, [[
+          `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`]]]]]]], [
+        `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
+          `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelMalls[1]: [ModelMalls[0]]]]]]];
   }
 }

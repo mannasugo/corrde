@@ -139,6 +139,28 @@ class Event {
 			this.PWSSignup();
 		}
 
+		if (new Controller().Old() === `/pws/`) {
+
+			this.getPast();
+
+			this.getWSMugger();
+
+			this.Mugger();
+
+			this.WStools();
+		}
+
+		if (new Controller().Old() === `/pws/malls/`) {
+
+			this.getPast();
+
+			this.getWSMugger();
+
+			this.Mugger();
+
+			this.WStools();
+		}
+
 		if (new Controller().Old() === `/ships/`) {
 
 			this.getOld();
@@ -833,6 +855,17 @@ class Event {
 
 					Control.Root();
 				}
+
+				else if (Via === `manage stores`) {
+
+					UAlog.push(`/pws/malls/`); 
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `pws`, `/pws/malls/`]);
+
+					Control.Call();
+				}
 			}]);
 		});
 	}
@@ -1137,13 +1170,23 @@ class Event {
 
 	getWSMugger () {
 
-		if (!document.querySelector(`#mug`)) return;
+		if (document.querySelector(`#mug`)) {
 
-		this.listen([document.querySelector(`#mug`), `click`, S => {
+			this.listen([document.querySelector(`#mug`), `click`, S => {
 
-			new Controller().WSMugger();
+				new Controller().WSMugger();
 
-		}]);
+			}]);
+		}
+
+		if (document.querySelector(`#pws-mug`)) {
+
+			this.listen([document.querySelector(`#pws-mug`), `click`, S => {
+
+				new Controller().Apexmugger();
+
+			}]);
+		}
 	}
 
 	getPaid () {
@@ -1225,6 +1268,15 @@ class Event {
 					(!Alter[`alter`])? Alter[`alter`] = {}: Alter;
 
 					Alter[`alter`][`locale`] = Models.Filter(Via.innerHTML);
+
+					let FloatDot = [];
+
+					Via.id.split(`,`).forEach(float => {
+
+						FloatDot.push(parseFloat(float));
+					});
+
+					Alter[`alter`][`floats`] = FloatDot;
 
 					UA.set({ws: Alter});
 				}]);
@@ -1668,6 +1720,17 @@ class Event {
 					Control.Call();
 				}
 
+				if (Via === `pws-orders`) {
+
+					UAlog.push(`/pws/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `pws`, `/pws/`]);
+
+					Control.Call();
+				}
+
 				if (Via === `sell`) Control.initinventory();
 
 				/*else if (Via === `manage store`) {
@@ -1682,6 +1745,26 @@ class Event {
 				}*/
 			}]);
 		});
+	}
+
+	getPast () {
+
+		if (!document.querySelector(`#app`)) return;
+
+		this.listen([document.querySelector(`#app`), `click`, e => {
+
+			let UAlog = UA.get().ualog;
+
+			UAlog.push(`/pws/`); 
+
+			UA.set({ualog: UAlog});
+
+			let Control = new Controller();
+
+			Control.SetState([{}, `.`, `/pws/`]);
+
+			Control.Call();
+		}]);
 	}
 }
 
@@ -1725,6 +1808,8 @@ class Controller extends Puller {
 		if (this.Old() === `/paygate/`) this.Paygate();
 
 		if (this.Old() === `/pws/`) this.Apex();
+
+		if (this.Old() === `/pws/malls/`) this.PWSMalls();
 
 		if (this.Old() === `/ships/`) this.Mailable();
 
@@ -1995,6 +2080,8 @@ class Controller extends Puller {
 
 			else if (Pulls.lock === true) {
 
+				UA.set({pws: true});
+
 				new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelPWSPays()])]]);
 
 				new Event().Call();
@@ -2144,6 +2231,46 @@ class Controller extends Puller {
 				UA.set({ws: Pulls.pulls});
 
 				new View().DOM([`main`, [Models.ModelWS([`inventory`, Models.ModelWSAisles()])]]);
+
+				new Event().Call();
+			}
+		}
+	}
+
+	Apexmugger () {
+
+		new View().DOM([`main`, [Models.ModelApexmugger()]]);
+
+		new Event().Call()
+
+	}
+
+	PWSMalls () {
+
+		let UAlog = UA.get().ualog;
+
+		if (!UA.get().pws || UA.get().pws !== true) {
+
+			UAlog.push(`.`);
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `root`, `/`]);
+
+			this.Call();
+		} 
+
+		else {
+
+			let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `malls`}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				UA.set({apex: {malls: Pulls.pulls}});
+
+				new View().DOM([`main`, [Models.ModelPWS([`malls`, Models.ModelPWSMalls()])]]);
 
 				new Event().Call();
 			}

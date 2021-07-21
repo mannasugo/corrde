@@ -1776,6 +1776,8 @@ class UAPublic extends Auxll {
       });
     }
 
+    else if (this.levelState[1] === `pws`) this.App();
+
     else if (this.levelState[1] === `sales`) {
 
       this.Stores(A => {
@@ -9999,6 +10001,8 @@ class Puller extends Auxll {
 
             this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, pulls: Data.mall[1][Pulls.mall_md]}));
           }
+
+          else if (this.Stack[1].pull === `malls`) this.Stack[3].end(JSON.stringify({pulls: Data.mall[0]}));
 
           //https://sandbox.intasend.com/api/v1/payment/status/
 
