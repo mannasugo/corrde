@@ -1659,8 +1659,8 @@ let Models = {
           `span`,  `&@style>position:relative;height:24px;margin:0 8px 0 0`, [[
             `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
               `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
-              `circle`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>none`]]], [
-              `a`, `#@${P.md}`, `.@_aWz verify-item`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]], [
+              `circle`, `.@check-item`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>${(P.listed === true)? `#1185fe`: `none`}`]]], [
+            `a`, `#@${P.md}`, `.@_aWz listing-state`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]], [
           `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
             `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
             `div`, `.@_eYG`, [[

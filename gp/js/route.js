@@ -169,6 +169,8 @@ class Event {
 
 			this.getWSMugger();
 
+			this.listingState();
+
 			this.Mugger();
 
 			this.WStools();
@@ -1818,6 +1820,43 @@ class Event {
 
 			Control.Call();
 		}]);
+	}
+
+	listingState () {
+
+		if (document.querySelector(`.listing-state`)) {
+
+			document.querySelectorAll(`.listing-state`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {listing_md: this.getSource(S).id, md: UA.get().u.md, pull: `listing-state`}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						let UAlog = UA.get().ualog;
+
+						UAlog.push(`/pws/malls/listings/`);
+
+						UA.set({ualog: UAlog});
+
+						Control.SetState([{}, `pws`, `/pws/malls/listings/`]);
+
+						UA.set({apex: {malls_listings: Pulls.pulls}});
+
+						Control.Call();
+
+
+					}
+				}])
+			})
+		}
 	}
 }
 

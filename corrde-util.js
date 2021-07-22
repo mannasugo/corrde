@@ -9982,6 +9982,61 @@ class Puller extends Auxll {
               });
           }
 
+          else if (this.Stack[1].pull === `listing-state`) {
+
+            let Pulls = this.Stack[1];
+
+            if (Data.shelve[1][Pulls.listing_md]) {
+                  
+              let Shelve = Data.shelve[0];
+
+              Shelve.forEach(MD => {
+
+                (Data.Sell[1][MD.md] && Data.Sell[1][MD.md][`listed`] && Data.Sell[1][MD.md][`listed`] === true)? MD[`listed`] = true: MD[`listed`] = false;
+              });
+
+              Shelve.sort((A, B) => {return B.secs - A.secs});
+
+              let old, Old;
+
+              if (Data.Sell[1][Pulls.listing_md]) {
+
+                old = JSON.stringify(Data.Sell[1][Pulls.listing_md]);
+
+                Old = JSON.parse(old);
+
+                if (Data.Sell[1][Pulls.listing_md][`listed`] && Data.Sell[1][Pulls.listing_md][`listed`] === true) Old[`listed`] = false;
+
+                else Old[`listed`] = true;
+
+                new Sql().multi({},  
+                  `update inventory set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.Sell[1][Pulls.listing_md])}'`, (A, B, C) => {
+
+                  this.Stack[3].end(JSON.stringify({pulls: Shelve}));
+                });
+              }
+
+              else {
+
+                Old = Data.shelve[1][Pulls.listing_md];console.log(Old)
+
+                Old[`alpha`] = Old.alt;
+                Old[`listed`] = true;
+                Old[`log`] = Old.secs;
+                Old[`market`] = `kenya`;
+                Old[`MD5`] = Old.md;
+                Old[`set`] = Data.mall[1][Old[`mall_md`]][`retail`];
+          
+                new Sql().to([`inventory`, {
+                  json: JSON.stringify(Old)}], (A, B, C) => {
+
+                  this.Stack[3].end(JSON.stringify({pulls: Shelve}));
+                });
+
+              }
+            }
+          }
+
           else if (this.Stack[1].pull === `mall-listings`) {
 
             let Pulls = this.Stack[1];
@@ -10005,6 +10060,11 @@ class Puller extends Auxll {
           else if (this.Stack[1].pull === `malls-listings`) {
 
             let Shelve = Data.shelve[0];
+
+            Shelve.forEach(MD => {
+
+              (Data.Sell[1][MD.md] && Data.Sell[1][MD.md][`listed`] && Data.Sell[1][MD.md][`listed`] === true)? MD[`listed`] = true: MD[`listed`] = false;
+            })
 
             Shelve.sort((A, B) => {return B.secs - A.secs});
 
