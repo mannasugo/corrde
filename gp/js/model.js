@@ -576,9 +576,13 @@ let Models = {
       ModelPorts.push([
         `div`, `.@_gxM _yZS`, [[
           `div`, `.@_aXZ`, [[
-            `div`, [[`span`, `.@_tXx`, `&@style>text-transform:uppercase;`, `~@${Ports[Port][0].port}`]]], [
             `div`, `.@_gxM`, [[
-              `div`, `.@_geQ _gxM _aXZ`, [[`span`, `.@-_tX Store`], [`div`, `.@_eYG`, `~@${miles} Miles`], [
+              `span`, `.@_tXx`, `&@style>text-transform:uppercase;`, `~@${Ports[Port][0].port}`], [
+              `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@(orders: ${Ports[Port].length})`]]]]], [
+            `div`, `.@_gxM`, [[
+              `div`, `.@_geQ _gxM _aXZ`, [[
+                `span`, `.@-_tX ${(Ports[Port][0].pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@style>width:19px;height:19px`], [
+                `div`, `.@_eYG _a2X`, `&@style>font-family:gotham-book`, `~@${miles} Miles`], [
               `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Fx[1]}${fees} ${Fx[2]}`]]]]]]]]]]])
     }
 
