@@ -1369,6 +1369,15 @@ class Auxll {
       totalMass += MD.mass*MD.items;
               
       (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
+
+      if (MD.floats) {
+
+        MD[`port`] = MD.mall_alt;
+
+        MD[`port_gArray`] = Arg[3].mall[1][MD.mall_md][`floats`]//MD.floats;
+
+        MD[`pws_md`] = MD.mall_md;
+      }
               
       if (!MD.port) {
               
@@ -9478,7 +9487,7 @@ class Puller extends Auxll {
 
               }
 
-              else if (model.filter(model.filter(Sell.set)) === aisle) Pulls.push(Sell);
+              else if (this.Alias(Sell.set) === aisle || model.filter(model.filter(Sell.set)) === aisle) Pulls.push(Sell);
             });
 
             this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), pulls: Pulls}))
@@ -10031,11 +10040,13 @@ class Puller extends Auxll {
 
               else {
 
-                Old = Data.shelve[1][Pulls.listing_md];console.log(Old)
+                Old = Data.shelve[1][Pulls.listing_md];
 
                 Old[`alpha`] = Old.alt;
+                Old[`floats`] = Data.mall[1][Old[`mall_md`]][`floats`];
                 Old[`listed`] = true;
                 Old[`log`] = Old.secs;
+                Old[`mall_alt`] = Data.mall[1][Old[`mall_md`]][`alt`];
                 Old[`market`] = `kenya`;
                 Old[`MD5`] = Old.md;
                 Old[`set`] = Data.mall[1][Old[`mall_md`]][`retail`];
