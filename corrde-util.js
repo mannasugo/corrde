@@ -10162,15 +10162,24 @@ class Puller extends Auxll {
                             totalMass += MD.mass*MD.items;
               
                             (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
+
+              if (MD.floats) {
+
+                MD[`port`] = MD.mall_alt;
+
+                MD[`port_gArray`] = Arg[3].mall[1][MD.mall_md][`floats`]//MD.floats;
+
+                MD[`pws_md`] = MD.mall_md;
+              }
               
-                            if (!MD.port) {
+              if (!MD.port) {
               
-                              MD[`port`] = `corrde port`;
+                MD[`port`] = `corrde port`;
               
-                              MD[`port_gArray`] = [34.753, -.537];
-                            }
-              
-                            if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
+                MD[`port_gArray`] = [34.753, -.537];
+              }
+                            
+              if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
               
                             Ports[MD.port_gArray].push(MD);
               
