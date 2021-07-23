@@ -10389,6 +10389,8 @@ class Puller extends Auxll {
 
               MD[`set`] = MD[`set`].replace(new RegExp(`uu/002F0026`, `g`), `and`);
 
+              MD[`set`] = MD[`set`].replace(new RegExp(`u0026`, `g`), `and`);
+
               (Sells[MD[`set`]])? Sells[MD[`set`]] = Sells[MD[`set`]]: Sells[MD[`set`]] = [];
 
               Sells[MD[`set`]].push({
