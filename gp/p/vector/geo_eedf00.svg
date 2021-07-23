@@ -3,10 +3,9 @@
 
     path, circle {
       stroke-width: 1px; 
-      stroke: #000
+      stroke: #eedf00;
     }
   </style>
-  <!--rect x="0" y="0" width="24" height="24"></rect-->
   <circle fill="none" cx="12" cy="9" r="8"></circle>
   <path fill="#fff" d="M18.25 14 12 23 5.75 14"></path>
   <circle fill="none" cx="12" cy="9" r="3.5"></circle>

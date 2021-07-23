@@ -410,7 +410,7 @@ let Models = {
                 `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0`, [[
                   `div`, `.@_eYG`], [
                   `div`, `.@_QZg`, [[
-                    `span`, `.@_-tX Store`, `&@style>width:19px;height:19px`], [
+                    `span`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@style>width:19px;height:19px`], [
                     `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
@@ -429,7 +429,7 @@ let Models = {
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
                 `span`, `&@style>text-align:center;font-family:gotham-book`, `~@${(Seen[Row.MD5].items)? ((Seen[Row.MD5].items < 10)? `0`+ Seen[Row.MD5].items: Seen[Row.MD5].items): `00`}`]]], [
-      				`a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]])
+      				`a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]]);console.log(Row)
 			});
 			
 			ModelAisle.push([`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelShelve])
