@@ -9427,6 +9427,19 @@ class Puller extends Auxll {
     this.Stack = Stack;
   }
 
+  Alias = String => {
+
+    String = String.replace(new RegExp(`u0026`, `g`), `&`);
+
+    String = String.replace(new RegExp(`u0027`, `g`), `'`);
+
+    String = String.replace(new RegExp(`u0022`, `g`), `"`);
+
+    String = String.replace(new RegExp(`u002F`, `g`), `/`);
+
+    return String;
+  }
+
   Pull () {
 
     if (this.Stack[0][1] === `pulls`) {
@@ -9461,7 +9474,7 @@ class Puller extends Auxll {
 
               if (aisle === `fruits & vegetables` || aisle === `fast food & eatery`) {
 
-                if (model.filter(model.filter(Sell.set)) === aisle && Sell.market === this.Stack[1].area) Pulls.push(Sell);
+                if (this.Alias(Sell.set) === aisle || model.filter(model.filter(Sell.set)) === aisle && Sell.market === this.Stack[1].area) Pulls.push(Sell);
 
               }
 
