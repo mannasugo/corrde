@@ -9971,7 +9971,31 @@ class Puller extends Auxll {
             new Sql().multi({},  
               `update shelve set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.shelve[1][Pulls.listing_md])}'`, (A, B, C) => {
 
-                this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Shelve}));
+                if (Data.Sell[1][Pulls.listing_md]) {
+
+                  let alters = JSON.stringify(Data.Sell[1][Pulls.listing_md]);
+
+                  let Alter = JSON.parse(alters);
+
+                  for (let alter in Old) {
+
+                    Alter[alter] = Old[alter];
+                  }
+
+                  Old = Alter;
+
+                  //Old = JSON.parse(old);
+
+                  //Old[`listed`] = true;
+
+                  new Sql().multi({},  
+                    `update inventory set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.Sell[1][Pulls.listing_md])}'`, (A, B, C) => {
+
+                      this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Shelve}));
+                  });
+                }
+
+                else this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Shelve}));
               });
           }
 

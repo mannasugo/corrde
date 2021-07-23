@@ -1559,7 +1559,7 @@ let Models = {
                 `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
                   `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>fill:none;stroke:#19e819`], [
                   `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#19e819`]]]]]]], [
-                `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `svg`, `.@_-Zz`, `&@style>min-height:0;height:24px;width:24px`, [[
                   `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>fill:none;stroke:#19e819`], [
                   `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#19e819`]]]]], [
           `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]], [

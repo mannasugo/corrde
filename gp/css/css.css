@@ -671,7 +671,7 @@ body {
 
 .AddStoriesColor, .Alcohol, .ArchiveGray, .Beve, .CartGray, .Close, .closelighticonUA, .Collapse, .CommentsGray, 
 .cServiceGray, .DelColor, .dissentlighticonUA, .Dribbble, .electiconUA,
-.FilterColor, .Filter2Gray, .From, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
+.FilterColor, .Filter2Gray, .From, .Geo_1185FE, .Geo_EEDF00, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .Max, .Max000, .Meals, .Min, .Min000, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .Sell000, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
 .StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .Veges, .Via, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
@@ -792,6 +792,10 @@ body {
 .From {background-image: url(/gp/p/vector/from.svg);}
 
 .GeoGray {background-image: url(/gp/p/vector/geo_pin_2.svg);}
+
+.Geo_1185FE {background-image: url(/gp/p/vector/geo_1185fe.svg);}
+
+.Geo_EEDF00 {background-image: url(/gp/p/vector/geo_eedf00.svg);}
 
 .GeoLightGray {background-image: url(/gp/p/vector/geo_pin_light.svg);}
 
