@@ -1255,44 +1255,6 @@ let Models = {
                       `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
-  ModelWSPay () {
-
-    let State = `all`;
-
-    if (UA.get().pws_pays) State = UA.get().pws_pays;
-
-    let ModelPays = [[], []];
-
-    ModelPays[0] = [
-      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
-        `span`, `.@-_tX Bag`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 orders`]]]
-
-    let ModelPullArgs = [];
-
-    let PullArgs = [`all`, `new`, `preparing`, `ready`, `delivered`];
-
-    PullArgs.forEach(S => {
-
-      let style = ``;
-
-      if (S === State) style = `text-decoration:line-through`; 
-
-      ModelPullArgs.push([
-        `a`, `#@pullArg`, `.@_aA2 _tXx`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;border:2px solid #000;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
-    });
-
-    let Pay = [];
-    
-    return [
-      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
-        `section`,  `&@style>width:100%;padding-top:45px`, [[
-          `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
-            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
-              `div`, `.@_gZy`, []]]]]]]], [
-        `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
-          `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]];
-  },
-
   ModelWSMugger () {
 
     if (!UA.get().ws) return;
@@ -1698,7 +1660,7 @@ let Models = {
 
       let ModelFlow = [];
 
-      let Flow = [[MD.pws_flow[1], `order accepted`, `accept order`], [MD.pws_flow[3], `courier`, `create shipment`], [MD.pws_flow[4], `delivered`]];
+      let Flow = [[MD.pws_flow[1], `order accepted`, `accept order`], [MD.pws_flow[3], `courier`, `order for pickup`], [MD.pws_flow[4], `delivered`]];
 
       let ModelOpt = []; 
 
@@ -1723,7 +1685,9 @@ let Models = {
         if (Flow.indexOf(Sec) === 0) {
 
           ModelPlus = [`div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
-            `span`, `.@Mug`], [`div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${MD.alt}`]]]]]
+            `span`, `.@Mug`], [
+            `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${MD.alt}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${MD.bag[0].miles} mi`]]]]]
         }
 
         else ModelPlus = [];
@@ -1774,5 +1738,129 @@ let Models = {
               `div`, `.@_gZy`, [`ModelPullArgs`]]]]]]]], [
           `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
             `div`, (Pay.length > 0)? `.@_egQ`: ``, ModelPay]]]]];
+  },
+
+  ModelWSPay () {
+
+    let State = `all`;
+
+    if (UA.get().pws_pays) State = UA.get().pws_pays;
+
+    let ModelPays = [[], []];
+
+    ModelPays[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
+        `span`, `.@-_tX Bag`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 orders`]]]
+
+    let ModelPullArgs = [];
+
+    let PullArgs = [`all`, `new`, `preparing`, `ready`, `delivered`];
+
+    PullArgs.forEach(S => {
+
+      let style = ``;
+
+      if (S === State) style = `text-decoration:line-through`; 
+
+      ModelPullArgs.push([
+        `a`, `#@pullArg`, `.@_aA2 _tXx`, `&@style>margin: 0 14px 14px 0;font-size:12px;padding:0 12px;border:2px solid #000;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+    });
+
+    let Pay = UA.get().ws.till;
+
+    Pay.forEach(MD => {
+
+      let ModelCart = [];
+
+      MD.bag.forEach(MD => {
+
+        ModelCart.push([`div`, `.@_gxM _geQ`, [[
+          `img`, `&@src>/${MD.files[0]}`, `&@style>width:45px`], [
+          `div`, `.@_eYG`, [[`span`, `~@${MD.alpha}`]]], [
+          `div`, `.@_QZg`, [[
+            `div`, `.@_gxM _tXx`, `&@style>font-family:gotham-book`, [[
+              `span`, `~@${MD.items}`], [`span`, `&@style>margin: 0 25px;color:#999`, `~@x`], [`span`, `~@${parseFloat(MD.dollars)} USD`]]]]]]])
+      });
+
+      let ModelFlow = [];
+
+      let Flow = [[MD.pws_flow[1], `order accepted`, `accept order`], [MD.pws_flow[3], `courier`, `order for pickup`], [MD.pws_flow[4], `delivered`]];
+
+      let ModelOpt = []; 
+
+      Flow.forEach(Sec => {
+
+        if (Flow.indexOf(Sec) === 0 || (Flow.indexOf(Sec) === 1 && Flow[0][0] !== false)) {
+
+          ModelOpt = [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+              `a`, `#@${MD.tracking_md}-${MD.md}`, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@${Sec[2]}`]]]
+        }
+
+        else ModelOpt = []
+
+        let ModelBoolean = [
+          `div`, `.@_gxM _geQ`, [
+            (Sec[0] === false)? ModelOpt: [`span`, `.@_tXx`, `&@style>color:#1185fe`, `~@${Sec[1]}`], [
+            `div`, `.@_QZg`, [(Sec[0] === false)? []: [`span`, `.@_a2X`, `~@${this.log(Sec[0])}`]]]]]
+
+        let ModelPlus = [];
+
+        if (Flow.indexOf(Sec) === 0) {
+
+          ModelPlus = [`div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+            `span`, `.@Mug`], [
+            `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${MD.alt}`]]], [
+            `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${MD.bag[0].miles} mi`]]]]]
+        }
+
+        else ModelPlus = [];
+
+        let ModelStep = [
+        `div`, `.@_gxM`, [[
+          `div`, `.@_geQ`, `&@style>width:5%`, [[
+            `svg`, `&@style>min-height:0;width:100%;height:90px`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]]]], [
+          `div`, `&@style>width:95%;;padding-left:16px;overflow:hidden`, [ModelPlus]]]];
+
+        ModelFlow.push([`div`, [[
+          `div`, `.@_geQ _gxM _yZS`, [[
+            `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>stroke:#19e819;fill:none`], [
+                `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#${(Sec[0] === false)? `fff`: `19e819`}`]]]]], [
+                `div`, `.@geQ`, `&@style>width:95%;padding-left:16px`, [ModelBoolean]]]], 
+          (Flow.indexOf(Sec) < 2)? ModelStep: []]])
+      }); 
+
+      ModelPays[1].push([
+        `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+        `div`, `.@_gZ _gxM _geQ`, [[
+          `span`, `.@_-Zz`,  `&@style>position:relative;height:24px;margin:0 8px 0 0`, [[
+            `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
+              `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
+              `circle`, `.@check-item`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>${(MD.listed && MD.listed === true)? `#1185fe`: `none`}`]]]]], [
+          `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
+            `span`, `.@ArchiveGray`, `&@style>width:16px;height:16px`], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_gxM _geQ`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color: #1185fe`, `~@#${Pay.indexOf(MD) + 1}`], [
+                `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${this.log(MD.secs)}`]]]]]]], [
+            `div`, `.@_QZg`, [[
+              `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;`, [[
+              `div`, `.@_g0`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.gross - MD.fee)/this.Fx[`kenya`][0]).toFixed(2)}`]]], [
+                  `div`, `&@style>padding-bottom:16px`, ModelCart], [
+                  `div`, `&@style>padding-bottom:16px`, ModelFlow]]]]]]]]])
+    })
+    
+    return [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:45px`, [[
+          `div`, `.@_g0 _-Zz`, `&style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`, [`ModelPullArgs`]]]]]]]], [
+          `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+            `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]];
   }
 }

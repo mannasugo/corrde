@@ -9886,12 +9886,26 @@ class Puller extends Auxll {
 
             Data.till[0].forEach(MD => {
 
-              if (MD.pws_md === Pulls.ws_md) Till.push(MD);
+              let secs = MD.secs;
+
+              let alt = Data.Ppl[1][MD.payer_md].full;
+
+              MD.till.forEach(MD => {
+
+                MD[`alt`] = alt;
+
+                MD[`secs`] = secs;
+
+                if (MD.pws_md === Pulls.ws_md && MD.pws_flow[0] !== false) Till.push(MD);
+              });
             });
+
+            Till.sort((A, B) => {return B.secs - A.secs});
 
             Data.mall[1][Pulls.ws_md][`till`] = Till;
 
             this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.ws_md].alt, pulls: Data.mall[1][Pulls.ws_md]}));
+
           }
 
           else if (this.Stack[1].pull === `ws`) {
