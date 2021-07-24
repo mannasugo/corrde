@@ -1694,7 +1694,55 @@ let Models = {
           `div`, `.@_QZg`, [[
             `div`, `.@_gxM _tXx`, `&@style>font-family:gotham-book`, [[
               `span`, `~@${MD.items}`], [`span`, `&@style>margin: 0 25px;color:#999`, `~@x`], [`span`, `~@${parseFloat(MD.dollars)} USD`]]]]]]])
-      })
+      });
+
+      let ModelFlow = [];
+
+      let Flow = [[MD.pws_flow[1], `order accepted`, `accept order`], [MD.pws_flow[3], `courier`, `create shipment`], [MD.pws_flow[4], `delivered`]];
+
+      let ModelOpt = []; 
+
+      Flow.forEach(Sec => {
+
+        if (Flow.indexOf(Sec) === 0 || (Flow.indexOf(Sec) === 1 && Flow[0][0] !== false)) {
+
+          ModelOpt = [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+              `a`, `#@${MD.tracking_md}-${MD.md}`, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@${Sec[2]}`]]]
+        }
+
+        else ModelOpt = []
+
+        let ModelBoolean = [
+          `div`, `.@_gxM _geQ`, [
+            (Sec[0] === false)? ModelOpt: [`span`, `.@_tXx`, `&@style>color:#1185fe`, `~@${Sec[1]}`], [
+            `div`, `.@_QZg`, [(Sec[0] === false)? []: [`span`, `.@_a2X`, `~@${this.log(Sec[0])}`]]]]]
+
+        let ModelPlus = [];
+
+        if (Flow.indexOf(Sec) === 0) {
+
+          ModelPlus = [`div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+            `span`, `.@Mug`], [`div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${MD.alt}`]]]]]
+        }
+
+        else ModelPlus = [];
+
+        let ModelStep = [
+        `div`, `.@_gxM`, [[
+          `div`, `.@_geQ`, `&@style>width:5%`, [[
+            `svg`, `&@style>min-height:0;width:100%;height:90px`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]]]], [
+          `div`, `&@style>width:95%;;padding-left:16px;overflow:hidden`, [ModelPlus]]]];
+
+        ModelFlow.push([`div`, [[
+          `div`, `.@_geQ _gxM _yZS`, [[
+            `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>stroke:#19e819;fill:none`], [
+                `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#${(Sec[0] === false)? `fff`: `19e819`}`]]]]], [
+                `div`, `.@geQ`, `&@style>width:95%;padding-left:16px`, [ModelBoolean]]]], 
+          (Flow.indexOf(Sec) < 2)? ModelStep: []]])
+      }); 
 
       ModelPay.push([
         `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
@@ -1714,7 +1762,8 @@ let Models = {
               `div`, `.@_g0`, `&@style>`, [[
                 `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
                   `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${(MD.gross/this.Fx[`kenya`][0]).toFixed(2)}`]]], [
-                  `div`, `&@style>padding-bottom:16px`, ModelCart]]]]]]]]])
+                  `div`, `&@style>padding-bottom:16px`, ModelCart], [
+                  `div`, `&@style>padding-bottom:16px`, ModelFlow]]]]]]]]])
     })
     
     return [

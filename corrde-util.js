@@ -10036,7 +10036,11 @@ class Puller extends Auxll {
 
               let secs = MD.secs;
 
+              let alt = Data.Ppl[1][MD.payer_md].full;
+
               MD.till.forEach(MD => {
+
+                MD[`alt`] = alt;
 
                 MD[`secs`] = secs;
 
