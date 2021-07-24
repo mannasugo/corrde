@@ -141,6 +141,8 @@ class Event {
 
 		if (new Controller().Old() === `/pws/`) {
 
+			this.foldWSAlter();
+
 			this.getPast();
 
 			this.getWSMugger();
@@ -2182,7 +2184,7 @@ class Controller extends Puller {
 
 						Pulls = JSON.parse(Pull.response);
 
-						UA.set({apex: Pulls.pulls});
+						UA.set({apex: {till: Pulls.pulls}});
 
 						new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelPWSPays()])]]);
 

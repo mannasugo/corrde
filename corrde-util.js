@@ -10034,13 +10034,17 @@ class Puller extends Auxll {
 
             Data.till[0].forEach(MD => {
 
-              MD.till.sort((A, B) => {return B.secs - A.secs});
+              let secs = MD.secs;
 
               MD.till.forEach(MD => {
+
+                MD[`secs`] = secs;
 
                 if (MD.pws_md === false && MD.pws_flow[0] !== false) Till.push(MD);
               });
             });
+
+            Till.sort((A, B) => {return B.secs - A.secs});
 
             this.Stack[3].end(JSON.stringify({pulls: Till}));
           }
