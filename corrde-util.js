@@ -10028,6 +10028,23 @@ class Puller extends Auxll {
               });
           }
 
+          else if (this.Stack[1].pull === `apex-till`) {
+
+            let Till = [];
+
+            Data.till[0].forEach(MD => {
+
+              MD.till.sort((A, B) => {return B.secs - A.secs});
+
+              MD.till.forEach(MD => {
+
+                if (MD.pws_md === false && MD.pws_flow[0] !== false) Till.push(MD);
+              });
+            });
+
+            this.Stack[3].end(JSON.stringify({pulls: Till}));
+          }
+
           else if (this.Stack[1].pull === `listing-state`) {
 
             let Pulls = this.Stack[1];
@@ -10324,7 +10341,7 @@ class Puller extends Auxll {
                   api_ref: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
                   name: Data.Ppl[1][Arg.md][`full`],
                   phone_number: (Arg.mobile.length === 12)? Arg.mobile.slice(3, 9): `254${Arg.mobile.toString().substr(1)}`,
-                  email: Data.Ppl[1][Arg.md][`mail`]}}, (error, JS, Pull) => {console.log(JS)
+                  email: Data.Ppl[1][Arg.md][`mail`]}}, (error, JS, Pull) => {
 
                 new Sql().to([`payrequest`, {json: JSON.stringify({
                   bag: Pulls.trolley,

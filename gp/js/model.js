@@ -1014,7 +1014,7 @@ let Models = {
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, [[
                         `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #000;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
+                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
                       `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
@@ -1283,7 +1283,7 @@ let Models = {
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, [[
                         `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #000;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
+                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
                       `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 

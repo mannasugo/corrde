@@ -2176,9 +2176,18 @@ class Controller extends Puller {
 
 				UA.set({pws: true});
 
-				new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelPWSPays()])]]);
+				Pull = this.Pull([`/pulls/ua/`, {pull: `apex-till`}]);
 
-				new Event().Call();
+					Pull.onload = () => {
+
+						Pulls = JSON.parse(Pull.response);
+
+						UA.set({apex: Pulls.pulls});
+
+						new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelPWSPays()])]]);
+
+						new Event().Call();
+				}
 			}
 		}
 	}
