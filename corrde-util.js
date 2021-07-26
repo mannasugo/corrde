@@ -1198,7 +1198,8 @@ class Auxll {
       ;select * from trades
       ;select * from till
       ;select * from ws
-      ;select * from shelve`, (A, B, C) => {
+      ;select * from shelve
+      ;select * from via`, (A, B, C) => {
 
         let Mall = [], Malls = {};
 
@@ -1231,6 +1232,8 @@ class Auxll {
         let Trades = [];
 
         let TradeSet = {};
+
+        let Via = [], Vias = {};
 
         for (let row in B[0]) {
 
@@ -1313,6 +1316,15 @@ class Auxll {
           Shelfs[Row.md] = Row;
         }
 
+        for (let row in B[9]) {
+
+          let Row = JSON.parse(B[9][row].json);
+
+          Via.push(Row);
+
+          Vias[Row.md] = Row;
+        }
+
         Aft({
           mall: [Mall, Malls],
           Pay: [Pay, PaySet],
@@ -1322,7 +1334,8 @@ class Auxll {
           shelve: [Shelf, Shelfs],
           Stalls: [Stalls, StallSet],
           till: [Till, Tills],
-          Trade: [Trades, TradeSet]})
+          Trade: [Trades, TradeSet],
+          via: [Via, Vias]})
       })
   }
 
@@ -1501,6 +1514,7 @@ class Sql extends Auxll {
         ;${config.sql.u}
         ;${config.sql.u_md5_logs}
         ;${config.sql.u_md5_mail}
+        ;${config.sql.via}
         ;${config.sql.vServices}
         ;${config.sql.ws}`);
       this.multiSql.end();
@@ -1574,6 +1588,8 @@ class UAPublic extends Auxll {
     if (this.levelState === `aisles`) this.App();
 
     if (this.levelState === `cart`) this.App();
+
+    if (this.levelState === `deliver`) this.App();
 
     if (this.levelState === `orders`) this.App();
 
@@ -7853,6 +7869,8 @@ class AJXReqs extends Auxll {
 
       else if (this.args.CreateStore) this.CreateStore(JSON.parse(this.args.CreateStore));
 
+      else if (this.args.delMD) this.delMD(JSON.parse(this.args.delMD));
+
       else if (this.args.getPays) this.getPays(JSON.parse(this.args.getPays));
 
       else if (this.args.getStock) this.getStock(JSON.parse(this.args.getStock));
@@ -9184,6 +9202,22 @@ class AJXReqs extends Auxll {
     })
   }
 
+  delMD(Arg) {
+
+    this.Sell(Sell => {
+
+      this.app.to.writeHead(200, config.reqMime.json);
+
+      let old = JSON.stringify(Sell.Sell[1][Arg.md]);
+
+      new Sql().multi({}, 
+        `delete from inventory where json = '${old}'`, (A, B, C) => {
+
+          this.app.to.end(JSON.stringify({exit: true}));
+        });
+    })
+  }
+
   pullSecurities (Arg) {
 
     this.Sell(Sell => {
@@ -9566,7 +9600,8 @@ class Puller extends Auxll {
               email: Ppl.mail,
               lock: (Ppl.mail === `mannasugo@gmail.com`)? Ppl.pass: false,
               malls: Mall,
-              md: Ppl.sum
+              md: Ppl.sum,
+              via: (Ppl.via && Ppl.via === true)? Ppl.via: false
             }}))
           }
 
@@ -10067,6 +10102,29 @@ class Puller extends Auxll {
             this.Stack[3].end(JSON.stringify({pulls: Till}));
           }
 
+          else if (this.Stack[1].pull === `init-viavolt`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.Ppl[1][Pulls.md]) return;
+
+            let old = JSON.stringify(Data.Ppl[1][Pulls.md]);
+
+            let Old = JSON.parse(old);
+
+            Old[`via`] = true;
+
+            let Till = [];
+
+            Data.via[0].sort((A, B) => {return B.secs - A.secs});
+
+            new Sql().multi({},  
+              `update u set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.Ppl[1][Pulls.md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({pulls: Data.via[0]}));
+              });
+          }
+
           else if (this.Stack[1].pull === `listing-state`) {
 
             let Pulls = this.Stack[1];
@@ -10160,6 +10218,8 @@ class Puller extends Auxll {
 
           else if (this.Stack[1].pull === `malls`) this.Stack[3].end(JSON.stringify({pulls: Data.mall[0]}));
 
+          else if (this.Stack[1].pull === `viavolt-listings`) this.Stack[3].end(JSON.stringify({pulls: Data.via[0]}));
+
           //https://sandbox.intasend.com/api/v1/payment/status/
 
           else {
@@ -10192,15 +10252,15 @@ class Puller extends Auxll {
 
               let State = MD.split(`u0`); //
               
-                            MD = Data.Sell[1][State[0]];
+              MD = Data.Sell[1][State[0]];
               
-                            MD[`items`] = parseInt(State[1]);
+              MD[`items`] = parseInt(State[1]);
               
-                            totalPay += (MD.dollars*MD.items)*FX[0];
+              totalPay += (MD.dollars*MD.items)*FX[0];
               
-                            totalMass += MD.mass*MD.items;
+              totalMass += MD.mass*MD.items;
               
-                            (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
+              (MD.dollars*MD.items > FX[3])? MD[`shipping`] = `freight`: MD[`shipping`] = `light`;
 
               if (MD.floats) {
 

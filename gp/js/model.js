@@ -861,7 +861,7 @@ let Models = {
 
     (Mugger && UA.get().u && UA.get().u.malls.length > 0)? Mugger.push(`my stores`): Mugger;
 
-    (Mugger && UA.get().u && UA.get().u.via && UA.get().u.via === true)? Mugger.push(`deliveries`): Mugger;
+    (Mugger && UA.get().u && UA.get().u.via && UA.get().u.via === true)? Mugger.push(`deliver orders`): Mugger;
 
     (Mugger && UA.get().u && UA.get().u.lock !== false)? Mugger.push(`manage store`): Mugger;
 
@@ -992,7 +992,7 @@ let Models = {
         `a`, `#@pws-mug`, `.@_aWz`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
     }
 
-    let Opts = [[`Bag`, `pws-orders`]];
+    let Opts = [[`Bag`, `pws-orders`], [`Ship`, `viavolt-listing`]];
 
     let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
 
@@ -1137,15 +1137,15 @@ let Models = {
         `build web store`, 
         `integrate your restuarant or store services with our online platform and upload your meals menu and stock inventory while operating for free.`,
         `sign up your store`,
-        `Via`],
+        `Via`]/*,
       [
         `Ship`, 
         `become a corrde courier`, 
         `as a delivery rider or driver you'll make reliable money working anywhere, anytime-register for free.`,
         `start earning`,
-        `Via`]];
+        `Via`]*/];
 
-    if (UA.get().u.md && UA.get().u.via && UA.get().u.via === true) Mugger = [Mugger[0]];
+    //if (UA.get().u && UA.get().u.md && UA.get().u.via && UA.get().u.via === true) Mugger = [Mugger[0]];
 
     let ModelMugger = [];
 
@@ -1874,5 +1874,75 @@ let Models = {
               `div`, `.@_gZy`, [`ModelPullArgs`]]]]]]]], [
           `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
             `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]];
+  },
+
+  ModelViaVolt (Arg) {
+
+    let ModelMug = [`a`, `#@mug`, `.@-_tX Mug`, `&@style>margin: 0 15px`, `&@href>javascript:;`];
+
+    if (UA.get().u) {
+
+      ModelMug = [
+      `span`,  `&@style>margin: 0 15px;position:relative;height:24px`, [[
+        `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+            `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().u.alt[0]}`]]], [
+        `a`, `#@viavolt-mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+    }
+
+    let Opts = [[`Bag`, `viavolt listings`], [`Ship`, `my deliveries`]];
+
+    let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
+
+    Opts.forEach(Opt => {
+
+      ModelOpts.push([
+        `div`, `.@_gMX _geQ _s0`, [[`a`, `.@-_tX ${Opt[0]} pws`, `&@href>javascript:;`, `~@${Opt[1]}`]]])
+    });
+
+    return [
+      `article`, `#@ModelStallControls`, `.@AvZ`, [[
+        `div`, `.@_tY0 AvZ`, [[
+          `main`, `.@_gZy AvZ`, [[
+            `nav`, `.@_gy0`, [[
+              `div`, `.@_gy`, [[
+                `div`, `.@_gq`, ModelOpts]]]]], [
+            `section`, `.@_gy2 AvZ`, `&@style>width:100%`, [[
+              `div`, `.@AvZ`, [Arg[1]]], [
+              `nav`, `.@_uHC`, `&@style>background:none`, [[
+                `div`, `.@_xCt`], [
+                `div`, [[
+                  `div`, `.@_-tY`, `&@style>left:0`, [[
+                    `div`, `.@_aXz`, [[
+                      `div`, `.@_-Xg _gxM _geQ`, [[
+                        `a`, `#@devs`, `.@-_tX Ship`, `&@href>javascript:;`, `~@pws`], [
+                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
+                      `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
+  },
+
+  ModelViaVoltMugger () {
+
+    if (!UA.get().u.via || UA.get().u.via !== true) return;
+
+    let Mugger = [`my deliveries`, `corrde store`];
+
+    let ModelMugger = [];
+
+    Mugger.forEach(a => {
+
+      ModelMugger.push([
+        `div`, `.@_gZ`, [[
+          `a`, `#@${a}`, `.@_gcQ _aXZ _tXx _aA2 mugger`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${a}`]]])
+    })
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, ModelMugger]]]]];
   }
 }

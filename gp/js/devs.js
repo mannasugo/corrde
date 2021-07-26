@@ -331,6 +331,20 @@
       });
     }
 
+    else if (e.id === `del-md`) {
+
+      let ModelSource = document.querySelector(`#corrde-root > main`);
+
+      let M = new Model();
+
+      ModelSource.innerHTML = M.modelStringify([M.ModelWait()]);
+
+      AJSON([`/devs_reqs/`, `delMD`], {md: e.getAttribute(`for`)}, (A, B) => {
+
+        if (B.exit === true) window.location = `/v2/devs/`;
+      });
+    }
+
     else if (e.id === `DelRetailStock`) {
 
       document.querySelector(`#corrde-root > main`).removeChild(document.querySelector(`#ModalRetailStock`).parentNode)

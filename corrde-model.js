@@ -9662,6 +9662,8 @@ module.exports = {
                 `div`, `.@_geQ`, `&@style>width:25%`, [[`a`, `#@pollRetailPile`, `.@-_tX Plus`, `&@sum>${Sell.MD5}`, `&@role>plus`, `&@href>javascript:;`, `~@add`]]]]]]]]]]];
     }
 
+    let ModelDel = [`div`, `.@_yZS _gxM`, [[`div`], [`div`, `.@_QZg`, [[`a`, `#@del-md`, `&@for>${Sell.MD5}`, `&@href>javascript:;`, `.@Close`]]]]]
+
     return [
       `div`, `@_-Zz`, `#@ModelShelfEditor`, [[
         `div`, `.@_UQe`, `#@modalView`, [[
@@ -9674,7 +9676,7 @@ module.exports = {
                   `div`, `.@_QZg _gMz`, [[`a`, `#@DelEditor`, `.@-_tX DelColor`, `&@href>javascript:;`]]]]]]], [
               `div`, `.@_aXY _XsQ _aA2`, `&@style>max-height: calc(100vh - 170px);padding:0`, [[
                 `div`, `.@sZ2`, `&@style>font-size:12px`, [
-                  ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay, ModelAlterKilo, ModelAlterPile]]]]]]]]]]]]]];
+                  ModelShelfEditor, ModelAlterAltString, ModelFileAlter, ModelAlterMake, ModelAlterSex, ModelAlterZone, ModelAlterPay, ModelAlterKilo, ModelAlterPile, ModelDel]]]]]]]]]]]]]];
   },
 
   ModalRetailStock (Sell, Pull) {
