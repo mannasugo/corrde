@@ -53,7 +53,7 @@ class View {
       if (queer.indexOf(z) === -1) this.appendString += `</` + z + `>`; 
     }
 
-    return this.Alias(this.Alias(this.appendString));
+    return this.Unfilter(this.Alias(this.Alias(this.appendString)));
   }
 
   Alias (String) {
@@ -65,6 +65,19 @@ class View {
     String = String.replace(new RegExp(`u/0022`, `g`), `"`);
 
     String = String.replace(new RegExp(`u/002F`, `g`), `/`);
+
+    return String;
+  }
+
+  Unfilter = (String) => {
+
+    String = String.replace(new RegExp(`u0026`, `g`), `&`);
+
+    String = String.replace(new RegExp(`u0027`, `g`), `'`);
+
+    String = String.replace(new RegExp(`u0022`, `g`), `"`);
+
+    String = String.replace(new RegExp(`u002F`, `g`), `/`);
 
     return String;
   }
@@ -114,13 +127,22 @@ let Models = {
   },
 
   Retail: [
+    `beauty & personal care`,
     `clothing`,
-    `fruits & vegetables`/*,  `alcohol`, `baby`, `beverages`, `beauty & personal care`, `bread & bakery`, `christmas shop`,  `cold & flu`, 
+    `fruits & vegetables`/*,  `alcohol`, `baby`, `beverages`, `bread & bakery`, `christmas shop`,  `cold & flu`, 
       `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `garden & tools`, `gift shop`, `health & nutrition`, 
       `home, kitchen & dine`, `household essentials`, `meat & seafood`, `office & electronics`, `organic shop`, 
       `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`*/],
 
   Retails: {
+
+    [`beauty & personal care`]: {
+      [`shelf`]: [
+        `bath & body soap`, 
+        `beauty tools & brushes`, 
+        `deodorants`, `fragrances`, 
+        `hair care`, `makeup`, `nails`, `oral care`, `shave`, `skin care`, `sunscreens`, `stock up essentials`, `travel`]
+    },
 
     [`fruits & vegetables`]: {
       [`shelf`]: [ 
