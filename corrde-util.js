@@ -10240,7 +10240,7 @@ class Puller extends Auxll {
 
           if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {
 
-            let Vals = this.Stack[1][`trolley`]; //
+            let Vals = /*[Data.Sell[0][0].MD5 + `u0` + `2`]*/ this.Stack[1][`trolley`]; 
 
             let Bag = [];
 
@@ -10266,7 +10266,7 @@ class Puller extends Auxll {
 
                 MD[`port`] = MD.mall_alt;
 
-                MD[`port_gArray`] = Arg[3].mall[1][MD.mall_md][`floats`]//MD.floats;
+                MD[`port_gArray`] = Data.mall[1][MD.mall_md][`floats`]//MD.floats;
 
                 MD[`pws_md`] = MD.mall_md;
               }
@@ -10280,13 +10280,13 @@ class Puller extends Auxll {
                             
               if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
               
-                            Ports[MD.port_gArray].push(MD);
+              Ports[MD.port_gArray].push(MD);
               
-                            (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
+              (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
               
-                            MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]); //
+              MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]); //
               
-                            Bag.push(MD);
+              Bag.push(MD);
 
             });
 
@@ -10514,7 +10514,7 @@ class Puller extends Auxll {
         });
       }
 
-      else if (this.Stack[0][2] === `jpeg`) {//console.log(this.Stack[2].headers[`md`])
+      else if (this.Stack[0][2] === `jpeg`) {
 
         this.Stack[3].setHeader(`Content-Type`, `application/json`);
 
