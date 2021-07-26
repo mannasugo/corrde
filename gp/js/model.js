@@ -127,14 +127,34 @@ let Models = {
   },
 
   Retail: [
-    `beauty & personal care`,
+    `alcohol`,
+    `beauty & personal care`, 
+    `beverages`, `bread & bakery`,
     `clothing`,
-    `fruits & vegetables`/*,  `alcohol`, `baby`, `beverages`, `bread & bakery`, `christmas shop`,  `cold & flu`, 
-      `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `garden & tools`, `gift shop`, `health & nutrition`, 
+    `fruits & vegetables`, `health & nutrition`,/*, `baby`, `christmas shop`,  `cold & flu`, 
+      `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `garden & tools`, `gift shop`, 
       `home, kitchen & dine`, `household essentials`, `meat & seafood`, `office & electronics`, `organic shop`, 
       `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`*/],
 
   Retails: {
+
+    [`alcohol`]: {
+      [`alcohol`]: [
+        `canned cocktails`,
+        `champagne & sparkling wine`, `craft beer`,
+        `hard seltzer & flavored beverages`,
+        `domestic beer`,
+        `import beer`, `liquor`,
+        `low calorie & organic alcohol`, `red wine`, `rose & blush wine`, `seasonal & new flavors`, `white wine`]},
+
+    [`beverages`]: {
+      [`shelf`]: [
+        `coffee`, 
+        `drink mixes & water enhancers`, 
+        `fresh juice & chilled beverages`, 
+        `fruit juice`, `ice`, `mini cans & portion control`, 
+        `mixes`, `soft drinks`, `sports & energy drinks`, `tea & hot chocolate`, `water`]
+    },
 
     [`beauty & personal care`]: {
       [`shelf`]: [
@@ -144,22 +164,41 @@ let Models = {
         `hair care`, `makeup`, `nails`, `oral care`, `shave`, `skin care`, `sunscreens`, `stock up essentials`, `travel`]
     },
 
+    [`bread & bakery`]: {
+      [`shelf`]: [
+        `breakfast breads`, 
+        `cakes & cupcakes`, `cookies & brownies`, 
+        `donuts & breakfast pastries`, `freash bakery breads`, 
+        `pies`, `rolls & buns`, `sliced bread`, `summer bakery`, `sweet treats`, `tortillas`]
+    },
+
     [`fruits & vegetables`]: {
       [`shelf`]: [ 
         `fresh flowers`,
         `fresh fruit`, `fresh herbs`, `fresh prepared produce`,
         `fresh vegetables`,`nuts, dried fruit & healthy snacks`, `organic produce`, `summer produce`, `vegetarian proteins`]
     },
+
     [`clothing`]: {
       [`shelf`]: [
         `accessories`, `baby and toddler boy`, `baby and toddler girl`, `boys`, `girls`, `jewelry`, `men`,  `shoes`, `women` ]
     },
+
     [`fast food & eatery`]: {
       [`menu`]: [`breakfast lunch dinner full`],
       [`shelf`]: [`american sandwiches takeout pickup breakfast desserts lunch salad healthy chicken asian italian coffee & tea delis burgers vegetarian fast food pizza mexican vegan 
       japanese chinese seafood soup gluten-free indian greek latin america noodles bakery middle eastern smoothie korean steak french barbecue ramen drinks tapas
       european spanish caribbean african ethiopian`]
-    }
+    },
+
+    [`health & nutrition`]: {
+      [`shelf`]: [
+        `allergy`, 
+        `active nutrition & diet`, 
+        `cough, cold & flu`, `diabetes care`, 
+        `digestive health`, `eye & ear care`, `family planning`, 
+        `feminine care`, `first aid`, `foot care`, `home health`, `incontinence`, 
+        `nicotine replacement therapy`, `pain relief`, `vitamins & supplements`]}
   },
 
   Shipping: {
