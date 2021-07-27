@@ -1448,21 +1448,49 @@ class Event {
 
 				this.listen([S, `click`, S => {
 
-					let Control = new Controller();
-
 					let Via = this.getSource(S);
 
-					let Opts = Via.parentNode.querySelector(`path`);console.log(Opts.style)
+					let Alter = UA.get().apex;
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					(!Alter[`alter_listing`][`float`])? Alter[`alter_listing`][`float`] = []: Alter;
+
+					let Float = [Models.Filter(Via.id.split(`u0`)[0]), Via.id.split(`u0`)[1].split(`,`)];
+
+					let Opts = Via.parentNode.querySelector(`path`);
 
 					if (Opts.style.stroke === `none`) {
+
+						let AlterFloat = [];
+						
+						Alter.alter_listing.float.forEach(Afloat => { 
+
+							if (Afloat[0] === Float[0]) {AlterFloat.push(Afloat);}
+						});
+
+						if (AlterFloat.length === 0) Alter.alter_listing.float.push(Float);
 
 						Opts.style.stroke = `#19e819`;
 					}
 
 					else {
 
+						let AlterFloat = [];
+
+						Alter.alter_listing.float.forEach(Afloat => { 
+
+							if (Afloat[0] !== Float[0]) {AlterFloat.push(Afloat);}
+						});
+
+						Alter.alter_listing.float = AlterFloat;
+						
 						Opts.style.stroke = `none`;
 					}
+
+					console.log(Alter.alter_listing.float)
+
+					UA.set({apex: Alter});
 				}]);
 			});
 		}

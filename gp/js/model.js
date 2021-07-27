@@ -2078,6 +2078,12 @@ let Models = {
       if (Arg && Arg[0].float) {
 
         Arg[0].float.forEach(M => Float.push(M[0]));
+
+        let Alter = UA.get().apex;
+
+        (!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+        Alter[`alter_listing`][`float`] = Arg[0].float;
       }
 
       ModelStorage.push([
