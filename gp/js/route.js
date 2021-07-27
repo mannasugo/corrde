@@ -1442,6 +1442,31 @@ class Event {
 			});
 		}
 
+		if (document.querySelector(`.alter-locale`)) {
+
+			document.querySelectorAll(`.alter-locale`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					let Opts = Via.parentNode.querySelector(`path`);console.log(Opts.style)
+
+					if (Opts.style.stroke === `none`) {
+
+						Opts.style.stroke = `#19e819`;
+					}
+
+					else {
+
+						Opts.style.stroke = `none`;
+					}
+				}]);
+			});
+		}
+
 		if (document.querySelector(`.OptSet`) || document.querySelector(`.SetAlter`)) {
 
 			document.querySelectorAll(`.OptSet`).forEach(S => {

@@ -139,7 +139,7 @@ let Models = {
   Retails: {
 
     [`alcohol`]: {
-      [`alcohol`]: [
+      [`shelf`]: [
         `canned cocktails`,
         `champagne & sparkling wine`, `craft beer`,
         `hard seltzer & flavored beverages`,
@@ -2085,7 +2085,8 @@ let Models = {
           `div`, [[
             `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
               `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>stroke:#19e819;fill:none`], [
-              `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#${(Arg && Arg[0].float && Float.indexOf(Mall[0]) > -1)? `19e819`: `fff`}`]]]]], [
+              `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:${(Arg && Arg[0].float && Float.indexOf(Mall[0]) > -1)? `#19e819`: `none`}`]]], [
+            `a`, `#@${Mall[0]}u0${Mall[1]}`, `.@_aWz alter-locale`, `&@style>position:absolute`, `&@href>javascript:;`]]], [
           `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${Mall[0]}`]]]]]);
     });
     
