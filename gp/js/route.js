@@ -161,6 +161,8 @@ class Event {
 
 			this.Mugger();
 
+			this.WSOptAlter();
+
 			this.WStools();
 		}
 
@@ -1408,6 +1410,38 @@ class Event {
 			});
 		}
 
+		if (document.querySelector(`.opt-retail`)) {
+
+			document.querySelectorAll(`.opt-retail`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					document.querySelectorAll(`.opt-retail`).forEach(S2 => {
+
+						S2.style.textDecoration = `none`
+
+						S2.style.fontWeight = `normal`;
+					});
+
+					Via.style.textDecoration = `line-through`;
+
+					Via.style.fontWeight = `600`;
+
+					let Alter = UA.get().apex;
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					Alter[`alter_listing`][`retail`] = Models.Filter(Via.id);
+
+					UA.set({apex: Alter});
+				}]);
+			});
+		}
+
 		if (document.querySelector(`.OptSet`) || document.querySelector(`.SetAlter`)) {
 
 			document.querySelectorAll(`.OptSet`).forEach(S => {
@@ -1773,6 +1807,21 @@ class Event {
 				}
 			}]);
 		}
+
+		if (document.querySelector(`.retail-put`)) {
+
+			this.listen([document.querySelector(`.retail-put`), `click`, S => {
+
+				if (!UA.get().apex || !UA.get().apex.alter_listing || !UA.get().apex.alter_listing.retail) return;
+
+				let Control = new Controller();
+
+				new View().DOM([`main`, [Models.ModelPutlisting()]]);
+
+				this.Call()
+			}]);
+			
+		}
 	}
 
 	WStools () {
@@ -1821,6 +1870,8 @@ class Event {
 
 					Control.Call();
 				}
+
+				if (Via === `pws-list`) Control.initRetail();
 
 				if (Via === `sell`) Control.initinventory();
 
@@ -1907,8 +1958,6 @@ class Event {
 						UA.set({apex: {malls_listings: Pulls.pulls}});
 
 						Control.Call();
-
-
 					}
 				}])
 			})
@@ -2537,6 +2586,14 @@ class Controller extends Puller {
 	ViaVoltMugger () {
 
 		new View().DOM([`main`, [Models.ModelViaVoltMugger()]]);
+
+		new Event().Call()
+
+	}
+
+	initRetail () {
+
+		new View().DOM([`main`, [Models.ModelinitRetail()]]);
 
 		new Event().Call()
 
