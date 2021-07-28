@@ -166,6 +166,21 @@ class Event {
 			this.WStools();
 		}
 
+		if (new Controller().Old() === `/pws/listings/`) {
+
+			this.foldWSAlter();
+
+			this.getPast();
+
+			this.getWSMugger();
+
+			this.Mugger();
+
+			this.WSOptAlter();
+
+			this.WStools();
+		}
+
 		if (new Controller().Old() === `/pws/malls/`) {
 
 			this.getPast();
