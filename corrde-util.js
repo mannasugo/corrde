@@ -10271,7 +10271,7 @@ class Puller extends Auxll {
                 alt: Alter.alt,
                 dollars: parseFloat((Alter.dollars)/config.Fx[`kenya`][0]).toFixed(2),
                 files: [space + Alter.log + `.jpg`],
-                float: Pulls.float,
+                float: Alter.float,
                 log: Alter.log,
                 long: Alter.text,
                 mall_md: false,
