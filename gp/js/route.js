@@ -1932,9 +1932,9 @@ class Event {
 
 					Alter.alter_listing[`mass`] = Vals[2];
 
-					Alter.alter_listing[`text`] = Models.Filter(document.querySelector(`#item-text`).value); console.log(Alter.alter_listing);
+					Alter.alter_listing[`text`] = Models.Filter(document.querySelector(`#item-text`).value);
 
-					/*let Control = new Controller();
+					let Control = new Controller();
 
 					let Pull = Control.Pull([`/pulls/ua/`, {pull: `put-apex-listing`, pulls: Alter.alter_listing}]);
 
@@ -1952,16 +1952,16 @@ class Event {
 
 						let UAlog = UA.get().ualog;
 
-						UAlog.push(`/ws/listings/`);
+						UAlog.push(`/pws/listings/`);
 
 						UA.set({ualog: UAlog});
 
-						Control.SetState([{}, `ws`, `/ws/listings/`]);
+						Control.SetState([{}, `pws`, `/pws/listings/`]);
 
-						UA.set({ws: {alt: Pulls.alt, md: Pulls.md, listings: Pulls.pulls}});
+						UA.set({apex: {listings: Pulls.pulls}});
 
 						Control.Call();
-					}*/
+					}
 				}
 			}]);
 		}
@@ -2015,6 +2015,17 @@ class Event {
 				}
 
 				if (Via === `pws-list`) Control.initRetail();
+
+				if (Via === `pws-listings`) {
+
+					UAlog.push(`/pws/listings/`);
+
+					UA.set({ualog: UAlog});
+
+					Control.SetState([{}, `pws`, `/pws/listings/`]);
+
+					Control.Call();
+				}
 
 				if (Via === `sell`) Control.initinventory();
 
@@ -2150,6 +2161,8 @@ class Controller extends Puller {
 		if (this.Old() === `/paygate/`) this.Paygate();
 
 		if (this.Old() === `/pws/`) this.Apex();
+
+		if (this.Old() === `/pws/listings/`) this.PWSRetail();
 
 		if (this.Old() === `/pws/malls/`) this.PWSMalls();
 
@@ -2739,6 +2752,37 @@ class Controller extends Puller {
 		new View().DOM([`main`, [Models.ModelinitRetail()]]);
 
 		new Event().Call()
+	}
 
+	PWSRetail () {
+
+		let UAlog = UA.get().ualog;
+
+		if (!UA.get().pws || UA.get().pws !== true) {
+
+			UAlog.push(`.`);
+
+			UA.set({ualog: UAlog});
+
+			this.SetState([{}, `root`, `/`]);
+
+			this.Call();
+		} 
+
+		else {
+
+			let Pull = this.Pull([`/pulls/ua/`, {pull: `apex-listings`}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				UA.set({apex: {listings: Pulls.pulls}});
+
+				new View().DOM([`main`, [Models.ModelPWS([`inventory`, Models.ModelPWSRetail()])]]);
+
+				new Event().Call();
+			}
+		}
 	}
 }

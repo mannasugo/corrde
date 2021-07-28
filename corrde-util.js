@@ -1387,16 +1387,32 @@ class Auxll {
 
         MD[`port`] = MD.mall_alt;
 
-        MD[`port_gArray`] = Arg[3].mall[1][MD.mall_md][`floats`]//MD.floats;
+        MD[`port_gArray`] = Arg[3].mall[1][MD.mall_md][`floats`];
 
         MD[`pws_md`] = MD.mall_md;
+      }
+
+      if (MD.float) {
+
+        MD[`port`] = `corrde port`;
+
+        let Miles = [];
+
+        MD.float.forEach(Float => {
+
+          Miles.push({float: Float[1], miles: this.getMiles(Float[1], Arg[2])});
+        });
+
+        Miles.sort((A, B) => {return A.miles - B.miles});
+
+        MD[`port_gArray`] = Miles[0].float;
       }
               
       if (!MD.port) {
               
         MD[`port`] = `corrde port`;
               
-          MD[`port_gArray`] = [34.753, -.537];
+        MD[`port_gArray`] = [34.753, -.537];
       }
               
       if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
@@ -10077,6 +10093,20 @@ class Puller extends Auxll {
               });
           }
 
+          else if (this.Stack[1].pull === `apex-listings`) {
+
+            let Pulls = this.Stack[1];
+
+            let Shelve = [];
+
+            Data.Sell[0].forEach(MD => {
+
+              if (!MD.mall_md || MD.mall_md === false) Shelve.push(MD);
+            });
+
+            this.Stack[3].end(JSON.stringify({pulls: Shelve}));
+          }
+
           else if (this.Stack[1].pull === `apex-till`) {
 
             let Till = [];
@@ -10218,6 +10248,44 @@ class Puller extends Auxll {
 
           else if (this.Stack[1].pull === `malls`) this.Stack[3].end(JSON.stringify({pulls: Data.mall[0]}));
 
+          else if (this.Stack[1].pull === `put-apex-listing`) {
+
+            let Pulls = this.Stack[1];
+
+            let Shelve = [];
+
+            Data.Sell[0].forEach(MD => {
+
+              if (!MD.mall_md || MD.mall_md === false) Shelve.push(MD);
+            });
+
+            let Alter = this.Stack[1].pulls;
+
+            let Stamp = new Date().valueOf();
+
+            let space = `gp/img-ssl/store/assets/g/`;
+          
+            new Sql().to([`inventory`, {
+              json: JSON.stringify({
+                alpha: Alter.alt,
+                alt: Alter.alt,
+                dollars: parseFloat((Alter.dollars)/config.Fx[`kenya`][0]).toFixed(2),
+                files: [space + Alter.log + `.jpg`],
+                float: Pulls.float,
+                log: Alter.log,
+                long: Alter.text,
+                mall_md: false,
+                mass: Alter.mass,
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                retail: Alter.retail,
+                secs: Stamp,
+                shelf: Alter.shelf,
+                set: Alter.retail})}], (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({pulls: Shelve}));
+            });
+          }
+
           else if (this.Stack[1].pull === `viavolt-listings`) this.Stack[3].end(JSON.stringify({pulls: Data.via[0]}));
 
           //https://sandbox.intasend.com/api/v1/payment/status/
@@ -10284,7 +10352,7 @@ class Puller extends Auxll {
               
               (MD.pws_md)? MD.pws_md: MD[`pws_md`] = false;
               
-              MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]); //
+              MD[`miles`] = this.getMiles([MD[`port_gArray`], this.Stack[1][`dot`]]);
               
               Bag.push(MD);
 

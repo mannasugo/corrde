@@ -1053,7 +1053,7 @@ let Models = {
         `a`, `#@pws-mug`, `.@_aWz`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
     }
 
-    let Opts = [[`Bag`, `pws-orders`], [`Sell000`, `pws-list`], [`Ship`, `viavolt-listing`]];
+    let Opts = [[`Bag`, `pws-orders`], [`Sell000`, `pws-list`], [`Shop`, `pws-listings`], [`Ship`, `viavolt-listing`]];
 
     let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
 
@@ -2169,5 +2169,48 @@ let Models = {
               `span`, `.@_tXx`, `~@4. Storage & Zone`], [
               `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
             `section`, `.@_-Zz`, `&@style>width:100%;padding-bottom:25px`, ModelStorage]]]]]]]]]; //]]]]]]]]]
+  },
+
+  ModelPWSRetail () {
+
+    let ModelStock = [[], []];
+
+    ModelStock[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
+        `span`, `.@-_tX Shop`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 items`]]];
+
+    let Pay = UA.get().apex.listings;
+
+    Pay.forEach(P => {
+
+      ModelStock[1].push([
+        `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+        `div`, `.@_gZ _gxM _geQ`, [/*[
+          `span`,  `&@style>position:relative;height:24px;margin:0 8px 0 0`, [[
+            `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
+              `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
+              `circle`, `.@check-item`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>#1185fe`]]], [
+            `a`, `#@${P.md}`, `.@_aWz listing-state`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]], */[
+          `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
+            `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
+            `div`, `.@_eYG`, [[
+              `div`, [[`span`, `.@tXx`, `~@${P.alt}`], [
+              `span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]], [
+            `div`, `.@_QZg`, [[
+              `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;padding-top:24px`, [[
+              `div`, `.@_g0 _eYG`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@_gZy`, [[]]]]]]]]]]]);
+    });
+    
+    return [
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
+        `section`,  `&@style>width:100%;padding-top:45px`, [[
+          `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
+            `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
+              `div`, `.@_gZy`]]]]]]], [
+        `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
+          `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelStock[1]: [ModelStock[0]]]]]]];
   }
 }
