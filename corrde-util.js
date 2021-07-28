@@ -1392,7 +1392,7 @@ class Auxll {
         MD[`pws_md`] = MD.mall_md;
       }
 
-      if (MD.float) {
+      else if (MD.float) {
 
         MD[`port`] = `corrde port`;
 
@@ -10277,6 +10277,7 @@ class Puller extends Auxll {
                 mall_md: false,
                 mass: Alter.mass,
                 md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                MD5: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
                 retail: Alter.retail,
                 secs: Stamp,
                 shelf: Alter.shelf,

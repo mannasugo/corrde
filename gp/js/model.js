@@ -296,6 +296,8 @@ let Models = {
 
 	ModelStart (Arg) {
 
+    if (Arg.length === 0) Arg = [{}];
+
 		let ModelScroll = [];
 
 		Arg.forEach(Sell => {
@@ -319,9 +321,33 @@ let Models = {
             `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().u.alt[0]}`]]], [
         `a`, `#@mug`, `.@_aWz`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]]
     }
-      
 
-		return [
+    let ModelStart = []
+
+    if (Arg[0].set) {
+
+      ModelStart = [
+        `div`, `#@ModelStart`, `.@_geQ`, `&@style>justify-content:center;width:100%;max-width:960px;margin:0 auto`, [[
+          `div`, `.@_geQ _gxM _aXZ _0yg`, [[
+            `div`, `.@_geQ _0yQ`, [[
+              `div`, `.@_aXZ`, [[
+                `div`, [[`span`, `#@alpha`, `.@_sZ2`, `&@style>font-size:12.5px;text-transform:uppercase`, `~@${Arg[0].alpha}`]]], [
+                `div`, `.@_gxM _sZ2`, [[
+                  `span`, `#@pay`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@$${parseFloat(Arg[0].dollars).toFixed(2)} usd/k£.${parseFloat((Arg[0].dollars)*109).toFixed(2)} kes`]]], [
+                `div`, `.@_-Zz`, [[
+                  `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
+                    `a`, `#@`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, [[
+                      `span`, `#@set`, `.@mailable`, `&@md>${Arg[0].MD5}`, `&@style>padding:0 6px;font-size:12px`, `~@${(Arg[0].set)? this.Alias(Arg[0].set): ``}`], [
+                      `span`, `&@md>${Arg[0].MD5}`, `&@style>width:17px;height:17px`, `.@-_tX To mailable`]]]]]]], [
+                `div`, `.@_yZS`, [[`a`, `@set`, `.@_aA2 _-Zz`, `&@style>text-decoration:underline;font-size:11px;color:#646060`, `&@href>javascript;;`, `~@${Arg[0].set}`]]]]]]], [
+            `div`, `.@_geQ _2yQ`, [[`img`, `&@src>/${Arg[0].files[0]}`]]]]], [
+            `div`, `&@style>position: fixed;bottom: 16px;width: max-content;align-content: center;justify-content: center;align-items: center;z-index: 31;`, [[
+              `div`, `.@_gxM`, `&@style>background:rgba(0, 0, 0, .85);padding:8px 12px;border-radius:100px;width:100%`, ModelScroll]]]]]
+
+
+    }  
+
+    return [
       `main`, `.@_tY0`, `&@style>height:100%`, [[
         `div`, `.@_-tY`, [[
           `div`, `.@_aXz`, [[
@@ -329,23 +355,7 @@ let Models = {
               `a`, `.@-_tX v2App`, `&@style>width:28px;height:28px`, `&@href>/`, `~@corrde`], [
               `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| corrde store`]]], [
             `div`, `.@_QZg`, [[
-              `a`, `#@catalog`, `.@-_tX Shop`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], ModelMug]]]]]], [
-      	`div`, `#@ModelStart`, `.@_geQ`, `&@style>justify-content:center;width:100%;max-width:960px;margin:0 auto`, [[
-      		`div`, `.@_geQ _gxM _aXZ _0yg`, [[
-      			`div`, `.@_geQ _0yQ`, [[
-      				`div`, `.@_aXZ`, [[
-      					`div`, [[`span`, `#@alpha`, `.@_sZ2`, `&@style>font-size:12.5px;text-transform:uppercase`, `~@${Arg[0].alpha}`]]], [
-      					`div`, `.@_gxM _sZ2`, [[
-      						`span`, `#@pay`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@$${parseFloat(Arg[0].dollars).toFixed(2)} usd/k£.${parseFloat((Arg[0].dollars)*109).toFixed(2)} kes`]]], [
-      					`div`, `.@_-Zz`, [[
-      					  `div`, `.@_gM_a _agM _guZ`, `&@style>width:max-content`, [[
-      					    `a`, `#@`, `.@_TX_a _atX _utQ _dMG`, `&@href>javascript:;`, [[
-      					    	`span`, `#@set`, `.@mailable`, `&@md>${Arg[0].MD5}`, `&@style>padding:0 6px;font-size:12px`, `~@${this.Alias(Arg[0].set)}`], [
-      					    	`span`, `&@md>${Arg[0].MD5}`, `&@style>width:17px;height:17px`, `.@-_tX To mailable`]]]]]]], [
-            		`div`, `.@_yZS`, [[`a`, `@set`, `.@_aA2 _-Zz`, `&@style>text-decoration:underline;font-size:11px;color:#646060`, `&@href>javascript;;`, `~@${Arg[0].set}`]]]]]]], [
-      			`div`, `.@_geQ _2yQ`, [[`img`, `&@src>/${Arg[0].files[0]}`]]]]], [
-      			`div`, `&@style>position: fixed;bottom: 16px;width: max-content;align-content: center;justify-content: center;align-items: center;z-index: 31;`, [[
-        			`div`, `.@_gxM`, `&@style>background:rgba(0, 0, 0, .85);padding:8px 12px;border-radius:100px;width:100%`, ModelScroll]]]]]]];
+              `a`, `#@catalog`, `.@-_tX Shop`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], ModelMug]]]]]], ModelStart]];
 	},
 
 	ModelAisles () {
