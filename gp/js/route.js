@@ -1488,14 +1488,12 @@ class Event {
 						Opts.style.stroke = `none`;
 					}
 
-					console.log(Alter.alter_listing.float)
-
 					UA.set({apex: Alter});
 				}]);
 			});
 		}
 
-		if (document.querySelector(`.OptSet`) || document.querySelector(`.SetAlter`)) {
+		if (document.querySelector(`.OptSet`) || document.querySelector(`.SetAlter`) || document.querySelector(`.put-set`)) {
 
 			document.querySelectorAll(`.OptSet`).forEach(S => {
 
@@ -1552,6 +1550,33 @@ class Event {
 					Alter[`alter_listing`][`shelf`] = Models.Filter(Via.id);;
 
 					UA.set({ws: Alter});
+				}]);
+			});
+
+			document.querySelectorAll(`.put-set`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Via = this.getSource(S);
+
+					document.querySelectorAll(`.put-set`).forEach(S2 => {
+
+						S2.style.textDecoration = `none`
+
+						S2.style.fontWeight = `normal`;
+					});
+
+					Via.style.textDecoration = `line-through`;
+
+					Via.style.fontWeight = `600`;
+
+					let Alter = UA.get().apex;
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					Alter[`alter_listing`][`shelf`] = Models.Filter(Via.id);;
+
+					UA.set({apex: Alter});
 				}]);
 			});
 		}
@@ -1655,7 +1680,7 @@ class Event {
 
 						if (!Pulls.log) return;
 
-						let Alter = UA.get().ws;
+						let Alter = (UA.get().ws)? UA.get().ws: {};
 
 						(!Alter[`shelve`])? Alter[`shelve`] = {}: Alter;
 
@@ -1874,6 +1899,71 @@ class Event {
 				this.Call()
 			}]);
 			
+		}
+
+		if (document.querySelector(`.put-listing`)) {
+
+			this.listen([document.querySelector(`.put-listing`), `click`, S => {
+
+				if (UA.get().ws && UA.get().ws.shelve) {
+
+					let Vals = [
+						(!Models.Slim(document.querySelector(`#item-alt`).value))? false: Models.Slim(document.querySelector(`#item-alt`).value),
+						(!Models.Slim(document.querySelector(`#item-dollars`).value))? false: Models.Slim(document.querySelector(`#item-dollars`).value),
+						(!Models.Slim(document.querySelector(`#item-mass`).value))? false: Models.Slim(document.querySelector(`#item-mass`).value),
+						(!Models.Slim(document.querySelector(`#item-text`).value))? false: Models.Slim(document.querySelector(`#item-text`).value)
+					];
+
+					if (Vals[0] === false || Vals[1] === false || Vals[2] === false || Vals[3] === false) return;
+
+					let Alter = UA.get().apex;
+
+					if (!Alter.alter_listing.shelf) return;
+
+					if (!UA.get().ws.alter_listing || !UA.get().ws.alter_listing.log || UA.get().ws.alter_listing.log === false) return;
+
+					if (typeof parseFloat(Vals[1]) !== `number` || typeof parseFloat(Vals[2]) !== `number`) return;
+
+					Alter.alter_listing[`alt`] = Models.Filter(document.querySelector(`#item-alt`).value);
+
+					Alter.alter_listing[`dollars`] = Vals[1];
+
+					Alter.alter_listing[`log`] = UA.get().ws.alter_listing.log;
+
+					Alter.alter_listing[`mass`] = Vals[2];
+
+					Alter.alter_listing[`text`] = Models.Filter(document.querySelector(`#item-text`).value); console.log(Alter.alter_listing);
+
+					/*let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {pull: `put-apex-listing`, pulls: Alter.alter_listing}]);
+
+					Alter.alter_listing = {};
+
+					UA.set({apex: Alter, ws: {}});
+
+					Control.Splash();
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						let UAlog = UA.get().ualog;
+
+						UAlog.push(`/ws/listings/`);
+
+						UA.set({ualog: UAlog});
+
+						Control.SetState([{}, `ws`, `/ws/listings/`]);
+
+						UA.set({ws: {alt: Pulls.alt, md: Pulls.md, listings: Pulls.pulls}});
+
+						Control.Call();
+					}*/
+				}
+			}]);
 		}
 	}
 

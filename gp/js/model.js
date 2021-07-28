@@ -2064,7 +2064,7 @@ let Models = {
       if (Arg && S === Arg[0].shelf) style = `font-weight:600;text-decoration:line-through`; 
 
       ModelOptSets.push([
-        `a`, `#@${S}`, `.@_aA2 tXx ${(Arg)? `alter-set`: `put-set`}`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
+        `a`, `#@${S}`, `.@_aA2 tXx put-set`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
     });
 
     let ModelStorage = [];
