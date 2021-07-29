@@ -2056,7 +2056,7 @@ let Models = {
                   `div`, `.@_QZg _gxM`, [[
                     `div`, [[`span`, `.@_tXx`, `&@style>color:#e00`, `~@save`]]], [
                     `div`, `.@eYG`, [[`span`, `.@Via _-tX`, `&@style>margin:0 0 0 8px`]]], [
-                    `a`, `.@_aWz -_tX ${(Arg)? `retail-alter`: `retail-put`}`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
+                    `a`, `#@${(Arg)? Arg[0].MD5: ``}`, `.@_aWz -_tX retail-put`, `&@href>javascript:;`, `&@style>position:absolute`, `~@`]]]]]]]]];
   },
 
   ModelPutlisting (Arg) {
@@ -2115,10 +2115,10 @@ let Models = {
           `div`, `.@_QZg`, [[]]]]]]], [
         `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
           `h2`, `.@_gcQ`, `&@style>font-size:17.5px;letter-spacing:1.2px;font-weight:300`, `~@${(Arg)? `edit`: `create`} listing`], [
-                `div`, `.@_gcQ _gxM`, `&@style>width:100%`, [[
-                  `div`, `.@_eYG`], [
+          `div`, `.@_gcQ _gxM`, `&@style>width:100%`, [[
+            `div`, `.@_eYG`], [
             `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
-              `a`, `#@${(Arg)? Arg[0].md: `null`}`, `.@_TX_a _atX ${(Arg)? `alter-listing`: `put-listing`}`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@save`]]]]], [
+              `a`, `#@${(Arg)? Arg[0].MD5: `null`}`, `.@_TX_a _atX ${(Arg)? `alter-listing`: `put-listing`}`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@save`]]]]], [
           `div`, `.@_aXZ _sZ2`, `&@style>width:100%;`, [[
             `div`, `.@${(Arg)? `_gZ`: `_gZ`}`, `&@style>padding: 0 16px;`, [[
               `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
@@ -2195,12 +2195,7 @@ let Models = {
 
       ModelStock[1].push([
         `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
-        `div`, `.@_gZ _gxM _geQ`, [/*[
-          `span`,  `&@style>position:relative;height:24px;margin:0 8px 0 0`, [[
-            `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
-              `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
-              `circle`, `.@check-item`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>#1185fe`]]], [
-            `a`, `#@${P.md}`, `.@_aWz listing-state`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]], */[
+        `div`, `.@_gZ _gxM _geQ`, [[
           `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
             `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
             `div`, `.@_eYG`, [[
@@ -2211,7 +2206,10 @@ let Models = {
             `section`, `.@_-Zz`, `&@style>width:100%;padding-top:24px`, [[
               `div`, `.@_g0 _eYG`, `&@style>`, [[
                 `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
-                  `div`, `.@_gZy`, [[]]]]]]]]]]]);
+          `div`, `.@_gxM`, `&@style>width:100%;padding:0 0 16px`, [[
+            `div`, `.@_eYG`], [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+              `a`, `#@${P.MD5}`, `.@_TX_a _atX alter-modeller`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@edit`]]]]]]]]]]]]]);
     });
     
     return [

@@ -1811,6 +1811,29 @@ class Event {
 			});
 		}
 
+		if (document.querySelector(`.alter-modeller`)) {
+
+			document.querySelectorAll(`.alter-modeller`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Shelfs = {};
+
+					UA.get().apex.listings.forEach(A => {
+
+						if (A.MD5 === this.getSource(S).id) Shelfs = A;
+					});
+
+					if (!Shelfs.md || !Shelfs.MD5) return;
+
+					new View().DOM([`main`, [Models.ModelinitRetail([Shelfs])]]);
+
+					this.Call();
+				
+				}])
+			});
+		}
+
 		if (document.querySelector(`.AlterShelve`)) {
 
 			this.listen([document.querySelector(`.AlterShelve`), `click`, S => {
@@ -1907,9 +1930,26 @@ class Event {
 
 				if (!UA.get().apex || !UA.get().apex.alter_listing || !UA.get().apex.alter_listing.retail) return;
 
+				let Model = Models.ModelPutlisting();
+
+				if (this.getSource(S).id.length > 6) {
+
+					let Shelfs = {};
+
+					UA.get().apex.listings.forEach(A => {
+
+						if (A.MD5 === this.getSource(S).id) Shelfs = A;
+					});
+
+					if (!Shelfs.md || !Shelfs.MD5) return;
+
+					Model = Models.ModelPutlisting([Shelfs])
+
+				}
+
 				let Control = new Controller();
 
-				new View().DOM([`main`, [Models.ModelPutlisting()]]);
+				new View().DOM([`main`, [Model]]);
 
 				this.Call()
 			}]);
