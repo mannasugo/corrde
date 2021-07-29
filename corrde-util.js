@@ -1341,6 +1341,11 @@ class Auxll {
 
   getMiles (Arg) {
 
+    Arg.forEach(Float => {
+
+      Float.forEach(float => float = parseFloat(float));
+    })
+
     if (Arg[0][1] === Arg[1][1] && Arg[0][0] === Arg[1][0]) return 0;
 
     else {
@@ -1400,7 +1405,7 @@ class Auxll {
 
         MD.float.forEach(Float => {
 
-          Miles.push({float: Float[1], miles: this.getMiles(Float[1], Arg[2])});
+          Miles.push({float: Float[1], miles: this.getMiles([Float[1], Arg[2]])});
         });
 
         Miles.sort((A, B) => {return A.miles - B.miles});
@@ -10003,6 +10008,43 @@ class Puller extends Auxll {
 
                 this.Stack[3].end(JSON.stringify({alt: Data.mall[1][Pulls.mall_md].alt, md: Pulls.mall_md, pulls: Shelve}));
             });
+          }
+
+          else if (this.Stack[1].pull === `alter-apex-listing`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.Sell[1][Pulls.listing_md]) return;
+
+            let old = JSON.stringify(Data.Sell[1][Pulls.listing_md]);
+
+            let Old = JSON.parse(old);
+
+            for (let alter in Pulls.pulls) {
+
+              Old[alter] = Pulls.pulls[alter];
+            }
+
+            if (Pulls.pulls.dollars) Old.dollars = parseFloat((Old.dollars)/config.Fx[`kenya`][0]).toFixed(2);
+
+            if (Pulls.pulls.log) Old.files = [`gp/img-ssl/store/assets/g/` + Old.log + `.jpg`];
+
+            Old.alpha = Old.alt;
+
+            let Shelve = [];
+
+            Data.Sell[0].forEach(MD => {
+
+              if (!MD.mall_md || MD.mall_md === false) Shelve.push(MD);
+            });
+
+            Shelve = Shelve.sort((A, B) => {return B.secs - A.secs});
+
+            new Sql().multi({},  
+              `update inventory set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.Sell[1][Pulls.listing_md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({pulls: Shelve}));
+              });
           }
 
           else if (this.Stack[1].pull === `alter-listing`) {

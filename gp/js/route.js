@@ -2020,6 +2020,98 @@ class Event {
 				}
 			}]);
 		}
+
+		if (document.querySelector(`.alter-listing`)) {
+
+			this.listen([document.querySelector(`.alter-listing`), `click`, S => {
+
+				if (UA.get().apex && UA.get().apex.listings) {
+
+					let Shelfs = {};
+
+					UA.get().apex.listings.forEach(A => {
+
+						if (A.MD5 === this.getSource(S).id) Shelfs = A;
+					});
+
+					if (!Shelfs.md) return;
+
+					let ShelfAlters = {};
+
+					let Alter = UA.get().apex;
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					if (UA.get().ws && UA.get().ws.alter_listing && UA.get().ws.alter_listing.log) Alter.alter_listing[`log`] = UA.get().ws.alter_listing.log;
+
+					for (let Shelf in Alter.alter_listing) {
+
+						if (!Shelfs.Shelf || Shelfs.Shelf) {
+
+							ShelfAlters[Shelf] = Alter.alter_listing[Shelf];
+						}
+					}
+
+					let Vals = {
+						alt: (!Models.Slim(document.querySelector(`#item-alt`).value))? false: Models.Slim(document.querySelector(`#item-alt`).value),
+						dollars: (!Models.Slim(document.querySelector(`#item-dollars`).value))? false: Models.Slim(document.querySelector(`#item-dollars`).value),
+						mass: (!Models.Slim(document.querySelector(`#item-mass`).value))? false: Models.Slim(document.querySelector(`#item-mass`).value),
+						long: (!Models.Slim(document.querySelector(`#item-text`).value))? false: Models.Slim(document.querySelector(`#item-text`).value)
+					};
+
+					for (let Val in Vals) {
+
+						if (Vals[Val] !== false) ShelfAlters[Val] = Vals[Val]; 
+					}
+
+					let items = 0;
+
+					for (let alter in ShelfAlters) {
+
+						++items;
+					}
+
+					if (items < 1) return;
+
+					if (ShelfAlters.dollars && typeof parseFloat(ShelfAlters.dollars) !== `number`) return;
+
+					if (ShelfAlters.mass && typeof parseFloat(ShelfAlters.mass) !== `number`) return;
+
+					if (ShelfAlters.alt) ShelfAlters.alt = Models.Filter(document.querySelector(`#item-alt`).value);
+
+					if (ShelfAlters.long) ShelfAlters.long = Models.Filter(document.querySelector(`#item-text`).value);
+
+					let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {listing_md: this.getSource(S).id, pull: `alter-apex-listing`, pulls: ShelfAlters}]);
+
+					Alter.alter_listing = {};
+
+					UA.set({apex: Alter, ws: {}});
+
+					Control.Splash();
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						let UAlog = UA.get().ualog;
+
+						UAlog.push(`/pws/listings/`);
+
+						UA.set({ualog: UAlog});
+
+						Control.SetState([{}, `pws`, `/pws/listings/`]);
+
+						UA.set({apex: {listings: Pulls.pulls}});
+
+						Control.Call();
+					}
+				}
+			}]);
+		}
 	}
 
 	WStools () {
