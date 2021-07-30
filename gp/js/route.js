@@ -55,7 +55,7 @@ class Event {
 
 				this.getApp();
 
-				this.getMugger();
+				this.Mugger();
 			}
 		}
 
@@ -950,6 +950,13 @@ class Event {
 					UA.set({ualog: UAlog});
 
 					Control.SetState([{}, `pws`, `/pws/malls/`]);
+
+					Control.Call();
+				}
+
+				else if (Via === `our team`) {
+
+					Control.SetState([{}, null, `/ir/team/`]);
 
 					Control.Call();
 				}
@@ -2323,7 +2330,11 @@ class Controller extends Puller {
 
     	UA.set({ualog: [null]});
 
-			new View().DOM([`main`, [Models.ModelRelations()]]);
+    	let Model = Models.ModelMugRelations();
+
+    	if (State[4] === `team`) Model = Models.ModelRelations([[]/*Models.ModelStructure()*/])
+
+			new View().DOM([`main`, [Model]]);
 
 			new Event().Call();
 

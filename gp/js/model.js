@@ -2229,9 +2229,9 @@ let Models = {
           `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelStock[1]: [ModelStock[0]]]]]]];
   },
 
-  ModelRelations () {
+  ModelMugRelations () {
 
-    let Mugger = [`our team`, `earnings reports`, `revenue filings`];
+    let Mugger = [`our team`/*, `earnings reports`, `revenue filings`*/];
 
     let ModelMugger = [];
 
@@ -2251,5 +2251,31 @@ let Models = {
           `div`, `.@_QZg`, [[]]]]]]], [
         `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
           `div`, `.@_aXZ`, ModelMugger]]]]];
+  },
+
+  ModelRelations (Arg) {
+
+    let ModelMug = [
+      `span`,  `&@style>margin: 0 15px;position:relative;height:24px`, [[
+        `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
+            `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@g`]]], [
+        `a`, `#@viavolt-mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+
+    return [
+      `article`, `#@ModelStallControls`, `.@AvZ`, [[
+        `div`, `.@_tY0 AvZ`, [[
+          `main`, `.@_gZy AvZ`, [[
+            `section`, `.@_gy2 AvZ`, `&@style>width:100%`, [[
+              `div`, `.@AvZ`, [Arg[0]]], [
+              `nav`, `.@_uHC`, `&@style>background:none`, [[
+                `div`, `.@_xCt`], [
+                `div`, [[
+                  `div`, `.@_-tY`, `&@style>left:0`, [[
+                    `div`, `.@_aXz`, [[
+                      `div`, `.@_-Xg _gxM _geQ`, `&@style>flex:2`, [[
+                        `a`, `#@devs`, `.@-_tX v2App`, `&@href>javascript:;`, `~@pws`], [
+                        `span`, `.@_aA6`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@ investor relations`]]], [
+                      `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
   }
 }
