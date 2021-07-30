@@ -2338,7 +2338,7 @@ class Controller extends Puller {
 
 			let Retail = [], Retails = {};
 
-			UA.get().pulls.forEach(MD => {
+			JSON.parse(Pull.response).pulls.forEach(MD => {
 
 				if (!Retails[MD.set]) Retails[MD.set] = [];
 
