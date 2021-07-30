@@ -368,7 +368,10 @@ let Models = {
 			[`bread & bakery`, [`Wheat`]], 
       [`eggs & dairy`, [``]],
 			[`fast food & eatery`, [`Meals`]], 
-			[`fruits & vegetables`, [`Veges`]]];
+			[`fruits & vegetables`, [`Veges`]], 
+      [`Health & Nutrition`, [`Veges`]]];
+
+    if (UA.get().retail) Aisles = UA.get().retail;
 
 		let ModelAisles = [];
 

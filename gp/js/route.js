@@ -2336,7 +2336,21 @@ class Controller extends Puller {
 
 		Pull.onload = () => {
 
-			UA.set({pullState: 0, pulls: JSON.parse(Pull.response).pulls});
+			let Retail = [], Retails = {};
+
+			UA.get().pulls.forEach(MD => {
+
+				if (!Retails[MD.set]) Retails[MD.set] = [];
+
+				Retails[MD.set].push(MD);
+			});
+
+			for (let retail in Retails) {
+
+				Retail.push([retail, [``]]);
+			}
+
+			UA.set({retail: Retail, pullState: 0, pulls: JSON.parse(Pull.response).pulls});
 
 			new View().DOM([`main`, [Models.ModelStart(UA.get().pulls)]]);
 
