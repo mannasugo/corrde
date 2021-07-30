@@ -247,6 +247,19 @@ let Models = {
 
     [`united states of america`]: [1, `$`, `usd`, 120, 1]
   },
+
+  Mugs: {
+
+    [`mannasugo`]: [
+      `mann asugo`, `founder, CTO & systems architect`, 
+      `Mann has served as our Chief Technology Officer since October 2019 and as a member of the Board since January 2021. 
+      Mann holds a B.Sc. in Mathematics & Computer Science from Maseno University and is also currently pursuing a degree in Software 
+      Engineering from Munich University of Applied Sciences in Germany.`],
+
+    [`bwageaustine`]: [`austine bwage`, `co-founder & CEO`, 
+      `Austine has served as our Chief Executive Officer since October 2019 and as a member of the Board since January 2021. His current board duties 
+      include earnings auditing, nominating and governance. Austine holds a B.A. in Political Science from Maseno University.`]
+  },
     
   Slim (String) {
 
@@ -2258,15 +2271,16 @@ let Models = {
     let ModelMug = [
       `span`,  `&@style>margin: 0 15px;position:relative;height:24px`, [[
         `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
-          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#00e`], [
-            `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@g`]]], [
-        `a`, `#@viavolt-mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+          `path`, `&@style>stroke:#000;stroke-width:1.5px`, `&@d>M3 4.5 5 4.5 M7 4.5 21 4.5`], [
+          `path`, `&@style>stroke:#000;stroke-width:1.5px`, `&@d>M3 11.5 5 11.5 M7 11.5 22 11.5`], [
+          `path`, `&@style>stroke:#000;stroke-width:1.5px`, `&@d>M3 18.5 5 18.5 M7 18.5 19 18.5`]]], [
+        `a`, `#@ir-mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
 
     return [
       `article`, `#@ModelStallControls`, `.@AvZ`, [[
         `div`, `.@_tY0 AvZ`, [[
           `main`, `.@_gZy AvZ`, [[
-            `section`, `.@_gy2 AvZ`, `&@style>width:100%`, [[
+            `section`, `.@gy2 AvZ`, `&@style>width:100%`, [[
               `div`, `.@AvZ`, [Arg[0]]], [
               `nav`, `.@_uHC`, `&@style>background:none`, [[
                 `div`, `.@_xCt`], [
@@ -2274,8 +2288,82 @@ let Models = {
                   `div`, `.@_-tY`, `&@style>left:0`, [[
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, `&@style>flex:2`, [[
-                        `a`, `#@devs`, `.@-_tX v2App`, `&@href>javascript:;`, `~@pws`], [
+                        `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`, `~@pws`], [
                         `span`, `.@_aA6`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@ investor relations`]]], [
                       `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
+  },
+
+  ModelStructure() {
+
+    let Structure = [
+      [
+        `leadership`, [
+          [`mannasugo`, `mann asugo`, `founder, CTO & systems architect`], 
+          [`bwageaustine`, `austine bwage`, `co-founder & CEO`]]], 
+      [
+        `board of directors`, [
+          [`mannasugo`, `mann asugo`, `nominating & governance`], 
+          [`bwageaustine`, `austine bwage`, `audit, nominating & governance`]]]];
+
+    let ModelStructure = [];
+
+    Structure.forEach(Stack => {
+
+      let ModelMug = [];
+
+      Stack[1].forEach(Mug => {
+
+        ModelMug.push([
+          `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+          `a`, `.@_cCq _gS3`, `&@href>/ir/team/${Mug[0]}/`, `&@style>height:42px;width:42px`, [[
+            `img`, `.@_aWz`, `&@src>/gp/p/mugs/${Mug[0]}.jpg`]]], [
+            `div`, `.@_eYG`, [[
+              `div`, [[
+                `div`, [[`span`, `&@style>font-weight:600;text-transform:capitalize`, `~@${Mug[1]}`]]], [
+                `div`, [[`span`, `&@style>color:#999;text-transform:capitalize`, `~@${Mug[2]}`]]]]]]]]])
+      })
+
+      ModelStructure.push([
+        `div`, `&@style>padding:0 16px`, [[
+          `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+            `span`, `.@_tXx`, `~@${Stack[0]}`], [
+            `div`, `.@_eYG`, [[`span`, `&@style>width:100%;height:1px;background:#000`]]]]], [
+          `div`, ModelMug]]])
+    })
+
+    return [
+      `div`, `@ModelMugger`, `.@_aXZ`, `&@style>max-width:920px;margin:55px auto 0`, [[
+        `div`, `.@_aXZ`, ModelStructure]]]
+  },
+
+  ModelMugRelate (Arg) {
+
+    let Mug = this.Mugs[Arg[0]];
+
+    let ModelStructure = [];
+
+    let ModelMug = [];
+
+    ModelMug.push([
+          `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+          `a`, `.@_cCq _gS3`, `&@href>/ir/team/${Arg[0]}/`, `&@style>height:42px;width:42px`, [[
+            `img`, `.@_aWz`, `&@src>/gp/p/mugs/${Arg[0]}.jpg`]]], [
+            `div`, `.@_eYG`, [[
+              `div`, [[
+                `div`, [[`span`, `&@style>color:#999;font-weight:600;text-transform:capitalize`, `~@${Mug[1]}`]]]]]]]]]);
+
+    ModelStructure.push([
+      `div`, `&@style>padding:0 16px`, [[
+        `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+          `span`, `.@_tXx`, `&@style>text-transform:uppercase`, `~@${Mug[0]}`], [
+          `div`, `.@_eYG`, [[`span`, `&@style>width:100%;height:1px;background:#000`]]]]], [
+        `div`, ModelMug], [
+        `div`, [[
+          `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+            `span`, `.@_tXx`, `&@style>`, `~@${Mug[2]}`]]]]]]]);
+
+    return [
+      `div`, `@ModelMugger`, `.@_aXZ`, `&@style>max-width:920px;margin:55px auto 0`, [[
+        `div`, `.@_aXZ`, ModelStructure]]]
   }
 }

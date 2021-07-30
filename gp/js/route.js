@@ -55,6 +55,8 @@ class Event {
 
 				this.getApp();
 
+				this.getMugger();
+
 				this.Mugger();
 			}
 		}
@@ -773,13 +775,25 @@ class Event {
 
 	getMugger () {
 
-		if (!document.querySelector(`#mug`)) return;
+		if (document.querySelector(`#mug`)) {
 
-		this.listen([document.querySelector(`#mug`), `click`, S => {
+			this.listen([document.querySelector(`#mug`), `click`, S => {
 
-			new Controller().Mugger();
+				new Controller().Mugger();
 
-		}]);
+			}]);
+		}
+
+		if (document.querySelector(`#ir-mug`)) {
+
+			this.listen([document.querySelector(`#ir-mug`), `click`, S => {
+
+				new Controller().SetState([{}, null, `/ir/`]);
+
+				new Controller().Call();
+
+			}]);
+		}
 	}
 
 	Signup () {
@@ -2332,7 +2346,12 @@ class Controller extends Puller {
 
     	let Model = Models.ModelMugRelations();
 
-    	if (State[4] === `team`) Model = Models.ModelRelations([[]/*Models.ModelStructure()*/])
+    	if (State[4] === `team`) {
+
+    		if (State[5] && Models.Mugs[State[5]]) Model = Models.ModelRelations([Models.ModelMugRelate([State[5]])]);
+
+    		else Model = Models.ModelRelations([Models.ModelStructure()]);
+    	}
 
 			new View().DOM([`main`, [Model]]);
 
