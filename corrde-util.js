@@ -1612,6 +1612,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `deliver`) this.App();
 
+    if (this.levelState === `ir`) this.App();
+
     if (this.levelState === `orders`) this.App();
 
     if (this.levelState === `paas`) this.App();
@@ -1751,6 +1753,8 @@ class UAPublic extends Auxll {
     }
 
     else if (this.levelState[1] === `grocery`) this.App();
+
+    else if (this.levelState[1] === `ir`) this.App();
 
     else if (this.levelState[1] === `j`) {
 

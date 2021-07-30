@@ -941,6 +941,8 @@ let Models = {
 
     Mugger.push(`corrde for business`)
 
+    Mugger.push(`investor relations`)
+
     let ModelMugger = [];
 
     Mugger.forEach(a => {
@@ -2225,5 +2227,29 @@ let Models = {
               `div`, `.@_gZy`]]]]]]], [
         `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
           `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelStock[1]: [ModelStock[0]]]]]]];
+  },
+
+  ModelRelations () {
+
+    let Mugger = [`our team`, `earnings reports`, `revenue filings`];
+
+    let ModelMugger = [];
+
+    Mugger.forEach(a => {
+
+      ModelMugger.push([
+        `div`, `.@_gZ`, [[
+          `a`, `#@${a}`, `.@_gcQ _aXZ _tXx _aA2 mugger`, `&@href>javascript:;`, `&@style>text-transform:capitalize;padding:12px 24px`, `~@${a}`]]])
+    })
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[]]]]]]], [
+        `div`, `#@ModelMugger`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, ModelMugger]]]]];
   }
 }

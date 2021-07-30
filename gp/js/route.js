@@ -47,7 +47,19 @@ class Event {
 
 	Call () {
 
-		if (new Controller().Old() === `.`) {
+		let State = new Controller().Stack();
+
+		if (new Controller().Old() === null) {
+
+			if (State[3] === `ir`) {
+
+				this.getApp();
+
+				this.getMugger();
+			}
+		}
+
+		else if (new Controller().Old() === `.`) {
 
 			this.SelectSlide();
 
@@ -68,14 +80,14 @@ class Event {
 			setInterval(() => this.SlidePulls(), 15000);
 		}
 
-		if (new Controller().Old() === `/aisles/`) {
+		else if (new Controller().Old() === `/aisles/`) {
 
 			this.getOld();
 
 			this.getMailable();
 		}
 
-		if (new Controller().Old() === `/cart/`) {
+		else if (new Controller().Old() === `/cart/`) {
 
 			this.pullCart();
 
@@ -92,7 +104,7 @@ class Event {
 			this.Signup();
 		}
 
-		if (new Controller().Old() === `/deliver/`) {
+		else if (new Controller().Old() === `/deliver/`) {
 
 			this.foldWSAlter();
 
@@ -105,7 +117,7 @@ class Event {
 			this.WStools();
 		}
 
-		if (new Controller().Old() === `/orders/`) {
+		else if (new Controller().Old() === `/orders/`) {
 
 			this.getApp();
 
@@ -114,7 +126,7 @@ class Event {
 			this.getOld();
 		}
 
-		if (new Controller().Old() === `/paygate/`) {
+		else if (new Controller().Old() === `/paygate/`) {
 
 			this.getApp();
 
@@ -125,7 +137,7 @@ class Event {
 			this.MobilePay();
 		}
 
-		if (new Controller().Old().split(`/`)[1] === `grocery`) {
+		else if (new Controller().Old().split(`/`)[1] === `grocery`) {
 
 			this.getApp();
 
@@ -136,9 +148,9 @@ class Event {
 			this.getCart();
 		}
 
-		if (new Controller().Old() === `/nogps/`) this.NonNullDot();
+		else if (new Controller().Old() === `/nogps/`) this.NonNullDot();
 
-		if (new Controller().Old() === `/paas/`) {
+		else if (new Controller().Old() === `/paas/`) {
 
 			this.getApp();
 
@@ -151,7 +163,7 @@ class Event {
 			this.PWSSignup();
 		}
 
-		if (new Controller().Old() === `/pws/`) {
+		else if (new Controller().Old() === `/pws/`) {
 
 			this.foldWSAlter();
 
@@ -166,7 +178,7 @@ class Event {
 			this.WStools();
 		}
 
-		if (new Controller().Old() === `/pws/listings/`) {
+		else if (new Controller().Old() === `/pws/listings/`) {
 
 			this.foldWSAlter();
 
@@ -181,7 +193,7 @@ class Event {
 			this.WStools();
 		}
 
-		if (new Controller().Old() === `/pws/malls/`) {
+		else if (new Controller().Old() === `/pws/malls/`) {
 
 			this.getPast();
 
@@ -192,7 +204,7 @@ class Event {
 			this.WStools();
 		}
 
-		if (new Controller().Old() === `/pws/malls/listings/`) {
+		else if (new Controller().Old() === `/pws/malls/listings/`) {
 
 			this.foldWSAlter();
 
@@ -207,21 +219,21 @@ class Event {
 			this.WStools();
 		}
 
-		if (new Controller().Old() === `/ships/`) {
+		else if (new Controller().Old() === `/ships/`) {
 
 			this.getOld();
 
 			this.getAisle();
 		}
 
-		if (new Controller().Old() === `/stores/`) {
+		else if (new Controller().Old() === `/stores/`) {
 
 			this.getApp();
 
 			this.Maller();
 		}
 
-		if (new Controller().Old().split(`/`)[1] === `tracking`) {
+		else if (new Controller().Old().split(`/`)[1] === `tracking`) {
 
 			this.getOld();
 
@@ -234,14 +246,14 @@ class Event {
 			this.Mugger()
 		}
 
-		if (new Controller().Old().split(`/`)[1] === `via`) {
+		else if (new Controller().Old().split(`/`)[1] === `via`) {
 
 			this.getPay()
 
 			this.initVia();
 		}
 
-		if (new Controller().Old() === `/ws/listings/`) {
+		else if (new Controller().Old() === `/ws/listings/`) {
 
 			this.getWSMugger();
 
@@ -256,7 +268,7 @@ class Event {
 			this.WSOptAlter();
 		}
 
-		if (new Controller().Old() === `/ws/paid/`) {
+		else if (new Controller().Old() === `/ws/paid/`) {
 
 			this.getWSMugger();
 
@@ -271,7 +283,7 @@ class Event {
 			this.WSOptAlter();
 		}
 
-		if (new Controller().Old() === `/ws/settings/`) {
+		else if (new Controller().Old() === `/ws/settings/`) {
 
 			this.getPaid();
 
@@ -911,6 +923,13 @@ class Event {
 					Control.SetState([{}, `.`, `/`]);
 
 					Control.Root();
+				}
+
+				else if (Via === `investor relations`) {
+
+					Control.SetState([{}, null, `/ir/`]);
+
+					Control.Call();
 				}
 
 				else if (Via === `manage inventory`) {
@@ -2287,11 +2306,41 @@ class Controller extends Puller {
 		this.State.pushState(Arg[0], Arg[1], Arg[2]);
 	}
 
+	Stack () {
+
+    let url = (`./${window.location}`).replace(`//`, `/`).replace(/%(..)/g, function (match, hex) {
+      return String.fromCharCode(parseInt(hex, 16))
+    });
+
+    return url.split(`/`);
+	}
+
 	Call () {
 
-		if (this.Old() === `.`) this.Root();
+		let State = this.Stack();
 
-		if (this.Old() === `/aisles/`) this.Aisles();
+    if (State[3] === `ir`) {
+
+    	UA.set({ualog: [null]});
+
+			new View().DOM([`main`, [Models.ModelRelations()]]);
+
+			new Event().Call();
+
+    }
+
+    else {
+
+			if (this.Old() === null) {
+
+				UA.set({ualog: [`.`]});
+
+				this.Call();
+			}
+
+			if (this.Old() === `.`) this.Root();
+
+			if (this.Old() === `/aisles/`) this.Aisles();
 
 		if (this.Old() === `/deliver/`) this.ViaVolt();
 
@@ -2328,6 +2377,7 @@ class Controller extends Puller {
 		if (this.Old() === `/ws/paid/`) this.WSPay();
 
 		if (this.Old() === `/ws/settings/`) this.WSAlter();
+	}
 	}
 
 	Root () {
