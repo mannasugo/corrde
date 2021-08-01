@@ -10035,6 +10035,8 @@ class Puller extends Auxll {
 
             Old.alpha = Old.alt;
 
+            Old[`set`] = Old.retail;
+
             let Shelve = [];
 
             Data.Sell[0].forEach(MD => {
