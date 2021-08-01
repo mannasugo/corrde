@@ -10341,7 +10341,7 @@ class Puller extends Auxll {
 
           else {
 
-            this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0].slice(0, 5)}))
+            this.Stack[3].end(JSON.stringify({all: Data.Sell[0], pulls: Data.Sell[0].slice(0, 5)}))
           }
 
         });
