@@ -71,6 +71,8 @@ class View {
 
   Unfilter = (String) => {
 
+    String = String.replace(new RegExp(`uu/002F0026`, `g`), `&`);
+
     String = String.replace(new RegExp(`u0026`, `g`), `&`);
 
     String = String.replace(new RegExp(`u0027`, `g`), `'`);
@@ -114,6 +116,8 @@ let Models = {
   },
 
   Unfilter: String => {
+
+    String = String.replace(new RegExp(`uu/002F0026`, `g`), `&`);
 
     String = String.replace(new RegExp(`u0026`, `g`), `&`);
 
@@ -182,6 +186,12 @@ let Models = {
     [`clothing`]: {
       [`shelf`]: [
         `accessories`, `baby and toddler boy`, `baby and toddler girl`, `boys`, `girls`, `jewelry`, `men`,  `shoes`, `women` ]
+    },
+
+    [`eggs & dairy`]: {
+      [`shelf`]: [
+        `biscuits, cookies, doughs & crusts`, `butter & margarine`, `cheese`, `chilled snacks & beverages`, `cream & creamers`, `dairy essentials`, 
+        `eggs`, `milk`, `plant-based`, `puddings, gelatins & desserts`, `sour cream, dips & sauces`, `yogurt`]
     },
 
     [`fast food & eatery`]: {
@@ -2052,7 +2062,7 @@ let Models = {
     });
 
     
-    return [`main`, `.@_tY0`, `&@style>height:100%; font-size:13px`, [[
+    return [`main`, `.@_tY0`, `&@style>height:100%; fnt-size:13px`, [[
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
@@ -2238,7 +2248,7 @@ let Models = {
           `div`, `.@_g0 _-Zz`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
             `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
               `div`, `.@_gZy`]]]]]]], [
-        `section`, `&@style>max-width:960px;margin:24px auto;width:100%;font-size:13px`, [[
+        `section`, `&@style>max-width:960px;margin:24px auto;width:100%;fnt-size:13px`, [[
           `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelStock[1]: [ModelStock[0]]]]]]];
   },
 

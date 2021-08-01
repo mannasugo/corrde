@@ -1864,7 +1864,9 @@ class Event {
 						if (A.MD5 === this.getSource(S).id) Shelfs = A;
 					});
 
-					if (!Shelfs.md || !Shelfs.MD5) return;
+					if (Shelfs.md) Shelfs[`MD5`] = Shelfs.md
+
+					else if (Shelfs.MD5) Shelfs[`md`] = Shelfs.MD5;
 
 					new View().DOM([`main`, [Models.ModelinitRetail([Shelfs])]]);
 
@@ -1981,7 +1983,11 @@ class Event {
 						if (A.MD5 === this.getSource(S).id) Shelfs = A;
 					});
 
-					if (!Shelfs.md || !Shelfs.MD5) return;
+					if (Shelfs.md) Shelfs[`MD5`] = Shelfs.md
+
+					else if (Shelfs.MD5) Shelfs[`md`] = Shelfs.MD5;
+
+					if (!Shelfs.retail) Shelfs[`retail`] = Shelfs.set;
 
 					Model = Models.ModelPutlisting([Shelfs])
 
@@ -2074,7 +2080,11 @@ class Event {
 						if (A.MD5 === this.getSource(S).id) Shelfs = A;
 					});
 
-					if (!Shelfs.md) return;
+					if (Shelfs.md) Shelfs[`MD5`] = Shelfs.md
+
+					else if (Shelfs.MD5) Shelfs[`md`] = Shelfs.MD5;
+
+					if (!Shelfs.retail) Shelfs[`retail`] = Shelfs.set;
 
 					let ShelfAlters = {};
 
