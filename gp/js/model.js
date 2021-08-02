@@ -1144,7 +1144,7 @@ let Models = {
             `div`, `.@_geQ _gxM _yZS`, [[
               `div`, `.@_gxM`, `&@style>width:30%;`, [[
                 `div`, [[
-                  `span`, `.@_tXx`, `&@style>color:#1185fe;font-family:gotham-book;text-transform:uppercase`, `~@${FX[1]}${(Store.gross+Store.fee).toFixed(2)} ${FX[2]}`]]]]], [
+                  `span`, `.@_tXx`, `&@style>color:#1185fe;font-family:gotham-book;text-transform:uppercase`, `~@${FX[1]}${(Store.gross/*+Store.fee*/).toFixed(2)} ${FX[2]}`]]]]], [
             `div`, `&@style>width:5%;`, []], [
             `div`, `&@style>width:65%;`, [[
               `div`, `.@${(Store.pws_flow[0] !== false)? `_-Zz`: ``} _QZg`, [[
