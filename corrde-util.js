@@ -9683,6 +9683,8 @@ class Puller extends Auxll {
                     MD[`payer_gArray`] = Data.Pay[1][Vals.tracking_md][`gArray`];
                   }
 
+                  MD[`payer_gArray`] = Data.Pay[1][Vals.tracking_md][`gArray`];
+
                   if (!Ports[MD.port_gArray]) Ports[MD.port_gArray] = [];
 
                   Ports[MD.port_gArray].push(MD);
