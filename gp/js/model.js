@@ -507,7 +507,7 @@ let Models = {
                 `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0`, [[
                   `div`, `.@_eYG`], [
                   `div`, `.@_QZg`, [[
-                    `span`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@style>width:19px;height:19px`], [
+                    `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
                     `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
@@ -526,7 +526,7 @@ let Models = {
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
                 `span`, `&@style>text-align:center;font-family:gotham-book`, `~@${(Seen[Row.MD5].items)? ((Seen[Row.MD5].items < 10)? `0`+ Seen[Row.MD5].items: Seen[Row.MD5].items): `00`}`]]], [
-      				`a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]]);console.log(Row)
+      				`a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]]);
 			});
 			
 			ModelAisle.push([`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelShelve])
@@ -2379,5 +2379,100 @@ let Models = {
     return [
       `div`, `@ModelMugger`, `.@_aXZ`, `&@style>max-width:920px;margin:55px auto 0`, [[
         `div`, `.@_aXZ`, ModelStructure]]]
+  },
+
+  ModelMall (Arg) {
+
+    let Seen = {};
+
+    (!UA.get().UASeen)? UA.set({UASeen: Seen}): Seen = UA.get().UASeen;
+
+    (UA.get().area)? UA.get().area: UA.set({area: `kenya`});
+
+    let Column = 3;
+
+    if (Arg[2] < 540) Column = 2;
+
+    if (Arg[2] > 960) Column = 4;
+
+    let Rows = parseInt(Arg[0].length/Column);
+
+    (Arg[0].length%Column > 0)? Rows++: Rows;
+
+    let ModelAisle = [];
+
+    let Fx = this.Fx;
+
+    let Multi = [];
+
+    for (let row = 0; row < Rows; row++) {
+
+      Multi.push(Arg[0]);}
+
+    for (let row = 0; row < Rows; row++) {
+
+      let ModelShelve = [];
+
+      let Slice = JSON.parse(JSON.stringify(Arg[0]));
+
+      Multi[row].slice(row*Column, ((row*Column) + Column)).forEach(Row => {
+
+        if (!Seen[Row.MD5]) {
+
+          Seen[Row.MD5] = Row;
+
+          UA.set({UASeen: Seen});
+        }
+
+        Row[`Fx`] = Fx[UA.get().area];
+
+      let data = `&@data>${JSON.stringify(Row).replace(new RegExp(`"`, `g`), `&quot;`)}`;
+
+        ModelShelve.push([
+            `div`, `.@_gA0 _gW0`, `&@style>width:${100/Column}%;padding:16px`, [[
+              `div`, `.@_gY`, [[
+                `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0`, [[
+                  `div`, `.@_eYG`], [
+                  `div`, `.@_QZg`, [[
+                    `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
+                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
+                `a`, `.@_Qg`, [[
+                  `div`, `.@_Qg0 _geQ`, [[
+                    `img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>javascript:;`], [
+                `div`, [[
+                  `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
+                    `div`, `.@_Xx _gxM`, [[
+                      `span`, `.@_tXx`, [[
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
+                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
+                    `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX Ship`], [
+                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
+            `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
+              `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
+                `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
+                `span`, `&@style>text-align:center;font-family:gotham-book`, `~@${(Seen[Row.MD5].items)? ((Seen[Row.MD5].items < 10)? `0`+ Seen[Row.MD5].items: Seen[Row.MD5].items): `00`}`]]], [
+              `a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]]);
+      });
+      
+      ModelAisle.push([`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelShelve])
+    }
+    
+    return [
+    `main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
+          `div`, `.@_QZg`, [[
+            `a`, `#@`, `.@_-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
+            `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
+        `div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
+          `div`, `#@ModelSignin`, `.@_gZ`, [[`h2`, `&@style>padding:16px`, `~@${Arg[0][0].mall_alt}`]]], [
+          `div`, `.@_aXZ _gZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
+            `span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]], [
+          `div`, ModelAisle]]]]];
   }
 }

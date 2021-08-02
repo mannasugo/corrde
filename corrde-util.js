@@ -1772,6 +1772,8 @@ class UAPublic extends Auxll {
       });
     }
 
+    else if (this.levelState[1] === `mall`) this.App();
+
     else if (this.levelState[1] === `maps`) {
 
       this.logs_u_md5(A => {
@@ -9530,6 +9532,8 @@ class Puller extends Auxll {
 
             let Pulls = [];
 
+            let All = [];
+
             Data.Sell[0].forEach(Sell => {
 
               Sell[`md`] = Sell.MD5;
@@ -9540,6 +9544,8 @@ class Puller extends Auxll {
 
               Sell[`items`] = 0;
 
+              if (Sell.mall_md && Sell.mall_md.length > 6) Sell[`mall_alt`] = Data.mall[1][Sell.mall_md].alt;
+
               if (aisle === `fruits & vegetables` || aisle === `fast food & eatery`) {
 
                 if (this.Alias(Sell.set) === aisle || model.filter(model.filter(Sell.set)) === aisle && Sell.market === this.Stack[1].area) Pulls.push(Sell);
@@ -9547,9 +9553,12 @@ class Puller extends Auxll {
               }
 
               else if (this.Alias(Sell.set) === aisle || model.filter(model.filter(Sell.set)) === aisle) Pulls.push(Sell);
+
+              All.push(Sell);
             });
 
-            this.Stack[3].end(JSON.stringify({aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), pulls: Pulls}))
+            this.Stack[3].end(JSON.stringify({
+              aisle: RetailSets.indexOf((model.filter(model.filter(this.Stack[1].aisle))).toLowerCase()), all: All, pulls: Pulls}))
           }
 
           else if (this.Stack[1].pull === `apex-pws`) {

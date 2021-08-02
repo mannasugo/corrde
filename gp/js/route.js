@@ -59,6 +59,19 @@ class Event {
 
 				this.Mugger();
 			}
+
+			else if (State[3] === `mall`) {
+
+				this.NonNullDot([`mall`]);
+
+				this.getApp();
+
+				this.AlterCart();
+
+				this.getCart();
+
+				this.Resize();
+			}
 		}
 
 		else if (new Controller().Old() === `.`) {
@@ -450,6 +463,18 @@ class Event {
 			if (!document.querySelector(`#ModelAisle`)) return;
 
 			new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set, document.body.clientWidth])]]);
+
+			this.Call()
+		}])
+	}
+
+	Resize () {
+
+		this.listen([window, `resize`, S => {
+
+			if (!document.querySelector(`#ModelAisle`)) return;
+
+			new View().DOM([`main`, [Models.ModelMall([UA.get().mall.listings, ``, document.body.clientWidth])]]);
 
 			this.Call()
 		}])
@@ -1148,7 +1173,7 @@ class Event {
 		});
 	}
 
-	NonNullDot () {
+	NonNullDot (Arg) {
 
 		if (!document.querySelector(`#gps`)) return;
 
@@ -1169,11 +1194,13 @@ class Event {
 
         gArray(a);
 
-				Control.Aisle();
+				(Arg && Arg[0])? Control.Call(): Control.Aisle();
 
-      }, (b) => { UA.set({gArray: [34.753, -.533]})
+      }, (b) => { 
 
-				Control.Aisle();
+      	UA.set({gArray: [34.753, -.533]});
+
+				(Arg && Arg[0])? Control.Call(): Control.Aisle();
       });
 
 		}]);
@@ -2350,7 +2377,69 @@ class Controller extends Puller {
 
 		let State = this.Stack();
 
-    if (State[3] === `ir`) {
+		if (State[3] === `mall`) {
+
+    	UA.set({ualog: [null]});
+
+			let Mall = [];
+
+			if (State[4]) {
+
+				if (!UA.get().gArray || UA.get().gArray.length !== 2) {
+
+					new View().DOM([`main`, [Models.ModelNullDot()]]);
+
+					new Event().Call();
+				}
+
+				else {
+
+					let Pull = this.Pull([`/pulls/ua/`, {
+						aisle: (UA.get().set)? UA.get().set: `alcohol`, 
+						gArray: UA.get().gArray, 
+						pull: `aisle`, 
+						area: (UA.get().area)? UA.get().area: `kenya`}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (Pulls.all) {
+
+							Pulls.all.forEach(MD => {
+
+								if (MD.mall_md && MD.mall_md === State[4]) Mall.push(MD);
+							})
+						}
+
+						if (Mall.length > 0) {
+
+							UA.set({mall: {listings: Mall}});
+
+							new View().DOM([`main`, [Models.ModelMall([Mall, ``, document.body.clientWidth])]]);
+
+							new Event().Call();
+						}
+
+						else {
+
+    					UA.set({ualog: [`.`]});
+
+    					this.Root();
+						}
+					}
+				}
+			}
+
+			else {
+
+    		UA.set({ualog: [`.`]});
+
+    		this.Root();
+			}
+		}
+
+    else if (State[3] === `ir`) {
 
     	UA.set({ualog: [null]});
 
