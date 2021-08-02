@@ -1127,7 +1127,11 @@ let Models = {
 
     let fees = 0;
 
-    let FX = this.Fx[UA.get().via[`till`][0][`bag`][0][`payer_gArray`][0]];
+    let locale = `kenya`;
+
+    if (UA.get().via[`till`][0][`bag`][0][`payer_gArray`]) locale = UA.get().via[`till`][0][`bag`][0][`payer_gArray`][0];
+
+    let FX = this.Fx[locale];
 
     UA.get().via[`till`].forEach(Store => {
 
