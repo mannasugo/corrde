@@ -1756,6 +1756,8 @@ class UAPublic extends Auxll {
 
     else if (this.levelState[1] === `ir`) this.App();
 
+    else if (this.levelState[1] === `item`) this.App();
+
     else if (this.levelState[1] === `j`) {
 
       this.logs_u_md5(A => {

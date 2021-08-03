@@ -60,6 +60,19 @@ class Event {
 				this.Mugger();
 			}
 
+			else if (State[3] === `item`) {
+
+				this.NonNullDot([`item`]);
+
+				this.getApp();
+
+				this.AlterCart();
+
+				this.getCart();
+
+				this.Zoom();
+			}
+
 			else if (State[3] === `mall`) {
 
 				this.NonNullDot([`mall`]);
@@ -585,6 +598,8 @@ class Event {
 	}
 
 	getCart () {
+
+		if (!document.querySelector(`.Bag`)) return;
 
 		this.listen([document.querySelector(`.Bag`), `click`, S => {
 
@@ -2398,6 +2413,29 @@ class Event {
 			})
 		}
 	}
+
+	Zoom () {
+
+		if (document.querySelector(`.Zoom_1185FE`)) {
+
+			this.listen([document.querySelector(`.Zoom_1185FE`), `click`, S => {
+
+				new View().DOM([`main`, [Models.ModelZoom()]]);
+
+				new Event().Call();
+			}]);
+		}
+
+		if (document.querySelector(`.exit-zoom`)) {
+
+			this.listen([document.querySelector(`.exit-zoom`), `click`, S => {
+
+				new View().DOM([`main`, [Models.ModelSell()]]);
+
+				new Event().Call();
+			}]);
+		}
+	}
 }
 
 class Controller extends Puller {
@@ -2514,6 +2552,68 @@ class Controller extends Puller {
 			new Event().Call();
 
     }
+
+		else if (State[3] === `item`) {
+
+    	UA.set({ualog: [null]});
+
+			let Sell = [];
+
+			if (State[4]) {
+
+				if (!UA.get().gArray || UA.get().gArray.length !== 2) {
+
+					new View().DOM([`main`, [Models.ModelNullDot()]]);
+
+					new Event().Call();
+				}
+
+				else {
+
+					let Pull = this.Pull([`/pulls/ua/`, {
+						aisle: (UA.get().set)? UA.get().set: `alcohol`, 
+						gArray: UA.get().gArray, 
+						pull: `aisle`, 
+						area: (UA.get().area)? UA.get().area: `kenya`}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (Pulls.all) {
+
+							Pulls.all.forEach(MD => {
+
+								if (MD.MD5 && MD.MD5 === State[4]) Sell.push(MD);
+							})
+						}
+
+						if (Sell.length > 0) {
+
+							UA.set({item: Sell[0]});
+
+							new View().DOM([`main`, [Models.ModelSell()]]);
+
+							new Event().Call();
+						}
+
+						else {
+
+    					UA.set({ualog: [`.`]});
+
+    					this.Root();
+						}
+					}
+				}
+			}
+
+			else {
+
+    		UA.set({ualog: [`.`]});
+
+    		this.Root();
+			}
+		}
 
     else {
 

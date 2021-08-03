@@ -674,7 +674,8 @@ body {
 .FilterColor, .Filter2Gray, .From, .Geo_1185FE, .Geo_EEDF00, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .Max, .Max000, .Meals, .Min, .Min000, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .Sell000, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
-.StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .Veges, .Via, .VKBlack, .vServiceGray, .verifylighticonUA, .Wheat, ._y4x {
+.StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .Veges, .Via, .VKBlack, .vServiceGray, 
+.verifylighticonUA, .Wheat, .Zoom_1185FE, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -1012,6 +1013,8 @@ body {
 .Wheat {background-image: url(/gp/p/vector/wheat.svg);}
 
 .Via {background-image: url(/gp/p/vector/via.svg);}
+
+.Zoom_1185FE {background-image: url(/gp/p/vector/zoom_1185fe.svg);}
 
 ._tCx {
   color: #000;
@@ -4155,6 +4158,8 @@ table > thead > tr > th {
   #ModelMugger h2 {padding-left: 16px; padding-bottom: 24px;} 
 
   #ModelMugger h2, #ModelSignin h2, #ModelPaygate h2 {font-size: 25px;line-height: 28px}
+
+  #ModelSell {padding: 0 24px;}
 }
 
 @media (max-width: 560px) {
