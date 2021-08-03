@@ -1663,6 +1663,34 @@ class Event {
 			});
 		}
 
+		if (document.querySelector(`.alter-state`)) {
+
+			document.querySelectorAll(`.alter-state`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					Via.parentNode.parentNode.parentNode.querySelectorAll(`.check-item`).forEach(S2 => {
+
+						S2.style.fill = `none`;
+					});
+
+					Via.parentNode.querySelector(`.check-item`).style.fill = `#1185fe`;
+
+					let Alter = UA.get().apex;
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					Alter[`alter_listing`][`state`] = Models.Filter(Via.id);;
+
+					UA.set({apex: Alter});
+				}]);
+			});
+		}
+
 		if (document.querySelector(`.WSAlter`)) {
 
 			this.listen([document.querySelector(`.WSAlter`), `click`, S => {

@@ -2139,6 +2139,26 @@ let Models = {
             `a`, `#@${Mall[0]}u0${Mall[1]}`, `.@_aWz alter-locale`, `&@style>position:absolute`, `&@href>javascript:;`]]], [
           `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${Mall[0]}`]]]]]);
     });
+
+    let ModelState = [];
+
+    let State = [`new`, `refurbished`, `used`];
+
+    State.forEach(a => {
+
+      let state;
+
+      if (Arg && Arg[0].state && Arg[0].state === a) state = true;
+
+      ModelState.push([
+        `div`, `.@_geQ _gxM`, `&@style>padding: 10px 16px`, [[
+          `div`, [[
+            `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
+              `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
+              `circle`, `.@check-item`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>${(state)? `#1185fe`: `none`}`]]], [
+            `a`, `#@${a}`, `.@_aWz alter-state`, `&@style>position:absolute`, `&@href>javascript:;`]]], [
+          `div`, `.@_eYG`, [[`span`, `&@style>font-size:13px`, `~@${a}`]]]]]);
+    });
     
     return [`main`, `.@_tY0`, `&@style>height:100%; font-size:13px`, [[
       `div`, `.@_-tY`, [[
@@ -2210,9 +2230,14 @@ let Models = {
                       `p`, `&@style>margin-top:24px;padding:5px 16px;border-radius:50px;color:#fff;background:#1e1e1e;text-align:center;font-size:13px`, `~@*your image must be at least 500 x 500 pixels and set against a plain white background.`]]]]]]]]]]], [
             `div`, `.@${(Arg)? `_gZ`: `_gZ`}`, `&@style>padding: 0 16px;`, [[
               `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
-              `span`, `.@_tXx`, `~@4. Storage & Zone`], [
-              `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
-            `section`, `.@_-Zz`, `&@style>width:100%;padding-bottom:25px`, ModelStorage]]]]]]]]]; //]]]]]]]]]
+                `span`, `.@_tXx`, `~@4. Storage & Zone`], [
+                `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+              `section`, `.@_-Zz`, `&@style>width:100%;padding-bottom:25px`, ModelStorage]]], [
+            `div`, `.@${(Arg)? `_gZ`: `_gZ`}`, `&@style>padding: 0 16px;`, [[
+              `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+                `span`, `.@_tXx`, `~@5. Condition`], [
+                `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+              `section`, `.@_-Zz`, `&@style>width:100%;padding-bottom:25px`, ModelState]]]]]]]]]; //]]]]]]]]]
   },
 
   ModelPWSRetail () {
