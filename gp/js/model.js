@@ -505,7 +505,7 @@ let Models = {
             `div`, `.@_gA0 _gW0`, `&@style>width:${100/Column}%;padding:16px`, [[
               `div`, `.@_gY`, [[
                 `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0`, [[
-                  `div`, `.@_eYG`], [
+                  `div`, this.ModelState(Row)], [
                   `div`, `.@_QZg`, [[
                     `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
                     `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
@@ -1494,6 +1494,26 @@ let Models = {
         `a`, `#@${S}`, `.@_aA2 tXx OptRetail`, `&@style>margin: 0 14px 14px 0;color:#000;font-size:13px;padding:0 12px;border:1px solid #999;border-radius:100px;${style}`, `&@href>javascript:;`, `~@${S}`])
     });
 
+    let ModelState = [];
+
+    let State = [`dried`, `fresh`, `frozen`, `new`, `refurbished`, `used`];
+
+    State.forEach(a => {
+
+      let state;
+
+      if (Arg && Arg[0].state && Arg[0].state === a) state = true;
+
+      ModelState.push([
+        `div`, `.@_geQ _gxM`, `&@style>padding: 10px 16px`, [[
+          `div`, [[
+            `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
+              `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
+              `circle`, `.@check-item`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>${(state)? `#1185fe`: `none`}`]]], [
+            `a`, `#@${a}`, `.@_aWz ws-alter-state`, `&@style>position:absolute`, `&@href>javascript:;`]]], [
+          `div`, `.@_eYG`, [[`span`, `&@style>font-size:13px`, `~@${a}`]]]]]);
+    });
+
     
     return [`main`, `.@_tY0`, `&@style>height:100%; font-size:13px`, [[
       `div`, `.@_-tY`, [[
@@ -1558,7 +1578,12 @@ let Models = {
                       `div`, `.@_eYG`, [[
                         `span`, `.@_a2X`, `~@upload/replace item image`]]]]], [
                     `div`, `.@_geQ`, [[
-                      `p`, `&@style>margin-top:24px;padding:5px 16px;border-radius:50px;color:#fff;background:#1e1e1e;text-align:center;font-size:13px`, `~@*your image must be at least 500 x 500 pixels and set against a plain white background.`]]]]]]]]]]]]], [
+                      `p`, `&@style>margin-top:24px;padding:5px 16px;border-radius:50px;color:#fff;background:#1e1e1e;text-align:center;font-size:13px`, `~@*your image must be at least 500 x 500 pixels and set against a plain white background.`]]]]]]]]]]], [
+            `div`, `.@${(Arg)? `_gZ`: `_gZ`}`, `&@style>padding: 0 16px;`, [[
+              `div`, `.@_gxM _geQ`, `&@style>padding:16px 0`, [[
+                `span`, `.@_tXx`, `~@4. Condition`], [
+                `div`, `.@_QZg`, [[`span`, `.@Max000 foldOpt`]]]]], [
+              `section`, `.@_-Zz`, `&@style>width:100%;padding-bottom:25px`, ModelState]]]]], [
                 `div`, `.@_gcQ _gxM`, `&@style>width:100%`, [[
                   `div`, `.@_eYG`], [
                   `div`, `.@_QZg _gxM`, [[
@@ -2142,7 +2167,7 @@ let Models = {
 
     let ModelState = [];
 
-    let State = [`new`, `refurbished`, `used`];
+    let State = [`dried`, `fresh`, `frozen`, `new`, `refurbished`, `used`];
 
     State.forEach(a => {
 
@@ -2457,7 +2482,7 @@ let Models = {
             `div`, `.@_gA0 _gW0`, `&@style>width:${100/Column}%;padding:16px`, [[
               `div`, `.@_gY`, [[
                 `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0`, [[
-                  `div`, `.@_eYG`], [
+                  `div`, this.ModelState(Row)], [
                   `div`, `.@_QZg`, [[
                     `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
                     `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
@@ -2499,5 +2524,17 @@ let Models = {
           `div`, `.@_aXZ _gZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
             `span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]], [
           `div`, ModelAisle]]]]];
+  },
+
+  ModelState (Arg) {
+
+    let ModelState = [];
+
+    if (Arg.state) {
+
+      ModelState.push([`span`, `.@_a2X _tXx`, `&@style>padding:1px 6px;border:1px solid #efefef;border-radius:4px;font-size:10px;letter-spacing:.7px;color:#1185fe`, `~@${Arg.state}`]);
+    }
+
+    return ModelState;
   }
 }

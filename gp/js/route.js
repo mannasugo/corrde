@@ -1600,7 +1600,7 @@ class Event {
 
 					(!Alter[`shelve`])? Alter[`shelve`] = {}: Alter;
 
-					Alter[`shelve`][`shelf`] = Models.Filter(Via.id);;
+					Alter[`shelve`][`shelf`] = Models.Filter(Via.id);
 
 					UA.set({ws: Alter});
 				}]);
@@ -1663,7 +1663,7 @@ class Event {
 			});
 		}
 
-		if (document.querySelector(`.alter-state`)) {
+		if (document.querySelector(`.alter-state`) || document.querySelector(`.ws-alter-state`)) {
 
 			document.querySelectorAll(`.alter-state`).forEach(S => {
 
@@ -1687,6 +1687,35 @@ class Event {
 					Alter[`alter_listing`][`state`] = Models.Filter(Via.id);;
 
 					UA.set({apex: Alter});
+				}]);
+			});
+
+			document.querySelectorAll(`.ws-alter-state`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Via = this.getSource(S);
+
+					Via.parentNode.parentNode.parentNode.querySelectorAll(`.check-item`).forEach(S2 => {
+
+						S2.style.fill = `none`;
+					});
+
+					Via.parentNode.querySelector(`.check-item`).style.fill = `#1185fe`;
+
+					let Alter = UA.get().ws;
+
+					(!Alter[`shelve`])? Alter[`shelve`] = {}: Alter;
+
+					Alter[`shelve`][`state`] = Models.Filter(Via.id);
+
+					(!Alter[`alter_listing`])? Alter[`alter_listing`] = {}: Alter;
+
+					Alter[`alter_listing`][`state`] = Models.Filter(Via.id);;
+
+					UA.set({ws: Alter});
 				}]);
 			});
 		}
