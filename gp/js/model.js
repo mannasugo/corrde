@@ -2743,7 +2743,7 @@ let Models = {
           `div`, [[
             `div`, [[
               `span`, `.@_tXx`, `&@style>color:#fff;font-size:14px`, `~@Corrde Store`], [
-              `span`, `.@_a2X`, `&@style>color:#fff`, `~@for android 9+`]]]], `.@_eYG`], [
+              `span`, `.@_a2X`, `&@style>color:#fff`, `~@last update 6 aug 2021(android 9+)`]]]], `.@_eYG`], [
               `div`, `.@_QZg`, [[
                 `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;`, [[
                   `a`, `.@_TX_a _atX`, `&@href>/gp/builds/release/android_-_9_v0.0.1_beta.apk`, `&@style>font-size:12px;font-weight:300;`, `~@get the app`]]]]]], `.@_gxM _geQ`]], `&@style>padding:10px 24px;width:100%;max-width:648px;margin:0 auto`]], `&@style>position:absolute;z-index:19;top:55px;left:0;width:100%;background:rgba(20, 49, 45, 0.91)`]
