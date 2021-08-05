@@ -131,14 +131,16 @@ let Models = {
   },
 
   Retail: [
-    `alcohol`,
+    `alcohol`, `baby`,
     `beauty & personal care`, 
     `beverages`, `bread & bakery`,
-    `clothing`,
-    `fruits & vegetables`, `health & nutrition`,/*, `baby`, `christmas shop`,  `cold & flu`, 
-      `deli`,  `eggs & dairy`, `fast food & eatery`, `frozen`, `garden & tools`, `gift shop`, 
-      `home, kitchen & dine`, `household essentials`, `meat & seafood`, `office & electronics`, `organic shop`, 
-      `pantry`, `party supplies & crafts`, `pets`, `sports & outdoor`, `snacks & candy`, `toys`*/],
+    `clothing`, `college & beyond shop`, `deli`, 
+    /*`eggs & dairy`,*/ `frozen`, `fruits & vegetables`, 
+    `garden & tools`, `health & nutrition`, `household essentials`, 
+    `meat & seafood`, `party supplies & crafts`, `office & electronics`,
+    `pantry`, `school supplies`, `snacks & candy`, `sports & outdoor`, `toys`/*,`christmas shop`,  `cold & flu`, 
+    `fast food & eatery`, `gift shop`, 
+    `home, kitchen & dine`, `organic shop`, `pets`,*/],
 
   Retails: {
 
@@ -149,7 +151,17 @@ let Models = {
         `hard seltzer & flavored beverages`,
         `domestic beer`,
         `import beer`, `liquor`,
-        `low calorie & organic alcohol`, `red wine`, `rose & blush wine`, `seasonal & new flavors`, `white wine`]},
+        `low calorie & organic alcohol`, `red wine`, `rose & blush wine`, `seasonal & new flavors`, `white wine`]
+    },
+
+    [`baby`]: {
+      [`shelf`]: [
+        `baby & toddler toys`, `baby bath & skin care`, 
+        `baby bedding & decor`, `baby clothes for boys`, 
+        `baby clothes for girls`, `baby gear`, `baby food`, 
+        `baby health & safety`, `baby summer travel`, `diapers`, 
+        `feeding`, `formula`, `fun for baby`, `happy baby essentials`, `mom shop`, `wipes & diaper accessories`]
+    },
 
     [`beverages`]: {
       [`shelf`]: [
@@ -172,8 +184,30 @@ let Models = {
       [`shelf`]: [
         `breakfast breads`, 
         `cakes & cupcakes`, `cookies & brownies`, 
-        `donuts & breakfast pastries`, `freash bakery breads`, 
+        `donuts & breakfast pastries`, `fresh bakery breads`, 
         `pies`, `rolls & buns`, `sliced bread`, `summer bakery`, `sweet treats`, `tortillas`]
+    }, 
+
+    [`college & beyond shop`]: {
+      [`shelf`]: [
+        `beauty & personal care`, `decor & more`, 
+        `on-the-go snacks & beverages`, `organization essentials`, `quick & easy meals`, `small & appliances`, `top tech`]
+    },
+
+    [`deli`]: {
+      [`shelf`]: [
+        `bacon, hot dogs & sausage`, 
+        `BBQ favorites`, `deli meat & cheese`, 
+        `fresh prepared soups & salads`, `hummus, dips & salsa`, 
+        `prepared meals & sides`, `rotisserie & pulled chicken`, `snacks & fresh sandwiches`, `specialty cheese & charcuterie`]
+    },
+
+    [`frozen`]: {
+      [`shelf`]: [
+        `frozen beverages & ice`, `frozen bread & potatoes`, 
+        `frozen breakfast`, `frozen desserts`, `frozen favorites`, 
+        `frozen fruits & vegetables`, `frozen individual meals`, `frozen kids meals`, 
+        `frozen meat & seafood`, `frozen pizza & pasta`, `frozen snacks & appetizers`, `ice cream`]
     },
 
     [`fruits & vegetables`]: {
@@ -208,7 +242,82 @@ let Models = {
         `cough, cold & flu`, `diabetes care`, 
         `digestive health`, `eye & ear care`, `family planning`, 
         `feminine care`, `first aid`, `foot care`, `home health`, `incontinence`, 
-        `nicotine replacement therapy`, `pain relief`, `vitamins & supplements`]}
+        `nicotine replacement therapy`, `pain relief`, `vitamins & supplements`]
+    },
+
+    [`garden & tools`]: {
+      [`shelf`]: [
+        `automotive`, `electrical`, 
+        `gardening & lawn care`, `grills & outdoor cooking`, 
+        `hardware`, `heating, cooling & air quality`, `home security`, `paint tools & supplies`, `tools`, `pools, hot tubs & supplies`]
+    },
+
+    [`household essentials`]: {
+      [`shelf`]: [
+        `air filters`, 
+        `air fresheners`, 
+        `batteries & accessories`, 
+        `cleaning products`, `cleaning tools`, 
+        `dish detergents`, `disposable tabletop`, 
+        `food storage`, `insecticides & pest control`, 
+        `laundry`, `light bulbs`, `paper products`, `shoe care`, `trash bags`, `water filters & dispensers`]
+    },
+
+    [`meat & seafood`]: {
+      [`shelf`]: [
+        `bacon, hot dogs & sausage`, 
+        `beef`, `chicken`, `lamb & specialty meat`, `organic & plant-based`, `pork`, `seafood`, `sustainable seafood`, `turkey`]
+    },
+
+    [`office & electronics`]: {
+      [`shelf`]: [
+        `cell phone & tablet accessories`, 
+        `computer accessories & peripherals`, `gaming`, 
+        `headphones & speakers`, `movies`, `networking`, `office & school supplies`, 
+        `printers & ink`, `smart home`, `streaming devices`, `tv & tv accessories`, `wearable technology`]
+    },
+
+    [`pantry`]: {
+      [`shelf`]: [
+        `baking`, `boxed dinners`, `canned goods`, 
+        `cereal & breakfast food`, `cooking oils & vinegar`, 
+        `condiments`, `herbs, spices & seasoning`, `international foods`, 
+        `rice, grains & dried beans`, `pasta & pizza`, `potatoes & stuffing`, `soup`, `stock up pantry`, `sustainable seafood`]
+    },
+
+    [`party supplies & crafts`]: {
+      [`shelf`]: [
+        `arts & crafts`, `bay shower`, 
+        `balloons & accessories`, `cake supplies`, 
+        `candles`, `gift wrap supplies`, `greeting cards`, `party decorations`, `party favors & accessories`, `tableware`, `themed parties`]
+    },
+
+    [`school supplies`]: {
+      [`shelf`]: [
+        `arts & crafts`, `binders, file folders & organization`, 
+        `electronics & calculators`, `notebooks`, `paper & sticky notes`, 
+        `school supplies from $0.25`, `scissors & tools`, `tape & glue`, `teacher & classroom supplies`, `writing utensils`]
+    },
+
+    [`snacks & candy`]: {
+      [`shelf`]: [
+        `charcuterie boards`, `chips & dip`, 
+        `chocolate, candy & gum`, `cookies & crackers`, 
+        `fruit snacks`, `healthy snacks`, `jerky & rinds`, 
+        `multi pack snacks`, `nuts & dried fruit`, `on-the-go single serve`, `popcorn & pretzels`]
+    },
+
+    [`sports & outdoor`]: {
+      [`shelf`]: [`camping & hiking`, `cycling`,`exercise & fitness`, `golf`, `sports medicine`, `teams sports`]
+    },
+
+    [`toys`]: {
+      [`shelf`]: [
+        `action figures`, 
+        `baby & toddler toys`, 
+        `dolls`, `games, cards & puzzles`, `gift & novelty toys`, `kids arts & crafts`, `kids' music & electronics`, 
+        `lego toys`, `play animals`, `play mats & tables`, `pool and water toys`, `sports & outdoor`, `toy cars & trains`, `video games`]
+    }
   },
 
   Shipping: {
