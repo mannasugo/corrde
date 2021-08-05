@@ -135,7 +135,7 @@ let Models = {
     `beauty & personal care`, 
     `beverages`, `bread & bakery`,
     `clothing`, `college & beyond shop`, `deli`, 
-    /*`eggs & dairy`,*/ `frozen`, `fruits & vegetables`, 
+    `eggs & dairy`, `frozen`, `fruits & vegetables`, 
     `garden & tools`, `health & nutrition`, `household essentials`, 
     `meat & seafood`, `party supplies & crafts`, `office & electronics`,
     `pantry`, `school supplies`, `snacks & candy`, `sports & outdoor`, `toys`/*,`christmas shop`,  `cold & flu`, 
