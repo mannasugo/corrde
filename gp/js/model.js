@@ -480,7 +480,7 @@ let Models = {
     }  
 
     return [
-      `main`, `.@_tY0`, `&@style>height:100%`, [[
+      `main`, `.@_tY0`, `&@style>height:100%`, [this.ModelGetApp(), [
         `div`, `.@_-tY`, [[
           `div`, `.@_aXz`, [[
             `div`, `.@_-Xg _gxM _geQ`, [[
@@ -2729,5 +2729,23 @@ let Models = {
         `div`, `&@style>position:fixed;top:0;right:0`, [[
           `div`, [[`a`, `.@Close exit-zoom`, `&@style>margin:24px`, `&@href>javascript:;`]]]]], [
         `img`, `&@sum>`, `&@alt>${UA.get().item.alpha}`, `&@style>height:calc(50vh)`, `&@src>/${UA.get().item.files[0]}`]]]
+  },
+
+  ModelGetApp () {
+
+    return [
+      `div`, [[
+        `div`, [[
+          `div`, [[
+          `svg`, `&@style>width:24px;min-height:24px;height:24px`, [[
+            `rect`, `&@x>2.5`, `&@y>2.5`, `&@width>20`, `&@height>20`, `&@rx>4`, `&@ry>4`, `&@style>fill:none;stroke-width:1.5;stroke:#fff`], [
+            `path`, `&@d>M7.5 5.5 16.5 5.5M5.5 12 7.5 8.5 16.5 8.5 18.5 12M7 12 7 18.5 12 18.5 12 14 17 14 17 17`, `&@style>fill:none;stroke-width:1;stroke:#1185fe`]]], [
+          `div`, [[
+            `div`, [[
+              `span`, `.@_tXx`, `&@style>color:#fff;font-size:14px`, `~@Corrde Store`], [
+              `span`, `.@_a2X`, `&@style>color:#fff`, `~@for android 9+`]]]], `.@_eYG`], [
+              `div`, `.@_QZg`, [[
+                `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;`, [[
+                  `a`, `.@_TX_a _atX`, `&@href>/gp/builds/release/android_-_9_v0.0.1_beta.apk`, `&@style>font-size:12px;font-weight:300;`, `~@get the app`]]]]]], `.@_gxM _geQ`]], `&@style>padding:10px 24px;width:100%;max-width:648px;margin:0 auto`]], `&@style>position:absolute;z-index:19;top:55px;left:0;width:100%;background:rgba(20, 49, 45, 0.91)`]
   }
 }
