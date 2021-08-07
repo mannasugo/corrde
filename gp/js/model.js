@@ -649,7 +649,7 @@ let Models = {
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
           `div`, `.@_QZg`, [[
-            `a`, `#@`, `.@_-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
+            `a`, `#@`, `.@-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
       	`div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
@@ -1050,8 +1050,8 @@ let Models = {
             `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| my orders`]]], [
           `div`, `.@_QZg`, [[]]]]]]], [
-      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;`, [[
-        `section`,  `&@style>background:#000;width:100%;padding-top:65px`, [[
+      `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;padding-top:65px;`, [[
+        `section`,  `&@style>background:#000;width:100%;padding-top:65px;display:none`, [[
           `div`, `.@_g0`, `&@style>border-bottom:1px solid #e6e7e8;`, [[
             `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;padding:0 8px;width:100%`, [[
               `div`, `.@_gZy`, ModelPullArgs]]]]]]], [
@@ -2747,5 +2747,48 @@ let Models = {
               `div`, `.@_QZg`, [[
                 `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;`, [[
                   `a`, `.@_TX_a _atX`, `&@href>/gp/builds/release/android_-_9_v0.0.1_beta.apk`, `&@style>font-size:12px;font-weight:300;`, `~@get the app`]]]]]], `.@_gxM _geQ`]], `&@style>padding:10px 24px;width:100%;max-width:648px;margin:0 auto`]], `&@style>position:absolute;z-index:19;top:55px;left:0;width:100%;background:rgba(20, 49, 45, 0.91)`]
+  },
+
+  ModelPull() {
+
+    return [
+      `section`, [[
+        `main`, `.@_xC2`, [[
+          `div`, `.@_tY0`, [[
+            `section`, `#@ModelPays`, `&@style>max-width:960px;margin:16px auto;width:100%`]]]]], [
+        `nav`, `.@_uHC _tY0`, [[
+          `div`, `.@_xCt`], [
+            `div`, [[
+              `div`, `.@_-tY`, [[
+                `div`, `.@_aXz`, [[
+                  `a`, `#@app`, `.@_-tX Pull`, `&@href>javascript:;`], [
+                  `div`, `.@_eYG _tY0`, `&@style>width:100%`, [[`input`, `#@pullRetailStack`, `.@_tY0 _RRD keyup`, `&@style>border:none;width:100%;margin:0`, `&@placeholder>find product...`]]], [
+                  `div`, `.@_QZg`, [[`a`, `.@_-tX Close exit-pull`, `&@href>javascript:;`]]]]]]]]]]]]];
+  },
+
+  ModelPulls (Arg) {
+
+    let ModelStock = [[], []];
+
+    ModelStock[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
+        `span`, `.@-_tX Shop`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 items`]]];
+
+    Arg.forEach(P => {
+
+      ModelStock[1].push([
+        `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+        `div`, `.@_gZ _gxM _geQ`, [[
+          `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
+            `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
+            `div`, `.@_eYG`, [[
+              `div`, [[`span`, `.@tXx`, `~@${P.alt}`], [
+              `span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]]]]]], [
+        `a`, `&@style>position:absolute;width:100%;height:100%;left:0`, `&@href>/item/${P.MD5}/`]]]);
+    });
+    
+    return [
+      `section`, `@style>max-width:960px;margin:24px auto;width:100%;`, [[
+        `div`, (Arg.length > 0)? `.@_egQ`: ``, (Arg.length > 0)? ModelStock[1]: ModelStock[0]]]];
   }
 }

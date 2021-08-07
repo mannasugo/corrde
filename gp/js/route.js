@@ -123,6 +123,8 @@ class Event {
 
 			this.AlterCart();
 
+			this.getPull();
+
 			this.PayOut();
 
 			this.Create();
@@ -174,6 +176,8 @@ class Event {
 			this.AlterCart();
 
 			this.getCart();
+
+			this.getPull();
 		}
 
 		else if (new Controller().Old() === `/nogps/`) this.NonNullDot();
@@ -189,6 +193,11 @@ class Event {
 			this.Signin();
 
 			this.PWSSignup();
+		}
+
+		else if (new Controller().Old() === `/pull/`) {
+
+			this.pulltools();
 		}
 
 		else if (new Controller().Old() === `/pws/`) {
@@ -2436,6 +2445,66 @@ class Event {
 			}]);
 		}
 	}
+
+	getPull () {
+
+		if (!document.querySelector(`.Pull`)) return;
+
+		this.listen([document.querySelector(`.Pull`), `click`, S => {
+
+			let UAlog = UA.get().ualog;
+
+			UAlog.push(`/pull/`); 
+
+			UA.set({ualog: UAlog});
+
+			let Control = new Controller();
+
+			Control.SetState([{}, `pull`, `/pull/`]);
+
+			new View().DOM([`main`, [Models.ModelPull()]]);
+
+			new Event().Call();
+
+		}]);
+	}
+
+	pulltools () {
+
+		if (document.querySelector(`.exit-pull`)) {
+
+			this.listen([document.querySelector(`.exit-pull`), `click`, S => {
+
+				let Control = new Controller();
+
+				Control.Aisle();
+			}]);
+		}
+
+		if (document.querySelector(`.keyup`)) {
+
+			this.listen([document.querySelector(`.keyup`), `keyup`, S => {
+
+      	let All = UA.get().all;
+
+      	All = All.sort((A, B) => {return B.log - A.log});
+
+      	if (!this.getSource(S).value.length > 0) return;
+
+      	let Pull = [];
+
+      	All.forEach(MD => {
+
+        	if (MD.alpha && (MD.alpha).toString().match(new RegExp(`${this.getSource(S).value}`, `i`))) Pull.push(MD);
+
+      	});
+
+				new View().DOM([`#ModelPays`, [Models.ModelPulls(Pull)]]);
+
+				new Event().Call();
+      }]);
+    }
+	}
 }
 
 class Controller extends Puller {
@@ -2642,6 +2711,8 @@ class Controller extends Puller {
 
 		if (this.Old() === `/paygate/`) this.Paygate();
 
+		if (this.Old() === `/pull/`) this.PullSell();
+
 		if (this.Old() === `/pws/`) this.Apex();
 
 		if (this.Old() === `/pws/listings/`) this.PWSRetail();
@@ -2686,7 +2757,7 @@ class Controller extends Puller {
 				Retail.push([retail, [``]]);
 			}
 
-			UA.set({retail: Retail, pullState: 0, pulls: JSON.parse(Pull.response).pulls});
+			UA.set({all: JSON.parse(Pull.response).all, retail: Retail, pullState: 0, pulls: JSON.parse(Pull.response).pulls});
 
 			new View().DOM([`main`, [Models.ModelStart(UA.get().pulls)]]);
 
@@ -3281,5 +3352,13 @@ class Controller extends Puller {
 				new Event().Call();
 			}
 		}
+	}
+
+	PullSell () {
+
+		new View().DOM([`main`, [Models.ModelPull()]]);
+
+		new Event().Call()
+
 	}
 }

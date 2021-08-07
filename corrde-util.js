@@ -1620,6 +1620,8 @@ class UAPublic extends Auxll {
 
     if (this.levelState === `paygate`) this.App();
 
+    if (this.levelState === `pull`) this.App();
+
     if (this.levelState === `pws`) this.App();
 
     else if (this.levelState === `stores`) this.App();
