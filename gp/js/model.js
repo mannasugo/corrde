@@ -649,11 +649,12 @@ let Models = {
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
           `div`, `.@_QZg`, [[
+            `a`, `#@`, `.@-Zz -_tX FilterColor`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
       	`div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
-      			`span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]], [
+      			`span`, `.@_cX3 _tXx`, `&@style>padding:12px 16px;text-transform:capitalize;font-size:14px`, `~@${Arg[1]}`]]], [
       		`div`, ModelAisle]]]]];
 	},
 
