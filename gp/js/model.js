@@ -1155,7 +1155,7 @@ let Models = {
 
   ModelSplash () {
 
-    return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX v2App`, `&@style>width:56px;height:56px`]]]
+    return [`div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX v3`, `&@style>width:56px;height:56px`]]]
   },
 
   ModelSymetMobile () {
@@ -2791,5 +2791,51 @@ let Models = {
     return [
       `section`, `@style>max-width:960px;margin:24px auto;width:100%;`, [[
         `div`, (Arg.length > 0)? `.@_egQ`: ``, (Arg.length > 0)? ModelStock[1]: ModelStock[0]]]];
+  },
+
+  Modelv3 () {
+
+    let ModelMug = [`a`, `#@mug`, `.@-_tX Mug`, `&@style>margin: 0 15px`, `&@href>javascript:;`];
+
+    if (UA.get().u) {
+
+      ModelMug = [
+      `span`,  `&@style>margin: 0 7px;position:relative;height:24px`, [[
+        `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+          `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#47008c`], [
+            `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().u.alt[0]}`]]], [
+        `a`, `#@`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+    }
+    
+    return [
+    `main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@devs`, `.@-_tX v3`, `&@style>width:32px;height:32px`, `&@href>/`, `~@v3`], [
+            `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@  corrde store`]]], [
+          `div`, `.@_QZg`, [ModelMug]]]]]], this.ModelApp()/*, [
+        `div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
+          `div`, `#@ModelSignin`, `.@_gZ`, `&@style>padding:16px`, [[
+            `h2`, `~@${Arg[0][0].mall_alt}`], [
+            `span`, `.@_a2X`, `~@${Arg[0][0].set}`]]], [
+          `div`, `.@_-Zz _aXZ _gZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
+            `span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]], [
+          `div`, `.@_gZ`, ModelAisle]]]*/]];
+  },
+
+  ModelApp () {
+
+    return [
+      `div`, [[
+        `div`, [[
+          `div`, [[`span`, `.@v3`], [
+          `div`, [[
+            `div`, [[
+              `span`, `.@_tXx`, `&@style>color:#fff;font-size:14px`, `~@Corrde Store`], [
+              `span`, `.@_a2X`, `&@style>color:#fff`, `~@last update 6 aug 2021(android 9+)`]]]], `.@_eYG`], [
+              `div`, `.@_QZg`, [[
+                `div`, `.@_gM_a _agM _guZ`, `&@style>background:#47008c;border:1px solid #c08bf4`, [[
+                  `a`, `.@_TX_a _atX`, `&@href>/gp/builds/release/android_-_9_v0.0.1_beta.apk`, `&@style>font-size:12px;font-weight:300;`, `~@get the app`]]]]]], `.@_gxM _geQ`]], `&@style>padding:10px 24px;width:100%;max-width:648px;margin:0 auto`]], `&@style>position:absolute;z-index:19;bottom:0;left:0;width:100%;background:#47008c`]
   }
 }

@@ -8229,7 +8229,7 @@ module.exports = {
 
     return [
     `main`, `.@_xC2 _aA2`, `&@style>height:100%`, [[
-      `div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX Store`, `&@style>width:56px;height:56px`]]], ModelJS]];
+      `div`, `.@_geQ`, `&@style>justify-content:center`, [[`span`, `.@-_tX v3`, `&@style>width:56px;height:56px`]]], ModelJS]];
 
   },
 

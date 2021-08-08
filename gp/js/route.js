@@ -51,7 +51,12 @@ class Event {
 
 		if (new Controller().Old() === null) {
 
-			if (State[3] === `ir`) {
+			if (State[3] === ``) {
+
+				this.NonNullDot([`v3`]);
+			}
+
+			else if (State[3] === `ir`) {
 
 				this.getApp();
 
@@ -2541,7 +2546,14 @@ class Controller extends Puller {
 
 		let State = this.Stack();
 
-		if (State[3] === `mall`) {
+		if (State.length === 4 && State[3] === ``) {
+
+    	UA.set({ualog: [null]});
+
+    	this.v3();
+    }
+
+		else if (State[3] === `mall`) {
 
     	UA.set({ualog: [null]});
 
@@ -2678,9 +2690,13 @@ class Controller extends Puller {
 
 			else {
 
-    		UA.set({ualog: [`.`]});
+    		/*UA.set({ualog: [`.`]});
 
-    		this.Root();
+    		this.Root();*/
+
+    		this.SetState([{}, `.`, ``]);
+
+    		this.v3();
 			}
 		}
 
@@ -3360,5 +3376,54 @@ class Controller extends Puller {
 
 		new Event().Call()
 
+	}
+
+	v3 () {
+
+		let Sell = [];
+
+		if (!UA.get().gArray || UA.get().gArray.length !== 2) {
+
+			new View().DOM([`main`, [Models.ModelNullDot()]]);
+
+			new Event().Call();
+		}
+
+		else {
+
+			let Pull = this.Pull([`/pulls/ua/`, {
+				aisle: (UA.get().set)? UA.get().set: `alcohol`, 
+				gArray: UA.get().gArray, 
+				pull: `aisle`, 
+				area: (UA.get().area)? UA.get().area: `kenya`}]);
+
+			Pull.onload = () => {
+
+				let Pulls = JSON.parse(Pull.response);
+
+				if (Pulls.all) {
+
+					let Retail = [], Retails = {};
+
+					Pulls.all.forEach(MD => {
+
+						if (!Retails[MD.set]) Retails[MD.set] = [];
+
+						Retails[MD.set].push(MD);
+					});
+
+					for (let retail in Retails) {
+
+						Retail.push([retail, [``]]);
+					}
+
+					UA.set({all: Pull.all, retail: Retail, pullState: 0, pulls: Pulls.pulls});
+
+					new View().DOM([`main`, [Models.Modelv3(UA.get().pulls)]]);
+
+					new Event().Call();
+				}
+			}
+		}
 	}
 }

@@ -674,7 +674,7 @@ body {
 .FilterColor, .Filter2Gray, .From, .Geo_1185FE, .Geo_EEDF00, .GeoGray, .GeoLightGray, .GitHub, .GramColor, .Graph000, .FroColor, .HeartsColor, 
 .HeartsGray, .MailColor, .Max, .Max000, .Meals, .Min, .Min000, .MoveTop, .MugColor, .MugColorv, .NextGrayColor, .PrevGrayColor, .ProceedColor, 
 .poolsiconUA, .Pull, .RootGray, .rooticonUA, .SearchColor, .Sell000, .SellColor, .Ship, .Shop, .SortGray, .StarColor, .StarMiniColor, 
-.StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .Veges, .Via, .VKBlack, .vServiceGray, 
+.StatsCircleColor, .StatsPlaneColor, .Store, .To, .twineiconUA, .TwitterColor, .v0pws, .v2App, .v3, .Veges, .Via, .VKBlack, .vServiceGray, 
 .verifylighticonUA, .Wheat, .Zoom_1185FE, ._y4x {
   background-repeat: no-repeat;
   height: 24px;
@@ -985,6 +985,8 @@ body {
 .v0pws {background-image: url(/gp/p/vector/pws.v0.svg);}
 
 .v2App {background-image: url(/gp/p/vector/logo.v2.svg);}
+
+.v3 {background-image: url(/gp/p/vector/v3.svg);}
 
 .Veges {background-image: url(/gp/p/vector/veges.svg);}
 

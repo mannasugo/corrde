@@ -1667,7 +1667,7 @@ class UAPublic extends Auxll {
 
     else if (this.levelState === `favicon.ico`) {
 
-      let File = fs.createReadStream(`gp/p/vector/logo.v2.svg`);
+      let File = fs.createReadStream(`gp/p/vector/v3.svg`);
 
       this.app.to.writeHead(200, {
         [`Content-Type`]: `image/svg+xml`
