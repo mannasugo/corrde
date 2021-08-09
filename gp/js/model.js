@@ -69,7 +69,7 @@ class View {
     return String;
   }
 
-  Unfilter = (String) => {
+  Unfilter (String) {
 
     String = String.replace(new RegExp(`uu/002F0026`, `g`), `&`);
 
@@ -648,7 +648,8 @@ let Models = {
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
-          `div`, `.@_QZg`, [[
+          `div`, `.@_QZg`, `&@style>flex:2`, [[
+            `a`, `.@-_tX Shop`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@-Zz -_tX FilterColor`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
@@ -2800,7 +2801,7 @@ let Models = {
     if (UA.get().u) {
 
       ModelMug = [
-      `span`,  `&@style>margin: 0 7px;position:relative;height:24px`, [[
+      `span`,  `&@style>margin: 0 10px;position:relative;height:24px`, [[
         `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
           `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#47008c`], [
             `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().u.alt[0]}`]]], [
@@ -2891,9 +2892,11 @@ let Models = {
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@devs`, `.@-_tX v3`, `&@style>width:32px;height:32px`, `&@href>/`, `~@v3`], [
             `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@  corrde store`]]], [
-          `div`, `.@_QZg`, [
+          `div`, `.@_QZg`, [[
+            `a`, `#@`, `.@Pull`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`], [
+            `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`],
             ModelMug, [
-            `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 7px;position:relative`, `&@href>javascript:;`]]]]]]], this.ModelApp(), [
+            `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 0 0 10px;position:relative`, `&@href>javascript:;`]]]]]]], this.ModelApp(), [
         `div`, `#@ModelRow`, `.@_aXZ _gZ`, `&@style>margin:55px auto 0`, ModelRow], [`div`, `.@_gZ`, `&@style>padding-bottom: 69px`]]];
   },
 
@@ -2910,5 +2913,33 @@ let Models = {
               `div`, `.@_QZg`, [[
                 `div`, `.@_gM_a _agM _guZ`, `&@style>background:#47008c;border:1px solid #c08bf4`, [[
                   `a`, `.@_TX_a _atX`, `&@href>/gp/builds/release/android_-_9_v0.0.1_beta.apk`, `&@style>font-size:12px;font-weight:300;`, `~@get the app`]]]]]], `.@_gxM _geQ`]], `&@style>padding:10px 24px;width:100%;max-width:648px;margin:0 auto`]], `&@style>position:fixed;z-index:19;bottom:0;left:0;width:100%;background:#47008c`]
+  },
+
+  ModelCatalog () {
+
+    let Aisle = [];
+
+    if (UA.get().retail) Aisle = UA.get().retail;
+
+    let ModelAisle = [];
+
+    Aisle.forEach(A => {
+
+      ModelAisle.push([`div`, `.@_gZ`, [[
+        `div`, `.@_gxM _geQ`, `&@style>text-transform:capitalize;padding:12px 24px`, [[
+          `span`, `.@_-Zz -_tX ${A[1][0]}`], [`div`, `.@eYG`, [[`span`, `&@style>font-size:12.5px`, `~@${A[0]}`]]]]], [
+        `a`, `.@_aWz`, `&@style>position:absolute`, `&@href>/grocery/${this.Retail.indexOf(Models.Unfilter(A[0]))}/`, `&@for>${A[0]}`]]])
+    })
+    
+    return [`main`, `.@_tY0`, `&@style>height:100%`, [[
+      `div`, `.@_-tY`, [[
+        `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `.@From exit-catalog`, `&@href>javascript:;`], [
+            `span`, `&@style>padding:0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@shop by category`]]], [
+          `div`, `.@_QZg`, [[
+            `a`, `.@v3`, `&@style>margin: 0 0 0 10px;`, `&@href>/`]]]]]]], [
+        `div`, `#@ModelAisles`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
+          `div`, `.@_aXZ`, ModelAisle]]]]];
   }
 }

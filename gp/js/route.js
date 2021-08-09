@@ -53,6 +53,8 @@ class Event {
 
 			if (State[3] === ``) {
 
+				this.Catalog();
+
 				this.NonNullDot([`v3`]);
 
 				this.AlterCart();
@@ -61,7 +63,11 @@ class Event {
 
 				this.getMugger();
 
+				this.getPull();
+
 				this.Mugger();
+
+				this.pulltools();
 
 				this.Signup();
 
@@ -69,6 +75,8 @@ class Event {
 			}
 
 			else if (State[3] === `grocery`) {
+
+				this.Catalog();
 
 				this.NonNullDot([`grocery`]);
 
@@ -79,6 +87,8 @@ class Event {
 				this.getCart();
 
 				this.getPull();
+
+				this.pulltools();
 
 				this.Shelve();
 			}
@@ -2478,15 +2488,7 @@ class Event {
 
 		this.listen([document.querySelector(`.Pull`), `click`, S => {
 
-			let UAlog = UA.get().ualog;
-
-			UAlog.push(`/pull/`); 
-
-			UA.set({ualog: UAlog});
-
 			let Control = new Controller();
-
-			Control.SetState([{}, `pull`, `/pull/`]);
 
 			new View().DOM([`main`, [Models.ModelPull()]]);
 
@@ -2503,7 +2505,11 @@ class Event {
 
 				let Control = new Controller();
 
-				Control.Aisle();
+				Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
+
+				Control.Call();
+
+				this.Call();
 			}]);
 		}
 
@@ -2530,6 +2536,36 @@ class Event {
 				new Event().Call();
       }]);
     }
+	}
+
+	Catalog () {
+
+		if (document.querySelector(`.Shop`)) {
+
+			this.listen([document.querySelector(`.Shop`), `click`, S => {
+
+				let Control = new Controller();
+
+				new View().DOM([`main`, [Models.ModelCatalog()]]);
+
+				new Event().Call();
+
+			}]);
+		}
+
+		if (document.querySelector(`.exit-catalog`)) {
+
+			this.listen([document.querySelector(`.exit-catalog`), `click`, S => {
+
+				let Control = new Controller();
+
+				Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
+
+				Control.Call();
+
+				this.Call();
+			}]);
+		}
 	}
 }
 
@@ -2579,6 +2615,8 @@ class Controller extends Puller {
 		let State = this.Stack();
 
 		if (State.length === 4 && State[3] === ``) {
+
+			this.Olden([`/`]);
 
     	UA.set({ualog: [null]});
 
