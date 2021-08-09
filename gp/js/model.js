@@ -629,7 +629,7 @@ let Models = {
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
-                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX Ship`], [
+                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
                       `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
       			`div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
@@ -820,7 +820,7 @@ let Models = {
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
-            `a`, `#@old`, `.@-_tX From`, `&@href>javascript:;`], [
+            `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@shopping bag`]]], [
           `div`, `.@_QZg`, [[]]]]]]], (UA.get().gArray && UA.get().gArray.length === 2)? ModelCart[0]: ModelCart[1]]];
   },
@@ -2607,7 +2607,7 @@ let Models = {
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
-                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX Ship`], [
+                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
                       `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
             `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
@@ -2804,8 +2804,85 @@ let Models = {
         `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
           `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#47008c`], [
             `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${UA.get().u.alt[0]}`]]], [
-        `a`, `#@`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
+        `a`, `#@mug`, `.@_aWz mug`, `&@style>position:absolute;left:0`, `&@href>javascript:;`]]];
     }
+
+    let Seen = {};
+
+    (!UA.get().UASeen)? UA.set({UASeen: Seen}): Seen = UA.get().UASeen;
+
+    (UA.get().area)? UA.get().area: UA.set({area: `kenya`});
+
+    let Fx = this.Fx;
+
+    let Aisle = UA.get().retail;
+
+    let ModelRow = [];
+
+    Aisle.forEach(A => {
+
+      let ModelSlice = [];
+
+      let Slice = [];
+
+      UA.get().all.forEach(MD => {
+
+        if (MD.set === A[0]) Slice.push(MD);
+      });
+
+      Slice = Slice.slice(0, 4);
+
+      Slice.forEach(Row => {
+
+        let Sell = Row;
+
+        if (!Seen[Sell.MD5]) {
+
+          Seen[Sell.MD5] = Sell;
+
+          UA.set({UASeen: Seen});
+        }
+
+        Sell[`Fx`] = Fx[UA.get().area];
+
+        let data = `&@data>${JSON.stringify(Sell).replace(new RegExp(`"`, `g`), `&quot;`)}`;
+
+        ModelSlice.push([
+          `div`, `.@_Qg2`, [[
+            `div`, `._gA0 _gW0`, `&@style>padding:16px`, [[
+              `div`, `.@_gY`, [[
+                `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0;min-height:38px`, [[
+                  `div`, this.ModelState(Row)], [
+                  `div`, `.@_QZg`, [[
+                    `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
+                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
+                `a`, `.@_Qg`, [[
+                  `div`, `.@_Qg0 _geQ`, [[
+                    `img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>/item/${Row.MD5}/`], [
+                `div`, [[
+                  `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
+                    `div`, `.@_Xx _gxM`, [[
+                      `span`, `.@_tXx`, [[
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
+                      `span`, [[`span`, `&@style>margin: 0 0 0 8px;font-size:10px;color:@6d6e71`, `~@ (${Row.mass}G)`]]]]], [
+                    `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
+                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
+            `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
+              `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
+                `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
+                `span`, `&@style>text-align:center;font-family:gotham-book`, `~@${(Seen[Row.MD5].items)? ((Seen[Row.MD5].items < 10)? `0`+ Seen[Row.MD5].items: Seen[Row.MD5].items): `00`}`]]], [
+              `a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]]]]);
+      })
+
+      ModelRow.push([
+        `div`, `.@aXZ _gZ`, `@style>border-bottom:1px solid #f4f4f4`, [[
+          `div`, `.@_cX3 _gxM`, [[
+            `span`, `.@_tXx`, `&@style>padding:12px 16px;text-transform:capitalize;color:#47008c`, `~@${A[0]}`], [
+            `div`, `.@_QZg`, [[`a`, `&@style>text-decoration:underline`, `&@href>/grocery/${this.Retail.indexOf(Models.Unfilter(A[0]))}/`, `~@view all`]]]]], [
+          `div`, `.@_gZy`, `&@style>padding-bottom:0`, ModelSlice]]])
+    })
     
     return [
     `main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -2814,14 +2891,10 @@ let Models = {
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@devs`, `.@-_tX v3`, `&@style>width:32px;height:32px`, `&@href>/`, `~@v3`], [
             `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@  corrde store`]]], [
-          `div`, `.@_QZg`, [ModelMug]]]]]], this.ModelApp()/*, [
-        `div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
-          `div`, `#@ModelSignin`, `.@_gZ`, `&@style>padding:16px`, [[
-            `h2`, `~@${Arg[0][0].mall_alt}`], [
-            `span`, `.@_a2X`, `~@${Arg[0][0].set}`]]], [
-          `div`, `.@_-Zz _aXZ _gZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
-            `span`, `.@_cX3`, `&@style>padding:12px 16px;text-transform:uppercase;`, `~@${Arg[1]}`]]], [
-          `div`, `.@_gZ`, ModelAisle]]]*/]];
+          `div`, `.@_QZg`, [
+            ModelMug, [
+            `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 7px;position:relative`, `&@href>javascript:;`]]]]]]], this.ModelApp(), [
+        `div`, `#@ModelRow`, `.@_aXZ _gZ`, `&@style>margin:55px auto 0`, ModelRow], [`div`, `.@_gZ`, `&@style>padding-bottom: 69px`]]];
   },
 
   ModelApp () {
@@ -2836,6 +2909,6 @@ let Models = {
               `span`, `.@_a2X`, `&@style>color:#fff`, `~@last update 6 aug 2021(android 9+)`]]]], `.@_eYG`], [
               `div`, `.@_QZg`, [[
                 `div`, `.@_gM_a _agM _guZ`, `&@style>background:#47008c;border:1px solid #c08bf4`, [[
-                  `a`, `.@_TX_a _atX`, `&@href>/gp/builds/release/android_-_9_v0.0.1_beta.apk`, `&@style>font-size:12px;font-weight:300;`, `~@get the app`]]]]]], `.@_gxM _geQ`]], `&@style>padding:10px 24px;width:100%;max-width:648px;margin:0 auto`]], `&@style>position:absolute;z-index:19;bottom:0;left:0;width:100%;background:#47008c`]
+                  `a`, `.@_TX_a _atX`, `&@href>/gp/builds/release/android_-_9_v0.0.1_beta.apk`, `&@style>font-size:12px;font-weight:300;`, `~@get the app`]]]]]], `.@_gxM _geQ`]], `&@style>padding:10px 24px;width:100%;max-width:648px;margin:0 auto`]], `&@style>position:fixed;z-index:19;bottom:0;left:0;width:100%;background:#47008c`]
   }
 }

@@ -54,6 +54,33 @@ class Event {
 			if (State[3] === ``) {
 
 				this.NonNullDot([`v3`]);
+
+				this.AlterCart();
+
+				this.getCart();
+
+				this.getMugger();
+
+				this.Mugger();
+
+				this.Signup();
+
+				this.Signin();
+			}
+
+			else if (State[3] === `grocery`) {
+
+				this.NonNullDot([`grocery`]);
+
+				this.getApp();
+
+				this.AlterCart();
+
+				this.getCart();
+
+				this.getPull();
+
+				this.Shelve();
 			}
 
 			else if (State[3] === `ir`) {
@@ -124,11 +151,9 @@ class Event {
 
 			this.pullCart();
 
-			this.getOld();
-
 			this.AlterCart();
 
-			this.getPull();
+			this.getApp();
 
 			this.PayOut();
 
@@ -469,17 +494,13 @@ class Event {
 
 		this.listen([document.querySelector(`#app`), `click`, e => {
 
-			let UAlog = UA.get().ualog;
-
-			UAlog.push(`.`); 
-
-			UA.set({ualog: UAlog});
-
 			let Control = new Controller();
 
-			Control.SetState([{}, `.`, `/`]);
+			Control.SetState([{}, `.`, (UA.get().old)? UA.get().old[UA.get().old.length - 2]: `/`]);
 
-			Control.Root();
+			Control.Call();
+
+			this.Call();
 		}]);
 	}
 
@@ -547,7 +568,7 @@ class Event {
 
       		UA.set({trolley: Cart, UASeen: Seen});
 
-      		if (document.querySelector(`#ModelAisle`)) {
+      		if (document.querySelector(`#ModelAisle`) || document.querySelector(`#ModelRow`)) {
 
       			S.parentNode.querySelector(`div`).className = `-Zz`;
 
@@ -583,21 +604,21 @@ class Event {
 
         		Cart = CartSelf;
 
-      			if (document.querySelector(`#ModelAisle`)) S.parentNode.className = `_-Zz`;
+      			if (document.querySelector(`#ModelAisle`) || document.querySelector(`#ModelRow`)) S.parentNode.className = `_-Zz`;
       		}
 
       		if (Cart[item]) {
 
       			Seen[Data.MD5] = Cart[item];
 
-      			if (document.querySelector(`#ModelAisle`)) S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
+      			if (document.querySelector(`#ModelAisle`) || document.querySelector(`#ModelRow`)) S.parentNode.querySelector(`span`).innerHTML = (Cart[item].items < 10)? `0` + Cart[item].items: Cart[item].items;
       		}
       		
       		UA.set({trolley: Cart, UASeen: Seen});
       	
       	}
 
-      	if (document.querySelector(`#ModelAisle`)) {
+      	if (document.querySelector(`#ModelAisle`) || document.querySelector(`#ModelRow`)) {
 
       		let Bag = document.querySelector(`.Bag`);
 
@@ -990,7 +1011,7 @@ class Event {
 
 					Control.SetState([{}, `.`, `/`]);
 
-					Control.Root();
+					Control.v3();
 				}
 
 				else if (Via === `investor relations`) {
@@ -2542,6 +2563,17 @@ class Controller extends Puller {
     return url.split(`/`);
 	}
 
+	Olden (Arg) {
+
+		if (!UA.get().old) UA.set({old: [`/`]});
+
+		let Old = UA.get().old;
+
+		if (Old[Old.length - 1] !== Arg[0]) Old.push(Arg[0]);
+
+		UA.set({old: Old});
+	}
+
 	Call () {
 
 		let State = this.Stack();
@@ -2551,6 +2583,55 @@ class Controller extends Puller {
     	UA.set({ualog: [null]});
 
     	this.v3();
+    }
+
+    else if (State[3] === `grocery`) {
+
+    	UA.set({ualog: [null]});
+
+    	if (State[4] && Models.Retail[State[4]]) {
+
+				if (!UA.get().gArray || UA.get().gArray.length !== 2) {
+
+					new View().DOM([`main`, [Models.ModelNullDot()]]);
+
+					new Event().Call();
+				}
+
+				else {
+
+					UA.set({set: Models.Retail[State[4]]}); 
+
+					let Pull = this.Pull([`/pulls/ua/`, {
+						aisle: UA.get().set, 
+						gArray: UA.get().gArray, 
+						pull: `aisle`, 
+						area: (UA.get().area)? UA.get().area: `kenya`}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (Pulls.pulls) {
+
+							this.Olden([`/grocery/${State[4]}/`]);
+
+							UA.set({aislePull: Pulls.pulls});
+
+							new View().DOM([`main`, [Models.ModelAisle([UA.get().aislePull, UA.get().set, document.body.clientWidth])]]);
+
+							new Event().Call();
+						}
+					}
+				}
+    	}
+
+    	else {
+
+				this.SetState([{}, `root`, `/`]);
+
+    		this.v3();
+    	}
     }
 
 		else if (State[3] === `mall`) {
@@ -2599,9 +2680,7 @@ class Controller extends Puller {
 
 						else {
 
-    					UA.set({ualog: [`.`]});
-
-    					this.Root();
+    					this.v3();
 						}
 					}
 				}
@@ -2609,9 +2688,7 @@ class Controller extends Puller {
 
 			else {
 
-    		UA.set({ualog: [`.`]});
-
-    		this.Root();
+    		this.v3();
 			}
 		}
 
@@ -2678,21 +2755,12 @@ class Controller extends Puller {
 							new Event().Call();
 						}
 
-						else {
-
-    					UA.set({ualog: [`.`]});
-
-    					this.Root();
-						}
+						else this.v3();
 					}
 				}
 			}
 
 			else {
-
-    		/*UA.set({ualog: [`.`]});
-
-    		this.Root();*/
 
     		this.SetState([{}, `.`, ``]);
 
@@ -2702,14 +2770,9 @@ class Controller extends Puller {
 
     else {
 
-			if (this.Old() === null) {
+			if (this.Old() === null) this.Call();
 
-				UA.set({ualog: [`.`]});
-
-				this.Call();
-			}
-
-			if (this.Old() === `.`) this.Root();
+			if (this.Old() === `.`) this.v3();
 
 			if (this.Old() === `/aisles/`) this.Aisles();
 
@@ -2889,12 +2952,6 @@ class Controller extends Puller {
 
 		if (!UA.get().trolley || UA.get().trolley.length === 0) {
 
-			let UAlog = UA.get().ualog;
-
-			UAlog.push(`.`);
-
-			UA.set({ualog: UAlog});
-
 			this.SetState([{}, `.`, `/`]);
 
 			this.Call();
@@ -3006,13 +3063,7 @@ class Controller extends Puller {
 
 			let Pulls = JSON.parse(Pull.response);
 
-			let UAlog = UA.get().ualog;
-
 			if (Pulls.lock === false) {
-
-				UAlog.push(`.`);
-
-				UA.set({ualog: UAlog});
 
 				this.SetState([{}, `root`, `/`]);
 
@@ -3417,7 +3468,7 @@ class Controller extends Puller {
 						Retail.push([retail, [``]]);
 					}
 
-					UA.set({all: Pull.all, retail: Retail, pullState: 0, pulls: Pulls.pulls});
+					UA.set({all: Pulls.all, retail: Retail, pullState: 0, pulls: Pulls.pulls});
 
 					new View().DOM([`main`, [Models.Modelv3(UA.get().pulls)]]);
 

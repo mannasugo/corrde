@@ -3316,6 +3316,8 @@ table > thead > tr > th {
   outline: none;
 }
 
+#ModelRow ._Qg2 {width: 25%;}
+
 ._AvZ {height: 100%;}
 
 ._-Zz {
@@ -4162,6 +4164,8 @@ table > thead > tr > th {
   #ModelMugger h2, #ModelSignin h2, #ModelPaygate h2 {font-size: 25px;line-height: 28px}
 
   #ModelSell {padding: 0 24px;}
+
+  #ModelRow ._Qg2 {width: 50%;}
 }
 
 @media (max-width: 560px) {
