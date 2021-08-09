@@ -506,7 +506,7 @@ class Event {
 
 			let Control = new Controller();
 
-			Control.SetState([{}, `.`, (UA.get().old)? UA.get().old[UA.get().old.length - 2]: `/`]);
+			Control.SetState([{}, `.`, (UA.get().old && UA.get().old.length > 1)? UA.get().old[UA.get().old.length - 2]: `/`]);
 
 			Control.Call();
 

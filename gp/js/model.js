@@ -628,7 +628,7 @@ let Models = {
                       	`span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
-                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
                       `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
       			`div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
@@ -2607,7 +2607,7 @@ let Models = {
                         `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
                       `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
-                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
                       `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
             `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
@@ -2867,7 +2867,7 @@ let Models = {
                         `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
                       `span`, [[`span`, `&@style>margin: 0 0 0 8px;font-size:10px;color:@6d6e71`, `~@ (${Row.mass}G)`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
-                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
                       `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
             `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
