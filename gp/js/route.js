@@ -31,7 +31,7 @@ class Puller {
 
   }
 
- }
+}
 
 class Event {
 

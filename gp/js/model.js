@@ -2883,7 +2883,34 @@ let Models = {
             `span`, `.@_tXx`, `&@style>padding:12px 16px;text-transform:capitalize;color:#47008c`, `~@${A[0]}`], [
             `div`, `.@_QZg`, [[`a`, `&@style>text-decoration:underline`, `&@href>/grocery/${this.Retail.indexOf(Models.Unfilter(A[0]))}/`, `~@view all`]]]]], [
           `div`, `.@_gZy`, `&@style>padding-bottom:0`, ModelSlice]]])
-    })
+    });
+
+    let Mile = [];
+
+    this.Fx[`kenya`][6].forEach(Float => {
+
+      Mile.push({mall: Float[0], miles: Tools.getMiles([Float[1], UA.get().gArray])});
+    });
+
+    Mile.sort((A, B) => {return A.miles - B.miles});
+
+    let ModelMiles = [];
+
+    if (Mile[0].miles < 540) {
+
+      ModelMiles.push([
+        `div`, `&@style>padding:0 16px;background:#47008c`, [[
+          `div`, `&@style>width:100%;max-width:600px;margin:16px auto;border:1px solid rgba(255, 255, 255, 0.54);border-radius:4px`, [[
+            `div`, `.@_gZ`, `&@style>padding: 10px 16px`, [[
+              `span`, `.@_a2X _tXx`, `&@style>color:#fff`, /*`~@Store nearby`*/ `~@delivery from`]]], [
+            `div`, `.@_gZ _gxM _geQ`, `&@style>padding: 10px 16px`, [[
+              `span`, `&@style>width:19px;height:19px`, `.@Geo_FFF`], [
+              `div`, `.@_eYG`, [[
+                `span`, `.@_tXx`, `&@style>color:#fff`, `~@${Mile[0].miles.toFixed(3)} mi, `, [[
+                  `span`, `.@_a2X`, `&@style>color:#fff;font-weight:300`, `~@${Mile[0].mall} warehouse`]]]]], [
+              `div`, `.@_QZg`, [[
+                `span`, `.@_a2X`, `&@style>color:#fff`, `~@${(Mile[0].miles < 12)? `${(Mile[0].miles*2.5).toFixed(2)}min`: ``}`]]]]]]]]])
+    }
     
     return [
     `main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -2897,7 +2924,8 @@ let Models = {
             `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`],
             ModelMug, [
             `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 0 0 10px;position:relative`, `&@href>javascript:;`]]]]]]], this.ModelApp(), [
-        `div`, `#@ModelRow`, `.@_aXZ _gZ`, `&@style>margin:55px auto 0`, ModelRow], [`div`, `.@_gZ`, `&@style>padding-bottom: 69px`]]];
+        `div`, `#@ModelRow`, `.@_aXZ _gZ`, `&@style>margin:55px auto 0`, [ModelMiles[0], [`div`, ModelRow]]], [
+          `div`, `.@_gZ`, `&@style>padding-bottom: 69px`]]];
   },
 
   ModelApp () {

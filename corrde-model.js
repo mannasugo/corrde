@@ -1861,6 +1861,7 @@ module.exports = {
         `script`, `&@src>${config.cd.utilJS}`], [
         `script`, config.valjS, `~@JSStore.to(${pool.jSStore})`], [
         `script`, config.valjS, `~@UA.set(${pool.jSStore})`], [
+        `script`, `&@src>/gp/js/tools.js`], [
         `script`, `&@src>${config.reqs.JSModel}`], [
         `script`, `&@src>/gp/js/route.js`], JS]]
   },
