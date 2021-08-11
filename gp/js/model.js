@@ -626,7 +626,8 @@ let Models = {
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
                       	`span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
-                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
+                      `span`, `.@_gp2`, [[
+                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
@@ -2605,7 +2606,8 @@ let Models = {
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
                         `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
-                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Row.mass}G)`]]]]], [
+                      `span`, `.@_gp2`, [[
+                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
@@ -2707,7 +2709,8 @@ let Models = {
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
                         `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal;font-size:14px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Sell.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
-                      `span`, `.@_gp2`, [[`span`, `.@_p2`, `~@ (${Sell.mass}G)`]]]]]]], [
+                      `span`, `.@_gp2`, [[
+                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Sell.mass) > 999)? `${(Sell.mass/1000).toFixed(1)}KG`: `${Sell.mass}G`})`]]]]]]], [
                   `div`, `.@_gZ _gxM _yZS`, `@style>padding:16px 0`, [[
                     `span`, `.@Ship`], [
                     `div`, `.@_eYG`, [[
@@ -2865,7 +2868,8 @@ let Models = {
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
                         `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
-                      `span`, [[`span`, `&@style>margin: 0 0 0 8px;font-size:10px;color:@6d6e71`, `~@ (${Row.mass}G)`]]]]], [
+                      `span`, [[
+                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
