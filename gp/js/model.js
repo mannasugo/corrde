@@ -2915,6 +2915,42 @@ let Models = {
               `div`, `.@_QZg`, [[
                 `span`, `.@_a2X`, `&@style>color:#fff`, `~@${(Mile[0].miles < 12)? `${(Mile[0].miles*2.5).toFixed(2)}min`: ``}`]]]]]]]]])
     }
+
+    else ModelMiles.push([]);
+
+    let ModelMail = [];
+
+    let Via = [
+      `Deliver & Earn, we provide rider paychecks after every two days.`,
+      `Free application & registration on successful vetting.`,
+      `Free shipper apparel & kit. Bike provided for short distance deliveries from our warehouses.`];
+
+    let ModelVia = [];
+
+    Via.forEach(via => {
+
+      ModelVia.push([
+        `div`, `.@_gxM`, `&@style>padding: 5px 0`, [[
+          `div`, [[
+            `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+              `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>fill:#47008c;stroke:none`], [
+              `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#fff;stroke-width:2`]]]]], [
+          `div`, `.@_eYG`, `&@style>margin:0;padding-left:8px`, [[`span`, `.@_tXx`, `&@style>max-width:360px`, `~@${via}`]]]]])
+    })
+
+    ModelMail.push([
+      `div`, `#@ModelMail`, `&@style>padding:24px 0`, [[
+        `div`, `.@_g0 _geQ`, [[
+          `div`, `.@_g2`, [[`div`, `&@style>align-items:center`, [[`img`, `&@style>width:350px`, `&@src>/gp/p/raster/91fa59e6781adbdced82e349bb595d99.png`]]]]], [
+          `div`, `.@_g2`, `&@style>padding:24px 16px`, [[
+            `div`, `@style>align-items:center`, [[
+              `span`, `.@_tXx`, `&@style>color:#47008c;font-size:14px`, `~@Apply to become a shipper`], [
+              `div`, [[
+                `div`, `&@style>padding-top:24px`, [[
+                  `div`, ModelVia], [
+                  `div`, `&@style>align-items:center`, [[
+                    `div`, `.@_gM_a _agM _guZ`, `&@style>background:#47008c;border:none;max-width:max-content;margin-top:24px`, [[
+                      `a`, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@ride with us`]]]]]]]]]]]]]]]]])
     
     return [
     `main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -2929,7 +2965,7 @@ let Models = {
             ModelMug, [
             `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 0 0 10px;position:relative`, `&@href>javascript:;`]]]]]]], this.ModelApp(), [
         `div`, `#@ModelRow`, `.@_aXZ _gZ`, `&@style>margin:55px auto 0`, [ModelMiles[0], [`div`, ModelRow]]], [
-          `div`, `.@_gZ`, `&@style>padding-bottom: 69px`]]];
+          `div`, `.@_gZ`, `&@style>padding-bottom: 69px`, [ModelMail[0]]]]];
   },
 
   ModelApp () {

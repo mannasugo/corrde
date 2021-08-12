@@ -3983,6 +3983,16 @@ table > thead > tr > th {
   #ModelStallAlerts ._gX2 {flex: 0 0 50%;}
 
   #ModelStallAlerts ._gX3 {flex: 0 0 20%;}
+
+  #ModelMail ._g0 {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  #ModelMail ._g2 {flex: 50%}
 }
 
 @media (min-width: 960px) {

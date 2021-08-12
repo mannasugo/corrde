@@ -59,6 +59,8 @@ class Event {
 
 				this.AlterCart();
 
+				this.getApp();
+
 				this.getCart();
 
 				this.getMugger();
@@ -724,6 +726,17 @@ class Event {
 	}
 
 	Signin () {
+
+		if (document.querySelector(`#create`)) {
+
+			this.listen([document.querySelector(`#create`), `click`, S => {
+
+				let Control = new Controller();
+
+				Control.Signup([true, `.`]);
+
+			}]);
+		}
 
 		if (!document.querySelector(`#signin`)) return;
 
