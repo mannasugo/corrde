@@ -744,7 +744,7 @@ const Model = (function () {
 
     ModelPullStack: function (Arg) {
 
-      let ModelPullStack = [];
+      let ModelPullStack = []; //
 
       Arg.forEach(Sell => {
 
