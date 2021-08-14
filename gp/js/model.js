@@ -571,7 +571,7 @@ let Models = {
 
     (!UA.get().UASeen)? UA.set({UASeen: Seen}): Seen = UA.get().UASeen;
 
-		let Column = 3;
+		/*let Column = 3;
 
 		if (Arg[2] < 540) Column = 2;
 
@@ -640,7 +640,59 @@ let Models = {
 			});
 			
 			ModelAisle.push([`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelShelve])
-		}
+		}*/
+
+    (UA.get().area)? UA.get().area: UA.set({area: `kenya`});
+
+    let Fx = this.Fx;
+
+    let ModelRow = [];
+
+    Arg[0].forEach(Row => {
+
+      let Sell = Row;
+
+      if (!Seen[Sell.MD5]) {
+
+        Seen[Sell.MD5] = Sell;
+
+        UA.set({UASeen: Seen});
+      }
+
+      Sell[`Fx`] = Fx[UA.get().area];
+
+      let data = `&@data>${JSON.stringify(Sell).replace(new RegExp(`"`, `g`), `&quot;`)}`;
+
+      ModelRow.push([
+        `div`, `.@_Qg2`, [[
+            `div`, `._gA0 _gW0`, `&@style>padding:16px`, [[
+              `div`, `.@_gY`, [[
+                `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0;min-height:38px`, [[
+                  `div`, this.ModelState(Row)], [
+                  `div`, `.@_gZz`, [[
+                    `div`, [[
+                      `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`]]], [
+                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
+                `a`, `.@_Qg`, [[
+                  `div`, `.@_Qg0 _geQ`, [[
+                    `img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>/item/${Row.MD5}/`], [
+                `div`, [[
+                  `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
+                    `div`, `.@_Xx _gxM`, [[
+                      `span`, `.@_tXx`, [[
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
+                      `span`, [[
+                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
+                    `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
+                      `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
+                    `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
+                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
+            `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
+              `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
+                `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
+                `span`, `&@style>text-align:center;font-family:gotham-book`, `~@${(Seen[Row.MD5].items)? ((Seen[Row.MD5].items < 10)? `0`+ Seen[Row.MD5].items: Seen[Row.MD5].items): `00`}`]]], [
+              `a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`]]]]]]]);
+    })
 		
 		return [
 		`main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -649,15 +701,15 @@ let Models = {
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
-          `div`, `.@_QZg`, `&@style>flex:2`, [[
+          `div`, `.@_gZz`, `&@style>flex:2`, [[
             `a`, `.@-_tX Shop`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@-Zz -_tX FilterColor`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
-      	`div`, `#@ModelAisle`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
+      	`div`, `#@ModelRow`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
       			`span`, `.@_cX3 _tXx`, `&@style>padding:12px 16px;text-transform:capitalize;font-size:14px`, `~@${Arg[1]}`]]], [
-      		`div`, ModelAisle]]]]];
+      		`div`, [[`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelRow]]]]]]];
 	},
 
   ModelCart () {
@@ -2857,8 +2909,9 @@ let Models = {
               `div`, `.@_gY`, [[
                 `div`, `.@_geQ _aXZ _gxM`, `&@style>padding:5px 0;min-height:38px`, [[
                   `div`, this.ModelState(Row)], [
-                  `div`, `.@_QZg`, [[
-                    `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
+                  `div`, `.@_gZz`, [[
+                    `div`, [[
+                      `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`]]], [
                     `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
@@ -2873,12 +2926,12 @@ let Models = {
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
-                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
+                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `~@${Fx[UA.get().area][1]}${Row.mailing} (shipping)`]]]]]]]]], [
             `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
                 `span`, `&@style>text-align:center;font-family:gotham-book`, `~@${(Seen[Row.MD5].items)? ((Seen[Row.MD5].items < 10)? `0`+ Seen[Row.MD5].items: Seen[Row.MD5].items): `00`}`]]], [
-              `a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`,]]]]]]]);
+              `a`, `#@max`, `.@alterCart Max`, data, `&@href>javascript:;`]]]]]]]);
       })
 
       ModelRow.push([
@@ -2957,9 +3010,9 @@ let Models = {
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
-            `a`, `#@devs`, `.@-_tX v3`, `&@style>width:32px;height:32px`, `&@href>/`, `~@v3`], [
-            `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@  corrde store`]]], [
-          `div`, `.@_QZg`, [[
+            `a`, `#@devs`, `.@-_tX v3`, `&@style>min-width:32px;height:32px`, `&@href>/`, `~@v3`], [
+            `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@  corrde store`]]], [
+          `div`, `.@_gZz`, [[
             `a`, `#@`, `.@Pull`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`], [
             `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`],
             ModelMug, [
