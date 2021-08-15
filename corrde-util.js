@@ -9585,26 +9585,32 @@ class Puller extends Auxll {
 
             if (Data.till[1][Vals.tracking_md] && Data.till[1][Vals.tracking_md][`payer_md`] === Vals.md) {
 
-              let Via = {};
+              /*let Via = {};
 
               Data.till[1][Vals.tracking_md][`till`].forEach(V => {
 
                 if (V.md === Vals.via_md) Via = V;
               });
 
-              if (Via.md && Via.pws_flow[0] === false) {
+              let Till = [[], {}];*/
+
+              if (!Data.till[1][Vals.tracking_md].flow || Data.till[1][Vals.tracking_md].flow[0] === false) {//(Via.md && Via.pws_flow[0] === false) {
 
                 let val = JSON.stringify(Data.till[1][Vals.tracking_md]);
 
-                let v = Data.till[1][Vals.tracking_md][`till`].indexOf(Via);
+                /*let v = Data.till[1][Vals.tracking_md][`till`].indexOf(Via);
 
-                Data.till[1][Vals.tracking_md][`till`][v][`pws_flow`][0] = new Date().valueOf();
+                Data.till[1][Vals.tracking_md][`till`][v][`pws_flow`][0] = new Date().valueOf();*/
+
+                Data.till[1][Vals.tracking_md][`flow`] = [false, false, false];
+
+                Data.till[1][Vals.tracking_md].flow[0] = new Date().valueOf();
 
                 new Sql().multi({},  
                   `update till set json = '${JSON.stringify(Data.till[1][Vals.tracking_md])}' where json = '${val}'`, (A, B, C) => {
 
                   this.Stack[3].end(JSON.stringify({
-                    pulls: Data.till[1][Vals.tracking_md][`till`][v],
+                    //pulls: Data.till[1][Vals.tracking_md][`till`][v],
                     tracking_md: Vals.tracking_md}));
                   });
               }
@@ -9652,6 +9658,8 @@ class Puller extends Auxll {
             if (Vals.state === `md`) {
 
               Data.Pay[0].forEach(P => {
+
+                P[`flow`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].flow)? Data.till[1][P.MD5].flow: [false, false, false];
 
                 if (P.MD && P.MD === Vals.md) Pays.push(P);
               });
@@ -9780,11 +9788,14 @@ class Puller extends Auxll {
                 }
 
                 new Sql().to([`till`, {json: JSON.stringify({
+                  flow: [false, false, false],
+                  ideal_secs: false,
                   md: Vals.tracking_md,
                   payer_md: Vals.md,
                   secs: new Date().valueOf(), 
                   till: Till,
-                  tracking_md: Vals.tracking_md})}], (A, B, C) => {
+                  tracking_md: Vals.tracking_md,
+                  via_md: false})}], (A, B, C) => {
 
                     this.Stack[3].end(JSON.stringify({
                       pulls: {

@@ -129,6 +129,15 @@ class Event {
 
 				this.Resize();
 			}
+
+			else if (State[3] === `orders`) {
+
+				this.foldWSAlter();
+
+				this.getApp();
+
+				this.pays();
+			}
 		}
 
 		else if (new Controller().Old() === `.`) {
@@ -2580,6 +2589,75 @@ class Event {
 			}]);
 		}
 	}
+
+	pays () {
+
+		if (document.querySelector(`.flow`)) {
+
+			document.querySelectorAll(`.flow`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Via = this.getSource(S);
+
+					new View().DOM([`main`, [Models.ModelSplash()]]);
+
+					let Control = new Controller();
+
+					if (Via.innerHTML === `confirm payment`) {
+
+						let Pays = {};
+
+						UA.get().u.pays.forEach(MD => {
+
+							if (MD.MD5 === Via.id) Pays = MD;
+						})
+
+						let Pull = Control.Pull([`/pulls/ua/`, {
+							md: UA.get().u.md, 
+							paygate: Pays.paygate,
+							paytrace: (Pays.paytrace)? Pays.paytrace: null,
+							pull: `paytrace`, 
+							sum : false, 
+							tracking_md: Via.id}]);
+
+						Pull.onload = () => {
+
+							let Pulls = JSON.parse(Pull.response);
+
+						//Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
+
+							Control.Call();
+
+							this.Call();
+						}
+					}
+
+					else if (Via.innerHTML === `order delivery`) {
+
+						let Pull = Control.Pull([`/pulls/ua/`, {
+							md: UA.get().u.md,
+							pull: `init-via`,
+							tracking_md: Via.id,
+							via_md: Via.id}]);
+
+						Pull.onload = () => {
+
+							let Pulls = JSON.parse(Pull.response);
+
+						//Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
+
+							Control.Call();
+
+							this.Call();
+						}
+					}
+				}]);
+			});
+		}
+
+
+	}
 }
 
 class Controller extends Puller {
@@ -2685,64 +2763,6 @@ class Controller extends Puller {
     	}
     }
 
-		else if (State[3] === `mall`) {
-
-    	UA.set({ualog: [null]});
-
-			let Mall = [];
-
-			if (State[4]) {
-
-				if (!UA.get().gArray || UA.get().gArray.length !== 2) {
-
-					new View().DOM([`main`, [Models.ModelNullDot()]]);
-
-					new Event().Call();
-				}
-
-				else {
-
-					let Pull = this.Pull([`/pulls/ua/`, {
-						aisle: (UA.get().set)? UA.get().set: `alcohol`, 
-						gArray: UA.get().gArray, 
-						pull: `aisle`, 
-						area: (UA.get().area)? UA.get().area: `kenya`}]);
-
-					Pull.onload = () => {
-
-						let Pulls = JSON.parse(Pull.response);
-
-						if (Pulls.all) {
-
-							Pulls.all.forEach(MD => {
-
-								if (MD.mall_md && MD.mall_md === State[4]) Mall.push(MD);
-							})
-						}
-
-						if (Mall.length > 0) {
-
-							UA.set({mall: {listings: Mall}});
-
-							new View().DOM([`main`, [Models.ModelMall([Mall, ``, document.body.clientWidth])]]);
-
-							new Event().Call();
-						}
-
-						else {
-
-    					this.v3();
-						}
-					}
-				}
-			}
-
-			else {
-
-    		this.v3();
-			}
-		}
-
     else if (State[3] === `ir`) {
 
     	UA.set({ualog: [null]});
@@ -2818,6 +2838,113 @@ class Controller extends Puller {
     		this.v3();
 			}
 		}
+
+		else if (State[3] === `mall`) {
+
+    	UA.set({ualog: [null]});
+
+			let Mall = [];
+
+			if (State[4]) {
+
+				if (!UA.get().gArray || UA.get().gArray.length !== 2) {
+
+					new View().DOM([`main`, [Models.ModelNullDot()]]);
+
+					new Event().Call();
+				}
+
+				else {
+
+					let Pull = this.Pull([`/pulls/ua/`, {
+						aisle: (UA.get().set)? UA.get().set: `alcohol`, 
+						gArray: UA.get().gArray, 
+						pull: `aisle`, 
+						area: (UA.get().area)? UA.get().area: `kenya`}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (Pulls.all) {
+
+							Pulls.all.forEach(MD => {
+
+								if (MD.mall_md && MD.mall_md === State[4]) Mall.push(MD);
+							})
+						}
+
+						if (Mall.length > 0) {
+
+							UA.set({mall: {listings: Mall}});
+
+							new View().DOM([`main`, [Models.ModelMall([Mall, ``, document.body.clientWidth])]]);
+
+							new Event().Call();
+						}
+
+						else {
+
+    					this.v3();
+						}
+					}
+				}
+			}
+
+			else {
+
+    		this.v3();
+			}
+		}
+
+    else if (State[3] === `orders`) {
+
+    	UA.set({ualog: [null]});
+
+    	if (!State[4] || !Models.Slim[State[4]]) {
+
+				if (UA.get().u && UA.get().u.md)  { 
+
+					let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `pays`, state: `md`}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (Pulls.pulls) {
+
+							this.Olden([`/orders/`]);
+
+							let Alter = UA.get().u;
+
+							UA.set({u: false});
+
+							Alter[`pays`] = Pulls.pulls;
+
+							UA.set({u: Alter});console.log(UA.get().u)
+
+							new View().DOM([`main`, [Models.ModelPaysv2()]]);
+
+							new Event().Call();
+						}
+					}
+				}
+
+    		else {
+
+					this.SetState([``, `root`, `/`]);
+
+    			this.v3();
+    		}
+    	}
+
+    	else {
+
+				this.SetState([``, `root`, `/`]);
+
+    		this.v3();
+    	}
+    }
 
     else {
 
