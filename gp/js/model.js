@@ -765,7 +765,7 @@ let Models = {
 
       Sell[`miles`] = (UA.get().gArray)? (d3.geoDistance(UA.get().gArray, Sell.port_gArray) * 6888).toFixed(2): 1;
 
-      let Pay = `${Fx[1]}${(Fx[0]*Sell.dollars*Sell.items).toFixed(2)} ${Fx[2]}`;
+      let Pay = `${Fx[1]}${(Fx[0]*Sell.dollars*Sell.items).toFixed(2)}`;
 
       let data = `&@data>${JSON.stringify(Sell).replace(new RegExp(`"`, `g`), `&quot;`)}`;
 
@@ -844,7 +844,7 @@ let Models = {
               `div`, `.@_geQ _gxM _aXZ`, [[
                 `span`, `.@-_tX ${(Ports[Port][0].pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@style>width:19px;height:19px`], [
                 `div`, `.@_eYG _a2X`, `&@style>font-family:gotham-book`, `~@${miles} Miles`], [
-              `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Fx[1]}${fees} ${Fx[2]}`]]]]]]]]]]])
+              `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Fx[1]}${fees.toFixed(2)}`]]]]]]]]]]])
     }
 
     ModelCart[0][1].push([
@@ -853,7 +853,7 @@ let Models = {
           `span`, `~@order total`], [
           `div`, `.@_QZg _gxM`, [[
             `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@(${items} items)`]]], [
-            `div`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${Fx[1]}${(gross+fees).toFixed(2)} ${Fx[2]}`]]]]]]]]]);
+            `div`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${Fx[1]}${(gross+fees).toFixed(2)}`]]]]]]]]]);
 
     ModelCart[0][1].push([
       `div`, `&@style>padding: 24px 0`, [[
