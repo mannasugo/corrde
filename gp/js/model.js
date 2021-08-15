@@ -843,7 +843,7 @@ let Models = {
             `div`, `.@_gxM`, [[
               `div`, `.@_geQ _gxM _aXZ`, [[
                 `span`, `.@-_tX ${(Ports[Port][0].pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@style>width:19px;height:19px`], [
-                `div`, `.@_eYG _a2X`, `&@style>font-family:gotham-book`, `~@${miles} Miles`], [
+                `div`, `.@_eYG _a2X _tXx`, `&@style>font-family:gotham-book;font-size:13px;text-transform:unset`, `~@${Tools.getMiles([Ports[Port][0].port_gArray, UA.get().gArray]).toFixed(3)} mi`], [
               `div`, `.@_QZg`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${Fx[1]}${fees.toFixed(2)}`]]]]]]]]]]])
     }
 
