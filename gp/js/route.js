@@ -1280,7 +1280,7 @@ class Event {
 
       }, (b) => { 
 
-      	UA.set({gArray: [34.753, -.533]});
+      	UA.set({gArray: /*[7.723, 50.533][34.753, -.533]*/[34.591577, .000330]});
 
 				(Arg && Arg[0])? Control.Call(): Control.Aisle();
       });
@@ -2655,8 +2655,6 @@ class Event {
 				}]);
 			});
 		}
-
-
 	}
 }
 

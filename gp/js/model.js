@@ -1120,13 +1120,13 @@ let Models = {
 
     if (UA.get().u) Mugger = [`my orders`];
 
-    (Mugger && UA.get().u && UA.get().u.malls.length > 0)? Mugger.push(`my stores`): Mugger;
+    /*(Mugger && UA.get().u && UA.get().u.malls.length > 0)? Mugger.push(`my stores`): Mugger;*/
 
-    (Mugger && UA.get().u && UA.get().u.via && UA.get().u.via === true)? Mugger.push(`deliver orders`): Mugger;
+    (Mugger && UA.get().u && UA.get().u.via && UA.get().u.via === true)? Mugger.push(`shipper mode`): Mugger;
 
     (Mugger && UA.get().u && UA.get().u.lock !== false)? Mugger.push(`manage store`): Mugger;
 
-    Mugger.push(`corrde for business`)
+    /*Mugger.push(`corrde for business`)*/
 
     Mugger.push(`investor relations`)
 
@@ -3004,6 +3004,45 @@ let Models = {
                   `div`, `&@style>align-items:center`, [[
                     `div`, `.@_gM_a _agM _guZ`, `&@style>background:#47008c;border:none;max-width:max-content;margin-top:24px`, [[
                       `a`, `.@_TX_a _atX`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300`, `~@ride with us`]]]]]]]]]]]]]]]]]);
+
+    let ModelCareer = [];
+
+    /*let Careers = {
+      engineering:
+      logistics: 
+      marketing
+    }*/
+
+    let Slice = [
+      [`head of Operations (sales, marketing & advertising)`, `kenya & east africa region`], 
+      [`logistics & warehouse manager`, `eldoret, kenya`], 
+      [`logistics & warehouse manager`, `kakamega, kenya`], 
+      [`logistics & warehouse manager`, `kericho, kenya`], 
+      [`logistics & warehouse manager`, `kisii, kenya`], 
+      [`logistics & warehouse manager`, `kisumu, kenya`], 
+      [`logistics & warehouse manager`, `machakos, kenya`], 
+      [`logistics & warehouse manager`, `mombasa, kenya`], 
+      [`logistics & warehouse manager`, `nairobi, kenya`], 
+      [`logistics & warehouse manager`, `thika, kenya`]];
+
+    let ModelSlice = [[]];
+
+    Slice.forEach(A => {
+
+      ModelSlice[0].push([
+        `div`, `.@_gZ`, `&@style>width:100%;padding: 5px 16px`, [[
+          `div`, [[
+            `span`, `.@_tXx`, `&@style>color:#fff;overflow:hidden;text-transform:capitalize;text-overflow:ellipsis;display:block;white-space:nowrap;text-decoration:underline`, `~@${A[0]}`]]], [
+          `div`, [[
+            `span`, `.@`, `&@style>color:#fff;text-transform:capitalize`, `~@${A[1]}`]]]]])
+    });
+
+    ModelCareer.push([
+      `div`, `&@style>background:#47008c;padding:24px 5px`, [[
+        `div`, `.@_yZS _geQ`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@we are hiring!`]]], [
+        `div`, `.@_yZS _geQ`, [[`span`, `&@style>max-width:600px;text-align:center;color:#fff;font-size:14px`, `~@Corrde Store has achieved rapid service adoption & growth since its inception and as such is always looking for passionate talent to help grow our startup's brand.`]]], [
+        `div`, `&@style>margin-top:24px;`, [[
+          `div`, `&@style>width:100%;max-width:600px;margin:16px auto;border:1px solid rgba(255, 255, 255, 0.54);border-radius:4px`, ModelSlice[0]]]]]])
     
     return [
     `main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -3017,8 +3056,8 @@ let Models = {
             `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`],
             ModelMug, [
             `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 0 0 10px;position:relative`, `&@href>javascript:;`]]]]]]], this.ModelApp(), [
-        `div`, `#@ModelRow`, `.@_aXZ _gZ`, `&@style>margin:55px auto 0`, [ModelMiles[0], [`div`, ModelRow]]], [
-          `div`, `.@_gZ`, `&@style>padding-bottom: 69px`/*, [ModelMail[0]]*/]]];
+        `div`, `#@ModelRow`, `.@_aXZ gZ`, `&@style>margin:55px auto 0`, [ModelMiles[0], [`div`, ModelRow]]], [
+          `div`, `.@gZ`, `&@style>padding-bottom: 69px`, [ModelCareer[0]]/*[ModelMail[0]]*/]]];
   },
 
   ModelApp () {
