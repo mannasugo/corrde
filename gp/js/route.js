@@ -2712,6 +2712,25 @@ class Controller extends Puller {
     	this.v3();
     }
 
+    else if (State[3] === `careers`) {
+
+    	UA.set({ualog: [null]});
+
+    	if (!State[4] || !Models.Slim[State[4]]) {
+
+				new View().DOM([`main`, [Models.ModelOpenings()]]);
+
+				new Event().Call();
+    	}
+
+    	else {
+
+				this.SetState([``, `root`, `/`]);
+
+    		this.v3();
+    	}
+    }
+
     else if (State[3] === `grocery`) {
 
     	UA.set({ualog: [null]});

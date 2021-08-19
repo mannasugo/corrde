@@ -3229,5 +3229,24 @@ let Models = {
             `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]], [
           `div`, `.@_gZ`, `&@style>padding-bottom: 69px`]]];
 
+  }, 
+
+  ModelOpenings () {
+    
+    return [
+      `main`, `.@_tY0`, `&@style>height:100%`, [[
+        `div`, `.@_-tY`, [[
+          `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
+            `div`, `.@_-Xg _gxM _geQ`, [[
+              `a`, `.@v3 -_tX`, `&@style>min-width:32px;height:32px`, `&@href>/`, `~@v3`], [
+              `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@  careers`]]], [
+            `div`, `.@_gZz`, []]]]]], [
+        `div`, `.@_aXZ`, `&@style>padding:55px 16px 0;background:#47008c`, [[
+          `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+            `div`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@Working at Corrde`]]], [
+            `div`, `&@style>padding-top:24px;text-align:center`, [[
+              `span`, `&@style>font-size:14px;color:#fff`, `~@We at Corrde are focused at building a vibrant, diverse and accessible work 
+                environment. As an adaptive tech start-up, we are developing and adopting a modern flexible office & remote working infrastructure
+                for our staff, this means our staff can work from anywhere around the world as it is entirely to their preference.`]]]]]]]]];
   }
 }
