@@ -1709,7 +1709,9 @@ class UAPublic extends Auxll {
 
   subCalls () {
 
-    if (this.levelState[1] === `category`) {
+    if (this.levelState[1] === `careers`) this.App();
+
+    else if (this.levelState[1] === `category`) {
 
       let StockSet = [
         `bags`,

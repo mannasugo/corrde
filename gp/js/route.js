@@ -2716,7 +2716,18 @@ class Controller extends Puller {
 
     	UA.set({ualog: [null]});
 
-    	if (!State[4] || !Models.Slim[State[4]]) {
+    	if (!State[4] && !Models.Slim[State[4]]) {
+
+    		document.title = `Careers | Corrde Store`;
+
+				new View().DOM([`main`, [Models.ModelOpenings()]]);
+
+				new Event().Call();
+    	}
+
+    	else if (State[4] === `open` && Models.Opening[parseInt(State[5]) - 1] && !State[6] && !Models.Slim[State[6]]) {
+
+    		document.title = `Careers | Corrde Store`;
 
 				new View().DOM([`main`, [Models.ModelOpenings()]]);
 

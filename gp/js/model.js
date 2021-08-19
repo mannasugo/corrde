@@ -379,6 +379,18 @@ let Models = {
       `Austine has served as our Chief Executive Officer since October 2019 and as a member of the Board since January 2021. His current board duties 
       include earnings auditing, nominating and governance. Austine holds a B.A. in Political Science from Maseno University.`]
   },
+
+  Opening: [
+      [`head of Operations (sales, marketing & advertising)`, `kenya & east africa region`], 
+      [`logistics & warehouse manager`, `eldoret, kenya`], 
+      [`logistics & warehouse manager`, `kakamega, kenya`], 
+      [`logistics & warehouse manager`, `kericho, kenya`], 
+      [`logistics & warehouse manager`, `kisii, kenya`], 
+      [`logistics & warehouse manager`, `kisumu, kenya`], 
+      [`logistics & warehouse manager`, `machakos, kenya`], 
+      [`logistics & warehouse manager`, `mombasa, kenya`], 
+      [`logistics & warehouse manager`, `nairobi, kenya`], 
+      [`logistics & warehouse manager`, `thika, kenya`]],
     
   Slim (String) {
 
@@ -3007,32 +3019,14 @@ let Models = {
 
     let ModelCareer = [];
 
-    /*let Careers = {
-      engineering:
-      logistics: 
-      marketing
-    }*/
-
-    let Slice = [
-      [`head of Operations (sales, marketing & advertising)`, `kenya & east africa region`], 
-      [`logistics & warehouse manager`, `eldoret, kenya`], 
-      [`logistics & warehouse manager`, `kakamega, kenya`], 
-      [`logistics & warehouse manager`, `kericho, kenya`], 
-      [`logistics & warehouse manager`, `kisii, kenya`], 
-      [`logistics & warehouse manager`, `kisumu, kenya`], 
-      [`logistics & warehouse manager`, `machakos, kenya`], 
-      [`logistics & warehouse manager`, `mombasa, kenya`], 
-      [`logistics & warehouse manager`, `nairobi, kenya`], 
-      [`logistics & warehouse manager`, `thika, kenya`]];
-
     let ModelSlice = [[]];
 
-    Slice.forEach(A => {
+    Models.Opening.forEach(A => {
 
       ModelSlice[0].push([
         `div`, `.@_gZ`, `&@style>width:100%;padding: 5px 16px`, [[
           `div`, [[
-            `span`, `.@_tXx`, `&@style>color:#fff;overflow:hidden;text-transform:capitalize;text-overflow:ellipsis;display:block;white-space:nowrap;text-decoration:underline`, `~@${A[0]}`]]], [
+            `a`, `.@_tXx`, `&@href>/careers/open/${Models.Opening.indexOf(A) + 1}/`, `&@style>color:#fff;overflow:hidden;text-transform:capitalize;text-overflow:ellipsis;display:block;white-space:nowrap;text-decoration:underline`, `~@${A[0]}`]]], [
           `div`, [[
             `span`, `.@`, `&@style>color:#fff;text-transform:capitalize`, `~@${A[1]}`]]]]])
     });
@@ -3232,6 +3226,18 @@ let Models = {
   }, 
 
   ModelOpenings () {
+
+    let ModelSlice = [[]];
+
+    Models.Opening.forEach(A => {
+
+      ModelSlice[0].push([
+        `div`, `.@_gZ`, `&@style>width:100%;padding: 5px 16px`, [[
+          `div`, [[
+            `a`, `.@_tXx`, `&@href>/careers/open/${Models.Opening.indexOf(A) + 1}/`, `&@style>overflow:hidden;text-transform:capitalize;text-overflow:ellipsis;display:block;white-space:nowrap;text-decoration:underline`, `~@${A[0]}`]]], [
+          `div`, [[
+            `span`, `.@`, `&@style>text-transform:capitalize`, `~@${A[1]}`]]]]])
+    });
     
     return [
       `main`, `.@_tY0`, `&@style>height:100%`, [[
@@ -3245,8 +3251,11 @@ let Models = {
           `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
             `div`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@Working at Corrde`]]], [
             `div`, `&@style>padding-top:24px;text-align:center`, [[
-              `span`, `&@style>font-size:14px;color:#fff`, `~@We at Corrde are focused at building a vibrant, diverse and accessible work 
-                environment. As an adaptive tech start-up, we are developing and adopting a modern flexible office & remote working infrastructure
-                for our staff, this means our staff can work from anywhere around the world as it is entirely to their preference.`]]]]]]]]];
+              `span`, `&@style>font-size:14px;color:#fff`, `~@We at Corrde are focused on building a vibrant, diverse and accessible work 
+                environment. As an adaptive tech start-up, we are developing and adopting a modern flexible office & remote working concept
+                for our staff, this means our staff can work from anywhere around the world as it is entirely to their preference.`]]]]]]], [
+        `div`, `&@style>width:100%;max-width:960px;margin:16px auto;padding: 0 16px`, [[
+          `div`, [[`span`, `&@style>font-size:14px`, `~@Open Positions`]]], [
+          `div`, `&@style>margin:24px 0;border:1px solid #f4f4f4;border-radius:4px`, ModelSlice[0]]]]]];
   }
 }
