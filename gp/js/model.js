@@ -3249,7 +3249,7 @@ let Models = {
             `div`, `.@_gZz`, []]]]]], [
         `div`, `.@_aXZ`, `&@style>padding:55px 16px 0;background:#47008c`, [[
           `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
-            `div`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@Working at Corrde`]]], [
+            `div`, `.@_-Zz`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@Working at Corrde`]]], [
             `div`, `&@style>padding-top:24px;text-align:center`, [[
               `span`, `&@style>font-size:14px;color:#fff`, `~@We at Corrde are focused on building a vibrant, diverse and accessible work 
                 environment. As an adaptive tech start-up, we are developing and adopting a modern flexible office & remote working concept
@@ -3257,5 +3257,17 @@ let Models = {
         `div`, `&@style>width:100%;max-width:960px;margin:16px auto;padding: 0 16px`, [[
           `div`, [[`span`, `&@style>font-size:14px`, `~@Open Positions`]]], [
           `div`, `&@style>margin:24px 0;border:1px solid #f4f4f4;border-radius:4px`, ModelSlice[0]]]]]];
+  },
+
+  ModelOpening (Arg) {
+
+    let Opening = Arg[0];
+
+    return [
+      `div`, `.@_geQ _tY0`, `@style>justify-content:center`, [[
+        `div`, `&@style>position:fixed;width:100%;top:0;right:0;z-index:19;background:rgba(255,255,255,.42)`, [[
+          `div`, `.@_gZz`, [[`a`, `.@Close exit-opening`, `&@style>margin:24px`, `&@href>javascript:;`]]]]], [
+        `section`, `&@style>margin:54px auto;padding:16px;width:100%;max-width:960px`, [[
+          `div`, [[`span`, `&@style>color:#47008c;font-size:14px;text-transform:capitalize;font-weight:600`, `~@${Opening[0]}`]]]]]]]
   }
 }

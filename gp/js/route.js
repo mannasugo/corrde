@@ -76,6 +76,11 @@ class Event {
 				this.Signin();
 			}
 
+			else if (State[3] === `careers`) {
+
+				this.Opening();
+			}
+
 			else if (State[3] === `grocery`) {
 
 				this.Catalog();
@@ -2581,7 +2586,7 @@ class Event {
 
 				let Control = new Controller();
 
-				Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
+				Control.SetState([``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`]);
 
 				Control.Call();
 
@@ -2654,6 +2659,21 @@ class Event {
 					}
 				}]);
 			});
+		}
+	}
+
+	Opening () {
+
+		if (document.querySelector(`.exit-opening`)) {
+
+			this.listen([document.querySelector(`.exit-opening`), `click`, S => {
+
+				let Control = new Controller();
+
+				Control.SetState([``, ``, `/careers`]);
+
+				Control.Call();
+			}]);
 		}
 	}
 }
@@ -2729,7 +2749,7 @@ class Controller extends Puller {
 
     		document.title = `Careers | Corrde Store`;
 
-				new View().DOM([`main`, [Models.ModelOpenings()]]);
+				new View().DOM([`main`, [Models.ModelOpening([Models.Opening[parseInt(State[5]) - 1]])]]);
 
 				new Event().Call();
     	}
