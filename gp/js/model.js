@@ -134,11 +134,12 @@ let Models = {
     `alcohol`, `baby`,
     `beauty & personal care`, 
     `beverages`, `bread & bakery`,
-    `clothing`, `college & beyond shop`, `deli`, 
-    `eggs & dairy`, `frozen`, `fruits & vegetables`, 
-    `garden & tools`, `health & nutrition`, `household essentials`, 
-    `meat & seafood`, `party supplies & crafts`, `office & electronics`,
-    `pantry`, `school supplies`, `snacks & candy`, `sports & outdoor`, `toys`/*,`christmas shop`,  `cold & flu`, 
+    `clothing`, `college & beyond shop`, 
+    `corrde eat & dine`, `deli`, `eggs & dairy`, 
+    `frozen`, `fruits & vegetables`, `garden & tools`, 
+    `health & nutrition`, `household essentials`, `meat & seafood`, 
+    `party supplies & crafts`, `office & electronics`,`pantry`, `school supplies`, 
+    `snacks & candy`, `sports & outdoor`, `toys`/*,`christmas shop`,  `cold & flu`, 
     `fast food & eatery`, `gift shop`, 
     `home, kitchen & dine`, `organic shop`, `pets`,*/],
 
@@ -220,6 +221,17 @@ let Models = {
     [`clothing`]: {
       [`shelf`]: [
         `accessories`, `baby and toddler boy`, `baby and toddler girl`, `boys`, `girls`, `jewelry`, `men`,  `shoes`, `women` ]
+    },
+
+    [`corrde eat & dine`]: {
+      [`menu`]: [`breakfast lunch dinner full economy`],
+      [`shelf`]: [
+        `american sandwiches`, `barbecue`, `breakfast`, `burgers`, `chicken`, `coffee & tea`, `desserts`, `drinks`,
+        `ethiopian`, `healthy`, `lunch`, `noodles`, `pizza`, `ramen`, `salad`, `seafood`, `smoothie`, `soup`, `steak`, `vegan`/*, 
+        takeout pickup     asian italian delis vegetarian fast food mexican 
+      japanese chinese gluten-free indian greek latin america bakery 
+      middle eastern korean french tapas
+      european spanish caribbean african*/]
     },
 
     [`eggs & dairy`]: {
