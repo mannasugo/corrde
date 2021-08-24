@@ -802,7 +802,7 @@ let Models = {
               `span`, `&@style>text-transform:capitalize;font-weight:300`, `~@${Sell.alpha}`]]], [
               `div`, `.@_gxM _geQ`, [[
                 `div`, [[
-                  `span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@${Sell.mass*Sell.items} grams`]]], []]], [
+                  `span`, `.@_a2X`, `&@style>font-size:10px;letter-spacing:.9px`, `~@ (${(parseFloat(Sell.mass*Sell.items) > 999)? `${(Sell.mass*Sell.items/1000).toFixed(1)}KG`: `${Sell.mass*Sell.items}G`})`]]], []]], [
             `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
               `div`, `&@style>margin: 8px 0`, [[
                 `div`, `#@ModelCart`, `.@_gxM _geQ`, `&@style>border:1px solid #e7e7e7;padding:4px 8px`, [[
