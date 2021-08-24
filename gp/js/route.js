@@ -1285,7 +1285,7 @@ class Event {
 
       }, (b) => { 
 
-      	UA.set({gArray: /*[7.723, 50.533][34.753, -.533]*/[34.591577, .000330]});
+      	UA.set({gArray: /*[7.723, 50.533]*/[34.753, -.533]/*[34.591577, .000330]*/});
 
 				(Arg && Arg[0])? Control.Call(): Control.Aisle();
       });
@@ -3684,9 +3684,24 @@ class Controller extends Puller {
 
 					Pulls.all.forEach(MD => {
 
-						if (!Retails[MD.set]) Retails[MD.set] = [];
+						if (MD.set === Models.Filter(`corrde eat & dine`)) {
 
-						Retails[MD.set].push(MD);
+							if(MD.miles < 6.5) {
+
+								MD.mailing = 0;
+
+								if (!Retails[MD.set]) Retails[MD.set] = [];
+
+								Retails[MD.set].push(MD);
+							}
+						}
+
+						else {
+
+							if (!Retails[MD.set]) Retails[MD.set] = [];
+
+							Retails[MD.set].push(MD);
+						}
 					});
 
 					for (let retail in Retails) {
