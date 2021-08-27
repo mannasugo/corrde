@@ -859,13 +859,19 @@ class Event {
 
 				if (!Pulls.paygate || !Pulls.md) return;
 
-				let UAlog = UA.get().ualog;
+				/*let UAlog = UA.get().ualog;
 
 				UAlog.push(`/tracking/${Pulls.md}/`);
 
 				Control.SetState([{}, `tracking`, `/tracking/${Pulls.md}/`]);
 
 				UA.set({tracking_md: Pulls.md, ualog: UAlog}); 
+
+				Control.Call();*/
+
+				let Control = new Controller();
+
+				Control.SetState([``, ``, `/orders/`]);
 
 				Control.Call();
 			}
