@@ -10203,8 +10203,18 @@ class Puller extends Auxll {
 
                 MD[`secs`] = secs;
 
-                if (MD.pws_md === false && MD.pws_flow[0] !== false) Till.push(MD);
+                //if (MD.pws_md === false && MD.pws_flow[0] !== false) Till.push(MD);
               });
+
+              let Area = Data.Pay[1][MD.md].gArray;
+
+              MD[`bag`] = Data.Pay[1][MD.md].bag;
+
+              MD[`dollars`] = Data.Pay[1][MD.md].dollars;
+
+              MD[`geo`] = (Area.length > 2)? Area[2]: Area;
+
+              Till.push(MD)
             });
 
             Till.sort((A, B) => {return B.secs - A.secs});

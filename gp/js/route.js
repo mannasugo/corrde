@@ -2343,6 +2343,68 @@ class Event {
 
 	WStools () {
 
+		if (document.querySelector(`.exit-schedule`)) {
+
+			this.listen([document.querySelector(`.exit-schedule`), `click`, S => {
+
+				new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelApex()])]]);
+
+				this.Call();
+
+			}]);
+		}
+
+		if (document.querySelector(`.flow`)) {
+
+			document.querySelectorAll(`.flow`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Via = this.getSource(S);
+
+					new View().DOM([`main`, [Models.ModelSplash()]]);
+
+					let Control = new Controller();
+
+					if (Via.innerHTML === `confirm payment`) {
+
+						let Pays = {};
+
+						UA.get().u.pays.forEach(MD => {
+
+							if (MD.MD5 === Via.id) Pays = MD;
+						})
+
+						let Pull = Control.Pull([`/pulls/ua/`, {
+							md: UA.get().u.md, 
+							paygate: Pays.paygate,
+							paytrace: (Pays.paytrace)? Pays.paytrace: null,
+							pull: `paytrace`, 
+							sum : false, 
+							tracking_md: Via.id}]);
+
+						Pull.onload = () => {
+
+							let Pulls = JSON.parse(Pull.response);
+
+						//Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
+
+							Control.Call();
+
+							this.Call();
+						}
+					}
+
+					else if (Via.innerHTML === `create shipment`) {
+
+						new View().DOM([`main`, [Models.ModelSchedule()]]);
+
+						this.Call();
+					}
+				}]);
+			});
+		}
+
 		if (!document.querySelector(`.pws`)) return;
 
 		document.querySelectorAll(`.pws`).forEach(S => {
@@ -2975,7 +3037,7 @@ class Controller extends Puller {
 
 							Alter[`pays`] = Pulls.pulls;
 
-							UA.set({u: Alter});console.log(UA.get().u)
+							UA.set({u: Alter});
 
 							new View().DOM([`main`, [Models.ModelPaysv2()]]);
 
@@ -3314,7 +3376,7 @@ class Controller extends Puller {
 
 						UA.set({apex: {till: Pulls.pulls}});
 
-						new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelPWSPays()])]]);
+						new View().DOM([`main`, [Models.ModelPWS([`store orders`, Models.ModelApex()])]]);
 
 						new Event().Call();
 				}

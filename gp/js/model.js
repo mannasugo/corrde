@@ -1284,7 +1284,7 @@ let Models = {
 
     let Opts = [[`Bag`, `pws-orders`], [`Sell000`, `pws-list`], [`Shop`, `pws-listings`], [`Ship`, `viavolt-listing`]];
 
-    let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>javascript:;`]]]];
+    let ModelOpts = [[`div`, `.@_gMX _geQ`, `&@style>min-height:55px`, [[`a`, `.@-_tX Store`, `&@href>/`]]]];
 
     Opts.forEach(Opt => {
 
@@ -3284,5 +3284,155 @@ let Models = {
           `div`, `.@_gZz`, [[`a`, `.@Close exit-opening`, `&@style>margin:24px`, `&@href>javascript:;`]]]]], [
         `section`, `&@style>margin:54px auto;padding:16px;width:100%;max-width:960px`, [[
           `div`, [[`span`, `&@style>color:#47008c;font-size:14px;text-transform:capitalize;font-weight:600`, `~@${Opening[0]}`]]]]]]]
+  },
+
+  ModelApex() {
+
+    let ModelPays = [[], []];
+
+    ModelPays[0] = [
+      `div`, `.@_geQ`, `&@style>justify-content:center;min-height:calc(100vh)`, [[
+        `span`, `.@-_tX Bag`, `&@style>width:56px;height:56px`], [`span`, `.@_a2X _yZS`, `~@0 orders`]]];
+
+    let Pay = UA.get().apex.till;
+
+    Pay.sort((A, B) => {return B.secs - A.secs});
+
+    Pay.forEach(MD => {
+
+      let ModelCart = [];
+
+      MD.bag.forEach(MD => {
+
+        ModelCart.push([`div`, `.@_gxM _geQ _yZS`, [[
+          `img`, `&@src>/${MD.files[0]}`, `&@style>width:36px`], [
+          `div`, `.@_eYG`, `&@style>flex:1`, [[`span`, `&@style>white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%`, `~@${MD.alpha}`]]], [
+          `div`, `.@_gZz`, [[
+            `div`, `.@_gxM _tXx`, `&@style>font-family:gotham-book`, [[
+              `span`, `~@${MD.items}`], [`span`, `&@style>margin: 0 25px;color:#999`, `~@x`], [`span`, `~@${parseFloat(MD.dollars).toFixed(2)} USD`]]]]]]])
+      });
+
+      let ModelFlow = [];
+
+      let Flow = [
+        [
+          MD.flow[1], false, `create shipment`], [
+          MD.flow[2], `delivered`]];
+
+      let ModelOpt = []; 
+
+      Flow.forEach(Sec => {
+
+        if (Flow.indexOf(Sec) === 0 || Flow.indexOf(Sec) === 1 || Flow.indexOf(Sec) === 2 || Flow.indexOf(Sec) === 3 && Flow[0][0] !== false) {
+
+          ModelOpt = [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+              `a`, `#@${MD.MD5}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@${Sec[2]}`]]]
+        }
+
+        else ModelOpt = []
+
+        let ModelBoolean = [];
+
+        if (Flow.indexOf(Sec) === 3 && Sec[0] === false) {
+
+        ModelBoolean = [
+          `div`, `.@_gxM _geQ`, [[`span`, `.@_tXx`, `&@style>color:#999`, `~@${Sec[2]}`]]];
+        }
+
+        else {
+
+          ModelBoolean = [
+          `div`, `.@_gxM _geQ`, [
+            (Sec[0] === false)? ModelOpt: [`span`, `.@_tXx`, `&@style>color:#1185fe`, `~@${Sec[1]}`], [
+            `div`, `.@_gZz`, [(Sec[0] === false)? []: [`span`, `.@_a2X`, `~@${this.log(Sec[0])}`]]]]];
+        }
+
+        if (Flow.indexOf(Sec) > 0 && Flow[Flow.indexOf(Sec) - 1][0] === false) ModelBoolean = [];
+
+        let ModelPlus = [];
+
+        let ModelStep = [
+        `div`, `.@_gxM`, [[
+          `div`, `.@_geQ`, `&@style>width:5%`, [[
+            `svg`, `&@style>min-height:0;width:100%;height:16px`, [[`rect`, `&@x>50%`, `&@y>0`, `&@style>width:.25px;height:100%;stroke:#f4f4f4`]]]]], [
+          `div`, `&@style>width:95%;;padding-left:16px;overflow:hidden`, [ModelPlus]]]];
+
+        ModelFlow.push([`div`, [[
+          `div`, `.@_geQ _gxM _yZS`, [[
+            `div`, `.@_geQ`, `&@style>width:5%;`, [[
+              `svg`, `&@style>min-height:0;height:24px;width:24px`, [[
+                `circle`, `&@cx>50%`, `&@cy>50%`, `&@r>10.5`, `&@style>stroke:#19e819;fill:none`], [
+                `path`, `&@d>M8 12 10 16 16 8`, `&@style>fill:none;stroke:#${(Sec[0] === false)? `fff`: `19e819`}`]]]]], [
+                `div`, `.@geQ`, `&@style>width:95%;padding-left:16px`, [ModelBoolean]]]], 
+          (Flow.indexOf(Sec) < 1)? ModelStep: []]])
+      });
+
+      ModelPays[1].push([
+        `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
+        `div`, `.@_gZ _gxM _geQ`, [[
+          `div`, `.@_gZ _gxM _geQ`, `&@style>padding:16px 0`, [[
+            `span`, `.@ArchiveGray`, `&@style>width:16px;height:16px`], [
+            `div`, `.@_eYG`, [[
+              `div`, `.@_gxM _geQ`, [[
+                `span`, `.@_tXx`, `&@style>font-family:gotham-book;color: #1185fe`, `~@#${Pay.length - Pay.indexOf(MD)}`, [[
+                  `span`, `&@style>margin-left:8px;color:#000`, `~@ ${Tools.getMiles([MD.geo, UA.get().gArray]).toFixed(3)} mi`]]], [
+                `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${this.log(MD.secs)}`]]]]]]], [
+            `div`, `.@_QZg`, [[
+              `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
+            `section`, `.@_-Zz`, `&@style>width:100%;`, [[
+              `div`, `.@_g0`, `&@style>`, [[
+                `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
+                  `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)/*/this.Fx[`kenya`][0]*/).toFixed(2)}`]]], [
+                  `div`, `&@style>padding-bottom:16px`, ModelFlow], [
+                  `div`, `&@style>padding-bottom:16px`, ModelCart]]]]]]]]]);
+    });
+    
+    return [
+      `main`, `.@_tY0`, `&@style>height:100%`, [[
+        `div`, `.@_-tY`, [[
+          `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
+            `div`, `.@_-Xg _gxM _geQ`, [[
+              `a`, `.@v3 -_tX`, `&@style>min-width:32px;height:32px`, `&@href>/`, `~@v3`], [
+              `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@  my orders`]]], [
+            `div`, `.@_gZz`, []]]]]], [
+        `div`, `#@ModelPays`, `.@_aXZ _gZ`, `&@style>margin:55px auto 0`, [[
+          `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
+            `div`, (Pay.length > 0)? `.@_egQ`: ``, (Pay.length > 0)? ModelPays[1]: [ModelPays[0]]]]]]], [
+          `div`, `.@_gZ`, `&@style>padding-bottom: 69px`]]];
+
+  },
+
+  ModelSchedule () {
+
+    let XDate = [];
+
+    for (let i = 0; i < 6; i++) {
+      
+      XDate.push((86400000*i) + new Date().valueOf());
+    };
+
+    let ModelDate = [[]];
+
+    let Days = [`sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`]
+
+    XDate.forEach(secs => {
+
+      let Secs = new Date(secs);
+
+      ModelDate[0].push([
+        `div`, `.@_geQ`, [[
+          `div`, [[
+            `span`, `.@_a2X`, `~@${(Days[Secs.getDay()]).substring(0, 3)}`]]], [`div`, [[`span`, `&@style>font-family:gotham-book`, `~@${Secs.getDate()}`]]], [`div`]]])
+
+    })
+
+    return [
+      `div`, `.@_geQ _tY0`, `@style>justify-content:center`, [[
+        `div`, `&@style>position:fixed;width:100%;top:0;right:0;z-index:19;background:rgba(255,255,255,.42)`, [[
+          `div`, `.@_gZz`, [[`a`, `.@Close exit-schedule`, `&@style>margin:24px`, `&@href>javascript:;`]]]]], [
+        `section`, `&@style>margin:54px auto;padding:16px;width:100%;max-width:960px`, [[
+          `div`, `&@style>font-size:14px;border:1px solid #f4f4f4;border-radius:4px`, [[
+            `div`, `.@_gxM _geQ _gZ`, `@style>color:#47008c;font-size:14px;text-transform:capitalize;font-weight:600`, ModelDate[0]]]]]]]]
   }
 }
