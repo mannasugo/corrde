@@ -10377,6 +10377,27 @@ class Puller extends Auxll {
             });
           }
 
+          else if (this.Stack[1].pull === `via-slot`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.till[1][Pulls.viaslot_md]) return;
+
+            let old = JSON.stringify(Data.till[1][Pulls.viaslot_md]);
+
+            let Old = JSON.parse(old);
+
+            Old[`flow`] = [(Old.flow)? Old.flow[0]: new Date().valueOf(), new Date().valueOf(), false];
+
+            Old[`ideal_secs`] = Pulls.slot[0] + Pulls.slot[1];
+
+            new Sql().multi({},  
+              `update till set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.till[1][Pulls.viaslot_md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({pulls: Data.till[0]}));
+              });
+          }
+
           else if (this.Stack[1].pull === `viavolt-listings`) this.Stack[3].end(JSON.stringify({pulls: Data.via[0]}));
 
           //https://sandbox.intasend.com/api/v1/payment/status/

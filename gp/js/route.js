@@ -2354,6 +2354,64 @@ class Event {
 			}]);
 		}
 
+		if (document.querySelector(`.date-slot`)) {
+
+			document.querySelectorAll(`.date-slot`).forEach((S, s) => {
+
+				this.listen([S, `click`, S => {
+
+					let Via = this.getSource(S);
+
+					let Day = new Date();
+
+					UA.set({slot: [new Date(`${Day.getFullYear()}-${Day.getMonth()+1}-${Day.getDate()}`).valueOf() + (86400000*s), 0]});
+
+					Via.parentNode.parentNode.parentNode.querySelectorAll(`.date-slot`).forEach(S2 => {
+
+						S2.parentNode.style.border = `1px solid #f4f4f4`;
+					});
+
+					Via.parentNode.style.border = `1px solid #000`;
+
+				}]);
+			});
+		}
+
+		if (document.querySelector(`.slot`)) {
+
+			document.querySelectorAll(`.slot`).forEach((S, s) => {
+
+				this.listen([S, `click`, S => {
+
+					if (!UA.get().slot || UA.get().slot === false) return;
+
+					UA.set({slot: [UA.get().slot[0], (3600000*(s+4))]});
+
+					let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {
+						pull: `via-slot`,
+						slot: UA.get().slot,
+						viaslot_md: UA.get().viaslot_md}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						let Via = this.getSource(S);
+
+						Via.parentNode.parentNode.parentNode.querySelectorAll(`.check-item`).forEach(S2 => {
+
+							S2.style.fill = `none`;
+						});
+
+						Via.parentNode.querySelector(`.check-item`).style.fill = `#1185fe`;
+					}
+
+				}]);
+			});
+		}
+
 		if (document.querySelector(`.flow`)) {
 
 			document.querySelectorAll(`.flow`).forEach(S => {
@@ -2397,7 +2455,9 @@ class Event {
 
 					else if (Via.innerHTML === `create shipment`) {
 
-						new View().DOM([`main`, [Models.ModelSchedule()]]);
+						UA.set({viaslot_md: Via.id});
+
+						new View().DOM([`main`, [Models.ModelViaSlot()]]);
 
 						this.Call();
 					}

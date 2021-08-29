@@ -3327,7 +3327,7 @@ let Models = {
 
           ModelOpt = [
             `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
-              `a`, `#@${MD.MD5}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@${Sec[2]}`]]]
+              `a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@${Sec[2]}`]]]
         }
 
         else ModelOpt = []
@@ -3403,7 +3403,9 @@ let Models = {
 
   },
 
-  ModelSchedule () {
+  ModelViaSlot (Arg) {
+
+    UA.set({slot: false});
 
     let XDate = [];
 
@@ -3412,7 +3414,7 @@ let Models = {
       XDate.push((86400000*i) + new Date().valueOf());
     };
 
-    let ModelDate = [[]];
+    let ModelDate = [[], []];
 
     let Days = [`sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`]
 
@@ -3422,8 +3424,36 @@ let Models = {
 
       ModelDate[0].push([
         `div`, `.@_geQ`, [[
-          `div`, [[
-            `span`, `.@_a2X`, `~@${(Days[Secs.getDay()]).substring(0, 3)}`]]], [`div`, [[`span`, `&@style>font-family:gotham-book`, `~@${Secs.getDate()}`]]], [`div`]]])
+          `div`, [[`span`, `.@_a2X`, `~@${(Days[Secs.getDay()]).substring(0, 3)}`]]], [
+          `div`, `&@style>margin-top:10px;min-width:42px;height:42px;text-align:center;padding:8px;border: 1px solid #f4f4f4;border-radius:4px;font-family:gotham-book`, [[
+            `a`, `.@_tXx date-slot`, `&@href>javascript:;`, `~@${Secs.getDate()}`]]], [
+          `div`, [[`span`, `.@_-Zz`, `&@style>font-family:gotham-book`, `~@${Secs.getDay()}`]]]]]);
+
+    });
+
+    let YDATE = [];
+
+    let Day = new Date();
+
+    for (let i = 0; i < 15; i++) {
+      
+      YDATE.push((3600000)*i + new Date(`${Day.getFullYear()}-${Day.getMonth()}-${Day.getDate()}`).valueOf() + (3600000*3));
+    };
+
+    YDATE.sort((a, b) => {return a - b})
+
+    YDATE.forEach(secs => {
+
+      let Secs = new Date(secs);
+
+      ModelDate[1].push([
+        `div`, `.@_gxM _geQ _gZ`, [[
+          `span`, `.@_tXx`, `&@style>padding:16px 0;font-family:gotham-book`, `~@${Secs.getHours()}:00 - ${new Date(secs + 3600000).getHours()}:00`], [
+          `div`, `.@_gZz`, [[
+            `svg`, `&@style>min-height:20px;width:20px`, `&@viewBox>0 0 20 20`, [[
+              `circle`, `&@cy>10`, `&@cx>10`, `&@r>8`, `&@stroke>#1185fe`, `&@fill>none`], [
+              `circle`, `.@check-item`, `&@cy>10`, `&@cx>10`, `&@r>5.5`, `&@stroke>none`, `&@fill>none`]]], [
+            `a`, `#@${secs + 3600000}`, `.@_aWz slot`, `&@style>position:absolute`, `&@href>javascript:;`]]]]])
 
     })
 
@@ -3431,8 +3461,9 @@ let Models = {
       `div`, `.@_geQ _tY0`, `@style>justify-content:center`, [[
         `div`, `&@style>position:fixed;width:100%;top:0;right:0;z-index:19;background:rgba(255,255,255,.42)`, [[
           `div`, `.@_gZz`, [[`a`, `.@Close exit-schedule`, `&@style>margin:24px`, `&@href>javascript:;`]]]]], [
-        `section`, `&@style>margin:54px auto;padding:16px;width:100%;max-width:960px`, [[
+        `section`, `&@style>margin:54px auto;padding:16px 5px;width:100%;max-width:600px`, [[
           `div`, `&@style>font-size:14px;border:1px solid #f4f4f4;border-radius:4px`, [[
-            `div`, `.@_gxM _geQ _gZ`, `@style>color:#47008c;font-size:14px;text-transform:capitalize;font-weight:600`, ModelDate[0]]]]]]]]
+            `div`, `.@_gxM _geQ _gZ`, `&@style>padding:16px 0`, ModelDate[0]], [
+            `div`, `.@_gZ`, `&@style>padding:0 10px`, ModelDate[1]]]]]]]]
   }
 }
