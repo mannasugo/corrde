@@ -3145,7 +3145,7 @@ let Models = {
           MD.secs, `order placed`, `order for pickup`], [
           (MD.paid && MD.paid === true)? MD.last_secs: false, `payment confirmed`, `confirm payment`], [
           MD.flow[0], `processing shipping`, `order delivery`], [ //order arrives in...goes here
-          MD.flow[1], false, `wait for arrival time estimate & shipper assignment`], [ //options for contacting courier goes here...rid section of log, put tel icon instead
+          MD.flow[1], false, `wait for arrival time estimate & shipper assignment`, MD.ideal_secs], [ //options for contacting courier goes here...rid section of log, put tel icon instead
           MD.flow[2], `delivered`]];
 
       let ModelOpt = []; 
@@ -3180,7 +3180,7 @@ let Models = {
             `div`, `.@_eYG`, [[
               `div`, [[`span`, `.@_a2X`, `~@Mann Asugo`]]], [
               `div`, `&@style>width:100%`, [[
-                `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:11px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@${Month[new Date(Sec[0]).getMonth()].substring(0, 3)} ${new Date(Sec[0]).getDate()} ${new Date(Sec[0]).getHours()}:00 - ${new Date(Sec[0] + 3600000).getHours()}:00`]]]]], [
+                `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:11px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@${Month[new Date(Sec[3]).getMonth()].substring(0, 3)} ${new Date(Sec[3]).getDate()} ${new Date(Sec[3] - 3600000).getHours()}:00 - ${new Date(Sec[3]).getHours()}:00`]]]]], [
             `div`, `.@_gZz`, [[
               `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
                 `a`, `.@_TX_a _atX`, `&@href>tel:+254704174162`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]];
@@ -3333,14 +3333,14 @@ let Models = {
 
       let Flow = [
         [
-          MD.flow[1], false, `create shipment`], [
+          MD.flow[1], false, `create shipment`, MD.ideal_secs], [
           MD.flow[2], `delivered`]];
 
       let ModelOpt = []; 
 
       Flow.forEach(Sec => {
 
-        if (Flow.indexOf(Sec) === 0 || Flow.indexOf(Sec) === 1 || Flow.indexOf(Sec) === 2 || Flow.indexOf(Sec) === 3 && Flow[0][0] !== false) {
+        if (Flow.indexOf(Sec) === 0 || Flow.indexOf(Sec) === 1 && Flow[0][0] !== false) {
 
           ModelOpt = [
             `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
@@ -3351,10 +3351,21 @@ let Models = {
 
         let ModelBoolean = [];
 
-        if (Flow.indexOf(Sec) === 3 && Sec[0] === false) {
+        if (Flow.indexOf(Sec) === 0 && Sec[0] !== false) {
 
-        ModelBoolean = [
-          `div`, `.@_gxM _geQ`, [[`span`, `.@_tXx`, `&@style>color:#999`, `~@${Sec[2]}`]]];
+          let Month = [`january`, `february`, `march`, `april`, `may`, `june`, `july`, `august`, `september`, `october`, `november`, `december`];
+
+          ModelBoolean = [
+          `div`, `.@_gxM _geQ`, [[
+            `span`, `.@_cCq`, `&@style>width:30px;height:30px`, [[
+              `img`, `.@_aWz`, `&@src>/gp/p/mugs/mannasugo.jpg`]]], [
+            `div`, `.@_eYG`, [[
+              `div`, [[`span`, `.@_a2X`, `~@mann asugo`]]], [
+              `div`, `&@style>width:100%`, [[
+                `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:11px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@${Month[new Date(Sec[3]).getMonth()].substring(0, 3)} ${new Date(Sec[3]).getDate()} ${new Date(Sec[3] - 3600000).getHours()}:00 - ${new Date(Sec[3]).getHours()}:00`]]]]], [
+            `div`, `.@_gZz`, [[
+              `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+                `a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@review`]]]]]]];
         }
 
         else {
@@ -3400,7 +3411,14 @@ let Models = {
             `section`, `.@_-Zz`, `&@style>width:100%;`, [[
               `div`, `.@_g0`, `&@style>`, [[
                 `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
-                  `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)/*/this.Fx[`kenya`][0]*/).toFixed(2)}`]]], [
+                  `div`, `.@_gxM _geQ`, `&@style>padding:0 0 16px 0`, [[
+                    `span`, `.@Mug`, `&@style>width:30px;height:30px`], [
+                    `div`, `.@_eYG`, [[
+                      `div`, [[`span`, `.@_a2X`, `~@${MD.payer}`]]]]], [
+                    `div`, `.@_gZz`, [[
+                      `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+                        `a`, `.@_TX_a _atX`, `&@href>tel:${MD.mobile};`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]], [
+                  `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)).toFixed(2)}`]]], [
                   `div`, `&@style>padding-bottom:16px`, ModelFlow], [
                   `div`, `&@style>padding-bottom:16px`, ModelCart]]]]]]]]]);
     });

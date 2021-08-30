@@ -9665,8 +9665,12 @@ class Puller extends Auxll {
 
                 P[`flow`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].flow)? Data.till[1][P.MD5].flow: [false, false, false];
 
+                P[`ideal_secs`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].ideal_secs)? Data.till[1][P.MD5].ideal_secs: false;
+
+                P[`payer`] = Data.Ppl[1][P.payer_md].full;
+
                 if (P.MD && P.MD === Vals.md) Pays.push(P);
-              });
+              });console.log(Pays)
 
             }
 
@@ -10213,6 +10217,10 @@ class Puller extends Auxll {
               MD[`dollars`] = Data.Pay[1][MD.md].dollars;
 
               MD[`geo`] = (Area.length > 2)? Area[2]: Area;
+
+              MD[`mobile`] = Data.Pay[1][MD.md].mobile;
+
+              MD[`payer`] = Data.Ppl[1][MD.payer_md].full;
 
               Till.push(MD)
             });

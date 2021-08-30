@@ -2453,7 +2453,7 @@ class Event {
 						}
 					}
 
-					else if (Via.innerHTML === `create shipment`) {
+					else if (Via.innerHTML === `create shipment` || Via.innerHTML === `review`) {
 
 						UA.set({viaslot_md: Via.id});
 
