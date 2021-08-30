@@ -3169,6 +3169,23 @@ let Models = {
           `div`, `.@_gxM _geQ`, [[`span`, `.@_tXx`, `&@style>color:#999`, `~@${Sec[2]}`]]];
         }
 
+        else if (Flow.indexOf(Sec) === 3 && Sec[0] !== false) {
+
+          let Month = [`january`, `february`, `march`, `april`, `may`, `june`, `july`, `august`, `september`, `october`, `november`, `december`];
+
+          ModelBoolean = [
+          `div`, `.@_gxM _geQ`, [[
+            `span`, `.@_cCq`, `&@style>width:30px;height:30px`, [[
+              `img`, `.@_aWz`, `&@src>/gp/p/mugs/mannasugo.jpg`]]], [
+            `div`, `.@_eYG`, [[
+              `div`, [[`span`, `.@_a2X`, `~@Mann Asugo`]]], [
+              `div`, `&@style>width:100%`, [[
+                `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:11px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@${Month[new Date(Sec[0]).getMonth()].substring(0, 3)} ${new Date(Sec[0]).getDate()} ${new Date(Sec[0]).getHours()}:00 - ${new Date(Sec[0] + 3600000).getHours()}:00`]]]]], [
+            `div`, `.@_gZz`, [[
+              `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+                `a`, `.@_TX_a _atX`, `&@href>tel:+254704174162`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]];
+        }
+
         else {
 
           ModelBoolean = [
