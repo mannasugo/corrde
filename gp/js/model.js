@@ -3144,15 +3144,15 @@ let Models = {
         [
           MD.secs, `order placed`, `order for pickup`], [
           (MD.paid && MD.paid === true)? MD.last_secs: false, `payment confirmed`, `confirm payment`], [
-          MD.flow[0], `processing shipping`, `order delivery`], [ //order arrives in...goes here
+          MD.flow[0], `delivery ordered`, `order delivery`], [ //order arrives in...goes here
           MD.flow[1], false, `wait for arrival time estimate & shipper assignment`, MD.ideal_secs], [ //options for contacting courier goes here...rid section of log, put tel icon instead
-          MD.flow[2], `delivered`]];
+          MD.flow[2], `delivered`, `download verification code`]];
 
       let ModelOpt = []; 
 
       Flow.forEach(Sec => {
 
-        if (Flow.indexOf(Sec) === 0 || Flow.indexOf(Sec) === 1 || Flow.indexOf(Sec) === 2 || Flow.indexOf(Sec) === 3 && Flow[0][0] !== false) {
+        if (Flow.indexOf(Sec) === 0 || Flow.indexOf(Sec) === 1 || Flow.indexOf(Sec) === 2 || Flow.indexOf(Sec) === 3 || Flow.indexOf(Sec) === 4 && Flow[0][0] !== false) {
 
           ModelOpt = [
             `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
@@ -3334,13 +3334,13 @@ let Models = {
       let Flow = [
         [
           MD.flow[1], false, `create shipment`, MD.ideal_secs], [
-          MD.flow[2], `delivered`]];
+          MD.flow[2], `delivered`, `verify delivery`]];
 
       let ModelOpt = []; 
 
       Flow.forEach(Sec => {
 
-        if (Flow.indexOf(Sec) === 0 || Flow.indexOf(Sec) === 1 && Flow[0][0] !== false) {
+        if (Flow.indexOf(Sec) === 0 && Flow[0][0] !== false) {
 
           ModelOpt = [
             `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
@@ -3366,6 +3366,13 @@ let Models = {
             `div`, `.@_gZz`, [[
               `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
                 `a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@review`]]]]]]];
+        }
+
+        else if (Flow.indexOf(Sec) === 1 && Sec[0] === false && MD.auth_md) {
+
+          ModelOpt = [
+            `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
+              `a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@${Sec[2]}`]]]
         }
 
         else {

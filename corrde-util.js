@@ -9667,10 +9667,10 @@ class Puller extends Auxll {
 
                 P[`ideal_secs`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].ideal_secs)? Data.till[1][P.MD5].ideal_secs: false;
 
-                P[`payer`] = Data.Ppl[1][P.payer_md].full;
+                //P[`payer`] = Data.Ppl[1][P.payer_md].full;
 
                 if (P.MD && P.MD === Vals.md) Pays.push(P);
-              });console.log(Pays)
+              });
 
             }
 
