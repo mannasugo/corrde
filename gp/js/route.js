@@ -2770,22 +2770,22 @@ class Event {
 						}
 					}
 
-					else if (Via.innerHTML === `download verification code`) {
+					else if (Via.innerHTML === `download parcel verification`) {
 
-						let Pull = Control.Pull([`/pulls/ua/`, {
-							md: UA.get().u.md,
-							pull: `init-via`,
-							tracking_md: Via.id,
-							via_md: Via.id}]);
+						let Pay;
 
-						Pull.onload = () => {
+						UA.get().u.pays.forEach(MD => {
 
-							let Pulls = JSON.parse(Pull.response);
+							if (MD.MD5 === Via.id) Pay = MD;
+						});
 
-							Control.Call();
+						if (!Pay.secs && !Pay.via_x_md) return;
 
-							this.Call();
-						}
+						Tools.getViax([Pay, Via]);
+
+						Control.Call();
+
+						this.Call();
 					}
 
 					else if (Via.innerHTML === `order delivery`) {

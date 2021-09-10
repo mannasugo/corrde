@@ -49,6 +49,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: consola;
+  src: url('/gp/font/consola.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
 @font-face {font-family:DIN-reg;src:url(/gp/font/dinweb.woff2) format('woff2'),url(/gp/font/dinweb.woff) format('woff')}
 
 @font-face{font-family:DIN-medium;src:url(/gp/font/dinweb-medium.woff2) format('woff2'),url(/gp/font/dinweb-medium.woff) format('woff')}

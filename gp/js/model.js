@@ -3146,7 +3146,7 @@ let Models = {
           (MD.paid && MD.paid === true)? MD.last_secs: false, `payment confirmed`, `confirm payment`], [
           MD.flow[0], `delivery ordered`, `order delivery`], [ //order arrives in...goes here
           MD.flow[1], false, `wait for arrival time estimate & shipper assignment`, MD.ideal_secs], [ //options for contacting courier goes here...rid section of log, put tel icon instead
-          MD.flow[2], `delivered`, `download verification code`]];
+          MD.flow[2], `delivered`, `download parcel verification`]];
 
       let ModelOpt = []; 
 
@@ -3239,7 +3239,7 @@ let Models = {
                 `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
                   `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)/*/this.Fx[`kenya`][0]*/).toFixed(2)}`]]], [
                   `div`, `&@style>padding-bottom:16px`, ModelFlow], [
-                  `div`, `&@style>padding-bottom:16px`, ModelCart]]]]]]]]]);
+                  `div`, `&@style>padding-bottom:16px`, ModelCart], [`span`, `&@style>font-family:consola;color:#fff`, `~@text`]]]]]]]]]);
     });
     
     return [
@@ -3414,7 +3414,7 @@ let Models = {
                   `span`, `&@style>margin-left:8px;color:#000`, `~@ ${Tools.getMiles([MD.geo, UA.get().gArray]).toFixed(3)} mi`]]], [
                 `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${this.log(MD.secs)}`]]]]]]], [
             `div`, `.@_QZg`, [[
-              `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
+              `a`, `.@Max000 fold-item`, `&@style>font-family:consola`, `&@href>javascript:;`]]]]]]], [
             `section`, `.@_-Zz`, `&@style>width:100%;`, [[
               `div`, `.@_g0`, `&@style>`, [[
                 `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
