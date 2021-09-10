@@ -9665,11 +9665,16 @@ class Puller extends Auxll {
 
                 P[`flow`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].flow)? Data.till[1][P.MD5].flow: [false, false, false];
 
-                P[`ideal_secs`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].ideal_secs)? Data.till[1][P.MD5].ideal_secs: false;
+                P[`ideal_secs`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].ideal_secs)? Data.till[1][P.MD5].ideal_secs: false; 
 
                 //P[`payer`] = Data.Ppl[1][P.payer_md].full;
 
-                if (P.MD && P.MD === Vals.md) Pays.push(P);
+                if (P.MD && P.MD === Vals.md) {
+
+                  if (Vals.salt && P.flow[1] !== false) P[`via_x_md`] = crypto.createHash(`md5`).update(`${Vals.salt}-${P.flow[1]}`, `utf8`).digest(`hex`);
+
+                  Pays.push(P);
+                }
               });
 
             }

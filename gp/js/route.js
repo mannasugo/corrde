@@ -783,6 +783,8 @@ class Event {
 
 				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
 
+				Pulls.pulls[`salt`] = Vals[1];
+
 				UA.set({u: Pulls.pulls});
 
 				Control.Call();
@@ -953,6 +955,8 @@ class Event {
 				UA.set({ualog: UAlog});
 
 				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
+
+				Pulls.pulls[`salt`] = Vals[4];
 
 				UA.set({u: Pulls.pulls});
 
@@ -2766,7 +2770,7 @@ class Event {
 						}
 					}
 
-					else if (Via.innerHTML === `order delivery`) {
+					else if (Via.innerHTML === `download verification code`) {
 
 						let Pull = Control.Pull([`/pulls/ua/`, {
 							md: UA.get().u.md,
@@ -2778,7 +2782,23 @@ class Event {
 
 							let Pulls = JSON.parse(Pull.response);
 
-						//Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
+							Control.Call();
+
+							this.Call();
+						}
+					}
+
+					else if (Via.innerHTML === `order delivery`) {
+
+						let Pull = Control.Pull([`/pulls/ua/`, {
+							md: UA.get().u.md,
+							pull: `init-via`,
+							tracking_md: Via.id,
+							via_md: Via.id}]);
+
+						Pull.onload = () => {
+
+							let Pulls = JSON.parse(Pull.response);
 
 							Control.Call();
 
@@ -3081,7 +3101,7 @@ class Controller extends Puller {
 
 				if (UA.get().u && UA.get().u.md)  { 
 
-					let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `pays`, state: `md`}]);
+					let Pull = this.Pull([`/pulls/ua/`, {md: UA.get().u.md, pull: `pays`, salt: UA.get().u.salt, state: `md`}]);
 
 					Pull.onload = () => {
 

@@ -3340,7 +3340,7 @@ let Models = {
 
       Flow.forEach(Sec => {
 
-        if (Flow.indexOf(Sec) === 0 && Flow[0][0] !== false) {
+        if (Flow.indexOf(Sec) === 0 && Flow[0][0] === false) {
 
           ModelOpt = [
             `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
@@ -3424,7 +3424,7 @@ let Models = {
                       `div`, [[`span`, `.@_a2X`, `~@${MD.payer}`]]]]], [
                     `div`, `.@_gZz`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
-                        `a`, `.@_TX_a _atX`, `&@href>tel:${MD.mobile};`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]], [
+                        `a`, `.@_TX_a _atX`, `&@href>tel:${MD.mobile}`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]], [
                   `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)).toFixed(2)}`]]], [
                   `div`, `&@style>padding-bottom:16px`, ModelFlow], [
                   `div`, `&@style>padding-bottom:16px`, ModelCart]]]]]]]]]);
