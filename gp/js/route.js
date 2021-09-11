@@ -2358,6 +2358,24 @@ class Event {
 			}]);
 		}
 
+		if (document.querySelector(`.tilled`)) {
+
+			this.listen([document.querySelector(`.tilled`), `click`, S => {
+
+				/*let Pay;
+
+				UA.get().u.pays.forEach(MD => {
+
+					if (MD.MD5 === Via.id) Pay = MD;
+				});
+
+				if (!Pay.secs && !Pay.via_x_md) return;
+
+				Tools.getViax([Pay, Via]);*/
+
+			}]);
+		}
+
 		if (document.querySelector(`.date-slot`)) {
 
 			document.querySelectorAll(`.date-slot`).forEach((S, s) => {

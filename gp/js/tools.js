@@ -41,7 +41,7 @@ class Tool {
 
     let PNG = document.createElement(`a`);
 
-    let Span = [360, (360 + Arg[0].bag.length*(25*2))];
+    let Span = [360, (400 + Arg[0].bag.length*(25*2))];
 
     Plane.width = Span[0];
 
@@ -95,6 +95,8 @@ class Tool {
       Context.fillText(`${(MD[0])}`, 24, ((216 + (Arg[0].bag.length + 4)*16) + ((a + 1)*16)));
     });
 
+    Context.fillText(`ORDER DATE`, 24, Span[1] - 16);
+
     Pay[3][1] = Pay[0][1] + Arg[0].fee;
 
     Context.textAlign = `right`
@@ -121,11 +123,15 @@ class Tool {
       Context.fillText(`${parseFloat(MD[1]).toFixed(2)}`, 336, ((216 + (Arg[0].bag.length + 4)*16) + ((a + 1)*16)));
     });
 
+    let PlaceDay = new Date(Arg[0].secs);
+
+    Context.fillText(`${PlaceDay.getFullYear()}/${PlaceDay.getMonth() + 1}/${PlaceDay.getDate()} ${PlaceDay.getHours()}:${PlaceDay.getMinutes()}:${PlaceDay.getSeconds()}`, 336, Span[1] - 16);
+
     let dataURL = Plane.toDataURL(`image/png`);
 
     Arg[1].href = dataURL;
 
-    Arg[1].download = new Date().valueOf() + `.png`;
+    Arg[1].download = `corrde_parcel_` + new Date().valueOf() + `.png`;
 
   }
 }

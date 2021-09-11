@@ -3425,9 +3425,11 @@ let Models = {
                     `div`, `.@_gZz`, [[
                       `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
                         `a`, `.@_TX_a _atX`, `&@href>tel:${MD.mobile}`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]], [
-                  `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)).toFixed(2)}`]]], [
+                  `div`, `.@_gxM _geQ`, `&@style>padding:0 0 16px`, [[
+                    `span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;`, `~@$${((MD.dollars)).toFixed(2)}`], [
+                    `div`, `.@_gZz`, [[`a`, `.@tilled`, `#@${MD.MD5}`, `&@style>text-decoration:underline`, `&@href>javascript:;`, `~@get receipt`]]]]], [
                   `div`, `&@style>padding-bottom:16px`, ModelFlow], [
-                  `div`, `&@style>padding-bottom:16px`, ModelCart]]]]]]]]]);
+                  `div`, `&@style>padding-bottom:16px`, ModelCart], [`span`, `&@style>font-family:consola;color:#fff`, `~@text`]]]]]]]]]);
     });
     
     return [
