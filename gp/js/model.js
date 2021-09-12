@@ -3186,6 +3186,16 @@ let Models = {
                 `a`, `.@_TX_a _atX`, `&@href>tel:+254704174162`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]];
         }
 
+        else if (Flow.indexOf(Sec) === 4 && Sec[0] !== false) {
+
+          let Day = new Date(Sec[0]);
+
+          ModelBoolean = [
+            `div`, [[
+              `div`, [[`span`, `.@_tXx`, `&@style>color:#1185fe`, `~@${Sec[1]}`]]], [
+              `div`, [[`span`, `.@_a2X`, `~@${Day.getFullYear()}/${Day.getMonth() + 1}/${(Day.getDate() > 9)? Day.getDate(): `0` + Day.getDate()} ${(Day.getHours() > 9)? Day.getHours(): `0` + Day.getHours()}:${(Day.getMinutes() > 9)? Day.getMinutes(): `0` + Day.getMinutes()}:${(Day.getSeconds() > 9)? Day.getSeconds(): `0` + Day.getSeconds()}`]]]]];
+        }
+
         else {
 
           ModelBoolean = [
@@ -3340,6 +3350,8 @@ let Models = {
 
       Flow.forEach(Sec => {
 
+        let ModelBoolean = [];
+
         if (Flow.indexOf(Sec) === 0 && Flow[0][0] === false) {
 
           ModelOpt = [
@@ -3348,8 +3360,6 @@ let Models = {
         }
 
         else ModelOpt = []
-
-        let ModelBoolean = [];
 
         if (Flow.indexOf(Sec) === 0 && Sec[0] !== false) {
 
@@ -3363,16 +3373,31 @@ let Models = {
               `div`, [[`span`, `.@_a2X`, `~@mann asugo`]]], [
               `div`, `&@style>width:100%`, [[
                 `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:11px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@${Month[new Date(Sec[3]).getMonth()].substring(0, 3)} ${new Date(Sec[3]).getDate()} ${new Date(Sec[3] - 3600000).getHours()}:00 - ${new Date(Sec[3]).getHours()}:00`]]]]], [
-            `div`, `.@_gZz`, [[
-              `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
-                `a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@review`]]]]]]];
+            `div`, `.@_gZz`, [(Flow[1][0] !== false)? []: [`div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[`a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@review`]]]]]]];
         }
 
-        else if (Flow.indexOf(Sec) === 1 && Sec[0] === false && MD.auth_md) {
+        else if (Flow.indexOf(Sec) === 1 && Sec[0] === false) {
 
-          ModelOpt = [
-            `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
-              `a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@${Sec[2]}`]]]
+          let ModelVal = [];
+
+          for (let val = 0; val < 7; val++) {
+
+            ModelVal.push([
+              `div`, `.@_geQ`, `&@style>margin:0 4px`, [[
+                `input`, `.@val`, `&@maxlength>1`, `&@style>block-size:30px;max-width:30px;padding: 2px;text-align:center;text-transform:uppercase;font-size:25px`]]]);   
+          }
+
+          ModelBoolean = [`div`, `#@ModelPaygate`, `.@_gxM _geQ`, `&@sum>${MD.md}`, `&@style>max-width:362px`, ModelVal];
+        }
+
+        else if (Flow.indexOf(Sec) === 1 && Sec[0] !== false) {
+
+          let Day = new Date(Sec[0]);
+
+          ModelBoolean = [
+            `div`, [[
+              `div`, [[`span`, `.@_tXx`, `&@style>color:#1185fe`, `~@${Sec[1]}`]]], [
+              `div`, [[`span`, `.@_a2X`, `~@${Day.getFullYear()}/${Day.getMonth() + 1}/${(Day.getDate() > 9)? Day.getDate(): `0` + Day.getDate()} ${(Day.getHours() > 9)? Day.getHours(): `0` + Day.getHours()}:${(Day.getMinutes() > 9)? Day.getMinutes(): `0` + Day.getMinutes()}:${(Day.getSeconds() > 9)? Day.getSeconds(): `0` + Day.getSeconds()}`]]]]];
         }
 
         else {

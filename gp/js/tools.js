@@ -125,7 +125,7 @@ class Tool {
 
     let PlaceDay = new Date(Arg[0].secs);
 
-    Context.fillText(`${PlaceDay.getFullYear()}/${PlaceDay.getMonth() + 1}/${PlaceDay.getDate()} ${PlaceDay.getHours()}:${PlaceDay.getMinutes()}:${PlaceDay.getSeconds()}`, 336, Span[1] - 16);
+    Context.fillText(`${PlaceDay.getFullYear()}/${PlaceDay.getMonth() + 1}/${(PlaceDay.getDate() > 9)? PlaceDay.getDate(): `0` + PlaceDay.getDate()} ${(PlaceDay.getHours() > 9)? PlaceDay.getHours(): `0` + PlaceDay.getHours()}:${(PlaceDay.getMinutes() > 9)? PlaceDay.getMinutes(): `0` + PlaceDay.getMinutes()}:${(PlaceDay.getSeconds() > 9)? PlaceDay.getSeconds(): `0` + PlaceDay.getSeconds()}`, 336, Span[1] - 16);
 
     let dataURL = Plane.toDataURL(`image/png`);
 

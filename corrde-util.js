@@ -9659,6 +9659,8 @@ class Puller extends Auxll {
 
             let Pays = [];
 
+            let alter;
+
             if (Vals.state === `md`) {
 
               Data.Pay[0].forEach(P => {
@@ -10398,6 +10400,56 @@ class Puller extends Auxll {
 
                 this.Stack[3].end(JSON.stringify({pulls: Shelve}));
             });
+          }
+
+          else if (this.Stack[1].pull === `tracevia`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.till[1][Pulls.md]) return;
+
+            let old = JSON.stringify(Data.till[1][Pulls.md]);
+
+            let Old = JSON.parse(old);
+
+            if (!Old.flow || Old.flow[1] === false) return;
+
+            let salt_md = crypto.createHash(`md5`).update(`${Pulls.slice.toLowerCase()}`, `utf8`).digest(`hex`);
+
+            if (salt_md !== Old.salt_md) return;
+
+            Old.flow[2] = new Date().valueOf();
+
+            new Sql().multi({},  
+              `update till set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.till[1][Pulls.md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({pulls: Data.till[0]}));
+              });
+          }
+
+          else if (this.Stack[1].pull === `via-salt`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.till[1][Pulls.md]) return;
+
+            if (!Pulls.salt && Data.till[1][Pulls.md].flow[1] === false) return;
+
+            let via_x_md = crypto.createHash(`md5`).update(`${Pulls.salt}-${Data.till[1][Pulls.md].flow[1]}`, `utf8`).digest(`hex`);
+
+            let salt_md = crypto.createHash(`md5`).update(`${via_x_md.substr(0, 7)}`, `utf8`).digest(`hex`);
+
+            let old = JSON.stringify(Data.till[1][Pulls.md]);
+
+            let Old = JSON.parse(old);
+
+            Old[`salt_md`] = salt_md;
+
+            new Sql().multi({},  
+              `update till set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.till[1][Pulls.md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({pulls: Data.till[0], salt: via_x_md}));
+              });
           }
 
           else if (this.Stack[1].pull === `via-slot`) {

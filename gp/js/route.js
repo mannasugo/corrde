@@ -2487,6 +2487,74 @@ class Event {
 			});
 		}
 
+		if (document.querySelector(`.val`)) {
+
+			let Vals = [];
+
+			document.querySelectorAll(`.val`).forEach((S, val)=> {
+
+				this.listen([S, `focus`, S => {
+
+					let Via = this.getSource(S);
+
+					if (Vals.length < 7) document.querySelectorAll(`.val`)[Vals.length].focus();
+
+					else document.querySelectorAll(`.val`)[Vals.length - 1].focus();
+				}]);
+			});
+
+			document.querySelectorAll(`.val`).forEach((S, val)=> {
+
+				this.listen([S, `keyup`, S => {
+
+					let Via = this.getSource(S);
+
+					if (Vals.length < 7) {
+
+						if (S.key !== `Backspace`) {
+
+							if (Models.Slim(Via.value)) Vals[Vals.length] = Via.value;
+
+							if (Vals.length < 7) document.querySelectorAll(`.val`)[Vals.length].focus();
+						}
+
+					}
+
+					if (S.key === `Backspace`) {
+
+						Vals.pop();
+
+						if (Vals.length < 6) document.querySelectorAll(`.val`)[Vals.length].focus();
+					}
+
+					let Control = new Controller();
+
+					if (Vals.length === 7) {
+
+						let md = document.querySelector(`#ModelPaygate`).getAttribute(`sum`);
+
+						new View().DOM([`main`, [Models.ModelSplash()]]);
+
+						let slice = (Vals.toString().replace(new RegExp(`,`, `g`), ``));
+
+						Vals = [];
+
+						let Pull = Control.Pull([`/pulls/ua/`, {
+							md: md,
+							pull: `tracevia`, 
+							slice : slice}]);
+
+						Pull.onload = () => {
+
+							let Pulls = JSON.parse(Pull.response);
+
+							Control.Call();
+						}
+					}
+				}]);
+			});
+		}
+
 		if (!document.querySelector(`.pws`)) return;
 
 		document.querySelectorAll(`.pws`).forEach(S => {
@@ -2804,6 +2872,27 @@ class Event {
 						Control.Call();
 
 						this.Call();
+
+						let Pull = Control.Pull([`/pulls/ua/`, {
+							md: Via.id,
+							pull: `via-salt`,
+							salt: UA.get().u.salt}]);
+
+						Pull.onload = () => {
+
+							let Pulls = JSON.parse(Pull.response);
+
+							/**
+
+							if (Pulls.salt) {
+
+								Pay.via_x_md = Pulls.salt;
+
+								Tools.getViax([Pay, Via]);
+							}
+
+							**/
+						}
 					}
 
 					else if (Via.innerHTML === `order delivery`) {
