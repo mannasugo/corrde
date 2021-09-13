@@ -3198,10 +3198,12 @@ let Models = {
 
         else {
 
+          let Day = new Date(Sec[0]);
+
           ModelBoolean = [
           `div`, `.@_gxM _geQ`, [
             (Sec[0] === false)? ModelOpt: [`span`, `.@_tXx`, `&@style>color:#1185fe`, `~@${Sec[1]}`], [
-            `div`, `.@_gZz`, [(Sec[0] === false)? []: [`span`, `.@_a2X`, `~@${this.log(Sec[0])}`]]]]];
+            `div`, `.@_gZz`, [(Sec[0] === false)? []: [`span`, `.@_a2X`, `&@style>overflow:hidden;white-space:nowrap;text-overflow:ellipsis`, `~@${Day.getFullYear()}/${Day.getMonth() + 1}/${(Day.getDate() > 9)? Day.getDate(): `0` + Day.getDate()} ${(Day.getHours() > 9)? Day.getHours(): `0` + Day.getHours()}:${(Day.getMinutes() > 9)? Day.getMinutes(): `0` + Day.getMinutes()}:${(Day.getSeconds() > 9)? Day.getSeconds(): `0` + Day.getSeconds()}`]]]]];
         }
 
         if (Flow.indexOf(Sec) > 0 && Flow[Flow.indexOf(Sec) - 1][0] === false) ModelBoolean = [];
@@ -3234,6 +3236,8 @@ let Models = {
           (Flow.indexOf(Sec) < 4)? ModelStep: []]])
       });
 
+      let PlaceDay = new Date(MD.secs);
+
       ModelPays[1].push([
         `div`, `.@_gZ`, `&@style>padding: 0 16px`, [[
         `div`, `.@_gZ _gxM _geQ`, [[
@@ -3241,7 +3245,7 @@ let Models = {
             `span`, `.@ArchiveGray`, `&@style>width:16px;height:16px`], [
             `div`, `.@_eYG`, [[
               `div`, `.@_gxM _geQ`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color: #1185fe`, `~@#${Pay.length - Pay.indexOf(MD)}`], [
-                `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${this.log(MD.secs)}`]]]]]]], [
+                `div`, `.@_eYG`, [[`span`, `.@_a2X`, `~@${PlaceDay.getFullYear()}/${PlaceDay.getMonth() + 1}/${(PlaceDay.getDate() > 9)? PlaceDay.getDate(): `0` + PlaceDay.getDate()} ${(PlaceDay.getHours() > 9)? PlaceDay.getHours(): `0` + PlaceDay.getHours()}:${(PlaceDay.getMinutes() > 9)? PlaceDay.getMinutes(): `0` + PlaceDay.getMinutes()}:${(PlaceDay.getSeconds() > 9)? PlaceDay.getSeconds(): `0` + PlaceDay.getSeconds()}`]]]]]]], [
             `div`, `.@_QZg`, [[
               `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
             `section`, `.@_-Zz`, `&@style>width:100%;`, [[
