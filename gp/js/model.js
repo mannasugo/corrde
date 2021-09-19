@@ -826,7 +826,7 @@ let Models = {
 
         if (P.set.match(`corrde eat`)) P.mass = 0;
 
-        (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items)
+        (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items);
       });
 
       let Axes = [[0, 0], [0, 0]];
@@ -835,28 +835,28 @@ let Models = {
 
       Via.axis[0].forEach(Axis => {
 
-                    let succ = Via.axis[0][Via.axis[0].length - 1]*1000;
+        let succ = Via.axis[0][Via.axis[0].length - 1]*1000;
 
-                    if (Via.axis[0][Via.axis[0].indexOf(Axis) + 1] !== undefined) succ = Via.axis[0][Via.axis[0].indexOf(Axis) + 1];
+        if (Via.axis[0][Via.axis[0].indexOf(Axis) + 1] !== undefined) succ = Via.axis[0][Via.axis[0].indexOf(Axis) + 1];
 
-                    if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = Via.axis[0].indexOf(Axis);
+        if (Mass[0] > Axis && Mass[0] < succ) Axes[0][0] = Via.axis[0].indexOf(Axis);
 
-                    if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = Via.axis[0].indexOf(Axis);
-                  });
+        if (Mass[1] > Axis && Mass[1] < succ) Axes[1][0] = Via.axis[0].indexOf(Axis);
+      });
 
       Via.axis[1].forEach(Axis => {
 
-                    let succ = Via.axis[1][Via.axis[1].length - 1]*1000;
+        let succ = Via.axis[1][Via.axis[1].length - 1]*1000;
 
-                    if (Via.axis[1][Via.axis[1].indexOf(Axis) + 1] !== undefined) succ = Via.axis[1][Via.axis[1].indexOf(Axis) + 1];
+        if (Via.axis[1][Via.axis[1].indexOf(Axis) + 1] !== undefined) succ = Via.axis[1][Via.axis[1].indexOf(Axis) + 1];
 
-                    if (miles > Axis && miles < succ) {
+        if (miles > Axis && miles < succ) {
 
-                      Axes[0][1] = Via.axis[1].indexOf(Axis); 
+          Axes[0][1] = Via.axis[1].indexOf(Axis); 
 
-                      Axes[1][1] = Via.axis[1].indexOf(Axis);
-                    }
-                  });
+          Axes[1][1] = Via.axis[1].indexOf(Axis);
+        }
+      });
 
       fees += parseFloat(Fx[0]*(this.Shipping.light[Axes[0][1]][Axes[0][0]] + this.Shipping.freight[Axes[1][1]][Axes[1][0]])/Fx[4]).toFixed(2);
 

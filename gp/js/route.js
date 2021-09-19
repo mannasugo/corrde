@@ -3142,7 +3142,7 @@ class Controller extends Puller {
 							})
 						}
 
-						if (Sell.length > 0) {
+						if (Sell.length > 0 && (!Sell[0].piled || (Sell[0].piled && Sell[0].piled === `true`))) {
 
 							UA.set({item: Sell[0]});
 
@@ -3151,7 +3151,12 @@ class Controller extends Puller {
 							new Event().Call();
 						}
 
-						else this.v3();
+						else {
+
+							this.SetState([``, `root`, `/`]);
+
+							this.v3();
+						}
 					}
 				}
 			}
