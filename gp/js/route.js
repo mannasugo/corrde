@@ -2555,6 +2555,28 @@ class Event {
 			});
 		}
 
+		if (document.querySelector(`.pile`)) {
+
+			document.querySelectorAll(`.pile`).forEach(S => {
+
+				this.listen([S, `click`, S => {
+
+					let Control = new Controller();
+
+					let Pull = Control.Pull([`/pulls/ua/`, {listing_md: this.getSource(S).id, pull: `pile`}]);
+
+					Pull.onload = () => {
+
+						let Pulls = JSON.parse(Pull.response);
+
+						if (!Pulls.pulls) return;
+
+						Control.Call();
+					}
+				}])
+			})
+		}
+
 		if (!document.querySelector(`.pws`)) return;
 
 		document.querySelectorAll(`.pws`).forEach(S => {

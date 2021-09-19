@@ -10363,6 +10363,25 @@ class Puller extends Auxll {
 
           else if (this.Stack[1].pull === `malls`) this.Stack[3].end(JSON.stringify({pulls: Data.mall[0]}));
 
+          else if (this.Stack[1].pull === `pile`) {
+
+            let Pulls = this.Stack[1];
+
+            if (!Data.Sell[1][Pulls.listing_md]) return;
+
+            let old = JSON.stringify(Data.Sell[1][Pulls.listing_md]);
+
+            let Old = JSON.parse(old);
+
+            Old[`piled`] = (!Old.piled || (Old.piled && Old.piled === `true`))? `false`: `true`;
+
+            new Sql().multi({},  
+              `update inventory set json = '${JSON.stringify(Old)}' where json = '${JSON.stringify(Data.Sell[1][Pulls.listing_md])}'`, (A, B, C) => {
+
+                this.Stack[3].end(JSON.stringify({pulls: Data.Sell[0]}));
+              });
+          }
+
           else if (this.Stack[1].pull === `put-apex-listing`) {
 
             let Pulls = this.Stack[1];
