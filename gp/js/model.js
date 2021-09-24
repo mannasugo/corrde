@@ -359,7 +359,7 @@ let Models = {
     germany: [.84, `€`, `eur`, 110, 1],
     kenya: [109, `k£.`, `kes`, 45, 10.6, [
       [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
-      [`intasend`, [`m-pesa`, `recommended`]], 
+      [`intasend`, [`m-pesa`, `recommended`], [`intasend`, [`auto`, `auto`]]], 
         //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
     ], [
       [`eldoret`, [35.291341, .513839]],
@@ -2998,7 +2998,7 @@ let Models = {
               `span`, `&@style>width:19px;height:19px`, `.@Geo_FFF`], [
               `div`, `.@_eYG`, [[
                 `span`, `.@_tXx`, `&@style>color:#fff;font-family:gotham-book`, `~@${Mile[0].miles.toFixed(3)} mi, `, [[
-                  `span`, `.@_a2X`, `&@style>color:#fff;font-family:litera;font-weight:300`, `~@${Mile[0].mall} warehouse`]]]]], [
+                  `span`, `.@_a2X`, `&@style>color:#fff;font-family:litera;font-weight:300`, `~@${Mile[0].mall} store`]]]]], [
               `div`, `.@_QZg`, [[
                 `span`, `.@_a2X`, `&@style>color:#fff`, `~@${(Mile[0].miles < 12)? `${(Mile[0].miles*2.5).toFixed(2)}min`: ``}`]]]]]]]]])
     }
@@ -3071,7 +3071,7 @@ let Models = {
             `a`, `#@`, `.@Pull`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`], [
             `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`],
             ModelMug, [
-            `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 0 0 10px;position:relative`, `&@href>javascript:;`]]]]]]], this.ModelApp(), [
+            `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 0 0 10px;position:relative`, `&@href>javascript:;`]]]]]]], /*this.ModelApp(),*/ [
         `div`, `#@ModelRow`, `.@_aXZ gZ`, `&@style>margin:55px auto 0`, [ModelMiles[0], [`div`, ModelRow]]], [
           `div`, `.@gZ`, `&@style>padding-bottom: 69px`, /*[ModelCareer[0]]*//*[ModelMail[0]]*/]]];
   },
