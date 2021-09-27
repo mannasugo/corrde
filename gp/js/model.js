@@ -711,7 +711,7 @@ let Models = {
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
                       `div`, `.@_eYG _gxM _a2X`, [[
-                        `span`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `~@${(Row.set === `beverages` || Row.set === Models.Filter(`corrde eat & dine`) || Row.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Row.mailing} (shipping)`}`]]]]]]]]], [
+                        `span`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#47008c`, `~@${(Row.set === `beverages` || Row.set === Models.Filter(`corrde eat & dine`) || Row.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Row.mailing} (shipping)`}`]]]]]]]]], [
             `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
@@ -866,7 +866,7 @@ let Models = {
         `div`, `.@_gxM _yZS`, [[
           `div`, `.@_aXZ`, [[
             `div`, `.@_gxM`, [[
-              `span`, `.@_tXx`, `&@style>text-transform:uppercase;`, `~@${Ports[Port][0].port}`], [
+              `span`, `.@_tXx`, `&@style>text-transform:capitalize;`, `~@${(Ports[Port][0].float)? Ports[Port][0].float[0][0]: `kisumu`} store`], [
               `div`, `.@_QZg`, [[`span`, `.@_a2X`, `~@(orders: ${Ports[Port].length})`]]]]], [
             `div`, `.@_gxM`, [[
               `div`, `.@_geQ _gxM _aXZ`, [[
@@ -2696,7 +2696,7 @@ let Models = {
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
-                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `~@${(Row.set === `beverages` || Row.set === Models.Filter(`corrde eat & dine`) || Row.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Row.mailing} (shipping)`}`]]]]]]]]], [
+                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `.@_tXx`, `~@${(Row.set === `beverages` || Row.set === Models.Filter(`corrde eat & dine`) || Row.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Row.mailing} (shipping)`}`]]]]]]]]], [
             `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
@@ -2803,7 +2803,7 @@ let Models = {
                       `div`, [[`span`, `~@Only from 6:00AM - 8:00PM (MON-SUN)`]]], [
                       `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
                         `div`, [[
-                          `span`, `.@_a2X`, `~@${(Sell.set === `beverages` || Sell.set === Models.Filter(`corrde eat & dine`) || Sell.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Sell.mailing} (shipping)`}`]]], [
+                          `span`, `.@_a2X`, `&@style>color:#47008c`, `~@${(Sell.set === `beverages` || Sell.set === Models.Filter(`corrde eat & dine`) || Sell.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Sell.mailing} (shipping)`}`]]], [
                         `div`, `.@_QZg`, [[
                         `a`, `.@_-tX ${(Sell.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Sell.mall_md && Sell.mall_md.length > 6)? `/mall/${Sell.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
                           `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Sell.miles).toFixed(2)}mi`]]]]]]]]]]], [
@@ -2959,7 +2959,7 @@ let Models = {
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
-                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap`, `~@${(Row.set === `beverages` || Row.set === Models.Filter(`corrde eat & dine`) || Row.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Row.mailing} (shipping)`}`]]]]]]]]], [
+                      `div`, `.@_eYG _gxM _a2X`, [[`span`, `&@style>text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#47008c`, `~@${(Row.set === `beverages` || Row.set === Models.Filter(`corrde eat & dine`) || Row.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Row.mailing} (shipping)`}`]]]]]]]]], [
             `div`, `.@-Zz`, `&@style>position:absolute;bottom:0;right:0;border-radius: 12px 0 0 0;background:rgba(0,0,0,.75);color:#fff`, [[
               `div`, `.@${(Seen[Row.MD5].items && Seen[Row.MD5].items > 0)? ``: `_-Zz`}`, [[
                 `a`, `#@min`, `.@alterCart Min`, data, `&@href>javascript:;`], [
