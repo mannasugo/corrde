@@ -9759,7 +9759,7 @@ class Puller extends Auxll {
 
                   Ports[Port].forEach(P => {
 
-                    if (P.set.match(`corrde eat`)) P.mass = 0;
+                    if (P.set.match(`beverages`) || P.set.match(`corrde eat`) || P.set.match(`fruits`)) P.mass = 0;
 
                     (P.shipping === `freight`)? Mass[1] += parseInt(P.mass)*parseInt(P.items): Mass[0] += parseInt(P.mass)*parseInt(P.items);
 
