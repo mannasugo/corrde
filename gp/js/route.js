@@ -767,27 +767,32 @@ class Event {
 
 			let Pull = Control.Pull([`/pulls/ua/`, {pull: `md`, vals : Vals}]);
 
+			let Via = this.getSource(S).getAttribute(`via`);
+
+			Control.Splash();
+
 			Pull.onload = () => {
 
 				let Pulls = JSON.parse(Pull.response);
 
-				if (!Pulls.md) return;
+				if (Pulls && Pulls.md) {
 
-				let Via = this.getSource(S).getAttribute(`via`);
+					let UAlog = UA.get().ualog;
 
-				let UAlog = UA.get().ualog;
+					UAlog.push(Via);
 
-				UAlog.push(Via);
+					UA.set({ualog: UAlog});
 
-				UA.set({ualog: UAlog});
+					Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
 
-				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
+					Pulls.pulls[`salt`] = Vals[1];
 
-				Pulls.pulls[`salt`] = Vals[1];
+					UA.set({u: Pulls.pulls});
 
-				UA.set({u: Pulls.pulls});
+					Control.Call();
+				}
 
-				Control.Call();
+				else Control.Signin([true, Via]);
 			}
 
 		}]);
@@ -936,7 +941,7 @@ class Event {
 
 			let Via = this.getSource(S).getAttribute(`via`);
 
-			Control.Signup([true, Via]);
+			Control.Splash();
 
 			let Pull = Control.Pull([`/pulls/ua/`, {pull: `inimd`, vals : Vals}]);
 
@@ -946,21 +951,24 @@ class Event {
 
 				let Pulls = JSON.parse(Pull.response);
 
-				if (!Pulls.md) return;
+				if (Pulls && Pulls.md) {
 
-				let UAlog = UA.get().ualog;
+					let UAlog = UA.get().ualog;
 
-				UAlog.push(Via);
+					UAlog.push(Via);
 
-				UA.set({ualog: UAlog});
+					UA.set({ualog: UAlog});
 
-				Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
+					Control.SetState([{}, Via.replace(new RegExp(`/`, `g`), `_`), (Via === `.`)? `/`: Via]);
 
-				Pulls.pulls[`salt`] = Vals[4];
+					Pulls.pulls[`salt`] = Vals[4];
 
-				UA.set({u: Pulls.pulls});
+					UA.set({u: Pulls.pulls});
 
-				Control.Call();
+					Control.Call();
+				}
+
+				else Control.Signup([true, Via]);
 			}
 
 		}]);
@@ -1287,13 +1295,15 @@ class Event {
 
 			let Control = new Controller();
 
+      Control.Splash();
+
       g(a => {
 
         gArray(a);
 
 				(Arg && Arg[0])? Control.Call(): Control.Aisle();
 
-      }, (b) => { 
+      }, (b) => {
 
       	UA.set({gArray: /*[7.723, 50.533]*/[34.753, -.533]/*[34.591577, .000330]*/});
 

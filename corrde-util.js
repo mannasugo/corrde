@@ -9634,23 +9634,26 @@ class Puller extends Auxll {
               if (P.mail === Vals[0] && P.pass === MD.digest(`hex`)) Ppl = P;
             });
 
-            if (!Ppl.mail) return;
+            if (Ppl.mail) {
 
-            let Mall = [];
+              let Mall = [];
 
-            Data.mall[0].forEach(M => {
+              Data.mall[0].forEach(M => {
 
-              if (M.umd === Ppl.sum) Mall.push({alt: M.alt, md: M.md});
-            })
+                if (M.umd === Ppl.sum) Mall.push({alt: M.alt, md: M.md});
+              })
 
-            this.Stack[3].end(JSON.stringify({md: Ppl.sum, pulls: {
+              this.Stack[3].end(JSON.stringify({md: Ppl.sum, pulls: {
               alt: Ppl.full,
               email: Ppl.mail,
               lock: (Ppl.mail === `mannasugo@gmail.com`)? Ppl.pass: false,
               malls: Mall,
               md: Ppl.sum,
               via: (Ppl.via && Ppl.via === true)? Ppl.via: false
-            }}))
+              }}));
+            }
+
+            else this.Stack[3].end(JSON.stringify({state: false}));
           }
 
           else if (this.Stack[1].pull === `pays`) {
@@ -9848,7 +9851,7 @@ class Puller extends Auxll {
               if (P.mail === Vals[0]) Ppl = P;
             });
 
-            if (Ppl.mail) return;
+            if (!Ppl.mail) {
 
             let Stamp = new Date().valueOf();
           
@@ -9873,6 +9876,10 @@ class Puller extends Auxll {
                 md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)
               }}));
             });
+
+            }
+
+            else this.Stack[3].end(JSON.stringify({state: false}));
 
           }
 
