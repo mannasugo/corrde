@@ -522,6 +522,8 @@ class Event {
 
 			let Control = new Controller();
 
+			Control.Splash();
+
 			Control.SetState([{}, `.`, (UA.get().old && UA.get().old.length > 1)? UA.get().old[UA.get().old.length - 2]: `/`]);
 
 			Control.Call();

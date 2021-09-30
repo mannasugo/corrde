@@ -2786,7 +2786,7 @@ let Models = {
                   `div`, this.ModelState(Sell)]]], [
                 `a`, `.@_Qg`, `&@style>height:calc(50vh)`, [[
                   `div`, `.@_Qg0 _geQ`, `&@style>justify-content:center;height:100%`, [[
-                    `img`, `&@sum>${Sell.MD5}`, `&@alt>${Sell.alpha}`, `&@style>max-width:140px`, `&@src>/${Sell.files[0]}`]]]], `&@href>javascript:;`], [
+                    `img`, `&@sum>${Sell.MD5}`, `&@alt>${Sell.alpha}`, `&@style>max-width:240px`, `&@src>/${Sell.files[0]}`]]]], `&@href>javascript:;`], [
                   `div`, `.@_QZg`, `&@style>padding-bottom:24px`, [[
                     `a`, `.@Zoom_1185FE`, `&@href>javascript:;`]]], [
                   `div`, `.@_sZ2`, [[
@@ -2818,7 +2818,7 @@ let Models = {
       `div`, `.@_geQ`, `&@style>justify-content:center`, [[
         `div`, `&@style>position:fixed;top:0;right:0`, [[
           `div`, [[`a`, `.@Close exit-zoom`, `&@style>margin:24px`, `&@href>javascript:;`]]]]], [
-        `img`, `&@sum>`, `&@alt>${UA.get().item.alpha}`, `&@style>height:calc(50vh)`, `&@src>/${UA.get().item.files[0]}`]]]
+        `img`, `&@sum>`, `&@alt>${UA.get().item.alpha}`, `&@style>height:calc(75vh)`, `&@src>/${UA.get().item.files[0]}`]]]
   },
 
   ModelGetApp () {
