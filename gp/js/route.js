@@ -2798,19 +2798,17 @@ class Event {
 
       	All = All.sort((A, B) => {return B.log - A.log});
 
-      	if (!this.getSource(S).value.length > 0) return;
-
       	let Pull = [];
 
       	All.forEach(MD => {
 
-        	if (MD.alpha && (MD.alpha).toString().match(new RegExp(`${this.getSource(S).value}`, `i`))) Pull.push(MD);
+        	if (this.getSource(S).value.length > 0 && MD.alpha && (MD.alpha).toString().match(new RegExp(`${this.getSource(S).value}`, `i`))) Pull.push(MD);
 
       	});
 
 				new View().DOM([`#ModelPays`, [Models.ModelPulls(Pull)]]);
 
-				new Event().Call();
+				/*new Event().Call();*/
       }]);
     }
 	}

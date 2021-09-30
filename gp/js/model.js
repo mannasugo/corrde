@@ -2879,7 +2879,7 @@ let Models = {
     
     return [
       `section`, `@style>max-width:960px;margin:24px auto;width:100%;`, [[
-        `div`, (Arg.length > 0)? `.@_egQ`: ``, (Arg.length > 0)? ModelStock[1]: ModelStock[0]]]];
+        `div`, (Arg.length > 0)? `.@_egQ`: ``,/* (Arg.length > 0)? */ModelStock[1]/*: ModelStock[0]*/]]];
   },
 
   Modelv3 () {
