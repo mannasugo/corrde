@@ -9818,7 +9818,7 @@ class Puller extends Auxll {
                 }
 
                 new Sql().to([`till`, {json: JSON.stringify({
-                  flow: [false, false, false],
+                  flow: [true, false, false],
                   ideal_secs: false,
                   md: Vals.tracking_md,
                   payer_md: Vals.md,

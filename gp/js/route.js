@@ -2931,7 +2931,7 @@ class Event {
 
 						let Pull = Control.Pull([`/pulls/ua/`, {
 							md: UA.get().u.md,
-							pull: `init-via`,
+							pull: `via`,
 							tracking_md: Via.id,
 							via_md: Via.id}]);
 
