@@ -1060,7 +1060,7 @@ class Event {
 					Control.Call();
 				}
 
-				else if (Via === `corrde store`) {
+				else if (Via === `joltbee`) {
 
 					UAlog.push(`.`); 
 
@@ -3025,7 +3025,7 @@ class Controller extends Puller {
 
     	if (!State[4] && !Models.Slim[State[4]]) {
 
-    		document.title = `Careers | Corrde Store`;
+    		document.title = `Careers | joltbee`;
 
 				new View().DOM([`main`, [Models.ModelOpenings()]]);
 
@@ -3034,7 +3034,7 @@ class Controller extends Puller {
 
     	else if (State[4] === `open` && Models.Opening[parseInt(State[5]) - 1] && !State[6] && !Models.Slim[State[6]]) {
 
-    		document.title = `Careers | Corrde Store`;
+    		document.title = `Careers | joltbee`;
 
 				new View().DOM([`main`, [Models.ModelOpening([Models.Opening[parseInt(State[5]) - 1]])]]);
 

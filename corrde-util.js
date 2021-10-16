@@ -4715,7 +4715,7 @@ class UAPublic extends Auxll {
     this.modelStyler(config.lvl.css, CSS => {
 
       const Stack = {
-        title: `Corrde Store`,
+        title: `Joltbee`,
         css: CSS,
         jsState: [config.reqs.js],
         jSStore: JSON.stringify({r: `u`})
@@ -10755,7 +10755,7 @@ class Puller extends Auxll {
                 if (P.MD && P.MD === Vals.md) {
 
                 let Ps = {
-                  file: `https://corrde.com/${P.bag[0][`files`][0]}`,
+                  file: `https://joltbee.com/${P.bag[0][`files`][0]}`,
                   file_plus: P.bag.length - 1,
                   log: model.log(P.secs),
                   md: P.MD5,
@@ -10785,7 +10785,7 @@ class Puller extends Auxll {
               Sells[MD[`set`]].push({
                 alpha: MD.alpha,
                 dollars: (MD.dollars*109).toFixed(2), 
-                file: `https://corrde.com/${MD.files[0]}`,
+                file: `https://joltbee.com/${MD.files[0]}`,
                 mass: MD.mass, 
                 md: MD.MD5})
             });

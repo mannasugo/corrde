@@ -382,14 +382,14 @@ let Models = {
   Mugs: {
 
     [`mannasugo`]: [
-      `mann asugo`, `founder, CTO & systems architect`, 
-      `Mann has served as our Chief Technology Officer since October 2019 and as a member of the Board since January 2021. 
+      `mann asugo`, `founder, CTO, head of engineering & systems architect`, 
+      `Mann has served as joltbee's Chief Technology Officer since October 2019 and as a member of the Board since January 2021. 
       Mann holds a B.Sc. in Mathematics & Computer Science from Maseno University and is also currently pursuing a degree in Software 
-      Engineering from Munich University of Applied Sciences in Germany.`],
+      Engineering from Munich University of Applied Sciences in Germany.`]/*,
 
     [`bwageaustine`]: [`austine bwage`, `co-founder & CEO`, 
       `Austine has served as our Chief Executive Officer since October 2019 and as a member of the Board since January 2021. His current board duties 
-      include earnings auditing, nominating and governance. Austine holds a B.A. in Political Science from Maseno University.`]
+      include earnings auditing, nominating and governance. Austine holds a B.A. in Political Science from Maseno University.`]*/
   },
 
   Opening: [
@@ -508,8 +508,8 @@ let Models = {
         `div`, `.@_-tY`, [[
           `div`, `.@_aXz`, [[
             `div`, `.@_-Xg _gxM _geQ`, [[
-              `a`, `.@-_tX v2App`, `&@style>width:28px;height:28px`, `&@href>/`, `~@corrde`], [
-              `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| corrde store`]]], [
+              `a`, `.@-_tX v2App`, `&@style>width:28px;height:28px`, `&@href>/`, `~@joltbee`], [
+              `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| joltbee`]]], [
             `div`, `.@_QZg`, [[
               `a`, `#@catalog`, `.@-_tX Shop`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], ModelMug]]]]]], ModelStart]];
 	},
@@ -1566,7 +1566,7 @@ let Models = {
 
     if (!UA.get().ws) return;
 
-    let Mugger = [`settings`, `corrde store`];
+    let Mugger = [`settings`, `joltbee`];
 
     let ModelMugger = [];
 
@@ -1846,7 +1846,7 @@ let Models = {
 
     if (!UA.get().pws || UA.get().pws !== true) return;
 
-    let Mugger = [`manage stores`, `manage inventory`, `corrde store`];
+    let Mugger = [`manage stores`, `manage inventory`, `joltbee`];
 
     let ModelMugger = [];
 
@@ -2549,9 +2549,9 @@ let Models = {
                   `div`, `.@_-tY`, `&@style>left:0`, [[
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, `&@style>flex:2`, [[
-                        `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `.@_aA6`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@ investor relations`]]], [
-                      `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
+                        `a`, `#@app`, `.@-_tX v3`, `&@style>min-width:32px;height:32px`, `&@href>javascript:;`, `~@pws`], [
+                        `span`, `.@_aA6`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;/*text-transform:capitalize;*/overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@ investor relations`]]], [
+                      `div`, `.@_gZz`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
   ModelStructure() {
@@ -2559,12 +2559,12 @@ let Models = {
     let Structure = [
       [
         `leadership`, [
-          [`mannasugo`, `mann asugo`, `founder, CTO & systems architect`], 
-          [`bwageaustine`, `austine bwage`, `co-founder & CEO`]]], 
+          [`mannasugo`, `mann asugo`, `founder, CTO, head of engineering & systems architect`]/*, 
+          [`bwageaustine`, `austine bwage`, `co-founder & CEO`]*/]], 
       [
         `board of directors`, [
-          [`mannasugo`, `mann asugo`, `nominating & governance`], 
-          [`bwageaustine`, `austine bwage`, `audit, nominating & governance`]]]];
+          [`mannasugo`, `mann asugo`, `nominating & governance`]/*, 
+          [`bwageaustine`, `austine bwage`, `audit, nominating & governance`]*/]]];
 
     let ModelStructure = [];
 
@@ -3056,7 +3056,7 @@ let Models = {
     ModelCareer.push([
       `div`, `&@style>background:#47008c;padding:24px 5px`, [[
         `div`, `.@_yZS _geQ`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@we are hiring!`]]], [
-        `div`, `.@_yZS _geQ`, [[`span`, `&@style>max-width:600px;text-align:center;color:#fff;font-size:14px`, `~@Corrde Store has achieved rapid service adoption & growth since its inception and as such is always looking for passionate talent to help grow our startup's brand.`]]], [
+        `div`, `.@_yZS _geQ`, [[`span`, `&@style>max-width:600px;text-align:center;color:#fff;font-size:14px`, `~@Joltbee has achieved rapid service adoption & growth since its inception and as such is always looking for passionate talent to help grow our startup's brand.`]]], [
         `div`, `&@style>margin-top:24px;`, [[
           `div`, `&@style>width:100%;max-width:600px;margin:16px auto;border:1px solid rgba(255, 255, 255, 0.54);border-radius:4px`, ModelSlice[0]]]]]])
     
@@ -3066,7 +3066,7 @@ let Models = {
         `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@devs`, `.@-_tX v3`, `&@style>min-width:32px;height:32px`, `&@href>/`, `~@v3`], [
-            `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@  corrde store`]]], [
+            `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;/*text-transform:capitalize;*/overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@  joltbee`]]], [
           `div`, `.@_gZz`, [[
             `a`, `#@`, `.@Pull`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`], [
             `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`],
@@ -3084,7 +3084,7 @@ let Models = {
           `div`, [[`span`, `.@v3`], [
           `div`, [[
             `div`, [[
-              `span`, `.@_tXx`, `&@style>color:#fff;font-size:14px`, `~@Corrde Store`], [
+              `span`, `.@_tXx`, `&@style>color:#fff;font-size:14px`, `~@joltbee`], [
               `span`, `.@_a2X`, `&@style>color:#fff`, `~@last update 6 aug 2021(android 9+)`]]]], `.@_eYG`], [
               `div`, `.@_QZg`, [[
                 `div`, `.@_gM_a _agM _guZ`, `&@style>background:#47008c;border:1px solid #c08bf4`, [[
@@ -3302,9 +3302,9 @@ let Models = {
             `div`, `.@_gZz`, []]]]]], [
         `div`, `.@_aXZ`, `&@style>padding:55px 16px 0;background:#47008c`, [[
           `section`, `&@style>max-width:960px;margin:24px auto;width:100%`, [[
-            `div`, `.@_-Zz`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@Working at Corrde`]]], [
+            `div`, `.@_-Zz`, [[`span`, `&@style>color:#fff;font-size:25px`, `~@Working at joltbee`]]], [
             `div`, `&@style>padding-top:24px;text-align:center`, [[
-              `span`, `&@style>font-size:14px;color:#fff`, `~@We at Corrde are focused on building a vibrant, diverse and accessible work 
+              `span`, `&@style>font-size:14px;color:#fff`, `~@We at joltbee are focused on building a vibrant, diverse and accessible work 
                 environment. As an adaptive tech start-up, we are developing and adopting a modern flexible office & remote working concept
                 for our staff, this means our staff can work from anywhere around the world as it is entirely to their preference.`]]]]]]], [
         `div`, `&@style>width:100%;max-width:960px;margin:16px auto;padding: 0 16px`, [[
