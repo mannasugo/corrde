@@ -1307,10 +1307,10 @@ let Models = {
                 `div`, [[
                   `div`, `.@_-tY`, `&@style>left:0`, [[
                     `div`, `.@_aXz`, [[
-                      `div`, `.@_-Xg _gxM _geQ`, [[
-                        `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
-                      `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
+          `div`, `.@_-Xg _gxM _geQ`, [[
+            `a`, `#@devs`, `.@-_tX v3`, `&@style>min-width:32px;height:32px`, `&@href>/`, `~@v3`], [
+            `span`, `.@_aA6 tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;/*text-transform:capitalize;*/overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@${Arg[0]}`]]], [
+                      `div`, `.@_gZz`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
   ModelVia () {
@@ -1557,9 +1557,9 @@ let Models = {
                   `div`, `.@_-tY`, `&@style>left:0`, [[
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, [[
-                        `a`, `#@devs`, `.@-_tX v0pws`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;text-transform:uppercase`, `~@  ${Arg[0]}`]]], [
-                      `div`, `.@_QZg`, [ModelMug]]]]]]]]]]]]]]]]]];
+                        `a`, `#@devs`, `.@-_tX v3`, `&@style>min-width:32px;height:32px`, `&@href>/`, `~@v3`], [
+                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;/*text-transform:capitalize;*/overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@${Arg[0]}`]]], [
+                      `div`, `.@_gZz`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
   ModelWSMugger () {
