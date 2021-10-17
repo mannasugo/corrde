@@ -4715,7 +4715,7 @@ class UAPublic extends Auxll {
     this.modelStyler(config.lvl.css, CSS => {
 
       const Stack = {
-        title: `Joltbee`,
+        title: `joltbee`,
         css: CSS,
         jsState: [config.reqs.js],
         jSStore: JSON.stringify({r: `u`})

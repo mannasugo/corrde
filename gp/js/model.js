@@ -382,7 +382,7 @@ let Models = {
   Mugs: {
 
     [`mannasugo`]: [
-      `mann asugo`, `founder, CTO, head of engineering & systems architect`, 
+      `mann asugo`, `founder, CTO, systems architect & head of engineering`, 
       `Mann has served as joltbee's Chief Technology Officer since October 2019 and as a member of the Board since January 2021. 
       Mann holds a B.Sc. in Mathematics & Computer Science from Maseno University and is also currently pursuing a degree in Software 
       Engineering from Munich University of Applied Sciences in Germany.`]/*,
@@ -734,7 +734,7 @@ let Models = {
             `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
       	`div`, `#@ModelRow`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
-      			`span`, `.@_cX3 _tXx`, `&@style>padding:12px 16px;text-transform:capitalize;font-size:14px`, `~@${Arg[1]}`]]], [
+      			`span`, `.@_cX3 _tXx`, `&@style>padding:12px 16px;text-transform:capitalize;font-size:14px`, `~@${(Arg[1].match(`corrde`))? `joltbee bites`: Arg[1]}`]]], [
       		`div`, [[`div`, `.@_gZy`, `&@style>padding:0;border-bottom:1px solid #f4f4f4`, ModelRow]]]]]]];
 	},
 
@@ -2559,7 +2559,7 @@ let Models = {
     let Structure = [
       [
         `leadership`, [
-          [`mannasugo`, `mann asugo`, `founder, CTO, head of engineering & systems architect`]/*, 
+          [`mannasugo`, `mann asugo`, `founder, CTO, systems architect & head of engineering`]/*, 
           [`bwageaustine`, `austine bwage`, `co-founder & CEO`]*/]], 
       [
         `board of directors`, [
@@ -2971,7 +2971,7 @@ let Models = {
       ModelRow.push([
         `div`, `.@aXZ _gZ`, `@style>border-bottom:1px solid #f4f4f4`, [[
           `div`, `.@_cX3 _gxM`, [[
-            `span`, `.@_tXx`, `&@style>padding:12px 16px;text-transform:capitalize;color:#47008c`, `~@${A[0]}`], [
+            `span`, `.@_tXx`, `&@style>padding:12px 16px;text-transform:capitalize;color:#47008c;font-size:13px`, `~@${(A[0].match(`corrde`))? `joltbee bites`: A[0]}`], [
             `div`, `.@_QZg`, [[`a`, `&@style>text-decoration:underline`, `&@href>/grocery/${this.Retail.indexOf(Models.Unfilter(A[0]))}/`, `~@view all`]]]]], [
           `div`, `.@_gZy`, `&@style>padding-bottom:0`, ModelSlice]]])
     });
@@ -3103,7 +3103,7 @@ let Models = {
 
       ModelAisle.push([`div`, `.@_gZ`, [[
         `div`, `.@_gxM _geQ`, `&@style>text-transform:capitalize;padding:12px 24px`, [[
-          `span`, `.@_-Zz -_tX ${A[1][0]}`], [`div`, `.@eYG`, [[`span`, `&@style>font-size:12.5px`, `~@${A[0]}`]]]]], [
+          `span`, `.@_-Zz -_tX ${A[1][0]}`], [`div`, `.@eYG`, [[`span`, `&@style>font-size:12.5px`, `~@${(A[0].match(`corrde`))? `joltbee bites`: A[0]}`]]]]], [
         `a`, `.@_aWz`, `&@style>position:absolute`, `&@href>/grocery/${this.Retail.indexOf(Models.Unfilter(A[0]))}/`, `&@for>${A[0]}`]]])
     })
     
