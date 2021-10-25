@@ -357,7 +357,7 @@ let Models = {
   Fx: {
     canada: [1.31, `$`, `cad`, 110, 1.31],
     germany: [.84, `€`, `eur`, 110, 1],
-    kenya: [109, `k£.`, `kes`, 45, 10.6, [
+    kenya: [109, /*`k£.`,*/`kes `, `kes`, 45, 10.6, [
       [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
       [`intasend`, [`m-pesa`, `recommended`], [`intasend`, [`auto`, `auto`]]], 
         //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
@@ -2971,7 +2971,7 @@ let Models = {
       ModelRow.push([
         `div`, `.@aXZ _gZ`, `@style>border-bottom:1px solid #f4f4f4`, [[
           `div`, `.@_cX3 _gxM`, [[
-            `span`, `.@_tXx`, `&@style>padding:12px 16px;text-transform:capitalize;color:#47008c;font-size:13px`, `~@${(A[0].match(`corrde`))? `joltbee bites`: A[0]}`], [
+            `span`, `.@_tXx`, `&@style>padding:12px 16px;text-transform:capitalize;color:#47008c;font-size:14px`, `~@${(A[0].match(`corrde`))? `joltbee bites`: A[0]}`], [
             `div`, `.@_QZg`, [[`a`, `&@style>text-decoration:underline`, `&@href>/grocery/${this.Retail.indexOf(Models.Unfilter(A[0]))}/`, `~@view all`]]]]], [
           `div`, `.@_gZy`, `&@style>padding-bottom:0`, ModelSlice]]])
     });
