@@ -9682,7 +9682,7 @@ class Puller extends Auxll {
 
                 P[`ideal_secs`] = (Data.till[1][P.MD5] && Data.till[1][P.MD5].ideal_secs)? Data.till[1][P.MD5].ideal_secs: false; 
 
-                if (P.MD && P.MD === Vals.md) {
+                if (P.MD && P.MD === Vals.md && P.paid !== `null`) {
 
                   P[`alt`] = Data.Ppl[1][Vals.md][`full`];
 
@@ -9987,10 +9987,16 @@ class Puller extends Auxll {
 
                 else {
 
-                  this.Stack[3].end(JSON.stringify({
-                    paid: false,
-                    paygate: Arg.paygate,
-                    tracking_md: Arg.tracking_md}));
+                  Data.Pay[1][Arg.tracking_md][`paid`] = `null`;
+
+                  new Sql().multi({},  
+                    `update payrequest set json = '${JSON.stringify(Data.Pay[1][Arg.tracking_md])}' where json = '${val}'`, (A, B, C) => {
+
+                    this.Stack[3].end(JSON.stringify({
+                      paid: true,
+                      paygate: Arg.paygate,
+                      tracking_md: Arg.tracking_md}));
+                  });
                 }
               })
             }
