@@ -357,7 +357,7 @@ let Models = {
   Fx: {
     canada: [1.31, `$`, `cad`, 110, 1.31],
     germany: [.84, `€`, `eur`, 110, 1],
-    kenya: [109, /*`k£.`,*/`kes `, `kes`, 45, 10.6, [
+    kenya: [109, /*`k£.`,*/`kes `, `kes`, 45, 24.25, [
       [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
       [`intasend`, [`m-pesa`, `recommended`], [`intasend`, [`auto`, `auto`]]], 
         //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
