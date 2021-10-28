@@ -41,7 +41,7 @@ class Tool {
 
     let PNG = document.createElement(`a`);
 
-    let Span = [360, (400 + Arg[0].bag.length*(25*2))];
+    let Span = [360, (400 + Arg[0].bag.length*(25*4))];
 
     Plane.width = Span[0];
 
@@ -83,9 +83,9 @@ class Tool {
 
     Arg[0].bag.forEach((MD, a) => {
 
-      Context.fillText(`${(MD.log).toString().toUpperCase()}...@${(parseFloat(MD.mass) > 999)? `${(MD.mass/1000).toFixed(1)}KG`: `${MD.mass}G`}`, 24, (216 + (a + 1)*16));
+      Context.fillText(`${(MD.log).toString().toUpperCase()}...@${(parseFloat(MD.mass) > 999)? `${(MD.mass/1000).toFixed(1)}KG`: `${MD.mass}G`}`, 24, (216 + (a + 1)*16*(a + 1)));
 
-      Context.fillText(`${(MD.alpha).toUpperCase()}`, 24, (216 + (a + 2)*16));
+      Context.fillText(`${(MD.alpha).toUpperCase()}`, 24, (216 + (a + 2)*16*(a + 1)));
 
       Pay[0][1] += (MD.items*parseFloat(MD.dollars)*109);
     });

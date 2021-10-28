@@ -728,9 +728,9 @@ let Models = {
             `a`, `#@app`, `.@-_tX From`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
           `div`, `.@_gZz`, `&@style>flex:2`, [[
-            `a`, `.@-_tX Shop`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
-            `a`, `#@`, `.@-Zz -_tX FilterColor`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@-Zz -_tX Pull`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
+            `a`, `#@`, `.@-Zz -_tX FilterColor`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
+            `a`, `.@-_tX Shop`, `&@style>margin: 0 15px;`, `&@href>javascript:;`], [
             `a`, `#@`, `.@_-tX Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 15px;position:relative`, `&@href>javascript:;`]]]]]]], [
       	`div`, `#@ModelRow`, `.@_aXZ`, `&@style>margin:55px auto 0`, [[
       		`div`, `.@_aXZ`, `&@style>border-bottom:1px solid #f4f4f4`, [[
@@ -1156,7 +1156,7 @@ let Models = {
 
     /*Mugger.push(`corrde for business`)*/
 
-    Mugger.push(`investor relations`)
+    /*Mugger.push(`investor relations`)*/
 
     let ModelMugger = [];
 
@@ -2799,7 +2799,7 @@ let Models = {
                   `div`, `.@_gZ _gxM _yZS`, `@style>padding:16px 0`, [[
                     `span`, `.@Ship`], [
                     `div`, `.@_eYG`, [[
-                      `div`, [[`span`, `~@Arrives in 24 hours`]]], [
+                      `div`, [[`span`, `~@Arrives within 24 hours`]]], [
                       `div`, [[`span`, `~@Only from 6:00AM - 8:00PM (MON-SUN)`]]], [
                       `div`, `.@_gxM _geQ`, `&@style>width:100%`, [[
                         `div`, [[
@@ -3067,10 +3067,10 @@ let Models = {
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `#@devs`, `.@-_tX v3`, `&@style>min-width:32px;height:32px`, `&@href>/`, `~@v3`], [
             `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;/*text-transform:capitalize;*/overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@  joltbee`]]], [
-          `div`, `.@_gZz`, [[
-            `a`, `#@`, `.@Pull`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`], [
-            `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`],
+          `div`, `.@_gZz`, [
             ModelMug, [
+            `a`, `#@`, `.@Pull`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`], [
+            `a`, `#@`, `.@Shop`, `&@style>margin: 0 10px;position:relative`, `&@href>javascript:;`], [
             `a`, `#@`, `.@Bag ${(UA.get().trolley && UA.get().trolley.length > 0)? `_-gm`: ``}`, `&@style>margin: 0 0 0 10px;position:relative`, `&@href>javascript:;`]]]]]]], /*this.ModelApp(),*/ [
         `div`, `#@ModelRow`, `.@_aXZ gZ`, `&@style>margin:55px auto 0`, [ModelMiles[0], [`div`, ModelRow]]], [
           `div`, `.@gZ`, `&@style>padding-bottom: 69px`, /*[ModelCareer[0]]*//*[ModelMail[0]]*/]]];
