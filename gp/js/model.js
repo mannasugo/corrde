@@ -1931,7 +1931,7 @@ let Models = {
             `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
             `div`, `.@_eYG`, [[
               `div`, [[`span`, `.@tXx`, `~@${P.alt}`], [
-              `span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]], [
+              `span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]], [
             `div`, `.@_QZg`, [[
               `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
             `section`, `.@_-Zz`, `&@style>width:100%;padding-top:24px`, [[
@@ -2481,7 +2481,7 @@ let Models = {
             `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
             `div`, `.@_eYG`, [[
               `div`, [[`span`, `.@tXx`, `~@${P.alt}`], [
-              `span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]], [
+              `span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]], [
             `div`, `.@_QZg`, [[
               `a`, `.@Max000 fold-item`, `&@href>javascript:;`]]]]]]], [
             `section`, `.@_-Zz`, `&@style>width:100%;padding-top:24px`, [[
@@ -2873,7 +2873,7 @@ let Models = {
             `img`, `&@style>width:32px`, `&@src>/${P.files[0]}`],[
             `div`, `.@_eYG`, [[
               `div`, [[`span`, `.@tXx`, `~@${P.alt}`], [
-              `span`, `.@_tXx`, `&@style>font-family:gotham-book`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]]]]]], [
+              `span`, `.@_tXx`, `&@style>font-family:gotham-book;text-transform:uppercase`, `~@${this.Fx[`kenya`][1]}${(P.dollars*this.Fx[`kenya`][0]).toFixed(2)}`]]]]]]]]], [
         `a`, `&@style>position:absolute;width:100%;height:100%;left:0`, `&@href>/item/${P.MD5}/`]]]);
     });
     
