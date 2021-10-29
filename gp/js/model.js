@@ -695,8 +695,8 @@ let Models = {
                   `div`, this.ModelState(Row)], [
                   `div`, `.@_gZz`, [[
                     `div`, [[
-                      `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`]]], [
-                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
+                      `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:12px;height:12px`]]], [
+                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-size:10.5px;letter-spacing:normal;font-weight:600`, `~@${(Row.miles).toFixed(2)} mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
                     `img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>/item/${Row.MD5}/`], [
@@ -704,7 +704,7 @@ let Models = {
                   `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
-                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
                       `span`, [[
                         `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
@@ -995,7 +995,7 @@ let Models = {
             `a`, `#@paygate`, `.@-_tX From`, `&@href>javascript:;`]]], [
           `div`, `.@_QZg`, `&@style>font-family:gotham-med;text-transform:uppercase`, [[
             `span`, `.@-_tX Bag`, `&@style>width:15px;height:15px;margin: 0 8px`], [
-            `span`, `~@${FX[1]}${(UA.get().payOld*FX[0]).toFixed(2)} ${FX[2]}`]]]]]]], [
+            `span`, `~@${FX[1]}${(UA.get().payOld*FX[0]).toFixed(2)}`]]]]]]], [
       `section`, `#@ModelPaygate`, `.@_tY0`, `&@style>height:100%;padding:24px;`, [[
         `div`, `.@_geQ`, `&@style>max-width:362px;width:100%;margin:auto;justify-content:center;`, [[
           `h2`, `~@mobile pay`], [
@@ -2682,7 +2682,7 @@ let Models = {
                   `div`, this.ModelState(Row)], [
                   `div`, `.@_QZg`, [[
                     `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
-                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
+                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600;font-size:10px;letter-spacing:normal;`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
                     `img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>/item/${Row.MD5}/`], [
@@ -2690,7 +2690,7 @@ let Models = {
                   `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
-                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
                       `span`, `.@_gp2`, [[
                         `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
@@ -2793,9 +2793,9 @@ let Models = {
                     `div`, [[`span`, `.@_tXx`, `&@style>font-size:14px`, `~@${Sell.alpha}`]]], [
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
-                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal;font-size:14px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Sell.dollars).toFixed(2)} ${Fx[UA.get().area][2]}`]]], [
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal;font-size:14px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Sell.dollars).toFixed(2)}`]]], [
                       `span`, `.@_gp2`, [[
-                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Sell.mass) > 999)? `${(Sell.mass/1000).toFixed(1)}KG`: `${Sell.mass}G`})`]]]]]]], [
+                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 4px;font-size:10px;color:#6d6e71`, `~@(${(parseFloat(Sell.mass) > 999)? `${(Sell.mass/1000).toFixed(1)}KG`: `${Sell.mass}G`})`]]]]]]], [
                   `div`, `.@_gZ _gxM _yZS`, `@style>padding:16px 0`, [[
                     `span`, `.@Ship`], [
                     `div`, `.@_eYG`, [[
@@ -2805,8 +2805,8 @@ let Models = {
                         `div`, [[
                           `span`, `.@_a2X`, `&@style>color:#47008c`, `~@${(Sell.set === `beverages` || Sell.set === Models.Filter(`corrde eat & dine`) || Sell.set === Models.Filter(`fruits & vegetables`))? `free delivery`: `${Fx[UA.get().area][1] + `` + Sell.mailing} (shipping)`}`]]], [
                         `div`, `.@_QZg`, [[
-                        `a`, `.@_-tX ${(Sell.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Sell.mall_md && Sell.mall_md.length > 6)? `/mall/${Sell.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`], [
-                          `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Sell.miles).toFixed(2)}mi`]]]]]]]]]]], [
+                        `a`, `.@_-tX ${(Sell.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Sell.mall_md && Sell.mall_md.length > 6)? `/mall/${Sell.mall_md}/`: `javascript:;`}`, `&@style>width:12px;height:12px`], [
+                          `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600;font-size:10.5px;letter-spacing:normal;`, `~@${(Sell.miles).toFixed(2)} mi`]]]]]]]]]]], [
                   `div`, `.@_gZ`]]]]]]]]]]];
   },
 
@@ -2944,8 +2944,8 @@ let Models = {
                   `div`, this.ModelState(Row)], [
                   `div`, `.@_gZz`, [[
                     `div`, [[
-                      `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:19px;height:19px`]]], [
-                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600`, `~@${(Row.miles).toFixed(2)}mi`]]]]]]], [
+                      `a`, `.@_-tX ${(Row.pws_md === false)? `Geo_1185FE`: `Geo_EEDF00`}`, `&@href>${(Row.mall_md && Row.mall_md.length > 6)? `/mall/${Row.mall_md}/`: `javascript:;`}`, `&@style>width:12px;height:12px`]]], [
+                    `div`, [[`span`, `&@style>margin-left:5px;font-family:gotham-book;font-weight:600;font-size:10.5px;letter-spacing:normal;`, `~@${(Row.miles).toFixed(2)} mi`]]]]]]], [
                 `a`, `.@_Qg`, [[
                   `div`, `.@_Qg0 _geQ`, [[
                     `img`, `&@sum>${Row.MD5}`, `&@alt>${Row.alpha}`, `&@style>max-width:140px`, `&@src>/${Row.files[0]}`]]]], `&@href>/item/${Row.MD5}/`], [
@@ -2953,7 +2953,7 @@ let Models = {
                   `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
-                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:.8px`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
                       `span`, [[
                         `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
@@ -3187,7 +3187,7 @@ let Models = {
             `div`, `.@_eYG`, [[
               `div`, [[`span`, `.@_a2X`, `~@Mann Asugo`]]], [
               `div`, `&@style>width:100%`, [[
-                `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:11px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@${Month[new Date(Sec[3]).getMonth()].substring(0, 3)} ${new Date(Sec[3]).getDate()} ${new Date(Sec[3] - 3600000).getHours()}:00 - ${new Date(Sec[3]).getHours()}:00`]]]]], [
+                `span`, `.@_tXx`, `&@style>letter-spacing:normal;font-family:gotham-book;font-size:10px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@delivers by ${new Date(Sec[3]).getDate()} ${Month[new Date(Sec[3]).getMonth()].substring(0, 3)} ${new Date(Sec[3]).getHours()}:00`]]]]], [
             `div`, `.@_gZz`, [[
               `div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[
                 `a`, `.@_TX_a _atX`, `&@href>tel:+254704174162`, `&@style>font-size:12px;font-weight:300;`, `~@Call`]]]]]]];
@@ -3258,7 +3258,7 @@ let Models = {
             `section`, `.@_-Zz`, `&@style>width:100%;`, [[
               `div`, `.@_g0`, `&@style>`, [[
                 `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
-                  `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)/*/this.Fx[`kenya`][0]*/).toFixed(2)}`]]], [
+                  `div`, `.@`, [[`span`, `.@_tXx`, `&@style>font-family:gotham-book;color:#1185fe;padding:0 0 16px`, `~@$${((MD.dollars)/*/this.Fx[`kenya`][0]*/).toFixed(2)} USD`]]], [
                   `div`, `&@style>padding-bottom:16px`, ModelFlow], [
                   `div`, `&@style>padding-bottom:16px`, ModelCart], [`span`, `&@style>font-family:consola;color:#fff`, `~@text`]]]]]]]]]);
     });
