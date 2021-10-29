@@ -3383,7 +3383,7 @@ let Models = {
             `div`, `.@_eYG`, [[
               `div`, [[`span`, `.@_a2X`, `~@mann asugo`]]], [
               `div`, `&@style>width:100%`, [[
-                `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:11px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden`, `~@${Month[new Date(Sec[3]).getMonth()].substring(0, 3)} ${new Date(Sec[3]).getDate()} ${new Date(Sec[3] - 3600000).getHours()}:00 - ${new Date(Sec[3]).getHours()}:00`]]]]], [
+                `span`, `.@_tXx`, `&@style>font-family:gotham-book;font-size:10px;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;letter-spacing:normal`, `~@${new Date(Sec[3]).getDate()} ${Month[new Date(Sec[3]).getMonth()].substring(0, 3)} ${new Date(Sec[3] - 3600000).getHours()}:00 - ${new Date(Sec[3]).getHours()}:00`]]]]], [
             `div`, `.@_gZz`, [(Flow[1][0] !== false)? []: [`div`, `.@_gM_a _agM _guZ`, `&@style>background:#1185fe;max-width:max-content`, [[`a`, `#@${MD.md}`, `.@_TX_a _atX flow`, `&@href>javascript:;`, `&@style>font-size:12px;font-weight:300;`, `~@review`]]]]]]];
         }
 
@@ -3455,7 +3455,10 @@ let Models = {
               `div`, `.@_g0`, `&@style>`, [[
                 `div`, `.@_gX0`, `&@style>max-width:960px;margin:0 auto;width:100%`, [[
                   `div`, `.@_gxM _geQ`, `&@style>padding:0 0 16px 0`, [[
-                    `span`, `.@Mug`, `&@style>width:30px;height:30px`], [
+                    `span`,  `&@style>position:relative;height:24px`, [[
+                      `svg`, `&@style>min-height:24px;width:24px`, `&@viewBox>0 0 24 24`, [[
+                        `circle`, `&@cy>12`, `&@cx>12`, `&@r>12`, `&@stroke>none`, `&@fill>#47008c`], [
+                        `text`, `&@x>12`, `&@y>16`, `&@text-anchor>middle`, `&@style>fill: #fff;text-transform:uppercase;letter-spacing:normal;font-size: 12px;`, `~@${MD.payer[0]}`]]]]], [
                     `div`, `.@_eYG`, [[
                       `div`, [[`span`, `.@_a2X`, `~@${MD.payer}`]]]]], [
                     `div`, `.@_gZz`, [[
