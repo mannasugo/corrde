@@ -10517,7 +10517,7 @@ class Puller extends Auxll {
         });
       }
 
-      else if (this.Stack[0][2] === `mobile`) {
+      else if (this.Stack[0][2] === `v0.2.0`) {
 
         this.Sell(Data => {
 
@@ -10778,6 +10778,17 @@ class Puller extends Auxll {
 
           else {
 
+            let FX = config.Fx[`kenya`]
+
+            let Mile = [];
+
+            FX[6].forEach(Float => {
+
+              Mile.push({mall: Float[0], miles: this.getMiles([Float[1], this.Stack[1].dot])});
+            });
+
+            Mile.sort((A, B) => {return A.miles - B.miles});
+
             let Sells = {};
 
             Data.Sell[0].forEach(MD => {
@@ -10792,6 +10803,7 @@ class Puller extends Auxll {
                 alpha: MD.alpha,
                 dollars: (MD.dollars*109).toFixed(2), 
                 file: `https://joltbee.com/${MD.files[0]}`,
+                miles: Mile[0].miles,
                 mass: MD.mass, 
                 md: MD.MD5})
             });
