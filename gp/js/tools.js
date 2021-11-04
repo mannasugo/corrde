@@ -95,7 +95,7 @@ class Tool {
       Context.fillText(`${(MD[0])}`, 24, ((216 + (Arg[0].bag.length + 4)*16) + ((a + 1)*16)));
     });
 
-    Context.fillText(`ORDER DATE`, 24, Span[1] - 16);
+    Context.fillText(`ORDER DATE`, 24, Span[1] - 56);
 
     Pay[3][1] = Pay[0][1] + Arg[0].fee;
 
@@ -107,7 +107,7 @@ class Tool {
 
     Context.fillText(`SEQ ${(Arg[0].via_x_md).substring(0, 7).toUpperCase()}XX`, 336, 56);
 
-    Context.fillText(`CONTACT:+254704174162`, 336, 136);
+    Context.fillText(`MOBILE:+254704174162`, 336, 136);
 
     Context.fillText(`${Day.getFullYear()}/${Day.getMonth() + 1}/${Day.getDate()} ${new Date(Arg[0].ideal_secs - 3600000).getHours()}:00-${Day.getHours()}:00`, 336, 152);
 
@@ -131,7 +131,7 @@ class Tool {
 
     Arg[1].href = dataURL;
 
-    Arg[1].download = `corrde_parcel_` + new Date().valueOf() + `.png`;
+    Arg[1].download = `joltbee_parcel_` + new Date().valueOf() + `.png`;
 
   }
 }

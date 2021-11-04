@@ -10803,6 +10803,7 @@ class Puller extends Auxll {
                 alpha: MD.alpha,
                 dollars: (MD.dollars*109).toFixed(2), 
                 file: `https://joltbee.com/${MD.files[0]}`,
+                mall: Mile[0].mall,
                 miles: Mile[0].miles,
                 mass: MD.mass, 
                 md: MD.MD5})
