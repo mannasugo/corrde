@@ -41,7 +41,7 @@ class Tool {
 
     let PNG = document.createElement(`a`);
 
-    let Span = [360, (400 + Arg[0].bag.length*(25*4))];
+    let Span = [360, (216*2 + (Arg[0].bag.length + 1)*25) + ((Arg[0].bag.length + 1)*25) + Pay.length*25];
 
     Plane.width = Span[0];
 
@@ -55,9 +55,9 @@ class Tool {
 
     Context.lineTo(360, 0);
 
-    Context.lineTo(360, 480);
+    Context.lineTo(360, Span[1]);
 
-    Context.lineTo(0, 480);
+    Context.lineTo(0, Span[1]);
 
     Context.fill();
 
@@ -83,19 +83,19 @@ class Tool {
 
     Arg[0].bag.forEach((MD, a) => {
 
-      Context.fillText(`${(MD.log).toString().toUpperCase()}...@${(parseFloat(MD.mass) > 999)? `${(MD.mass/1000).toFixed(1)}KG`: `${MD.mass}G`}`, 24, (216 + (a + 1)*16*(a + 1)));
+      Context.fillText(`${(MD.log).toString().toUpperCase()}...@${(parseFloat(MD.mass) > 999)? `${(MD.mass/1000).toFixed(1)}KG`: `${MD.mass}G`}`, 24, (216 + (a + 1)*16+(a * 25)));
 
-      Context.fillText(`${(MD.alpha).toUpperCase()}`, 24, (216 + (a + 2)*16*(a + 1)));
+      Context.fillText(`${(MD.alpha).toUpperCase()}`, 24, (216 + (a + 2)*16 + (a*25)));
 
       Pay[0][1] += (MD.items*parseFloat(MD.dollars)*109);
     });
 
     Pay.forEach((MD, a) => {
 
-      Context.fillText(`${(MD[0])}`, 24, ((216 + (Arg[0].bag.length + 4)*16) + ((a + 1)*16)));
+      Context.fillText(`${(MD[0])}`, 24, ((216 + (Arg[0].bag.length + 1)*25) + ((Arg[0].bag.length + 1)*25) + ((a + 1)*25)));
     });
 
-    Context.fillText(`ORDER DATE`, 24, Span[1] - 56);
+    Context.fillText(`ORDER DATE`, 24, Span[1] - 24);
 
     Pay[3][1] = Pay[0][1] + Arg[0].fee;
 
@@ -107,25 +107,25 @@ class Tool {
 
     Context.fillText(`SEQ ${(Arg[0].via_x_md).substring(0, 7).toUpperCase()}XX`, 336, 56);
 
-    Context.fillText(`MOBILE:+254704174162`, 336, 136);
+    Context.fillText(`MOBILE: +254704174162`, 336, 136);
 
     Context.fillText(`${Day.getFullYear()}/${Day.getMonth() + 1}/${Day.getDate()} ${new Date(Arg[0].ideal_secs - 3600000).getHours()}:00-${Day.getHours()}:00`, 336, 152);
 
     Arg[0].bag.forEach((MD, a) => {
 
-      Context.fillText(`${MD.items} x ${parseFloat(MD.dollars*109).toFixed(2)}`, 336, (216 + (a + 1)*16));
+      Context.fillText(`${MD.items} x ${parseFloat(MD.dollars*109).toFixed(2)}`, 336, (216 + (a + 1)*16 + (a*25)));
 
-      Context.fillText(`${(MD.items*parseFloat(MD.dollars)*109).toFixed(2)}`, 336, (216 + (a + 2)*16));
+      Context.fillText(`${(MD.items*parseFloat(MD.dollars)*109).toFixed(2)}`, 336, (216 + (a + 2)*16 + (a*25)));
     });
 
     Pay.forEach((MD, a) => {
 
-      Context.fillText(`${parseFloat(MD[1]).toFixed(2)}`, 336, ((216 + (Arg[0].bag.length + 4)*16) + ((a + 1)*16)));
+      Context.fillText(`${parseFloat(MD[1]).toFixed(2)}`, 336, ((216 + (Arg[0].bag.length + 1)*25) + ((Arg[0].bag.length + 1)*25) + ((a + 1)*25)));
     });
 
     let PlaceDay = new Date(Arg[0].secs);
 
-    Context.fillText(`${PlaceDay.getFullYear()}/${PlaceDay.getMonth() + 1}/${(PlaceDay.getDate() > 9)? PlaceDay.getDate(): `0` + PlaceDay.getDate()} ${(PlaceDay.getHours() > 9)? PlaceDay.getHours(): `0` + PlaceDay.getHours()}:${(PlaceDay.getMinutes() > 9)? PlaceDay.getMinutes(): `0` + PlaceDay.getMinutes()}:${(PlaceDay.getSeconds() > 9)? PlaceDay.getSeconds(): `0` + PlaceDay.getSeconds()}`, 336, Span[1] - 16);
+    Context.fillText(`${PlaceDay.getFullYear()}/${PlaceDay.getMonth() + 1}/${(PlaceDay.getDate() > 9)? PlaceDay.getDate(): `0` + PlaceDay.getDate()} ${(PlaceDay.getHours() > 9)? PlaceDay.getHours(): `0` + PlaceDay.getHours()}:${(PlaceDay.getMinutes() > 9)? PlaceDay.getMinutes(): `0` + PlaceDay.getMinutes()}:${(PlaceDay.getSeconds() > 9)? PlaceDay.getSeconds(): `0` + PlaceDay.getSeconds()}`, 336, Span[1] - 24);
 
     let dataURL = Plane.toDataURL(`image/png`);
 

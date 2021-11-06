@@ -726,6 +726,17 @@ class Event {
 
 			else {
 
+				/**
+
+				Tools.getViax([{
+					alt: `mann asugo`, 
+					bag: UA.get().trolley,
+					MD: `xxx`,
+					MD5: `xxx`,
+					via_x_md: `xxx`}, this.getSource(S)]);
+
+				**/
+
 				let UAlog = UA.get().ualog;
 
 				UAlog.push(`/paygate/`);
