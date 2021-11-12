@@ -2953,9 +2953,7 @@ let Models = {
                   `div`, `.@_pY`, `&@style>padding:16px 0 0`, [[
                     `div`, `.@_Xx _gxM`, [[
                       `span`, `.@_tXx`, [[
-                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], [
-                      `span`, [[
-                        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Row.mass) > 999)? `${(Row.mass/1000).toFixed(1)}KG`: `${Row.mass}G`})`]]]]], [
+                        `span`, `.@_p0`, `&@style>font-family:gotham-book;text-transform:uppercase;letter-spacing:normal`, `~@${Fx[UA.get().area][1]}${(Fx[UA.get().area][0]*Row.dollars).toFixed(2)}`]]], this.ModelMass(Row)]], [
                     `a`, `#@pullRetailStock`, `&@sum>${Row.MD5}`, `.@_a2`, [[
                       `span`, `.@_aA2`, `&@style>line-height:22px;-moz-orient:vertical;display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;font-size:12px;text-transform:capitalize;display:block;white-space:nowrap;text-overflow:ellipsis`, `~@${Row.alpha}`]], `&@href>javascript:;`]]], [
                     `div`, `.@_gcQ _aXZ _yZS`, [[`span`, `.@-_tX v3`], [
@@ -3548,5 +3546,17 @@ let Models = {
           `div`, `&@style>font-size:14px;border:1px solid #f4f4f4;border-radius:4px`, [[
             `div`, `.@_gxM _geQ _gZ`, `&@style>padding:16px 0`, ModelDate[0]], [
             `div`, `.@_gZ`, `&@style>padding:0 10px`, ModelDate[1]]]]]]]]
+  },
+
+  ModelMass (Arg) {
+
+    let Set = [`clothing`];
+
+    if (Set.indexOf(Arg.set) > -1) return [];
+
+    else return [
+      `span`, [[
+        `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Arg.mass) > 999)? `${(Arg.mass/1000).toFixed(1)}KG`: `${Arg.mass}G`})`]]]
+
   }
 }
