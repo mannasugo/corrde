@@ -2795,6 +2795,8 @@ class Event {
 
 				let Control = new Controller();
 
+				Control.Splash();
+
 				Control.SetState(``, ``, (UA.get().old)? UA.get().old[UA.get().old.length - 1]: `/`);
 
 				Control.Call();
