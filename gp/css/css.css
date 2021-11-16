@@ -834,17 +834,24 @@ body {
   background-position: -182px -357px;
 }
 
-.intasend {
-  background-image: url(/gp/p/raster/intasend.png);
-  background-position: 0 0;
-  background-size: 100%;
-}
-
 .Flutterwave {
   background-image: url(/gp/p/vector/flutterwave_logo_color.svg);
   background-repeat: no-repeat;
   width: 144px;
   height: 154px;
+}
+
+.Jengapay {
+  background-image: url(/gp/p/vector/jengapay.svg);
+  background-repeat: no-repeat;
+  width: 144px;
+  height: 154px;
+}
+
+.intasend {
+  background-image: url(/gp/p/raster/intasend.png);
+  background-position: 0 0;
+  background-size: 100%;
 }
 
 .MailColor {

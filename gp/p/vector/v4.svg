@@ -1,0 +1,36 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 74 24">
+  <style>
+
+    svg {background: transparent}
+    
+    .box {
+      stroke: none;
+      fill: #c08bf4;
+    }
+    
+    .strip {
+      stroke: none;
+      fill: #47008c;
+    }
+    
+    .outline {
+      stroke: none;
+      fill: #47008c;
+    }
+
+    text {
+      font-size: 12.5px;
+      letter-spacing: .64px;
+      font-family: litera;
+      fill:#fff;
+      stroke-width:.5;
+      stroke: #fff;
+    }
+
+  </style>
+  <g>
+    <path class="box" d="M12 2 22 6 22 18 12 22 2 18 2 6z"></path>
+    <path class="strip" d="M6 7.5 16 3.5 19 4.75 9 8.75 9 13.75 6 12.5"></path>
+    <text x="28" y="17">joltbee</text>
+  </g>
+  </svg>

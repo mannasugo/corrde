@@ -1,0 +1,11 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+
+    svg {background: transparent}
+
+  </style>
+  <g>
+    <circle fill="#47008c" stroke="none" r="11.5" cx="12" cy="12"></circle>
+    <circle fill="#47008c" stroke-width=".25" stroke="#fff" r="9.5" cx="12" cy="12"></circle>
+  </g>
+  </svg>

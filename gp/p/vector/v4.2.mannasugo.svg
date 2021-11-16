@@ -1,0 +1,21 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 24">
+  <style>
+
+    svg {background: #47008c}
+
+    text {
+      font-size: 12.5px;
+      letter-spacing: .64px;
+      font-family: litera;
+      fill:#fff;
+      stroke-width:.5;
+      stroke: #fff;
+      //text-anchor: middle
+    }
+
+  </style>
+  <g>
+    <text x="25" y="12">Mann Asugo</text>
+    <text x="0" y="27">Head of Engineering</text>
+  </g>
+  </svg>

@@ -360,7 +360,7 @@ let Models = {
     kenya: [109, /*`k£.`,*/`kes `, `kes`, 45, 24.25, [
       [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
       [`intasend`, [`m-pesa`, `recommended`], [`intasend`, [`auto`, `auto`]]], 
-        //[`jengapay`, [`m-pesa, eazzy pay`, `offline`]]
+      [`jengapay`, [`m-pesa, eazzy pay`, `offline`], [`Jengapay`, [`120`, `24`]]]
     ], [
       [`eldoret`, [35.291341, .513839]],
       [`homa bay`, [34.471160, -.524375]], 
