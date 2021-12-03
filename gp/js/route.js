@@ -1007,6 +1007,8 @@ class Event {
 
 				else if (Via === `my orders` || Via === `pays`) {
 
+					Control.Splash();
+
 					UAlog.push(`/orders/`);
 
 					UA.set({pays: `all`, ualog: UAlog});
@@ -1017,6 +1019,8 @@ class Event {
 				}
 
 				else if (Via === `manage store`) {
+
+					Control.Splash();
 
 					UAlog.push(`/pws/`);
 
@@ -2648,6 +2652,8 @@ class Event {
 				if (Via === `pws-list`) Control.initRetail();
 
 				if (Via === `pws-listings`) {
+
+					Control.Splash();
 
 					UAlog.push(`/pws/listings/`);
 

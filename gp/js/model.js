@@ -385,7 +385,12 @@ let Models = {
       `mann asugo`, `founder, CTO, systems architect & head of engineering`, 
       `Mann has served as joltbee's Chief Technology Officer since October 2019 and as a member of the Board since January 2021. 
       Mann holds a B.Sc. in Mathematics & Computer Science from Maseno University and is also currently pursuing a degree in Software 
-      Engineering from Munich University of Applied Sciences in Germany.`]/*,
+      Engineering from Munich University of Applied Sciences in Germany.`],
+
+    [`akhim`]: [
+      `raphael akhim`, `head of operations`, 
+      `Akhim joined joltbee as operations and marketing czar and has held the role of head of operations since October 2021 he has also served as a member of the Board since then. 
+      Akhim attended Egerton University.`]/*,
 
     [`bwageaustine`]: [`austine bwage`, `co-founder & CEO`, 
       `Austine has served as our Chief Executive Officer since October 2019 and as a member of the Board since January 2021. His current board duties 
@@ -2557,11 +2562,13 @@ let Models = {
     let Structure = [
       [
         `leadership`, [
-          [`mannasugo`, `mann asugo`, `founder, CTO, systems architect & head of engineering`]/*, 
+          [`mannasugo`, `mann asugo`, `founder, CTO, systems architect & head of engineering`],
+          [`akhim`, `raphael akhim`, `head of operations`]/*, 
           [`bwageaustine`, `austine bwage`, `co-founder & CEO`]*/]], 
       [
         `board of directors`, [
-          [`mannasugo`, `mann asugo`, `nominating & governance`]/*, 
+          [`mannasugo`, `mann asugo`, `audit, nominating & governance`], 
+          [`akhim`, `raphael akhim`, `nominating & governance`]/*, 
           [`bwageaustine`, `austine bwage`, `audit, nominating & governance`]*/]]];
 
     let ModelStructure = [];
@@ -3539,7 +3546,7 @@ let Models = {
         `section`, `&@style>margin:54px auto;padding:16px 5px;width:100%;max-width:600px`, [[
           `div`, `&@style>font-size:14px;border:1px solid #f4f4f4;border-radius:4px`, [[
             `div`, `.@_gxM _geQ _gZ`, `&@style>padding:16px 0`, ModelDate[0]], [
-            `div`, `.@_gZ`, `&@style>padding:0 10px`, ModelDate[1]]]]]]]]
+            `div`, `.@_gZ`, `&@style>padding:0 10px`, ModelDate[1]]]]]]]];
   },
 
   ModelMass (Arg) {
@@ -3551,6 +3558,11 @@ let Models = {
     else return [
       `span`, [[
         `span`, `.@_tXx`, `&@style>margin: 0 0 0 8px;font-size:10px;color:#6d6e71`, `~@ (${(parseFloat(Arg.mass) > 999)? `${(Arg.mass/1000).toFixed(1)}KG`: `${Arg.mass}G`})`]]]
+
+  },
+
+  ModelDollars (Arg) {
+
 
   }
 }
