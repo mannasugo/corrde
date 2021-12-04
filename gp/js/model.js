@@ -390,11 +390,11 @@ let Models = {
     [`akhim`]: [
       `raphael akhim`, `head of operations`, 
       `Akhim joined joltbee as operations and marketing czar and has held the role of head of operations since October 2021 he has also served as a member of the Board since then. 
-      Akhim attended Egerton University.`]/*,
+      Akhim attended Egerton University.`],
 
-    [`bwageaustine`]: [`austine bwage`, `co-founder & CEO`, 
-      `Austine has served as our Chief Executive Officer since October 2019 and as a member of the Board since January 2021. His current board duties 
-      include earnings auditing, nominating and governance. Austine holds a B.A. in Political Science from Maseno University.`]*/
+    [`bwageaustine`]: [`austine bwage`, `independent director, board of directors`, 
+      `Austine has served as a member of joltbee's board of directors since since January 2021. His current board duty 
+      is earnings auditing. Austine holds a B.A. in Political Science from Maseno University.`]
   },
 
   Opening: [
@@ -2567,9 +2567,9 @@ let Models = {
           [`bwageaustine`, `austine bwage`, `co-founder & CEO`]*/]], 
       [
         `board of directors`, [
-          [`mannasugo`, `mann asugo`, `audit, nominating & governance`], 
-          [`akhim`, `raphael akhim`, `nominating & governance`]/*, 
-          [`bwageaustine`, `austine bwage`, `audit, nominating & governance`]*/]]];
+          [`mannasugo`, `mann asugo`, `audit, disclosure controls, nominating & governance`], 
+          [`akhim`, `raphael akhim`, `compensation, nominating & governance`], 
+          [`bwageaustine`, `austine bwage`, `audit`]]]];
 
     let ModelStructure = [];
 
