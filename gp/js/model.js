@@ -360,7 +360,7 @@ let Models = {
     kenya: [109, /*`k£.`,*/`kes `, `kes`, 45, 24.25, [
       [`flutterwave`, [`paypal, debit & credit cards, barter, payoneer`, `offline`], [`Flutterwave`, [120, 24]]], 
       [`intasend`, [`m-pesa`, `recommended`], [`intasend`, [`auto`, `auto`]]], 
-      [`jengapay`, [`m-pesa, eazzy pay`, `offline`], [`Jengapay`, [`120`, `24`]]]
+      [`jengapay`, [`m-pesa, eazzy pay`, `stable`], [`Jengapay`, [`120`, `24`]]]
     ], [
       [`eldoret`, [35.291341, .513839]],
       [`homa bay`, [34.471160, -.524375]], 
@@ -382,7 +382,7 @@ let Models = {
   Mugs: {
 
     [`mannasugo`]: [
-      `mann asugo`, `founder, CTO, systems architect & head of engineering`, 
+      `mann asugo`, `founder, systems architect & head of engineering`, 
       `Mann has served as joltbee's Chief Technology Officer since October 2019 and as a member of the Board since January 2021. 
       Mann holds a B.Sc. in Mathematics & Computer Science from Maseno University and is also currently pursuing a degree in Software 
       Engineering from Munich University of Applied Sciences in Germany.`],
@@ -2562,7 +2562,7 @@ let Models = {
     let Structure = [
       [
         `leadership`, [
-          [`mannasugo`, `mann asugo`, `founder, CTO, systems architect & head of engineering`],
+          [`mannasugo`, `mann asugo`, `founder, systems architect & head of engineering`],
           [`akhim`, `raphael akhim`, `head of operations`]/*, 
           [`bwageaustine`, `austine bwage`, `co-founder & CEO`]*/]], 
       [
