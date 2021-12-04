@@ -513,7 +513,7 @@ let Models = {
         `div`, `.@_-tY`, [[
           `div`, `.@_aXz`, [[
             `div`, `.@_-Xg _gxM _geQ`, [[
-              `a`, `.@-_tX v2App`, `&@style>width:28px;height:28px`, `&@href>/`, `~@joltbee`], [
+              `a`, `.@-_tX v3`, `&@style>width:28px;height:28px`, `&@href>/`, `~@joltbee`], [
               `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| joltbee`]]], [
             `div`, `.@_QZg`, [[
               `a`, `#@catalog`, `.@-_tX Shop`, `&@style>margin: 0 15px;width:24px;height:24px`, `&@href>javascript:;`], ModelMug]]]]]], ModelStart]];
@@ -921,7 +921,7 @@ let Models = {
         `div`, `.@_-tY`, [[
           `div`, `.@_aXz`, [[
             `div`, `.@_-Xg _gxM _geQ`, [[
-              `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`], [
+              `a`, `#@app`, `.@-_tX v3`, `&@href>javascript:;`], [
               `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
             `div`, `.@_QZg`, [[]]]]]]], [
         `main`, `#@ModelSignin`, `.@_tY0`, `&@style>height:100%;padding:24px;margin-top:65px`, [[
@@ -978,7 +978,7 @@ let Models = {
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
-            `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`]]], [
+            `a`, `#@app`, `.@-_tX v3`, `&@href>javascript:;`]]], [
           `div`, `.@_QZg`, [[]]]]]]], [
       `div`, `#@ModelPaygate`, `.@_geQ _tY0 aXZ`, `&@style>justify-content:center;margin-top:65px`, [[
         `div`, `&@style>margin:24px auto;max-width:600px;width:100%;padding:0 12px`, [[
@@ -1023,7 +1023,7 @@ let Models = {
         `div`, `.@_-tY`, [[
           `div`, `.@_aXz`, [[
             `div`, `.@_-Xg _gxM _geQ`, [[
-              `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`], [
+              `a`, `#@app`, `.@-_tX v3`, `&@href>javascript:;`], [
               `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@`]]], [
             `div`, `.@_QZg`, [[]]]]]]], [
         `main`, `#@ModelSignin`, `.@_tY0`, `&@style>height:100%;padding:24px;margin-top:65px`, [[
@@ -1133,7 +1133,7 @@ let Models = {
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
-            `a`, `#@app`, `.@-_tX v2App`, `&@href>javascript:;`], [
+            `a`, `#@app`, `.@-_tX v3`, `&@href>javascript:;`], [
             `span`, `&@style>padding:0 7px;text-transform:uppercase;`, `~@| my orders`]]], [
           `div`, `.@_QZg`, [[]]]]]]], [
       `div`, `#@ModelPays`, `.@_geQ _tY0 _aXZ`, `&@style>justify-content:center;padding-top:65px;`, [[
@@ -2553,7 +2553,7 @@ let Models = {
                     `div`, `.@_aXz`, [[
                       `div`, `.@_-Xg _gxM _geQ`, `&@style>flex:2`, [[
                         `a`, `#@app`, `.@-_tX v3`, `&@style>min-width:32px;height:32px`, `&@href>javascript:;`, `~@pws`], [
-                        `span`, `.@_aA6`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;/*text-transform:capitalize;*/overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@ investor relations`]]], [
+                        `span`, `.@_aA6 _tXx`, `&@style>border-left: 1px solid #d5d5d5;margin: 0 7px;padding: 0 7px;font-size:14px;color:#47008c;text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap`, `~@ investor relations`]]], [
                       `div`, `.@_gZz`, [ModelMug]]]]]]]]]]]]]]]]]];
   },
 
@@ -3110,8 +3110,8 @@ let Models = {
       `div`, `.@_-tY`, [[
         `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
-            `a`, `.@From exit-catalog`, `&@href>javascript:;`], [
-            `span`, `&@style>padding:0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@shop by category`]]], [
+            `a`, `.@From exit-catalog`, `&@style>min-width:24px;`, `&@href>javascript:;`], [
+            `span`, `&@style>white-space:nowrap;padding:0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@shop by category`]]], [
           `div`, `.@_QZg`, [[
             `a`, `.@v3`, `&@style>margin: 0 0 0 10px;`, `&@href>/`]]]]]]], [
         `div`, `#@ModelAisles`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
