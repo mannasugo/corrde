@@ -10820,7 +10820,7 @@ class Puller extends Auxll {
 
               else if (Pull.pull === `mug`) {
 
-                let Vals = Pulls.vals;
+                let Vals = Pull.vals;
 
                 let MD = crypto.createHash(`md5`).update(Vals[1], `utf8`);
 
