@@ -10517,7 +10517,9 @@ class Puller extends Auxll {
         });
       }
 
-      else if (this.Stack[0][2] === `v0.2.0`) {
+      if (this.Stack[0][2] === `gradle`) {
+
+        const build = "202112181457";
 
         this.Sell(Data => {
 
@@ -10525,9 +10527,9 @@ class Puller extends Auxll {
 
           Data.Sell[0].sort((A,B) => {return B.log - A.log});
 
-          if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {
+          /*if (this.Stack[1].pull && this.Stack[1].pull === `viapay`) {
 
-            let Vals = /*[Data.Sell[0][0].MD5 + `u0` + `2`]*/ this.Stack[1][`trolley`]; 
+            let Vals =  this.Stack[1][`trolley`]; //[Data.Sell[0][0].MD5 + `u0` + `2`]
 
             let Bag = [];
 
@@ -10633,7 +10635,7 @@ class Puller extends Auxll {
               mass: totalMass,
               totalPay: (totalPay).toFixed(2),
               trolley: Bag,
-              viapay: fees}));
+              viapay: fees}));           
           }
 
           else if (this.Stack[1].pull && this.Stack[1].pull === `md`) {
@@ -10774,9 +10776,56 @@ class Puller extends Auxll {
             //}
 
             this.Stack[3].end(JSON.stringify({pulls: Pays}))
+          }*/
+
+          if (this.Stack[1].pull) {
+
+            let Pull = this.Stack[1];
+
+            let Call = this.Stack[3];
+
+            let FX = config.Fx[`kenya`];
+
+            //Pull = {build: build, dot: [34.784175, -.112784], pull: `app`}
+
+            if (Pull.build && Pull.build === build) {
+
+              let Puts = {build: build};
+
+              if (Pull.pull === `app`) {
+
+                let Mile = [];
+
+                FX[6].forEach(Float => {
+
+                  Mile.push({mall: Float[0], miles: this.getMiles([Float[1], Pull.dot])});
+                });
+
+                Mile.sort((A, B) => {return A.miles - B.miles});
+
+                Puts.mall = Mile[0].mall;
+
+                Puts.miles = Mile[0].miles;
+
+                Puts.aisle = [];
+
+                if (Puts.miles < 12) {
+
+                  Data.Sell[0].forEach(MD => {
+
+                    (MD.set.match(`corrde`))? Puts.aisle.push(MD): ``;
+                  });
+                }
+              }
+
+              Call.end(JSON.stringify(Puts))
+
+            }
+
+            else if (Pull.build && Pull.build !== build) Call.end(JSON.stringify({build: build}))
           }
 
-          else {
+         /* else {
 
             let FX = config.Fx[`kenya`]
 
@@ -10810,7 +10859,7 @@ class Puller extends Auxll {
             });
 
             this.Stack[3].end(JSON.stringify(Sells));
-          }
+          }*/
         });
       }
 

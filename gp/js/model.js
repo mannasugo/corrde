@@ -3111,7 +3111,7 @@ let Models = {
         `div`, `.@_aXz`, `&@style>padding:0 16px`, [[
           `div`, `.@_-Xg _gxM _geQ`, [[
             `a`, `.@From exit-catalog`, `&@style>min-width:24px;`, `&@href>javascript:;`], [
-            `span`, `&@style>white-space:nowrap;padding:0 7px;font-size:14px;color:#47008c;text-transform:capitalize`, `~@shop by category`]]], [
+            `span`, `&@style>white-space:nowrap;padding:0 7px;font-size:14px;color:#47008c;font-weight:600;/*text-transform:capitalize*/`, `~@shop by category`]]], [
           `div`, `.@_QZg`, [[
             `a`, `.@v3`, `&@style>margin: 0 0 0 10px;`, `&@href>/`]]]]]]], [
         `div`, `#@ModelAisles`, `.@_geQ _aXZ`, `&@style>max-width:600px;margin:55px auto 0`, [[
