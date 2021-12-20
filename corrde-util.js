@@ -10818,6 +10818,24 @@ class Puller extends Auxll {
                 }
               }
 
+              else if (Pull.pull === `mug`) {
+
+                let Vals = Pulls.vals;
+
+                let MD = crypto.createHash(`md5`).update(Vals[1], `utf8`);
+
+                let Ppl = {};
+
+                Data.Ppl[0].forEach(P => {
+
+                  if (P.mail === Vals[0] && P.pass === MD.digest(`hex`)) Ppl = P;
+                });
+
+                if (!Ppl.mail) return;
+
+                Puts.mug = Ppl.sum
+              }
+
               Call.end(JSON.stringify(Puts))
 
             }
