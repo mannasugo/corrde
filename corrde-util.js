@@ -10519,7 +10519,7 @@ class Puller extends Auxll {
 
       if (this.Stack[0][2] === `gradle`) {
 
-        const build = "202112181457";
+        const build = 202112181457;
 
         this.Sell(Data => {
 
@@ -10784,7 +10784,7 @@ class Puller extends Auxll {
 
             let Call = this.Stack[3];
 
-            let FX = config.Fx[`kenya`]; console.log(Pull)
+            let FX = config.Fx[`kenya`];
 
             //Pull = {build: build, dot: [34.784175, -.112784], pull: `mug`, vals: [Data.Ppl[0][1].mail, Data.Ppl[0][1].pass]}
 
