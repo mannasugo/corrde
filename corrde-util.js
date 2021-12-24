@@ -10812,13 +10812,15 @@ class Puller extends Auxll {
                 if (Puts.miles < 12) {
 
                   Data.Sell[0].forEach(MD => {
+                
+                    MD.file = `https://joltbee.com/${MD.files[0]}`,
 
                     (MD.set.match(`corrde`))? Puts.eats.push(MD): ``;
                   });
                 }
               }
 
-              else if (Pull.pull === `mug`) {console.log(Pull)
+              else if (Pull.pull === `mug`) {
 
                 let Vals = Pull.vals;
 
