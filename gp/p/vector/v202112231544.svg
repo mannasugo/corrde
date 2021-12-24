@@ -1,0 +1,21 @@
+<svg class="icon-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+
+    svg {background: transparent}
+    
+    path, .box {
+      stroke: #000;
+      fill: none;
+    }
+    
+    .strip {
+      stroke: #000;
+      fill: none;
+    }
+
+  </style>
+  <g>
+    <path class="box" d="M12 2 22 6 22 18 12 22 2 18 2 6z"></path>
+    <path class="strip" d="M6 7.5 16 3.5 19 4.75 9 8.75 9 13.75 6 12.5z"></path>
+  </g>
+  </svg>

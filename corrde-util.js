@@ -10786,7 +10786,7 @@ class Puller extends Auxll {
 
             let FX = config.Fx[`kenya`];
 
-            //Pull = {build: build, dot: [34.784175, -.112784], pull: `app`}
+            //Pull = {build: build, dot: [34.784175, -.112784], pull: `mug`, vals: [Data.Ppl[0][1].mail, Data.Ppl[0][1].pass]}
 
             if (Pull.build && Pull.build === build) {
 
@@ -10807,13 +10807,13 @@ class Puller extends Auxll {
 
                 Puts.miles = Mile[0].miles;
 
-                Puts.aisle = [];
+                Puts.eats = [];
 
                 if (Puts.miles < 12) {
 
                   Data.Sell[0].forEach(MD => {
 
-                    (MD.set.match(`corrde`))? Puts.aisle.push(MD): ``;
+                    (MD.set.match(`corrde`))? Puts.eats.push(MD): ``;
                   });
                 }
               }
