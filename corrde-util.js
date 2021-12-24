@@ -10818,7 +10818,7 @@ class Puller extends Auxll {
                 }
               }
 
-              else if (Pull.pull === `mug`) {
+              else if (Pull.pull === `mug`) {console.log(Pull)
 
                 let Vals = Pull.vals;
 
@@ -10833,7 +10833,7 @@ class Puller extends Auxll {
 
                 if (!Ppl.mail) return;
 
-                Puts.mug = Ppl.sum
+                Puts.mug = Ppl.sum; console.log(Puts)
               }
 
               Call.end(JSON.stringify(Puts))
