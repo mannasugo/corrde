@@ -10784,7 +10784,7 @@ class Puller extends Auxll {
 
             let Call = this.Stack[3];
 
-            let FX = config.Fx[`kenya`];
+            let FX = config.Fx[`kenya`]; console.log(Pull.pull)
 
             //Pull = {build: build, dot: [34.784175, -.112784], pull: `mug`, vals: [Data.Ppl[0][1].mail, Data.Ppl[0][1].pass]}
 
