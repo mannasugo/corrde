@@ -10792,7 +10792,7 @@ class Puller extends Auxll {
 
               let Puts = {build: build};
 
-              if (Pull.pull === `app`) {
+              if (Pull.pull === `app`) { console.log(Pull);
 
                 let Mile = [];
 
@@ -10818,7 +10818,7 @@ class Puller extends Auxll {
                     MD.file = `https://joltbee.com/${MD.files[0]}`;
 
                     (MD.set.match(`corrde`))? Puts.eats.push(MD): ``;
-                  });
+                  });console.log(Puts)
                 }
               }
 
