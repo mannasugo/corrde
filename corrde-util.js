@@ -10812,8 +10812,10 @@ class Puller extends Auxll {
                 if (Puts.miles < 12) {
 
                   Data.Sell[0].forEach(MD => {
-                
-                    MD.file = `https://joltbee.com/${MD.files[0]}`,
+
+                    MD.dollars = (MD.dollars*109).toFixed(2);
+                    
+                    MD.file = `https://joltbee.com/${MD.files[0]}`;
 
                     (MD.set.match(`corrde`))? Puts.eats.push(MD): ``;
                   });
@@ -10835,7 +10837,7 @@ class Puller extends Auxll {
 
                 if (!Ppl.mail) return;
 
-                Puts.mug = Ppl.sum; console.log(Puts)
+                Puts.mug = Ppl.sum;
               }
 
               Call.end(JSON.stringify(Puts))
